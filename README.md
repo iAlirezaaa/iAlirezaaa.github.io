@@ -1,21 +1,25 @@
 # Hades III — Alireza Asgarpour / علیرضا عسگرپور
 
-Official public website: **https://ialirezaaa.github.io/**
+**Official website:** https://ialirezaaa.github.io/  
+**Persian search profile:** https://ialirezaaa.github.io/fa/
 
-## Authentic original portfolio
+This public site is an exact-design copy of the owner's original private `Personal_Website` React/Vite application, not the simplified static landing page. It preserves the original floating frame, context navigation, neural atlas, animations, cursor, typography, page composition, content, and source assets.
 
-This repository contains the original React/Vite website from the owner's private `Personal_Website`, including its floating frame, atlas, navigation, cursor effects, CSS, content and images. It replaces the earlier simplified one-page identity design without rewriting the UI.
+## Authoritative source and deployment
 
-**Canonical source code:** `site/` (not the old root-level static files).
+- **`site/`** — canonical React/Vite source derived from the private original.
+- **`index.html`, `assets/`, `about/`, `work/`, `systems/`, `contact/`, `fa/`, `404.html`** — production-built static files generated from `site/` for GitHub Pages.
+- **`.github/workflows/static-publish.yml`** — automatically builds, lints and syncs the production files to the `main` root after source changes.
+- **`.github/workflows/portfolio.yml`** — also builds and deploys a GitHub Pages artifact for the same original source; Pages may use this via Source: GitHub Actions.
+- **`backup/seo-landing-2026-11-17` branch** — previous simplified public version, retained only for rollback.
 
-## Deploy
+This setup supports both existing Pages branch deployment from `main / (root)` and a custom GitHub Actions deployment. The public website source of truth is **`site/`**; do not edit generated `assets/` or top-level HTML directly because the next build will replace them.
 
-`.github/workflows/portfolio.yml` builds `site/` with Node 22, checks lint, generates direct-entry HTML for the original React routes, and deploys `site/dist` via GitHub Pages.
+## Search
 
-GitHub Pages Settings → Pages → **Source: GitHub Actions** is the recommended configuration for this Vite-based app. The original temporary static fallback remains in the repository root for rollback, but **should not be used as the publishing source** once this workflow succeeds.
+- Public sitemap: https://ialirezaaa.github.io/sitemap.xml
+- Crawler policy: https://ialirezaaa.github.io/robots.txt
+- Bilingual aliases and official social URLs are present in `site/index.html` via structured data.
+- `/fa/` uses **the exact original UI** but localized search metadata; the interactive interface itself remains English, matching the owner's original website.
 
-English: https://ialirezaaa.github.io/
-Persian indexed alias with the same UI: https://ialirezaaa.github.io/fa/
-Sitemap: https://ialirezaaa.github.io/sitemap.xml
-
-The original private repository has not been changed. The visual design and React components are copied from it; changes are limited to SEO metadata, a Persian route alias, and public deployment machinery.
+The original private repository was not modified. Only the public copy adds deployment, SEO metadata and the `/fa/` route alias.
