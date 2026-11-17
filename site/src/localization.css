@@ -1,5 +1,24 @@
 /* Non-invasive RTL and bilingual refinements.
-   The original frame, composition, palette, effects and motion remain authoritative. */
+   The original frame, composition, palette, effects and motion remain authoritative.
+   Estedad © The Estedad Project Authors (SIL OFL 1.1), via Google Fonts. */
+html[lang="fa"] {
+  --fa-font: "Estedad", Tahoma, "Segoe UI", Arial, sans-serif;
+}
+html[lang="fa"] .viewport,
+html[lang="fa"] .command-menu,
+html[lang="fa"] .frame-header,
+html[lang="fa"] .frame-footer,
+html[lang="fa"] .world-caption,
+html[lang="fa"] .work-list,
+html[lang="fa"] .about-story p,
+html[lang="fa"] .facts dd,
+html[lang="fa"] .node-inspector p,
+html[lang="fa"] .work-record p,
+html[lang="fa"] .contact-form input,
+html[lang="fa"] .contact-form textarea {
+  font-family: var(--fa-font);
+}
+
 .locale-toggle {
   color: #d3ac82;
   border: 1px solid #4a3528;
@@ -48,12 +67,12 @@ html[lang="fa"] .contact-socials,
 html[lang="fa"] .menu-note,
 html[lang="fa"] .menu-heading,
 html[lang="fa"] .command-menu nav em {
-  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  font-family: var(--fa-font);
   letter-spacing: 0;
   text-transform: none;
 }
 html[lang="fa"] .identity-name {
-  font: 700 clamp(42px, 7.8cqw, 94px)/1.25 Tahoma, "Segoe UI", sans-serif;
+  font: 740 clamp(42px, 7.8cqw, 94px)/1.25 var(--fa-font);
   letter-spacing: -.055em;
   margin-top: 23px;
   overflow-wrap: anywhere;
@@ -64,7 +83,7 @@ html[lang="fa"] .identity-name span {
   direction: ltr;
 }
 html[lang="fa"] .identity-statement {
-  font: normal clamp(16px, 2.4cqw, 26px)/1.8 Tahoma, "Segoe UI", sans-serif;
+  font: 400 clamp(16px, 2.4cqw, 26px)/1.8 var(--fa-font);
   margin-top: 22px;
 }
 html[lang="fa"] .identity-metrics { direction: ltr; }
@@ -72,12 +91,12 @@ html[lang="fa"] .identity-metrics span,
 html[lang="fa"] .identity-metrics strong {
   letter-spacing: 0;
 }
-html[lang="fa"] .identity-metrics span { font-family: Tahoma, Arial, sans-serif; }
-html[lang="fa"] .identity-metrics strong:not(:first-child) { font-family: Tahoma, Arial, sans-serif; }
+html[lang="fa"] .identity-metrics span { font-family: var(--fa-font); }
+html[lang="fa"] .identity-metrics strong:not(:first-child) { font-family: var(--fa-font); }
 html[lang="fa"] .intro h1,
 html[lang="fa"] .atlas-heading h1 {
-  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
-  font-weight: 700;
+  font-family: var(--fa-font);
+  font-weight: 690;
   font-size: clamp(34px, 4.7cqw, 57px);
   line-height: 1.45;
   letter-spacing: -.045em;
@@ -90,7 +109,7 @@ html[lang="fa"] .work-record h3,
 html[lang="fa"] .project-art small,
 html[lang="fa"] .contact-form label,
 html[lang="fa"] .draft-panel {
-  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  font-family: var(--fa-font);
   letter-spacing: 0;
 }
 html[lang="fa"] .work-list button { text-align: right; }
@@ -105,7 +124,7 @@ html[lang="fa"] .graph-controls,
 html[lang="fa"] .graph-guide,
 html[lang="fa"] .category,
 html[lang="fa"] .record-date {
-  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  font-family: var(--fa-font);
   text-transform: none;
   letter-spacing: 0;
 }
@@ -121,7 +140,7 @@ html[lang="fa"] .command-menu nav b { margin: 0 auto 0 0; }
 html[lang="fa"] .graph-stage,
 html[lang="fa"] .graph { direction: ltr; }
 html[lang="fa"] .graph-node text {
-  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  font-family: var(--fa-font);
   font-size: 11px;
   letter-spacing: 0;
 }
