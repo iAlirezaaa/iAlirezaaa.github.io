@@ -1,7 +1,7 @@
 name: Build and deploy original Hades III portfolio
 on:
   push:
-    branches: [main, restore-original-portfolio, feat/persian-profile-search-2026-11-17, feat/estedad-persian-typography-2026-11-17]
+    branches: [main, feat/contact-official-social-directory-2026-11-17]
     paths:
       - "site/**"
       - ".github/workflows/portfolio.yml"
