@@ -1,30 +1,21 @@
-# Alireza Asgarpour — علیرضا عسگرپور | Hades III
+# Hades III — Alireza Asgarpour / علیرضا عسگرپور
 
-**Canonical public site:** https://ialirezaaa.github.io/  
-**Persian:** https://ialirezaaa.github.io/fa/
+Official public website: **https://ialirezaaa.github.io/**
 
-This is the standalone, public, search-friendly profile. Its contents are intentionally limited to public-facing professional information and official links. The original private `Personal_Website` project is not published.
+## Authentic original portfolio
 
-## GitHub Pages deployment
+This repository contains the original React/Vite website from the owner's private `Personal_Website`, including its floating frame, atlas, navigation, cursor effects, CSS, content and images. It replaces the earlier simplified one-page identity design without rewriting the UI.
 
-Use a **public** GitHub repository named exactly `iAlirezaaa.github.io` under the `iAlirezaaa` account, copy only the files in this release snapshot to the repository root, then visit repository **Settings → Pages → Deploy from a branch → main / (root)**.
+**Canonical source code:** `site/` (not the old root-level static files).
 
-The site is static HTML/CSS; no npm, workflow secrets, third-party tracking or server required.
+## Deploy
 
-If the new repo is created with a README, replace it with this one before publishing.
+`.github/workflows/portfolio.yml` builds `site/` with Node 22, checks lint, generates direct-entry HTML for the original React routes, and deploys `site/dist` via GitHub Pages.
 
-## Search indexing
+GitHub Pages Settings → Pages → **Source: GitHub Actions** is the recommended configuration for this Vite-based app. The original temporary static fallback remains in the repository root for rollback, but **should not be used as the publishing source** once this workflow succeeds.
 
-Once the live site returns HTTP 200, add `https://ialirezaaa.github.io/` as a URL-prefix property in Google Search Console, submit `sitemap.xml`, and request indexing for the two canonical pages.
+English: https://ialirezaaa.github.io/
+Persian indexed alias with the same UI: https://ialirezaaa.github.io/fa/
+Sitemap: https://ialirezaaa.github.io/sitemap.xml
 
-Both pages include self canonical tags, reciprocal `hreflang` alternates, bilingual names, Person and ProfilePage schema, social accounts and open-graph metadata. Inclusion or ranking by Google is not guaranteed.
-
-## Links
-
-- LinkedIn: https://ae.linkedin.com/in/ialirezaaa
-- GitHub: https://github.com/iAlirezaaa
-- Instagram: https://www.instagram.com/hades.3rd/
-- Telegram: https://t.me/Ialirezaaa
-- News channel: https://t.me/AirisFeed
-
-**Maintenance policy:** Once published, `iAlirezaaa/iAlirezaaa.github.io` is the canonical public source of truth. Use `Personal_Website` for private experiments and do not overwrite the public version from older private templates without checking name, profile links, URLs, and SEO metadata.
+The original private repository has not been changed. The visual design and React components are copied from it; changes are limited to SEO metadata, a Persian route alias, and public deployment machinery.
