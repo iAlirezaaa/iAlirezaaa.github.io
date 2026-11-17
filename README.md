@@ -1,25 +1,49 @@
 # Hades III — Alireza Asgarpour / علیرضا عسگرپور
 
-**Official website:** https://ialirezaaa.github.io/  
-**Persian search profile:** https://ialirezaaa.github.io/fa/
+**Official site:** https://ialirezaaa.github.io/  
+**فارسی:** https://ialirezaaa.github.io/fa/
 
-This public site is an exact-design copy of the owner's original private `Personal_Website` React/Vite application, not the simplified static landing page. It preserves the original floating frame, context navigation, neural atlas, animations, cursor, typography, page composition, content, and source assets.
+This public repository publishes the **original** React/Vite design from the privately retained `Personal_Website`, including its floating frame, animated interactions, neural atlas, route navigation and original visual treatment. The public implementation keeps the approved English aesthetic and adds a full Persian-language presentation without replacing the design.
 
-## Authoritative source and deployment
+## Maintained source of truth
 
-- **`site/`** — canonical React/Vite source derived from the private original.
-- **`index.html`, `assets/`, `about/`, `work/`, `systems/`, `contact/`, `fa/`, `404.html`** — production-built static files generated from `site/` for GitHub Pages.
-- **`.github/workflows/static-publish.yml`** — automatically builds, lints and syncs the production files to the `main` root after source changes.
-- **`.github/workflows/portfolio.yml`** — also builds and deploys a GitHub Pages artifact for the same original source; Pages may use this via Source: GitHub Actions.
-- **`backup/seo-landing-2026-11-17` branch** — previous simplified public version, retained only for rollback.
+- `site/src/` — production React components, original CSS and `localization.css` overrides.
+- `site/src/i18n.js` — translated Persian UI copy, project summaries and the five official account links.
+- `site/scripts/postbuild.mjs` — builds direct HTML for five English and five Persian routes, unique metadata, reciprocal `hreflang`, canonical links, JSON-LD and the sitemap.
+- `site/scripts/validate-site.mjs` — checks language switching, translation coverage, sitemap, SEO metadata, asset paths and public account links.
+- `.github/workflows/static-publish.yml` — validates and publishes the Vite build to the `main` branch root, compatible with GitHub Pages branch publishing.
+- `.github/workflows/portfolio.yml` — independent CI/build and optional Pages artifact deployment.
+- Root-level `index.html`, `fa/`, `about/`, `work/`, `systems/`, `contact/`, `assets/` — **generated files**. Edit source in `site/` only.
 
-This setup supports both existing Pages branch deployment from `main / (root)` and a custom GitHub Actions deployment. The public website source of truth is **`site/`**; do not edit generated `assets/` or top-level HTML directly because the next build will replace them.
+### Local validation
 
-## Search
+```sh
+cd site
+npm ci
+npm run lint
+npm run build
+node scripts/postbuild.mjs
+node scripts/validate-site.mjs
+```
 
-- Public sitemap: https://ialirezaaa.github.io/sitemap.xml
-- Crawler policy: https://ialirezaaa.github.io/robots.txt
-- Bilingual aliases and official social URLs are present in `site/index.html` via structured data.
-- `/fa/` uses **the exact original UI** but localized search metadata; the interactive interface itself remains English, matching the owner's original website.
+The private original is not modified by public updates. The previous simplified public profile remains safely preserved on the `backup/seo-landing-2026-11-17` branch; the pre-localization version is in `backup/pre-farsi-and-social-2026-11-17`.
 
-The original private repository was not modified. Only the public copy adds deployment, SEO metadata and the `/fa/` route alias.
+## Official public profiles
+
+- LinkedIn: https://ae.linkedin.com/in/ialirezaaa
+- Instagram: https://www.instagram.com/hades.3rd/
+- GitHub: https://github.com/iAlirezaaa
+- Personal Telegram: https://t.me/Ialirezaaa
+- News channel: https://t.me/AirisFeed
+
+The news channel is a related publication, not the same person, so it is **not** included in `Person.sameAs`.
+
+## Search Console — owner action still required
+
+The public URLs, crawlable HTML, correct robots policy, `ProfilePage` structured data and sitemap have been generated. Google Search Console property ownership requires signing into the account which will own the property:
+
+1. Open https://search.google.com/search-console/ and add the `URL-prefix` property `https://ialirezaaa.github.io/`.
+2. If Google requests a file or HTML meta verification string, add that exact token/file to the public site's `site/public/` assets. Do not put authentication tokens or private account credentials in the repository.
+3. Submit `https://ialirezaaa.github.io/sitemap.xml`; inspect `/` and `/fa/` and request indexing.
+
+No indexing, rankings or Search Console ownership are guaranteed by publishing this repository.
