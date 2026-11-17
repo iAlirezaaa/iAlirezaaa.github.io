@@ -91,4 +91,6 @@ for (const link of officialLinks) {
   assert.ok(link.href.startsWith('https://'), 'Social URL must use HTTPS: ' + link.name)
 }
 assert.ok(officialLinks.some(link => link.name === 'Airis Feed' && link.personal === false), 'News channel must remain distinct from personal profiles')
+const googleVerificationFile = read(path.join(dist, 'googleb94d773f21def0ef.html'))
+assert.equal(googleVerificationFile, 'google-site-verification: googleb94d773f21def0ef.html', 'Google Search Console HTML verification file must remain exact')
 console.log('SEO, language routing, project translations, five official links and ten pages: PASS')
