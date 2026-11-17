@@ -1,7 +1,7 @@
 name: Build and deploy original Hades III portfolio
 on:
   push:
-    branches: [main, restore-original-portfolio]
+    branches: [main, restore-original-portfolio, feat/persian-profile-search-2026-11-17]
     paths:
       - "site/**"
       - ".github/workflows/portfolio.yml"
@@ -40,6 +40,9 @@ jobs:
       - name: Generate direct route HTML files
         working-directory: site
         run: node scripts/postbuild.mjs
+      - name: Verify bilingual pages, sitemap and profile metadata
+        working-directory: site
+        run: node scripts/validate-site.mjs
       - name: Upload production website
         uses: actions/upload-pages-artifact@v4
         with:
