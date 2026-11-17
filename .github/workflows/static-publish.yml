@@ -39,6 +39,9 @@ jobs:
       - name: Create route entry points
         working-directory: site
         run: node scripts/postbuild.mjs
+      - name: Verify bilingual pages and profile metadata
+        working-directory: site
+        run: node scripts/validate-site.mjs
       - name: Copy built app into existing Pages branch root
         shell: bash
         run: |
