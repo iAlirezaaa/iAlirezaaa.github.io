@@ -6,6 +6,7 @@ import { email, profileUrl, projects, routes } from './data'
 import { alternateLocaleUrl, isPersianPath, officialLinks, pathnameFor, translate } from './i18n'
 import './App.css'
 import './experiences.css'
+import './localization.css'
 
 function Clock() {
   const [now, setNow] = useState(new Date())
