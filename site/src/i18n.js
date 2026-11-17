@@ -20,6 +20,8 @@ const fa = {
   "Transmission": "ارتباط",
   "Begin a conversation": "شروع گفت‌وگو",
   "Lost record": "صفحه پیدا نشد",
+  "A lost record.": "این صفحه پیدا نشد.",
+  "Return to identity": "بازگشت به صفحهٔ اصلی",
   "Tehran local time": "ساعت تهران",
   "RIGHT-CLICK TO NAVIGATE": "راست‌کلیک برای منو",
   "MOTION": "حرکت",
