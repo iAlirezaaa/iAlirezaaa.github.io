@@ -1,11 +1,11 @@
 // Public-facing UI translation. English source copy remains canonical.
 // Never translate legal project names, URLs or email addresses.
 export const officialLinks = Object.freeze([
-  {name:'LinkedIn',href:'https://ae.linkedin.com/in/ialirezaaa',personal:true},
-  {name:'Instagram',href:'https://www.instagram.com/hades.3rd/',personal:true},
-  {name:'GitHub',href:'https://github.com/iAlirezaaa',personal:true},
-  {name:'Telegram',href:'https://t.me/Ialirezaaa',personal:true},
-  {name:'Airis Feed',href:'https://t.me/AirisFeed',personal:false},
+  {name:'LinkedIn',handle:'/in/ialirezaaa',href:'https://ae.linkedin.com/in/ialirezaaa',personal:true},
+  {name:'Instagram',handle:'@Hades.3rd',href:'https://www.instagram.com/hades.3rd/',personal:true},
+  {name:'GitHub',handle:'@iAlirezaaa',href:'https://github.com/iAlirezaaa',personal:true},
+  {name:'Telegram',handle:'@Ialirezaaa',href:'https://t.me/Ialirezaaa',personal:true},
+  {name:'Airis Feed',handle:'@AirisFeed',href:'https://t.me/AirisFeed',personal:false},
 ])
 
 const fa = {
@@ -186,7 +186,8 @@ const fa = {
   "GitHub": "گیت‌هاب",
   "Telegram": "تلگرام",
   "Airis Feed": "کانال آیریس",
-  "Official profiles": "پروفایل‌های رسمی"
+  "Official profiles": "پروفایل‌های رسمی",
+  "Only these public accounts are linked from this website.": "این‌ها حساب‌ها و کانال‌های عمومی معرفی‌شده در این وب‌سایت هستند."
 }
 
 export function translate(text, isFa) {

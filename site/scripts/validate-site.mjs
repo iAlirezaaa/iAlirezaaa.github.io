@@ -86,4 +86,9 @@ for (const label of ['Production', 'AI workflows', 'Worldbuilding', 'Production 
   assert.notEqual(translate(label, true), label, 'Missing node label: ' + label)
 }
 assert.equal(officialLinks.length, 5)
+for (const link of officialLinks) {
+  assert.ok(link.handle && /^(?:@|\/in\/)/.test(link.handle), 'Public account must display a recognizable handle: ' + link.name)
+  assert.ok(link.href.startsWith('https://'), 'Social URL must use HTTPS: ' + link.name)
+}
+assert.ok(officialLinks.some(link => link.name === 'Airis Feed' && link.personal === false), 'News channel must remain distinct from personal profiles')
 console.log('SEO, language routing, project translations, five official links and ten pages: PASS')

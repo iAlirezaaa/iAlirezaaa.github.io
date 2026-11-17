@@ -178,3 +178,27 @@ html[lang="fa"] .atlas-count { text-align: left; }
   html[lang="fa"] .identity-name { font-size: 11cqw; }
   html[lang="fa"] .identity-metrics strong { font-size: 27px; }
 }
+
+/* Official links — visible contact directory; no change to original frame. */
+.contact-profiles { margin-top: 32px; padding-top: 21px; border-top: 1px solid var(--line); }
+.contact-profiles-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 22px; margin-top:12px; }
+.contact-profile-card { display:grid; grid-template-columns:22px minmax(0,1fr) 18px; align-items:center; gap:11px; min-width:0; padding:15px 9px; text-decoration:none; border-bottom:1px solid #302821; transition:background .2s,border-color .2s; }
+.contact-profile-card:hover, .contact-profile-card:focus-visible { background:#a4583216; border-color:#8c513e; }
+.contact-profile-counter { align-self:start; color:var(--dim); font:9px/1.8 var(--mono); }
+.contact-profile-main { display:block; min-width:0; }
+.contact-profile-name { display:block; color:var(--paper); font:400 21px/1.15 var(--display); overflow-wrap:anywhere; }
+.contact-profile-handle { display:block; margin-top:8px; color:var(--muted); font:10px/1.5 var(--mono); letter-spacing:0; text-align:start; overflow-wrap:anywhere; unicode-bidi:isolate; }
+.contact-profile-arrow { color:var(--gold); font:16px/1 var(--display); transition:transform .2s,color .2s; }
+.contact-profile-card:hover .contact-profile-arrow { color:var(--paper); transform:translate(2px,-2px); }
+.contact-profiles-note { margin-top:14px; color:var(--dim); font:10px/1.7 var(--mono); }
+html[lang="fa"] .contact-profiles .eyebrow, html[lang="fa"] .contact-profile-name, html[lang="fa"] .contact-profiles-note { font-family:var(--fa-font); letter-spacing:0; text-transform:none; }
+html[lang="fa"] .contact-profile-name { font-size:16px; font-weight:500; }
+html[lang="fa"] .contact-profiles-note { font-size:11px; }
+@media(max-width:650px) {
+  .contact-profiles { margin-top:27px; }
+  .contact-profiles-grid { grid-template-columns:1fr; }
+  .contact-profile-card { padding:13px 5px; }
+  .contact-profile-name { font-size:20px; }
+  .contact-profiles-note { font-size:9px; }
+}
+@media(prefers-reduced-motion:reduce) { .contact-profile-card,.contact-profile-arrow { transition:none; } }
