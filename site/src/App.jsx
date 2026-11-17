@@ -52,9 +52,9 @@ export default function App() {
   useEffect(() => {
     document.documentElement.lang = isFa ? 'fa' : 'en'
     document.documentElement.dir = 'ltr' // Preserve the original frame composition; text panels supply their own direction.
-    document.title = `${isFa ? 'علیرضا عسگرپور | ' : ''}${translate(current?.[1] || 'Lost record', isFa)} | Hades III`
+    document.title = path === '/' ? (isFa ? 'علیرضا عسگرپور | Hades III' : 'Alireza Asgarpour | Hades III') : `${translate(current?.[1] || 'Lost record', isFa)} | ${isFa ? 'علیرضا عسگرپور' : 'Alireza Asgarpour'} | Hades III`
     frame.current?.focus({ preventScroll:true })
-  }, [location, current, isFa])
+  }, [location, current, isFa, path])
   useEffect(() => {
     const keys = e => {
       if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === 'F10' && e.shiftKey)) { e.preventDefault(); setMenu(v => v ? null : {x:innerWidth/2-170,y:innerHeight/2-245}) }
