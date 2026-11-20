@@ -37,7 +37,7 @@ def render():
   source=SRC/(stem+'.svg'); check(source.is_file(),'missing SVG source '+stem)
   data=source.read_bytes()
   check(b'#EF4B32' in data and b'REVIEW' in data,'review/accent missing '+stem)
-  check(b'<script' not in data and b'http://' not in data,'unsafe/external SVG '+stem)
+  check(b'<script' not in data and not re.search(rb'(?:href|src)=[\"\']https?://|url\(https?://',data,re.I),'unsafe/external SVG '+stem)
   for m in re.findall(rb'data:image/png;base64,([^"]+)',data):
    check(base64.b64decode(m)==mark,'embedded mark different from owner source '+stem)
   check(data.count(b'<image')<=1,'unexpected imagery '+stem)
@@ -67,7 +67,7 @@ def render():
   check(psd.stat().st_size>4096,'suspicious PSD '+stem)
   print(f'{i:02d}/18 {stem} PNG {w}x{h}; PSD {psd_width}x{psd_height} with five named layer groups, composite verified',flush=True)
  # One true current-run contact sheet from actual new asset PNGs.
- cw,ch,thumb_w,thumb_h=1700,1850,480,225
+ cw,ch,thumb_w,thumb_h=1700,1940,480,225
  board=Image.new('RGB',(cw,ch),'#0d0c0b')
  d=ImageDraw.Draw(board)
  try:
@@ -84,7 +84,7 @@ def render():
   board.paste(sm,(x+int((thumb_w-sm.width)/2),y))
   d.text((x,y+229),item['en'][:33],font=ff(15),fill='#D8CBBC')
   d.text((x,y+251),item['cat'].upper()+' / REVIEW',font=ff(11),fill='#A99B8C')
- d.text((78,1820),'Original logo source intact  /  signature #EF4B32 approved, supporting choices REVIEW',font=ff(14),fill='#BBAEA0')
+ d.text((78,1900),'Original logo source intact  /  signature #EF4B32 approved, supporting choices REVIEW',font=ff(14),fill='#BBAEA0')
  board.save(OUT/'HADES_Library_Contact_Sheet_REVIEW.png',optimize=True)
  # ZIP packs, including vector sources and raster/PSD outputs
  for cat in ('stationery','social','web'):
