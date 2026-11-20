@@ -3,7 +3,7 @@
   "status": "REVIEW / CONCEPT",
   "updated": "2026-11-21",
   "approved_exact_color": "#EF4B32",
-  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters.",
+  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights.",
   "categories": {
     "stationery": {
       "en": "Stationery",
@@ -27,6 +27,16 @@
     }
   },
   "items": [
+    {
+      "id": "logo-use-guide",
+      "cat": "guides",
+      "en": "Logo usage — original mark rules",
+      "fa": "راهنمای استفاده از لوگوی اصلی",
+      "preview": "/hades/assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg",
+      "page": "/hades/brand-kit/logo-usage/",
+      "existing": true,
+      "status": "review"
+    },
     {
       "id": "existing-card",
       "cat": "stationery",

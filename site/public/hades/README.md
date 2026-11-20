@@ -17,3 +17,9 @@ Only owner-confirmed facts and public repositories are linked. Internal contract
 
 ## QA
 No build dependency. Test with a local static server; check relative links under /hades/ and /hades/fa/, mobile widths, keyboard navigation, logo Git blob SHA parity, download response codes and page SEO metadata. A web layout being public is not evidence of approval for all brand design choices.
+
+## Logo usage guide (2026-11-21 · REVIEW)
+- EN: `/hades/brand-kit/logo-usage/` / FA: `/hades/fa/brand-kit/logo-usage/` with printable browser HTML and downloadable text rules.
+- Root and FA homepage navigation, library landing pages, catalogue and `site/public/hades` mirror updated together.
+- This guide references ONLY the two previously public unchanged original raster files; private minimal full lockup, private references, private Phase03 sources and unapproved Pattern02 are not newly published.
+- Browser print is Save-as-PDF support; a separate locally rendered PDF proof is delivered in chat, not yet claimed hosted here.
