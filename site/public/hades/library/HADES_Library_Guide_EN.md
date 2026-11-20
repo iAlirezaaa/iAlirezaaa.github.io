@@ -15,3 +15,5 @@ Signature sRGB **#EF4B32** is approved; Classic/Modern are coordinated expressio
 HADES is the universe and HADES THE THIRD its creator/ruler within the owner's creative narrative, not a historical claim. Independent products including SkyVision preserve their own design systems; minor creator credits require permission.
 
 Do not print or publish with invented client data. Replace bracketed placeholders with verified information.
+
+- Editable HTML email signature is available with a source-derived micro-logo, publicly confirmed links and placeholders. It has not been installed in Gmail or approved as a final mail-client signature.

@@ -332,6 +332,15 @@
       "preview": "/hades/brand-kit/letterhead/HADES_Letterhead_Contact_Sheet_REVIEW.png",
       "page": "/hades/library/HADES_Public_Brandbook_REVIEW.html",
       "existing": true
+    },
+    {
+      "id": "email-signature",
+      "cat": "stationery",
+      "en": "Email signature · editable HTML",
+      "fa": "امضای ایمیل HTML قابل‌ویرایش",
+      "preview": "/hades/brand-kit/business-card/HADES_Card_Back_REVIEW.png",
+      "page": "/hades/library/HADES_Email_Signature_REVIEW.html",
+      "existing": true
     }
   ]
 }
