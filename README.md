@@ -47,3 +47,10 @@ The public URLs, crawlable HTML, correct robots policy, `ProfilePage` structured
 3. Submit `https://ialirezaaa.github.io/sitemap.xml`; inspect `/` and `/fa/` and request indexing.
 
 No indexing, rankings or Search Console ownership are guaranteed by publishing this repository.
+
+## HADES Universe — public brand website
+
+- [English site](https://ialirezaaa.github.io/hades/) · [وب‌سایت فارسی](https://ialirezaaa.github.io/hades/fa/)
+- The original owner-supplied Classic and isolated mark are available for reference download, alongside bilingual public identity overviews and public GitHub project links.
+- Private contract drafts, unpublished work and unapproved design materials are not published.
+- Public site source: [`site/public/hades/`](site/public/hades/), mirrored into the `hades/` Pages path.
