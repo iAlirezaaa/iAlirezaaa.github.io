@@ -67,9 +67,9 @@ function draw(){
  ctx.fillStyle=accent;ctx.fillRect(72,74,42,3);
  ctx.textBaseline="alphabetic";ctx.textAlign=fa?"right":"left";ctx.direction=dir;
  const x=fa?1000:80,w=900;
- ctx.fillStyle=muted;font(23);writeLine("HADES / EDITORIAL · REVIEW",x,135);
+ ctx.fillStyle=muted;font(23);ctx.textAlign="left";ctx.direction="ltr";writeLine("HADES / EDITORIAL · REVIEW",80,135);ctx.textAlign=fa?"right":"left";ctx.direction=dir;
  ctx.strokeStyle="#363733";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(80,200);ctx.lineTo(1000,200);ctx.stroke();
- if(ready)ctx.drawImage(logo,918,84,63,136); // entire unchanged 946×2048 source, proportional, no crop or raster modification
+ if(ready){const width=63;ctx.drawImage(logo,918,84,width,width*logo.naturalHeight/logo.naturalWidth)} // entire unchanged source, precise aspect ratio, no crop or raster modification
  let error="";
  try{
    if(!ready)throw Error("Original public logo was not loaded");
