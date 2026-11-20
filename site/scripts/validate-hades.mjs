@@ -13,7 +13,11 @@ const required = [
   'downloads/HADES_Public_Essentials.json',
   'assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg',
   'assets/IMG_7187(2).png',
-  'README.md'
+  'README.md',
+  'patterns/architectural-arc-01/index.html',
+  'patterns/architectural-arc-01/Arc_01_Tile_REVIEW.svg',
+  'patterns/architectural-arc-01/Arc_01_Engraving_Transparent_REVIEW.svg',
+  'fa/patterns/architectural-arc-01/index.html'
 ]
 const originals = {
   'assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg': {

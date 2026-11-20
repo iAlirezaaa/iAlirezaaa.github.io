@@ -45,6 +45,15 @@ jobs:
       - name: Validate HADES public download links and original asset hashes
         working-directory: site
         run: node scripts/validate-hades.mjs
+      - name: Install HADES pattern renderer
+        run: |
+          python3 -m pip install --user pillow cairosvg
+          if ! command -v magick >/dev/null && ! command -v convert >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y imagemagick
+          fi
+      - name: Render pinned HADES pattern source into PNG / PSD / ZIP
+        run: python3 site/scripts/render-hades-pattern-review.py
       - name: Copy built app into existing Pages branch root
         shell: bash
         run: |
