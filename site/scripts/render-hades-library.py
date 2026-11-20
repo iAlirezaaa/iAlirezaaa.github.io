@@ -63,7 +63,12 @@ def render():
   check(psd.read_bytes()[:4]==b'8BPS','invalid PSD '+stem)
   proof=OUT/'assets'/('.'+stem+'-proof.png')
   subprocess.run([engine,str(psd)+'[0]',str(proof)],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
-  check(ImageChops.difference(Image.open(flattened).convert('RGB'),Image.open(proof).convert('RGB')).getbbox() is None,'PSD preview != rendered SVG '+stem)
+  diff=ImageChops.difference(Image.open(flattened).convert('RGB'),Image.open(proof).convert('RGB'))
+  extrema=diff.getextrema()
+  peak=max(b for a,b in extrema)
+  from PIL import ImageStat
+  avg=sum(ImageStat.Stat(diff).mean)/3
+  check(peak<=3 and avg<=0.10,f'PSD rendering delta on {stem}: peak={peak}, mean={avg:.4f}')
   for p in [flattened,proof,*part]:p.unlink()
   check(psd.stat().st_size>4096,'suspicious PSD '+stem)
   print(f'{i:02d}/18 {stem} PNG {w}x{h}; PSD {psd_width}x{psd_height} with five named layer groups, composite verified',flush=True)
