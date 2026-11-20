@@ -305,6 +305,33 @@
       "svg": "/hades/library/assets/presentation-cover.svg",
       "png": "/hades/library/assets/presentation-cover.png",
       "psd": "/hades/library/assets/presentation-cover.psd"
+    },
+    {
+      "id": "guide-fa",
+      "cat": "guides",
+      "en": "Public identity guide (Persian)",
+      "fa": "راهنمای هویت فارسی",
+      "preview": "/hades/patterns/architectural-arc-01/Arc_01_Tile_REVIEW.png",
+      "page": "/hades/library/HADES_Library_Guide_FA.md",
+      "existing": true
+    },
+    {
+      "id": "guide-en",
+      "cat": "guides",
+      "en": "Public identity guide (English)",
+      "fa": "راهنمای هویت انگلیسی",
+      "preview": "/hades/patterns/architectural-arc-01/Arc_01_Tile_REVIEW.png",
+      "page": "/hades/library/HADES_Library_Guide_EN.md",
+      "existing": true
+    },
+    {
+      "id": "brandbook-draft",
+      "cat": "guides",
+      "en": "Public brandbook / REVIEW",
+      "fa": "برندبوک عمومی / بازبینی",
+      "preview": "/hades/brand-kit/letterhead/HADES_Letterhead_Contact_Sheet_REVIEW.png",
+      "page": "/hades/library/HADES_Public_Brandbook_REVIEW.html",
+      "existing": true
     }
   ]
 }
