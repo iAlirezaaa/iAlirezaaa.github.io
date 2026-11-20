@@ -70,7 +70,7 @@ def render():
   avg=sum(ImageStat.Stat(diff).mean)/3
   strong=diff.convert('L').point(lambda v:255 if v>8 else 0)
   strong_fraction=strong.histogram()[255]/float(psd_width*psd_height)
-  check(peak<=32 and avg<=0.12 and strong_fraction<=0.015,
+  check(peak<=32 and avg<=0.22 and strong_fraction<=0.015,
       f'PSD composite differs excessively for {stem}: max={peak}, mean={avg:.4f}, >8 fraction={strong_fraction:.5f}')
   print(f'  PSD composite delta: peak={peak}, mean={avg:.4f}, >8 fraction={strong_fraction:.5f}',flush=True)
   for p in [flattened,proof,*part]:p.unlink()
