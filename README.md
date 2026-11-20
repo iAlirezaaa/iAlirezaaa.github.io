@@ -60,3 +60,6 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 
 ## B03 HADES — A4 letterhead working files
 - [English](https://ialirezaaa.github.io/hades/brand-kit/letterhead/) · [فارسی](https://ialirezaaa.github.io/hades/fa/brand-kit/letterhead/) — two editable source SVGs and workflow-generated real PNG/PSD/ZIP review files.
+
+## HADES — Categorized working asset library (REVIEW)
+- [EN library](https://ialirezaaa.github.io/hades/library/) · [FA library](https://ialirezaaa.github.io/hades/fa/library/) — stationery, social, web, patterns and guides. 18 new editable source SVG + real PNG/PSD and downloadable category ZIP built/committed by GitHub Actions. Existing card, letterhead and Pattern01 retain their original pages.
