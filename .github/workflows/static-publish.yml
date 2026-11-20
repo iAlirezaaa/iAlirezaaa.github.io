@@ -54,6 +54,8 @@ jobs:
           fi
       - name: Render pinned HADES pattern source into PNG / PSD / ZIP
         run: python3 site/scripts/render-hades-pattern-review.py
+      - name: Render HADES editable business card PNG PSD ZIP from original source
+        run: python3 site/scripts/render-hades-business-card.py
       - name: Copy built app into existing Pages branch root
         shell: bash
         run: |

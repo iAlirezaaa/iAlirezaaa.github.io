@@ -54,3 +54,6 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 - The original owner-supplied Classic and isolated mark are available for reference download, alongside bilingual public identity overviews and public GitHub project links.
 - Private contract drafts, unpublished work and unapproved design materials are not published.
 - Public site source: [`site/public/hades/`](site/public/hades/), mirrored into the `hades/` Pages path.
+
+## HADES / editable stationery (REVIEW)
+- [Working business card sources and downloads](https://ialirezaaa.github.io/hades/brand-kit/business-card/), [نسخهٔ فارسی](https://ialirezaaa.github.io/hades/fa/brand-kit/business-card/). Both sides have editable SVG, real PNG and layered PSD generated from source; published as REVIEW, not a print master. Future stationery objects are separate work items.
