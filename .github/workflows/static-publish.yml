@@ -42,6 +42,9 @@ jobs:
       - name: Verify bilingual pages and profile metadata
         working-directory: site
         run: node scripts/validate-site.mjs
+      - name: Validate HADES public download links and original asset hashes
+        working-directory: site
+        run: node scripts/validate-hades.mjs
       - name: Copy built app into existing Pages branch root
         shell: bash
         run: |
