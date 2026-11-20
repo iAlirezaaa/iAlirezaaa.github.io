@@ -6,6 +6,7 @@ from __future__ import annotations
 from pathlib import Path
 from xml.etree import ElementTree as ET
 from PIL import Image, ImageDraw, ImageFont, ImageChops
+import cairosvg
 import base64, hashlib, io, json, re, shutil, subprocess, zipfile, math
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent
