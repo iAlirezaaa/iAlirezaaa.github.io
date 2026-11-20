@@ -35,7 +35,10 @@
       "preview": "/hades/assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg",
       "page": "/hades/brand-kit/logo-usage/",
       "existing": true,
-      "status": "review"
+      "status": "review",
+      "pdf": "/hades/brand-kit/logo-usage/HADES_Logo_Quick_Reference_Public_REVIEW_20261121.pdf",
+      "pdf_note_en": "English-only A4 PDF / REVIEW, Persian full guide available online",
+      "pdf_note_fa": "PDF یک‌صفحه‌ای انگلیسی؛ راهنمای کامل فارسی در سایت"
     },
     {
       "id": "existing-card",
