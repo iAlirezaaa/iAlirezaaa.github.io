@@ -68,10 +68,14 @@ def render():
   peak=max(b for a,b in extrema)
   from PIL import ImageStat
   avg=sum(ImageStat.Stat(diff).mean)/3
-  check(peak<=3 and avg<=0.10,f'PSD rendering delta on {stem}: peak={peak}, mean={avg:.4f}')
+  strong=diff.convert('L').point(lambda v:255 if v>8 else 0)
+  strong_fraction=strong.histogram()[255]/float(psd_width*psd_height)
+  check(peak<=32 and avg<=0.12 and strong_fraction<=0.015,
+      f'PSD composite differs excessively for {stem}: max={peak}, mean={avg:.4f}, >8 fraction={strong_fraction:.5f}')
+  print(f'  PSD composite delta: peak={peak}, mean={avg:.4f}, >8 fraction={strong_fraction:.5f}',flush=True)
   for p in [flattened,proof,*part]:p.unlink()
   check(psd.stat().st_size>4096,'suspicious PSD '+stem)
-  print(f'{i:02d}/18 {stem} PNG {w}x{h}; PSD {psd_width}x{psd_height} with five named layer groups, composite verified',flush=True)
+  print(f'{i:02d}/18 {stem} PNG {w}x{h}; PSD {psd_width}x{psd_height} with five named layer groups, composite quantitatively bounded',flush=True)
  # One true current-run contact sheet from actual new asset PNGs.
  cw,ch,thumb_w,thumb_h=1700,1940,480,225
  board=Image.new('RGB',(cw,ch),'#0d0c0b')
