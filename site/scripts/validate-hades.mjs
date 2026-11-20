@@ -17,7 +17,10 @@ const required = [
   'patterns/architectural-arc-01/index.html',
   'patterns/architectural-arc-01/Arc_01_Tile_REVIEW.svg',
   'patterns/architectural-arc-01/Arc_01_Engraving_Transparent_REVIEW.svg',
-  'fa/patterns/architectural-arc-01/index.html'
+  'fa/patterns/architectural-arc-01/index.html',
+  'brand-kit/letterhead/index.html', 'fa/brand-kit/letterhead/index.html',
+  'brand-kit/letterhead/HADES_Letterhead_Dark_EDITABLE_REVIEW.svg',
+  'brand-kit/letterhead/HADES_Letterhead_Light_EDITABLE_REVIEW.svg'
 ]
 const originals = {
   'assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg': {

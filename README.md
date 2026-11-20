@@ -57,3 +57,6 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 
 ## HADES / editable stationery (REVIEW)
 - [Working business card sources and downloads](https://ialirezaaa.github.io/hades/brand-kit/business-card/), [نسخهٔ فارسی](https://ialirezaaa.github.io/hades/fa/brand-kit/business-card/). Both sides have editable SVG, real PNG and layered PSD generated from source; published as REVIEW, not a print master. Future stationery objects are separate work items.
+
+## B03 HADES — A4 letterhead working files
+- [English](https://ialirezaaa.github.io/hades/brand-kit/letterhead/) · [فارسی](https://ialirezaaa.github.io/hades/fa/brand-kit/letterhead/) — two editable source SVGs and workflow-generated real PNG/PSD/ZIP review files.
