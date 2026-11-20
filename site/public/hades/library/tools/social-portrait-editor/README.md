@@ -5,6 +5,8 @@ One self-contained HTML tool. Open `index.html` in a browser, edit EN/FA fields,
 ## Release boundary
 REVIEW only. Only #EF4B32 and one Classic/Modern identity are owner-approved; sample neutrals, fonts, typography and layout need sign-off. Actual Mikhak has not been loaded; browser fallback is not font QA. The micro original may be recognizable but its internal letters are not certified legible. No private Phase03 materials, rights, client information, Pattern02, Pattern03, new logo, Higgsfield or final certified SVG master included. This is a public site-specific new tool, not a copy of a private working file.
 
+An additional downloadable `preview.svg` is a **sample composition**, not the official logo master; it embeds the same unchanged owner PNG and uses editable text. It is not a substitute for browser-generated 1080×1350 PNG after real user input.
+
 ## Technical checks
 - Native HTML canvas size 1080x1350. Mobile controls use 16px inputs and single-column fallback <=780px; 320/390/430 browser viewport proofs must still be run and marked OPEN until tested.
 - Export guarded on logo load and nonempty/overflow-checked text. Long unbreakable words fail closed. Photo import remains local, only PNG/JPEG/WebP <=12MB. No network requests, telemetry or remote upload.

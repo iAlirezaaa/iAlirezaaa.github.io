@@ -198,11 +198,12 @@
       "cat": "social",
       "en": "Social portrait — bilingual PNG composer",
       "fa": "ساخت پست عمودی با ویرایشگر فارسی/انگلیسی",
-      "preview": "/hades/library/assets/instagram-portrait.png",
+      "preview": "/hades/library/tools/social-portrait-editor/preview.svg",
       "page": "/hades/library/tools/social-portrait-editor/",
       "existing": true,
       "status": "REVIEW",
-      "format": "HTML editor + PNG 1080×1350"
+      "format": "HTML editor + PNG 1080×1350",
+      "svg": "/hades/library/tools/social-portrait-editor/preview.svg"
     },
     {
       "id": "story-cover",
