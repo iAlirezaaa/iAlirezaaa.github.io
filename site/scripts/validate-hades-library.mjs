@@ -31,7 +31,7 @@ for(const c of ['stationery','social','web']){
 }
 const all=join(out,'HADES_Complete_Editable_Library_REVIEW.zip')
 check(existsSync(all) && statSync(all).size>10000,'complete ZIP missing')
-for(const page of ['index.html','../../fa/library/index.html']){
+for(const page of ['index.html','../fa/library/index.html']){
  const path=resolve(out,page)
  const html=readFileSync(path,'utf8')
  check(html.includes('data-filter="guides"') && html.includes('data-filter="stationery"') && html.includes('data-filter="social"'),'missing filters '+page)
