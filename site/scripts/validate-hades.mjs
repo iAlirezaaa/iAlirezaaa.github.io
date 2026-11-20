@@ -1,6 +1,6 @@
 import { readFileSync, existsSync, statSync } from 'node:fs'
 import { createHash } from 'node:crypto'
-import { dirname, join, resolve, relative, sep } from 'node:path'
+import { dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
@@ -67,7 +67,7 @@ for (const [file, lang, dir, canonical] of [
     if (!relativePath || relativePath.endsWith('/')) relativePath += 'index.html'
     const target = resolve(published, relativePath)
     ensure(target.startsWith(published + sep), 'path traversal in ' + item)
-    ensure(existsSync(target) && statSync(target).isFile(), 'broken public link ' + item)
+    ensure(existsSync(target) && statSync(target).isFile(), 'broken public link in ' + file + ': ' + item)
   }
 }
 const essentials = JSON.parse(content('downloads/HADES_Public_Essentials.json'))
