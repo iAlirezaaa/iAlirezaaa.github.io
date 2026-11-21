@@ -14,13 +14,13 @@ return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" vie
 '<title>HADES lower-third application · REVIEW</title><desc>No original logo modified. Approved accent: #EF4B32. All other colors and typefaces are proposals. Maker credit OFF.</desc>'+
 '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="#181818" fill-opacity=".87"/><rect x="'+(fa?x+w-6:x)+'" y="'+y+'" width="6" height="'+h+'" fill="#EF4B32"/>'+
 '<line x1="'+(x+pad)+'" y1="'+(y+h-46)+'" x2="'+(x+w-pad)+'" y2="'+(y+h-46)+'" stroke="#faf5ed" stroke-opacity=".22"/>'+
-'<text id="name" x="'+tx+'" y="'+(y+89)+'" font-family="'+escapeXML(font)+'" font-size="'+(vert?48:56)+'" font-weight="400" text-anchor="'+anchor+'" direction="'+(fa?'rtl':'ltr')+'" fill="#f7f3ed">'+escapeXML(v.name)+'</text>'+
-'<text id="detail" x="'+tx+'" y="'+(y+144)+'" font-family="Arial,Tahoma,sans-serif" font-size="'+(vert?28:31)+'" font-weight="400" text-anchor="'+anchor+'" direction="'+(fa?'rtl':'ltr')+'" fill="#e5ddd3">'+escapeXML(v.detail)+'</text>'+
+'<text id="nameGlyph" x="'+tx+'" y="'+(y+89)+'" font-family="'+escapeXML(font)+'" font-size="'+(vert?48:56)+'" font-weight="400" text-anchor="'+anchor+'" direction="'+(fa?'rtl':'ltr')+'" fill="#f7f3ed">'+escapeXML(v.name)+'</text>'+
+'<text id="detailGlyph" x="'+tx+'" y="'+(y+144)+'" font-family="Arial,Tahoma,sans-serif" font-size="'+(vert?28:31)+'" font-weight="400" text-anchor="'+anchor+'" direction="'+(fa?'rtl':'ltr')+'" fill="#e5ddd3">'+escapeXML(v.detail)+'</text>'+
 '<text x="'+(x+pad)+'" y="'+(y+h-17)+'" font-family="Arial,sans-serif" font-size="16" letter-spacing="2" fill="#EF4B32">REVIEW / NOT FINAL</text></svg>';}
 function render(){const v=q();$('name').dir=$('detail').dir=v.lang==='fa'?'rtl':'ltr';current=svg(v);$('preview').innerHTML=current;let msg='';const max=(v.ratio==='vertical'?900:1050)-2*(v.ratio==='vertical'?54:66)-8;
 if(!v.name.trim()||!v.detail.trim())msg='Both text fields are required / هر دو متن لازم‌اند';
 else if([...v.name].length>78||[...v.detail].length>78)msg='Text too long';
-else{try{const a=$('preview').querySelector('#name').getComputedTextLength(),b=$('preview').querySelector('#detail').getComputedTextLength();if(a>max||b>max)msg='OVERFLOW · text must fit before export';}catch(e){msg='Measurement unavailable'}}
+else{try{const a=$('preview').querySelector('#nameGlyph').getComputedTextLength(),b=$('preview').querySelector('#detailGlyph').getComputedTextLength();if(a>max||b>max)msg='OVERFLOW · text must fit before export';}catch(e){msg='Measurement unavailable'}}
 $('status').textContent=msg||'REVIEW / FIT CHECK PASSED';$('downloadSVG').disabled=$('downloadJSON').disabled=!!msg;return !msg;}
 function dl(name,content,mime){const b=new Blob([content],{type:mime}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)}
 inputs.forEach(e=>e.addEventListener('input',render));
