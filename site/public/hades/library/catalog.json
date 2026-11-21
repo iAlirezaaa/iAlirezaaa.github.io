@@ -499,9 +499,12 @@
       "existing": true,
       "formats": [
         "SVG editable",
-        "A4 print worksheet"
+        "A4 print worksheet",
+        "Interactive HTML editor",
+        "SVG + guarded REVIEW JSON"
       ],
-      "notes": "No logo redrawn; all checks blank, no approval implied; fallback typography and neutral swatches proposed."
+      "notes": "No logo redrawn; all checks blank, no approval implied; fallback typography and neutral swatches proposed. Live FA/EN editor with Classic/Modern composition, editable A4 SVG, guarded JSON and print layout; native devices, Mikhak and signoff OPEN.",
+      "editor": "/hades/library/tools/asset-passport/editor/"
     }
   ]
 }
