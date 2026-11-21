@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Real Chromium QA for the REVIEW bilingual card editor. No fonts/assets fabricated."""
 import asyncio, hashlib, json, os, pathlib, socket, subprocess, sys, time
-from PIL import Image, ImageOps, ImageDraw, ImageFont
+from PIL import Image, ImageOps, ImageDraw, ImageFont, ImageChops
 import fitz
 from playwright.async_api import async_playwright
 
@@ -105,6 +105,11 @@ async def main():
                 await downloaded.save_as(mikhak_png)
                 with Image.open(mikhak_png) as im:
                     assert im.format=='PNG' and im.size==(1004,650)
+                # Optical parity: changing the Persian font must not change English/logo/small-credit pixels.
+                diff=ImageChops.difference(Image.open(mikhak_png).convert('RGB'),Image.open(OUT/('back-'+str(w)+'.png')).convert('RGB'))
+                assert diff.crop((0,0,1004,160)).getbbox() is None, ('Unexpected English-name changes from loading Mikhak',w)
+                assert diff.crop((0,290,1004,650)).getbbox() is None, ('Other card contact fields unexpectedly changed',w)
+                assert diff.crop((0,160,1004,290)).getbbox() is not None, ('Persian line did not change after loading true Mikhak',w)
                 data.append(dict(width=w,overflow=False,logo_natural_width=info['naturalWidth'],mikhak={'actual_used_families':families,'ttf_sha256':hashlib.sha256(local_font.read_bytes()).hexdigest(),'browser_loaded':True,'not_finally_approved':True},saved_json=True,reopened_json=True,rejected_final=True,front_png=exported['front'],back_png=exported['back'],mikhak_back_png=mikhak_png.name,screenshot=shot.name))
                 await page.close()
             await browser.close()
