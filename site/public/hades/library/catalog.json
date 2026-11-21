@@ -406,6 +406,16 @@
       "preview": "/hades/brand-kit/business-card/HADES_Card_Back_REVIEW.png",
       "page": "/hades/library/HADES_Email_Signature_REVIEW.html",
       "existing": true
+    },
+    {
+      "id": "a4-proforma-svg",
+      "cat": "stationery",
+      "en": "Bilingual A4 pro forma — editable SVG",
+      "fa": "پیش‌فاکتور A4 دوزبانه — SVG قابل‌ویرایش",
+      "preview": "/hades/brand-kit/letterhead/HADES_Letterhead_Contact_Sheet_REVIEW.png",
+      "page": "/hades/library/tools/a4-proforma-invoice/HADES_A4_Proforma_Editable_REVIEW.svg",
+      "existing": true,
+      "status": "REVIEW"
     }
   ]
 }
