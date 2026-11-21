@@ -49,3 +49,35 @@ jobs:
           grep -q 'REVIEW' hades/library/tools/a4-creative-brief/index.html
           test -f hades/assets/IMG_7187\(2\).png
           echo 'SOURCE_MIRROR_PASS'
+
+  public-http:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify real GitHub Pages HTTPS HTML SVG JSON and catalog links
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://ialirezaaa.github.io/hades"
+          check() {
+            local path="$1" type="$2"
+            local file="$(mktemp)" headers="$(mktemp)"
+            local status
+            status="$(curl --retry 12 --retry-all-errors --retry-delay 5 --max-time 30 -LsS -D "$headers" -o "$file" -w '%{http_code}' "$base$path")"
+            echo "$status $base$path"
+            test "$status" = "200"
+            grep -Eiq "^content-type:.*$type" "$headers"
+            test -s "$file"
+            cp "$file" "/tmp/$(basename "$path" | sed 's/[^a-zA-Z0-9._-]/_/g')"
+          }
+          check "/library/" "text/html"
+          check "/fa/library/" "text/html"
+          check "/brand-kit/logo-usage/" "text/html"
+          check "/fa/brand-kit/logo-usage/" "text/html"
+          check "/library/tools/a4-creative-brief/" "text/html"
+          check "/library/tools/a4-creative-brief/preview.svg" "image/svg"
+          check "/library/tools/a4-creative-brief/sample.en.json" "application/json"
+          curl --retry 12 --retry-all-errors --retry-delay 5 -fsSL "$base/library/tools/a4-creative-brief/sample.en.json" -o /tmp/hades_a4_remote.json
+          cmp /tmp/hades_a4_remote.json hades/library/tools/a4-creative-brief/sample.en.json
+          echo "HADES_A4_PUBLIC_HTTP_AND_BINARY_PARITY_PASS"
