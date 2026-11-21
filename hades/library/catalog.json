@@ -422,8 +422,12 @@
         "HTML",
         "SVG composition",
         "JSON",
-        "browser PDF"
-      ]
+        "PDF sample A4",
+        "Chromium PNG",
+        "browser print"
+      ],
+      "pdf": "/hades/library/tools/a4-proforma-invoice/HADES_A4_Proforma_Sample_PUBLIC_REVIEW.pdf",
+      "png": "/hades/library/tools/a4-proforma-invoice/HADES_A4_Proforma_390px_Actual_Chromium_PUBLIC_REVIEW.png"
     }
   ]
 }

@@ -9,3 +9,9 @@ Editable FA/EN A4 pro forma with five rows, live arithmetic, optional user-speci
 Supporting colors, layout and typography remain proposed; only Classic/Modern + #EF4B32 confirmed. Not an approved invoice, contract, tax or print master. No private review assets or customer details published.
 
 **QA:** source is duplicated byte-identically under `hades/` and `site/public/hades/`; release readback required. Browser 320/390/430, actual WebCrypto, real printable A4 PDF, Persian glyph/font, physical print and owner signoff are OPEN pending executed evidence; prior-run prototype screenshots are NOT proof for this new committed HTML.
+
+## Actual new-file browser QA + downloadable examples (2026-11-21)
+- [GitHub Actions Chromium run 44880712831](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/runs/44880712831): **PASS 6/6** on locally served checked-out source and public tree mirrors at 320/390/430 CSS px; real original JPEG decoded and SHA-256 matched; JSON save/import, forged FINAL rejection, line arithmetic, print guard and one-page real A4 PDF all passed. **This is NOT a live external github.io test**.
+- Actual synthetic data only: SAMPLE RECIPIENT / SAMPLE ITEM / 2 × 15 USD; no client or real tax claims. Demo values and optional 10% are test fixtures, not authorized tax guidance.
+- The [A4 sample PDF](HADES_A4_Proforma_Sample_PUBLIC_REVIEW.pdf) and [actual 390px Chromium PNG](HADES_A4_Proforma_390px_Actual_Chromium_PUBLIC_REVIEW.png) are **real binary downloads in both public repo trees**, added by a successful GitHub Actions binary commit. They are REVIEW proofs, not physical print-ready masters.
+- OPEN: independent public-site HTTP response/content parity, Mikhak real font, 14mm print micro-legibility, physical device/paper and owner approval.
