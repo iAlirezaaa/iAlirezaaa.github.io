@@ -6,7 +6,7 @@
   "original_logo": "Public owner original embedded in HTML unchanged, not a vector master",
   "pdf": {
     "filename": "HADES_A4_Creative_Brief_FA_Example_REVIEW.pdf",
-    "sha256": "bf293f336e44b4871e3423fac8e80dffb3ac157677037fde89c3115e82015014",
+    "sha256": "b72751f087f97bd9e03407e229f66347b8835efd6c7b62415e435c77ef2adb5f",
     "bytes": 67487,
     "pages": 1,
     "size": "A4"
@@ -21,5 +21,5 @@
     ],
     "dpi": 300
   },
-  "source_html_sha256": "44fd48ff8238a71c7f10e4c1c1bb47dd73524f74918ee05b0bfaff705f57d397"
+  "source_html_sha256": "6da2b62dffa7836f4e4205083e9226ae6421eee35c3799562978cc8e811c3c0c"
 }
