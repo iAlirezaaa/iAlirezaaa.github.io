@@ -49,6 +49,9 @@ const backgrounds=[
  ['HADES_Quiet_Loggia_16x9_REVIEW',1920,1080],
  ['HADES_Bone_Pier_9x16_REVIEW',1080,1920],
  ['HADES_Charcoal_Courtyard_1x1_REVIEW',1080,1080],
+ ['HADES_Aperture_Loggia_16x9_REVIEW',1920,1080],
+ ['HADES_Aperture_Vestibule_9x16_REVIEW',1080,1920],
+ ['HADES_Aperture_Court_1x1_REVIEW',1080,1080],
 ]
 for (const [stem,w,h] of backgrounds) {
  const s=join(source,'backgrounds','assets',stem+'.png'), p=join(out,'backgrounds','assets',stem+'.png')
@@ -58,7 +61,7 @@ for (const [stem,w,h] of backgrounds) {
  check(a.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),'background PNG signature '+stem)
  check(a.readUInt32BE(16)===w&&a.readUInt32BE(20)===h,'background dimensions '+stem)
 }
-for (const [stem] of backgrounds.filter(([name]) => /^(HADES_Threshold_|HADES_Quiet_|HADES_Bone_|HADES_Charcoal_)/.test(name))) {
+for (const [stem] of backgrounds.filter(([name]) => /^(HADES_Threshold_|HADES_Quiet_|HADES_Bone_|HADES_Charcoal_|HADES_Aperture_)/.test(name))) {
  for(const ext of ['jpg','webp']) {
   const s=join(source,'backgrounds','assets',stem+'.'+ext), p=join(out,'backgrounds','assets',stem+'.'+ext)
   check(existsSync(s)&&existsSync(p),'background JPEG/WebP missing '+stem+'.'+ext)
@@ -80,5 +83,12 @@ for(const f of ['quiet-spaces-manifest.REVIEW.json',quietPack]){
  check(readFileSync(a).equals(readFileSync(b)),'Quiet Spaces mirror mismatch '+f)
 }
 check(readFileSync(join(source,'backgrounds',quietPack)).subarray(0,2).toString('ascii')==='PK','Quiet Spaces ZIP signature')
+const aperturePack='HADES_Apertures_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip'
+for (const f of ['apertures-manifest.REVIEW.json',aperturePack]) {
+ const a=join(source,'backgrounds',f),b=join(out,'backgrounds',f)
+ check(existsSync(a)&&existsSync(b),'Apertures missing '+f)
+ check(readFileSync(a).equals(readFileSync(b)),'Apertures mirror mismatch '+f)
+}
+check(readFileSync(join(source,'backgrounds',aperturePack)).subarray(0,2).toString('ascii')==='PK','Apertures pack ZIP signature')
 check(catalog.approved_exact_color==='#EF4B32','approved accent drift')
-console.log(`HADES Library CI PASS: ${checks} real source/pixel-file checks; 18 PNG, 18 PSD, 18 SVG; 3 packs + 1 full ZIP; 2 gallery languages`)
+console.log(`HADES Library CI PASS: ${checks} real source/pixel-file checks; 18 PNG, 18 PSD, 18 SVG; 3 packs + 1 full ZIP; 2 gallery languages, 13 architectural backgrounds`)

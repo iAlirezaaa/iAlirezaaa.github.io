@@ -52,7 +52,7 @@ const server=http.createServer((req,res)=>{try{
   assert.ok(result.links.includes('/hades/library/backgrounds/assets/HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW.svg'),'Exact-original contrast application SVG link missing');
   assert.deepEqual(errors,[],'page errors');
   await page.screenshot({path:path.join(proof,locale+'-'+width+'.png'),fullPage:true});
-  console.log('CHROMIUM PASS',locale,width,'images '+result.good+'/11','overflow '+result.overflow,'dark plate '+result.plate);
+  console.log('CHROMIUM PASS',locale,width,'images '+result.good+'/14','overflow '+result.overflow,'dark plate '+result.plate);
   passed++;await page.close();
  }
  assert.equal(passed,6);console.log('HADES ARCHITECTURAL CHROMIUM PASS 6/6; Mikhak, native phone, print, owner FINAL remain OPEN');
