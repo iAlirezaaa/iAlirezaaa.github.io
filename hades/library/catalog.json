@@ -3,7 +3,7 @@
   "status": "REVIEW / CONCEPT",
   "updated": "2026-11-21",
   "approved_exact_color": "#EF4B32",
-  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights. 2026-11-21: four standalone editable SVG backgrounds public REVIEW; generated photo-raster pack stored in conversation only. 2026-11-21: Quiet Spaces new 16:9/9:16/1:1 editable vector masters PUBLIC REVIEW; raster and ZIP links held until checked.",
+  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights. 2026-11-21: four standalone editable SVG backgrounds public REVIEW; generated photo-raster pack stored in conversation only. 2026-11-21: Quiet Spaces new 16:9/9:16/1:1 editable vector masters PUBLIC REVIEW; raster and ZIP links held until checked. 2026-11-21: source-faithful original logo contrast plate REVIEW; not new logo or standalone background.",
   "categories": {
     "stationery": {
       "en": "Stationery",
@@ -636,6 +636,20 @@
         "SVG editable"
       ],
       "rights_note": "Standalone architectural layout; original owner logos absent, supporting neutrals PROPOSED"
+    },
+    {
+      "id": "hades-logo-contrast-plate-20261121",
+      "cat": "web",
+      "en": "Original-logo contrast plate · 16:9",
+      "fa": "برگهٔ کنتراست لوگوی اصلی · ۱۶:۹",
+      "preview": "/hades/library/backgrounds/assets/HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW.svg",
+      "page": "/hades/library/backgrounds/",
+      "existing": true,
+      "status": "REVIEW",
+      "formats": [
+        "Standalone SVG; original rasters embedded"
+      ],
+      "rights_note": "Unmodified owner-original JPEG and PNG embedded, separate dark plaque on pale bone. Non-destructive proposed crop viewport. Supporting neutrals and printing unapproved."
     }
   ]
 }
