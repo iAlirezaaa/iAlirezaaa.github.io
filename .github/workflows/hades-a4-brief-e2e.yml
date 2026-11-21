@@ -81,3 +81,42 @@ jobs:
           curl --retry 12 --retry-all-errors --retry-delay 5 -fsSL "$base/library/tools/a4-creative-brief/sample.en.json" -o /tmp/hades_a4_remote.json
           cmp /tmp/hades_a4_remote.json hades/library/tools/a4-creative-brief/sample.en.json
           echo "HADES_A4_PUBLIC_HTTP_AND_BINARY_PARITY_PASS"
+
+  publish-review-binaries:
+    needs: [chromium, mirrored-source]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: hades-a4-creative-brief-real-browser-proofs
+          path: _a4_proofs
+      - name: Render 1-page A4 PDF to real 300dpi PNG and mirror SHA
+        run: |
+          python -m pip install --quiet PyMuPDF==1.26.5
+          python site/scripts/publish-hades-a4-brief.py --root . --proofs _a4_proofs
+      - name: Commit REVIEW binaries to GitHub without altering owner originals
+        shell: bash
+        run: |
+          set -euo pipefail
+          files="HADES_A4_Creative_Brief_FA_Example_REVIEW.pdf HADES_A4_Creative_Brief_FA_Example_300dpi_REVIEW.png binary-manifest.review.json"
+          for f in $files; do
+            cmp "hades/library/tools/a4-creative-brief/$f" "site/public/hades/library/tools/a4-creative-brief/$f"
+          done
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hades/library/tools/a4-creative-brief/{HADES_A4_Creative_Brief_FA_Example_REVIEW.pdf,HADES_A4_Creative_Brief_FA_Example_300dpi_REVIEW.png,binary-manifest.review.json}
+          git add site/public/hades/library/tools/a4-creative-brief/{HADES_A4_Creative_Brief_FA_Example_REVIEW.pdf,HADES_A4_Creative_Brief_FA_Example_300dpi_REVIEW.png,binary-manifest.review.json}
+          if git diff --cached --quiet; then echo 'Binary artifact unchanged'; exit 0; fi
+          git commit -m 'assets(hades): host verified A4 Persian PDF and 300dpi PNG REVIEW [skip ci]'
+          git pull --rebase origin main
+          git push origin HEAD:main
