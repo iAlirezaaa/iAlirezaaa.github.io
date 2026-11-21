@@ -51,10 +51,10 @@ async def main():
                 assert restored['schema']=='hades-card-review-v1' and restored['status']=='REVIEW'
                 await page.locator('#en').fill('REPLACED')
                 await page.locator('#project').set_input_files({'name':'card.json','mimeType':'application/json','buffer':project_file.read_bytes()})
-                assert await page.locator('#out-en').inner_text() == 'HADES WORKING CARD'
+                await page.wait_for_function("() => document.getElementById('out-en').textContent === 'HADES WORKING CARD'", timeout=10000)
                 invalid = dict(restored,status='FINAL')
                 await page.locator('#project').set_input_files({'name':'invalid.json','mimeType':'application/json','buffer':json.dumps(invalid).encode()})
-                assert 'HOLD' in await page.locator('#status').inner_text()
+                await page.wait_for_function("() => document.getElementById('status').textContent.includes('HOLD')", timeout=10000)
                 exported = {}
                 for side in ['front','back']:
                     async with page.expect_download(timeout=15000) as done:
