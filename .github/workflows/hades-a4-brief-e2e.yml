@@ -1,0 +1,51 @@
+name: HADES A4 Creative Brief real browser and PDF QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - "hades/library/tools/a4-creative-brief/**"
+      - "site/public/hades/library/tools/a4-creative-brief/**"
+      - ".github/workflows/hades-a4-brief-e2e.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright Chromium
+        working-directory: hades/library/tools/a4-creative-brief
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium
+      - name: Test 320 390 430 Persian JSON and A4 PDF
+        working-directory: hades/library/tools/a4-creative-brief
+        run: node e2e.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-a4-creative-brief-real-browser-proofs
+          path: hades/library/tools/a4-creative-brief/e2e-proofs/
+          if-no-files-found: ignore
+  mirrored-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify paired source trees and review guard
+        run: |
+          set -euo pipefail
+          for f in index.html preview.svg sample.en.json README.md QA.md e2e.mjs; do
+            cmp "hades/library/tools/a4-creative-brief/$f" "site/public/hades/library/tools/a4-creative-brief/$f"
+          done
+          cmp hades/library/catalog.json site/public/hades/library/catalog.json
+          cmp hades/library/index.html site/public/hades/library/index.html
+          cmp hades/fa/library/index.html site/public/hades/fa/library/index.html
+          grep -q 'REVIEW' hades/library/tools/a4-creative-brief/index.html
+          test -f hades/assets/IMG_7187\(2\).png
+          echo 'SOURCE_MIRROR_PASS'
