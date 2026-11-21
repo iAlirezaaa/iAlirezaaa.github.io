@@ -1,0 +1,123 @@
+name: HADES A4 layered PSD source-locked REVIEW
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/brand/build-hades-a4-psd.py"
+      - ".github/workflows/hades-a4-layered-review.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: hades-a4-layered-review
+  cancel-in-progress: false
+
+jobs:
+  psd-and-site:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout public repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install PSD build dependency
+        run: python -m pip install "pillow>=10,<13"
+      - name: Build layered PSD from the already public exact-source A4 PNG
+        run: |
+          set -euo pipefail
+          python scripts/brand/build-hades-a4-psd.py \
+            --png site/public/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Example_300dpi_REVIEW.png \
+            --out site/public/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd \
+            --manifest site/public/hades/library/tools/a4-creative-brief/psd-manifest.review.json
+          cp site/public/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd \
+            hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd
+          cp site/public/hades/library/tools/a4-creative-brief/psd-manifest.review.json \
+            hades/library/tools/a4-creative-brief/psd-manifest.review.json
+          cmp site/public/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd \
+            hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('hades/library/tools/a4-creative-brief')
+          m=json.loads((p/'psd-manifest.review.json').read_text())
+          assert m['layer_count']==9 and m['exact_pixel_composite_parity']
+          assert hashlib.sha256((p/m['file']).read_bytes()).hexdigest()==m['psd_sha256']
+          print('9-layer actual PSD SHA and identical source-mirror PASS')
+          PY
+      - name: Commit actual PSD binaries and manifest to both source and published trees
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd \
+                  site/public/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd \
+                  hades/library/tools/a4-creative-brief/psd-manifest.review.json \
+                  site/public/hades/library/tools/a4-creative-brief/psd-manifest.review.json
+          if ! git diff --cached --quiet; then
+            git commit -m "assets(hades): host verified 9-layer A4 PSD in both public mirrors [skip ci]"
+            git push origin HEAD:main
+          fi
+      - name: Configure Node build
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Build original website including newly created PSD
+        run: |
+          cd site
+          npm ci
+          npm run build
+          node scripts/postbuild.mjs
+          node scripts/validate-site.mjs
+          node scripts/validate-hades.mjs
+      - name: Check deployed artifact contains the actual PSD
+        run: |
+          set -euo pipefail
+          cmp site/dist/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd \
+              site/public/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd
+      - uses: actions/configure-pages@v5
+      - name: Upload website with layered PSD
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/dist
+  deploy:
+    runs-on: ubuntu-24.04
+    needs: psd-and-site
+    environment:
+      name: github-pages
+    steps:
+      - name: Deploy public site with PSD
+        id: deployment
+        uses: actions/deploy-pages@v4
+  external-http:
+    needs: deploy
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Independently verify deployed PSD is byte-identical over HTTPS
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://ialirezaaa.github.io/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd"
+          WANT="64fea00b652114426ab86155ab7c0a83f1a313e625f1e5e29da48f1dce2cba41"
+          for attempt in $(seq 1 12); do
+            if curl -fsSL --connect-timeout 10 --max-time 40 -o /tmp/hades-a4.psd "$URL"; then
+              GOT="$(sha256sum /tmp/hades-a4.psd | awk '{print $1}')"
+              if [[ "$GOT" == "$WANT" ]]; then
+                echo "PUBLIC HTTPS BINARY PARITY PASS, exact PSD SHA-256 $GOT"
+                exit 0
+              fi
+              echo "CDN returned old/different PSD hash on attempt $attempt: $GOT"
+            fi
+            sleep 8
+          done
+          echo "PUBLIC HTTPS verification OPEN/FAILED"
+          exit 1
