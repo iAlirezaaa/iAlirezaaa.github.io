@@ -68,7 +68,13 @@
       "status": "REVIEW",
       "format": "Offline HTML + A4 browser PDF + JSON project",
       "svg": "/hades/library/tools/a4-creative-brief/preview.svg",
-      "existing": true
+      "existing": true,
+      "pdf": "/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Example_REVIEW.pdf",
+      "png": "/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Example_300dpi_REVIEW.png",
+      "pdf_note_en": "Actual Chromium sample, one A4 page, REVIEW, not printer-approved",
+      "pdf_note_fa": "خروجی واقعی مرورگر، یک صفحه A4؛ نمونه REVIEW، نه تأیید چاپ",
+      "png_note_en": "2479 × 3508 pixels at nominal 300dpi; owner artwork unchanged",
+      "png_note_fa": "۲۴۷۹×۳۵۰۸ پیکسل با وضوح اسمی ۳۰۰dpi؛ بدون تغییر لوگوی اصلی"
     },
     {
       "id": "existing-arc",

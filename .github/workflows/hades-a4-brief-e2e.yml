@@ -78,6 +78,8 @@ jobs:
           check "/library/tools/a4-creative-brief/" "text/html"
           check "/library/tools/a4-creative-brief/preview.svg" "image/svg"
           check "/library/tools/a4-creative-brief/sample.en.json" "application/json"
+          check "/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Example_REVIEW.pdf" "application/pdf"
+          check "/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Example_300dpi_REVIEW.png" "image/png"
           curl --retry 12 --retry-all-errors --retry-delay 5 -fsSL "$base/library/tools/a4-creative-brief/sample.en.json" -o /tmp/hades_a4_remote.json
           cmp /tmp/hades_a4_remote.json hades/library/tools/a4-creative-brief/sample.en.json
           echo "HADES_A4_PUBLIC_HTTP_AND_BINARY_PARITY_PASS"
