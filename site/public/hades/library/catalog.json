@@ -487,6 +487,21 @@
       ],
       "notes": "Source architectural SVGs unchanged. Guarded bilingual online/offline text editor, SVG/JSON REVIEW exports, creator credit OFF; actual installed Mikhak and owner approval OPEN.",
       "editor": "/hades/library/tools/presentation-covers/editor/"
+    },
+    {
+      "id": "asset-passport-a4",
+      "cat": "guides",
+      "en": "HADES Asset Passport · bilingual A4 source / rights worksheet",
+      "fa": "شناسنامهٔ دارایی HADES · فرم A4 دوزبانه برای منبع و حقوق",
+      "preview": "/hades/library/tools/asset-passport/HADES_Asset_Passport_Bilingual_A4_REVIEW.svg",
+      "page": "/hades/library/tools/asset-passport/",
+      "status": "REVIEW",
+      "existing": true,
+      "formats": [
+        "SVG editable",
+        "A4 print worksheet"
+      ],
+      "notes": "No logo redrawn; all checks blank, no approval implied; fallback typography and neutral swatches proposed."
     }
   ]
 }

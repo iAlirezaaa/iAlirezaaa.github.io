@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 794 1123" role="img" aria-label="Bilingual A4 brand asset release passport REVIEW">
+<rect width="794" height="1123" fill="#f6f4ef"/><rect x="68" y="0" width="658" height="6" fill="#EF4B32"/>
+<text x="68" y="57" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#282623" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">HADES / DOCUMENT SYSTEM</text>
+<text x="726" y="57" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#282623" text-anchor="end" direction="ltr" unicode-bidi="plaintext" font-weight="400">REVIEW · 01</text>
+<line x1="68" y1="76" x2="726" y2="76" stroke="#aaa49b"/>
+<text x="68" y="137" font-family="Tahoma,Arial,sans-serif" font-size="28" fill="#282623" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">ASSET PASSPORT</text>
+<text x="726" y="137" font-family="Tahoma,Arial,sans-serif" font-size="25" fill="#282623" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">شناسنامهٔ دارایی</text>
+<text x="68" y="166" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Provenance / rights / release handoff</text>
+<text x="726" y="166" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">منبع / مجوز / تحویل اثر</text>
+<rect x="68" y="196" width="658" height="36" fill="#e8e3d9"/><rect x="68" y="196" width="4" height="36" fill="#EF4B32"/>
+<text x="85" y="219" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#8a3427" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">REVIEW · NOT FINAL</text>
+<text x="710" y="219" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#8a3427" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">نیازمند تأیید جداگانهٔ مالک</text>
+<line x1="68" y1="259" x2="726" y2="259" stroke="#c8c2b8"/>
+<text x="68" y="281" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">01 / IDENTIFICATION</text>
+<text x="726" y="281" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">۰۱ / مشخصات اثر</text>
+<text x="68" y="315" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Asset name / deliverable</text>
+<text x="726" y="315" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">نام اثر / خروجی</text>
+<line x1="68" y1="348" x2="726" y2="348" stroke="#a6a096" stroke-width=".9"/>
+<text x="68" y="385" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Asset ID / version</text>
+<text x="726" y="385" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">شناسه / نسخه</text>
+<line x1="68" y1="418" x2="726" y2="418" stroke="#a6a096" stroke-width=".9"/>
+<text x="68" y="455" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Creator / responsible party</text>
+<text x="726" y="455" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">سازنده / مسئول ثبت</text>
+<line x1="68" y1="488" x2="726" y2="488" stroke="#a6a096" stroke-width=".9"/>
+<line x1="68" y1="526" x2="726" y2="526" stroke="#c8c2b8"/>
+<text x="68" y="548" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">02 / SOURCE & RIGHTS</text>
+<text x="726" y="548" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">۰۲ / اصالت و حق استفاده</text>
+<text x="68" y="581" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Original source / repository path</text>
+<text x="726" y="581" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">منبع اصلی / مسیر ریپو</text>
+<line x1="68" y1="614" x2="726" y2="614" stroke="#a6a096" stroke-width=".9"/>
+<text x="68" y="651" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Usage permission / license</text>
+<text x="726" y="651" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">مجوز یا محدودیت استفاده</text>
+<line x1="68" y1="684" x2="726" y2="684" stroke="#a6a096" stroke-width=".9"/>
+<text x="68" y="721" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Proposed destination / format</text>
+<text x="726" y="721" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">مقصد و قالب پیشنهادی</text>
+<line x1="68" y1="754" x2="726" y2="754" stroke="#a6a096" stroke-width=".9"/>
+<line x1="68" y1="785" x2="726" y2="785" stroke="#c8c2b8"/>
+<text x="68" y="807" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">03 / RELEASE GATES (MARK AFTER EVIDENCE)</text>
+<text x="726" y="807" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">۰۳ / کنترل‌های پیش از انتشار</text>
+<rect x="70" y="826" width="12" height="12" fill="none" stroke="#817a70"/>
+<text x="89" y="838" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#605a51" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Original logo bytes unchanged</text>
+<rect x="397" y="826" width="12" height="12" fill="none" stroke="#817a70"/>
+<text x="416" y="838" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#605a51" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Rights and source verified</text>
+<text x="710" y="852" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#767168" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">حقوق و اصالت بررسی شد</text>
+<rect x="70" y="854" width="12" height="12" fill="none" stroke="#817a70"/>
+<text x="89" y="866" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#605a51" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">FA / EN copy checked</text>
+<rect x="397" y="854" width="12" height="12" fill="none" stroke="#817a70"/>
+<text x="416" y="866" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#605a51" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Mobile 320 / 390 / 430 px</text>
+<text x="710" y="880" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#767168" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">موبایل ۳۲۰ / ۳۹۰ / ۴۳۰</text>
+<rect x="70" y="882" width="12" height="12" fill="none" stroke="#817a70"/>
+<text x="89" y="894" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#605a51" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Print / microtype proof</text>
+<rect x="397" y="882" width="12" height="12" fill="none" stroke="#817a70"/>
+<text x="416" y="894" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#605a51" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Explicit owner art approval</text>
+<text x="710" y="908" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#767168" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">تأیید صریح مالک اثر</text>
+<line x1="68" y1="930" x2="726" y2="930" stroke="#c8c2b8"/>
+<text x="68" y="952" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">04 / HANDOFF NOTES</text>
+<text x="726" y="952" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">۰۴ / یادداشت و تحویل</text>
+<line x1="68" y1="995" x2="726" y2="995" stroke="#c8c2b8"/>
+<line x1="68" y1="1022" x2="726" y2="1022" stroke="#c8c2b8"/>
+<line x1="68" y1="1049" x2="726" y2="1049" stroke="#c8c2b8"/>
+<text x="68" y="1080" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#686259" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Document composition / not a logo master</text>
+<text x="726" y="1080" font-family="Tahoma,Arial,sans-serif" font-size="11" fill="#686259" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">سند بازبینی / نه فایل نهایی لوگو</text>
+<line x1="68" y1="1094" x2="726" y2="1094" stroke="#b4aca1"/>
+<text x="68" y="1111" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#8b493c" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">ONLY APPROVED ACCENT: #EF4B32</text>
+<text x="726" y="1111" font-family="Tahoma,Arial,sans-serif" font-size="10" fill="#8b493c" text-anchor="end" direction="ltr" unicode-bidi="plaintext" font-weight="400">REVIEW · NO CLIENT DATA</text>
+</svg>
