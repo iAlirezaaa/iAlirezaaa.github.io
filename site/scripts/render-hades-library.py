@@ -128,6 +128,9 @@ def render():
   'HADES_Threshold_Portico_16x9_REVIEW':(1920,1080),
   'HADES_Threshold_Passage_9x16_REVIEW':(1080,1920),
   'HADES_Threshold_Court_1x1_REVIEW':(1080,1080),
+  'HADES_Quiet_Loggia_16x9_REVIEW':(1920,1080),
+  'HADES_Bone_Pier_9x16_REVIEW':(1080,1920),
+  'HADES_Charcoal_Courtyard_1x1_REVIEW':(1080,1080),
  }
  for name,(w,h) in backgrounds.items():
   vector=bg_source/(name+'.svg')
@@ -142,7 +145,7 @@ def render():
   rendered=Image.open(generated)
   check(rendered.size==(w,h) and rendered.mode in ('RGB','RGBA'),'background raster preflight '+name)
   check(hashlib.sha256(generated.read_bytes()).digest()==hashlib.sha256((bg_dist/(name+'.png')).read_bytes()).digest(),'background source/build mismatch '+name)
-  if name.startswith('HADES_Threshold_'):
+  if name.startswith(('HADES_Threshold_', 'HADES_Quiet_', 'HADES_Bone_', 'HADES_Charcoal_')):
    rgb=rendered.convert('RGB')
    for ext,format,options in (('jpg','JPEG',{'quality':91,'subsampling':0,'optimize':True}),('webp','WEBP',{'quality':88,'method':6})):
     target=bg_source/(name+'.'+ext)
@@ -162,6 +165,16 @@ def render():
  with zipfile.ZipFile(pack) as z:
   check(z.testzip() is None and len(z.namelist())==13,'Threshold pack ZIP integrity')
  (bg_dist.parent/pack.name).write_bytes(pack.read_bytes())
- print('HADES backgrounds PASS: 7 SVG/PNG mirrored pairs; Threshold 3×JPEG/WebP plus working 13-entry downloadable ZIP',flush=True)
+ # Second independent PUBLIC REVIEW background family. This is not a logo or a repeatable pattern.
+ quiet_pack=bg_source.parent/'HADES_Quiet_Spaces_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip'
+ with zipfile.ZipFile(quiet_pack,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=7) as z:
+  for item in ('HADES_Quiet_Loggia_16x9_REVIEW','HADES_Bone_Pier_9x16_REVIEW','HADES_Charcoal_Courtyard_1x1_REVIEW'):
+   for ext in ('svg','png','jpg','webp'):
+    z.write(bg_source/(item+'.'+ext),arcname='assets/'+item+'.'+ext)
+  z.write(bg_source.parent/'quiet-spaces-manifest.REVIEW.json',arcname='quiet-spaces-manifest.REVIEW.json')
+ with zipfile.ZipFile(quiet_pack) as z:
+  check(z.testzip() is None and len(z.namelist())==13,'Quiet Spaces ZIP integrity')
+ (bg_dist.parent/quiet_pack.name).write_bytes(quiet_pack.read_bytes())
+ print('HADES backgrounds PASS: 10 SVG/PNG mirrored pairs; Threshold and Quiet Spaces each 3×JPEG/WebP and real downloadable ZIP',flush=True)
 
 if __name__=='__main__':render()
