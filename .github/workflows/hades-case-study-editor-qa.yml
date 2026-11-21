@@ -1,0 +1,35 @@
+name: HADES 16x9 Case Study Editor REVIEW Chromium QA
+on:
+  push:
+    paths:
+      - 'hades/library/tools/case-study-slide/editor/**'
+      - 'site/public/hades/library/tools/case-study-slide/editor/**'
+      - 'tests/hades-case-study-editor.cjs'
+      - '.github/workflows/hades-case-study-editor-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Install Playwright browser driver
+        run: npm install --prefix /tmp/hades-slide-qa --no-save --no-package-lock playwright-core
+      - name: Test both mirrored HTML files at 320 / 390 / 430
+        env:
+          NODE_PATH: /tmp/hades-slide-qa/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-case-study-editor.cjs
+      - name: Archive actual browser captures and SVG/JSON export tests
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-case-study-editor-review-chromium
+          path: hades-case-study-editor-qa-proof/
+          if-no-files-found: ignore
