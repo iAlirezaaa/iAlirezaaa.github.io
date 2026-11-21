@@ -1,0 +1,66 @@
+name: HADES Cover Editor source and live REVIEW QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/tools/presentation-covers/editor/**'
+      - 'site/public/hades/library/tools/presentation-covers/editor/**'
+      - 'tests/hades-cover-editor.cjs'
+      - '.github/workflows/hades-cover-editor-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - run: npm install --prefix /tmp/hades-cover-editor --no-save --no-package-lock playwright-core
+      - name: Actual Chromium in both mirrors and 320 390 430 viewports
+        env:
+          NODE_PATH: /tmp/hades-cover-editor/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-cover-editor.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-cover-editor-Chromium-REVIEW
+          path: hades-cover-editor-proof/
+          if-no-files-found: warn
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent GitHub Pages HTTPS 200 content type and source SHA-256
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import hashlib,time
+          files=['library/tools/presentation-covers/editor/index.html','library/tools/presentation-covers/editor/README_REVIEW.md','library/tools/presentation-covers/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','library/catalog.json']
+          for f in files:
+            source=(Path('hades')/f).read_bytes()
+            assert source==(Path('site/public/hades')/f).read_bytes(),f+' mirrors'
+            url='https://ialirezaaa.github.io/hades/'+f
+            if url.endswith('/index.html'):url=url[:-10]
+            for retry in range(20):
+              try:
+                with urlopen(Request(url,headers={'User-Agent':'HADES-Editor-Hosted-QA','Cache-Control':'no-cache','Accept-Encoding':'identity'}),timeout=15) as resp:
+                  body=resp.read();status=resp.status;ctype=resp.headers.get('Content-Type','')
+                assert status==200,(f,status)
+                assert hashlib.sha256(body).digest()==hashlib.sha256(source).digest(),f+' source mismatch'
+                if f.endswith('.html'):assert 'html' in ctype
+                if f.endswith('.json'):assert 'json' in ctype
+                print('LIVE PASS',url,len(body),ctype,flush=True)
+                break
+              except Exception as ex:
+                if retry==19:raise
+                time.sleep(10)
+          print('HADES COVER EDITOR LIVE 8/8 PASS',flush=True)
+          PY

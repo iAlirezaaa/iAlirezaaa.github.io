@@ -1,0 +1,84 @@
+<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HADES | Presentation Cover Editor · REVIEW</title><meta name="description" content="Edit HADES independent-project Classic EN and Modern FA cover SVG source with guarded REVIEW JSON export.">
+<link rel="canonical" href="https://ialirezaaa.github.io/hades/library/tools/presentation-covers/editor/">
+<style>
+:root{--accent:#EF4B32;--bg:#171715;--pane:#25221f;--text:#eee9e1;--muted:#c7bdae;--edge:#5a5148;color-scheme:dark}
+*{box-sizing:border-box}html,body{min-width:0}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.65 system-ui,Tahoma,Arial,sans-serif;overflow-wrap:anywhere}
+a{color:inherit;text-underline-offset:4px}a:focus-visible,input:focus-visible,button:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1430px;margin:auto;padding:18px clamp(12px,3vw,26px) 48px}
+nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px 20px;border-bottom:1px solid var(--edge);padding-bottom:15px;font-size:12px}
+nav div{display:flex;flex-wrap:wrap;gap:14px}.kicker{font-size:11px;letter-spacing:.11em;color:var(--accent);margin:28px 0 6px}h1{font-size:clamp(21px,2.6vw,30px);font-weight:450;line-height:1.3;margin:0 0 10px}
+p{margin:0 0 13px}.muted{color:var(--muted)}.notice{padding:11px 15px;background:#312820;border-inline-start:3px solid var(--accent);margin:20px 0 28px}
+.layout{display:grid;grid-template-columns:minmax(0,330px) minmax(0,1fr);gap:24px;align-items:start}
+.controls{min-width:0;background:var(--pane);border:1px solid var(--edge);padding:15px}
+.controls label{display:block;margin:13px 0 5px;font-size:12px}.controls input:not([type=file]),.controls textarea,.controls select{display:block;max-width:100%;width:100%;min-width:0;border:1px solid #85786e;padding:10px;color:var(--text);background:#151512;font:inherit}
+.controls textarea{min-height:80px;resize:vertical}.controls [dir=rtl]{text-align:right}.actions{display:flex;flex-wrap:wrap;gap:9px;margin:17px 0}
+.actions button,.upload{font:inherit;font-size:12px;border:1px solid #a19387;padding:9px 12px;color:var(--text);background:transparent;cursor:pointer}
+.actions .primary{border-color:var(--accent)}button:disabled{opacity:.38;cursor:not-allowed}.upload input{display:none}
+#state{min-height:45px;font-size:12px;color:var(--muted);padding:12px 0 0;border-top:1px solid var(--edge)}#state.bad{color:#ffb1a0}
+.viewer{min-width:0}.frame{border:1px solid var(--edge);padding:clamp(3px,1vw,12px);overflow:hidden;background:#10100e}
+#preview svg{display:block;width:100%;height:auto;max-width:100%;aspect-ratio:16/9}.caption{font-size:12px;color:var(--muted);margin-top:12px}
+footer{border-top:1px solid var(--edge);margin-top:38px;padding-top:17px;color:var(--muted);font-size:12px}
+@media(max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}}@media(max-width:520px){.wrap{padding-inline:12px}.controls{padding:12px}.actions button,.upload{flex:1 1 100%;text-align:center}}
+@media print{body{background:white;color:#222}.controls,nav,.notice,.caption,footer{display:none!important}.layout{display:block}.frame{padding:0;border:0}}
+</style></head><body><main class="wrap">
+<nav><a href="/hades/">HADES / Universe</a><div><a href="/hades/library/">EN library</a><a href="/hades/fa/library/" lang="fa">کتابخانهٔ فارسی</a><a href="/hades/library/tools/presentation-covers/">Original covers</a><a href="/hades/brand-kit/logo-usage/">Logo use</a></div></nav>
+<p class="kicker">HADES / PROJECT PRESENTATIONS / REVIEW</p><h1>Cover text editor / ویرایشگر جلد ارائه</h1>
+<p class="muted">Original 1920 × 1080 cover compositions. Edit three text fields, download a real editable SVG or save and reopen a guarded JSON project. This HTML works offline after saving.</p>
+<p class="notice"><strong>REVIEW — NOT FINAL.</strong> Only #EF4B32 is an approved color. Supporting neutrals and typography are proposals. This composition contains no new logo and no maker credit for independent products.</p>
+<div class="layout"><form class="controls" id="editor" novalidate>
+<label for="lang">Mode / زبان</label><select id="lang"><option value="en">English / Classic</option><option value="fa">فارسی / Modern</option></select>
+<label for="project">Project title / نام پروژه</label><input id="project" maxlength="360" autocomplete="off">
+<label for="discipline">Discipline / نوع اثر</label><input id="discipline" maxlength="360" autocomplete="off">
+<label for="note">Verified note / توضیح مستند</label><textarea id="note" maxlength="360"></textarea>
+<div class="actions"><button type="button" id="svgOut" class="primary">Download SVG</button><button type="button" id="jsonOut">Save REVIEW JSON</button><label class="upload" for="jsonIn">Load JSON<input type="file" id="jsonIn" accept=".json,application/json"></label></div>
+<div id="state" role="status" aria-live="polite">Preparing REVIEW...</div>
+</form><section class="viewer" aria-label="True SVG output preview"><div class="frame" id="preview"></div>
+<p class="caption">The preview is the same SVG content exported by this editor. Layout overflow blocks downloads. No original raster logo is altered or vectorized; Mikhak has not been tested in this editor.</p>
+<p class="caption" lang="fa" dir="rtl">فونت‌های فعلی صرفاً fallback هستند. قبل از ارائهٔ نهایی، خوانایی و حقوق استفاده را بررسی کنید.</p></section></div>
+<footer>HADES is the creative realm, HADES THE THIRD its ruler in the owner's personal narrative. Pattern01 public REVIEW; Pattern02 private; Pattern03 stopped. Mobile devices, projector, licensed Mikhak and physical proof remain OPEN.</footer>
+</main><script type="application/json" id="originalSources">{"en":"\u003csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"1920\" height=\"1080\" viewBox=\"0 0 1920 1080\" role=\"img\" aria-label=\"Independent project presentation cover Classic EN REVIEW\">\n\u003ctitle>Project cover — Classic English / REVIEW\u003c/title>\n\u003cdesc>Editable presentation composition, not an official logo master. Neutral colors and typography are proposals. Vermilion #EF4B32 is the only approved swatch. Independent product brand stays primary. Creator credit off.\u003c/desc>\n\u003crect id=\"background\" width=\"1920\" height=\"1080\" fill=\"#191916\"/>\n\u003cg id=\"architectural-lines\" fill=\"none\" stroke=\"#9E9385\" stroke-width=\"2\" opacity=\"0.3\">\n\u003cpath d=\"M1480 133H1792V932H1480\"/>\n\u003cpath d=\"M1510 179H1752V886H1510\"/>\n\u003cpath d=\"M1540 225H1712V840H1540\"/>\n\u003cpath d=\"M1480 932V446A156 156 0 0 1 1792 446V932\"/>\n\u003c/g>\n\u003crect id=\"signature-accent\" x=\"132\" y=\"148\" width=\"72\" height=\"5\" fill=\"#EF4B32\"/>\n\u003ctext id=\"kicker\" x=\"132\" y=\"209\" fill=\"#EF4B32\" font-family=\"Arial,sans-serif\" font-size=\"25\" letter-spacing=\"3\" font-weight=\"400\">INDEPENDENT WORK / REVIEW\u003c/text>\n\u003ctext id=\"project-title\" x=\"132\" y=\"495\" fill=\"#F4F0E9\" font-family=\"Arial,sans-serif\" font-size=\"92\" font-weight=\"400\">Project title\u003c/text>\n\u003ctext id=\"project-type\" x=\"136\" y=\"566\" fill=\"#C7BEB2\" font-family=\"Arial,sans-serif\" font-size=\"32\" font-weight=\"400\">Creative direction / selected work\u003c/text>\n\u003cline x1=\"132\" x2=\"1110\" y1=\"692\" y2=\"692\" stroke=\"#908779\" stroke-width=\"2\" opacity=\"0.55\"/>\n\u003ctext id=\"project-note\" x=\"136\" y=\"751\" fill=\"#DED7CE\" font-family=\"Arial,sans-serif\" font-size=\"29\">Replace with an approved, factual one-line description.\u003c/text>\n\u003cline x1=\"132\" x2=\"1792\" y1=\"930\" y2=\"930\" stroke=\"#908779\" stroke-width=\"2\" opacity=\"0.5\"/>\n\u003ctext id=\"footer-left\" x=\"132\" y=\"990\" fill=\"#C7BEB2\" font-family=\"Arial,sans-serif\" font-size=\"23\" letter-spacing=\"2\">PRESENTATION COVER / CLASSIC\u003c/text>\n\u003ctext id=\"footer-right\" x=\"1792\" y=\"990\" fill=\"#EF4B32\" text-anchor=\"end\" font-family=\"Arial,sans-serif\" font-size=\"23\">REVIEW — NOT FINAL\u003c/text>\n\u003c/svg>\n","fa":"\u003csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"1920\" height=\"1080\" viewBox=\"0 0 1920 1080\" role=\"img\" aria-label=\"Independent project presentation cover Modern Persian REVIEW\">\n\u003ctitle>Project cover — Modern Persian / REVIEW\u003c/title>\n\u003cdesc>Editable RTL presentation composition, not a new brand mark. Neutral colors and font proposals only; signature vermilion #EF4B32 is approved. Independent-product creator credit disabled.\u003c/desc>\n\u003crect id=\"background\" width=\"1920\" height=\"1080\" fill=\"#F3F0EB\"/>\n\u003cg id=\"architectural-lines\" fill=\"none\" stroke=\"#665F58\" stroke-width=\"2\" opacity=\"0.24\">\n\u003cpath d=\"M130 165H435V905H130\"/>\n\u003cpath d=\"M167 207H395V864H167\"/>\n\u003cpath d=\"M205 249H355V820H205\"/>\n\u003cpath d=\"M130 905V500A152 152 0 0 1 434 500V905\"/>\n\u003c/g>\n\u003crect id=\"signature-accent\" x=\"1708\" y=\"151\" width=\"72\" height=\"5\" fill=\"#EF4B32\"/>\n\u003ctext id=\"kicker\" x=\"1780\" y=\"214\" fill=\"#EF4B32\" text-anchor=\"end\" font-family=\"Tahoma,Arial,sans-serif\" font-size=\"27\" font-weight=\"400\">پروژهٔ مستقل / نسخهٔ بازبینی\u003c/text>\n\u003ctext id=\"project-title\" x=\"1780\" y=\"492\" fill=\"#201D1B\" text-anchor=\"end\" font-family=\"Tahoma,Arial,sans-serif\" font-size=\"83\" font-weight=\"400\">عنوان پروژه\u003c/text>\n\u003ctext id=\"project-type\" x=\"1780\" y=\"569\" fill=\"#55504B\" text-anchor=\"end\" font-family=\"Tahoma,Arial,sans-serif\" font-size=\"37\" font-weight=\"400\">کارگردانی هنری / نمونهٔ منتخب\u003c/text>\n\u003cline x1=\"825\" x2=\"1780\" y1=\"692\" y2=\"692\" stroke=\"#6C655D\" stroke-width=\"2\" opacity=\"0.55\"/>\n\u003ctext id=\"project-note\" x=\"1780\" y=\"759\" fill=\"#38332E\" text-anchor=\"end\" font-family=\"Tahoma,Arial,sans-serif\" font-size=\"31\">توضیح کوتاه و مستند پروژه را اینجا وارد کنید.\u003c/text>\n\u003cline x1=\"130\" x2=\"1780\" y1=\"930\" y2=\"930\" stroke=\"#6C655D\" stroke-width=\"2\" opacity=\"0.5\"/>\n\u003ctext id=\"footer-left\" x=\"130\" y=\"992\" fill=\"#625B53\" font-family=\"Arial,sans-serif\" font-size=\"23\" letter-spacing=\"2\">MODERN / 16:9\u003c/text>\n\u003ctext id=\"footer-right\" x=\"1780\" y=\"992\" fill=\"#EF4B32\" text-anchor=\"end\" font-family=\"Tahoma,Arial,sans-serif\" font-size=\"25\">بازبینی / تأیید نهایی نشده\u003c/text>\n\u003c/svg>\n"}</script>
+<script>
+"use strict";
+(()=>{
+const KEY="HADES_16x9_PresentationCover_Editor_REVIEW_v1";
+const originals=JSON.parse(document.getElementById("originalSources").textContent);
+const defaults={en:{project:"Project title",discipline:"Creative direction / selected work",note:"Replace with an approved, factual one-line description."},fa:{project:"عنوان پروژه",discipline:"کارگردانی هنری / نمونهٔ منتخب",note:"توضیح کوتاه و مستند پروژه را اینجا وارد کنید."}};
+const ids={project:"project-title",discipline:"project-type",note:"project-note"};
+const limits={en:{project:1040,discipline:1080,note:1390},fa:{project:1050,discipline:1090,note:1340}};
+const keys=Object.keys(ids),langEl=document.getElementById("lang"),target=document.getElementById("preview"),status=document.getElementById("state");
+const svgOut=document.getElementById("svgOut"),jsonOut=document.getElementById("jsonOut");
+let lang="en",data={...defaults.en},valid=false;
+const clean=v=>String(v).replace(/[\u202a-\u202e\u2066-\u2069]/g,"").replace(/[\u0000-\u001f]/g," ").replace(/\s+/g," ").trim();
+function state(t,bad){status.textContent=t;status.classList.toggle("bad",!!bad);svgOut.disabled=!!bad;jsonOut.disabled=!!bad;valid=!bad}
+function render(){
+ try{
+  const xml=new DOMParser().parseFromString(originals[lang],"image/svg+xml");
+  if(xml.querySelector("parsererror"))throw Error("Source XML malformed");
+  for(const key of keys){if(typeof data[key]!=="string"||data[key].length>360)throw Error("Invalid "+key);const v=clean(data[key]);if(!v)throw Error(key+" is required");const el=xml.getElementById(ids[key]);if(!el)throw Error("Missing original field "+key);el.textContent=v}
+  target.replaceChildren(document.importNode(xml.documentElement,true));
+  for(const key of keys){
+   const rect=target.querySelector("#"+ids[key]).getBBox();
+   if(!Number.isFinite(rect.width)||rect.width<=0||rect.width>limits[lang][key]||rect.x<(lang==="fa"?540:110)||rect.x+rect.width>1840)throw Error(key+" exceeds safe text bounds — shorten it");
+  }
+  if(target.querySelector("image"))throw Error("Unexpected raster source added");
+  state(lang==="fa"?"خروجی SVG و JSON آماده است — REVIEW":"SVG / JSON exports ready — REVIEW",false);
+ }catch(e){state("OPEN — "+e.message,true)}
+}
+function apply(){document.documentElement.lang=lang;langEl.value=lang;keys.forEach(k=>{const n=document.getElementById(k);n.value=data[k];n.dir=lang==="fa"?"rtl":"ltr"});render()}
+keys.forEach(k=>document.getElementById(k).addEventListener("input",e=>{data[k]=e.target.value;render()}));
+langEl.addEventListener("change",()=>{lang=langEl.value;data={...defaults[lang]};apply()});
+function download(name,mime,body){const u=URL.createObjectURL(new Blob([body],{type:mime})),a=document.createElement("a");a.download=name;a.href=u;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000)}
+svgOut.addEventListener("click",()=>{if(valid)download("HADES_Cover_"+lang.toUpperCase()+"_Editable_REVIEW.svg","image/svg+xml;charset=utf-8",new XMLSerializer().serializeToString(target.firstElementChild))});
+jsonOut.addEventListener("click",()=>{if(valid)download("HADES_Cover_"+lang.toUpperCase()+"_Project_REVIEW.json","application/json;charset=utf-8",JSON.stringify({schema:KEY,status:"REVIEW",language:lang,fields:data,credit:"DISABLED"},null,2))});
+document.getElementById("jsonIn").addEventListener("change",async e=>{
+ const f=e.target.files&&e.target.files[0];if(!f)return;
+ try{if(f.size>16000)throw Error("JSON too large");const p=JSON.parse(await f.text());
+  if(p.schema!==KEY||p.status!=="REVIEW"||p.credit!=="DISABLED"||!["fa","en"].includes(p.language)||!p.fields||Array.isArray(p.fields))throw Error("Invalid or non-REVIEW project");
+  for(const k of keys)if(typeof p.fields[k]!=="string"||p.fields[k].length>360)throw Error("Invalid field "+k);
+  lang=p.language;data=Object.fromEntries(keys.map(k=>[k,p.fields[k]]));apply();if(!valid)throw Error("Loaded text exceeds bounds");
+ }catch(err){state("Import refused: "+err.message,true)}finally{e.target.value=""}
+});
+apply();
+})();
+</script></body></html>

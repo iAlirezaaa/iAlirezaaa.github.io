@@ -1,0 +1,40 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {pathToFileURL}=require('node:url'),{chromium}=require('playwright-core');
+(async()=>{
+ const b=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'/usr/bin/chromium',args:['--no-sandbox']});
+ const out=path.resolve('hades-cover-editor-proof');fs.mkdirSync(out,{recursive:true});let passes=0;
+ try{for(const prefix of ['hades','site/public/hades'])for(const width of [320,390,430]){
+  const ctx=await b.newContext({viewport:{width,height:850},acceptDownloads:true});
+  const page=await ctx.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const fp=path.resolve(prefix+'/library/tools/presentation-covers/editor/index.html');
+  await page.goto(pathToFileURL(fp).href);
+  await page.locator('#preview svg').waitFor();
+  assert.equal(await page.locator('#svgOut').isDisabled(),false,'Initial source '+prefix+':'+width+': '+await page.locator('#state').innerText());
+  assert.equal(await page.locator('#preview svg').getAttribute('viewBox'),'0 0 1920 1080');
+  const box=await page.evaluate(()=>({sw:document.documentElement.scrollWidth,cw:document.documentElement.clientWidth}));
+  assert.ok(box.sw<=box.cw+1,'Horizontal overflow '+JSON.stringify(box));
+  await page.locator('#project').fill('Architectural study');
+  assert.match(await page.locator('#preview svg').textContent(),/Architectural study/);
+  const [en]=await Promise.all([page.waitForEvent('download'),page.locator('#svgOut').click()]);
+  const name=(prefix==='hades'?'pub':'source')+'-'+width;
+  const enPath=path.join(out,name+'-EN.svg');await en.saveAs(enPath);
+  assert.match(fs.readFileSync(enPath,'utf8'),/Architectural study/);
+  const [j]=await Promise.all([page.waitForEvent('download'),page.locator('#jsonOut').click()]);
+  const jPath=path.join(out,name+'.json');await j.saveAs(jPath);
+  const project=JSON.parse(fs.readFileSync(jPath));assert.equal(project.status,'REVIEW');assert.equal(project.credit,'DISABLED');
+  await page.locator('#lang').selectOption('fa');assert.equal(await page.locator('#svgOut').isDisabled(),false,'FA initial '+await page.locator('#state').innerText());
+  await page.locator('#project').fill('نمونهٔ معماری');
+  const [fa]=await Promise.all([page.waitForEvent('download'),page.locator('#svgOut').click()]);
+  const faPath=path.join(out,name+'-FA.svg');await fa.saveAs(faPath);assert.match(fs.readFileSync(faPath,'utf8'),/نمونهٔ معماری/);
+  await page.locator('#jsonIn').setInputFiles({name:'fake.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({...project,status:'FINAL'}))});
+  assert.match(await page.locator('#state').innerText(),/Import refused/);
+  await page.locator('#jsonIn').setInputFiles({name:'saved.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(project))});
+  assert.equal(await page.locator('#lang').inputValue(),'en');assert.equal(await page.locator('#svgOut').isDisabled(),false);
+  await page.locator('#project').fill('A'.repeat(180));assert.equal(await page.locator('#svgOut').isDisabled(),true,'Overflow blocked');
+  await page.locator('#lang').selectOption('fa');
+  await page.screenshot({path:path.join(out,name+'-REVIEW.png'),fullPage:true});
+  assert.deepEqual(errors,[]);passes++;await ctx.close();
+ }}finally{await b.close()}
+ assert.equal(passes,6);fs.writeFileSync(path.join(out,'QA.json'),JSON.stringify({status:'PASS',cases:passes,open:['native device','Mikhak actual glyph','print and projector','owner signoff']},null,2));
+ console.log('COVER EDITOR 6/6 CHROMIUM PASS');
+})().catch(e=>{console.error(e);process.exitCode=1});

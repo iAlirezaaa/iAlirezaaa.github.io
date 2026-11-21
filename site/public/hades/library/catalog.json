@@ -481,9 +481,12 @@
       "formats": [
         "SVG editable EN",
         "SVG editable FA",
-        "HTML gallery"
+        "HTML gallery",
+        "Offline HTML editor",
+        "SVG / JSON guarded exports"
       ],
-      "notes": "Not a logo, independent-product maker credit absent; source text editable; Mikhak/native device/print/public HTTPS OPEN."
+      "notes": "Source architectural SVGs unchanged. Guarded bilingual online/offline text editor, SVG/JSON REVIEW exports, creator credit OFF; actual installed Mikhak and owner approval OPEN.",
+      "editor": "/hades/library/tools/presentation-covers/editor/"
     }
   ]
 }
