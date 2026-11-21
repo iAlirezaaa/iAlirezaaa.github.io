@@ -4,7 +4,7 @@ const {chromium}=require('playwright-core');
 const root=process.cwd(), out=path.join(root,'hades-asset-passport-editor-proof');
 fs.mkdirSync(out,{recursive:true});
 const server=http.createServer((req,res)=>{
- const rel=decodeURIComponent(new URL(req.url,'http://localhost').pathname).replace(/^\\//,'');
+ const rel=decodeURIComponent(new URL(req.url,'http://localhost').pathname).slice(1);
  const target=path.resolve(root,rel.endsWith('/')?path.join(rel,'index.html'):rel);
  if(!target.startsWith(root+path.sep))return res.writeHead(403).end();
  try{const data=fs.readFileSync(target);res.writeHead(200,{'Content-Type':target.endsWith('.html')?'text/html':'application/octet-stream'});res.end(data)}
@@ -27,7 +27,7 @@ const server=http.createServer((req,res)=>{
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'mobile horizontal overflow');
    assert.equal(await page.locator('#editorPreview svg').getAttribute('viewBox'),'0 0 794 1123');
    const [en]=await Promise.all([page.waitForEvent('download'),page.locator('#saveSvg').click()]);
-   const prefix=mirror.replace(/\\//g,'_')+'-'+width;
+   const prefix=mirror.split('/').join('_')+'-'+width;
    const enFile=path.join(out,prefix+'-EN.svg');await en.saveAs(enFile);
    assert.match(fs.readFileSync(enFile,'utf8'),/ASSET PASSPORT/);
    const [j]=await Promise.all([page.waitForEvent('download'),page.locator('#saveJson').click()]);
