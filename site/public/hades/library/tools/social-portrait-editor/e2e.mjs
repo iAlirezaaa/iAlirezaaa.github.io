@@ -21,6 +21,7 @@ try{for(const width of[320,390,430]){
  assert.equal(project.status,"REVIEW");assert.equal(project.content.language,"fa");assert.equal(project.content.heading,"پروژهٔ نمونه");assert.ok(!("photo"in project));
  await page.locator("#reset").click();
  await page.locator("#project-import").setInputFiles({name:"example.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify(project))});
+ await page.waitForFunction(()=>document.getElementById("heading").value==="پروژهٔ نمونه");
  assert.equal(await page.locator("#heading").inputValue(),"پروژهٔ نمونه");
  assert.equal(await page.locator("#lang").inputValue(),"fa");
  let png=page.waitForEvent("download");await page.locator("#export").click();
@@ -28,6 +29,7 @@ try{for(const width of[320,390,430]){
  assert.equal(b.subarray(0,8).toString("hex"),"89504e470d0a1a0a");assert.equal(b.readUInt32BE(16),1080);assert.equal(b.readUInt32BE(20),1350);
  await page.screenshot({path:path.join(out,"social-"+width+"-fa-REVIEW.png"),fullPage:true});
  await page.locator("#project-import").setInputFiles({name:"bad.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify({...project,status:"FINAL"}))});
+ await page.waitForFunction(()=>document.getElementById("status").textContent.startsWith("Import rejected"));
  assert.match(await page.locator("#status").innerText(),/Import rejected/);
  await page.locator("#heading").fill("X".repeat(110));assert.equal(await page.locator("#export").isDisabled(),true);
  results.push({width,scrollOverflow:Math.max(0,bounds.scroll-bounds.width),inputFont:font,JSON:"PASS",PNG:"1080x1350",rejectFINAL:true,overflowHold:true});
