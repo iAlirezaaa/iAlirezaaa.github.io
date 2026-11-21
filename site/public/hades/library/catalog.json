@@ -67,7 +67,8 @@
       "page": "/hades/library/tools/a4-creative-brief/",
       "status": "REVIEW",
       "format": "Offline HTML + A4 browser PDF + JSON project",
-      "svg": "/hades/library/tools/a4-creative-brief/preview.svg"
+      "svg": "/hades/library/tools/a4-creative-brief/preview.svg",
+      "existing": true
     },
     {
       "id": "existing-arc",

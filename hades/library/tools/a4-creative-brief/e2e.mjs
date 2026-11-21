@@ -30,9 +30,10 @@ for(const width of [320,390,430]){
  const obj=JSON.parse(await fs.readFile(jsonFile,'utf8'));assert.equal(obj.status,'REVIEW');
  assert.equal(obj.language,'fa');assert.equal(obj.fields.title,'بریف پروژهٔ نمونه');
  await page.locator('#reset').click();assert.equal(await page.locator('#print').isDisabled(),true);
- await page.locator('#open').setInputFiles(jsonFile);assert.equal(await page.locator('#title').inputValue(),obj.fields.title);
+ await page.locator('#open').setInputFiles(jsonFile);await page.waitForFunction(expected=>document.getElementById('title').value===expected,obj.fields.title);assert.equal(await page.locator('#title').inputValue(),obj.fields.title);
  const bad=structuredClone(obj);bad.status='FINAL';
  await page.locator('#open').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(bad))});
+ await page.waitForFunction(()=>document.getElementById('status').textContent.includes('Import rejected'));
  assert.match(await page.locator('#status').textContent(),/Import rejected/);
  await page.pdf({path:path.join(out,'brief-'+width+'-fa-A4-REVIEW.pdf'),format:'A4',printBackground:true,preferCSSPageSize:true});
  const bytes=await fs.readFile(path.join(out,'brief-'+width+'-fa-A4-REVIEW.pdf'));assert.equal(bytes.subarray(0,5).toString(),'%PDF-');
