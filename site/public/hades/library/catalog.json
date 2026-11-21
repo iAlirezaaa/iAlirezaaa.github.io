@@ -47,7 +47,8 @@
       "fa": "کارت ویزیت دوطرفه",
       "preview": "/hades/brand-kit/business-card/HADES_Card_Contact_Sheet_REVIEW.png",
       "page": "/hades/brand-kit/business-card/",
-      "existing": true
+      "existing": true,
+      "editor": "/hades/brand-kit/business-card/micro-editor/"
     },
     {
       "id": "existing-letterhead",
