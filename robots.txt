@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://ialirezaaa.github.io/sitemap.xml

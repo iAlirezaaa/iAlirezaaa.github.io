@@ -1,1 +1,0 @@
-HADES Pattern 01 REVIEW, not final brand approval. Decorative SVG is NOT a logo. Owner-approved accent: #EF4B32; neutral colors unapproved. Source SHA256: a356d36e18350898cc0f7decddcc25ad3e38e1aecd4dd271691f562d1fd51d10

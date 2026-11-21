@@ -1,0 +1,14 @@
+{
+  "schema": "hades.a4-creative-brief.v1",
+  "status": "REVIEW",
+  "language": "en",
+  "fields": {
+    "title": "Working creative brief",
+    "ref": "REVIEW-01",
+    "purpose": "Develop a clear concept and test its visual language.",
+    "audience": "Creative collaborators reviewing a proposed direction.",
+    "deliverables": "One treatment, one moodboard and two layout tests.",
+    "constraints": "No new logos; approval and print specifications pending.",
+    "next": "Review concept and document the next revision."
+  }
+}

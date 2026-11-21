@@ -1,1 +1,0 @@
-HADES B03 working A4 letterhead REVIEW/CONCEPT. Two contexts of one system. SVG text editable; 300dpi PNG 2480x3508; PSD 150dpi 1240x1754 with 5 independently selectable raster layers. Original mark is source-derived alpha, not a new logo; light omits it. No fictional contacts, no certified print colors, no final approval. Only #EF4B32 approved.\n

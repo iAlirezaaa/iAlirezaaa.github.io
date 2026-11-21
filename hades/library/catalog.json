@@ -59,6 +59,17 @@
       "existing": true
     },
     {
+      "id": "a4-creative-brief-editor",
+      "cat": "stationery",
+      "en": "A4 Creative Brief — bilingual editable document",
+      "fa": "فرم A4 بریف خلاقه — قابل‌ویرایش فارسی/انگلیسی",
+      "preview": "/hades/library/tools/a4-creative-brief/preview.svg",
+      "page": "/hades/library/tools/a4-creative-brief/",
+      "status": "REVIEW",
+      "format": "Offline HTML + A4 browser PDF + JSON project",
+      "svg": "/hades/library/tools/a4-creative-brief/preview.svg"
+    },
+    {
       "id": "existing-arc",
       "cat": "patterns",
       "en": "Pattern 01 — Architectural Arc",
