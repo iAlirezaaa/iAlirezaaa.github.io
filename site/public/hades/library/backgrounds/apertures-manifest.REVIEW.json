@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "date": "2026-11-22",
+  "status": "PUBLIC REVIEW / NOT FINAL",
+  "collection": "Architectural Apertures",
+  "approved_accent": "#EF4B32",
+  "proposed_neutrals": {
+    "deep": "#191817",
+    "mammoth_bone": "#E5D8C8",
+    "stone": "#C7B8A6",
+    "charcoal": "#302C28",
+    "plaster": "#D0C0AE"
+  },
+  "original_logos": "None embedded or modified",
+  "ratios": [
+    {
+      "stem": "HADES_Aperture_Loggia_16x9_REVIEW",
+      "width": 1920,
+      "height": 1080,
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "process": "SVG first; raster+ZIP built by public GitHub Actions; verify binary readback before claiming"
+    },
+    {
+      "stem": "HADES_Aperture_Vestibule_9x16_REVIEW",
+      "width": 1080,
+      "height": 1920,
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "process": "SVG first; raster+ZIP built by public GitHub Actions; verify binary readback before claiming"
+    },
+    {
+      "stem": "HADES_Aperture_Court_1x1_REVIEW",
+      "width": 1080,
+      "height": 1080,
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "process": "SVG first; raster+ZIP built by public GitHub Actions; verify binary readback before claiming"
+    }
+  ],
+  "pending": [
+    "remote HTTPS exact bytes/MIME",
+    "physical A4 print",
+    "mobile native/device",
+    "Mikhak real font",
+    "FINAL approval"
+  ]
+}

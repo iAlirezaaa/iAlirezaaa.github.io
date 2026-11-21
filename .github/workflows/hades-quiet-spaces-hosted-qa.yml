@@ -38,11 +38,16 @@ jobs:
             'HADES_Quiet_Loggia_16x9_REVIEW.svg',
             'HADES_Bone_Pier_9x16_REVIEW.svg',
             'HADES_Charcoal_Courtyard_1x1_REVIEW.svg',
+            'HADES_Aperture_Loggia_16x9_REVIEW.svg',
+            'HADES_Aperture_Vestibule_9x16_REVIEW.svg',
+            'HADES_Aperture_Court_1x1_REVIEW.svg',
           )
           rel = ['library/backgrounds/assets/' + n for n in names]
           rel += ['library/backgrounds/assets/' + n[:-4] + ext for n in names for ext in ('.png', '.jpg', '.webp')]
           rel += [
             'library/backgrounds/quiet-spaces-manifest.REVIEW.json',
+            'library/backgrounds/apertures-manifest.REVIEW.json',
+            'library/backgrounds/HADES_Apertures_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip',
             'library/backgrounds/HADES_Quiet_Spaces_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip',
             'library/backgrounds/HADES_Quiet_Spaces_Overview_1600x1000_REVIEW.svg',
             'library/backgrounds/assets/HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW.svg',

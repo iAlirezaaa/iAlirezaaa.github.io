@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="Aperture Loggia original editable HADES architecture background REVIEW"><title>Aperture Loggia — REVIEW</title><desc>Independent geometric architecture background. No logo, no original mark, neutral hues proposed; sole approved accent #EF4B32.</desc><defs><linearGradient id="stone" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#D0C0AE"/><stop offset="1" stop-color="#E5D8C8"/></linearGradient><linearGradient id="dark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2B2824"/><stop offset="1" stop-color="#141312"/></linearGradient><linearGradient id="floor" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#36312C"/><stop offset="1" stop-color="#181615"/></linearGradient></defs><rect width="1920" height="1080" fill="#181716"/>
+<!-- aligned structural bays; usable open negative space at right -->
+<path d="M0 0H778L641 768L560 1080H0Z" fill="#302C28"/>
+<path d="M0 0H228L133 1080H0Z" fill="#C7B8A6"/>
+<path d="M229 0H304L212 1080H133Z" fill="url(#stone)"/>
+<path d="M304 0H384L288 1080H212Z" fill="#6F6559"/>
+<path d="M385 0H607L459 1080H289Z" fill="#252321"/>
+<path d="M608 0H779L640 768L560 1080H459Z" fill="#3C3731"/>
+<path d="M778 0H1920V730L638 793Z" fill="#1D1B19"/>
+<path d="M1920 728V1080H558L641 788Z" fill="url(#floor)"/>
+<path d="M0 941L641 785H1920" fill="none" stroke="#A79A87" stroke-opacity=".22" stroke-width="2"/>
+<path d="M778 0L639 788" stroke="#908779" stroke-opacity=".42" stroke-width="4"/>
+<path d="M309 0L211 1080" stroke="#0A0A09" stroke-opacity=".24" stroke-width="4"/>
+<!-- restrained signature: <0.02% of area -->
+<rect x="1071" y="914" width="43" height="3" fill="#EF4B32"/>
+</svg>
