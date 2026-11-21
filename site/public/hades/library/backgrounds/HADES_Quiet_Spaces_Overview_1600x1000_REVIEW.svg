@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="HADES Quiet Spaces architectural background contact sheet, review">
+<rect width="1600" height="1000" fill="#171615"/>
+<path d="M64 130H1536" stroke="#51463E" stroke-width="2"/>
+<path d="M64 130H218" stroke="#EF4B32" stroke-width="4"/>
+<text x="64" y="73" fill="#E5D8C8" font-family="Arial,sans-serif" font-weight="400" font-size="32" letter-spacing="4">HADES / QUIET SPACES</text>
+<text x="64" y="106" fill="#B8A693" font-family="Arial,sans-serif" font-size="16" letter-spacing="1">ARCHITECTURAL BACKGROUNDS · SOURCE-BASED PRODUCTION SHEET</text>
+<text x="1533" y="76" text-anchor="end" fill="#EF4B32" font-family="Arial,sans-serif" font-size="18">REVIEW</text>
+<svg x="64" y="195" width="610" height="344" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet"><title id="quiet_t">HADES Quiet Loggia · Dark architectural background · REVIEW</title><desc id="quiet_d">An original still architectural scene: limestone columns cast controlled shadow onto charcoal, with an extremely limited vermilion inlay. No logo, no readable type, no repeatable pattern. Neutral colors are proposals.</desc>
+<defs>
+<linearGradient id="quiet_back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#24221F"/><stop offset=".48" stop-color="#171615"/><stop offset="1" stop-color="#0F1010"/></linearGradient>
+<linearGradient id="quiet_stone" x1="0" y1="0" x2=".95" y2="1"><stop stop-color="#E5D8C8"/><stop offset=".35" stop-color="#D0BCAA"/><stop offset="1" stop-color="#7E6959"/></linearGradient>
+<linearGradient id="quiet_side" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#8D7F70"/><stop offset="1" stop-color="#3B3631"/></linearGradient>
+<linearGradient id="quiet_floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#423C35"/><stop offset="1" stop-color="#151514"/></linearGradient>
+</defs>
+<rect width="1920" height="1080" fill="url(#quiet_back)"/>
+<path d="M0 0H894L715 707 0 840Z" fill="#2C2A26"/>
+<path d="M0 0H472L327 758 0 829Z" fill="url(#quiet_stone)"/>
+<path d="M472 0H541L400 742 327 758Z" fill="url(#quiet_side)"/>
+<path d="M541 0H754L611 701 400 742Z" fill="#C2B19E"/>
+<path d="M754 0H808L673 693 611 701Z" fill="#6D6256"/>
+<path d="M808 0H894L752 689 673 693Z" fill="#AE9C8A"/>
+<path d="M0 829 752 689 1575 1080H0Z" fill="url(#quiet_floor)"/>
+<path d="M0 880 752 704 1262 1080H0Z" fill="#101111" opacity=".42"/>
+<path d="M0 829 752 689" fill="none" stroke="#F2E8DA" stroke-width="3" opacity=".35"/>
+<path d="M424 0 288 765M705 0 568 718" stroke="#5D5146" stroke-width="2" opacity=".65"/>
+<path d="M0 950 828 764 1390 1080" fill="none" stroke="#B9A894" stroke-width="1" opacity=".28"/>
+<path d="M1000 130H1830M1060 168H1780M1120 206H1730" stroke="#5D5149" stroke-width="1" opacity=".23"/>
+<path d="M1010 780H1814" stroke="#665B51" stroke-width="2" opacity=".7"/>
+<rect x="1008" y="777" width="78" height="5" fill="#EF4B32"/>
+<path d="M1780 74V684" stroke="#554F48" stroke-width="1" opacity=".48"/>
+</svg>
+<rect x="64" y="195" width="610" height="344" fill="none" stroke="#67594D" stroke-width="2"/>
+<text x="64" y="579" fill="#E5D8C8" font-family="Arial,sans-serif" font-size="24" font-weight="400">Quiet Loggia</text>
+<text x="64" y="609" fill="#B8A693" font-family="Arial,sans-serif" font-size="17">16:9 / 1920 × 1080</text>
+<svg x="717" y="195" width="245" height="435" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid meet"><title id="bone_t">HADES Bone Pier · Tall architectural background · REVIEW</title><desc id="bone_d">Original portrait vertical mammoth-bone architecture with deep angular recess, stone-shadow geometry, and a fine vermilion line. No mark or original logo included. Supporting palette under review.</desc>
+<defs>
+<linearGradient id="bone_wall" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#E5D8C8"/><stop offset=".62" stop-color="#D0BCAA"/><stop offset="1" stop-color="#B09B85"/></linearGradient>
+<linearGradient id="bone_recess" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#292725"/><stop offset=".65" stop-color="#171615"/><stop offset="1" stop-color="#0D0E0E"/></linearGradient>
+<linearGradient id="bone_edge" x1="0" y1="0" x2="1" y2=".2"><stop stop-color="#AA947E"/><stop offset="1" stop-color="#473E37"/></linearGradient>
+</defs>
+<rect width="1080" height="1920" fill="url(#bone_wall)"/>
+<path d="M657 0H1080V1920H657Z" fill="#B7A18D" opacity=".3"/>
+<path d="M666 0H1080V1558L822 1920H510Z" fill="url(#bone_edge)"/>
+<path d="M792 0H1080V1433L869 1614H716Z" fill="url(#bone_recess)"/>
+<path d="M873 0H1080V1390L926 1515H832Z" fill="#111413"/>
+<path d="M900 0H1020V1440L900 1514Z" fill="#35322C" opacity=".44"/>
+<path d="M657 0 510 1920H556L716 0Z" fill="#F0E4D6" opacity=".6"/>
+<path d="M0 1542 510 1920H0Z" fill="#978473" opacity=".35"/>
+<path d="M0 1664 510 1920H0Z" fill="#5B5148" opacity=".24"/>
+<path d="M0 0H94V1920H0Z" fill="#D8C5B0" opacity=".45"/>
+<path d="M94 0V1920" stroke="#8C7D6F" stroke-width="2" opacity=".3"/>
+<path d="M162 184 536 184M162 216 536 216" stroke="#867466" opacity=".28" stroke-width="2"/>
+<path d="M162 375V1360" stroke="#B9A38F" opacity=".4" stroke-width="2"/>
+<path d="M161 1478H469" stroke="#3B3630" stroke-width="3" opacity=".55"/>
+<rect x="161" y="1475" width="64" height="5" fill="#EF4B32"/>
+<path d="M73 1850H439" stroke="#897765" opacity=".35"/>
+</svg>
+<rect x="717" y="195" width="245" height="435" fill="none" stroke="#67594D" stroke-width="2"/>
+<text x="717" y="670" fill="#E5D8C8" font-family="Arial,sans-serif" font-size="24" font-weight="400">Bone Pier</text>
+<text x="717" y="700" fill="#B8A693" font-family="Arial,sans-serif" font-size="17">9:16 / 1080 × 1920</text>
+<svg x="1010" y="195" width="420" height="420" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet"><title id="charcoal_t">HADES Charcoal Courtyard · Square architectural background · REVIEW</title><desc id="charcoal_d">A square architectural scene, with a diagonal stone plane facing a recessed black courtyard and a narrow vermilion seam. No logo or pattern, no type. Neutral swatches are proposed.</desc>
+<defs>
+<linearGradient id="charcoal_charcoal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#302D29"/><stop offset=".55" stop-color="#191918"/><stop offset="1" stop-color="#101111"/></linearGradient>
+<linearGradient id="charcoal_plaster" x1="0" y1="0" x2="1" y2=".2"><stop stop-color="#E5D8C8"/><stop offset=".58" stop-color="#BDA994"/><stop offset="1" stop-color="#7E6959"/></linearGradient>
+<linearGradient id="charcoal_shadow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#151615"/><stop offset="1" stop-color="#34322E"/></linearGradient>
+</defs>
+<rect width="1080" height="1080" fill="url(#charcoal_charcoal)"/>
+<path d="M0 0H725L358 1080H0Z" fill="url(#charcoal_plaster)"/>
+<path d="M725 0H798L419 1080H358Z" fill="#534B43"/>
+<path d="M798 0H1002L650 1080H419Z" fill="url(#charcoal_shadow)"/>
+<path d="M1002 0H1080V1080H650Z" fill="#1A1B1A"/>
+<path d="M119 0H172L0 500V354Z" fill="#F5E9D9" opacity=".32"/>
+<path d="M349 0H388L55 1080H20Z" fill="#74685B" opacity=".65"/>
+<path d="M533 0H548L191 1080H178Z" fill="#AA9885" opacity=".38"/>
+<path d="M0 845 358 1080H0Z" fill="#65584C" opacity=".35"/>
+<path d="M705 81 399 977" stroke="#9E8C79" stroke-width="2" opacity=".65"/>
+<path d="M798 0 419 1080" stroke="#C2B4A1" stroke-width="2" opacity=".22"/>
+<path d="M735 800H1028" stroke="#75675B" stroke-width="2" opacity=".72"/>
+<rect x="735" y="797" width="49" height="5" fill="#EF4B32"/>
+<path d="M871 104 1067 104M895 133H1067" stroke="#685D50" opacity=".18"/>
+</svg>
+<rect x="1010" y="195" width="420" height="420" fill="none" stroke="#67594D" stroke-width="2"/>
+<text x="1010" y="655" fill="#E5D8C8" font-family="Arial,sans-serif" font-size="24" font-weight="400">Charcoal Courtyard</text>
+<text x="1010" y="685" fill="#B8A693" font-family="Arial,sans-serif" font-size="17">1:1 / 1080 × 1080</text>
+<path d="M64 784H1536" stroke="#51463E" stroke-width="2"/>
+<text x="64" y="824" fill="#E5D8C8" font-family="Arial,sans-serif" font-size="21">PROPOSED SUPPORT SWATCHES</text>
+<rect x="64" y="849" width="42" height="42" fill="#171615" stroke="#B8A693" stroke-width="1"/><text x="116" y="877" fill="#E5D8C8" font-family="Arial,sans-serif" font-size="16">#171615</text>
+<rect x="285" y="849" width="42" height="42" fill="#D0BCAA"/><text x="337" y="877" fill="#E5D8C8" font-family="Arial,sans-serif" font-size="16">#D0BCAA</text>
+<rect x="506" y="849" width="42" height="42" fill="#E5D8C8"/><text x="558" y="877" fill="#E5D8C8" font-family="Arial,sans-serif" font-size="16">#E5D8C8</text>
+<rect x="727" y="849" width="42" height="42" fill="#EF4B32"/><text x="779" y="877" fill="#E5D8C8" font-family="Arial,sans-serif" font-size="16">#EF4B32 · approved accent</text>
+<text x="64" y="953" fill="#B8A693" font-family="Arial,sans-serif" font-size="15">Original owner logos are not included or altered. Neutral shades are proposals. Pattern02 remains private. This is not FINAL.</text>
+</svg>
