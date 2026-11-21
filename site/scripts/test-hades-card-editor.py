@@ -88,9 +88,15 @@ async def main():
                 await cdp.send('CSS.enable')
                 dom=await cdp.send('DOM.getDocument')
                 node=await cdp.send('DOM.querySelector',{'nodeId':dom['root']['nodeId'],'selector':'#out-fa'})
-                fonts=await cdp.send('CSS.getPlatformFontsForNode',{'nodeId':node['nodeId']})
-                families=[f['familyName'] for f in fonts['fonts']]
-                assert any('mikhak' in name.lower() for name in families), ('Mikhak requested but actual glyphs used fallback',w,families)
+                await page.wait_for_function("() => getComputedStyle(document.getElementById('out-fa')).fontFamily.toLowerCase().includes('mikhak local')",timeout=10000)
+                await page.evaluate("""async () => { await document.fonts.ready; await new Promise(requestAnimationFrame); await new Promise(requestAnimationFrame); }""")
+                families=[]
+                for _ in range(30):
+                    fonts=await cdp.send('CSS.getPlatformFontsForNode',{'nodeId':node['nodeId']})
+                    families=[f['familyName'] for f in fonts['fonts']]
+                    if any('mikhak' in name.lower() for name in families):break
+                    await page.wait_for_timeout(200)
+                assert any('mikhak' in name.lower() for name in families), ('Font was loaded but glyph rendering fell back despite repaint',w,families)
                 await page.screenshot(path=str(OUT/('browser-mikhak-'+str(w)+'.png')),full_page=True)
                 async with page.expect_download(timeout=15000) as item:
                     await page.locator('#backpng').click()
