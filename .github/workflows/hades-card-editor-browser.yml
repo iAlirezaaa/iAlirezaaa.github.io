@@ -20,6 +20,15 @@ jobs:
         run: |
           python3 -m pip install playwright pillow pymupdf
           python3 -m playwright install --with-deps chromium
+      - name: Download official Mikhak Regular OFL to temporary runner storage (never publish font)
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --connect-timeout 12 \
+            https://raw.githubusercontent.com/aminabedi68/Mikhak/master/fonts/ttf/Mikhak-Regular.ttf \
+            -o /tmp/HADES_Mikhak-Regular.ttf
+          test "$(wc -c </tmp/HADES_Mikhak-Regular.ttf)" -gt 70000
+          sha256sum /tmp/HADES_Mikhak-Regular.ttf
       - name: Real 320, 390, 430px and PNG / PDF proof
         run: python3 site/scripts/test-hades-card-editor.py
       - name: Publish exactly tested REVIEW PNG / PDF binaries into both site mirrors
