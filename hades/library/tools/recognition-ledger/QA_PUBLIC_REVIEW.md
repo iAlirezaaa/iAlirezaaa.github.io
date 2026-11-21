@@ -17,6 +17,10 @@ Status: **REVIEW, not FINAL**
 - The exact published HTML's inline JavaScript was parsed with a JavaScript function constructor without syntax error.
 - The 37 catalog items and both language library card counts agree.
 
+## Additional observed responsive QA (static source SVGs only)
+- Exact final SVG bytes were embedded as data URIs in a local Chromium `page.set_content()` preview (no file/HTTP navigation). At **320px, 390px and 430px**, both original SVGs loaded (`naturalWidth=1600`), image widths matched the available mobile width and there was **no horizontal document overflow**: 3/3 width checks PASS. The preview's mobile screenshots are local-only artifacts, **not** published-site screenshots or full tool-form tests.
+- This does **not** change the following full HTML-editor and hosted-HTTPS OPEN items.
+
 ## OPEN — DO NOT CLAIM AS PASSED
 - Local Chromium navigation to both `file://` and `http://127.0.0.1` was BLOCKED_BY_ADMINISTRATOR in the current container. An exact-repository Playwright test and GitHub Actions workflow were committed, but successful jobs and 320/390/430 outcomes have **not** yet been independently observed.
 - Public deployed HTTPS byte matching and actual hosted link opening are **not verified** in this run; both direct website and raw GitHub requests were blocked. A dedicated hosted QA job is registered, but a job configuration/commit is not a successful live check.
