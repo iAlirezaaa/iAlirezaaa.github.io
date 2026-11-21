@@ -1,0 +1,66 @@
+name: HADES video lower-third REVIEW Chromium and hosted QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/tools/lower-third/**'
+      - 'site/public/hades/library/tools/lower-third/**'
+      - 'tests/hades-lower-third.cjs'
+      - '.github/workflows/hades-lower-third-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - run: npm install --prefix /tmp/hades-lower-third-test --no-save --no-package-lock playwright-core
+      - name: Actual mirrored FA/EN Chromium 320 390 430 and SVG downloads
+        env:
+          NODE_PATH: /tmp/hades-lower-third-test/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-lower-third.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-lower-third-REVIEW-Chromium
+          path: hades-lower-third-proof/
+          if-no-files-found: warn
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independently verify GitHub Pages HTTP 200, MIME and SHA-256
+        run: |
+          python3 - <<'PY'
+          from urllib.request import urlopen,Request
+          from pathlib import Path
+          import hashlib,time
+          targets=['library/tools/lower-third/index.html','library/tools/lower-third/HADES_LowerThird_16x9_Classic_EN_REVIEW.svg','library/tools/lower-third/HADES_LowerThird_9x16_Modern_FA_REVIEW.svg','library/tools/lower-third/README_REVIEW.md','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','index.html','fa/index.html','library/catalog.json']
+          for f in targets:
+            source=(Path('hades')/f).read_bytes()
+            assert source==(Path('site/public/hades')/f).read_bytes(),f+' mirrors'
+            url='https://ialirezaaa.github.io/hades/'+f
+            if url.endswith('/index.html'):url=url[:-10]
+            for attempt in range(20):
+              try:
+                with urlopen(Request(url,headers={'User-Agent':'HADES-lower-third-QA','Cache-Control':'no-cache','Accept-Encoding':'identity'}),timeout=18) as response:
+                  body,status,mime=response.read(),response.status,response.headers.get('Content-Type','')
+                assert status==200,(f,status)
+                assert hashlib.sha256(source).digest()==hashlib.sha256(body).digest(),f+' byte mismatch'
+                if f.endswith('.html'):assert 'html' in mime,f
+                if f.endswith('.svg'):assert 'svg' in mime,f
+                if f.endswith('.json'):assert 'json' in mime,f
+                print('PUBLIC HTTPS PASS',url,len(body),mime,flush=True);break
+              except Exception:
+                if attempt==19:raise
+                time.sleep(9)
+          print('HADES LOWER THIRD LIVE 11/11 PASS',flush=True)
+          PY
