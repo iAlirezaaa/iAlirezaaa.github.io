@@ -1,0 +1,74 @@
+name: HADES case-study hosted byte-parity QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/tools/case-study-slide/**'
+      - 'site/public/hades/library/tools/case-study-slide/**'
+      - 'hades/library/catalog.json'
+      - 'site/public/hades/library/catalog.json'
+      - '.github/workflows/hades-case-study-hosted-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hosted-assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Actual Pages GET and byte parity (not just build)
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+          import hashlib, time
+
+          root = Path('hades')
+          mirror = Path('site/public/hades')
+          names = [
+              'library/tools/case-study-slide/index.html',
+              'library/tools/case-study-slide/HADES_CaseStudy_16x9_Classic_EN_REVIEW.svg',
+              'library/tools/case-study-slide/HADES_CaseStudy_16x9_Modern_FA_REVIEW.svg',
+              'library/tools/case-study-slide/README_REVIEW.md',
+              'library/index.html',
+              'fa/library/index.html',
+              'brand-kit/logo-usage/index.html',
+              'fa/brand-kit/logo-usage/index.html',
+          ]
+          def digest(data): return hashlib.sha256(data).hexdigest()
+          import json
+          catalog=json.loads((root/'library/catalog.json').read_text())
+          legacy=[item for item in catalog['items'] if not item.get('existing')]
+          assert len(legacy)==18 and len({item['id'] for item in legacy})==18
+          assert all(item.get('w') and item.get('h') for item in legacy)
+          for name in names:
+              local=(root/name).read_bytes()
+              assert local==(mirror/name).read_bytes(), 'site mirror mismatch: '+name
+              target='https://ialirezaaa.github.io/hades/'+name
+              if target.endswith('index.html'): target=target[:-10]
+              last=None
+              for attempt in range(15):
+                  try:
+                      req=Request(target, headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'HADES-Review-Hosted-QA/1.0'})
+                      with urlopen(req, timeout=15) as r:
+                          body=r.read()
+                          assert r.status==200, f'HTTP {r.status}'
+                          content_type=r.headers.get('Content-Type','')
+                      assert digest(local)==digest(body), f'live byte mismatch for {name}'
+                      if name.endswith('.svg'):
+                          assert 'svg' in content_type.lower(), 'incorrect SVG MIME '+content_type
+                      if name.endswith('.html'):
+                          assert 'html' in content_type.lower(), 'incorrect HTML MIME '+content_type
+                      if name.endswith('.html') and name!='library/tools/case-study-slide/index.html':
+                          assert b'case-study-slide' in body, 'missing discoverability link '+name
+                      print('LIVE PASS',target,len(body),digest(body),content_type,flush=True)
+                      break
+                  except (HTTPError,URLError,AssertionError,TimeoutError) as e:
+                      last=str(e)
+                      if attempt==14: raise RuntimeError(f'LIVE OPEN: {target}: {last}') from e
+                      time.sleep(12)
+          print('HADES LIVE HTTPS AND SHA-256 8/8 PASS (if this line appears)',flush=True)
+          PY
