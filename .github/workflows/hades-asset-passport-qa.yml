@@ -1,0 +1,76 @@
+name: HADES asset passport actual browser and HTTPS REVIEW QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/tools/asset-passport/**'
+      - 'site/public/hades/library/tools/asset-passport/**'
+      - 'tests/hades-asset-passport.cjs'
+      - '.github/workflows/hades-asset-passport-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - run: npm install --prefix /tmp/hades-asset-passport-qa --no-save --no-package-lock playwright-core
+      - name: Actual 320 / 390 / 430 Chromium and mirrored SVG download / bounds
+        env:
+          NODE_PATH: /tmp/hades-asset-passport-qa/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-asset-passport.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-asset-passport-browser-REVIEW
+          path: hades-asset-passport-proof/
+          if-no-files-found: warn
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent deployed GitHub Pages 200, MIME and SHA-256 verification
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import hashlib,time
+          files=[
+            'library/tools/asset-passport/index.html',
+            'library/tools/asset-passport/HADES_Asset_Passport_Bilingual_A4_REVIEW.svg',
+            'library/index.html',
+            'fa/library/index.html',
+            'brand-kit/logo-usage/index.html',
+            'fa/brand-kit/logo-usage/index.html',
+            'library/catalog.json']
+          for name in files:
+            local=(Path('hades')/name).read_bytes()
+            assert local==(Path('site/public/hades')/name).read_bytes(),name+' mirror mismatch'
+            expected=hashlib.sha256(local).hexdigest()
+            url='https://ialirezaaa.github.io/hades/'+name
+            if url.endswith('/index.html'):url=url[:-10]
+            for attempt in range(24):
+              try:
+                request=Request(url,headers={'User-Agent':'HADES-asset-passport-REVIEW-QA','Cache-Control':'no-cache','Accept-Encoding':'identity'})
+                with urlopen(request,timeout=15) as resp:
+                  actual=resp.read();status=resp.status;ctype=resp.headers.get('Content-Type','')
+                assert status==200,(url,status)
+                assert hashlib.sha256(actual).hexdigest()==expected,(url,'byte mismatch')
+                if name.endswith('.svg'):assert 'svg' in ctype,(url,ctype)
+                if name.endswith('.html'):assert 'html' in ctype,(url,ctype)
+                if name.endswith('.json'):assert 'json' in ctype,(url,ctype)
+                print('LIVE PASS',url,len(actual),ctype,flush=True)
+                break
+              except Exception:
+                if attempt==23:raise
+                time.sleep(9)
+          print('HADES ASSET PASSPORT LIVE HTTPS 7/7 PASS',flush=True)
+          PY
