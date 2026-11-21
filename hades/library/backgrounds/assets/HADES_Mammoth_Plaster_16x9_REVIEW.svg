@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<title id="title">HADES Mammoth Plaster — warm bone architectural background REVIEW</title><desc id="desc">Light mammoth stone background, no pure white, logos, or repeat tiles.</desc>
+<defs><linearGradient id="warm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#E5D8C8"/><stop offset=".55" stop-color="#D0BCAA"/><stop offset="1" stop-color="#B8A28E"/></linearGradient><linearGradient id="shade" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#A7927E"/><stop offset="1" stop-color="#6E5C4E"/></linearGradient><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".075" numOctaves="2" seed="12"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".11"/></feComponentTransfer></filter></defs>
+<rect width="1920" height="1080" fill="url(#warm)"/>
+<path d="M0 0H510L0 630Z" fill="#8B7A6A" opacity=".25"/>
+<path d="M0 0H300L205 1080H0Z" fill="url(#shade)" opacity=".7"/>
+<path d="M60 235C60 70 360 70 360 235V1080H60Z" fill="#433D38"/>
+<path d="M110 305C110 180 300 180 300 305V1080H110Z" fill="#292726"/>
+<path d="M360 0H374V1080H360Z" fill="#EF4B32" opacity=".92"/>
+<path d="M510 780L1920 470V1080H740Z" fill="#E8DCC9" opacity=".7"/>
+<path d="M0 914H1920V930H0Z" fill="#8F7865" opacity=".32"/><path d="M0 920H1920" stroke="#EFE4D2" opacity=".54" stroke-width="2"/>
+<path d="M440 0V1080M1740 0V1080M440 915H1920" stroke="#9E8472" opacity=".27" stroke-width="3"/>
+<path d="M0 0H1920V1080H0Z" fill="#FFFFFF" filter="url(#grain)" opacity=".50"/>
+</svg>

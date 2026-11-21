@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+<title id="title">HADES Skeletal Slab — square architectural background REVIEW</title><desc id="desc">Warm bone and basalt standalone square study. Does not modify any official HADES mark.</desc>
+<defs><linearGradient id="warm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#DED0BD"/><stop offset="1" stop-color="#AB9580"/></linearGradient><linearGradient id="dark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#252220"/><stop offset="1" stop-color="#121211"/></linearGradient><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".055" numOctaves="2" seed="15"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".08"/></feComponentTransfer></filter></defs>
+<rect width="1080" height="1080" fill="url(#warm)"/>
+<path d="M0 0H260L0 580Z" fill="#88715D" opacity=".4"/>
+<path d="M0 880L1080 430V1080H0Z" fill="url(#dark)"/>
+<path d="M50 120C50 20 305 20 305 120V895H50Z" fill="#55483C" opacity=".65"/>
+<path d="M85 220C85 100 262 100 262 220V885H85Z" fill="#201C19"/>
+<path d="M305 0H319V888H305Z" fill="#EF4B32"/>
+<path d="M0 880L1080 430" stroke="#F0D9C4" opacity=".74" stroke-width="2"/>
+<path d="M330 0V1080M995 0V1080M320 830H1080" stroke="#EBD7C2" opacity=".28" stroke-width="2"/>
+<rect width="1080" height="1080" fill="#FFFFFF" filter="url(#grain)" opacity=".42"/>
+</svg>

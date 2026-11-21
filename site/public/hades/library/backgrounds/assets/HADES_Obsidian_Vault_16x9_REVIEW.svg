@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<title id="title">HADES Obsidian Vault — architectural background REVIEW</title><desc id="desc">Standalone dark architectural background, not an emblem or repeating pattern.</desc>
+<defs>
+ <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#26221F"/><stop offset=".57" stop-color="#171615"/><stop offset="1" stop-color="#29231F"/></linearGradient>
+ <linearGradient id="slab" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#B4A18D"/><stop offset="1" stop-color="#6F5C4D"/></linearGradient>
+ <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".065" numOctaves="2" seed="7" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".075"/></feComponentTransfer></filter>
+ <filter id="shadow"><feGaussianBlur stdDeviation="29"/></filter>
+</defs>
+<rect width="1920" height="1080" fill="url(#stone)"/>
+<path d="M0 0H510L350 1080H0Z" fill="#332B25"/><path d="M45 0H340L250 890H45Z" fill="url(#slab)"/>
+<path d="M136 165C136 25 363 25 363 165V1080H136Z" fill="#171614"/><path d="M177 215C177 116 305 116 305 215V1080H177Z" fill="#0D0D0D"/>
+<path d="M363 0H390V1080H363Z" fill="#EF4B32" opacity=".82"/>
+<path d="M1170 1080L1920 720V1080Z" fill="#50443B"/>
+<path d="M1100 1080L1920 760" stroke="#BBA58E" stroke-width="2" opacity=".56"/>
+<path d="M410 0H1920V24H410ZM410 1016H1920V1019H410Z" fill="#B5A18B" opacity=".18"/>
+<path d="M420 85H420V1080M1810 0V1080" stroke="#9E8570" opacity=".28" stroke-width="2"/>
+<path d="M420 745H1920" stroke="#A18D78" opacity=".23" stroke-width="2"/>
+<rect width="1920" height="1080" fill="#FFFFFF" filter="url(#grain)" opacity=".55"/>
+</svg>

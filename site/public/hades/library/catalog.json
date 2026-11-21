@@ -3,7 +3,7 @@
   "status": "REVIEW / CONCEPT",
   "updated": "2026-11-21",
   "approved_exact_color": "#EF4B32",
-  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights.",
+  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights. 2026-11-21: four standalone editable SVG backgrounds public REVIEW; generated photo-raster pack stored in conversation only.",
   "categories": {
     "stationery": {
       "en": "Stationery",
@@ -554,6 +554,46 @@
         "A4 landscape print / PDF"
       ],
       "notes": "Public placeholder templates only. The owner confirms both contest win and judging a DIFFERENT section, but official category, year, ranking and documentation remain unverified; no source claim, medal or official certificate is published. Only #EF4B32 approved; neutral colors and fonts proposed."
+    },
+    {
+      "id": "hades-background-20261121-1",
+      "cat": "web",
+      "en": "Obsidian Vault · 16:9",
+      "fa": "طاق سنگ تیره · ۱۶:۹",
+      "preview": "/hades/library/backgrounds/assets/HADES_Obsidian_Vault_16x9_REVIEW.svg",
+      "page": "/hades/library/backgrounds/",
+      "existing": true,
+      "status": "REVIEW"
+    },
+    {
+      "id": "hades-background-20261121-2",
+      "cat": "web",
+      "en": "Mammoth Plaster · 16:9",
+      "fa": "گچ ماموتی · ۱۶:۹",
+      "preview": "/hades/library/backgrounds/assets/HADES_Mammoth_Plaster_16x9_REVIEW.svg",
+      "page": "/hades/library/backgrounds/",
+      "existing": true,
+      "status": "REVIEW"
+    },
+    {
+      "id": "hades-background-20261121-3",
+      "cat": "web",
+      "en": "Basalt Axis · 9:16",
+      "fa": "محور بازالت · ۹:۱۶",
+      "preview": "/hades/library/backgrounds/assets/HADES_Basalt_Axis_9x16_REVIEW.svg",
+      "page": "/hades/library/backgrounds/",
+      "existing": true,
+      "status": "REVIEW"
+    },
+    {
+      "id": "hades-background-20261121-4",
+      "cat": "web",
+      "en": "Skeletal Slab · 1:1",
+      "fa": "سنگ استخوانی · ۱:۱",
+      "preview": "/hades/library/backgrounds/assets/HADES_Skeletal_Slab_1x1_REVIEW.svg",
+      "page": "/hades/library/backgrounds/",
+      "existing": true,
+      "status": "REVIEW"
     }
   ]
 }

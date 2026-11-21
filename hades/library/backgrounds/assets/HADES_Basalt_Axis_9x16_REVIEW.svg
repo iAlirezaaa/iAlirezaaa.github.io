@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+<title id="title">HADES Basalt Axis — vertical architectural background REVIEW</title><desc id="desc">Standalone 9 by 16 charcoal architectural background.</desc>
+<defs><linearGradient id="night" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#171615"/><stop offset=".74" stop-color="#27221F"/><stop offset="1" stop-color="#0C0B0B"/></linearGradient><linearGradient id="bone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C7B5A2"/><stop offset="1" stop-color="#6E5C4F"/></linearGradient><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".058" numOctaves="2" seed="20"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".08"/></feComponentTransfer></filter></defs>
+<rect width="1080" height="1920" fill="url(#night)"/>
+<path d="M0 0H350L220 1920H0Z" fill="url(#bone)"/>
+<path d="M80 190C80 5 335 5 335 190V1920H80Z" fill="#1B1917"/>
+<path d="M131 255C131 128 280 128 280 255V1920H131Z" fill="#0C0C0C"/>
+<path d="M347 0H360V1920H347Z" fill="#EF4B32" opacity=".76"/>
+<path d="M1040 0H1080V1920H1040Z" fill="#6C5142" opacity=".35"/>
+<path d="M320 1400L1080 1100V1920H320Z" fill="#7E6959" opacity=".68"/>
+<path d="M320 1400L1080 1100" stroke="#DBBEA3" stroke-width="2" opacity=".48"/>
+<path d="M0 1720L1080 1820" stroke="#9A816E" stroke-width="4" opacity=".48"/>
+<path d="M364 0V1920M1010 0V1920M364 1610H1080" stroke="#C2A991" opacity=".21" stroke-width="2"/>
+<rect width="1080" height="1920" fill="#FFFFFF" filter="url(#grain)" opacity=".48"/>
+</svg>
