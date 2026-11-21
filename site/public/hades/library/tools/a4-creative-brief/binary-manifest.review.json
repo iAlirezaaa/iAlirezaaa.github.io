@@ -1,0 +1,25 @@
+{
+  "status": "REVIEW",
+  "source": "actual Chromium synthetic A4 PDF proof",
+  "print_approval": "NOT_GRANTED",
+  "font": "Linux fallback, Mikhak not verified",
+  "original_logo": "Public owner original embedded in HTML unchanged, not a vector master",
+  "pdf": {
+    "filename": "HADES_A4_Creative_Brief_FA_Example_REVIEW.pdf",
+    "sha256": "217f01d05bb9f1a91a48511ed7395ee7733a6d3a7c4f0aca6b7f0cda7312946f",
+    "bytes": 67487,
+    "pages": 1,
+    "size": "A4"
+  },
+  "png": {
+    "filename": "HADES_A4_Creative_Brief_FA_Example_300dpi_REVIEW.png",
+    "sha256": "ea0ec218ff67953e5734f94da95f96228f4ea0835c65117efa4568b139ecae36",
+    "bytes": 154058,
+    "pixels": [
+      2479,
+      3508
+    ],
+    "dpi": 300
+  },
+  "source_html_sha256": "44fd48ff8238a71c7f10e4c1c1bb47dd73524f74918ee05b0bfaff705f57d397"
+}
