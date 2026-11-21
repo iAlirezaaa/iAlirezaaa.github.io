@@ -43,7 +43,7 @@ jobs:
           from urllib.request import urlopen,Request
           from pathlib import Path
           import hashlib,time
-          targets=['library/tools/lower-third/index.html','library/tools/lower-third/HADES_LowerThird_16x9_Classic_EN_REVIEW.svg','library/tools/lower-third/HADES_LowerThird_9x16_Modern_FA_REVIEW.svg','library/tools/lower-third/README_REVIEW.md','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','index.html','fa/index.html','library/catalog.json']
+          targets=['library/tools/lower-third/index.html','library/tools/lower-third/HADES_LowerThird_16x9_Classic_EN_REVIEW.svg','library/tools/lower-third/HADES_LowerThird_9x16_Modern_FA_REVIEW.svg','library/tools/lower-third/README_REVIEW.md','library/tools/lower-third/QA_PUBLIC_REVIEW.md','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','index.html','fa/index.html','library/catalog.json']
           for f in targets:
             source=(Path('hades')/f).read_bytes()
             assert source==(Path('site/public/hades')/f).read_bytes(),f+' mirrors'
@@ -62,5 +62,5 @@ jobs:
               except Exception:
                 if attempt==19:raise
                 time.sleep(9)
-          print('HADES LOWER THIRD LIVE 11/11 PASS',flush=True)
+          print('HADES LOWER THIRD LIVE 12/12 PASS',flush=True)
           PY
