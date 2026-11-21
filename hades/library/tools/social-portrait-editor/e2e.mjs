@@ -27,6 +27,7 @@ try{for(const width of[320,390,430]){
  let png=page.waitForEvent("download");await page.locator("#export").click();
  let f=await png,b=await fs.readFile(await f.path());
  assert.equal(b.subarray(0,8).toString("hex"),"89504e470d0a1a0a");assert.equal(b.readUInt32BE(16),1080);assert.equal(b.readUInt32BE(20),1350);
+ await fs.writeFile(path.join(out,"social-"+width+"-fa-export-1080x1350-REVIEW.png"),b);
  await page.screenshot({path:path.join(out,"social-"+width+"-fa-REVIEW.png"),fullPage:true});
  await page.locator("#project-import").setInputFiles({name:"bad.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify({...project,status:"FINAL"}))});
  await page.waitForFunction(()=>document.getElementById("status").textContent.startsWith("Import rejected"));

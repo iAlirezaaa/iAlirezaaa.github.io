@@ -32,3 +32,30 @@ jobs:
           name: hades-social-editor-e2e-proofs
           path: hades/library/tools/social-portrait-editor/e2e-proofs/
           if-no-files-found: ignore
+  public-http:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public HADES site HTTP responses and JSON byte parity
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://ialirezaaa.github.io/hades"
+          check() {
+            path="$1"; expected="$2"; file="$(mktemp)"; headers="$(mktemp)"
+            status="$(curl --retry 3 --retry-all-errors --retry-delay 3 --max-time 30 -LsS -D "$headers" -o "$file" -w '%{http_code}' "$url$path")"
+            echo "$status $url$path"
+            test "$status" = "200"
+            grep -Eiq "^content-type:.*$expected" "$headers"
+            test -s "$file"
+          }
+          check "/library/" "text/html"
+          check "/fa/library/" "text/html"
+          check "/brand-kit/logo-usage/" "text/html"
+          check "/fa/brand-kit/logo-usage/" "text/html"
+          check "/library/tools/social-portrait-editor/" "text/html"
+          check "/library/tools/social-portrait-editor/project.v1.schema.json" "application/json"
+          curl -fsSL "$url/library/tools/social-portrait-editor/HADES_Social_Portrait_Project_FA_REVIEW.json" -o /tmp/hades-public-project.json
+          cmp /tmp/hades-public-project.json hades/library/tools/social-portrait-editor/HADES_Social_Portrait_Project_FA_REVIEW.json
+          echo "PUBLIC_HTTP_AND_BYTE_PARITY_PASS"
