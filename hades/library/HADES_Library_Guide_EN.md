@@ -17,3 +17,5 @@ HADES is the universe and HADES THE THIRD its creator/ruler within the owner's c
 Do not print or publish with invented client data. Replace bracketed placeholders with verified information.
 
 - Editable HTML email signature is available with a source-derived micro-logo, publicly confirmed links and placeholders. It has not been installed in Gmail or approved as a final mail-client signature.
+
+- Presentation covers: **Classic EN** and **Modern FA** editable 1920×1080 SVG, no new logo, no maker credit. [Open the REVIEW kit](/hades/library/tools/presentation-covers/).

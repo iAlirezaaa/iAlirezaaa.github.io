@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="Independent project presentation cover Classic EN REVIEW">
+<title>Project cover — Classic English / REVIEW</title>
+<desc>Editable presentation composition, not an official logo master. Neutral colors and typography are proposals. Vermilion #EF4B32 is the only approved swatch. Independent product brand stays primary. Creator credit off.</desc>
+<rect id="background" width="1920" height="1080" fill="#191916"/>
+<g id="architectural-lines" fill="none" stroke="#9E9385" stroke-width="2" opacity="0.3">
+<path d="M1480 133H1792V932H1480"/>
+<path d="M1510 179H1752V886H1510"/>
+<path d="M1540 225H1712V840H1540"/>
+<path d="M1480 932V446A156 156 0 0 1 1792 446V932"/>
+</g>
+<rect id="signature-accent" x="132" y="148" width="72" height="5" fill="#EF4B32"/>
+<text id="kicker" x="132" y="209" fill="#EF4B32" font-family="Arial,sans-serif" font-size="25" letter-spacing="3" font-weight="400">INDEPENDENT WORK / REVIEW</text>
+<text id="project-title" x="132" y="495" fill="#F4F0E9" font-family="Arial,sans-serif" font-size="92" font-weight="400">Project title</text>
+<text id="project-type" x="136" y="566" fill="#C7BEB2" font-family="Arial,sans-serif" font-size="32" font-weight="400">Creative direction / selected work</text>
+<line x1="132" x2="1110" y1="692" y2="692" stroke="#908779" stroke-width="2" opacity="0.55"/>
+<text id="project-note" x="136" y="751" fill="#DED7CE" font-family="Arial,sans-serif" font-size="29">Replace with an approved, factual one-line description.</text>
+<line x1="132" x2="1792" y1="930" y2="930" stroke="#908779" stroke-width="2" opacity="0.5"/>
+<text id="footer-left" x="132" y="990" fill="#C7BEB2" font-family="Arial,sans-serif" font-size="23" letter-spacing="2">PRESENTATION COVER / CLASSIC</text>
+<text id="footer-right" x="1792" y="990" fill="#EF4B32" text-anchor="end" font-family="Arial,sans-serif" font-size="23">REVIEW — NOT FINAL</text>
+</svg>

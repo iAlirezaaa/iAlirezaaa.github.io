@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="Independent project presentation cover Modern Persian REVIEW">
+<title>Project cover — Modern Persian / REVIEW</title>
+<desc>Editable RTL presentation composition, not a new brand mark. Neutral colors and font proposals only; signature vermilion #EF4B32 is approved. Independent-product creator credit disabled.</desc>
+<rect id="background" width="1920" height="1080" fill="#F3F0EB"/>
+<g id="architectural-lines" fill="none" stroke="#665F58" stroke-width="2" opacity="0.24">
+<path d="M130 165H435V905H130"/>
+<path d="M167 207H395V864H167"/>
+<path d="M205 249H355V820H205"/>
+<path d="M130 905V500A152 152 0 0 1 434 500V905"/>
+</g>
+<rect id="signature-accent" x="1708" y="151" width="72" height="5" fill="#EF4B32"/>
+<text id="kicker" x="1780" y="214" fill="#EF4B32" text-anchor="end" font-family="Tahoma,Arial,sans-serif" font-size="27" font-weight="400">پروژهٔ مستقل / نسخهٔ بازبینی</text>
+<text id="project-title" x="1780" y="492" fill="#201D1B" text-anchor="end" font-family="Tahoma,Arial,sans-serif" font-size="83" font-weight="400">عنوان پروژه</text>
+<text id="project-type" x="1780" y="569" fill="#55504B" text-anchor="end" font-family="Tahoma,Arial,sans-serif" font-size="37" font-weight="400">کارگردانی هنری / نمونهٔ منتخب</text>
+<line x1="825" x2="1780" y1="692" y2="692" stroke="#6C655D" stroke-width="2" opacity="0.55"/>
+<text id="project-note" x="1780" y="759" fill="#38332E" text-anchor="end" font-family="Tahoma,Arial,sans-serif" font-size="31">توضیح کوتاه و مستند پروژه را اینجا وارد کنید.</text>
+<line x1="130" x2="1780" y1="930" y2="930" stroke="#6C655D" stroke-width="2" opacity="0.5"/>
+<text id="footer-left" x="130" y="992" fill="#625B53" font-family="Arial,sans-serif" font-size="23" letter-spacing="2">MODERN / 16:9</text>
+<text id="footer-right" x="1780" y="992" fill="#EF4B32" text-anchor="end" font-family="Tahoma,Arial,sans-serif" font-size="25">بازبینی / تأیید نهایی نشده</text>
+</svg>

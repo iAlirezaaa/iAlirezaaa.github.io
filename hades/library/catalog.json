@@ -468,6 +468,22 @@
       ],
       "notes": "Source-faithful application layout with no invented logo; independent-product rights and maker credit gated; neutral swatches and fonts only proposals. Online editor preserves source vector layouts, maker credit OFF; site and font verification OPEN.",
       "editor": "/hades/library/tools/case-study-slide/editor/"
+    },
+    {
+      "id": "presentation-covers-16x9",
+      "cat": "web",
+      "en": "Independent-project 16:9 presentation covers · Classic EN / Modern FA",
+      "fa": "جلد ارائهٔ مستقل ۱۶:۹ · کلاسیک انگلیسی / مدرن فارسی",
+      "preview": "/hades/library/tools/presentation-covers/HADES_Presentation_Cover_Classic_EN_REVIEW.svg",
+      "page": "/hades/library/tools/presentation-covers/",
+      "status": "REVIEW",
+      "existing": true,
+      "formats": [
+        "SVG editable EN",
+        "SVG editable FA",
+        "HTML gallery"
+      ],
+      "notes": "Not a logo, independent-product maker credit absent; source text editable; Mikhak/native device/print/public HTTPS OPEN."
     }
   ]
 }
