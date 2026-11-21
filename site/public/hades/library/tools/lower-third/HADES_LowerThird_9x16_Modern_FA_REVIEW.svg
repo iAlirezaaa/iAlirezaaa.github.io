@@ -2,7 +2,7 @@
 <title>HADES lower-third application · REVIEW</title><desc>No original logo modified. Approved accent: #EF4B32. All other colors and typefaces are proposals. Maker credit OFF.</desc>
 <rect x="90" y="1460" width="900" height="236" fill="#181818" fill-opacity=".87"/><rect x="984" y="1460" width="6" height="236" fill="#EF4B32"/>
 <line x1="144" y1="1650" x2="936" y2="1650" stroke="#faf5ed" stroke-opacity=".22"/>
-<text id="name" x="936" y="1549" font-family="Arial, Tahoma, sans-serif" font-size="48" font-weight="400" text-anchor="end" direction="rtl" fill="#f7f3ed">نام و عنوان پروژه</text>
-<text id="detail" x="936" y="1604" font-family="Arial,Tahoma,sans-serif" font-size="28" font-weight="400" text-anchor="end" direction="rtl" fill="#e5ddd3">عنوان فرعی / نمونهٔ قابل‌ویرایش</text>
+<text id="name" x="936" y="1549" font-family="Arial, Tahoma, sans-serif" font-size="48" font-weight="400" text-anchor="start" direction="rtl" fill="#f7f3ed">نام و عنوان پروژه</text>
+<text id="detail" x="936" y="1604" font-family="Arial,Tahoma,sans-serif" font-size="28" font-weight="400" text-anchor="start" direction="rtl" fill="#e5ddd3">عنوان فرعی / نمونهٔ قابل‌ویرایش</text>
 <text x="144" y="1679" font-family="Arial,sans-serif" font-size="16" letter-spacing="2" fill="#EF4B32">REVIEW / NOT FINAL</text>
 </svg>
