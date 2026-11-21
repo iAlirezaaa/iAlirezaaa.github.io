@@ -9,7 +9,7 @@ on:
       - ".github/workflows/hades-card-editor-browser.yml"
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   browser-proof:
     runs-on: ubuntu-latest
@@ -22,6 +22,71 @@ jobs:
           python3 -m playwright install --with-deps chromium
       - name: Real 320, 390, 430px and PNG / PDF proof
         run: python3 site/scripts/test-hades-card-editor.py
+      - name: Publish exactly tested REVIEW PNG / PDF binaries into both site mirrors
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout main
+          git pull --rebase origin main
+          for base in hades site/public/hades; do
+            dst="$base/brand-kit/business-card/micro-editor"
+            cp hades-card-browser-proof/front-390.png "$dst/HADES_Card_Front_1004x650_PUBLIC_REVIEW.png"
+            cp hades-card-browser-proof/back-390.png "$dst/HADES_Card_Back_1004x650_PUBLIC_REVIEW.png"
+            cp hades-card-browser-proof/HADES_Card_85x55_2side_REVIEW.pdf "$dst/HADES_Card_85x55_2side_PUBLIC_REVIEW.pdf"
+            python3 - "$dst/index.html" <<'PY'
+          import pathlib,sys
+          f=pathlib.Path(sys.argv[1])
+          s=f.read_text(encoding="utf-8")
+          marker='</main></div><script>'
+          links='<aside data-proof-downloads style="margin:24px 0;padding:14px;border-top:1px solid #5e4b3b"><p style="font-size:12px">Tested files / فایل‌های آزمایش‌شده — REVIEW, not FINAL</p><a href="HADES_Card_Front_1004x650_PUBLIC_REVIEW.png" download>Front PNG 1004×650</a> · <a href="HADES_Card_Back_1004x650_PUBLIC_REVIEW.png" download>Back PNG 1004×650</a> · <a href="HADES_Card_85x55_2side_PUBLIC_REVIEW.pdf" download>Two-sided 85×55mm PDF</a></aside>'
+          if 'data-proof-downloads' not in s:
+              assert marker in s, 'Expected HTML insertion point missing'
+              f.write_text(s.replace(marker,links+marker,1),encoding="utf-8")
+          PY
+          done
+          git add hades/brand-kit/business-card/micro-editor site/public/hades/brand-kit/business-card/micro-editor
+          if git diff --cached --quiet; then
+            echo "Review binary proofs already match source"
+          else
+            git commit -m "assets(hades): publish tested 85x55 card PDF and front/back 300dpi PNG REVIEW"
+            git push origin HEAD:main
+          fi
+      - name: Independent hosted HTTPS check (non-blocking; report any OPEN status)
+        continue-on-error: true
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, pathlib, time, urllib.request
+          out=pathlib.Path('hades-card-browser-proof'); out.mkdir(exist_ok=True)
+          root='https://ialirezaaa.github.io/hades/brand-kit/business-card/micro-editor/'
+          files={
+            'index.html':None,
+            'HADES_Card_Front_1004x650_PUBLIC_REVIEW.png':out/'front-390.png',
+            'HADES_Card_Back_1004x650_PUBLIC_REVIEW.png':out/'back-390.png',
+            'HADES_Card_85x55_2side_PUBLIC_REVIEW.pdf':out/'HADES_Card_85x55_2side_REVIEW.pdf'
+          }
+          report={}
+          for key,source in files.items():
+              report[key]={'status':'OPEN'}
+              for attempt in range(15):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(root+key,headers={'User-Agent':'HADES-REVIEW-QA/1.0'}),timeout=15) as response:
+                          data=response.read()
+                          expected=hashlib.sha256(source.read_bytes()).hexdigest() if source else None
+                          actual=hashlib.sha256(data).hexdigest()
+                          ok=response.status==200 and (expected==actual if expected else b'HADES' in data)
+                          report[key]={'status':'PASS' if ok else 'MISMATCH','http_status':response.status,'content_type':response.headers.get('Content-Type'),'sha256':actual,'expected_sha256':expected}
+                          if ok:break
+                  except Exception as ex:
+                      report[key]={'status':'OPEN','error':str(ex)[:170]}
+                  time.sleep(4)
+          (out/'hosted-http-qa.json').write_text(json.dumps(report,indent=2))
+          print(json.dumps(report,indent=2))
+          if not all(v['status']=='PASS' for v in report.values()):raise SystemExit('Hosted link QA incomplete')
+          PY
       - name: Upload screenshots, actual PNGs, 85x55 PDF, JSON and QA evidence
         if: always()
         uses: actions/upload-artifact@v4
