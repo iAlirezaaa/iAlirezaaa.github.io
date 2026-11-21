@@ -23,6 +23,10 @@ const server=http.createServer((req,res)=>{try{
   const route=locale==='fa'?'/hades/fa/library/backgrounds/':'/hades/library/backgrounds/';
   const response=await page.goto(base+route,{waitUntil:'networkidle',timeout:30000});
   assert.equal(response.status(),200,'route HTTP');
+  // Lazy thumbnails below the fold are not supposed to load until scrolled.
+  // Force them eager only for image decoding QA, keeping public lazy-load UX unchanged.
+  await page.locator('.tile img').evaluateAll(imgs=>imgs.forEach(img=>{img.loading='eager'}));
+  await page.waitForFunction(()=>[...document.querySelectorAll('.tile img')].every(i=>i.complete&&i.naturalWidth>0),null,{timeout:15000});
   const result=await page.evaluate(()=>{
    const images=[...document.querySelectorAll('.tile img')],plate=document.querySelector('.logo-plate'),logo=plate?.querySelector('img');
    return {lang:document.documentElement.lang,dir:document.documentElement.dir,tiles:images.length,
