@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" role="img" aria-labelledby="title desc">
+<title id="title">HADES Email Signature Deployment Kit — Review Composition</title>
+<desc id="desc">Minimal original composition describing bilingual Gmail and Outlook signature installation. Text identity only; no reconstructed HADES logo.</desc>
+<rect width="1000" height="560" fill="#1d1b19"/>
+<rect x="30" y="28" width="940" height="504" fill="#f7f4ef"/>
+<text x="72" y="79" fill="#282520" font-family="Georgia,serif" font-size="24" font-weight="400" letter-spacing="2">HADES THE THIRD</text>
+<text x="929" y="73" text-anchor="end" fill="#EF4B32" font-family="Arial,Tahoma,sans-serif" font-size="12" letter-spacing="1.4">REVIEW / NOT FINAL</text>
+<path d="M72 102H928" stroke="#c7bfb3" stroke-width="1"/>
+<path d="M72 102H154" stroke="#EF4B32" stroke-width="3"/>
+<text x="72" y="158" fill="#282520" font-family="Georgia,serif" font-size="32" font-weight="400">Email signature</text>
+<text x="72" y="187" fill="#635c53" font-family="Arial,Tahoma,sans-serif" font-size="15">COPY · PASTE · VERIFY</text>
+<text x="927" y="153" text-anchor="start" direction="rtl" fill="#282520" font-family="Tahoma,Arial,sans-serif" font-size="25">راهنمای نصب امضای ایمیل</text>
+<text x="927" y="183" text-anchor="start" direction="rtl" fill="#665e54" font-family="Tahoma,Arial,sans-serif" font-size="15">فارسی و انگلیسی · جی‌میل و اوت‌لوک</text>
+<path d="M72 215H928" stroke="#c7bfb3" stroke-width="1"/>
+<path d="M500 246V466" stroke="#c7bfb3" stroke-width="1"/>
+<g font-family="Arial,Tahoma,sans-serif" font-size="16" fill="#39352f">
+<text x="73" y="275"><tspan fill="#EF4B32">01</tspan><tspan dx="17">Edit verified name and role</tspan></text>
+<text x="73" y="329"><tspan fill="#EF4B32">02</tspan><tspan dx="17">Copy rich HTML signature</tspan></text>
+<text x="73" y="383"><tspan fill="#EF4B32">03</tspan><tspan dx="17">Paste into Gmail / Outlook</tspan></text>
+<text x="73" y="437"><tspan fill="#EF4B32">04</tspan><tspan dx="17">Send and inspect a test email</tspan></text>
+</g>
+<g font-family="Tahoma,Arial,sans-serif" font-size="17" fill="#39352f" direction="rtl" text-anchor="start">
+<text x="927" y="275">۰۱ · نام و عنوان تأییدشده را وارد کنید</text>
+<text x="927" y="329">۰۲ · امضای قالب‌بندی‌شده را کپی کنید</text>
+<text x="927" y="383">۰۳ · در تنظیمات ایمیل جایگذاری کنید</text>
+<text x="927" y="437">۰۴ · ایمیل آزمایشی بفرستید و بررسی کنید</text>
+</g>
+<path d="M72 474H928" stroke="#c7bfb3" stroke-width="1"/>
+<text x="72" y="500" fill="#6b625a" font-family="Arial,Tahoma,sans-serif" font-size="12">OWNER ORIGINAL LOGO REFERENCED SEPARATELY · NO REDRAW</text>
+<text x="927" y="500" fill="#EF4B32" font-family="Arial,Tahoma,sans-serif" text-anchor="end" font-size="12">#EF4B32</text>
+</svg>
