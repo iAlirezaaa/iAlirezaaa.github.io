@@ -42,8 +42,10 @@ try{
    assert.equal(p.status,'REVIEW');assert.equal(p.kind,'hades-proforma-a4');
    const rejected={...p,status:'FINAL'};
    await page.locator('#upload').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(rejected))});
+   await page.waitForFunction(()=>document.getElementById('notice').textContent.includes('Invalid JSON'));
    assert.match(await page.locator('#notice').innerText(),/Invalid JSON/,'reject counterfeit FINAL');
    await page.locator('#upload').setInputFiles({name:'valid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(p))});
+   await page.waitForFunction(()=>document.getElementById('notice').textContent.includes('REVIEW JSON restored'));
    assert.match(await page.locator('#notice').innerText(),/REVIEW JSON restored/,'valid JSON roundtrip');
    await page.evaluate(()=>{window.__printed=false;window.print=()=>{window.__printed=true;}});
    await page.locator('#print').click();
