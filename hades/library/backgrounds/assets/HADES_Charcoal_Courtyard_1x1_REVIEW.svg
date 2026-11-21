@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="t d"><title id="t">HADES Charcoal Courtyard · Square architectural background · REVIEW</title><desc id="d">A square architectural scene, with a diagonal stone plane facing a recessed black courtyard and a narrow vermilion seam. No logo or pattern, no type. Neutral swatches are proposed.</desc>
+<defs>
+<linearGradient id="charcoal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#302D29"/><stop offset=".55" stop-color="#191918"/><stop offset="1" stop-color="#101111"/></linearGradient>
+<linearGradient id="plaster" x1="0" y1="0" x2="1" y2=".2"><stop stop-color="#E5D8C8"/><stop offset=".58" stop-color="#BDA994"/><stop offset="1" stop-color="#7E6959"/></linearGradient>
+<linearGradient id="shadow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#151615"/><stop offset="1" stop-color="#34322E"/></linearGradient>
+</defs>
+<rect width="1080" height="1080" fill="url(#charcoal)"/>
+<path d="M0 0H725L358 1080H0Z" fill="url(#plaster)"/>
+<path d="M725 0H798L419 1080H358Z" fill="#534B43"/>
+<path d="M798 0H1002L650 1080H419Z" fill="url(#shadow)"/>
+<path d="M1002 0H1080V1080H650Z" fill="#1A1B1A"/>
+<path d="M119 0H172L0 500V354Z" fill="#F5E9D9" opacity=".32"/>
+<path d="M349 0H388L55 1080H20Z" fill="#74685B" opacity=".65"/>
+<path d="M533 0H548L191 1080H178Z" fill="#AA9885" opacity=".38"/>
+<path d="M0 845 358 1080H0Z" fill="#65584C" opacity=".35"/>
+<path d="M705 81 399 977" stroke="#9E8C79" stroke-width="2" opacity=".65"/>
+<path d="M798 0 419 1080" stroke="#C2B4A1" stroke-width="2" opacity=".22"/>
+<path d="M735 800H1028" stroke="#75675B" stroke-width="2" opacity=".72"/>
+<rect x="735" y="797" width="49" height="5" fill="#EF4B32"/>
+<path d="M871 104 1067 104M895 133H1067" stroke="#685D50" opacity=".18"/>
+</svg>
