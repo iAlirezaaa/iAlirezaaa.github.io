@@ -30,11 +30,14 @@ jobs:
             "HADES_Mammoth_Plaster_16x9_REVIEW",
             "HADES_Basalt_Axis_9x16_REVIEW",
             "HADES_Skeletal_Slab_1x1_REVIEW",
+            "HADES_Threshold_Portico_16x9_REVIEW",
+            "HADES_Threshold_Passage_9x16_REVIEW",
+            "HADES_Threshold_Court_1x1_REVIEW",
           ]
           relative=["index.html","fa/library/backgrounds/index.html"]
           def fetch(url, expected_sha):
             last=None
-            for attempt in range(16):
+            for attempt in range(24):
               try:
                 nonce=f"?source_sha={expected_sha.hex()[:12]}&attempt={attempt}"
                 req=urllib.request.Request(url+nonce,headers={"User-Agent":"HADES-backgrounds-release-check/1.0","Cache-Control":"no-cache, no-store"})
@@ -48,11 +51,12 @@ jobs:
                   print("RETRY stale/mismatched",url,last,flush=True)
               except Exception as exc:
                 last=exc
-              time.sleep(8)
+              time.sleep(10)
             raise RuntimeError(f"Hosted fetch FAILED: {url}: {last}")
           for name in names:
-            for ext in (".svg",".png"):
+            for ext in ((".svg",".png",".jpg",".webp") if name.startswith("HADES_Threshold_") else (".svg",".png")):
               relative.append(f"library/backgrounds/assets/{name}{ext}")
+          relative.extend(["library/backgrounds/threshold-manifest.REVIEW.json","library/backgrounds/HADES_Threshold_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip"])
           for item in relative:
             site_rel="fa/library/backgrounds/index.html" if item.startswith("fa/") else item
             local=root/"hades"/item
@@ -68,8 +72,14 @@ jobs:
               assert b"#EF4B32" in remote
             if item.endswith(".png"):
               assert remote.startswith(b"\x89PNG\r\n\x1a\n") and mime.startswith("image/"),(item,mime)
+            if item.endswith(".jpg"):
+              assert remote.startswith(b"\xff\xd8") and mime.startswith("image/"),(item,mime)
+            if item.endswith(".webp"):
+              assert remote[:4]==b"RIFF" and remote[8:12]==b"WEBP" and mime.startswith("image/"),(item,mime)
+            if item.endswith(".zip"):
+              assert remote.startswith(b"PK") and mime in ("application/zip","application/octet-stream"),(item,mime)
             if item.endswith(".html"):
               assert b"REVIEW" in remote and ("text/html" in mime),(item,mime)
             print("HOSTED PASS",item,len(remote),mime,flush=True)
-          print("HADES Backgrounds hosted source-byte parity PASS 10/10; site render on device, print and owner FINAL remain open.")
+          print("HADES Backgrounds hosted source-byte parity PASS 24/24; site render on device, print and owner FINAL remain open.")
           PY

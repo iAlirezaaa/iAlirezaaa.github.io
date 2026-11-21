@@ -65,5 +65,10 @@ for (const [stem] of backgrounds.filter(([name]) => name.startsWith('HADES_Thres
   else check(a.toString('ascii',0,4)==='RIFF'&&a.toString('ascii',8,12)==='WEBP','WebP container signature '+stem)
  }
 }
+const thresholdPack='HADES_Threshold_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip'
+const zipSource=join(source,'backgrounds',thresholdPack),zipOut=join(out,'backgrounds',thresholdPack)
+check(existsSync(zipSource)&&existsSync(zipOut),'Threshold ZIP pack missing')
+check(readFileSync(zipSource).equals(readFileSync(zipOut)),'Threshold pack mirror byte drift')
+check(readFileSync(zipSource).subarray(0,2).toString('ascii')==='PK','ZIP signature missing')
 check(catalog.approved_exact_color==='#EF4B32','approved accent drift')
 console.log(`HADES Library CI PASS: ${checks} real source/pixel-file checks; 18 PNG, 18 PSD, 18 SVG; 3 packs + 1 full ZIP; 2 gallery languages`)

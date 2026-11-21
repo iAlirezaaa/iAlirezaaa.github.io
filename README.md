@@ -63,3 +63,6 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 
 ## HADES — Categorized working asset library (REVIEW)
 - [EN library](https://ialirezaaa.github.io/hades/library/) · [FA library](https://ialirezaaa.github.io/hades/fa/library/) — stationery, social, web, patterns and guides. 18 new editable source SVG + real PNG/PSD and downloadable category ZIP built/committed by GitHub Actions. Existing card, letterhead and Pattern01 retain their original pages.
+
+## Threshold architecture backgrounds · additional REVIEW source (2026-11-21)
+- 3 new editable artboards in 16:9, 9:16 and 1:1. [Bilingual gallery + pack](https://ialirezaaa.github.io/hades/library/backgrounds/), [FA](https://ialirezaaa.github.io/hades/fa/library/backgrounds/). Rendered PNG/JPEG/WebP produced from these SVG sources by the site build; *not* the earlier ImageGen 9-photo studies. All artwork REVIEW; neutral colours not approved.

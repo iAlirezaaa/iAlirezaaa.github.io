@@ -151,6 +151,17 @@ def render():
     with Image.open(target) as checked:
      check(checked.format==format and checked.size==(w,h),'background JPEG/WebP decode preflight '+name)
     check(target.stat().st_size>3000,'unexpected tiny compressed background '+name)
- print('HADES backgrounds PASS: 7 vector-to-PNG pairs + 3 JPEG and 3 WebP raster exports, all mirrored; original logo files unchanged',flush=True)
+ # Downloadable ZIP: only the three new, public SVG-derived Threshold compositions.
+ # Never include the earlier conversation-only photographic studies.
+ pack=bg_source.parent/'HADES_Threshold_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip'
+ with zipfile.ZipFile(pack,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=7) as z:
+  for item in ('HADES_Threshold_Portico_16x9_REVIEW','HADES_Threshold_Passage_9x16_REVIEW','HADES_Threshold_Court_1x1_REVIEW'):
+   for ext in ('svg','png','jpg','webp'):
+    z.write(bg_source/(item+'.'+ext),arcname='assets/'+item+'.'+ext)
+  z.write(bg_source.parent/'threshold-manifest.REVIEW.json',arcname='threshold-manifest.REVIEW.json')
+ with zipfile.ZipFile(pack) as z:
+  check(z.testzip() is None and len(z.namelist())==13,'Threshold pack ZIP integrity')
+ (bg_dist.parent/pack.name).write_bytes(pack.read_bytes())
+ print('HADES backgrounds PASS: 7 SVG/PNG mirrored pairs; Threshold 3×JPEG/WebP plus working 13-entry downloadable ZIP',flush=True)
 
 if __name__=='__main__':render()
