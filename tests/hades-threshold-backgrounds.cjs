@@ -29,7 +29,7 @@ const server=http.createServer((req,res)=>{try{
   await page.waitForFunction(()=>[...document.querySelectorAll('.tile img')].every(i=>i.complete&&i.naturalWidth>0),null,{timeout:15000});
   const result=await page.evaluate(()=>{
    const images=[...document.querySelectorAll('.tile img')],plate=document.querySelector('.logo-plate'),logo=plate?.querySelector('img');
-   return {lang:document.documentElement.lang,dir:document.documentElement.dir,tiles:images.length,
+   return {lang:document.documentElement.lang,dir:getComputedStyle(document.documentElement).direction,tiles:images.length,
     good:images.filter(x=>x.complete&&x.naturalWidth>0&&x.naturalHeight>0&&x.alt.trim()).length,
     overflow:document.documentElement.scrollWidth-innerWidth,plate:getComputedStyle(plate).backgroundColor,
     logo:!!logo&&logo.complete&&logo.naturalWidth>0,review:document.body.innerText.includes('REVIEW'),
