@@ -444,9 +444,12 @@
       "editor": "/hades/library/HADES_Email_Signature_REVIEW.html",
       "formats": [
         "HTML",
+        "SVG composition",
         "browser print / PDF"
       ],
-      "notes": "Owner-original image referenced unchanged; native email-client paste and micro-logo checks OPEN."
+      "notes": "Owner-original image referenced unchanged; native email-client paste and micro-logo checks OPEN.",
+      "svg": "/hades/library/tools/email-signature-install/guide_preview.svg",
+      "preview": "/hades/library/tools/email-signature-install/guide_preview.svg"
     }
   ]
 }
