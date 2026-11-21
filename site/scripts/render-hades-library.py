@@ -175,6 +175,28 @@ def render():
  with zipfile.ZipFile(quiet_pack) as z:
   check(z.testzip() is None and len(z.namelist())==13,'Quiet Spaces ZIP integrity')
  (bg_dist.parent/quiet_pack.name).write_bytes(quiet_pack.read_bytes())
+ # Separate logo-application plate (NOT an eleventh standalone background): render a real PNG from the fully embedded original raster sources.
+ # The embedded JPEG/PNG bytes must EXACTLY match unchanged owner originals; no crop is applied to files, only a proposed viewport.
+ contrast_name='HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW'
+ contrast_svg=bg_source/(contrast_name+'.svg')
+ contrast_bytes=contrast_svg.read_bytes()
+ check(b'REVIEW' in contrast_bytes and b'#EF4B32' in contrast_bytes,'contrast sheet REVIEW/accent missing')
+ check(b'<script' not in contrast_bytes,'contrast sheet script not permitted')
+ ET.fromstring(contrast_bytes)
+ for mime,filename in (('jpeg','B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg'),('png','IMG_7187(2).png')):
+  found=re.findall(rb'data:image/'+mime.encode()+rb';base64,([A-Za-z0-9+/=]+)',contrast_bytes)
+  check(len(found)==1,'exactly one embedded '+mime+' owner original expected')
+  actual=base64.b64decode(found[0],validate=True)
+  expected=(ROOT/'public/hades/assets'/filename).read_bytes()
+  check(actual==expected,'contrast source original mismatch '+filename)
+ contrast_png=bg_source/(contrast_name+'.png')
+ contrast_png.write_bytes(cairosvg.svg2png(bytestring=contrast_bytes,output_width=1600,output_height=900))
+ (bg_dist/(contrast_name+'.png')).write_bytes(contrast_png.read_bytes())
+ with Image.open(contrast_png) as proof:
+  proof.load()
+  check(proof.size==(1600,900) and proof.format=='PNG','contrast PNG decode/size failed')
+ check(hashlib.sha256(contrast_png.read_bytes()).digest()==hashlib.sha256((bg_dist/(contrast_name+'.png')).read_bytes()).digest(),'contrast PNG byte parity')
+ print('HADES contrast plate PASS: exact embedded JPEG/PNG source bytes, SVG XML, real 1600x900 PNG and source/dist mirror',flush=True)
  print('HADES backgrounds PASS: 10 SVG/PNG mirrored pairs; Threshold and Quiet Spaces each 3×JPEG/WebP and real downloadable ZIP',flush=True)
 
 if __name__=='__main__':render()
