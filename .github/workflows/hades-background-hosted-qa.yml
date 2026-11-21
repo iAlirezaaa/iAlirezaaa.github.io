@@ -9,6 +9,10 @@ on:
       - "site/public/hades/library/backgrounds/**"
   workflow_dispatch:
 
+concurrency:
+  group: hades-backgrounds-hosted-source-parity
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
