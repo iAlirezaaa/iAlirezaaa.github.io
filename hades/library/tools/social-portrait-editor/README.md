@@ -17,3 +17,9 @@ An additional downloadable `preview.svg` is a **sample composition**, not the of
 2. Test real Mikhak (if available and licensed), compare actual used font, evaluate HADES mark at micro scale, and approve actual text before publication on social accounts.
 
 Private GitHub has separate original-referenced social portrait REVIEW draft; don't conflate that private source with this publicly built editor. Website templates and existing asset packs are preserved.
+
+## 2026-11-21 — Portable project files (REVIEW)
+- **New:** save current editable text as `HADES_Social_Portrait_Project_REVIEW.json` and reopen it in the same editor, with strict version, dimensions, status, required-field and text-length validation. Persian/English direction is restored.
+- [Download an editable Persian example](HADES_Social_Portrait_Project_FA_REVIEW.json) and [JSON Schema](project.v1.schema.json). Schema is for project data only, **not** a brand approval, visual logo or product signature.
+- Image imports and any local fonts are never stored in JSON. Reattach licensed images manually after reopening. Local JSON remains in browser until user explicitly downloads it; no server upload, persistence, analytics or automatic publication.
+- Saved text is still REVIEW. Canvas export remains PNG-only and keeps its existing overflow and owner-original image checks. The new tool does not constitute actual Mikhak/device testing.

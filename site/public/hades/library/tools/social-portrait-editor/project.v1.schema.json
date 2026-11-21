@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HADES Social Portrait project — REVIEW",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "version",
+    "status",
+    "canvas",
+    "content"
+  ],
+  "properties": {
+    "format": {
+      "const": "HADES/social-portrait-project"
+    },
+    "version": {
+      "const": 1
+    },
+    "status": {
+      "const": "REVIEW"
+    },
+    "canvas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "const": 1080
+        },
+        "height": {
+          "const": 1350
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "category",
+        "heading",
+        "description",
+        "footer"
+      ],
+      "properties": {
+        "language": {
+          "enum": [
+            "en",
+            "fa"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 38
+        },
+        "heading": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 110
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "footer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 48
+        }
+      }
+    }
+  }
+}
