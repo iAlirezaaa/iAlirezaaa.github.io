@@ -23,3 +23,5 @@ All are original non-logo, vector-based geometric spaces with quiet negative fie
 ## Next two concrete actions
 1. Recheck rendered GitHub image/ZIP blobs in both trees and independent hosted HTTP 200 / MIME / SHA, and repair any pipeline failure.
 2. Confirm six Chromium 320/390/430px language cases, white original on independent dark plate, A4 printed microtype and valid Mikhak font only when available.
+
+**Publication gate correction 2026-11-22:** Source SVG mirrors and gallery cards are live in Git, but PNG/JPEG/WebP and ZIP remain **OPEN** until their *real* GitHub binaries are observed. Gallery intentionally does not link absent raster/ZIP. Local conversation pack is valid but not a public URL.

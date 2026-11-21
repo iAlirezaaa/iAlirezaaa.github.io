@@ -42,11 +42,14 @@ const server=http.createServer((req,res)=>{try{
   assert.equal(result.plate,'rgb(24, 22, 21)','white logo must be backed by dark plate');
   assert.equal(result.lang,locale);assert.equal(result.dir,locale==='fa'?'rtl':'ltr');
   assert.ok(result.review,'REVIEW missing');
-  for(const stem of ['HADES_Threshold_Portico_16x9_REVIEW','HADES_Threshold_Passage_9x16_REVIEW','HADES_Threshold_Court_1x1_REVIEW','HADES_Quiet_Loggia_16x9_REVIEW','HADES_Bone_Pier_9x16_REVIEW','HADES_Charcoal_Courtyard_1x1_REVIEW','HADES_Aperture_Loggia_16x9_REVIEW','HADES_Aperture_Vestibule_9x16_REVIEW','HADES_Aperture_Court_1x1_REVIEW'])
+  for(const stem of ['HADES_Threshold_Portico_16x9_REVIEW','HADES_Threshold_Passage_9x16_REVIEW','HADES_Threshold_Court_1x1_REVIEW','HADES_Quiet_Loggia_16x9_REVIEW','HADES_Bone_Pier_9x16_REVIEW','HADES_Charcoal_Courtyard_1x1_REVIEW'])
    for(const ext of ['svg','png','jpg','webp'])
     assert.ok(result.links.includes('/hades/library/backgrounds/assets/'+stem+'.'+ext),'download missing '+stem+'.'+ext);
   assert.ok(result.links.some(h=>h.endsWith('HADES_Threshold_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip')),'Threshold pack missing');
-  assert.ok(result.links.some(h=>h.endsWith('HADES_Apertures_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip')),'Apertures pack missing');
+  for(const stem of ['HADES_Aperture_Loggia_16x9_REVIEW','HADES_Aperture_Vestibule_9x16_REVIEW','HADES_Aperture_Court_1x1_REVIEW']) {
+    assert.ok(result.links.includes('/hades/library/backgrounds/assets/'+stem+'.svg'),'new vector missing '+stem);
+    for(const ext of ['png','jpg','webp']) assert.ok(!result.links.includes('/hades/library/backgrounds/assets/'+stem+'.'+ext),'raster link prematurely advertised '+stem+'.'+ext);
+  }
   assert.ok(result.links.some(h=>h.endsWith('HADES_Quiet_Spaces_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip')),'Quiet Spaces pack missing');
   assert.ok(result.links.some(h=>h.endsWith('HADES_Quiet_Spaces_Overview_1600x1000_REVIEW.svg')),'Overview editable SVG link missing');
   assert.ok(result.links.includes('/hades/library/backgrounds/assets/HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW.svg'),'Exact-original contrast application SVG link missing');
