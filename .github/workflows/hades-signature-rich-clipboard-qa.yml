@@ -1,0 +1,37 @@
+name: HADES Email Signature Rich Clipboard REVIEW QA
+on:
+  push:
+    paths:
+      - 'hades/library/HADES_Email_Signature_REVIEW.html'
+      - 'site/public/hades/library/HADES_Email_Signature_REVIEW.html'
+      - 'hades/library/tools/email-signature-install/**'
+      - 'site/public/hades/library/tools/email-signature-install/**'
+      - 'tests/hades-signature-rich-copy.cjs'
+      - '.github/workflows/hades-signature-rich-clipboard-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Install isolated browser driver
+        run: npm install --prefix /tmp/hades-signature-qa --no-save --no-package-lock playwright-core
+      - name: Verify both site mirrors, FA/EN, rich copy, PDF and 320/390/430
+        env:
+          NODE_PATH: /tmp/hades-signature-qa/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-signature-rich-copy.cjs
+      - name: Upload REVIEW evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hades-signature-rich-copy-review
+          path: hades-signature-qa-proof/
+          if-no-files-found: ignore
