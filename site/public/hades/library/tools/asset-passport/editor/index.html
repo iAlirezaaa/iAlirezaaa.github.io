@@ -1,0 +1,75 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="HADES Asset Passport: bilingual editable A4 source, permission and release handoff form. REVIEW only."><title>HADES · Live Asset Passport Editor · REVIEW</title><style>:root{--verm:#EF4B32}*{box-sizing:border-box}body{margin:0;background:#171614;color:#eee9e0;font:14px/1.8 system-ui,Tahoma,sans-serif}main{max-width:1040px;margin:auto;padding:24px 18px 70px}nav{display:flex;gap:20px;flex-wrap:wrap;border-bottom:1px solid #494139;padding-bottom:16px}a{color:inherit;text-underline-offset:3px}a:focus-visible{outline:2px solid var(--verm)}h1{font-size:clamp(25px,3.5vw,38px);font-weight:450;line-height:1.4;margin:26px 0 8px}.muted{color:#c3b9ae}.review{color:#ffa18f;letter-spacing:.09em;font-size:11px}.content{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;margin-top:24px}.paper{background:#f6f4ef;padding:8px;border-radius:3px}.paper img{display:block;width:100%;height:auto}.panel{border:1px solid #484038;padding:24px;border-radius:4px}.panel h2{font-size:16px;font-weight:500}.panel p{color:#cabfb3}.downloads{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.downloads a{border:1px solid #827466;padding:11px 16px;text-decoration:none}.downloads a:first-child{background:var(--verm);border-color:var(--verm);color:#161312}.rtl{direction:rtl;text-align:right}.warn{border-top:1px solid #494139;margin-top:24px;padding-top:18px;font-size:12px;color:#b6aea5}@media(max-width:700px){.content{grid-template-columns:1fr}.panel{padding:17px}}@media print{@page{size:A4;margin:0}body{background:white}nav,h1,.muted,.review,.panel,.warn{display:none!important}main,.content,.paper{display:block;margin:0;padding:0;max-width:none;background:white}.paper img{width:210mm;height:297mm}}
+.paper{background:#f6f4ef}.paper #editorPreview svg{display:block;width:100%;height:auto}
+.efield{display:block;margin:8px 0;font-size:11px;color:#c5b8ac}.efield input{display:block;min-height:38px;width:100%;margin-top:4px;padding:8px;background:#292520;border:1px solid #6c6054;border-radius:3px;color:#f5ede6;font:13px/1.4 Tahoma,Arial,sans-serif}
+.switches,.editor-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.switches button,.editor-actions button{border:1px solid #9a786a;color:#f1e8dc;background:#302822;border-radius:3px;padding:9px 12px;font:12px system-ui,Tahoma,sans-serif;cursor:pointer}
+.switches [aria-pressed=true],.editor-actions button:focus-visible,.switches button:focus-visible{outline:2px solid #EF4B32;outline-offset:2px}
+#editorStatus{font-size:12px;color:#f2bbaf;overflow-wrap:anywhere}
+@media(max-width:430px){.panel{padding:14px}.switches button,.editor-actions button{min-height:38px}}
+@media print{.paper #editorPreview svg{width:210mm;height:297mm}.panel,.switches,.editor-actions,#editorStatus{display:none!important}}
+</style></head><body><main><nav><a href="/hades/">HADES</a><a href="/hades/library/">EN Library</a><a href="/hades/fa/library/">کتابخانهٔ فارسی</a><a href="/hades/brand-kit/logo-usage/">Logo usage</a><a href="/hades/fa/brand-kit/logo-usage/">راهنمای لوگو</a></nav><h1>Asset Passport <span lang="fa" dir="rtl">/ شناسنامهٔ دارایی</span></h1><p class="muted">A bilingual A4 source, rights and handoff worksheet. Form fields are editable directly in SVG-compatible design applications, or printable as blank lines.</p><p class="review">REVIEW · COMPOSITION ONLY · NOT A LOGO MASTER · NO PRIVATE CUSTOMER DATA</p><div class="content"><div class="paper"><div id="editorPreview"></div></div><div class="panel"><h2>Asset Passport · editable composition / ویرایشگر شناسنامه</h2><p>Working EN/FA data sheet. Vector SVG + review-only JSON; printable A4.</p>
+<div class="switches" role="group" aria-label="Language and layout">
+<button type="button" data-editor-lang="en" aria-pressed="true">EN</button>
+<button type="button" data-editor-lang="fa" aria-pressed="false">FA / فارسی</button>
+<button type="button" data-editor-mode="classic" aria-pressed="true">Classic</button>
+<button type="button" data-editor-mode="modern" aria-pressed="false">Modern</button>
+</div>
+<div id="editorFields"></div>
+<div class="editor-actions"><button id="saveSvg" type="button">Download SVG</button><button id="saveJson" type="button">Save JSON</button><button id="openJson" type="button">Open JSON</button><button id="printEditor" type="button">Print A4</button><button id="resetEditor" type="button">Reset example</button></div>
+<input id="jsonFile" type="file" accept="application/json,.json" hidden>
+<p role="status" id="editorStatus">Ready / REVIEW</p>
+<p class="warn">No client data is transmitted. Source logos never redrawn. Imported FINAL status is rejected; checked boxes are never preauthorized. Actual Mikhak, physical print and owner signoff remain OPEN.</p></div></div><div class="warn">HADES is the realm; HADES THE THIRD is the ruler in a personal creative narrative, not a historical claim. Independent products keep their own brands. No new logo is created here.</div></main><script>(function editorRuntime(){
+"use strict";
+const $=id=>document.getElementById(id);
+const keys=["asset","assetId","maker","source","rights","purpose","reviewer","notes"];
+const max=[60,36,50,95,100,85,45,105];
+const defaults=["Sample / working artwork","REVIEW-000","HADES / example only","Owner source — verify exact file hash","Permission not granted; internal use","Internal REVIEW / test only","OPEN / not assigned","Only #EF4B32 approved; supporting colors proposed."];
+const dict={
+en:{head:"ASSET PASSPORT",sub:"SOURCE · RIGHTS · HANDOFF",sec:["01 / IDENTIFICATION","02 / PROVENANCE & RIGHTS","03 / RELEASE CHECKS","04 / HANDOFF"],fields:["Asset / deliverable","Asset identifier","Creator / custodian","Original source","Rights / permissions","Proposed use","Reviewer","Notes"],gates:["Originals checked","Rights verified","FA / EN proof","320 / 390 / 430 mobile","Print / microtype","Owner art approval"]},
+fa:{head:"شناسنامهٔ دارایی",sub:"منبع · مجوز · تحویل",sec:["۰۱ / اطلاعات دارایی","۰۲ / منبع و مجوز","۰۳ / کنترل انتشار","۰۴ / تحویل"],fields:["نام دارایی","شناسهٔ دارایی","سازنده / مسئول","منبع اصلی","حقوق و مجوز استفاده","کاربرد پیشنهادی","بازبین","یادداشت"],gates:["اصالت فایل اصلی","مجوز استفاده","بازبینی فارسی و انگلیسی","موبایل ۳۲۰ / ۳۹۰ / ۴۳۰","چاپ و خوانایی ریز","تأیید طرح مالک"]}};
+let language="en",mode="classic";
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"}[c]));
+const val=()=>keys.map(k=>$(k).value.trim());
+const tx=(str,y,size=15,color="#2a2621")=>`<text x="${language==="fa"?718:75}" y="${y}" text-anchor="${language==="fa"?"end":"start"}" direction="ltr" unicode-bidi="plaintext" font-family="Tahoma,Arial,sans-serif" font-size="${size}" fill="${color}">${esc(str)}</text>`;
+const rule=y=>`<path d="M75 ${y}H719" stroke="#b9b1a6" stroke-width="1"/>`;
+function makeSvg(){
+const d=dict[language],v=val(),line=mode==="classic"?'<path d="M75 18H719" stroke="#EF4B32" stroke-width="6"/>':'<rect width="8" height="1123" fill="#EF4B32"/>';
+const group=(k,y)=>rule(y-25)+tx(k,y,14,"#766e66");
+const rows=(arr)=>arr.map(([i,y])=>tx(d.fields[i],y,12,"#746d64")+tx(v[i]||"—",y+28,17)).join("");
+const checks=d.gates.map((s,i)=>{let col=i%2,row=Math.floor(i/2),x=75+col*328,y=817+row*31;return `<rect x="${x}" y="${y-10}" width="12" height="12" stroke="#807a72" fill="none"/><text x="${x+20}" y="${y}" font-family="Tahoma,Arial,sans-serif" font-size="12" fill="#504941">${esc(s)}</text>`}).join("");
+return `<svg xmlns="http://www.w3.org/2000/svg" xml:lang="${language}" width="210mm" height="297mm" viewBox="0 0 794 1123"><rect width="794" height="1123" fill="#f6f4ef"/>${line}${tx("HADES / DOCUMENT SYSTEM",68,12,"#625b53")}${tx("REVIEW · NOT APPROVED",96,12,"#c5432a")}${rule(113)}${tx(d.head,157,27)}${tx(d.sub,184,14,"#71695f")}${group(d.sec[0],246)}${rows([[0,276],[1,349],[2,422]])}${group(d.sec[1],527)}${rows([[3,554],[4,626],[5,699]])}${group(d.sec[2],793)}${checks}${group(d.sec[3],935)}${rows([[6,959],[7,1025]])}${rule(1079)}${tx("REVIEW · rights, print and owner approval remain OPEN",1100,11,"#625b53")}</svg>`;
+}
+function render(){
+document.querySelectorAll("[data-editor-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.editorLang===language)));
+document.querySelectorAll("[data-editor-mode]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.editorMode===mode)));
+document.querySelectorAll("[data-field-label]").forEach(x=>x.textContent=dict[language].fields[+x.dataset.fieldLabel]);
+$("editorPreview").innerHTML=makeSvg();$("editorStatus").textContent="REVIEW / live preview";
+}
+function validate(){
+const v=val(),ctx=document.createElement("canvas").getContext("2d");
+ctx.font="17px Tahoma,Arial,sans-serif";
+v.forEach((s,i)=>{if(!s||[...s].length>max[i])throw Error("Invalid field: "+keys[i]);if(ctx.measureText(s).width>610)throw Error("Text overflow: "+keys[i]);});
+return v;
+}
+function download(name,text,type){let u=URL.createObjectURL(new Blob([text],{type}));let a=document.createElement("a");a.download=name;a.href=u;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000);}
+function guard(fn){try{fn()}catch(e){$("editorStatus").textContent="OPEN / "+e.message;}}
+function importProject(p){
+if(!p||p.schema!==1||p.status!=="REVIEW"||!["en","fa"].includes(p.language)||!["classic","modern"].includes(p.mode)||!Array.isArray(p.fields)||p.fields.length!==8)throw Error("Invalid REVIEW-only JSON");
+const previous={language,mode,fields:val()};
+try{
+p.fields.forEach((s,i)=>{if(typeof s!=="string"||!s.trim()||[...s].length>max[i])throw Error("Invalid "+keys[i]);$(keys[i]).value=s;});
+language=p.language;mode=p.mode;validate();render();
+}catch(e){previous.fields.forEach((s,i)=>$(keys[i]).value=s);language=previous.language;mode=previous.mode;render();throw e;}
+}
+$("editorFields").innerHTML=keys.map((k,i)=>`<label class="efield"><span data-field-label="${i}">${dict.en.fields[i]}</span><input type="text" id="${k}" dir="auto" maxlength="${max[i]}" value="${esc(defaults[i])}" autocomplete="off"></label>`).join("");
+keys.forEach(k=>$(k).addEventListener("input",render));
+document.querySelectorAll("[data-editor-lang]").forEach(b=>b.onclick=()=>{language=b.dataset.editorLang;render()});
+document.querySelectorAll("[data-editor-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.editorMode;render()});
+$("saveSvg").onclick=()=>guard(()=>{validate();const xml=makeSvg();if(new DOMParser().parseFromString(xml,"image/svg+xml").querySelector("parsererror"))throw Error("SVG XML error");download("HADES_Asset_Passport_"+language+"_"+mode+"_REVIEW.svg",xml,"image/svg+xml;charset=utf-8");});
+$("saveJson").onclick=()=>guard(()=>download("HADES_Asset_Passport_REVIEW.json",JSON.stringify({schema:1,status:"REVIEW",language,mode,fields:validate()},null,2),"application/json"));
+$("openJson").onclick=()=>$("jsonFile").click();
+$("jsonFile").onchange=async e=>{try{let f=e.target.files[0];if(!f)return;if(f.size>30000)throw Error("JSON over 30KB");importProject(JSON.parse(await f.text()));$("editorStatus").textContent="REVIEW JSON imported";}catch(err){$("editorStatus").textContent="OPEN / "+err.message}e.target.value="";};
+$("printEditor").onclick=()=>guard(()=>{validate();window.print()});
+$("resetEditor").onclick=()=>{keys.forEach((k,i)=>$(k).value=defaults[i]);language="en";mode="classic";render()};
+render();window.HADESPassportTest={makeSvg,validate,importProject,val};
+})();</script></body></html>
