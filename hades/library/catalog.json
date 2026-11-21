@@ -537,6 +537,23 @@
         "guarded REVIEW JSON"
       ],
       "notes": "Proposed neutral swatches/font, no logo/creator credit, Mikhak and native NLE import OPEN."
+    },
+    {
+      "id": "recognition-ledger",
+      "cat": "guides",
+      "en": "Creator recognition & separate jury cards · FA/EN",
+      "fa": "کارت‌های مستقل افتخار و داوری · فارسی/انگلیسی",
+      "preview": "/hades/library/tools/recognition-ledger/HADES_Recognition_Award_Classic_EN_REVIEW.svg",
+      "page": "/hades/library/tools/recognition-ledger/",
+      "existing": true,
+      "status": "REVIEW",
+      "formats": [
+        "editable HTML",
+        "SVG Classic EN and Modern FA",
+        "JSON export",
+        "A4 landscape print / PDF"
+      ],
+      "notes": "Public placeholder templates only. The owner confirms both contest win and judging a DIFFERENT section, but official category, year, ranking and documentation remain unverified; no source claim, medal or official certificate is published. Only #EF4B32 approved; neutral colors and fonts proposed."
     }
   ]
 }
