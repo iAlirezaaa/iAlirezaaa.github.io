@@ -9,7 +9,7 @@ on:
       - ".github/workflows/hades-proforma-qa.yml"
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   mobile-browser:
     runs-on: ubuntu-24.04
@@ -29,6 +29,27 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/hades-http.log 2>&1 &
           sleep 2
           node site/scripts/qa-hades-proforma.mjs
+      - name: Publish verified sample PDF and mobile preview to both site paths
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          STEM="library/tools/a4-proforma-invoice"
+          mkdir -p "hades/$STEM" "site/public/hades/$STEM"
+          for ROOT in hades site/public/hades; do
+            cp artifacts/hades-proforma/A4_Proforma_Chromium_REVIEW.pdf "$ROOT/$STEM/HADES_A4_Proforma_Sample_PUBLIC_REVIEW.pdf"
+            cp artifacts/hades-proforma/mobile-390-pages.png "$ROOT/$STEM/HADES_A4_Proforma_390px_Actual_Chromium_PUBLIC_REVIEW.png"
+          done
+          cmp "hades/$STEM/HADES_A4_Proforma_Sample_PUBLIC_REVIEW.pdf" "site/public/hades/$STEM/HADES_A4_Proforma_Sample_PUBLIC_REVIEW.pdf"
+          cmp "hades/$STEM/HADES_A4_Proforma_390px_Actual_Chromium_PUBLIC_REVIEW.png" "site/public/hades/$STEM/HADES_A4_Proforma_390px_Actual_Chromium_PUBLIC_REVIEW.png"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "hades/$STEM" "site/public/hades/$STEM"
+          if git diff --cached --quiet; then echo "Sample already synced"; exit 0; fi
+          git commit -m "Publish source-tested HADES A4 pro forma PDF and Chromium PNG REVIEW"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
       - name: Retain actual screenshots and PDF
         if: always()
         uses: actions/upload-artifact@v4
