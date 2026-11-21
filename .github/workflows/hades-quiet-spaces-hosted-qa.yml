@@ -40,8 +40,11 @@ jobs:
             'HADES_Charcoal_Courtyard_1x1_REVIEW.svg',
           )
           rel = ['library/backgrounds/assets/' + n for n in names]
+          rel += ['library/backgrounds/assets/' + n[:-4] + ext for n in names for ext in ('.png', '.jpg', '.webp')]
           rel += [
             'library/backgrounds/quiet-spaces-manifest.REVIEW.json',
+            'library/backgrounds/HADES_Quiet_Spaces_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip',
+            'library/backgrounds/HADES_Quiet_Spaces_Overview_1600x1000_REVIEW.svg',
             'library/backgrounds/index.html',
             'fa/library/backgrounds/index.html',
             'library/index.html',
@@ -71,6 +74,14 @@ jobs:
                     assert b'#EF4B32' in body and 'image/svg+xml' in content_type
                   elif item.endswith('.json'):
                     assert json.loads(body) and 'json' in content_type
+                  elif item.endswith('.png'):
+                    assert body[:8] == b'\x89PNG\r\n\x1a\n' and 'image/png' in content_type
+                  elif item.endswith('.jpg'):
+                    assert body[:2] == b'\xff\xd8' and body[-2:] == b'\xff\xd9' and 'image/jpeg' in content_type
+                  elif item.endswith('.webp'):
+                    assert body[:4] == b'RIFF' and body[8:12] == b'WEBP' and 'image/webp' in content_type
+                  elif item.endswith('.zip'):
+                    assert body[:2] == b'PK' and content_type.startswith(('application/zip','application/octet-stream'))
                   else:
                     assert b'REVIEW' in body and 'text/html' in content_type
                   print('LIVE-HTTPS-200-PASS',item,len(body),content_type,flush=True)
@@ -82,5 +93,5 @@ jobs:
                 time.sleep(10)
             if failure:
               raise AssertionError('Hosted LIVE RELEASE OPEN: '+item+': '+failure)
-          print('QUIET SPACES LIVE HTTPS PASS 9/9 source-exact paths; native phone, print, Mikhak, owner FINAL still OPEN.')
+          print('QUIET SPACES LIVE HTTPS PASS 20/20 source-exact paths; native phone, print, Mikhak, owner FINAL still OPEN.')
           PY
