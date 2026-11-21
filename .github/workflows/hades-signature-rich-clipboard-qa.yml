@@ -35,3 +35,45 @@ jobs:
           name: hades-signature-rich-copy-review
           path: hades-signature-qa-proof/
           if-no-files-found: ignore
+  deployed-https:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independently GET actually deployed GitHub Pages bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p hades-signature-live-http-proof
+          for asset in \
+            "library/HADES_Email_Signature_REVIEW.html" \
+            "library/tools/email-signature-install/" \
+            "library/index.html" \
+            "fa/library/index.html" \
+            "brand-kit/logo-usage/index.html" \
+            "fa/brand-kit/logo-usage/index.html"; do
+            src="hades/${asset}"
+            if [[ "${asset}" == */ ]]; then src="hades/${asset}index.html"; fi
+            file="hades-signature-live-http-proof/$(echo "${asset}" | tr '/' '_').http"
+            ok=0
+            for try in $(seq 1 32); do
+              if curl -fsSL --max-time 20 --globoff "https://ialirezaaa.github.io/hades/${asset}" -o "${file}"; then
+                if cmp -s "${src}" "${file}"; then ok=1; break; fi
+              fi
+              sleep 15
+            done
+            if [[ "${ok}" != 1 ]]; then
+              echo "::error::Deployed HTTP missing or stale: ${asset}"; exit 1
+            fi
+            echo "HTTPS PASS + BYTE EQUAL: ${asset}" | tee -a hades-signature-live-http-proof/receipts.txt
+          done
+          for asset in library/HADES_Email_Signature_REVIEW.html library/tools/email-signature-install/; do
+            curl -sSI --max-time 20 --globoff "https://ialirezaaa.github.io/hades/${asset}" | grep -i '^content-type:' || true
+          done
+      - name: Upload live independent HTTP receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hades-signature-deployed-https-review
+          path: hades-signature-live-http-proof/
+          if-no-files-found: ignore
