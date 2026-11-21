@@ -1,0 +1,60 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { pathToFileURL } = require('node:url');
+const { chromium } = require('playwright-core');
+(async () => {
+ const browser = await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',args:['--no-sandbox']});
+ const out=path.resolve('hades-case-study-editor-qa-proof'); fs.mkdirSync(out,{recursive:true});
+ const mirrors=['hades/library/tools/case-study-slide/editor/index.html','site/public/hades/library/tools/case-study-slide/editor/index.html'];
+ const manifest=[]; let count=0;
+ try {
+ for(const mirror of mirrors)for(const width of [320,390,430]){
+   const prefix=(mirror.startsWith('site')?'source':'pages')+'-'+width;
+   const context=await browser.newContext({viewport:{width,height:800},acceptDownloads:true});
+   const page=await context.newPage(); const errors=[]; page.on('pageerror',e=>errors.push(e.message));
+   await page.goto(pathToFileURL(path.resolve(mirror)).href,{waitUntil:'load'});
+   await page.locator('#preview svg').waitFor();
+   assert.equal(await page.locator('#state').evaluate(e=>e.classList.contains('bad')),false,'initial render');
+   assert.equal(await page.locator('#preview svg').getAttribute('viewBox'),'0 0 1920 1080');
+   const scroll=await page.evaluate(()=>({sw:document.documentElement.scrollWidth,cw:document.documentElement.clientWidth}));
+   assert.ok(scroll.sw<=scroll.cw+1,'Horizontal overflow '+mirror+' '+width+': '+JSON.stringify(scroll));
+   await page.locator('#project').fill('Project sample 2026');
+   assert.ok((await page.locator('#preview svg').innerText()).includes('Project sample 2026'),'EN live editing');
+   const [svgDownload]=await Promise.all([page.waitForEvent('download'),page.locator('#exportSvg').click()]);
+   const svgPath=path.join(out,prefix+'-EN.svg');
+   await svgDownload.saveAs(svgPath); const svg=fs.readFileSync(svgPath,'utf8');
+   assert.ok(svg.includes('Project sample 2026')&&svg.includes('REVIEW / NOT APPROVED FOR RELEASE'),'actual exported EN SVG');
+   assert.ok(/id="creditText"[^>]*opacity="0"/.test(svg),'author credit OFF');
+   const [jsonDownload]=await Promise.all([page.waitForEvent('download'),page.locator('#saveJson').click()]);
+   const jsonPath=path.join(out,prefix+'.json');
+   await jsonDownload.saveAs(jsonPath);
+   const valid=JSON.parse(fs.readFileSync(jsonPath,'utf8'));assert.equal(valid.status,'REVIEW');assert.equal(valid.credit,'DISABLED');
+   await page.locator('#lang').selectOption('fa');
+   assert.equal(await page.locator('#state').evaluate(e=>e.classList.contains('bad')),false,'FA render');
+   await page.locator('#project').fill('نمونهٔ فارسی پروژه');
+   assert.ok((await page.locator('#preview svg').innerText()).includes('نمونهٔ فارسی پروژه'),'FA editing');
+   const [faDownload]=await Promise.all([page.waitForEvent('download'),page.locator('#exportSvg').click()]);
+   const faPath=path.join(out,prefix+'-FA.svg');
+   await faDownload.saveAs(faPath);
+   assert.ok(fs.readFileSync(faPath,'utf8').includes('نمونهٔ فارسی پروژه'),'FA exported');
+   const forged=Object.assign({},valid,{status:'FINAL'}); 
+   await page.locator('#importJson').setInputFiles({name:'forged.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(forged))});
+   assert.match(await page.locator('#state').innerText(),/Import refused/,'reject forged FINAL');
+   await page.locator('#importJson').setInputFiles({name:'valid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(valid))});
+   assert.match(await page.locator('#state').innerText(),/Ready/,'restore EN project');
+   assert.equal(await page.locator('#lang').inputValue(),'en');
+   await page.locator('#project').fill('This extremely long project headline '+('overflow '.repeat(35)));
+   assert.equal(await page.locator('#exportSvg').isDisabled(),true,'fail-closed overflow');
+   await page.locator('#project').fill('Project sample 2026');
+   await page.locator('#lang').selectOption('fa');
+   await page.screenshot({path:path.join(out,prefix+'-REVIEW.png'),fullPage:true});
+   assert.deepEqual(errors,[],'no browser JS errors');
+   manifest.push({mirror,width,cssOverflow:scroll,svgEN:path.basename(svgPath),svgFA:path.basename(faPath),savedJSON:path.basename(jsonPath),assertions:'PASS'});
+   count++;await context.close();
+ }
+ assert.equal(count,6);
+ fs.writeFileSync(path.join(out,'QA.json'),JSON.stringify({status:'PASS',cases:count,results:manifest,open:['native hardware','Mikhak certified rendering','owner signoff','physical print','live public HTTPS']},null,2));
+ console.log('CHROMIUM CASE STUDY EDITOR 6/6 PASS; SVG EN/FA + JSON roundtrip + forged FINAL rejected + overflow fail-closed');
+ }finally{await browser.close();}
+})().catch(err=>{console.error(err);process.exitCode=1});
