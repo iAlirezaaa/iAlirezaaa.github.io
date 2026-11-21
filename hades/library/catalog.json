@@ -505,6 +505,22 @@
       ],
       "notes": "No logo redrawn; all checks blank, no approval implied; fallback typography and neutral swatches proposed. Live FA/EN editor with Classic/Modern composition, editable A4 SVG, guarded JSON and print layout; native devices, Mikhak and signoff OPEN.",
       "editor": "/hades/library/tools/asset-passport/editor/"
+    },
+    {
+      "id": "original-logo-scale-preflight",
+      "cat": "guides",
+      "en": "Original owner logo scale preflight · FA/EN",
+      "fa": "آزمون مقیاس لوگوی اصلی · فارسی/انگلیسی",
+      "preview": "/hades/assets/IMG_7187(2).png",
+      "page": "/hades/brand-kit/logo-usage/preflight/",
+      "status": "REVIEW",
+      "existing": true,
+      "formats": [
+        "Interactive HTML",
+        "A4 print",
+        "REVIEW JSON"
+      ],
+      "notes": "Unmodified original public PNG/JPEG only; 48/96px and 14/25mm are comparison samples, not minimum approved dimensions. Rights/device/Mikhak/physical print/owner signoff OPEN."
     }
   ]
 }
