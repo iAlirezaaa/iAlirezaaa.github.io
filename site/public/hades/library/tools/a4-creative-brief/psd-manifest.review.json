@@ -1,0 +1,32 @@
+{
+  "status": "REVIEW",
+  "file": "HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd",
+  "source_png": "HADES_A4_Creative_Brief_FA_Example_300dpi_REVIEW.png",
+  "source_png_sha256": "ea0ec218ff67953e5734f94da95f96228f4ea0835c65117efa4568b139ecae36",
+  "psd_sha256": "28858b56976d9c7d9571689780c191cbcc724acb682316f02b0e39480fd0246d",
+  "psd_bytes": 2193655,
+  "width": 2479,
+  "height": 3508,
+  "layer_count": 9,
+  "layers": [
+    "08 Footer REVIEW label (raster)",
+    "07 Next action (raster)",
+    "06 Constraints and decisions (raster)",
+    "05 Deliverables (raster)",
+    "04 Audience and context (raster)",
+    "03 Purpose and outcome (raster)",
+    "02 Project title and vermilion rule (raster)",
+    "01 Original logo and identity header (raster)",
+    "00 Proposed paper base (raster)"
+  ],
+  "exact_pixel_composite_parity": true,
+  "source_logo": "unchanged embedded source PNG pixels; not vectorized",
+  "limits": [
+    "raster text; edit text in existing HTML editor",
+    "supporting palette proposed",
+    "Mikhak genuine font/render OPEN",
+    "micro-logo readability OPEN",
+    "physical A4 printer and owner signoff OPEN",
+    "not FINAL"
+  ]
+}
