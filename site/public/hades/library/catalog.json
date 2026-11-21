@@ -433,6 +433,20 @@
       ],
       "pdf": "/hades/library/tools/a4-proforma-invoice/HADES_A4_Proforma_Sample_PUBLIC_REVIEW.pdf",
       "png": "/hades/library/tools/a4-proforma-invoice/HADES_A4_Proforma_390px_Actual_Chromium_PUBLIC_REVIEW.png"
+    },
+    {
+      "id": "email-signature-deployment",
+      "category": "web",
+      "status": "REVIEW",
+      "en": "Email signature rich clipboard & Gmail/Outlook deployment",
+      "fa": "امضای ایمیل: کپی قالب‌بندی‌شده و نصب Gmail/Outlook",
+      "page": "/hades/library/tools/email-signature-install/",
+      "editor": "/hades/library/HADES_Email_Signature_REVIEW.html",
+      "formats": [
+        "HTML",
+        "browser print / PDF"
+      ],
+      "notes": "Owner-original image referenced unchanged; native email-client paste and micro-logo checks OPEN."
     }
   ]
 }
