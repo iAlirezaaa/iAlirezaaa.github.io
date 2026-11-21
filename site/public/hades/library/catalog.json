@@ -28,6 +28,21 @@
   },
   "items": [
     {
+      "id": "a4-formal-letter-editor",
+      "cat": "stationery",
+      "en": "A4 formal letter — bilingual editor",
+      "fa": "ویرایشگر نامهٔ رسمی A4 فارسی/انگلیسی",
+      "preview": "/hades/brand-kit/letterhead/HADES_Letterhead_Light_300dpi_REVIEW.png",
+      "page": "/hades/brand-kit/letterhead/a4-letter-editor/",
+      "existing": true,
+      "status": "REVIEW",
+      "formats": [
+        "HTML",
+        "PDF via print",
+        "JSON"
+      ]
+    },
+    {
       "id": "logo-use-guide",
       "cat": "guides",
       "en": "Logo usage — original mark rules",
