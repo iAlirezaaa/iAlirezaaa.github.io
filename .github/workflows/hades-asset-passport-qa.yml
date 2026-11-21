@@ -6,6 +6,7 @@ on:
       - 'hades/library/tools/asset-passport/**'
       - 'site/public/hades/library/tools/asset-passport/**'
       - 'tests/hades-asset-passport.cjs'
+      - 'tests/hades-asset-passport-editor.cjs'
       - '.github/workflows/hades-asset-passport-qa.yml'
   workflow_dispatch:
 permissions:
@@ -25,12 +26,16 @@ jobs:
         env:
           NODE_PATH: /tmp/hades-asset-passport-qa/node_modules
           CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
-        run: node tests/hades-asset-passport.cjs
+        run: |
+          node tests/hades-asset-passport.cjs
+          node tests/hades-asset-passport-editor.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: HADES-asset-passport-browser-REVIEW
-          path: hades-asset-passport-proof/
+          path: |
+            hades-asset-passport-proof/
+            hades-asset-passport-editor-proof/
           if-no-files-found: warn
   hosted:
     runs-on: ubuntu-latest
@@ -45,6 +50,7 @@ jobs:
           import hashlib,time
           files=[
             'library/tools/asset-passport/index.html',
+            'library/tools/asset-passport/editor/index.html',
             'library/tools/asset-passport/HADES_Asset_Passport_Bilingual_A4_REVIEW.svg',
             'library/index.html',
             'fa/library/index.html',
@@ -72,5 +78,5 @@ jobs:
               except Exception:
                 if attempt==23:raise
                 time.sleep(9)
-          print('HADES ASSET PASSPORT LIVE HTTPS 7/7 PASS',flush=True)
+          print('HADES ASSET PASSPORT LIVE HTTPS 8/8 PASS',flush=True)
           PY
