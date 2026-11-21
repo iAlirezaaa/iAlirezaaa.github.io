@@ -1,0 +1,38 @@
+name: HADES email signature browser QA (REVIEW)
+on:
+  push:
+    branches: [main]
+    paths:
+      - "hades/library/HADES_Email_Signature_REVIEW.html"
+      - "site/public/hades/library/HADES_Email_Signature_REVIEW.html"
+      - "site/scripts/qa-hades-signature.mjs"
+      - ".github/workflows/hades-signature-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install isolated Playwright
+        working-directory: site
+        run: npm install --no-save --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        working-directory: site
+        run: npx playwright install --with-deps chromium
+      - name: Test mirrored HTML in real browser
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/hades-signature-http.log 2>&1 &
+          sleep 2
+          node site/scripts/qa-hades-signature.mjs
+      - name: Retain 6 screenshots and emitted HTML/JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hades-email-signature-chromium-REVIEW
+          path: artifacts/hades-signature/
+          if-no-files-found: warn
