@@ -1,0 +1,65 @@
+name: HADES unchanged logo scale REVIEW browser and live QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/brand-kit/logo-usage/preflight/**'
+      - 'site/public/hades/brand-kit/logo-usage/preflight/**'
+      - 'tests/hades-logo-preflight.cjs'
+      - '.github/workflows/hades-logo-preflight-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - run: npm install --prefix /tmp/hades-logo-preflight-qa --no-save --no-package-lock playwright-core
+      - name: Real mirrored Chromium mobile and A4 print proof
+        env:
+          NODE_PATH: /tmp/hades-logo-preflight-qa/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-logo-preflight.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-logo-preflight-proof-REVIEW
+          path: hades-logo-preflight-proof/
+          if-no-files-found: warn
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare deployed public HTTPS bytes with mirrored source
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import time,hashlib
+          files=['brand-kit/logo-usage/preflight/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','index.html','fa/index.html','library/catalog.json']
+          for name in files:
+            a=(Path('hades')/name).read_bytes()
+            assert a==(Path('site/public/hades')/name).read_bytes(),'mirror mismatch: '+name
+            expected=hashlib.sha256(a).hexdigest()
+            url='https://ialirezaaa.github.io/hades/'+name
+            if url.endswith('index.html'):url=url[:-10]
+            for attempt in range(24):
+              try:
+                with urlopen(Request(url,headers={'User-Agent':'HADES-REVIEW-Preflight-QA','Cache-Control':'no-cache','Accept-Encoding':'identity'}),timeout=15) as res:
+                  body,status,ctype=res.read(),res.status,res.headers.get('Content-Type','')
+                assert status==200,(url,status)
+                assert expected==hashlib.sha256(body).hexdigest(),(url,'SHA mismatch')
+                assert ('html' in ctype if name.endswith('.html') else 'json' in ctype),(url,ctype)
+                print('PUBLIC HTTPS PASS',url,len(body),flush=True);break
+              except Exception:
+                if attempt==23:raise
+                time.sleep(9)
+          print('HADES LOGO PREFLIGHT LIVE 8/8 PASS',flush=True)
+          PY
