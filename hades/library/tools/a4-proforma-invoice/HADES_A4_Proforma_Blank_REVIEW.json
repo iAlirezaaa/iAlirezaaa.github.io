@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "status": "REVIEW",
+  "kind": "hades-proforma-a4",
+  "language": "fa",
+  "fields": {
+    "currency": "",
+    "number": "",
+    "date": "",
+    "recipient": "",
+    "subject": "",
+    "notes": "",
+    "tax": ""
+  },
+  "items": [
+    {
+      "desc": "",
+      "qty": "1",
+      "unit": ""
+    }
+  ]
+}

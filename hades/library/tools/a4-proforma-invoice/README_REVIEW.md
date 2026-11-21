@@ -1,15 +1,11 @@
-# HADES / A4 Pro Forma · SVG source (REVIEW)
+# HADES bilingual pro forma / REVIEW — 2026-11-21
 
-A new **bilingual pro forma / invoice layout specimen** for A4 (210 × 297 mm), made with normal editable SVG text and fine ruling, not a new logo. Open the SVG in a browser, Inkscape or another SVG editor. Replace all placeholders before any internal review use; this is **not** an approved tax invoice or legal master.
+[Open the HTML editor](index.html), [view SVG composition](HADES_A4_Proforma_Editable_REVIEW.svg), [download blank JSON project](HADES_A4_Proforma_Blank_REVIEW.json).
 
-- EN/FA heading, editable item rows and subtotals are **static placeholders**, not an accounting calculator.
-- `<image>` references the **unaltered public owner original** `/hades/assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg` (53 SVG units ≈ 14 mm). For offline use download the raster separately and relink it without modification. Do **not** trace, redraw, recolor or substitute it.
-- 14 mm original emblem and its micro lettering are **not** certified legible on a physical print.
-- Signature accent `#EF4B32` approved. Supporting neutrals, fonts, exact layout, all document fields and other decisions are **proposals**.
-- No real client, amounts, dates, legal/tax rates, payment account or invented approval are included.
-- Pattern01 public REVIEW; Pattern02 private REVIEW; Pattern03 on hold. SkyVision retains independent identity.
-- QA: current hosted source and release copy have identical Git blob SHA. **Live HTTP, actual Mikhak, physical printer and owner signoff: OPEN**.
+Editable FA/EN A4 pro forma with five rows, live arithmetic, optional user-specified tax, JSON save/import and A4 browser print. Real client names and tax figures are not supplied. Data is session-only; nothing is uploaded to a backend. JSON refuses FINAL status.
 
-Source download: [editable A4 SVG](HADES_A4_Proforma_Editable_REVIEW.svg).
+**Original logo:** references only the public unmodified `B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg` raster, source SHA-256 `c2189cba968543ed9e86389660d79cd1f031ad87be00eaa65d3b57f8ac0b6d2d`. WebCrypto verifies the fetched bytes; offline users can choose the same original JPEG (230704 bytes) without publishing it. Printing is blocked if source authentication fails. This is not a new vector logo. Micro emblem detail at ~14 mm is not physically certified.
 
-An offline, interactive HTML invoice prototype with working calculations and JSON handling was independently tested in Chromium during this run; it has **not** been committed to the public site, and is not claimed as hosted.
+Supporting colors, layout and typography remain proposed; only Classic/Modern + #EF4B32 confirmed. Not an approved invoice, contract, tax or print master. No private review assets or customer details published.
+
+**QA:** source is duplicated byte-identically under `hades/` and `site/public/hades/`; release readback required. Browser 320/390/430, actual WebCrypto, real printable A4 PDF, Persian glyph/font, physical print and owner signoff are OPEN pending executed evidence; prior-run prototype screenshots are NOT proof for this new committed HTML.

@@ -410,12 +410,20 @@
     {
       "id": "a4-proforma-svg",
       "cat": "stationery",
-      "en": "Bilingual A4 pro forma — editable SVG",
-      "fa": "پیش‌فاکتور A4 دوزبانه — SVG قابل‌ویرایش",
+      "en": "A4 pro forma — bilingual HTML editor and SVG",
+      "fa": "پیش‌فاکتور A4 — ویرایشگر دوزبانه و SVG",
       "preview": "/hades/brand-kit/letterhead/HADES_Letterhead_Contact_Sheet_REVIEW.png",
-      "page": "/hades/library/tools/a4-proforma-invoice/HADES_A4_Proforma_Editable_REVIEW.svg",
+      "page": "/hades/library/tools/a4-proforma-invoice/",
       "existing": true,
-      "status": "REVIEW"
+      "status": "REVIEW",
+      "svg": "/hades/library/tools/a4-proforma-invoice/HADES_A4_Proforma_Editable_REVIEW.svg",
+      "json": "/hades/library/tools/a4-proforma-invoice/HADES_A4_Proforma_Blank_REVIEW.json",
+      "formats": [
+        "HTML",
+        "SVG composition",
+        "JSON",
+        "browser PDF"
+      ]
     }
   ]
 }
