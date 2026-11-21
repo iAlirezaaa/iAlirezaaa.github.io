@@ -1,0 +1,80 @@
+name: Build original portfolio into branch Pages root
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/static-publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: static-portfolio-root
+  cancel-in-progress: false
+
+jobs:
+  build-and-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout public site
+        uses: actions/checkout@v4
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Install dependencies
+        working-directory: site
+        run: npm ci
+      - name: Build original React/Vite design
+        working-directory: site
+        run: npm run build
+      - name: Check original application
+        working-directory: site
+        run: npm run lint
+      - name: Create route entry points
+        working-directory: site
+        run: node scripts/postbuild.mjs
+      - name: Verify bilingual pages and profile metadata
+        working-directory: site
+        run: node scripts/validate-site.mjs
+      - name: Validate HADES public download links and original asset hashes
+        working-directory: site
+        run: node scripts/validate-hades.mjs
+      - name: Install HADES pattern renderer
+        run: |
+          python3 -m pip install --user pillow cairosvg
+          if ! command -v magick >/dev/null && ! command -v convert >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y imagemagick
+          fi
+      - name: Render pinned HADES pattern source into PNG / PSD / ZIP
+        run: python3 site/scripts/render-hades-pattern-review.py
+      - name: Render HADES editable business card PNG PSD ZIP from original source
+        run: python3 site/scripts/render-hades-business-card.py
+      - name: Generate HADES A4 letterhead SVG PNG layered PSD ZIP from approved original source
+        run: python3 site/scripts/render-hades-letterhead.py
+      - name: Render categorized HADES working library PNG PSD and ZIP from SVG source
+        run: python3 site/scripts/render-hades-library.py
+      - name: QA HADES categorized gallery and generated PNG PSD ZIP files
+        run: node site/scripts/validate-hades-library.mjs
+      - name: Copy built app into existing Pages branch root
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf index.html 404.html assets about work systems contact fa sitemap.xml robots.txt
+          cp -a site/dist/. .
+          touch .nojekyll
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- index.html 404.html assets about work systems contact fa hades sitemap.xml robots.txt .nojekyll googleb94d773f21def0ef.html
+          if git diff --cached --quiet; then
+            echo "Generated output already matches the repository."
+            exit 0
+          fi
+          git commit -m "Publish compiled original Hades III portfolio"
+          git push origin HEAD:main

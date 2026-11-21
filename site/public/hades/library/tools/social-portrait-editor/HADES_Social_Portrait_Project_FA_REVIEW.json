@@ -1,0 +1,16 @@
+{
+  "format": "HADES/social-portrait-project",
+  "version": 1,
+  "status": "REVIEW",
+  "canvas": {
+    "width": 1080,
+    "height": 1350
+  },
+  "content": {
+    "language": "fa",
+    "category": "یادداشت پروژه",
+    "heading": "عنوان پروژه",
+    "description": "متن نمونه برای معرفی پروژهٔ متعلق به هادس. پیش از انتشار، اطلاعات را بررسی کنید.",
+    "footer": "هادس — نسخهٔ بازبینی"
+  }
+}

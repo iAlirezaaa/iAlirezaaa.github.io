@@ -1,0 +1,61 @@
+name: Build and deploy original Hades III portfolio
+on:
+  push:
+    branches: [main, feat/contact-official-social-directory-2026-11-17]
+    paths:
+      - "site/**"
+      - ".github/workflows/portfolio.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "portfolio-pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Install original dependencies
+        working-directory: site
+        run: npm ci
+      - name: Build original portfolio
+        working-directory: site
+        run: npm run build
+      - name: Lint portfolio
+        working-directory: site
+        run: npm run lint
+      - name: Generate direct route HTML files
+        working-directory: site
+        run: node scripts/postbuild.mjs
+      - name: Verify bilingual pages, sitemap and profile metadata
+        working-directory: site
+        run: node scripts/validate-site.mjs
+      - name: Upload production website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/dist
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy portfolio
+        id: deployment
+        uses: actions/deploy-pages@v4
