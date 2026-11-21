@@ -12,6 +12,13 @@ Two distinct, independent-project-first editable SVG cover compositions, 1920×1
 ## Local QA, 2026-11-21
 
 - SVG XML parsed; both files rendered with actual Inkscape, original viewBox 1920×1080. A Persian text-anchor/direction overflow issue was caught and fixed before publishing.
-- Gallery DOM checked via Chromium `set_content` with inline SVG data URLs at 320, 390, 430 CSS px: no horizontal scrolling and both images loaded. Network navigation was blocked in the local sandbox; this is not an exact public HTTP test. Source/published Git blob matching must be recorded after publication.
-- **OPEN:** native Android/iOS view, licensed/available Mikhak actual glyph rendering, physical print, licensed/rights signoff and final client wording, post-deployment live HTTPS byte parity.
+- Gallery DOM checked via Chromium `set_content` with inline SVG data URLs at 320, 390, 430 CSS px: no horizontal scrolling and both images loaded. Network navigation was blocked in the local sandbox; this is not an exact public HTTP test. Source/published Git blob parity passed for nine mirror pairs.
+- **OPEN:** native Android/iOS view, licensed/available Mikhak actual glyph rendering, physical print, licensed/rights signoff and final client wording, native-device and print certification.
 - State: **REVIEW, not FINAL**. Pattern01 public REVIEW; Pattern02 PRIVATE REVIEW; Pattern03 STOPPED.
+
+## Deployment receipts — 2026-11-21
+
+- 9/9 Git source tree mirror blob pairs fetched back and matched, including the four core files of this kit.
+- **Chromium source test 6/6 PASS:** both served mirror paths × 320/390/430 viewport, loaded SVG images, no horizontal overflow, actual SVG file download bytes match originals; [successful GitHub Actions run 44904859563](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/runs/44904859563). An initial failed run 44904760673 used `file://`, where Chrome ignored the download event; the test was repaired to use real local HTTP.
+- **Independent live Pages HTTPS 8/8 PASS:** actual HTTP 200 GET, correct MIME and SHA-256 byte parity from `https://ialirezaaa.github.io` for gallery, SVGs, README, both library languages and both logo guides; [same independently executed run](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/runs/44904859563). This is not inferred from a commit or Pages build.
+- **OPEN**: real mobile devices, actual Mikhak, projector/microtype, physical print and client-owner final approval.
