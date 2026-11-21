@@ -51,6 +51,7 @@ jobs:
             'library/tools/presentation-covers/HADES_Presentation_Cover_Classic_EN_REVIEW.svg',
             'library/tools/presentation-covers/HADES_Presentation_Cover_Modern_FA_REVIEW.svg',
             'library/tools/presentation-covers/README_REVIEW.md',
+            'library/tools/presentation-covers/QA_PUBLIC_REVIEW.md',
             'library/index.html',
             'fa/library/index.html',
             'brand-kit/logo-usage/index.html',
@@ -74,5 +75,5 @@ jobs:
               except (HTTPError,URLError,TimeoutError,AssertionError) as e:
                 if attempt==17: raise RuntimeError(f'LIVE OPEN: {url}: {e}') from e
                 time.sleep(9)
-          print('HADES PRESENTATION COVERS 8/8 LIVE HTTPS SHA256 PASS',flush=True)
+          print('HADES PRESENTATION COVERS 9/9 LIVE HTTPS SHA256 PASS',flush=True)
           PY
