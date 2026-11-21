@@ -1,0 +1,54 @@
+name: HADES recognition ledger — source / browser / hosted QA
+on:
+  push:
+    paths:
+      - 'hades/library/tools/recognition-ledger/**'
+      - 'site/public/hades/library/tools/recognition-ledger/**'
+      - '.github/workflows/hades-recognition-ledger-qa.yml'
+      - 'tests/hades-recognition-ledger.mjs'
+  workflow_dispatch:
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/hades-recognition-ledger.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-recognition-browser-review
+          path: artifacts/recognition-ledger/
+  deployed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python - <<'PY'
+          import urllib.request, hashlib, time, pathlib, sys
+          names=['library/tools/recognition-ledger/','library/tools/recognition-ledger/HADES_Recognition_Award_Classic_EN_REVIEW.svg','library/tools/recognition-ledger/HADES_Recognition_Jury_Modern_FA_REVIEW.svg','library/','fa/library/','brand-kit/logo-usage/','fa/brand-kit/logo-usage/']
+          root=pathlib.Path('hades')
+          def expect(p):
+            local='library/tools/recognition-ledger/index.html' if p.endswith('recognition-ledger/') else 'library/index.html' if p=='library/' else 'fa/library/index.html' if p=='fa/library/' else 'brand-kit/logo-usage/index.html' if p=='brand-kit/logo-usage/' else 'fa/brand-kit/logo-usage/index.html' if p=='fa/brand-kit/logo-usage/' else p
+            return hashlib.sha256((root/expect_path).read_bytes()).digest()
+          good=0
+          for name in names:
+            local = ('library/tools/recognition-ledger/index.html' if name.endswith('recognition-ledger/') else
+              'library/index.html' if name=='library/' else 'fa/library/index.html' if name=='fa/library/' else
+              'brand-kit/logo-usage/index.html' if name=='brand-kit/logo-usage/' else
+              'fa/brand-kit/logo-usage/index.html' if name=='fa/brand-kit/logo-usage/' else name)
+            expected=hashlib.sha256((root/local).read_bytes()).digest()
+            url='https://ialirezaaa.github.io/hades/'+name
+            try:
+              req=urllib.request.Request(url,headers={'User-Agent':'HADES-public-asset-QA/1.0'})
+              with urllib.request.urlopen(req,timeout=15) as resp:
+                body=resp.read(); code=resp.status; mime=resp.headers.get('content-type','')
+              if code!=200 or hashlib.sha256(body).digest()!=expected or (name.endswith('.svg') and 'svg' not in mime):raise ValueError('code/hash/mime mismatch')
+              print('PUBLIC_HTTP_PASS',name,len(body));good+=1
+            except Exception as exc: print('PUBLIC_HTTP_OPEN',name,repr(exc))
+          print('PUBLIC_HTTP_RESULT',good,'/',len(names))
+          if good!=len(names):sys.exit(1)
+          PY
