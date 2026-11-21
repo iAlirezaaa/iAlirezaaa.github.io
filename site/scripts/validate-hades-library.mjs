@@ -37,5 +37,20 @@ for(const page of ['index.html','../fa/library/index.html']){
  check(html.includes('data-filter="guides"') && html.includes('data-filter="stationery"') && html.includes('data-filter="social"'),'missing filters '+page)
  check((html.match(/data-card data-category=/g)||[]).length === catalog.items.length,'catalog/gallery mismatch '+page)
 }
+
+const backgrounds=[
+ ['HADES_Obsidian_Vault_16x9_REVIEW',1920,1080],
+ ['HADES_Mammoth_Plaster_16x9_REVIEW',1920,1080],
+ ['HADES_Basalt_Axis_9x16_REVIEW',1080,1920],
+ ['HADES_Skeletal_Slab_1x1_REVIEW',1080,1080],
+]
+for (const [stem,w,h] of backgrounds) {
+ const s=join(source,'backgrounds','assets',stem+'.png'), p=join(out,'backgrounds','assets',stem+'.png')
+ check(existsSync(s)&&existsSync(p),'generated background PNG missing '+stem)
+ const a=readFileSync(s),b=readFileSync(p)
+ check(a.equals(b),'background source/dist byte mismatch '+stem)
+ check(a.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),'background PNG signature '+stem)
+ check(a.readUInt32BE(16)===w&&a.readUInt32BE(20)===h,'background dimensions '+stem)
+}
 check(catalog.approved_exact_color==='#EF4B32','approved accent drift')
 console.log(`HADES Library CI PASS: ${checks} real source/pixel-file checks; 18 PNG, 18 PSD, 18 SVG; 3 packs + 1 full ZIP; 2 gallery languages`)

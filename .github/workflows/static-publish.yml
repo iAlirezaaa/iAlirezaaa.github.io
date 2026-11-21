@@ -71,7 +71,7 @@ jobs:
           touch .nojekyll
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- index.html 404.html assets about work systems contact fa hades sitemap.xml robots.txt .nojekyll googleb94d773f21def0ef.html
+          git add -A -- index.html 404.html assets about work systems contact fa hades site/public/hades/library/backgrounds/assets sitemap.xml robots.txt .nojekyll googleb94d773f21def0ef.html
           if git diff --cached --quiet; then
             echo "Generated output already matches the repository."
             exit 0

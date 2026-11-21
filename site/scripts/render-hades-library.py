@@ -115,4 +115,30 @@ def render():
   z.write(CAT,arcname='catalog.json')
  with zipfile.ZipFile(zpath) as z:check(z.testzip() is None,'invalid complete library ZIP')
  print('HADES library PASS: 18 source SVG, 18 real PNG, 18 layered PSD, 3 category ZIP + all ZIP; no original raster changed')
+ # Render four separate, owner-REVIEW architectural SVG backgrounds into real standalone PNG.
+ # This is not Pattern 03, a logo redraw, or ImageGen-raster parity.
+ bg_source=ROOT/'public/hades/library/backgrounds/assets'
+ bg_dist=OUT/'backgrounds/assets'
+ bg_dist.mkdir(parents=True,exist_ok=True)
+ backgrounds={
+  'HADES_Obsidian_Vault_16x9_REVIEW':(1920,1080),
+  'HADES_Mammoth_Plaster_16x9_REVIEW':(1920,1080),
+  'HADES_Basalt_Axis_9x16_REVIEW':(1080,1920),
+  'HADES_Skeletal_Slab_1x1_REVIEW':(1080,1080),
+ }
+ for name,(w,h) in backgrounds.items():
+  vector=bg_source/(name+'.svg')
+  check(vector.is_file(),'missing background vector '+name)
+  body=vector.read_bytes()
+  check(b'<svg' in body and b'REVIEW' in body and b'#EF4B32' in body,'background source drift '+name)
+  check(b'<image' not in body and b'<script' not in body,'unexpected image or script in background '+name)
+  pngbytes=cairosvg.svg2png(bytestring=body,output_width=w,output_height=h)
+  generated=bg_source/(name+'.png')
+  generated.write_bytes(pngbytes)
+  (bg_dist/(name+'.png')).write_bytes(pngbytes)
+  rendered=Image.open(generated)
+  check(rendered.size==(w,h) and rendered.mode in ('RGB','RGBA'),'background raster preflight '+name)
+  check(hashlib.sha256(generated.read_bytes()).digest()==hashlib.sha256((bg_dist/(name+'.png')).read_bytes()).digest(),'background source/build mismatch '+name)
+ print('HADES backgrounds PASS: four source-authentic editable SVG to real PNG, mirrored source/dist, no logo source changed',flush=True)
+
 if __name__=='__main__':render()
