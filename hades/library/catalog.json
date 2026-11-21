@@ -521,6 +521,22 @@
         "REVIEW JSON"
       ],
       "notes": "Unmodified original public PNG/JPEG only; 48/96px and 14/25mm are comparison samples, not minimum approved dimensions. Rights/device/Mikhak/physical print/owner signoff OPEN."
+    },
+    {
+      "id": "video-lower-third",
+      "cat": "social",
+      "en": "Video lower thirds 16:9 / 9:16 · FA/EN",
+      "fa": "عنوان ویدیو شفاف فارسی / انگلیسی ۱۶:۹ و ۹:۱۶",
+      "preview": "/hades/library/tools/lower-third/HADES_LowerThird_16x9_Classic_EN_REVIEW.svg",
+      "page": "/hades/library/tools/lower-third/",
+      "status": "REVIEW",
+      "existing": true,
+      "formats": [
+        "transparent editable SVG EN/FA",
+        "HTML composer",
+        "guarded REVIEW JSON"
+      ],
+      "notes": "Proposed neutral swatches/font, no logo/creator credit, Mikhak and native NLE import OPEN."
     }
   ]
 }
