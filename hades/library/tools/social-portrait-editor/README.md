@@ -8,11 +8,11 @@ REVIEW only. Only #EF4B32 and one Classic/Modern identity are owner-approved; sa
 An additional downloadable `preview.svg` is a **sample composition**, not the official logo master; it embeds the same unchanged owner PNG and uses editable text. It is not a substitute for browser-generated 1080×1350 PNG after real user input.
 
 ## Technical checks
-- Native HTML canvas size 1080x1350. Mobile controls use 16px inputs and single-column fallback <=780px; 320/390/430 browser viewport proofs must still be run and marked OPEN until tested.
+- Native HTML canvas size 1080x1350. Mobile controls use 16px inputs and single-column fallback <=780px; 320/390/430 **headless Chromium real browser proofs PASSED** in run 44845352143; physical phones, approved font, live-site HTTP and owner signoff remain OPEN.
 - Export guarded on logo load and nonempty/overflow-checked text. Long unbreakable words fail closed. Photo import remains local, only PNG/JPEG/WebP <=12MB. No network requests, telemetry or remote upload.
 - Embedded owner original matches canonical public blob; original assets and manifest are not modified. The logo is intentionally small; no claim its embedded micro-lettering passes phone recognition.
 
-## Next QA (OPEN)
+## Follow-up QA (OPEN)
 1. Actual Chromium/Firefox 320px / 390px / 430px / 1080px overflow and bilingual copy-paste tests; exported PNG decode and exact 1080×1350 dimensions.
 2. Test real Mikhak (if available and licensed), compare actual used font, evaluate HADES mark at micro scale, and approve actual text before publication on social accounts.
 
@@ -23,3 +23,6 @@ Private GitHub has separate original-referenced social portrait REVIEW draft; do
 - [Download an editable Persian example](HADES_Social_Portrait_Project_FA_REVIEW.json) and [JSON Schema](project.v1.schema.json). Schema is for project data only, **not** a brand approval, visual logo or product signature.
 - Image imports and any local fonts are never stored in JSON. Reattach licensed images manually after reopening. Local JSON remains in browser until user explicitly downloads it; no server upload, persistence, analytics or automatic publication.
 - Saved text is still REVIEW. Canvas export remains PNG-only and keeps its existing overflow and owner-original image checks. The new tool does not constitute actual Mikhak/device testing.
+
+## Executed browser QA — 2026-11-21
+Playwright Chromium 141 browser run [44845352143](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/runs/44845352143) **completed SUCCESS**, with original 320/390/430 full-page PNG screenshots and `results.json` as downloadable workflow artifact `hades-social-editor-e2e-proofs`. For **all 3 widths:** 0 horizontal overflow; editable field font 16 CSS px; Persian save/reset/reopen succeeded; actual downloaded PNG decoded at 1080×1350; hostile JSON `status: FINAL` correctly rejected; overlong-word PNG export blocked. Tests use real headless Chromium, **not** an iPhone, not actual Mikhak, not live-site HTTP. See [browser evidence ledger](QA_BROWSER_20261121.md). No image assets or logo masters altered.
