@@ -449,7 +449,8 @@
       ],
       "notes": "Owner-original image referenced unchanged; native email-client paste and micro-logo checks OPEN.",
       "svg": "/hades/library/tools/email-signature-install/guide_preview.svg",
-      "preview": "/hades/library/tools/email-signature-install/guide_preview.svg"
+      "preview": "/hades/library/tools/email-signature-install/guide_preview.svg",
+      "existing": true
     },
     {
       "id": "case-study-slide-16x9",
@@ -459,7 +460,7 @@
       "preview": "/hades/library/tools/case-study-slide/HADES_CaseStudy_16x9_Classic_EN_REVIEW.svg",
       "page": "/hades/library/tools/case-study-slide/",
       "status": "REVIEW",
-      "existing": false,
+      "existing": true,
       "formats": [
         "SVG editable EN",
         "SVG editable FA"
