@@ -8,3 +8,5 @@
 - Only accent #EF4B32 is approved. Neutral colors, typography and example copy remain PROPOSED.
 - OPEN: real phone and projector typography, actual permitted installed Mikhak, production printing, product-credit permission and owner FINAL approval.
 - The editor contains no client records or bundled font. Pattern01 PUBLIC REVIEW; Pattern02 PRIVATE REVIEW; Pattern03 STOPPED.
+
+- [Real browser and hosted HTTPS QA receipt](QA_PUBLIC_REVIEW.md): 6/6 viewport/editor PASS and 8/8 public-source byte parity PASS, still REVIEW.

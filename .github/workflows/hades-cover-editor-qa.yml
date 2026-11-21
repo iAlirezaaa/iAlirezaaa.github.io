@@ -43,7 +43,7 @@ jobs:
           from pathlib import Path
           from urllib.request import Request,urlopen
           import hashlib,time
-          files=['library/tools/presentation-covers/editor/index.html','library/tools/presentation-covers/editor/README_REVIEW.md','library/tools/presentation-covers/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','library/catalog.json']
+          files=['library/tools/presentation-covers/editor/index.html','library/tools/presentation-covers/editor/README_REVIEW.md','library/tools/presentation-covers/editor/QA_PUBLIC_REVIEW.md','library/tools/presentation-covers/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','library/catalog.json']
           for f in files:
             source=(Path('hades')/f).read_bytes()
             assert source==(Path('site/public/hades')/f).read_bytes(),f+' mirrors'
@@ -62,5 +62,5 @@ jobs:
               except Exception as ex:
                 if retry==19:raise
                 time.sleep(10)
-          print('HADES COVER EDITOR LIVE 8/8 PASS',flush=True)
+          print('HADES COVER EDITOR LIVE 9/9 PASS',flush=True)
           PY
