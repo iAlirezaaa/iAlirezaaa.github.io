@@ -18,3 +18,7 @@ Approved color only: `#EF4B32`. Other colors/typefaces, including Mikhak, are no
 ## Verification boundaries
 
 The two SVG exports were generated and parsed locally; a separate editable HTML prototype (available in the conversation bundle only) was exercised in Chromium for 320/390/430px in EN and FA, JSON roundtrip, malformed FINAL rejection and overflow fail-closed. **These local browser results do not certify the live GitHub Pages content or mobile hardware.** Verify public HTTP independently after deployment.
+
+## Online source-embedded editor / ویرایشگر آنلاین
+
+[Open live browser editor (REVIEW)](editor/) — both published site trees contain the same self-contained HTML file. The exact two original 1920×1080 SVG compositions are embedded as XML sources; owner-logo art is not recreated. Editable fields: title, summary, independent-project identity, challenge, approach, substantiated outcome. Download updated SVG and guarded REVIEW JSON; unknown or forged FINAL project imports are rejected. Overlong lines block SVG export instead of silently clipping. Two expressions are deliberately paired: Classic EN, Modern FA. Creator attribution stays hidden; product identity belongs to the product. `tests/hades-case-study-editor.cjs` and GitHub Actions workflow check real source pages at 320/390/430px; deployment, Mikhak and physical print require separately verified proof. Actual browser support is not asserted until the workflow passes.
