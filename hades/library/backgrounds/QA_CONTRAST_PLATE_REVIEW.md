@@ -4,6 +4,8 @@
 
 **Purpose:** a practical original-logo application, **not** a new logo, independent background design, official vector master, or FINAL art. Proposed Charcoal `#191817`, Mammoth Bone `#E8DBCA`, dark plaque `#090909`; the **only** approved hue is vermilion `#EF4B32`. The bright background uses a separate near-black plaque and the unchanged owner-original white raster. White is never placed on white. The PNG source is displayed through a **non-destructive proposed crop viewport**; original bytes are not modified. No trace, monogram, recolor, Higgsfield, Pattern02 or Pattern03.
 
+**Additional direct content QA PASS:** compared both complete embedded base64 byte streams with independently re-fetched, unchanged GitHub originals; **JPEG exact=true and PNG exact=true**. The 44 XML tags have correctly matched nesting. Neutral surface luminance contrast computed using WCAG sRGB relative luminance: Mammoth Bone `#E8DBCA` versus dark plaque `#090909` = **14.62:1**, versus charcoal `#191817` = **13.02:1**. These are surface contrast ratios **not** a proof that the tiny isolated logo or A4 microtext is readable.
+
 **GitHub QA PASS (actual readback):**
 - `site/public/hades/library/backgrounds/assets/HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW.svg`
 - `hades/library/backgrounds/assets/HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW.svg`
