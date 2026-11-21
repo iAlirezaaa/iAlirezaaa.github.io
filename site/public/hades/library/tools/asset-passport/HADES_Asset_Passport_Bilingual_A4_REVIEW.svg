@@ -24,7 +24,7 @@
 <text x="726" y="455" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">سازنده / مسئول ثبت</text>
 <line x1="68" y1="488" x2="726" y2="488" stroke="#a6a096" stroke-width=".9"/>
 <line x1="68" y1="526" x2="726" y2="526" stroke="#c8c2b8"/>
-<text x="68" y="548" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">02 / SOURCE & RIGHTS</text>
+<text x="68" y="548" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">02 / SOURCE &amp; RIGHTS</text>
 <text x="726" y="548" font-family="Tahoma,Arial,sans-serif" font-size="14" fill="#282623" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">۰۲ / اصالت و حق استفاده</text>
 <text x="68" y="581" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="ltr" unicode-bidi="plaintext" font-weight="400">Original source / repository path</text>
 <text x="726" y="581" font-family="Tahoma,Arial,sans-serif" font-size="13" fill="#6a655d" text-anchor="start" direction="rtl" unicode-bidi="plaintext" font-weight="400">منبع اصلی / مسیر ریپو</text>
