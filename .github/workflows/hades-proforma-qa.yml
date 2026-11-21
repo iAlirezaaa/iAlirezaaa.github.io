@@ -1,0 +1,38 @@
+name: HADES A4 pro forma browser QA (REVIEW)
+on:
+  push:
+    branches: [main]
+    paths:
+      - "hades/library/tools/a4-proforma-invoice/**"
+      - "site/public/hades/library/tools/a4-proforma-invoice/**"
+      - "site/scripts/qa-hades-proforma.mjs"
+      - ".github/workflows/hades-proforma-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install isolated browser test dependency
+        working-directory: site
+        run: npm install --no-save --no-audit --no-fund playwright@1.56.1
+      - name: Install browser
+        working-directory: site
+        run: npx playwright install --with-deps chromium
+      - name: Actual Chromium QA — both source routes, original SHA, JSON and A4 PDF
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/hades-http.log 2>&1 &
+          sleep 2
+          node site/scripts/qa-hades-proforma.mjs
+      - name: Retain actual screenshots and PDF
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hades-a4-proforma-chromium-REVIEW
+          path: artifacts/hades-proforma/
+          if-no-files-found: warn
