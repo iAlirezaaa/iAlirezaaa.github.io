@@ -1,0 +1,86 @@
+name: HADES Quiet Spaces independent hosted REVIEW QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/hades-quiet-spaces-hosted-qa.yml"
+      - "hades/library/backgrounds/**"
+      - "site/public/hades/library/backgrounds/**"
+      - "hades/library/index.html"
+      - "hades/fa/library/index.html"
+      - "site/public/hades/library/index.html"
+      - "site/public/hades/fa/library/index.html"
+      - "hades/library/catalog.json"
+      - "site/public/hades/library/catalog.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hades-quiet-spaces-hosted-readback
+  cancel-in-progress: true
+
+jobs:
+  live-https:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent external HTTPS 200 + exact SHA-256 / MIME source parity
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib, pathlib, time, urllib.request, json, xml.etree.ElementTree as ET
+          root = pathlib.Path('.')
+          names = (
+            'HADES_Quiet_Loggia_16x9_REVIEW.svg',
+            'HADES_Bone_Pier_9x16_REVIEW.svg',
+            'HADES_Charcoal_Courtyard_1x1_REVIEW.svg',
+          )
+          rel = ['library/backgrounds/assets/' + n for n in names]
+          rel += [
+            'library/backgrounds/quiet-spaces-manifest.REVIEW.json',
+            'library/backgrounds/index.html',
+            'fa/library/backgrounds/index.html',
+            'library/index.html',
+            'fa/library/index.html',
+            'library/catalog.json',
+          ]
+          for item in rel:
+            original = (root/'site/public/hades'/item).read_bytes()
+            published = (root/'hades'/item).read_bytes()
+            assert original == published, 'Mirrors differ: '+item
+            target = hashlib.sha256(original).hexdigest()
+            url = 'https://ialirezaaa.github.io/hades/'+item
+            failure = None
+            for i in range(24):
+              try:
+                request = urllib.request.Request(
+                  url + '?quiet_sha=' + target[:14] + '&try=' + str(i),
+                  headers={'Cache-Control':'no-cache, no-store','User-Agent':'HADES-QuietSpaces-Hosted-QA/1.0'}
+                )
+                with urllib.request.urlopen(request,timeout=15) as response:
+                  assert response.status == 200, (response.status,item)
+                  body = response.read()
+                  content_type = response.headers.get('Content-Type','')
+                  assert hashlib.sha256(body).hexdigest() == target, 'stale deployed bytes '+item
+                  if item.endswith('.svg'):
+                    ET.fromstring(body)
+                    assert b'#EF4B32' in body and 'image/svg+xml' in content_type
+                  elif item.endswith('.json'):
+                    assert json.loads(body) and 'json' in content_type
+                  else:
+                    assert b'REVIEW' in body and 'text/html' in content_type
+                  print('LIVE-HTTPS-200-PASS',item,len(body),content_type,flush=True)
+                  failure = None
+                  break
+              except Exception as e:
+                failure = str(e)
+                print('Retry',item,i+1,failure[:180],flush=True)
+                time.sleep(10)
+            if failure:
+              raise AssertionError('Hosted LIVE RELEASE OPEN: '+item+': '+failure)
+          print('QUIET SPACES LIVE HTTPS PASS 9/9 source-exact paths; native phone, print, Mikhak, owner FINAL still OPEN.')
+          PY
