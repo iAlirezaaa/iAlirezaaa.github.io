@@ -43,6 +43,9 @@ const backgrounds=[
  ['HADES_Mammoth_Plaster_16x9_REVIEW',1920,1080],
  ['HADES_Basalt_Axis_9x16_REVIEW',1080,1920],
  ['HADES_Skeletal_Slab_1x1_REVIEW',1080,1080],
+ ['HADES_Threshold_Portico_16x9_REVIEW',1920,1080],
+ ['HADES_Threshold_Passage_9x16_REVIEW',1080,1920],
+ ['HADES_Threshold_Court_1x1_REVIEW',1080,1080],
 ]
 for (const [stem,w,h] of backgrounds) {
  const s=join(source,'backgrounds','assets',stem+'.png'), p=join(out,'backgrounds','assets',stem+'.png')
@@ -51,6 +54,16 @@ for (const [stem,w,h] of backgrounds) {
  check(a.equals(b),'background source/dist byte mismatch '+stem)
  check(a.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),'background PNG signature '+stem)
  check(a.readUInt32BE(16)===w&&a.readUInt32BE(20)===h,'background dimensions '+stem)
+}
+for (const [stem] of backgrounds.filter(([name]) => name.startsWith('HADES_Threshold_'))) {
+ for(const ext of ['jpg','webp']) {
+  const s=join(source,'backgrounds','assets',stem+'.'+ext), p=join(out,'backgrounds','assets',stem+'.'+ext)
+  check(existsSync(s)&&existsSync(p),'background JPEG/WebP missing '+stem+'.'+ext)
+  const a=readFileSync(s),b=readFileSync(p)
+  check(a.equals(b),'raster mirrored byte mismatch '+stem+'.'+ext)
+  if(ext==='jpg')check(a[0]===255&&a[1]===216&&a.at(-1)===217,'JPEG header/trailer '+stem)
+  else check(a.toString('ascii',0,4)==='RIFF'&&a.toString('ascii',8,12)==='WEBP','WebP container signature '+stem)
+ }
 }
 check(catalog.approved_exact_color==='#EF4B32','approved accent drift')
 console.log(`HADES Library CI PASS: ${checks} real source/pixel-file checks; 18 PNG, 18 PSD, 18 SVG; 3 packs + 1 full ZIP; 2 gallery languages`)

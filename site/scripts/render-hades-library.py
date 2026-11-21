@@ -125,6 +125,9 @@ def render():
   'HADES_Mammoth_Plaster_16x9_REVIEW':(1920,1080),
   'HADES_Basalt_Axis_9x16_REVIEW':(1080,1920),
   'HADES_Skeletal_Slab_1x1_REVIEW':(1080,1080),
+  'HADES_Threshold_Portico_16x9_REVIEW':(1920,1080),
+  'HADES_Threshold_Passage_9x16_REVIEW':(1080,1920),
+  'HADES_Threshold_Court_1x1_REVIEW':(1080,1080),
  }
  for name,(w,h) in backgrounds.items():
   vector=bg_source/(name+'.svg')
@@ -139,6 +142,15 @@ def render():
   rendered=Image.open(generated)
   check(rendered.size==(w,h) and rendered.mode in ('RGB','RGBA'),'background raster preflight '+name)
   check(hashlib.sha256(generated.read_bytes()).digest()==hashlib.sha256((bg_dist/(name+'.png')).read_bytes()).digest(),'background source/build mismatch '+name)
- print('HADES backgrounds PASS: four source-authentic editable SVG to real PNG, mirrored source/dist, no logo source changed',flush=True)
+  if name.startswith('HADES_Threshold_'):
+   rgb=rendered.convert('RGB')
+   for ext,format,options in (('jpg','JPEG',{'quality':91,'subsampling':0,'optimize':True}),('webp','WEBP',{'quality':88,'method':6})):
+    target=bg_source/(name+'.'+ext)
+    rgb.save(target,format=format,**options)
+    (bg_dist/(name+'.'+ext)).write_bytes(target.read_bytes())
+    with Image.open(target) as checked:
+     check(checked.format==format and checked.size==(w,h),'background JPEG/WebP decode preflight '+name)
+    check(target.stat().st_size>3000,'unexpected tiny compressed background '+name)
+ print('HADES backgrounds PASS: 7 vector-to-PNG pairs + 3 JPEG and 3 WebP raster exports, all mirrored; original logo files unchanged',flush=True)
 
 if __name__=='__main__':render()

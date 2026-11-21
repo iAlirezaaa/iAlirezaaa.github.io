@@ -1,0 +1,68 @@
+{
+  "status": "REVIEW",
+  "review_date": "2026-11-21",
+  "family": "Threshold / architectural relief",
+  "meaning": "Standalone backgrounds; not a logo, not a Pattern03, not a reissue of the 4 earlier backgrounds",
+  "approved_accent": "#EF4B32",
+  "other_hues_status": "PROPOSED",
+  "palette": {
+    "obsidian": "#171615",
+    "basalt": "#27221F",
+    "mammoth": "#D0BCAA",
+    "bone": "#E5D8C8",
+    "weathered_stone": "#A7927E",
+    "aged_bronze": "#7E6959"
+  },
+  "owner_logo_policy": "Use unchanged source on independent dark plate for light backgrounds. This pack includes no logo.",
+  "assets": [
+    {
+      "id": "HADES_Threshold_Portico_16x9_REVIEW",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "raster_derivation": "CairoSVG SVG→PNG; Pillow PNG→JPEG/WebP in published GitHub workflow; NOT the nine ImageGen photographs"
+    },
+    {
+      "id": "HADES_Threshold_Passage_9x16_REVIEW",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "raster_derivation": "CairoSVG SVG→PNG; Pillow PNG→JPEG/WebP in published GitHub workflow; NOT the nine ImageGen photographs"
+    },
+    {
+      "id": "HADES_Threshold_Court_1x1_REVIEW",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "raster_derivation": "CairoSVG SVG→PNG; Pillow PNG→JPEG/WebP in published GitHub workflow; NOT the nine ImageGen photographs"
+    }
+  ],
+  "restrictions": [
+    "No owner approval of supporting neutrals or typography",
+    "No FINAL status",
+    "Pattern01 REVIEW public; Pattern02 private; Pattern03 paused"
+  ],
+  "mobile_qa": "OPEN pending browser checks at 320/390/430 CSS pixels",
+  "physical_print_qa": "OPEN"
+}
