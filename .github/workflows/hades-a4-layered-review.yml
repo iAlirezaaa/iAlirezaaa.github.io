@@ -107,7 +107,7 @@ jobs:
         run: |
           set -euo pipefail
           URL="https://ialirezaaa.github.io/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd"
-          WANT="64fea00b652114426ab86155ab7c0a83f1a313e625f1e5e29da48f1dce2cba41"
+          WANT="28858b56976d9c7d9571689780c191cbcc724acb682316f02b0e39480fd0246d"
           for attempt in $(seq 1 12); do
             if curl -fsSL --connect-timeout 10 --max-time 40 -o /tmp/hades-a4.psd "$URL"; then
               GOT="$(sha256sum /tmp/hades-a4.psd | awk '{print $1}')"

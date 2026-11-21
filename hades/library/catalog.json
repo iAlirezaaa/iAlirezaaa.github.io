@@ -74,7 +74,10 @@
       "pdf_note_en": "Actual Chromium sample, one A4 page, REVIEW, not printer-approved",
       "pdf_note_fa": "خروجی واقعی مرورگر، یک صفحه A4؛ نمونه REVIEW، نه تأیید چاپ",
       "png_note_en": "2479 × 3508 pixels at nominal 300dpi; owner artwork unchanged",
-      "png_note_fa": "۲۴۷۹×۳۵۰۸ پیکسل با وضوح اسمی ۳۰۰dpi؛ بدون تغییر لوگوی اصلی"
+      "png_note_fa": "۲۴۷۹×۳۵۰۸ پیکسل با وضوح اسمی ۳۰۰dpi؛ بدون تغییر لوگوی اصلی",
+      "psd": "/hades/library/tools/a4-creative-brief/HADES_A4_Creative_Brief_FA_Layered_REVIEW.psd",
+      "psd_note_en": "9 actual raster layers / source-image exact parity / text editable via HTML only / REVIEW",
+      "psd_note_fa": "۹ لایهٔ رستری واقعی؛ تطابق کامل تصویر؛ ویرایش متن در HTML؛ بازبینی"
     },
     {
       "id": "existing-arc",
