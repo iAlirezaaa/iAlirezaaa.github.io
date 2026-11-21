@@ -1,0 +1,31 @@
+name: HADES bilingual card real Chromium QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - "hades/brand-kit/business-card/micro-editor/**"
+      - "site/public/hades/brand-kit/business-card/micro-editor/**"
+      - "site/scripts/test-hades-card-editor.py"
+      - ".github/workflows/hades-card-editor-browser.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test and real Chromium
+        run: |
+          python3 -m pip install playwright pillow pymupdf
+          python3 -m playwright install --with-deps chromium
+      - name: Real 320, 390, 430px and PNG / PDF proof
+        run: python3 site/scripts/test-hades-card-editor.py
+      - name: Upload screenshots, actual PNGs, 85x55 PDF, JSON and QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hades-card-320-390-430-review-evidence
+          path: hades-card-browser-proof/
+          if-no-files-found: warn
