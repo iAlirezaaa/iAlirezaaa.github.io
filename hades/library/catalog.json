@@ -39,8 +39,11 @@
       "formats": [
         "HTML",
         "PDF via print",
-        "JSON"
-      ]
+        "JSON",
+        "RTF editable FA/EN"
+      ],
+      "rtf_fa": "/hades/brand-kit/letterhead/a4-letter-editor/HADES_A4_Formal_Letter_Editable_FA_REVIEW.rtf",
+      "rtf_en": "/hades/brand-kit/letterhead/a4-letter-editor/HADES_A4_Formal_Letter_Editable_EN_REVIEW.rtf"
     },
     {
       "id": "logo-use-guide",
