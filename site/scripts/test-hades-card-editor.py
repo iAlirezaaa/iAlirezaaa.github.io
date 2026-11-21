@@ -76,7 +76,30 @@ async def main():
                     dims=[(round(x.rect.width,2),round(x.rect.height,2)) for x in d]
                     for width_pt,height_pt in dims: 
                         assert abs(width_pt-85*72/25.4)<1.5 and abs(height_pt-55*72/25.4)<1.5, dims
-                data.append(dict(width=w,overflow=False,logo_natural_width=info['naturalWidth'],mikhak='NOT TESTED / FALLBACK',saved_json=True,reopened_json=True,rejected_final=True,front_png=exported['front'],back_png=exported['back'],screenshot=shot.name))
+                # Real, upstream-font browser proof: no font binary is attached or committed.
+                local_font = pathlib.Path('/tmp/HADES_Mikhak-Regular.ttf')
+                assert local_font.is_file() and local_font.stat().st_size > 70000, 'Real Mikhak source not downloaded'
+                await page.locator('#fontfile').set_input_files(str(local_font))
+                await page.wait_for_function("() => document.getElementById('status').textContent.includes('Mikhak LOADED')",timeout=20000)
+                face_status = await page.evaluate("""() => [...document.fonts].filter(f=>f.family==='Mikhak Local').map(f=>f.status)""")
+                assert 'loaded' in face_status, ('FontFace not loaded',w,face_status)
+                cdp=await page.context.new_cdp_session(page)
+                await cdp.send('DOM.enable')
+                await cdp.send('CSS.enable')
+                dom=await cdp.send('DOM.getDocument')
+                node=await cdp.send('DOM.querySelector',{'nodeId':dom['root']['nodeId'],'selector':'#out-fa'})
+                fonts=await cdp.send('CSS.getPlatformFontsForNode',{'nodeId':node['nodeId']})
+                families=[f['familyName'] for f in fonts['fonts']]
+                assert any('mikhak' in name.lower() for name in families), ('Mikhak requested but actual glyphs used fallback',w,families)
+                await page.screenshot(path=str(OUT/('browser-mikhak-'+str(w)+'.png')),full_page=True)
+                async with page.expect_download(timeout=15000) as item:
+                    await page.locator('#backpng').click()
+                downloaded=await item.value
+                mikhak_png=OUT/('back-mikhak-'+str(w)+'.png')
+                await downloaded.save_as(mikhak_png)
+                with Image.open(mikhak_png) as im:
+                    assert im.format=='PNG' and im.size==(1004,650)
+                data.append(dict(width=w,overflow=False,logo_natural_width=info['naturalWidth'],mikhak={'actual_used_families':families,'ttf_sha256':hashlib.sha256(local_font.read_bytes()).hexdigest(),'browser_loaded':True,'not_finally_approved':True},saved_json=True,reopened_json=True,rejected_final=True,front_png=exported['front'],back_png=exported['back'],mikhak_back_png=mikhak_png.name,screenshot=shot.name))
                 await page.close()
             await browser.close()
         images=[]
@@ -91,7 +114,7 @@ async def main():
         for i,(im,w) in enumerate(zip(images,[320,390,430])):
             canvas.paste(im,(20+380*i,70));draw.text((20+380*i,canvas.height-35),str(w)+'px / real browser',fill='#dbcfc1')
         canvas.save(OUT/'HADES_Card_Chromium_320_390_430_INLINE_REVIEW.png')
-        summary={'status':'PASS — Chromium E2E only; not Mikhak or physical-device certification','original_sha256':EXPECTED,'results':data,'paper_pdf':'HADES_Card_85x55_2side_REVIEW.pdf','not_tested':['real Mikhak font','micro-logo internal character legibility','physical card printer','independent deployed HTTPS']}
+        summary={'status':'PASS — real Chromium 320/390/430 with locally loaded upstream Mikhak and no physical print certification','original_sha256':EXPECTED,'results':data,'paper_pdf':'HADES_Card_85x55_2side_REVIEW.pdf','not_tested':['micro-logo internal character legibility','physical card printer','owner typeface approval']}
         (OUT/'results.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
         print(json.dumps(summary,ensure_ascii=False,indent=2))
     finally:
