@@ -463,9 +463,11 @@
       "existing": true,
       "formats": [
         "SVG editable EN",
-        "SVG editable FA"
+        "SVG editable FA",
+        "HTML editor + SVG / guarded JSON"
       ],
-      "notes": "Source-faithful application layout with no invented logo; independent-product rights and maker credit gated; neutral swatches and fonts only proposals."
+      "notes": "Source-faithful application layout with no invented logo; independent-product rights and maker credit gated; neutral swatches and fonts only proposals. Online editor preserves source vector layouts, maker credit OFF; site and font verification OPEN.",
+      "editor": "/hades/library/tools/case-study-slide/editor/"
     }
   ]
 }
