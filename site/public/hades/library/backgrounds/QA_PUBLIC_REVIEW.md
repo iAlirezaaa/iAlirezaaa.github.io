@@ -28,3 +28,16 @@ No original-logo file, SHA manifest, existing Pattern01/Pattern02, private Phase
 Both English and Persian public background galleries contain direct **SVG, PNG, JPEG, WebP** links for each new composition and a complete ZIP. No third pattern, new monogram, logo recolour, logo autotrace, owner claims about unapproved neutral swatches, SkyVision changes, or PRIVATE REVIEW material.
 
 Next 1: verify 24 served targets and hashes after deployment stabilizes, then publish exact outcome. Next 2: check artwork appearance and print proofs against real devices at micro sizes, with properly licensed/tested Mikhak if available.
+
+
+## 2026-11-21 — Quiet Spaces three-ratio extension (PUBLIC REVIEW, source-exact local proof)
+Three **new independent editable SVG masters** were committed and catalogued, apart from the seven older vectors. Source dimensions: Quiet Loggia 1920×1080, Bone Pier 1080×1920, Charcoal Courtyard 1080×1080. The originals/manifest were not touched; these are not logos or Pattern03.
+
+- **GitHub readback passed:** exact blob SHA parity in 9/9 pairs across `site/public/hades/` and `hades/`: three SVGs, JSON manifest, both background galleries, EN/FA full libraries and catalog (44 assets). SVG blob SHAs: `c1c95b3f6498aebe5d3e7520b237cb8c63f68ecf`, `20e077114bde2a8e9fed51112cf03143d2cf207f`, `d4d9d20b9b5c83145cdd5fea64214d3874b70f34`.
+- **Actual local art test passed:** all three exported CairoSVG native-size PNG, Pillow JPEG q91 / WebP q88, real decoded dimensions and well-formed XML. Each local SVG Git SHA matched the committed source exactly. A 12-asset ZIP and contact sheet with SHA-256 file manifest exist **in the conversation only**, NOT published in this GitHub repository.
+- **Actual local Chromium test passed:** six `page.set_content` test-harness renders of these three exact SVG data URIs, EN LTR / FA RTL at 320/390/430 CSS pixels: 3/3 decoded images and no horizontal overflow each. This test is **not** hosted Pages HTML or an actual phone test.
+- **Pipeline authored in GitHub:** `site/scripts/render-hades-library.py` and `site/scripts/validate-hades-library.mjs` now include all 10 SVG/PNG backgrounds and a second three-ratio JPEG/WebP/ZIP target. These GitHub-produced binaries and a separate 13-entry ZIP remain **OPEN until an actual successful run and GitHub readback**.
+- **Independent live HTTP 200, MIME and SHA-256:** new [nine-path external verification workflow](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/workflows/hades-quiet-spaces-hosted-qa.yml), but **no successful run observed**. Current chat web/container external requests were inaccessible. Do not present the GitHub SVG source URLs as proof of public hosted HTTP 200.
+- **Source disclosure:** Earlier nine ImageGen JPEG plus nine WebP photo studies are **not** these SVG-derived local variants and remain conversation-only.
+
+**NEXT QS-01:** confirm new on-GitHub PNG/JPEG/WebP/ZIP binary artifacts and all live hosted HTTP/MIME/hash routes before enabling their download links. **NEXT QS-02:** exact published EN/FA 320/390/430 browser screenshots, original white owner logo unchanged on independent dark plate, physical print and real installed Mikhak only if available. All neutral colors and layouts REVIEW, no FINAL.
