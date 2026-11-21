@@ -8,7 +8,7 @@
 <path d="M82 143H712" stroke="#D0C9C0" fill="none"/>
 <path d="M82 164H125" stroke="#EF4B32" stroke-width="2"/>
 <text x="82" y="212" font-size="25" font-weight="400">PRO FORMA</text>
-<text x="712" y="212" font-size="18" text-anchor="end" direction="rtl">پیش‌فاکتور</text>
+<text x="712" y="212" font-size="18" text-anchor="start" direction="rtl">پیش‌فاکتور</text>
 <text x="82" y="244" font-size="10" fill="#A16B60">REVIEW / SAMPLE — NOT A FINAL TAX INVOICE</text>
 <text x="82" y="300" font-size="11" fill="#817970">TO / گیرنده</text>
 <text x="82" y="327" font-size="16">[Recipient / نام گیرنده]</text>
