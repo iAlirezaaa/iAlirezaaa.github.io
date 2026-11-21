@@ -450,6 +450,21 @@
       "notes": "Owner-original image referenced unchanged; native email-client paste and micro-logo checks OPEN.",
       "svg": "/hades/library/tools/email-signature-install/guide_preview.svg",
       "preview": "/hades/library/tools/email-signature-install/guide_preview.svg"
+    },
+    {
+      "id": "case-study-slide-16x9",
+      "cat": "web",
+      "en": "Independent project case-study slides · Classic EN / Modern FA",
+      "fa": "اسلایدهای معرفی پروژه مستقل · کلاسیک انگلیسی / مدرن فارسی",
+      "preview": "/hades/library/tools/case-study-slide/HADES_CaseStudy_16x9_Classic_EN_REVIEW.svg",
+      "page": "/hades/library/tools/case-study-slide/",
+      "status": "REVIEW",
+      "existing": false,
+      "formats": [
+        "SVG editable EN",
+        "SVG editable FA"
+      ],
+      "notes": "Source-faithful application layout with no invented logo; independent-product rights and maker credit gated; neutral swatches and fonts only proposals."
     }
   ]
 }

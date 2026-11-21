@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-label="Editable project case-study slide / REVIEW" preserveAspectRatio="xMidYMid meet" width="1920" height="1080"><desc>REVIEW only. All sample text is editable. Source logo is not reproduced; independent-product rights and maker credits require separate authorization. Only #EF4B32 is approved.</desc>
+<title>HADES case-study presentation composition — REVIEW</title>
+<rect id="back" width="1920" height="1080" fill="#181715"/>
+<g id="shapes" fill="none" stroke="#80776d" stroke-width="2" opacity=".25"><path d="M1710 130 A430 430 0 0 0 1280 560"/><path d="M1745 130 A465 465 0 0 0 1280 595"/><path d="M1780 130 A500 500 0 0 0 1280 630"/></g>
+<line x1="1180" y1="188" x2="1180" y2="887" stroke="#80776d" opacity=".55"/>
+<rect x="120" y="130" width="63" height="5" fill="#EF4B32"/>
+<text id="topLabel" x="120" y="181" font-family="Arial,Tahoma,sans-serif" font-size="23" letter-spacing="2" fill="#EF4B32" direction="ltr" text-anchor="start">SELECTED WORK / REVIEW</text>
+<text id="mainTitle" x="120" y="321" font-family="Tahoma,Arial,sans-serif" font-weight="400" font-size="73" fill="#eee7df" direction="ltr" text-anchor="start" letter-spacing="0"><tspan x="120" dy="0">Untitled project</tspan></text>
+<text id="mainSummary" x="120" y="470" font-family="Tahoma,Arial,sans-serif" font-size="29" fill="#bfb5a9" direction="ltr" text-anchor="start" letter-spacing="0"><tspan x="120" dy="0">A concise account of one carefully developed idea.</tspan></text>
+<line x1="120" y1="663" x2="1028" y2="663" stroke="#847b71" opacity=".5"/>
+<text id="leftLabel" x="120" y="721" font-family="Arial,Tahoma,sans-serif" letter-spacing="2" font-size="21" fill="#EF4B32" direction="ltr" text-anchor="start">INDEPENDENT PROJECT</text>
+<text id="leftBody" x="120" y="774" font-family="Tahoma,Arial,sans-serif" font-size="29" fill="#eee7df" direction="ltr" text-anchor="start" letter-spacing="2">Identity and authorship remain distinct</text>
+<text id="cLabel" x="1260" y="276" font-family="Arial,Tahoma,sans-serif" letter-spacing="2" font-size="22" fill="#EF4B32" direction="ltr" text-anchor="start">01 / CHALLENGE</text>
+<text id="cBody" x="1260" y="332" font-family="Tahoma,Arial,sans-serif" font-size="26" fill="#eee7df" direction="ltr" text-anchor="start" letter-spacing="0"><tspan x="1260" dy="0">Describe the problem without confidential</tspan><tspan x="1260" dy="1.32em">information.</tspan></text>
+<line x1="1260" y1="429" x2="1800" y2="429" stroke="#847b71" opacity=".35"/>
+<text id="aLabel" x="1260" y="485" font-family="Arial,Tahoma,sans-serif" letter-spacing="2" font-size="22" fill="#EF4B32" direction="ltr" text-anchor="start">02 / APPROACH</text>
+<text id="aBody" x="1260" y="541" font-family="Tahoma,Arial,sans-serif" font-size="26" fill="#eee7df" direction="ltr" text-anchor="start" letter-spacing="0"><tspan x="1260" dy="0">Describe choices, constraints and creative</tspan><tspan x="1260" dy="1.32em">method.</tspan></text>
+<line x1="1260" y1="638" x2="1800" y2="638" stroke="#847b71" opacity=".35"/>
+<text id="oLabel" x="1260" y="694" font-family="Arial,Tahoma,sans-serif" letter-spacing="2" font-size="22" fill="#EF4B32" direction="ltr" text-anchor="start">03 / OUTCOME</text>
+<text id="oBody" x="1260" y="750" font-family="Tahoma,Arial,sans-serif" font-size="26" fill="#eee7df" direction="ltr" text-anchor="start" letter-spacing="0"><tspan x="1260" dy="0">Only include a result that can be</tspan><tspan x="1260" dy="1.32em">substantiated.</tspan></text>
+<line x1="120" y1="931" x2="1800" y2="931" stroke="#847b71" opacity=".55"/>
+<text x="120" y="984" direction="ltr" text-anchor="start" font-family="Arial,Tahoma,sans-serif" font-size="22" fill="#EF4B32" letter-spacing="2">REVIEW / NOT APPROVED FOR RELEASE</text>
+<text id="creditText" x="1800" y="984" text-anchor="end" font-family="Tahoma,Arial,sans-serif" font-size="21" fill="#bfb5a9" opacity="0">by HADES 3RD · rights required</text>
+</svg>
