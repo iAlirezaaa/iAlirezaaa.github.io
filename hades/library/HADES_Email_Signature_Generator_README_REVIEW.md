@@ -1,0 +1,3 @@
+# HADES Email Signature · REVIEW
+
+Existing public HTML signature upgraded with FA/EN editable fields, preview, HTML export, JSON save/restore and rejection of imported FINAL status. The original owner-supplied PNG is linked by URL, unmodified. Only #EF4B32 approved; all neutral swatches and type are proposals. Email-client paste and image-loading fidelity are not guaranteed. Mikhak has not been loaded. **OPEN**: published HTTPS receipt, independent Chromium QA of deployed bytes, true on-device 320/390/430, owner-source recognition at 30×65 px, physical print and final approval. Public details are examples; do not insert customer data without consent.

@@ -401,11 +401,16 @@
     {
       "id": "email-signature",
       "cat": "stationery",
-      "en": "Email signature · editable HTML",
-      "fa": "امضای ایمیل HTML قابل‌ویرایش",
+      "en": "Email signature · bilingual HTML/JSON editor",
+      "fa": "امضای ایمیل · ویرایشگر دوزبانه HTML و JSON",
       "preview": "/hades/brand-kit/business-card/HADES_Card_Back_REVIEW.png",
       "page": "/hades/library/HADES_Email_Signature_REVIEW.html",
-      "existing": true
+      "existing": true,
+      "formats": [
+        "HTML",
+        "JSON project"
+      ],
+      "status": "REVIEW"
     },
     {
       "id": "a4-proforma-svg",
