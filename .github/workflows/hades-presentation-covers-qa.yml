@@ -1,0 +1,78 @@
+name: HADES presentation covers source + hosted REVIEW QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/tools/presentation-covers/**'
+      - 'site/public/hades/library/tools/presentation-covers/**'
+      - 'tests/hades-presentation-covers.cjs'
+      - '.github/workflows/hades-presentation-covers-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Install Playwright driver
+        run: npm install --prefix /tmp/hades-cover-qa --no-save --no-package-lock playwright-core
+      - name: Test both checked-out gallery pages and real SVG downloads at 320 / 390 / 430
+        env:
+          NODE_PATH: /tmp/hades-cover-qa/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-presentation-covers.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-presentation-covers-actual-chromium-review
+          path: hades-presentation-cover-qa-proof/
+          if-no-files-found: warn
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent Pages GET, content type and SHA-256 parity
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          from urllib.error import HTTPError,URLError
+          import hashlib,time
+          paths=[
+            'library/tools/presentation-covers/index.html',
+            'library/tools/presentation-covers/HADES_Presentation_Cover_Classic_EN_REVIEW.svg',
+            'library/tools/presentation-covers/HADES_Presentation_Cover_Modern_FA_REVIEW.svg',
+            'library/tools/presentation-covers/README_REVIEW.md',
+            'library/index.html',
+            'fa/library/index.html',
+            'brand-kit/logo-usage/index.html',
+            'fa/brand-kit/logo-usage/index.html']
+          for p in paths:
+            local=Path('hades')/p
+            assert local.read_bytes()==(Path('site/public/hades')/p).read_bytes(),p+' mirror mismatch'
+            expected=hashlib.sha256(local.read_bytes()).hexdigest()
+            url='https://ialirezaaa.github.io/hades/'+p
+            if p.endswith('/index.html'):url=url[:-10]
+            for attempt in range(18):
+              try:
+                req=Request(url,headers={'User-Agent':'HADES-Review-Hosted-Cover-QA','Cache-Control':'no-cache','Accept-Encoding':'identity'})
+                with urlopen(req,timeout=14) as r:
+                  body=r.read();code=r.status;ctype=r.headers.get('Content-Type','')
+                assert code==200,(url,code)
+                assert hashlib.sha256(body).hexdigest()==expected,(url,'SHA mismatch')
+                assert ('svg' in ctype if p.endswith('.svg') else 'html' in ctype if p.endswith('.html') else True),(url,ctype)
+                print('LIVE PASS',url,len(body),ctype,expected,flush=True)
+                break
+              except (HTTPError,URLError,TimeoutError,AssertionError) as e:
+                if attempt==17: raise RuntimeError(f'LIVE OPEN: {url}: {e}') from e
+                time.sleep(9)
+          print('HADES PRESENTATION COVERS 8/8 LIVE HTTPS SHA256 PASS',flush=True)
+          PY
