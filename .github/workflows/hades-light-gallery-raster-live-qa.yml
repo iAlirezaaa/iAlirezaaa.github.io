@@ -1,0 +1,112 @@
+name: HADES Light Gallery / 18 live raster files and six responsive pages
+on:
+  push:
+    paths:
+      - ".github/workflows/hades-light-gallery-raster-live-qa.yml"
+      - "site/public/hades/**/light-gallery/index.html"
+      - "hades/**/light-gallery/index.html"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Chromium + real Pillow decoder
+        run: |
+          python -m pip install "playwright==1.56.0" "Pillow==12.0.0"
+          python -m playwright install --with-deps chromium
+      - name: Verify all 18 raster files, 22 mirror pairs and images
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          from PIL import Image
+          folder=Path('hades/library/light-gallery/raster')
+          obj=json.loads((folder/'HADES_Light_Gallery_Raster_Manifest_REVIEW.json').read_text())
+          assert len(obj['files'])==18
+          expected={'16x9':[1920,1080],'9x16':[1080,1920],'1x1':[1080,1080]}
+          for rec in obj['files']:
+           p=folder/rec['filename']
+           assert p.is_file() and len(p.read_bytes())>100
+           assert hashlib.sha256(p.read_bytes()).hexdigest()==rec['sha256']
+           with Image.open(p) as im:
+            im.load()
+            assert list(im.size)==expected[rec['ratio']],(p,im.size)
+            assert im.format=={'png':'PNG','jpg':'JPEG','webp':'WEBP'}[p.suffix[1:]]
+          names=[p for p in folder.iterdir() if p.is_file()]
+          assert len(names)==22,(len(names),names)
+          for p in names:
+           mirror=Path('site/public')/p
+           assert p.read_bytes()==mirror.read_bytes(),p
+          print('PASS 18 exact native image dimensions/hashes and all 22/22 mirrored files')
+          PY
+      - name: Six real responsive Chromium FA/EN tests including new raster thumbnails
+        run: |
+          python -m http.server 8765 > /tmp/hades-gallery-server.log 2>&1 &
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          out=Path('raster-gallery-mobile-proof');out.mkdir(exist_ok=True)
+          with sync_playwright() as p:
+           browser=p.chromium.launch(headless=True)
+           for lang in ('EN','FA'):
+            for width in (320,390,430):
+             page=browser.new_page(viewport={'width':width,'height':950},device_scale_factor=1)
+             path='/hades/library/light-gallery/' if lang=='EN' else '/hades/fa/library/light-gallery/'
+             response=page.goto('http://127.0.0.1:8765'+path,wait_until='networkidle')
+             assert response and response.status==200
+             assert page.locator('html').get_attribute('dir')==('ltr' if lang=='EN' else 'rtl')
+             area=page.locator('#hades-light-raster-public-review')
+             assert area.count()==1
+             assert area.locator('article').count()==6
+             assert area.locator('article a[download]').count()==18
+             area.locator('img').evaluate_all("(items)=>items.forEach(i=>i.loading='eager')")
+             page.wait_for_function("Array.from(document.querySelectorAll('#hades-light-raster-public-review img')).every(i=>i.complete && i.naturalWidth>0)",timeout=20000)
+             assert page.evaluate('document.documentElement.scrollWidth')<=width+1,(lang,width,page.evaluate('document.documentElement.scrollWidth'))
+             page.screenshot(path=str(out/f'HADES_Light_Gallery_Raster_{lang}_{width}_REVIEW.png'),full_page=True)
+             print('PASS Chromium',lang,width,'6 raster images decoded, 18 download links, no overflow')
+             page.close()
+           browser.close()
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Light-Gallery-Raster-6-Real-Mobile-REVIEW
+          path: raster-gallery-mobile-proof/
+          if-no-files-found: ignore
+      - name: Independent LIVE Pages audit of 18/18 raster downloads plus ZIP and bilingual navigation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,time,urllib.request
+          r=Path('hades/library/light-gallery/raster')
+          manifest=json.loads((r/'HADES_Light_Gallery_Raster_Manifest_REVIEW.json').read_text())
+          files=[r/p['filename'] for p in manifest['files']]
+          files += [r/'HADES_Light_Gallery_Contact_REVIEW.png',r/'HADES_Light_Gallery_Raster_Manifest_REVIEW.json',r/'HADES_Light_Gallery_6_Ratios_Languages_PNG_JPEG_WEBP_REVIEW.zip']
+          files += [Path('hades/library/light-gallery/index.html'),Path('hades/fa/library/light-gallery/index.html')]
+          files += [Path('hades/index.html'),Path('hades/fa/index.html'),Path('hades/library/index.html'),Path('hades/fa/library/index.html'),Path('hades/brand-kit/logo-usage/index.html'),Path('hades/fa/brand-kit/logo-usage/index.html')]
+          assert len(files)==29
+          mimes={'.png':{'image/png'},'.jpg':{'image/jpeg'},'.webp':{'image/webp'},'.json':{'application/json','text/json'},'.zip':{'application/zip','application/x-zip-compressed','application/octet-stream'},'.html':{'text/html'}}
+          issues={}
+          for attempt in range(24):
+           issues={}
+           for f in files:
+            try:
+             u='https://ialirezaaa.github.io/'+f.as_posix()+'?raster_check='+str(attempt)
+             req=urllib.request.Request(u,headers={'User-Agent':'HADES-29-URL-audit/1.0'})
+             with urllib.request.urlopen(req,timeout=20) as resp:
+              body=resp.read(); mime=resp.headers.get('Content-Type','').split(';',1)[0].lower()
+              assert resp.status==200,(f,resp.status)
+              assert mime in mimes[f.suffix],(f,mime)
+              assert hashlib.sha256(body).digest()==hashlib.sha256(f.read_bytes()).digest(),(f,'SHA mismatch')
+            except Exception as e:issues[str(f)]=str(e)
+           if not issues:
+            print('PASS all 29 hosted URLs HTTP200 MIME exact SHA256 / includes 18 of 18 images',flush=True)
+            break
+           print('OPEN hosted round',attempt+1,len(issues),list(issues.items())[:3],flush=True)
+           if attempt<23:time.sleep(12)
+          assert not issues,issues
+          PY
