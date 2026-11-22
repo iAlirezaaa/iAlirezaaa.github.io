@@ -1,0 +1,47 @@
+name: HADES Section Cuts raster Chromium and public HTTPS proof REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tests/hades-section-cuts-raster-*'
+      - '.github/workflows/hades-section-cuts-raster-live-qa.yml'
+      - 'hades/library/backgrounds/section-cuts/**'
+      - 'site/public/hades/library/backgrounds/section-cuts/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  six-viewport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - run: npm install --prefix /tmp/hades-section-raster --no-save --no-package-lock playwright-core
+      - name: Chromium FA/EN at 320,390,430; decoded WebP and links
+        env:
+          NODE_PATH: /tmp/hades-section-raster/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-section-cuts-raster-mobile.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Section-Cuts-Raster-Six-Viewport-REVIEW
+          path: section-cuts-raster-mobile-QA/
+          if-no-files-found: warn
+  independent-hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent 25 live Pages GET with MIME SHA-256 and ZIP CRC
+        run: python3 tests/hades-section-cuts-raster-hosted.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Section-Cuts-Raster-25-Hosted-REVIEW
+          path: section-cuts-raster-hosted-QA/
+          if-no-files-found: warn
