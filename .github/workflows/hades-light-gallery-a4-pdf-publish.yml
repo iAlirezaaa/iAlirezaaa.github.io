@@ -1,0 +1,116 @@
+name: HADES Light Gallery A4 / render true print PDF REVIEW
+on:
+  push:
+    paths:
+      - 'hades/library/light-gallery/print-guide/HADES_Light_Gallery_A4_*_REVIEW.svg'
+      - '.github/workflows/hades-light-gallery-a4-pdf-publish.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install true Chromium/PDF renderer
+        run: |
+          python -m pip install playwright==1.56.0 PyMuPDF==1.26.6
+          python -m playwright install --with-deps chromium
+      - name: Render, validate and package A4 PDF + PNG without altering originals
+        run: |
+          python -m http.server 8765 > /tmp/hades-a4-pdf-server.log 2>&1 &
+          python - <<'PY'
+          import pathlib, hashlib, json, zipfile, base64, xml.etree.ElementTree as ET
+          import fitz
+          from playwright.sync_api import sync_playwright
+          root=pathlib.Path('hades/library/light-gallery/print-guide')
+          out=pathlib.Path('generated-a4')
+          out.mkdir(exist_ok=True)
+          paths=[]
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True)
+              for lang in ('EN','FA'):
+                  svg=root/f'HADES_Light_Gallery_A4_{lang}_REVIEW.svg'
+                  tree=ET.parse(svg).getroot()
+                  assert tree.attrib['width']=='210mm' and tree.attrib['height']=='297mm'
+                  images=[i for i in tree.iter() if i.tag.endswith('image')]
+                  assert len(images)==1
+                  original=base64.b64decode(images[0].attrib['href'].split(',',1)[1],validate=True)
+                  assert hashlib.sha256(original).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
+                  target_pdf=out/f'HADES_Light_Gallery_A4_{lang}_REVIEW.pdf'
+                  target_png=out/f'HADES_Light_Gallery_A4_{lang}_Preview_REVIEW.png'
+                  page=browser.new_page(viewport={'width':1100,'height':1500})
+                  response=page.goto('http://127.0.0.1:8765/hades/library/light-gallery/print-guide/'+svg.name,wait_until='networkidle')
+                  assert response and response.status==200
+                  page.pdf(path=str(target_pdf),width='210mm',height='297mm',margin={'top':'0','right':'0','bottom':'0','left':'0'},print_background=True)
+                  pdf=fitz.open(target_pdf)
+                  assert len(pdf)==1 and abs(pdf[0].rect.width-595.28)<0.7 and abs(pdf[0].rect.height-841.89)<0.7, (lang,pdf[0].rect)
+                  pix=pdf[0].get_pixmap(matrix=fitz.Matrix(1.5,1.5),alpha=False)
+                  pix.save(target_png)
+                  assert target_pdf.stat().st_size>10000 and target_png.stat().st_size>10000
+                  for f in (target_pdf,target_png):paths.append(f)
+                  page.close()
+                  print('PASS actual A4 Chromium PDF and fitz PNG:',lang,pdf[0].rect)
+              browser.close()
+          manifest={'status':'PUBLIC REVIEW / NOT FINAL','approved_accent':'#EF4B32','neutrals':'PROPOSED','owner_original_png_sha256':'79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7','renderer':'Chromium 141 + PyMuPDF','files':[{'file':f.name,'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in paths]}
+          meta=out/'HADES_Light_Gallery_A4_Print_Manifest_REVIEW.json'
+          meta.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          readme=out/'README_REVIEW.txt'
+          readme.write_text('HADES Light Gallery A4 crop/export PUBLIC REVIEW, NOT FINAL. 2 source SVG, 2 actual Chromium A4 PDFs, 2 PDF raster previews, SHA manifest, this README. Only #EF4B32 approved. Neutrals and fonts proposed. No physical print or phone judgment verified. Owner original source unchanged.\n',encoding='utf-8')
+          package=out/'HADES_Light_Gallery_A4_Print_Pack_REVIEW.zip'
+          with zipfile.ZipFile(package,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=8) as z:
+              for lang in ('EN','FA'):
+                  z.write(root/f'HADES_Light_Gallery_A4_{lang}_REVIEW.svg',f'HADES_Light_Gallery_A4_{lang}_REVIEW.svg')
+              for f in paths+[meta,readme]:z.write(f,f.name)
+          with zipfile.ZipFile(package) as z: assert z.testzip() is None and len(z.namelist())==8
+          for prefix in ['hades/library/light-gallery/print-guide/','site/public/hades/library/light-gallery/print-guide/']:
+              dst=pathlib.Path(prefix);dst.mkdir(parents=True,exist_ok=True)
+              for f in paths+[meta,package]:(dst/f.name).write_bytes(f.read_bytes())
+          for f in paths+[meta,package]:
+              assert (pathlib.Path('hades/library/light-gallery/print-guide')/f.name).read_bytes()==(pathlib.Path('site/public/hades/library/light-gallery/print-guide')/f.name).read_bytes()
+          print('PASS: 2 PDFs, 2 previews, manifest + CRC-valid 8-file ZIP in exact dual mirrors')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HADES-Light-Gallery-A4-Print-Source-REVIEW
+          path: generated-a4/
+      - name: Commit real PDF PNG ZIP binaries to public site (REVIEW)
+        run: |
+          git config user.name 'HADES Asset Builder'
+          git config user.email 'hades-asset-builder@users.noreply.github.com'
+          git add hades/library/light-gallery/print-guide/ site/public/hades/library/light-gallery/print-guide/
+          git diff --cached --quiet && { echo 'No binary changes'; exit 0; }
+          git commit -m 'assets(hades): publish source-faithful A4 PDF PNG and 8-file print pack REVIEW'
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Independent live HTTP 200 MIME and byte-exact SHA of six binaries
+        run: |
+          python - <<'PY'
+          import pathlib,urllib.request,time,hashlib
+          names=[f'HADES_Light_Gallery_A4_{lang}_REVIEW.pdf' for lang in ('EN','FA')]
+          names+=[f'HADES_Light_Gallery_A4_{lang}_Preview_REVIEW.png' for lang in ('EN','FA')]
+          names+=['HADES_Light_Gallery_A4_Print_Manifest_REVIEW.json','HADES_Light_Gallery_A4_Print_Pack_REVIEW.zip']
+          prefix=pathlib.Path('hades/library/light-gallery/print-guide')
+          pending={}
+          for n in range(24):
+              pending={}
+              for name in names:
+                  try:
+                      uri='https://ialirezaaa.github.io/hades/library/light-gallery/print-guide/'+name+'?a4_binary_check='+str(n)
+                      with urllib.request.urlopen(urllib.request.Request(uri,headers={'User-Agent':'HADES-A4-print-binary-audit'}),timeout=20) as response:
+                          binary=response.read()
+                          typ=response.headers.get('Content-Type','').split(';')[0].lower()
+                          expected={'.pdf':'application/pdf','.png':'image/png','.json':'application/json','.zip':'application/zip'}[pathlib.Path(name).suffix]
+                          assert response.status==200 and typ in (expected,'application/octet-stream'),(name,typ,expected)
+                          assert hashlib.sha256(binary).digest()==hashlib.sha256((prefix/name).read_bytes()).digest(),name
+                  except Exception as e:pending[name]=str(e)
+              if not pending:
+                  print('PASS 6/6 independent public HTTPS200 MIME and SHA256 A4 binary files')
+                  break
+              print('OPEN hosted attempt',n+1,'pending',len(pending))
+              if n<23:time.sleep(10)
+          assert not pending,pending
+          PY
