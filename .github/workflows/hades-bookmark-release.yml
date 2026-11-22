@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - "site/scripts/render-hades-bookmarks-review.py"
+      - "site/scripts/qa-hades-bookmark-mobile.py"
       - ".github/workflows/hades-bookmark-release.yml"
   workflow_dispatch:
 permissions:
@@ -28,6 +29,15 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Generate and validate source-locked PDFs, PNG, WebP, ZIP
         run: python site/scripts/render-hades-bookmarks-review.py
+      - name: QA real Chromium EN/FA at 320, 390 and 430 pixels
+        run: python site/scripts/qa-hades-bookmark-mobile.py
+      - name: Upload six actual bilingual mobile screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: HADES-Bookmarks-6-Real-Chromium-Mobile-REVIEW
+          path: bookmark-mobile-review-proofs/
+          if-no-files-found: error
+          retention-days: 21
       - name: Save actual rendered proofs
         uses: actions/upload-artifact@v4
         with:
