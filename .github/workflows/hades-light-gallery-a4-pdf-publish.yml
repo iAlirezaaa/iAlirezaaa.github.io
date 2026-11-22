@@ -104,7 +104,7 @@ jobs:
                           binary=response.read()
                           typ=response.headers.get('Content-Type','').split(';')[0].lower()
                           expected={'.pdf':'application/pdf','.png':'image/png','.json':'application/json','.zip':'application/zip'}[pathlib.Path(name).suffix]
-                          assert response.status==200 and typ in (expected,'application/octet-stream'),(name,typ,expected)
+                          assert response.status==200 and typ in (expected,'application/octet-stream','application/x-zip-compressed'),(name,typ,expected)
                           assert hashlib.sha256(binary).digest()==hashlib.sha256((prefix/name).read_bytes()).digest(),name
                   except Exception as e:pending[name]=str(e)
               if not pending:
