@@ -21,3 +21,8 @@
 - Real authorized Mikhak installation; system fallback is not font proof.
 - Independently hosted HTTP 200, MIME and source-byte match for all studio page and SVG paths.
 - Owner visual acceptance. Logo originals, manifest, Pattern02 private and Pattern03 stopped.
+
+## Executable browser suite added
+- `tests/hades-contrast-studio.cjs` serves actual committed `hades/` assets over local HTTP.
+- `.github/workflows/hades-contrast-studio-qa.yml` launches real Chromium, 320/390/430px in FA and EN, checks 3 ratio switches, logo plaque, original raster load, JSON controls, print CSS visibility, SVG downloads and horizontal overflow.
+- Passing results are NOT claimed until a GitHub Actions run actually concludes SUCCESS; hosted Pages HTTP is separate.
