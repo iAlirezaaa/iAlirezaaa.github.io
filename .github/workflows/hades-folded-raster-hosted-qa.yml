@@ -26,6 +26,7 @@ jobs:
           stems=['HADES_Folded_Arcade_16x9_REVIEW','HADES_Bone_Lightwell_9x16_REVIEW','HADES_Charcoal_Alcove_1x1_REVIEW']
           files=[('library/backgrounds/assets/'+s+'.'+ext,{'png':'image/png','jpg':'image/jpeg','webp':'image/webp'}[ext]) for s in stems for ext in ('png','jpg','webp')]
           files += [('library/backgrounds/Folded_Spaces_Raster_Release_REVIEW.json','json'),('library/backgrounds/HADES_Folded_Spaces_Raster_and_SVG_3_Ratios_REVIEW.zip','zip')]
+          files += [(p,'text/html') for p in ('library/backgrounds/index.html','fa/library/backgrounds/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','index.html','fa/index.html')]
           for f,mime in files:
             a=(pathlib.Path('site/public/hades')/f).read_bytes()
             b=(pathlib.Path('hades')/f).read_bytes()
@@ -47,5 +48,5 @@ jobs:
               except Exception as e:
                 error=repr(e);print('RETRY',f,attempt,error[:140],flush=True);time.sleep(5)
             assert error is None,('LIVE HTTP OPEN',f,error)
-          print('HADES Folded raster LIVE HTTPS 200/MIME/SHA PASS 11/11; physical phone, print, Mikhak and FINAL still OPEN')
+          print('HADES Folded raster and eight FA/EN live pages HTTPS 200/MIME/SHA PASS 19/19; physical phone, print, Mikhak and FINAL still OPEN')
           PY
