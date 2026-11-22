@@ -4,8 +4,8 @@
 <g id="unchanged-source-architecture"><rect width="1080" height="1920" fill="#E6D9C7"/><path d="M0 0H240L330 1920H0Z" fill="#C8B7A2"/><path d="M840 0H1080V1920H755Z" fill="#D3C3AE"/><path d="M240 0H840L755 1560H330Z" fill="#292723"/><path d="M282 0H800L730 1280H355Z" fill="#131211"/><path d="M323 0H756L713 650H379Z" fill="#38332E"/><path d="M370 640H716L730 678H355Z" fill="#625548"/><path d="M355 724H730L740 778H345Z" fill="#413831"/><path d="M341 839H744L749 900H334Z" fill="#5D5044"/><path d="M327 987H755L766 1060H317Z" fill="#716354"/><path d="M311 1166H770L781 1254H301Z" fill="#50463C"/><path d="M292 1380H791L808 1486H277Z" fill="#6E6052"/><path d="M0 1590H1080V1920H0Z" fill="#C1AD95"/><path d="M120 1634H960V1872H120Z" fill="#292723"/><path d="M160 1825H920" stroke="#6E6153" stroke-width="3"/><path d="M882 1430V1585" stroke="#EF4B32" stroke-width="8"/><path d="M120 1590L277 1486H808L960 1590Z" fill="#9A8872"/></g>
 <g id="editable-copy-field"><rect x="342" y="232" width="395" height="420" fill="#131211" fill-opacity="0.76" rx="2"/>
 <path d="M367 263h120" stroke="#EF4B32" stroke-width="5"/>
-<text id="editable-title" x="375" y="395" fill="#F2EDE5" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="62" font-weight="400" letter-spacing=".25">SUNKEN / SPACE</text>
-<text id="editable-subtitle" x="375" y="460" fill="#D6CBBE" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="27" font-weight="400">Editable editorial copy / REVIEW</text>
+<text id="editable-title" x="375" y="395" fill="#F2EDE5" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="62" font-weight="400" letter-spacing=".25">SUNKEN</text>
+<text id="editable-subtitle" x="375" y="460" fill="#D6CBBE" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="27" font-weight="400">COPY / REVIEW</text>
 </g>
 <g id="detached-original-mark-reservation"><rect x="142" y="1640" width="796" height="210" fill="#171514" fill-opacity=".96" stroke="#716357" stroke-width="2"/>
 <text x="170" y="1705" fill="#E6D9C7" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="23" font-weight="400">ORIGINAL MARK • RESERVED</text>
