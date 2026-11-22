@@ -3,7 +3,7 @@
 from pathlib import Path
 from urllib.request import Request,urlopen
 from urllib.parse import quote
-import hashlib,json,time,sys,xml.etree.ElementTree as ET
+import hashlib,json,time,sys,xml.etree.ElementTree as ET,zipfile,io
 ROOT=Path(__file__).resolve().parent.parent
 FILES={
 "library/backgrounds/section-cuts/index.html":"text/html",
@@ -35,7 +35,13 @@ for rel,mime in FILES.items():
    with urlopen(Request(url,headers={"User-Agent":"HADES-SectionCuts-IndependentQA","Cache-Control":"no-cache"}),timeout=22) as r:
     data=r.read();status=r.status;ctype=r.headers.get_content_type()
    result.update(status=status,mime=ctype,actual_sha256=hashlib.sha256(data).hexdigest())
-   if status==200 and ctype==mime and hashlib.sha256(data).hexdigest()==sha:ok=True;break
+   if status==200 and (ctype==mime or (rel.endswith(".zip") and ctype=="application/x-zip-compressed")) and hashlib.sha256(data).hexdigest()==sha:
+    if rel.endswith(".zip"):
+     with zipfile.ZipFile(io.BytesIO(data)) as archive:
+      assert archive.testzip() is None,"ZIP CRC failure"
+      assert len(archive.namelist())==5,"ZIP entry count"
+      assert len([n for n in archive.namelist() if n.endswith(".svg")])==3,"SVG entry count"
+    ok=True;break
   except Exception as ex:result["error"]=str(ex)
   time.sleep(10)
  result["pass"]=ok;rows.append(result)
