@@ -1,0 +1,61 @@
+name: HADES Portico A4 exact-browser PDF and PNG binary publisher PUBLIC REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/scripts/build-hades-portico-a4-pdf-review.py'
+      - '.github/workflows/hades-portico-a4-binary-publish.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-portico-a4-binary-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install authentic Chromium renderer and PDF validator
+        run: |
+          python -m pip install playwright pypdf
+          python -m playwright install --with-deps chromium
+      - name: Generate and commit browser-shaped A4 PDF PNG SHA manifest and CRC ZIP in both site mirrors
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python site/scripts/build-hades-portico-a4-pdf-review.py
+            git add -A -- site/public/hades/library/portico-studies/print-proof/ hades/library/portico-studies/print-proof/
+            if git diff --cached --quiet; then
+              echo 'Already released: exact matching binary assets in both GitHub trees'
+              exit 0
+            fi
+            git commit -m 'feat(hades): release Portico A4 source-accurate Chromium PDFs PNG and ZIP [REVIEW]'
+            if git push origin HEAD:main; then
+              echo 'BINARY RELEASE PUBLISHED to both GitHub trees; independent hosted HTTP still requires separate verification'
+              exit 0
+            fi
+            echo 'Concurrent branch push; retrying without force'
+            sleep 6
+          done
+          exit 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Portico-A4-browser-PDF-PNG-ZIP-PUBLIC-REVIEW
+          path: |
+            hades/library/portico-studies/print-proof/*.pdf
+            hades/library/portico-studies/print-proof/*.png
+            hades/library/portico-studies/print-proof/*.zip
+          if-no-files-found: ignore
