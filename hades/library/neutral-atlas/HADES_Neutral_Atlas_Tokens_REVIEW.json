@@ -1,0 +1,111 @@
+{
+  "name": "HADES Neutral Atlas / PUBLIC REVIEW",
+  "version": "2026-11-22",
+  "approved_color_only": "#EF4B32",
+  "palette_status": "supporting colors are proposals; not approved",
+  "asset_status": "PUBLIC REVIEW / NOT FINAL",
+  "original_logo_sources_modified": false,
+  "typography": "system fallback only; Mikhak not available/tested",
+  "wcag_method": "WCAG 2.x sRGB linearized relative luminance; contrast=(L1+0.05)/(L2+0.05)",
+  "thresholds": {
+    "normal_AA": 4.5,
+    "large_AA": 3,
+    "normal_AAA": 7
+  },
+  "colors": [
+    {
+      "id": "vermilion",
+      "name": "Vermilion",
+      "hex": "#EF4B32",
+      "approved": true
+    },
+    {
+      "id": "dark",
+      "name": "Dark",
+      "hex": "#131211",
+      "approved": false
+    },
+    {
+      "id": "bone",
+      "name": "Mammoth Bone",
+      "hex": "#E6D9C7",
+      "approved": false
+    },
+    {
+      "id": "charcoal",
+      "name": "Charcoal",
+      "hex": "#292723",
+      "approved": false
+    },
+    {
+      "id": "warm-ink",
+      "name": "Warm Ink",
+      "hex": "#F2EDE5",
+      "approved": false
+    }
+  ],
+  "pairs": [
+    {
+      "first": "dark",
+      "second": "bone",
+      "ratio": 13.467,
+      "normal_AA": true,
+      "large_AA": true
+    },
+    {
+      "first": "charcoal",
+      "second": "bone",
+      "ratio": 10.729,
+      "normal_AA": true,
+      "large_AA": true
+    },
+    {
+      "first": "dark",
+      "second": "warm-ink",
+      "ratio": 16.057,
+      "normal_AA": true,
+      "large_AA": true
+    },
+    {
+      "first": "charcoal",
+      "second": "warm-ink",
+      "ratio": 12.792,
+      "normal_AA": true,
+      "large_AA": true
+    },
+    {
+      "first": "dark",
+      "second": "vermilion",
+      "ratio": 5.099,
+      "normal_AA": true,
+      "large_AA": true
+    },
+    {
+      "first": "charcoal",
+      "second": "vermilion",
+      "ratio": 4.062,
+      "normal_AA": false,
+      "large_AA": true
+    },
+    {
+      "first": "bone",
+      "second": "vermilion",
+      "ratio": 2.641,
+      "normal_AA": false,
+      "large_AA": false
+    },
+    {
+      "first": "warm-ink",
+      "second": "vermilion",
+      "ratio": 3.149,
+      "normal_AA": false,
+      "large_AA": true
+    }
+  ],
+  "notes": [
+    "Flat sRGB math does not certify photos, gradients, textured media or actual printed media",
+    "Pure white original mark must appear on a separate dark plaque over light bone backgrounds",
+    "No logo sources or four-original manifest were modified",
+    "No new patterns or monogram generated"
+  ]
+}
