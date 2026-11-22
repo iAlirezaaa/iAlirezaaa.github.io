@@ -90,5 +90,24 @@ for (const f of ['apertures-manifest.REVIEW.json',aperturePack]) {
  check(readFileSync(a).equals(readFileSync(b)),'Apertures mirror mismatch '+f)
 }
 check(readFileSync(join(source,'backgrounds',aperturePack)).subarray(0,2).toString('ascii')==='PK','Apertures pack ZIP signature')
+// Folded Spaces: source/deploy vector delivery only; raster derivatives remain conversation-only.
+const folded = [
+ ['HADES_Folded_Arcade_16x9_REVIEW',1920,1080],
+ ['HADES_Bone_Lightwell_9x16_REVIEW',1080,1920],
+ ['HADES_Charcoal_Alcove_1x1_REVIEW',1080,1080]
+]
+for(const [stem,w,h] of folded){
+ const a=join(source,'backgrounds','assets',stem+'.svg'),b=join(out,'backgrounds','assets',stem+'.svg')
+ check(existsSync(a)&&existsSync(b),'Folded Spaces source or dist SVG missing '+stem)
+ const sa=readFileSync(a,'utf8'),sb=readFileSync(b,'utf8')
+ check(sa===sb,'Folded Spaces SVG source/dist mismatch '+stem)
+ check(sa.includes('<svg ')&&sa.includes('width="'+w+'"')&&sa.includes('height="'+h+'"')&&sa.includes('REVIEW'),'Folded Spaces native ratio or review marker '+stem)
+ check(!/<script|<image|<foreignObject/i.test(sa),'No executable or externally embedded content '+stem)
+}
+const fm=join(source,'backgrounds','Folded_Spaces_manifest_REVIEW.json'),fmd=join(out,'backgrounds','Folded_Spaces_manifest_REVIEW.json')
+check(existsSync(fm)&&existsSync(fmd),'Folded Spaces manifest missing')
+check(readFileSync(fm).equals(readFileSync(fmd)),'Folded Spaces manifest parity')
+check(JSON.parse(readFileSync(fm,'utf8')).assets.length===3,'Folded Spaces manifest asset count')
+
 check(catalog.approved_exact_color==='#EF4B32','approved accent drift')
-console.log(`HADES Library CI PASS: ${checks} real source/pixel-file checks; 18 PNG, 18 PSD, 18 SVG; 3 packs + 1 full ZIP; 2 gallery languages, 13 architectural backgrounds`)
+console.log(`HADES Library CI PASS: ${checks} real source/pixel-file checks; 18 PNG, 18 PSD, 18 SVG; 3 packs + 1 full ZIP; 2 gallery languages, 16 architectural backgrounds (new Folded SVGs source-only)`)
