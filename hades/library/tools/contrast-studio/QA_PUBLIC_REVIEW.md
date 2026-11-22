@@ -35,3 +35,8 @@
 ## Owner-original raster optical placement correction
 - Reviewed the *actual* six-view screenshot artifact and source PNG. The white glyph occupies only a small central fraction of the 946×2048 owner raster, which initially appeared as a barely visible dot on the plate.
 - Applied a **CSS-only centered 9× viewport magnification** inside the overflow-clipped independent dark plate. This uses the identical original PNG URL and unmodified bytes, no recolor/invert/trace or substituted symbol. Magnification is a REVIEW placement heuristic, not a production crop/master. Re-run Chromium/screenshots to verify legibility.
+
+## Contrast correction after actual visual 320/390/430 inspection
+- The owner-original mark is now readable after CSS-only optical magnification; inspection also showed bone surfaces occasionally running behind light-colored English/Persian specimen copy.
+- Added independent nearly opaque dark editorial plate, 86% opacity, with a hairline approved vermilion #EF4B32 edge and no glow. This changes UI backdrop only, not embedded raster pixels or owners' marks.
+- Automated browser check now asserts the separate text backing. Real screenshots/hosted proof must be reobserved for current head, not inferred from past PASS.
