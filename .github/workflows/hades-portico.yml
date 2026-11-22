@@ -1,0 +1,37 @@
+name: HADES Portico real Chromium and live-hosted audit REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/portico-studies/**'
+      - 'site/public/hades/library/portico-studies/**'
+      - 'hades/fa/library/portico-studies/**'
+      - 'site/public/hades/fa/library/portico-studies/**'
+      - 'tests/hades-portico*.py'
+      - '.github/workflows/hades-portico.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - run: python tests/hades-portico.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portico-real-chromium-review
+          path: hades-portico-qa/
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - run: python tests/hades-portico-hosted.py
