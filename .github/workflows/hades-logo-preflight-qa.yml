@@ -32,6 +32,22 @@ jobs:
           name: HADES-logo-preflight-proof-REVIEW
           path: hades-logo-preflight-proof/
           if-no-files-found: warn
+      - name: Verify original JPEG embedded byte-for-byte in mirrored A4 PDF; Poppler render
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          src=Path('hades/assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg').read_bytes()
+          a=Path('hades/brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf').read_bytes()
+          b=Path('site/public/hades/brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf').read_bytes()
+          assert a==b and a.startswith(b'%PDF-1.4') and a.endswith(b'%%EOF\n')
+          assert len(src)==230704 and a.count(src)==1, 'Unmodified original JPEG must be embedded once'
+          assert a.count(b'/Type /Page /Parent')==2 and b'/MediaBox [0 0 595.276 841.89]' in a
+          print('PDF structural/source-exact mirror PASS; physical print OPEN')
+          PY
+          mkdir -p hades-logo-preflight-proof/pdf-render
+          pdfinfo hades/brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf | tee hades-logo-preflight-proof/pdf-render/pdfinfo.txt
+          pdfinfo hades/brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf | grep -E 'Pages:[[:space:]]+2'
+          pdftoppm -f 1 -l 2 -scale-to 1200 -png hades/brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf hades-logo-preflight-proof/pdf-render/classic-A4
   hosted:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -43,7 +59,7 @@ jobs:
           from pathlib import Path
           from urllib.request import Request,urlopen
           import time,hashlib
-          files=['brand-kit/logo-usage/preflight/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','index.html','fa/index.html','library/catalog.json']
+          files=['brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf','brand-kit/logo-usage/preflight/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','index.html','fa/index.html','library/catalog.json']
           for name in files:
             a=(Path('hades')/name).read_bytes()
             assert a==(Path('site/public/hades')/name).read_bytes(),'mirror mismatch: '+name
@@ -56,10 +72,10 @@ jobs:
                   body,status,ctype=res.read(),res.status,res.headers.get('Content-Type','')
                 assert status==200,(url,status)
                 assert expected==hashlib.sha256(body).hexdigest(),(url,'SHA mismatch')
-                assert ('html' in ctype if name.endswith('.html') else 'json' in ctype),(url,ctype)
+                assert (('html' in ctype) if name.endswith('.html') else (('pdf' in ctype) if name.endswith('.pdf') else ('json' in ctype))),(url,ctype)
                 print('PUBLIC HTTPS PASS',url,len(body),flush=True);break
               except Exception:
                 if attempt==23:raise
                 time.sleep(9)
-          print('HADES LOGO PREFLIGHT LIVE 8/8 PASS',flush=True)
+          print('HADES LOGO PREFLIGHT LIVE %s/%s PASS' % (len(files),len(files)),flush=True)
           PY
