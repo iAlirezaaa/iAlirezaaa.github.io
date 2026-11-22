@@ -1,0 +1,48 @@
+name: HADES Section Cuts genuine Chromium and hosted check REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/backgrounds/section-cuts/**'
+      - 'site/public/hades/library/backgrounds/section-cuts/**'
+      - 'hades/library/backgrounds/assets/HADES_Section_Cut_*'
+      - 'site/public/hades/library/backgrounds/assets/HADES_Section_Cut_*'
+      - 'tests/hades-section-cuts*'
+      - '.github/workflows/hades-section-cuts-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - run: npm install --prefix /tmp/hades-section --no-save --no-package-lock playwright-core
+      - name: Decode original SVG images in real Chromium at 320/390/430 EN/FA
+        env:
+          NODE_PATH: /tmp/hades-section/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-section-cuts.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Section-Cuts-6-Chromium-REVIEW
+          path: hades-section-cuts-QA/
+          if-no-files-found: warn
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/hades-section-cuts-hosted.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Section-Cuts-16-Live-HTTPS-REVIEW
+          path: hades-section-cuts-hosted-QA/
+          if-no-files-found: warn
