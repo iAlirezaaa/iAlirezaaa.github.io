@@ -1,0 +1,53 @@
+name: HADES Applied Covers original-mark raster publisher REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/scripts/render-hades-section-cuts-applied-raster-review.py'
+      - '.github/workflows/hades-section-cuts-applied-raster-publish.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-applied-raster-publisher
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: python3 -m pip install --user cairosvg pillow
+      - name: Decode exact owner's embedded logo bytes, rasterise and validate ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python3 site/scripts/render-hades-section-cuts-applied-raster-review.py
+            git add -A -- site/public/hades/library/backgrounds/section-cuts/applied-raster/ hades/library/backgrounds/section-cuts/applied-raster/
+            if git diff --cached --quiet; then
+              echo "Already published; source and mirror bytes unchanged."
+              exit 0
+            fi
+            git commit -m "feat(hades): publish source-authentic Applied Covers PNG WebP pack [REVIEW]"
+            if git push origin HEAD:main; then
+              echo "PUBLISHED: six full-size PNG/WebP, actual preview, manifest and ZIP in two site trees"
+              exit 0
+            fi
+            echo "Concurrent push detected; retry without force"
+            sleep 5
+          done
+          exit 1
+      - name: Upload binary proof (also if publish failed)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: HADES-Applied-Covers-Raster-Public-Review
+          path: hades/library/backgrounds/section-cuts/applied-raster/
+          if-no-files-found: ignore
