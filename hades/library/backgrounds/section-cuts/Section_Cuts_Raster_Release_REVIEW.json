@@ -1,0 +1,120 @@
+{
+  "family": "HADES Architectural Section Cuts",
+  "status": "PUBLIC REVIEW — not FINAL",
+  "approved_colour_only": "#EF4B32",
+  "proposed_neutrals": {
+    "dark": "#131211",
+    "mammoth_bone": "#E6D9C7",
+    "charcoal": "#292723"
+  },
+  "provenance": "Deterministic CairoSVG/Pillow renders from the three public standalone SVG artworks, not ImageGen photos or old conversation rasters",
+  "original_logo_policy": "NO LOGO included. All four original marks and their manifest remain unchanged.",
+  "assets": [
+    {
+      "source": "assets/HADES_Section_Cut_Cantilever_16x9_REVIEW.svg",
+      "source_sha256": "09e3e73b3f7b69c6e8d6f2e083cf9d8dc205f7fd622a29ce194387b655d4e727",
+      "ratio": "16:9",
+      "width": 1920,
+      "height": 1080,
+      "renders": [
+        {
+          "path": "assets/HADES_Section_Cut_Cantilever_16x9_REVIEW.png",
+          "mime": "image/png",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 22798,
+          "sha256": "6b35fb46155a2f1409b84e969514b91832c2f1b67679bf1e4128138a1ae66e3c"
+        },
+        {
+          "path": "assets/HADES_Section_Cut_Cantilever_16x9_REVIEW.jpg",
+          "mime": "image/jpeg",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 56321,
+          "sha256": "4df00538f90aba3f0e3f4f5458db3bc62dca82f21ad0459f9eb19db3dd4d9534"
+        },
+        {
+          "path": "assets/HADES_Section_Cut_Cantilever_16x9_REVIEW.webp",
+          "mime": "image/webp",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 9056,
+          "sha256": "b5dd3ea9ad243d6e3e5d6cbb3d8b3e32e62bc94d9b99dffa80057a169d974dc6"
+        }
+      ]
+    },
+    {
+      "source": "assets/HADES_Section_Cut_Sunken_Gallery_9x16_REVIEW.svg",
+      "source_sha256": "213a0564b5746fa7e92d9638b7f847112d4f67fab44990a3b04c8e3ca4cd7220",
+      "ratio": "9:16",
+      "width": 1080,
+      "height": 1920,
+      "renders": [
+        {
+          "path": "assets/HADES_Section_Cut_Sunken_Gallery_9x16_REVIEW.png",
+          "mime": "image/png",
+          "width": 1080,
+          "height": 1920,
+          "bytes": 44508,
+          "sha256": "ef8d195ce65cd7de0e2569e5bda23ad44768aeeb28ca44476e1965e243db88f3"
+        },
+        {
+          "path": "assets/HADES_Section_Cut_Sunken_Gallery_9x16_REVIEW.jpg",
+          "mime": "image/jpeg",
+          "width": 1080,
+          "height": 1920,
+          "bytes": 72516,
+          "sha256": "df9c1e81f05038178cd2d247bdcc7b66a10d43b1a8cd4421d77a62b181ff40be"
+        },
+        {
+          "path": "assets/HADES_Section_Cut_Sunken_Gallery_9x16_REVIEW.webp",
+          "mime": "image/webp",
+          "width": 1080,
+          "height": 1920,
+          "bytes": 13956,
+          "sha256": "adc68ef52e167e1609d3d0b88aa54f25142942241c066ba20099b5342757345a"
+        }
+      ]
+    },
+    {
+      "source": "assets/HADES_Section_Cut_Suspended_Lintel_1x1_REVIEW.svg",
+      "source_sha256": "d98d3d549a23c5b6a598942e585f2e09b07db22021775ad0f8c634d1d5e8b4f2",
+      "ratio": "1:1",
+      "width": 1080,
+      "height": 1080,
+      "renders": [
+        {
+          "path": "assets/HADES_Section_Cut_Suspended_Lintel_1x1_REVIEW.png",
+          "mime": "image/png",
+          "width": 1080,
+          "height": 1080,
+          "bytes": 11090,
+          "sha256": "e1519f84ec80babea12d75319921c7ae85122e165a51604bdb4596362c18a8a0"
+        },
+        {
+          "path": "assets/HADES_Section_Cut_Suspended_Lintel_1x1_REVIEW.jpg",
+          "mime": "image/jpeg",
+          "width": 1080,
+          "height": 1080,
+          "bytes": 38566,
+          "sha256": "17197b3081add74d0518ad9b58e9997b6f973b3e8e28358bb8f44c4326c8279a"
+        },
+        {
+          "path": "assets/HADES_Section_Cut_Suspended_Lintel_1x1_REVIEW.webp",
+          "mime": "image/webp",
+          "width": 1080,
+          "height": 1080,
+          "bytes": 5250,
+          "sha256": "bb34c68dd692fdccaec186e474e23ccae2aa7e99e83c6eb84695df3d05f2be33"
+        }
+      ]
+    }
+  ],
+  "contact_sheet": {
+    "path": "section-cuts/HADES_Section_Cuts_Raster_Contact_REVIEW.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 54129,
+    "sha256": "de07abac3d75964f480035dd5bdbe18df2c4a1439a3725adcdb98607670738ef"
+  }
+}
