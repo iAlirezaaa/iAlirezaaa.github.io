@@ -1,0 +1,117 @@
+{
+  "status": "PASS — PUBLIC REVIEW, NOT FINAL",
+  "verified_at_utc": "2026-11-22T22:37:32.502924+00:00",
+  "release_commit": "1b1a26f5cb781c1ad681eb441c9bd5d61557cb4e",
+  "test": "Independent GitHub Pages HTTP 200, exact MIME, SHA-256 byte verification",
+  "checked_count": 15,
+  "checks": [
+    {
+      "file": "HADES_Bookmark_A4_EN_REVIEW.pdf",
+      "http": 200,
+      "mime": "application/pdf",
+      "bytes": 36980,
+      "sha256": "54a057be9f66090539c25507b88d0226ec0f89b4c4ba831218efb8c0513d3dc0"
+    },
+    {
+      "file": "HADES_Bookmark_A4_EN_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 54594,
+      "sha256": "2978b18874fb3c549b250d0cc895ef47eb943012a95edbb3079537883f62a39c"
+    },
+    {
+      "file": "HADES_Bookmark_A4_FA_REVIEW.pdf",
+      "http": 200,
+      "mime": "application/pdf",
+      "bytes": 35666,
+      "sha256": "b20df657962745997ef57fa64d09d442b938be540ac6fa65e0c700090756a203"
+    },
+    {
+      "file": "HADES_Bookmark_A4_FA_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 52384,
+      "sha256": "4e5fe7c604a6977b12660c87792edc71270a96b6e4372f7966b40de3484ffc62"
+    },
+    {
+      "file": "HADES_Bookmark_Classic_EN_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 26078,
+      "sha256": "e3fefa29ecc175bb65f5ed4d89e68840e8e6dee69b3155c0ae222abe8a48561d"
+    },
+    {
+      "file": "HADES_Bookmark_Classic_EN_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 14232,
+      "sha256": "1dc56a9d8d11ea9ed3b1873162ec0e56dd62cbb8e9ab8df48fea47eb0c7a9522"
+    },
+    {
+      "file": "HADES_Bookmark_Classic_FA_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 25086,
+      "sha256": "926718f58780fb7e24e986f94ba5a00df736af711db759750d3bfc3deff2f040"
+    },
+    {
+      "file": "HADES_Bookmark_Classic_FA_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 13572,
+      "sha256": "0a52af67675e1faf2d487550f17e0966bce0a4a52b263ba47b25abec05e27c15"
+    },
+    {
+      "file": "HADES_Bookmark_Modern_EN_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 26604,
+      "sha256": "89ada8ad4b91f706d76787dad1053ac8b7b79cd68774e806dbb2c8f56534cdee"
+    },
+    {
+      "file": "HADES_Bookmark_Modern_EN_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 12708,
+      "sha256": "af87a6a6c29d53ca36020e0d93100978e1af9bd6331813d790281cfb7edea2ff"
+    },
+    {
+      "file": "HADES_Bookmark_Modern_FA_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 25416,
+      "sha256": "f74f5def4aa29df45974da1d1f150a6e33f1427ed5c8aaf34bf5b79c5cb6b3be"
+    },
+    {
+      "file": "HADES_Bookmark_Modern_FA_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 13452,
+      "sha256": "e9406d599739efb0d8909bf3f8253737227e9f5304e93d79983bc84f813f4043"
+    },
+    {
+      "file": "HADES_Bookmarks_Classic_Modern_A4_PNG_WEBP_SVG_REVIEW.zip",
+      "http": 200,
+      "mime": "application/x-zip-compressed",
+      "bytes": 322186,
+      "sha256": "d4ea897cfd46dfede39bfffb956ff0ce066c5fc10fedcd73b598ebf3a2a92b00"
+    },
+    {
+      "file": "HADES_Bookmarks_Production_Manifest_REVIEW.json",
+      "http": 200,
+      "mime": "application/json",
+      "bytes": 4387,
+      "sha256": "28952a54eb01e6ec5eaa3f71b563a2b23f592f2042ea786b70417351944aa850"
+    },
+    {
+      "file": "README_REVIEW.txt",
+      "http": 200,
+      "mime": "text/plain",
+      "bytes": 647,
+      "sha256": "bafe1cfd0546e98d1c0f551f93fca128f1b1918ac2d3a099c119ebb4b5d62fd2"
+    }
+  ],
+  "physical_print": "OPEN",
+  "real_phone_48_96px": "OPEN",
+  "mikhak_file": "OPEN"
+}
