@@ -1,0 +1,47 @@
+name: HADES Section Cuts real raster publisher REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/scripts/render-hades-section-cuts-raster-review.py'
+      - '.github/workflows/hades-section-cuts-raster-build.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-section-cuts-real-raster-publish
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: python3 -m pip install --user cairosvg pillow
+      - name: Render, decode, compare SHA and ZIP CRC; safe non-force git push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python3 site/scripts/render-hades-section-cuts-raster-review.py
+            git add -A -- site/public/hades/library/backgrounds/assets/HADES_Section_Cut_*.png site/public/hades/library/backgrounds/assets/HADES_Section_Cut_*.jpg site/public/hades/library/backgrounds/assets/HADES_Section_Cut_*.webp hades/library/backgrounds/assets/HADES_Section_Cut_*.png hades/library/backgrounds/assets/HADES_Section_Cut_*.jpg hades/library/backgrounds/assets/HADES_Section_Cut_*.webp
+            git add -A -- site/public/hades/library/backgrounds/section-cuts/Section_Cuts_Raster_Release_REVIEW.json hades/library/backgrounds/section-cuts/Section_Cuts_Raster_Release_REVIEW.json site/public/hades/library/backgrounds/section-cuts/HADES_Section_Cuts_Raster_Contact_REVIEW.png hades/library/backgrounds/section-cuts/HADES_Section_Cuts_Raster_Contact_REVIEW.png site/public/hades/library/backgrounds/section-cuts/HADES_Section_Cuts_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip hades/library/backgrounds/section-cuts/HADES_Section_Cuts_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip
+            if git diff --cached --quiet; then
+              echo "Already published as matching binaries"
+              exit 0
+            fi
+            git commit -m "feat(hades): publish Section Cuts nine real raster exports and ZIP [REVIEW]"
+            if git push origin HEAD:main; then
+              echo "PUBLISHED: 9 PNG/JPEG/WebP; contact sheet; manifest; ZIP, mirrored"
+              exit 0
+            fi
+            echo "Concurrent advance; retry on latest HEAD without force"
+            sleep 5
+          done
+          exit 1
