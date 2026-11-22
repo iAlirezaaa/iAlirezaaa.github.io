@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297" role="img" aria-labelledby="title desc">
+<title id="title">HADES Neutral Atlas / A4 / REVIEW</title><desc id="desc">Editable flat-sRGB colour reference with actual WCAG contrast comparisons. Only vermilion is approved.</desc>
+<rect width="210" height="297" fill="#F2EDE5"/>
+<path d="M15 14 H195" stroke="#292723" stroke-width=".32"/>
+<rect x="15" y="14" width="16" height="1.2" fill="#EF4B32"/>
+<g fill="#292723" font-family="Arial,sans-serif" font-weight="400">
+<text x="15" y="27" font-size="8">HADES  /  NEUTRAL ATLAS</text>
+<text x="15" y="34" font-size="3.9">PUBLIC REVIEW  /  Proposed neutral surfaces with one approved accent</text>
+<text x="15" y="41" font-size="3.2">Colour values are flat sRGB proposals; neither print nor typography is approved.</text>
+<text x="15" y="187" font-size="5.3">Measured contrast  /  WCAG sRGB</text>
+</g>
+<rect x="15" y="44" width="58" height="23" rx="1" fill="#EF4B32"/><text x="19" y="58" fill="#F2EDE5" font-family="Arial,sans-serif" font-size="3.5" font-weight="400">Vermilion</text><text x="79" y="57" fill="#292723" font-family="Arial,sans-serif" font-size="4.1">#EF4B32</text><text x="145" y="57" fill="#292723" font-family="Arial,sans-serif" font-size="3.3">OWNER APPROVED</text>
+<rect x="15" y="71" width="58" height="23" rx="1" fill="#131211"/><text x="19" y="85" fill="#F2EDE5" font-family="Arial,sans-serif" font-size="3.5" font-weight="400">Dark</text><text x="79" y="84" fill="#292723" font-family="Arial,sans-serif" font-size="4.1">#131211</text><text x="145" y="84" fill="#292723" font-family="Arial,sans-serif" font-size="3.3">PROPOSED / REVIEW</text>
+<rect x="15" y="98" width="58" height="23" rx="1" fill="#E6D9C7"/><text x="19" y="112" fill="#131211" font-family="Arial,sans-serif" font-size="3.5" font-weight="400">Mammoth Bone</text><text x="79" y="111" fill="#292723" font-family="Arial,sans-serif" font-size="4.1">#E6D9C7</text><text x="145" y="111" fill="#292723" font-family="Arial,sans-serif" font-size="3.3">PROPOSED / REVIEW</text>
+<rect x="15" y="125" width="58" height="23" rx="1" fill="#292723"/><text x="19" y="139" fill="#F2EDE5" font-family="Arial,sans-serif" font-size="3.5" font-weight="400">Charcoal</text><text x="79" y="138" fill="#292723" font-family="Arial,sans-serif" font-size="4.1">#292723</text><text x="145" y="138" fill="#292723" font-family="Arial,sans-serif" font-size="3.3">PROPOSED / REVIEW</text>
+<rect x="15" y="152" width="58" height="23" rx="1" fill="#F2EDE5"/><text x="19" y="166" fill="#131211" font-family="Arial,sans-serif" font-size="3.5" font-weight="400">Warm Ink</text><text x="79" y="165" fill="#292723" font-family="Arial,sans-serif" font-size="4.1">#F2EDE5</text><text x="145" y="165" fill="#292723" font-family="Arial,sans-serif" font-size="3.3">PROPOSED / REVIEW</text>
+<path d="M15 180 H195" stroke="#9A9083" stroke-width=".25"/>
+<text x="17" y="200" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">Dark / Mammoth Bone</text><text x="125" y="200" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">13.47 : 1</text><text x="170" y="200" fill="#292723" font-family="Arial,sans-serif" font-size="3.6">AA body</text>
+<text x="17" y="208.4" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">Charcoal / Mammoth Bone</text><text x="125" y="208.4" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">10.73 : 1</text><text x="170" y="208.4" fill="#292723" font-family="Arial,sans-serif" font-size="3.6">AA body</text>
+<text x="17" y="216.8" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">Dark / Warm Ink</text><text x="125" y="216.8" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">16.06 : 1</text><text x="170" y="216.8" fill="#292723" font-family="Arial,sans-serif" font-size="3.6">AA body</text>
+<text x="17" y="225.2" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">Charcoal / Warm Ink</text><text x="125" y="225.2" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">12.79 : 1</text><text x="170" y="225.2" fill="#292723" font-family="Arial,sans-serif" font-size="3.6">AA body</text>
+<text x="17" y="233.6" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">Dark / Vermilion</text><text x="125" y="233.6" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">5.10 : 1</text><text x="170" y="233.6" fill="#292723" font-family="Arial,sans-serif" font-size="3.6">AA body</text>
+<text x="17" y="242" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">Charcoal / Vermilion</text><text x="125" y="242" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">4.06 : 1</text><text x="170" y="242" fill="#9A311F" font-family="Arial,sans-serif" font-size="3.6">large only</text>
+<text x="17" y="250.4" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">Mammoth Bone / Vermilion</text><text x="125" y="250.4" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">2.64 : 1</text><text x="170" y="250.4" fill="#9A311F" font-family="Arial,sans-serif" font-size="3.6">FAIL text</text>
+<text x="17" y="258.8" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">Warm Ink / Vermilion</text><text x="125" y="258.8" fill="#292723" font-family="Arial,sans-serif" font-size="3.7">3.15 : 1</text><text x="170" y="258.8" fill="#9A311F" font-family="Arial,sans-serif" font-size="3.6">large only</text>
+<path d="M15 274 H195" stroke="#9A9083" stroke-width=".25"/>
+<g fill="#292723" font-family="Arial,sans-serif" font-size="3.15">
+<text x="15" y="281">Body AA requires 4.5:1. Large text AA requires 3:1. Textured images need separate review.</text>
+<text x="15" y="286">Original white logo: use the unchanged source on a separate dark plate over bone.</text>
+<text x="15" y="291">Original HADES marks untouched  /  Pattern02 private  /  Pattern03 stopped  /  NOT FINAL</text></g>
+</svg>
