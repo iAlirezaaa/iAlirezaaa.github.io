@@ -1,0 +1,67 @@
+name: HADES Folded raster bilingual mobile Chromium REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-folded-raster-mobile-qa.yml'
+      - 'site/public/hades/library/backgrounds/index.html'
+      - 'site/public/hades/fa/library/backgrounds/index.html'
+      - 'hades/library/backgrounds/index.html'
+      - 'hades/fa/library/backgrounds/index.html'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - name: Bilingual actual Chromium 320/390/430 with decoded WebP and linked PNG/JPEG/ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/hades-folded-raster
+          python3 -m http.server 8777 --directory . >/tmp/hades-folded-server.log 2>&1 &
+          node --input-type=module <<'JS'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+          try{
+            for(const locale of ['en','fa']){
+              const path=locale==='fa'?'/hades/fa/library/backgrounds/':'/hades/library/backgrounds/';
+              for(const width of [320,390,430]){
+                const page=await browser.newPage({viewport:{width,height:880},deviceScaleFactor:1});
+                const res=await page.goto('http://127.0.0.1:8777'+path,{waitUntil:'domcontentloaded',timeout:30000});
+                if(res.status()!==200)throw Error('HTTP '+res.status());
+                const cards=page.locator('#folded-raster-review article.tile');
+                if(await cards.count()!==3)throw Error('not 3 raster cards '+locale);
+                for(let index=0;index<3;index++){
+                  const tile=cards.nth(index);
+                  await tile.scrollIntoViewIfNeeded();
+                  const image=tile.locator('img');
+                  await image.evaluate(async img=>{if(!img.complete)await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject})});
+                  if(!await image.evaluate(img=>img.naturalWidth>0&&img.naturalHeight>0))throw Error('raster failed '+index);
+                  if(await tile.locator('a[download]').count()!==4)throw Error('one of 4 formats not linked');
+                }
+                const pack=page.locator('#folded-raster-review a[href$=".zip"]');
+                if(await pack.count()!==1)throw Error('ZIP link missing');
+                if((await page.locator('html').getAttribute('lang'))!==locale)throw Error('language label wrong');
+                const measure=await page.evaluate(()=>({viewport:innerWidth,html:document.documentElement.scrollWidth,body:document.body.scrollWidth}));
+                if(measure.html>width+1||measure.body>width+1)throw Error('horizontal overflow '+JSON.stringify(measure));
+                await page.screenshot({path:'artifacts/hades-folded-raster/'+locale+'-'+width+'.png',fullPage:true,timeout:20000});
+                console.log('PASS',locale,width,'3 decoded WebPs, 12 format links, package, no overflow');
+                await page.close();
+              }
+            }
+          }finally{await browser.close()}
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-folded-raster-six-actual-chromium-views-REVIEW
+          path: artifacts/hades-folded-raster/
