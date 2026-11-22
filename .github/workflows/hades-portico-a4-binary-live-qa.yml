@@ -1,0 +1,58 @@
+name: HADES Portico A4 binary pack independent hosted QA REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-portico-a4-binary-live-qa.yml'
+      - 'site/public/hades/library/portico-studies/print-proof/**'
+      - 'site/public/hades/fa/library/portico-studies/print-proof/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-hosted-bytes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare public GitHub Pages HTTP 200 MIME SHA to exact PDF PNG ZIP manifests in GitHub
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import hashlib,json,io,zipfile,time
+          base=Path('hades/library/portico-studies/print-proof')
+          names=['HADES_Portico_A4_Print_EN_REVIEW.pdf','HADES_Portico_A4_Print_FA_REVIEW.pdf',
+                 'HADES_Portico_A4_Chromium_EN_REVIEW.png','HADES_Portico_A4_Chromium_FA_REVIEW.png',
+                 'HADES_Portico_A4_Binary_Manifest_REVIEW.json','HADES_Portico_A4_Print_Pack_REVIEW.zip']
+          paths=['library/portico-studies/print-proof/'+n for n in names]+[
+             'library/portico-studies/print-proof/index.html',
+             'fa/library/portico-studies/print-proof/index.html']
+          m=json.loads((base/'HADES_Portico_A4_Binary_Manifest_REVIEW.json').read_text())
+          for n in names:
+             p=base/n
+             assert p.read_bytes()==(Path('site/public/hades/library/portico-studies/print-proof')/n).read_bytes(),n
+             if n in m['files']:
+                assert hashlib.sha256(p.read_bytes()).hexdigest()==m['files'][n]['sha256']
+          with zipfile.ZipFile(base/'HADES_Portico_A4_Print_Pack_REVIEW.zip') as z:
+             assert z.testzip() is None
+             assert len(z.namelist())==8
+          todo=set(paths)
+          for i in range(19):
+             for rel in list(todo):
+                try:
+                   with urlopen(Request('https://ialirezaaa.github.io/hades/'+rel+'?public-review=20261122-a4',
+                                    headers={'User-Agent':'HADES-Independent-Audit/1.0','Cache-Control':'no-cache'}),timeout=22) as res:
+                       body=res.read();ctype=res.headers.get('Content-Type','').lower()
+                       assert res.status==200
+                       ext=rel.rsplit('.',1)[-1]
+                       assert {'pdf':'pdf','png':'png','json':'json','zip':'zip','html':'html'}[ext] in ctype,ctype
+                   assert body==(Path('hades')/rel).read_bytes(), 'stale/mismatched hosted bytes'
+                   print('PASS LIVE 200 MIME SHA',rel,hashlib.sha256(body).hexdigest())
+                   todo.remove(rel)
+                except Exception as exc:print('OPEN / retry',rel,str(exc)[:150])
+             if not todo:break
+             if i<18:time.sleep(20)
+          assert not todo, 'LIVE unverified '+repr(sorted(todo))
+          print('PASS independent live hosted binary pack',len(paths),'URLs with correct MIME and byte identities')
+          PY
