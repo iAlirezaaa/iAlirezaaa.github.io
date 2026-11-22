@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="HADES safe field transparent vector overlay 16:9, REVIEW">
+<title>HADES · Editorial Safe Field 16:9 · REVIEW</title>
+<desc>Transparent editorial guide, not an official brand specification. Place over an existing background; use an owner-supplied mark separately on a dark plate; never redraw or recolor the logo. All measurements and neutral tones are proposed; only #EF4B32 is owner-approved.</desc>
+<g id="outer-visual-safe-area" fill="none" stroke="#E5D8C8" stroke-opacity=".85" stroke-width="3" stroke-dasharray="12 9"><rect x="163" y="97" width="1594" height="886"/></g>
+<g id="inner-text-guide" fill="none" stroke="#E5D8C8" stroke-opacity=".48" stroke-width="3"><rect x="250" y="184" width="1421" height="605"/></g>
+<g id="original-logo-plate-placeholder" aria-label="Dark independent plate placeholder; no logo data included">
+<rect x="202" y="734" width="307" height="238" rx="0" fill="#191817" fill-opacity=".88" stroke="#E5D8C8" stroke-opacity=".65" stroke-width="3"/>
+<path d="M214 746h92M214 746v48" stroke="#EF4B32" fill="none" stroke-width="6"/>
+</g>
+<g id="subtle-accent-ticks" fill="none" stroke="#EF4B32" stroke-width="6">
+<path d="M163 73v18M139 97h18M1757 1007v-18M1781 983h-18"/>
+</g>
+<g id="editorial-notes" fill="#E5D8C8" font-family="sans-serif" font-weight="400" font-size="23">
+<text x="163" y="71">HADES / SAFE FIELD / 16:9 / REVIEW</text>
+<text x="163" y="1054">PROPOSED SAFE MARGINS · NOT FINAL</text>
+<text x="214" y="960" font-size="17">ORIGINAL MARK PLATE</text>
+</g>
+</svg>
