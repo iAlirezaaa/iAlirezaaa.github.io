@@ -1,0 +1,3 @@
+# HADES Section Cuts: real raster release / PUBLIC REVIEW
+
+2026-11-22. Nine real full-size PNG/JPEG/WebP renders of the three existing standalone architecture SVGs; 1600x900 contact sheet; exact SHA256 manifest; 15-member downloadable ZIP (source SVG included). Reproducible with `site/scripts/render-hades-section-cuts-raster-review.py`. Real hosted HTTP/MIME/SHA is a separate QA gate from GitHub commit. Only `#EF4B32` is approved; Dark `#131211`, Bone `#E6D9C7`, Charcoal `#292723` and all layouts remain proposals. No logos are included, originals and their manifest unchanged. Pattern01 public REVIEW, Pattern02 private, Pattern03 stopped. Physical phone 48/96px, A4 calibration and genuine Mikhak remain OPEN. No FINAL.
