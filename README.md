@@ -72,3 +72,6 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 
 ## HADES Contrast Studio / 2026-11-22 / REVIEW
 - [English interactive studio](https://ialirezaaa.github.io/hades/library/tools/contrast-studio/) · [فارسی](https://ialirezaaa.github.io/hades/fa/library/tools/contrast-studio/) · 3 editable safe-field SVG overlays for 16:9, 9:16, 1:1. Original owner white raster is referenced unchanged, always on its own dark plate. Assets are REVIEW, not FINAL; hosting, real phone, micro and print checks remain separate.
+
+## Original mark micro recognition bench · PUBLIC REVIEW (2026-11-22)
+- [EN original-size optical bench](https://ialirezaaa.github.io/hades/brand-kit/logo-usage/micro-bench/) · [FA](https://ialirezaaa.github.io/hades/fa/brand-kit/logo-usage/micro-bench/). Original logo source unchanged, 48/96/400 CSS-pixel sampling, dark plaque on proposed bone backgrounds, local JSON observation export. Native phone/print/Mikhak remain OPEN.
