@@ -59,10 +59,15 @@ def run_browser():
         for mode in ("Classic", "Modern"):
             for lang in ("EN", "FA"):
                 name = f"HADES_Bookmark_{mode}_{lang}_REVIEW.svg"
-                page.goto((SOURCE / name).resolve().as_uri(), wait_until="load")
-                page.wait_for_timeout(150)
+                source_bytes = (SOURCE / name).read_bytes()
+                src = "data:image/svg+xml;base64," + base64.b64encode(source_bytes).decode("ascii")
+                page.set_content('<!doctype html><html><head><meta charset="utf-8"><style>'
+                                 'html,body{margin:0;padding:0;width:500px;height:1800px;overflow:hidden}'
+                                 'img{display:block;width:500px;height:1800px}</style></head>'
+                                 '<body><img id="art" src="' + src + '"></body></html>', wait_until="load")
+                page.locator("#art").evaluate("(el) => el.decode()")
                 png = OUT / name.replace(".svg", ".png")
-                page.screenshot(path=str(png), animations="disabled")
+                page.locator("#art").screenshot(path=str(png), animations="disabled")
                 with Image.open(png) as im:
                     assert im.size == (500, 1800), (png, im.size)
                     im.convert("RGB").save(OUT / name.replace(".svg", ".webp"),
