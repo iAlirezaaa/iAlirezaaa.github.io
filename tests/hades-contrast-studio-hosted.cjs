@@ -4,6 +4,7 @@ const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypt
 const root=path.resolve(__dirname,"..");
 const paths=[
 "/hades/library/tools/contrast-studio/index.html",
+"/hades/library/tools/contrast-studio/export.js",
 "/hades/fa/library/tools/contrast-studio/index.html",
 "/hades/library/tools/contrast-studio/assets/HADES_Safe_Field_Guide_16x9_REVIEW.svg",
 "/hades/library/tools/contrast-studio/assets/HADES_Safe_Field_Guide_9x16_REVIEW.svg",
@@ -14,7 +15,7 @@ const paths=[
 "/hades/brand-kit/logo-usage/index.html",
 "/hades/fa/brand-kit/logo-usage/index.html"
 ];
-const mime={".html":"text/html",".svg":"image/svg+xml",".png":"image/png"};
+const mime={".html":"text/html",".svg":"image/svg+xml",".png":"image/png",".js":"javascript"};
 const hash=b=>crypto.createHash("sha256").update(b).digest("hex");
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 async function audit(){
@@ -30,7 +31,7 @@ async function audit(){
   console.log("LIVE PASS",route,"HTTP 200",type,remote.length+" bytes",hash(remote).slice(0,16));checked++;
  }
  assert.equal(checked,paths.length);
- console.log("HADES LIVE HTTPS PASS 10/10 URL 200 MIME SHA256 byte-exact; does not prove print, device or Mikhak.");
+ console.log("HADES LIVE HTTPS PASS ${checked}/${paths.length} URL 200 MIME SHA256 byte-exact; does not prove print, device or Mikhak.");
 }
 (async()=>{
  let last=null;
