@@ -31,7 +31,7 @@ async function audit(){
   console.log("LIVE PASS",route,"HTTP 200",type,remote.length+" bytes",hash(remote).slice(0,16));checked++;
  }
  assert.equal(checked,paths.length);
- console.log("HADES LIVE HTTPS PASS ${checked}/${paths.length} URL 200 MIME SHA256 byte-exact; does not prove print, device or Mikhak.");
+ console.log("HADES LIVE HTTPS PASS",checked+"/"+paths.length,"URL 200 MIME SHA256 byte-exact; print, device and Mikhak remain OPEN.");
 }
 (async()=>{
  let last=null;
