@@ -1,0 +1,103 @@
+{
+  "family": "HADES Folded Spaces",
+  "status": "PUBLIC REVIEW, not FINAL",
+  "approved_accent_only": "#EF4B32",
+  "neutrals": "PROPOSED",
+  "raster_provenance": "New reproducible CairoSVG/Pillow renders of published vectors, NOT byte-identical to earlier conversation derivatives",
+  "logos_and_original_manifest": "UNTOUCHED",
+  "assets": [
+    {
+      "source_svg": "HADES_Folded_Arcade_16x9_REVIEW.svg",
+      "source_sha256": "ff1ed343c6cce615d771bc7fc04f33fa4ccedd5f4c6b2b0d991e90c810bbe9cc",
+      "ratio": "16:9",
+      "images": [
+        {
+          "filename": "HADES_Folded_Arcade_16x9_REVIEW.png",
+          "mime": "image/png",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ad7f13fdc2d3b1cdb314dcb87e84ff324ae3464d951a3aa4e1261a82f9902ae7",
+          "bytes": 27927
+        },
+        {
+          "filename": "HADES_Folded_Arcade_16x9_REVIEW.jpg",
+          "mime": "image/jpeg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "bf17db73c20ac00991a908ffa1bf65dda816df32c9118d851fc37f99aa7c8806",
+          "bytes": 66125
+        },
+        {
+          "filename": "HADES_Folded_Arcade_16x9_REVIEW.webp",
+          "mime": "image/webp",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "dda75913e2d79643d8b8ac60e4353ce388a0b5694ef9860997c132187bcafddd",
+          "bytes": 9140
+        }
+      ]
+    },
+    {
+      "source_svg": "HADES_Bone_Lightwell_9x16_REVIEW.svg",
+      "source_sha256": "af218bdd61badeae65862c7ca8e9aee8466c443dfbaffd71daec80700b3387db",
+      "ratio": "9:16",
+      "images": [
+        {
+          "filename": "HADES_Bone_Lightwell_9x16_REVIEW.png",
+          "mime": "image/png",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "beb607f46dd817f33b806541a13a370bf5afaebc8d717ad6d43774785c18b01a",
+          "bytes": 84908
+        },
+        {
+          "filename": "HADES_Bone_Lightwell_9x16_REVIEW.jpg",
+          "mime": "image/jpeg",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "c3b1776b407334f51b90c703eb831c01e92a897909f0ef73e8d2de462c83b160",
+          "bytes": 92645
+        },
+        {
+          "filename": "HADES_Bone_Lightwell_9x16_REVIEW.webp",
+          "mime": "image/webp",
+          "width": 1080,
+          "height": 1920,
+          "sha256": "167f5992308e3504cf955c10215eb4ca6131dbfcf8e7b28bc6cb686c0ee6c288",
+          "bytes": 16280
+        }
+      ]
+    },
+    {
+      "source_svg": "HADES_Charcoal_Alcove_1x1_REVIEW.svg",
+      "source_sha256": "95966bbc20f49529ee9571902c0044736ecb74e85cca2a7e9023135aafe2c851",
+      "ratio": "1:1",
+      "images": [
+        {
+          "filename": "HADES_Charcoal_Alcove_1x1_REVIEW.png",
+          "mime": "image/png",
+          "width": 1080,
+          "height": 1080,
+          "sha256": "462e9dbe4a1a1574956ec1d522f10f518bc3c47260b863e55d3a608b5565cea9",
+          "bytes": 19390
+        },
+        {
+          "filename": "HADES_Charcoal_Alcove_1x1_REVIEW.jpg",
+          "mime": "image/jpeg",
+          "width": 1080,
+          "height": 1080,
+          "sha256": "cf15a627c020357e8ed8bcfa958743525b6c4d9aad0679d11fa0f83bc645e6e8",
+          "bytes": 50781
+        },
+        {
+          "filename": "HADES_Charcoal_Alcove_1x1_REVIEW.webp",
+          "mime": "image/webp",
+          "width": 1080,
+          "height": 1080,
+          "sha256": "040ac60074f1296efe98957fb759de7bc936c1b833ad81b63c6c890172a7222b",
+          "bytes": 7342
+        }
+      ]
+    }
+  ]
+}
