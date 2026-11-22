@@ -77,4 +77,19 @@ jobs:
             exit 0
           fi
           git commit -m "Publish compiled original Hades III portfolio"
-          git push origin HEAD:main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Published generated Pages root without force."
+              exit 0
+            fi
+            echo "Concurrent branch update detected; safely rebasing generated commit."
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "::warning::Rebase conflict: source may have changed; preserving remote rather than overwriting."
+              exit 1
+            fi
+            sleep 4
+          done
+          echo "::warning::Generated Pages root not pushed after 5 safe retries."
+          exit 1
