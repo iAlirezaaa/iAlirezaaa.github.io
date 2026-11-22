@@ -1,0 +1,51 @@
+name: HADES Folded raster public HTTP SHA and MIME proof
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-folded-raster-hosted-qa.yml'
+      - 'hades/library/backgrounds/**'
+      - 'site/public/hades/library/backgrounds/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: hades-folded-raster-hosted-qa
+  cancel-in-progress: true
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent HTTPS 200 MIME and byte-for-byte SHA256
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib,pathlib,urllib.request,time,json
+          stems=['HADES_Folded_Arcade_16x9_REVIEW','HADES_Bone_Lightwell_9x16_REVIEW','HADES_Charcoal_Alcove_1x1_REVIEW']
+          files=[('library/backgrounds/assets/'+s+'.'+ext,{'png':'image/png','jpg':'image/jpeg','webp':'image/webp'}[ext]) for s in stems for ext in ('png','jpg','webp')]
+          files += [('library/backgrounds/Folded_Spaces_Raster_Release_REVIEW.json','json'),('library/backgrounds/HADES_Folded_Spaces_Raster_and_SVG_3_Ratios_REVIEW.zip','zip')]
+          for f,mime in files:
+            a=(pathlib.Path('site/public/hades')/f).read_bytes()
+            b=(pathlib.Path('hades')/f).read_bytes()
+            assert a==b,('source/deploy differs',f)
+            wanted=hashlib.sha256(a).hexdigest()
+            error=None
+            for attempt in range(17):
+              try:
+                req=urllib.request.Request('https://ialirezaaa.github.io/hades/'+f+'?review_sha='+wanted[:12]+'&try='+str(attempt),headers={'User-Agent':'HADES-Folded-Raster-QA/1.0','Cache-Control':'no-cache'})
+                with urllib.request.urlopen(req,timeout=15) as r:
+                  code=r.status;actual=r.headers.get('Content-Type','').lower();data=r.read()
+                assert code==200,(f,code)
+                assert hashlib.sha256(data).hexdigest()==wanted,('deployed bytes differ',f)
+                if mime=='json':assert 'json' in actual and len(json.loads(data)['assets'])==3,(f,actual)
+                elif mime=='zip':assert any(k in actual for k in ('zip','octet-stream')),(f,actual)
+                else:assert mime in actual,(f,actual)
+                print('LIVE PASS HTTP 200 MIME SHA256',f,len(data),actual,flush=True)
+                error=None;break
+              except Exception as e:
+                error=repr(e);print('RETRY',f,attempt,error[:140],flush=True);time.sleep(5)
+            assert error is None,('LIVE HTTP OPEN',f,error)
+          print('HADES Folded raster LIVE HTTPS 200/MIME/SHA PASS 11/11; physical phone, print, Mikhak and FINAL still OPEN')
+          PY

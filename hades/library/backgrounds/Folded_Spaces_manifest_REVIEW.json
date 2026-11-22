@@ -22,9 +22,11 @@
       "dimensions": "1080x1080"
     }
   ],
-  "raster_delivery": "PNG/JPEG/WebP previews are conversation-only until binary upload and remote readback are confirmed.",
+  "raster_delivery": "Nine NEW reproducible PNG/JPEG/WebP derivatives plus ZIP in both public GitHub paths; bytes not asserted identical to prior conversation images. Hosted HTTP/MIME/SHA pending independent new-run proof.",
   "next": [
-    "Publish raster derivatives to both GitHub paths and verify independent HTTPS 200+MIME+SHA.",
-    "Run six viewport FA/EN Chromium live tests and actual micro logo tests."
-  ]
+    "Verify independent hosted HTTP200/MIME/SHA for 9 raster images, manifest and ZIP.",
+    "Bilingual 320/390/430px Chromium and real physical micro-logo/print checks; no FINAL."
+  ],
+  "raster_manifest": "Folded_Spaces_Raster_Release_REVIEW.json",
+  "raster_zip": "HADES_Folded_Spaces_Raster_and_SVG_3_Ratios_REVIEW.zip"
 }
