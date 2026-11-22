@@ -1,0 +1,50 @@
+name: HADES Neutral Atlas six-viewport and independent hosted audit REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/neutral-atlas/**'
+      - 'site/public/hades/library/neutral-atlas/**'
+      - 'hades/fa/library/neutral-atlas/**'
+      - 'site/public/hades/fa/library/neutral-atlas/**'
+      - 'tests/hades-neutral-atlas.cjs'
+      - 'tests/hades-neutral-hosted.py'
+      - '.github/workflows/hades-neutral-atlas-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - run: npm install --prefix /tmp/hades-neutral --no-save --no-package-lock playwright-core
+      - name: Six real Chromium viewports / bilingual AA contrast / editable proof
+        env:
+          NODE_PATH: /tmp/hades-neutral/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-neutral-atlas.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Neutral-Atlas-6-Screens-REVIEW
+          path: hades-neutral-atlas-QA/
+          if-no-files-found: warn
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 19
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent live HTTPS 200 MIME exact SHA256 10 URL audit
+        run: python3 tests/hades-neutral-hosted.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Neutral-Atlas-Live-HTTPS-10-URL-REVIEW
+          path: hades-neutral-atlas-hosted-QA/
+          if-no-files-found: warn
