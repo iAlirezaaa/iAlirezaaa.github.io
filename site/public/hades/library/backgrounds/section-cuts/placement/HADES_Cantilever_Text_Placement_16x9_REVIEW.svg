@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="HADES Section Cuts / Cantilever text placement guide / PUBLIC REVIEW">
+<title>HADES Section Cuts / Cantilever / editable text placement / REVIEW</title><desc>Independent architecture-specific safe text field and detachable original-mark reservation, not a new mark. Original background geometry copied without editing from public source HADES_Section_Cut_Cantilever_16x9_REVIEW.svg. Owner original logo is NOT embedded here. Add it without alteration on a separate dark plate where needed. REVIEW; physical and language QA OPEN.</desc>
+<metadata>PUBLIC REVIEW | 2026-11-22 | Section Cuts editorial text-safe overlay. Approved color: #EF4B32 only. Other colors and typography proposed. Delete or hide id=guide-overlay before production. No owner logo raster modified or copied. Mikhak not tested.</metadata>
+<g id="unchanged-source-architecture"><rect width="1920" height="1080" fill="#131211"/><path d="M0 0H566V1080H0Z" fill="#292723"/><path d="M0 0H460L576 184H0Z" fill="#E6D9C7"/><path d="M0 212H410V1080H0Z" fill="#51483F"/><path d="M260 0H1370L1210 238H442Z" fill="#E6D9C7"/><path d="M442 238H1210L1150 312H466Z" fill="#51483F"/><path d="M260 0L442 238V1080H365V198Z" fill="#38332E"/><path d="M0 836L442 690V1080H0Z" fill="#211E1B"/><path d="M444 628L1024 451V501L444 702Z" fill="#25211E"/><path d="M1366 124H1373V300H1366Z" fill="#EF4B32"/><path d="M1418 310H1810" stroke="#65594E" stroke-width="2"/><rect x="1460" y="746" width="326" height="175" rx="1" fill="#292723"/><path d="M1486 898H1760" stroke="#6B5B4D" stroke-width="2"/></g>
+<g id="editable-copy-field"><rect x="776" y="515" width="540" height="398" fill="#131211" fill-opacity="0.85" rx="2"/>
+<path d="M801 546h120" stroke="#EF4B32" stroke-width="5"/>
+<text id="editable-title" x="830" y="658" fill="#F2EDE5" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="63" font-weight="400" letter-spacing=".25">SECTION / SPACE</text>
+<text id="editable-subtitle" x="830" y="719" fill="#D6CBBE" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="27" font-weight="400">Editable editorial copy / REVIEW</text>
+</g>
+<g id="detached-original-mark-reservation"><rect x="1454" y="744" width="340" height="166" fill="#171514" fill-opacity=".96" stroke="#716357" stroke-width="2"/>
+<text x="1477.8" y="809" fill="#E6D9C7" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="17" font-weight="400">ORIGINAL MARK • RESERVED</text>
+<text x="1477.8" y="848" fill="#BEB3A8" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="14.62">Place exact source on dark plate</text></g>
+<g id="guide-overlay" opacity=".90" pointer-events="none">
+<rect x="768" y="506" width="550" height="413" rx="2" fill="none" stroke="#EF4B32" stroke-width="3" stroke-dasharray="14 12"/>
+<rect x="154" y="92" width="1613" height="896" fill="none" stroke="#E6D9C7" stroke-width="2" stroke-opacity=".55" stroke-dasharray="8 13"/>
+<text x="780" y="532" fill="#EF4B32" font-size="29" font-family="system-ui,Tahoma,Arial,sans-serif" font-weight="400">TEXT SAFE / REVIEW</text>
+<text x="154" y="80" fill="#E6D9C7" font-size="23" font-family="system-ui,Tahoma,Arial,sans-serif">8% / 8.5% outer editorial margin</text>
+</g></svg>
