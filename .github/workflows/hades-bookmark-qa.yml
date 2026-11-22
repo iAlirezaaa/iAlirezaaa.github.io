@@ -1,0 +1,104 @@
+name: HADES bookmark asset, mobile, hosted QA / REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/bookmarks/**'
+      - 'hades/fa/library/bookmarks/**'
+      - 'site/public/hades/library/bookmarks/**'
+      - '.github/workflows/hades-bookmark-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source-deploy mirrors, original PNG and exact page units
+        run: |
+          python - <<'PY'
+          import pathlib,base64,hashlib,xml.etree.ElementTree as ET
+          base=pathlib.Path('hades'); mirror=pathlib.Path('site/public/hades')
+          names=[f'HADES_Bookmark_{kind}_{lang}_REVIEW.svg' for kind in ('Classic','Modern') for lang in ('EN','FA')]+[f'HADES_Bookmark_A4_{lang}_REVIEW.svg' for lang in ('EN','FA')]
+          for name in names:
+            f=base/'library/bookmarks'/name
+            assert f.read_bytes()==(mirror/'library/bookmarks'/name).read_bytes(),name
+            root=ET.parse(f).getroot()
+            if '_A4_' in name: assert root.attrib['width']=='210mm' and root.attrib['height']=='297mm'
+            else: assert root.attrib['width']=='50mm' and root.attrib['height']=='180mm'
+            imgs=[e for e in root.iter() if e.tag.endswith('image')]
+            assert len(imgs)==(2 if '_A4_' in name else 1)
+            for im in imgs:
+              raw=base64.b64decode(im.attrib['href'].split(',',1)[1],validate=True)
+              assert hashlib.sha256(raw).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
+          paths=['index.html','fa/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','library/bookmarks/index.html','fa/library/bookmarks/index.html','library/bookmarks/README_REVIEW.md','library/HADES_Library_Guide_EN.md','library/HADES_Library_Guide_FA.md']
+          for path in paths:
+            assert (base/path).read_bytes()==(mirror/path).read_bytes(),path
+            if path.endswith('index.html') and '/bookmarks/' not in path:assert 'hades-bookmark-kit-20261122' in (base/path).read_text(),path
+          print('PASS XML, original owner 37k PNG hash, 6 mirrored SVGs and 11 paired pages')
+          PY
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Real Chromium bilingual responsive and source SVG retrieval
+        run: |
+          python -m http.server 8765 >/tmp/bookmarks.log 2>&1 &
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          from pathlib import Path
+          pth=Path('bookmark-browser-evidence');pth.mkdir(exist_ok=True)
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True)
+            for lang in ('EN','FA'):
+              for width in (320,390,430):
+                page=browser.new_page(viewport={'width':width,'height':850})
+                u='http://127.0.0.1:8765/hades/'+('fa/' if lang=='FA' else '')+'library/bookmarks/'
+                r=page.goto(u,wait_until='networkidle')
+                assert r and r.status==200
+                assert page.locator('html').get_attribute('dir')==('rtl' if lang=='FA' else 'ltr')
+                assert page.evaluate('document.documentElement.scrollWidth')<=width+1,(lang,width,'overflow')
+                assert page.locator('img.preview').count()==2
+                for pic in page.locator('img.preview').all():
+                  assert pic.evaluate('(e)=>e.complete && e.naturalWidth>0')
+                assert page.locator('a[download]').count()==3
+                for link in page.locator('a[download]').all():
+                  got=page.request.get('http://127.0.0.1:8765'+link.get_attribute('href'))
+                  assert got.status==200 and got.body().startswith(b'<?xml')
+                page.screenshot(path=str(pth/f'HADES_Bookmark_{lang}_{width}_REVIEW.png'),full_page=True)
+                print('PASS',lang,width,'responsive + 3 SVG downloads')
+                page.close()
+            browser.close()
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-bookmark-actual-browser-review
+          path: bookmark-browser-evidence/
+          if-no-files-found: ignore
+      - name: Independent live HTTPS 200 MIME exact SHA for 14 assets and pages
+        run: |
+          python - <<'PY'
+          import urllib.request,hashlib,time,pathlib
+          paths=[f'library/bookmarks/HADES_Bookmark_{style}_{lang}_REVIEW.svg' for style in ('Classic','Modern') for lang in ('EN','FA')]
+          paths += [f'library/bookmarks/HADES_Bookmark_A4_{lang}_REVIEW.svg' for lang in ('EN','FA')]
+          paths += ['library/bookmarks/index.html','fa/library/bookmarks/index.html','index.html','fa/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html']
+          for attempt in range(20):
+            errors=[]
+            for path in paths:
+              f=pathlib.Path('hades')/path
+              uri='https://ialirezaaa.github.io/hades/'+(path[:-10] if path.endswith('index.html') else path)+'?hq='+str(attempt)
+              try:
+                with urllib.request.urlopen(urllib.request.Request(uri,headers={'User-Agent':'HADES-Bookmark-Real-HTTP-Proof'}),timeout=20) as resp:
+                  blob=resp.read(); mime=resp.headers.get('Content-Type','').split(';')[0].lower()
+                  assert resp.status==200 and mime==('image/svg+xml' if f.suffix=='.svg' else 'text/html')
+                  assert hashlib.sha256(blob).digest()==hashlib.sha256(f.read_bytes()).digest()
+              except Exception as e:errors.append((path,str(e)))
+            if not errors:
+              print('PASS 14/14 INDEPENDENT HTTP200 MIME SHA');break
+            print('OPEN propagation attempt',attempt,'errors',errors[:2])
+            if attempt<19:time.sleep(12)
+          assert not errors,errors
+          PY

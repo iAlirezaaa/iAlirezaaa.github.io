@@ -19,3 +19,12 @@ Do not print or publish with invented client data. Replace bracketed placeholder
 - Editable HTML email signature is available with a source-derived micro-logo, publicly confirmed links and placeholders. It has not been installed in Gmail or approved as a final mail-client signature.
 
 - Presentation covers: **Classic EN** and **Modern FA** editable 1920×1080 SVG, no new logo, no maker credit. [Open the REVIEW kit](/hades/library/tools/presentation-covers/).
+
+
+## Architectural bookmarks — PUBLIC REVIEW
+
+Classic and Modern 50×180 mm editable source SVGs plus an A4 two-up 100%-scale cutting sheet. Original mark is unchanged.
+
+- [English bookmark files](https://ialirezaaa.github.io/hades/library/bookmarks/)
+- [فایل‌های نشان کتاب فارسی](https://ialirezaaa.github.io/hades/fa/library/bookmarks/)
+- Physical print and genuine phone recognition OPEN.
