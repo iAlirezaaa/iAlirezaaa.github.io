@@ -1,0 +1,111 @@
+name: HADES Section Cuts applied SVG — source and mobile QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-section-cuts-applied-qa.yml'
+      - 'hades/library/backgrounds/section-cuts/**'
+      - 'site/public/hades/library/backgrounds/section-cuts/**'
+      - 'hades/fa/library/backgrounds/section-cuts/**'
+      - 'site/public/hades/fa/library/backgrounds/section-cuts/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  applied-svg-real-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: XML, dimensions, original bytes and mirrored paths
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, xml.etree.ElementTree as ET
+          names = [
+              ('HADES_Section_Cut_Cantilever_Applied_16x9_REVIEW.svg',1920,1080),
+              ('HADES_Section_Cut_Sunken_Gallery_Applied_9x16_REVIEW.svg',1080,1920),
+              ('HADES_Section_Cut_Suspended_Lintel_Applied_1x1_REVIEW.svg',1080,1080)
+          ]
+          expected = '79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
+          original = Path('hades/assets/IMG_7187(2).png').read_bytes()
+          assert hashlib.sha256(original).hexdigest() == expected, 'protected public original changed'
+          svg = '{http://www.w3.org/2000/svg}'
+          xlink = '{http://www.w3.org/1999/xlink}href'
+          for name,w,h in names:
+              rel='library/backgrounds/section-cuts/'+name
+              a=Path('hades')/rel
+              b=Path('site/public/hades')/rel
+              data=a.read_bytes()
+              assert data==b.read_bytes(), f'mirror mismatch {name}'
+              doc=ET.fromstring(data)
+              assert (int(doc.attrib['width']),int(doc.attrib['height']))==(w,h)
+              ims=list(doc.iter(svg+'image'))
+              assert len(ims)==1
+              uri=ims[0].attrib.get(xlink,ims[0].attrib.get('href',''))
+              assert uri.startswith('data:image/png;base64,')
+              image=base64.b64decode(uri.split(',',1)[1],validate=True)
+              assert image==original, f'owner original modified {name}'
+              assert b'PUBLIC REVIEW' in data and b'PROJECT TITLE' in data
+              print('PASS', name, 'embedded-original-identity', len(image))
+          for rel in ['library/backgrounds/section-cuts/index.html',
+                      'fa/library/backgrounds/section-cuts/index.html',
+                      'library/index.html','fa/library/index.html',
+                      'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html']:
+              a=(Path('hades')/rel).read_bytes()
+              b=(Path('site/public/hades')/rel).read_bytes()
+              assert a==b, f'HTML mirror mismatch {rel}'
+              assert b'applied-covers-review' in a or b'section-cuts-applied-20261122' in a
+          print('PASS 3 application SVG + 6 paired navigation pages; no protected logo modified')
+          PY
+      - name: Install browser for responsive FA/EN test
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Real Chromium image decode and 320/390/430px overflow test
+        shell: bash
+        run: |
+          python - <<'PY'
+          from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
+          from threading import Thread
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          root=Path.cwd()
+          class Handler(SimpleHTTPRequestHandler):
+              def log_message(self,*args): pass
+          server=ThreadingHTTPServer(('127.0.0.1',8977),lambda *a,**kw:Handler(*a,directory=str(root),**kw))
+          Thread(target=server.serve_forever,daemon=True).start()
+          Path('qa-output').mkdir(exist_ok=True)
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True)
+              for lang in ['en','fa']:
+                  url='http://127.0.0.1:8977/hades/'+('fa/' if lang=='fa' else '')+'library/backgrounds/section-cuts/'
+                  for width in [320,390,430]:
+                      page=browser.new_page(viewport={'width':width,'height':810},device_scale_factor=1)
+                      res=page.goto(url,wait_until='load',timeout=60000)
+                      assert res.status==200,(url,res.status)
+                      images=page.locator('#applied-covers-review img')
+                      assert images.count()==3
+                      for i in range(3):
+                          images.nth(i).scroll_into_view_if_needed()
+                          images.nth(i).evaluate('(im)=>im.decode()')
+                          assert images.nth(i).evaluate('(im)=>im.naturalWidth>0 && im.naturalHeight>0')
+                      overflow=page.evaluate('document.documentElement.scrollWidth > window.innerWidth+1')
+                      assert not overflow, f'horizontal scroll {lang} {width}'
+                      snap=f'qa-output/Section_Cuts_Applied_{lang}_{width}_REVIEW.png'
+                      page.screenshot(path=snap,full_page=True)
+                      print('PASS actual browser',lang,width,'3 decoded images')
+                      page.close()
+              browser.close()
+          server.shutdown()
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Section-Cuts-Applied-6-Chromium-REVIEW
+          path: qa-output/*.png
+          if-no-files-found: ignore
