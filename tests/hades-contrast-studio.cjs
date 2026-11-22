@@ -48,6 +48,19 @@ const server=http.createServer((req,res)=>{try{
   let mid=await page.evaluate(()=>({src:document.querySelector("#backdrop").getAttribute("src"),ratio:document.querySelector("#stage").dataset.ratio,guide:document.querySelector("#guide-download").getAttribute("href"),overflow:document.documentElement.scrollWidth-innerWidth}));
   assert.ok(mid.src.endsWith("HADES_Aperture_Vestibule_9x16_REVIEW.svg"));
   assert.equal(mid.ratio,"portrait");assert.ok(mid.guide.endsWith("9x16_REVIEW.svg"));assert.ok(mid.overflow<=1);
+  // Folded Spaces: verify three ratios, unchanged owner logo plaque and new editable specimen.
+  await page.locator("#family").selectOption("folded");
+  const foldedFiles={wide:"HADES_Folded_Arcade_16x9_REVIEW.svg",portrait:"HADES_Bone_Lightwell_9x16_REVIEW.svg",square:"HADES_Charcoal_Alcove_1x1_REVIEW.svg"};
+  for(const [ratio,filename] of Object.entries(foldedFiles)){
+    await page.locator("#ratio").selectOption(ratio);
+    await page.waitForFunction(name=>{const bg=document.querySelector("#backdrop");return bg.complete&&bg.naturalWidth>0&&bg.getAttribute("src").endsWith(name)},filename);
+    assert.equal(await page.locator("#logo-plate").evaluate(e=>getComputedStyle(e).backgroundColor),"rgb(22, 21, 20)");
+  }
+  const proofResp=await page.request.get(base+"/hades/library/tools/contrast-studio/assets/HADES_Folded_Arcade_Editorial_16x9_REVIEW.svg");
+  assert.equal(proofResp.status(),200);
+  const svg=await proofResp.text();
+  assert.ok(svg.includes('xlink:href="data:image/png;base64,iVBOR'));
+  assert.ok(svg.includes("original-folded-arcade-background")&&svg.includes("PUBLIC REVIEW / NO REDRAW"));
   await page.locator("#ratio").selectOption("square");
   await page.waitForFunction(()=>document.querySelector("#backdrop").complete&&document.querySelector("#backdrop").naturalWidth>0);
   assert.ok((await page.locator("#guide-download").getAttribute("href")).endsWith("1x1_REVIEW.svg"));
