@@ -119,6 +119,13 @@
       console.error("HADES EXPORT REVIEW:",err);
     }finally{buttons.forEach(b=>b.disabled=false);}
   }
+  function updateLabel() {
+    const dims=sizes[el("ratio").value];
+    if(!dims)return;
+    el("export-png").textContent=(fa?"دریافت PNG · ":"Download PNG · ")+dims[0]+"×"+dims[1];
+  }
+  el("ratio").addEventListener("change",updateLabel);
+  updateLabel();
   el("export-png").addEventListener("click",()=>save("image/png"));
   el("export-webp").addEventListener("click",()=>save("image/webp"));
   window.HADES_EXPORT_REVIEW={compose,blobFrom}; // deterministic Chromium validation; never modifies originals

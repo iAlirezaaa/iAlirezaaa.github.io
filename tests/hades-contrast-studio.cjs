@@ -51,6 +51,7 @@ const server=http.createServer((req,res)=>{try{
   await page.locator("#ratio").selectOption("square");
   await page.waitForFunction(()=>document.querySelector("#backdrop").complete&&document.querySelector("#backdrop").naturalWidth>0);
   assert.ok((await page.locator("#guide-download").getAttribute("href")).endsWith("1x1_REVIEW.svg"));
+  assert.ok((await page.locator("#export-png").innerText()).includes("1080×1080"),"Native-size label must follow ratio");
   await page.locator("#guides").uncheck();
   assert.equal(await page.locator("#safe").evaluate(x=>x.hidden),true);
   await page.locator("#mark").uncheck();
