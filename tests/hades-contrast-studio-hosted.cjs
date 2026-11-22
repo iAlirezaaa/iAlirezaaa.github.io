@@ -13,7 +13,12 @@ const paths=[
 "/hades/library/index.html",
 "/hades/fa/library/index.html",
 "/hades/brand-kit/logo-usage/index.html",
-"/hades/fa/brand-kit/logo-usage/index.html"
+"/hades/fa/brand-kit/logo-usage/index.html",
+"/hades/brand-kit/logo-usage/preflight/index.html",
+"/hades/fa/brand-kit/logo-usage/preflight/index.html",
+"/hades/brand-kit/logo-usage/preflight/HADES_Original_Marks_A4_Optical_Proof_REVIEW.svg",
+"/hades/index.html",
+"/hades/fa/index.html"
 ];
 const mime={".html":"text/html",".svg":"image/svg+xml",".png":"image/png",".js":"javascript"};
 const hash=b=>crypto.createHash("sha256").update(b).digest("hex");
