@@ -1,4 +1,4 @@
-name: HADES Section Cuts genuine Chromium and 17-url hosted check REVIEW
+name: HADES Section Cuts genuine Chromium and 16-url hosted check REVIEW
 on:
   push:
     branches: [main]
@@ -43,6 +43,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: HADES-Section-Cuts-17-Live-HTTPS-REVIEW
+          name: HADES-Section-Cuts-16-Live-HTTPS-REVIEW
           path: hades-section-cuts-hosted-QA/
           if-no-files-found: warn
