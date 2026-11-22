@@ -1,0 +1,250 @@
+{
+  "status": "PUBLIC REVIEW / NOT FINAL",
+  "accent_approved": "#EF4B32",
+  "neutrals": "PROPOSED",
+  "owner_original_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+  "render": "actual Chromium / Pillow",
+  "files": [
+    {
+      "filename": "HADES_Light_Gallery_16x9_EN_REVIEW.png",
+      "format": "png",
+      "ratio": "16x9",
+      "language": "EN",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 26429,
+      "sha256": "3aa7ce0bfcb3fb55e0051059c2b579cccf60c1171b8bda00b6ddf80bc30e1cf1",
+      "source_svg_sha256": "5c36787854726c47d5a894ff0b349793c08b0ec52a6be7d27b36904ec24e727a"
+    },
+    {
+      "filename": "HADES_Light_Gallery_16x9_EN_REVIEW.jpg",
+      "format": "jpg",
+      "ratio": "16x9",
+      "language": "EN",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 75116,
+      "sha256": "7d0f3eb66799d06b9ecd4f8ad5f58381e1165529cdab65dea589475312cd5976",
+      "source_svg_sha256": "5c36787854726c47d5a894ff0b349793c08b0ec52a6be7d27b36904ec24e727a"
+    },
+    {
+      "filename": "HADES_Light_Gallery_16x9_EN_REVIEW.webp",
+      "format": "webp",
+      "ratio": "16x9",
+      "language": "EN",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 15354,
+      "sha256": "aaa044f884f795808ac2e229926e9739aeca35277c81798e440d9191324cf2a9",
+      "source_svg_sha256": "5c36787854726c47d5a894ff0b349793c08b0ec52a6be7d27b36904ec24e727a"
+    },
+    {
+      "filename": "HADES_Light_Gallery_16x9_FA_REVIEW.png",
+      "format": "png",
+      "ratio": "16x9",
+      "language": "FA",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 19531,
+      "sha256": "771a9c9085e900aeede756dc921fa4ab836e4d69107b34a6fd970f02562fc6fc",
+      "source_svg_sha256": "ab664e5bcb656a41e6ad8bac4fb950fceefe7ccd3ef1582405885d69e3c6a957"
+    },
+    {
+      "filename": "HADES_Light_Gallery_16x9_FA_REVIEW.jpg",
+      "format": "jpg",
+      "ratio": "16x9",
+      "language": "FA",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 62728,
+      "sha256": "44ce54a6ee76559a0f078f59af5425d258c75ef57f3bd748c0a08e93b810fa82",
+      "source_svg_sha256": "ab664e5bcb656a41e6ad8bac4fb950fceefe7ccd3ef1582405885d69e3c6a957"
+    },
+    {
+      "filename": "HADES_Light_Gallery_16x9_FA_REVIEW.webp",
+      "format": "webp",
+      "ratio": "16x9",
+      "language": "FA",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 11052,
+      "sha256": "df26c2373cd382a256183b33dcd9888d3b0988861ed4a421d0a478a51df5b057",
+      "source_svg_sha256": "ab664e5bcb656a41e6ad8bac4fb950fceefe7ccd3ef1582405885d69e3c6a957"
+    },
+    {
+      "filename": "HADES_Light_Gallery_9x16_EN_REVIEW.png",
+      "format": "png",
+      "ratio": "9x16",
+      "language": "EN",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "bytes": 25637,
+      "sha256": "50095f134fd673926f053dcb42183450d515bc80a7dcaa19cfde2f728915b222",
+      "source_svg_sha256": "85d320054a38528a7bba21ad3b52486d26f7719eef7587f5f21cc7f5ec797baa"
+    },
+    {
+      "filename": "HADES_Light_Gallery_9x16_EN_REVIEW.jpg",
+      "format": "jpg",
+      "ratio": "9x16",
+      "language": "EN",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "bytes": 77814,
+      "sha256": "92c270cfab27ea5b43a01110feb84fd706a02e1e94bf692d5749bbb7b3caf84d",
+      "source_svg_sha256": "85d320054a38528a7bba21ad3b52486d26f7719eef7587f5f21cc7f5ec797baa"
+    },
+    {
+      "filename": "HADES_Light_Gallery_9x16_EN_REVIEW.webp",
+      "format": "webp",
+      "ratio": "9x16",
+      "language": "EN",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "bytes": 15422,
+      "sha256": "7cd3ce083fcd292570a0dda018d3bcd5a086c30a1936b52292d08fd6586be1a3",
+      "source_svg_sha256": "85d320054a38528a7bba21ad3b52486d26f7719eef7587f5f21cc7f5ec797baa"
+    },
+    {
+      "filename": "HADES_Light_Gallery_9x16_FA_REVIEW.png",
+      "format": "png",
+      "ratio": "9x16",
+      "language": "FA",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "bytes": 21197,
+      "sha256": "a0f2fdde47b026f9c3420611c5b17548d5ab47a6aef5190330c99e1477778d2e",
+      "source_svg_sha256": "9de57e0b56d55c12f7fcb59bec369f8d3f1f75e354551159ecfe55668ca74e13"
+    },
+    {
+      "filename": "HADES_Light_Gallery_9x16_FA_REVIEW.jpg",
+      "format": "jpg",
+      "ratio": "9x16",
+      "language": "FA",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "bytes": 66891,
+      "sha256": "5f9d106e12b6aab01566b60c8271a2198771754541ddd338a43023d489da5253",
+      "source_svg_sha256": "9de57e0b56d55c12f7fcb59bec369f8d3f1f75e354551159ecfe55668ca74e13"
+    },
+    {
+      "filename": "HADES_Light_Gallery_9x16_FA_REVIEW.webp",
+      "format": "webp",
+      "ratio": "9x16",
+      "language": "FA",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "bytes": 11798,
+      "sha256": "7be4109c349e6f411dc76eecfe39751df68b020baadbf18f717f07ee1f41fc17",
+      "source_svg_sha256": "9de57e0b56d55c12f7fcb59bec369f8d3f1f75e354551159ecfe55668ca74e13"
+    },
+    {
+      "filename": "HADES_Light_Gallery_1x1_EN_REVIEW.png",
+      "format": "png",
+      "ratio": "1x1",
+      "language": "EN",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "bytes": 18459,
+      "sha256": "03200d64ec6e8768f83ac05483eac6558de3ae9f56654c62532e80120676e6ae",
+      "source_svg_sha256": "eb6140f20541c0e7ebd9ce799af4f81481b61a1896c6ecaca25c911019d85d9d"
+    },
+    {
+      "filename": "HADES_Light_Gallery_1x1_EN_REVIEW.jpg",
+      "format": "jpg",
+      "ratio": "1x1",
+      "language": "EN",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "bytes": 57306,
+      "sha256": "45a5bb53c7e903758cab1655815f3f4a8422841295ff9fbce8153101070c2700",
+      "source_svg_sha256": "eb6140f20541c0e7ebd9ce799af4f81481b61a1896c6ecaca25c911019d85d9d"
+    },
+    {
+      "filename": "HADES_Light_Gallery_1x1_EN_REVIEW.webp",
+      "format": "webp",
+      "ratio": "1x1",
+      "language": "EN",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "bytes": 10638,
+      "sha256": "017948309f30898c311def90d8b077c3ebfa94fc7406e509b81699dd5272a885",
+      "source_svg_sha256": "eb6140f20541c0e7ebd9ce799af4f81481b61a1896c6ecaca25c911019d85d9d"
+    },
+    {
+      "filename": "HADES_Light_Gallery_1x1_FA_REVIEW.png",
+      "format": "png",
+      "ratio": "1x1",
+      "language": "FA",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "bytes": 11601,
+      "sha256": "2116c458bc06305d67c0d4183867f5fa854b82fcb22090f14e1b55cc08b68a16",
+      "source_svg_sha256": "cd56c31f65a86f12ead568dc9f22aeb816eea7eb091a47f850f9a48cfd1d4f84"
+    },
+    {
+      "filename": "HADES_Light_Gallery_1x1_FA_REVIEW.jpg",
+      "format": "jpg",
+      "ratio": "1x1",
+      "language": "FA",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "bytes": 47401,
+      "sha256": "90d97ea167eee748be45cdc428101f35361d968d6f2699b69ee245f8596bea6b",
+      "source_svg_sha256": "cd56c31f65a86f12ead568dc9f22aeb816eea7eb091a47f850f9a48cfd1d4f84"
+    },
+    {
+      "filename": "HADES_Light_Gallery_1x1_FA_REVIEW.webp",
+      "format": "webp",
+      "ratio": "1x1",
+      "language": "FA",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "bytes": 6886,
+      "sha256": "75a96aad81d474d2464ef947ab09772ebd4fd70af1db6f334bc8c8bb680eed3d",
+      "source_svg_sha256": "cd56c31f65a86f12ead568dc9f22aeb816eea7eb091a47f850f9a48cfd1d4f84"
+    }
+  ],
+  "contact_sha256": "6e7f89ae36c8e2a632361295e95cb7677357da29e5e539e6457b7d11a822f8d4",
+  "OPEN": [
+    "on-device 48/96px readability",
+    "real A4 print",
+    "actual licensed Mikhak",
+    "owner FINAL"
+  ]
+}
