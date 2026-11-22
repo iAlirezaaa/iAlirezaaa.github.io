@@ -84,3 +84,8 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 
 ## HADES Light Gallery / 2026-11-22 / PUBLIC REVIEW
 - [EN gallery](https://ialirezaaa.github.io/hades/library/light-gallery/) · [FA gallery](https://ialirezaaa.github.io/hades/fa/library/light-gallery/). Six standalone editable source-exact SVGs (3 aspect ratios × FA/EN), designed to avoid white original mark on white/bone: owner PNG unchanged on a detached charcoal plaque. No new logo, no generated mark. Only #EF4B32 approved. Device, printing, typography and real Mikhak remain OPEN.
+
+
+## Light Gallery — A4 printable crop/export study (PUBLIC REVIEW, 2026-11-22)
+- [English guide](https://ialirezaaa.github.io/hades/library/light-gallery/print-guide/) · [راهنمای فارسی](https://ialirezaaa.github.io/hades/fa/library/light-gallery/print-guide/). Editable standalone SVG EN/FA; true one-page A4 Chromium PDF EN/FA; raster proof PNG and CRC-checked ZIP. Original owner PNG unchanged and on independent dark plaques.
+- [Real generated print bundle](https://ialirezaaa.github.io/hades/library/light-gallery/print-guide/HADES_Light_Gallery_A4_Print_Pack_REVIEW.zip) · [SHA manifest](https://ialirezaaa.github.io/hades/library/light-gallery/print-guide/HADES_Light_Gallery_A4_Print_Manifest_REVIEW.json). Only #EF4B32 approved; real phone and print physical checks remain OPEN.
