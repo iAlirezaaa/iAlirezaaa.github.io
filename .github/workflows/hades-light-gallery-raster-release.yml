@@ -29,6 +29,8 @@ jobs:
           git add hades/library/light-gallery/raster site/public/hades/library/light-gallery/raster
           if ! git diff --cached --quiet; then
             git commit -m "assets(hades): publish 18 Chromium Light Gallery PNG JPEG WebP + public review ZIP"
+            git fetch origin main
+            git rebase origin/main
             git push origin HEAD:main
           else
             echo "PASS no binary changes; mirrors already identical"
