@@ -1,0 +1,38 @@
+{
+  "status": "PUBLIC REVIEW",
+  "generated_from": "Chromium A4 exact source SVGs",
+  "physical_print": "OPEN",
+  "human_phone_48_96": "OPEN",
+  "mikhak_real": "OPEN",
+  "only_approved_color": "#EF4B32",
+  "files": {
+    "HADES_Portico_A4_Chromium_EN_REVIEW.png": {
+      "sha256": "86e2026443bd21aaf2aff8e54a2b75538d8c845c6872c322f559ba46d6bdfdc4",
+      "bytes": 143021
+    },
+    "HADES_Portico_A4_Chromium_FA_REVIEW.png": {
+      "sha256": "399871bd8b005a22679f1d55eee765b7026af877362ccb186055c2679893f0fe",
+      "bytes": 116923
+    },
+    "HADES_Portico_A4_Compare_EN_REVIEW.svg": {
+      "sha256": "bd9a8312f6cc5e863c8c0a8c33514e5f75023152ef1835dcddc6df57d93970b8",
+      "bytes": 108601
+    },
+    "HADES_Portico_A4_Compare_FA_REVIEW.svg": {
+      "sha256": "cf1f0f15192f058b1fb6000c3769e4f02017076de8334faf2f49714f696fa00c",
+      "bytes": 109112
+    },
+    "HADES_Portico_A4_Print_EN_REVIEW.pdf": {
+      "sha256": "2ffbc91c638dce0f31d7eb13ef38646fc894ebd85549fe2256ade31606d3d9ce",
+      "bytes": 27640
+    },
+    "HADES_Portico_A4_Print_FA_REVIEW.pdf": {
+      "sha256": "6efc0265a3003820344b0b355b04d8c192a5e4c3d222f16ebf22a9ecb8a2fd93",
+      "bytes": 33536
+    },
+    "README_PRINT_REVIEW.txt": {
+      "sha256": "03980eb3bb9b8fd86045537ec080f811c1a2528f9763998d6bb752a7357f7e9d",
+      "bytes": 491
+    }
+  }
+}
