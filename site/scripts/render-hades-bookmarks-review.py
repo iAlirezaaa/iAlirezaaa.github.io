@@ -70,8 +70,14 @@ def run_browser():
                 page.locator("#art").screenshot(path=str(png), animations="disabled")
                 with Image.open(png) as im:
                     assert im.size == (500, 1800), (png, im.size)
-                    im.convert("RGB").save(OUT / name.replace(".svg", ".webp"),
-                                           "WEBP", quality=90, method=6)
+                    rgb = im.convert("RGB")
+                    # Reject the common error of a small intrinsic-mm SVG in the corner
+                    # of a large white screenshot; full-bleed artwork reaches all corners.
+                    for xy in ((490, 100), (490, 1750), (250, 900)):
+                        px = rgb.getpixel(xy)
+                        assert px != (255, 255, 255), f"White unused canvas at {xy} in {name}: {px}"
+                    rgb.save(OUT / name.replace(".svg", ".webp"),
+                             "WEBP", quality=90, method=6)
         page.close()
         paper = browser.new_page(viewport={"width": 794, "height": 1123}, device_scale_factor=1)
         for lang in ("EN", "FA"):
