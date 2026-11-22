@@ -9,6 +9,7 @@ FILES={
 "library/backgrounds/section-cuts/index.html":"text/html",
 "fa/library/backgrounds/section-cuts/index.html":"text/html",
 "library/backgrounds/section-cuts/README_PUBLIC_REVIEW.md":"text/plain",
+"library/backgrounds/section-cuts/HADES_Section_Cuts_3_SVG_Editable_PUBLIC_REVIEW.zip":"application/zip",
 "library/backgrounds/assets/HADES_Section_Cut_Cantilever_16x9_REVIEW.svg":"image/svg+xml",
 "library/backgrounds/assets/HADES_Section_Cut_Sunken_Gallery_9x16_REVIEW.svg":"image/svg+xml",
 "library/backgrounds/assets/HADES_Section_Cut_Suspended_Lintel_1x1_REVIEW.svg":"image/svg+xml",

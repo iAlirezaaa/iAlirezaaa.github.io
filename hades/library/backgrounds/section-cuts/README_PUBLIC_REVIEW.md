@@ -14,3 +14,7 @@ EN: /hades/library/backgrounds/section-cuts/
 FA: /hades/fa/library/backgrounds/section-cuts/
 
 QA scope: validate SVG markup, exact geometry and source/deploy byte parity; tested Chromium/mobile and independent live HTTPS require separate proof, not implied by commit. Human print/phone approval and FINAL remain OPEN.
+
+## Genuine binary source pack (PUBLIC REVIEW)
+
+All three source SVGs, `manifest_REVIEW.json` and `README_REVIEW.txt` are stored as actual bytes in a ZIP on GitHub and at `/hades/library/backgrounds/section-cuts/HADES_Section_Cuts_3_SVG_Editable_PUBLIC_REVIEW.zip`. This package contains no logo originals; still NOT FINAL. Independent live HTTP status/MIME/SHA must be verified separately.
