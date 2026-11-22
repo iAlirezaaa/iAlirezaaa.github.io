@@ -50,6 +50,12 @@ with sync_playwright() as pw:
     assert not page.evaluate("document.documentElement.scrollWidth>innerWidth+1"),(lang,width,mode,"horizontal overflow")
     assert page.locator("#compTitle").evaluate("(el)=>parseFloat(getComputedStyle(el).fontSize)")>=20
     assert page.locator("#compSubtitle").evaluate("(el)=>parseFloat(getComputedStyle(el).fontSize)")>=14
+    # Visual ink bounds, not just text-length: RTL text-anchor can otherwise overflow into the architecture.
+    boxes=page.locator("#artboard > svg").evaluate("""root=>[...root.querySelectorAll('text')].map(el=>{const b=el.getBBox();return {text:el.textContent,x:b.x,right:b.x+b.width}})""")
+    left=640 if mode=="classic" else 55
+    right=1000 if mode=="classic" else 452
+    for b in boxes:
+     assert b["x"]>=left-1 and b["right"]<=right+1,(lang,width,mode,"ink overflow",b,left,right)
     page.screenshot(path=str(out/f"{lang}_{width}_{mode}.png"),full_page=True)
     page.locator("#title").fill("W"*50)
     assert page.locator("#export").is_disabled(),(lang,width,mode,"long text wrongly passed")
