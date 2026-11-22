@@ -1,0 +1,29 @@
+{
+  "status": "PUBLIC REVIEW / NOT FINAL",
+  "approved_accent": "#EF4B32",
+  "neutrals": "PROPOSED",
+  "owner_original_png_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+  "renderer": "Chromium 141 + PyMuPDF",
+  "files": [
+    {
+      "file": "HADES_Light_Gallery_A4_EN_REVIEW.pdf",
+      "bytes": 31910,
+      "sha256": "5c494d7978d9b9d5b5d037d772a52e22be8102bd7dab68c52c5c89685d234ab2"
+    },
+    {
+      "file": "HADES_Light_Gallery_A4_EN_Preview_REVIEW.png",
+      "bytes": 64742,
+      "sha256": "7ccc482fbd64233fc9cb800e04358898dba8d9217e7c841b7227bacaeaddc85c"
+    },
+    {
+      "file": "HADES_Light_Gallery_A4_FA_REVIEW.pdf",
+      "bytes": 40913,
+      "sha256": "e5e30565fe7215aa6b3eee0429e553d0a38b156691d41369d9a23749932816df"
+    },
+    {
+      "file": "HADES_Light_Gallery_A4_FA_Preview_REVIEW.png",
+      "bytes": 56217,
+      "sha256": "1e8693d1a998e52940620255eb9d4b7734f908367f49e3d5380cfd445c3eb642"
+    }
+  ]
+}
