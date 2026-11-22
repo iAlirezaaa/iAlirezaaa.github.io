@@ -1,0 +1,38 @@
+name: HADES Light Gallery source & mobile checks
+on:
+  push:
+    paths:
+      - 'hades/library/light-gallery/**'
+      - 'site/public/hades/**/light-gallery/**'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate original source, bilingual HTML, mirrors, XML and responsive rules
+        run: |
+          python - <<'PY'
+          import pathlib,base64,hashlib,xml.etree.ElementTree as ET
+          root=pathlib.Path('hades/library/light-gallery')
+          assert (root/'index.html').is_file()
+          for loc in ('', 'fa/'):
+              html=pathlib.Path('hades')/loc/'library/light-gallery/index.html'
+              raw=html.read_bytes()
+              assert b'PUBLIC REVIEW' in raw and b'@media(max-width:430px)' in raw
+              assert raw==(pathlib.Path('site/public')/html).read_bytes()
+          for ratio,dim in [('16x9',(1920,1080)),('9x16',(1080,1920)),('1x1',(1080,1080))]:
+              for lang in ('EN','FA'):
+                  p=root/f'HADES_Light_Gallery_{ratio}_{lang}_REVIEW.svg'
+                  raw=p.read_bytes()
+                  assert raw==(pathlib.Path('site/public')/p).read_bytes()
+                  node=ET.fromstring(raw)
+                  assert tuple(int(node.attrib[a]) for a in ('width','height'))==dim
+                  imgs=[n for n in node.iter() if n.tag.endswith('image')]
+                  assert len(imgs)==1
+                  href=imgs[0].attrib['href']
+                  assert href.startswith('data:image/png;base64,')
+                  img=base64.b64decode(href.split(',',1)[1],validate=True)
+                  assert hashlib.sha256(img).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
+          print('PASS: 6 standalone SVG, exact logo SHA256, XML, bilingual HTML, mobile rules, 8 source/deploy pairs')
+          PY

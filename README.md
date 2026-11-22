@@ -81,3 +81,6 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 - Three source-faithful architectural SVG artboards, 16:9, 9:16 and 1:1. Change headline and subtitle, toggle guide overlays, export editable SVG. New tool is distinct from generic Contrast Studio safe zones.
 - No new HADES mark. Logo reservation shows only a detached dark plate and written placeholder; insert **only the original owner PNG**, never redraw or recolor. Approved hue #EF4B32; neutral colors, typography and copy REVIEW, no FINAL.
 - Source and deployed mirrors have been verified in GitHub. A separate [CI QA workflow](.github/workflows/hades-section-placement-qa.yml) covers real Chromium FA/EN mobile and independent live HTTPS checks; no hosted success claim until the run result is observed. Physical phone, printing and real Mikhak remain OPEN.
+
+## HADES Light Gallery / 2026-11-22 / PUBLIC REVIEW
+- [EN gallery](https://ialirezaaa.github.io/hades/library/light-gallery/) · [FA gallery](https://ialirezaaa.github.io/hades/fa/library/light-gallery/). Six standalone editable source-exact SVGs (3 aspect ratios × FA/EN), designed to avoid white original mark on white/bone: owner PNG unchanged on a detached charcoal plaque. No new logo, no generated mark. Only #EF4B32 approved. Device, printing, typography and real Mikhak remain OPEN.
