@@ -1,0 +1,30 @@
+name: HADES bookmark bands / Chromium and hosted HTTP REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/scripts/qa-hades-bookmark-bands.py"
+      - ".github/workflows/hades-bookmark-bands-qa.yml"
+      - "site/public/hades/library/bookmark-bands/**"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-browser-hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - name: Verify original mark + real browser + Pages downloads
+        run: python site/scripts/qa-hades-bookmark-bands.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Bookmark-Bands-6-Chromium-REVIEW
+          path: hades-band-review-screenshots/
+          if-no-files-found: ignore
