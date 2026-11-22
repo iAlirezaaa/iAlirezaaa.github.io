@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>مطالعات معماری HADES · PUBLIC REVIEW</title><meta name="description" content="HADES source-faithful Classic and Modern editable editorial artwork. REVIEW only."/><link rel="canonical" href="https://ialirezaaa.github.io/hades/fa/library/portico-studies/"/>
+<link rel="alternate" hreflang="fa" href="https://ialirezaaa.github.io/hades/fa/library/portico-studies/"/><link rel="alternate" hreflang="en" href="https://ialirezaaa.github.io/hades/library/portico-studies/"/>
+<style>
+:root{--verm:#EF4B32;--ink:#e8ded1;--muted:#bdb0a3;--dark:#131211;--line:#574d43}
+*{box-sizing:border-box}body{margin:0;background:var(--dark);color:var(--ink);font:14px/1.8 Tahoma,Arial,sans-serif}
+a{color:inherit;text-underline-offset:4px}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--verm);outline-offset:3px}
+main{max-width:1110px;margin:0 auto;padding:0 16px 55px}nav{display:flex;gap:20px;flex-wrap:wrap;padding:20px 0;border-bottom:1px solid var(--line);font-size:12px}
+.kicker{font-size:11px;color:#ffb09f;letter-spacing:.09em;margin-top:25px}h1{font-size:clamp(23px,3vw,30px);font-weight:400;line-height:1.4;margin:8px 0 10px}
+p{max-width:820px;color:var(--muted)}.work{display:grid;grid-template-columns:minmax(245px,340px) minmax(0,1fr);gap:24px;margin-top:26px}
+.controls{border:1px solid var(--line);padding:20px;align-self:start}.controls label{display:block;font-size:12px;margin:15px 0;color:var(--muted)}
+.controls input,.controls select{display:block;width:100%;margin:7px 0 0;background:#211f1c;color:var(--ink);border:1px solid #84766a;padding:12px;border-radius:0;font:16px/1.5 Tahoma,Arial,sans-serif}
+button{padding:12px 16px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;font:14px/1.4 Tahoma,Arial,sans-serif}
+button.primary{background:var(--verm);color:#20130f;border:0}button:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}#message{font-size:12px;min-height:44px;color:#e3b19f}.preview{min-width:0}.artboard{background:#292723;padding:12px;aspect-ratio:1/1;display:grid;place-items:center}
+.artboard svg{display:block;width:100%;height:auto;max-height:670px}.companion{display:grid;gap:5px;margin-top:15px;padding:18px;border:1px solid var(--line)}
+.companion b{font-size:20px;font-weight:450;line-height:1.6}.companion span{font-size:14px;line-height:1.75}
+footer{border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted);margin-top:28px}
+@media(max-width:700px){.work{grid-template-columns:minmax(0,1fr);gap:16px}.controls{padding:15px}.artboard{padding:6px}main{padding-inline:12px}}
+@media print{@page{size:A4;margin:14mm}body{background:#fff;color:#111}nav,.controls,.kicker,footer{display:none}.work{display:block}.artboard{padding:0;max-width:182mm;margin:auto}.companion{display:none}h1{font-size:17px;color:#111}}
+</style></head><body><main>
+<nav><a href="/hades/fa/">HADES</a><a href="/hades/fa/library/">کتابخانه</a><a href="/hades/fa/brand-kit/logo-usage/">راهنمای لوگو</a><a href="/hades/library/portico-studies/" lang="en">English</a></nav>
+<p class="kicker">HADES / PORTICO / نمونهٔ PUBLIC REVIEW — نه طرح نهایی</p><h1>مطالعات معماری HADES</h1><p>دو شیوهٔ کلاسیک و مدرن از یک هویت. نوشته‌ها قابل ویرایش و فایل SVG مستقل است. تصویر اصلی لوگو تغییر نمی‌کند.</p>
+<div class="work"><section class="controls" aria-label="بیان بصری">
+<label>بیان بصری<select id="mode"><option value="classic">کلاسیک</option><option value="modern">مدرن</option></select></label>
+<label>عنوان<input id="title" maxlength="60" autocomplete="off" value="هادس"></label>
+<label>زیرعنوان<input id="sub" maxlength="90" autocomplete="off" value="هادس سوم"></label>
+<label>توضیح<input id="subtitle" maxlength="100" autocomplete="off" value="یک قلمرو خلاقهٔ مستقل"></label>
+<div class="actions"><button class="primary" id="export" type="button">دریافت SVG ویرایش‌شده</button><button id="reset" type="button">بازنشانی</button></div>
+<output id="message" aria-live="polite"></output><p style="font-size:12px">این ابزار بر اساس SVGهای عمومی استفاده می‌کند. هیچ فونت اختصاصی یا لوگوی جدیدی ساخته نشده است.</p></section>
+<section class="preview" aria-label="پیش‌نمایش"><div class="artboard" id="artboard"></div>
+<div class="companion"><b id="compTitle"></b><span id="compSubtitle"></span><span>نمونهٔ PUBLIC REVIEW — نه طرح نهایی · عرض واقعی SVG: ۱۰۸۰ × ۱۰۸۰</span></div></section></div>
+<footer>HADES THE THIRD / نمونهٔ PUBLIC REVIEW — نه طرح نهایی. #EF4B32 is the only approved color. All other swatches are REVIEW. Original PNG bytes embedded unchanged; never retrace, invert or recolor the mark.</footer></main>
+<script>
+'use strict';
+const base='/hades/library/portico-studies/';
+const files={classic:'HADES_Portico_Classic_FA_REVIEW.svg',modern:'HADES_Portico_Modern_FA_REVIEW.svg'};
+const defaults={"realm":"قلمرویی از جهان‌ها","title":"هادس","sub":"هادس سوم","classic":"کلاسیک / مطالعهٔ معماری","modern":"مدرن / مطالعهٔ معماری","note":"کاربرد تحریری / پیشنهادی","subtitle":"یک قلمرو خلاقهٔ مستقل"};
+const $=id=>document.getElementById(id); let source='',loaded=false;
+function edit(){
+ const root=$('artboard').querySelector('svg');if(!root)return;
+ let fits=true;for(const key of ['title','sub','subtitle']){
+ const el=root.querySelector('[data-edit="'+key+'"]');el.textContent=$(key).value;
+ if(!el.getComputedTextLength || el.getComputedTextLength()>Number(el.dataset.max)){fits=false;el.setAttribute('fill','#EF4B32')}else{el.removeAttribute('fill')}
+ }
+ $('compTitle').textContent=$('title').value;$('compSubtitle').textContent=$('subtitle').value;
+ $('export').disabled=!fits;$('message').textContent=fits?"قابل دریافت. تست فونت Mikhak انجام نشده؛ فونت سیستم جایگزین است.":"متن از ناحیهٔ امن بیرون می‌زند؛ کوتاه‌تر کنید.";
+}
+async function load(){
+ loaded=false;$('export').disabled=true;$('message').textContent='Loading source…';
+ const r=await fetch(base+files[$('mode').value],{cache:'no-store'});if(!r.ok)throw Error('SVG HTTP '+r.status);
+ const xml=new DOMParser().parseFromString(await r.text(),'image/svg+xml');if(xml.querySelector('parsererror')||xml.documentElement.localName!=='svg')throw Error('SVG parse error');
+ const root=document.importNode(xml.documentElement,true);root.removeAttribute('width');root.removeAttribute('height');
+ $('artboard').replaceChildren(root);loaded=true;edit();
+}
+function download(){
+ if(!loaded||$('export').disabled)return;const root=$('artboard').querySelector('svg').cloneNode(true);
+ root.setAttribute('width','1080');root.setAttribute('height','1080');
+ root.querySelectorAll('[data-edit]').forEach(el=>el.removeAttribute('data-max'));
+ const data='<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(root);
+ const a=document.createElement('a'),url=URL.createObjectURL(new Blob([data],{type:'image/svg+xml;charset=utf-8'}));
+ a.href=url;a.download='HADES_Portico_'+$('mode').value+'_Edited_FA_PUBLIC_REVIEW.svg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+$('mode').addEventListener('change',()=>load().catch(e=>$('message').textContent=e.message));
+for(const k of ['title','sub','subtitle'])$(k).addEventListener('input',edit);
+$('export').addEventListener('click',download);
+$('reset').addEventListener('click',()=>{for(const k of ['title','sub','subtitle'])$(k).value=defaults[k];edit()});
+load().catch(e=>$('message').textContent=e.message);
+</script></body></html>
