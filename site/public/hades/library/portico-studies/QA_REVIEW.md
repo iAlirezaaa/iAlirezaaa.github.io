@@ -11,3 +11,13 @@ Initial observed Chromium pass found the embedded white owner original nearly in
 
 ## Actual screenshot visual inspection follow-up
 The real 390 CSS px Chromium screenshots after safe original-margin viewBox reveal the owner original clearly, but exposed a *real RTL SVG anchor bug*: Persian text extended to the artboard edge in Classic and overlapped the structural block in Modern. Changed Persian SVG text-anchor from end to start under RTL direction, and moved the Modern Persian editorial folio to a right-anchored layout position. Added getBBox measured ink-bound assertions for all text nodes to the real Chromium QA. No changes to owner image bytes. Await rerun proof.
+
+## Final observed deployment — 2026-11-22 / PUBLIC REVIEW
+
+- [x] **12/12 real Chromium cases PASS** at FA/EN × 320/390/430 CSS px × Classic/Modern, including screenshot capture, responsive no-horizontal-overflow, 20/14px companion copy, fail-closed long-copy guard, recovery, native SVG download, XML parse, original PNG byte equality, and geometric `getBBox()` ink boundaries for Persian and English. [Real workflow run 45044757311](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/runs/45044757311); screenshot+source artifact id 14762962413.
+- [x] **6/6 independent public GitHub Pages real HTTP GET PASS**, MIME (`text/html` or `image/svg+xml`) and byte-for-byte SHA256 of all four SVGs + two editor HTMLs versus checked-out GitHub. Same workflow; separately executed hosted job.
+- [x] Visual human inspection of screenshot at 390 CSS px found original mark initially microscopically small; fixed via non-destructive image blank-margin viewport, keeping source PNG identical. Second inspection identified RTL anchor spill in FA Classic and Modern; repaired both and added exact live ink-bounds test. Final screen captures inspected, both FA variants now fit.
+- [x] Both public trees contained same SVG/HTML and links at time of commit; manifest/original four private logo files untouched. SVG artwork is *not* a new logo vector master.
+- [ ] **OPEN:** human recognition on actual phone at 48/96px, actual A4 printer ruler measurements, genuine installed Mikhak glyph test, suggested neutral colors and typography approval, FINAL.
+- [ ] **NEXT 1:** Field-observe mark at 48/96px on native phone; record distance/light/device and actual outcome, no fabricated PASS.
+- [ ] **NEXT 2:** Produce A4 comparative printed editorial layout, physical 50mm calibration and signoff sheet, with results marked OPEN until measured.
