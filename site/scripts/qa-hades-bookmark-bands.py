@@ -12,7 +12,7 @@ OUT=ROOT/"hades-band-review-screenshots"
 OUT.mkdir(exist_ok=True)
 NAMES=[f"HADES_Bookmark_Bands_A4_{lang}_REVIEW.svg" for lang in ("EN","FA")]
 ORIGINAL_SHA="79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7"
-paths=[f"library/bookmark-bands/{n}" for n in NAMES]+["library/bookmark-bands/index.html","fa/library/bookmark-bands/index.html"]
+paths=[f"library/bookmark-bands/{n}" for n in NAMES]+["library/bookmark-bands/index.html","fa/library/bookmark-bands/index.html","index.html","fa/index.html","library/index.html","fa/library/index.html","brand-kit/logo-usage/index.html","fa/brand-kit/logo-usage/index.html","library/bookmarks/index.html","fa/library/bookmarks/index.html"]
 for p in paths:
     assert (SRC/p).read_bytes()==(DEP/p).read_bytes(),p
     assert (SRC/p).stat().st_size>1000,p

@@ -89,3 +89,8 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 ## Light Gallery — A4 printable crop/export study (PUBLIC REVIEW, 2026-11-22)
 - [English guide](https://ialirezaaa.github.io/hades/library/light-gallery/print-guide/) · [راهنمای فارسی](https://ialirezaaa.github.io/hades/fa/library/light-gallery/print-guide/). Editable standalone SVG EN/FA; true one-page A4 Chromium PDF EN/FA; raster proof PNG and CRC-checked ZIP. Original owner PNG unchanged and on independent dark plaques.
 - [Real generated print bundle](https://ialirezaaa.github.io/hades/library/light-gallery/print-guide/HADES_Light_Gallery_A4_Print_Pack_REVIEW.zip) · [SHA manifest](https://ialirezaaa.github.io/hades/library/light-gallery/print-guide/HADES_Light_Gallery_A4_Print_Manifest_REVIEW.json). Only #EF4B32 approved; real phone and print physical checks remain OPEN.
+
+## HADES Bookmark Gift Bands · PUBLIC REVIEW (2026-11-23)
+- [English editable A4 band sheet](https://ialirezaaa.github.io/hades/library/bookmark-bands/) · [برگهٔ فارسی](https://ialirezaaa.github.io/hades/fa/library/bookmark-bands/).
+- Four 130×32mm fold/cut bands per true A4 artboard, alternating Classic/Modern. Exact original PNG retained on dark plaques. No new mark. Only #EF4B32 approved.
+- [6-browser and independent 4-URL hosted verification](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/runs/45083761166). Real paper/phone, Mikhak and FINAL OPEN.
