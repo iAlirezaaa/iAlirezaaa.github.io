@@ -1,0 +1,25 @@
+name: HADES Contrast Studio independent hosted HTTP SHA QA
+on:
+  workflow_run:
+    workflows: ["Build original portfolio into branch Pages root"]
+    types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - 'tests/hades-contrast-studio-hosted.cjs'
+      - '.github/workflows/hades-contrast-studio-hosted-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hosted:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Independently retrieve hosted HTML SVG PNG compare SHA and MIME
+        run: node tests/hades-contrast-studio-hosted.cjs

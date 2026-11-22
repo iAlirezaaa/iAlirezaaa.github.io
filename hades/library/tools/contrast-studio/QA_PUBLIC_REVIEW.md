@@ -26,3 +26,8 @@
 - `tests/hades-contrast-studio.cjs` serves actual committed `hades/` assets over local HTTP.
 - `.github/workflows/hades-contrast-studio-qa.yml` launches real Chromium, 320/390/430px in FA and EN, checks 3 ratio switches, logo plaque, original raster load, JSON controls, print CSS visibility, SVG downloads and horizontal overflow.
 - Passing results are NOT claimed until a GitHub Actions run actually concludes SUCCESS; hosted Pages HTTP is separate.
+
+## Additional independent hosted proof harness
+- `tests/hades-contrast-studio-hosted.cjs`: performs real HTTPS GET for 10 paths including all 3 SVG overlays, both localized HTML pages, owner raster, both libraries, both original-logo guides.
+- Requires HTTP 200, correct MIME and SHA-256 body equality with committed `hades/` bytes. Retry while Pages catches up, fail on any persistent mismatch. Only an actual successful run certifies this check.
+- `.github/workflows/hades-contrast-studio-hosted-qa.yml` starts on source build completion and has a direct push/dispatch trigger. No equality claim from git commit alone.
