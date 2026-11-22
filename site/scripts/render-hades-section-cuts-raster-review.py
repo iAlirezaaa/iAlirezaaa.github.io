@@ -45,8 +45,12 @@ def main():
         root=ET.fromstring(svg)
         assert root.tag=="{http://www.w3.org/2000/svg}svg"
         assert int(root.get("width"))==w and int(root.get("height"))==h
-        forbidden=(b"<script",b"<image",b"data:image",b"http://",b"https://",b"xlink:href")
+        # XML's required xmlns URI is not an external dependency. Inspect actual elements/attributes.
+        forbidden=(b"<script",b"<image",b"data:image",b"xlink:href")
         assert not any(token in svg.lower() for token in forbidden),"standalone SVG policy"
+        for element in root.iter():
+            assert element.tag.split("}")[-1].lower() not in ("script","image","foreignobject")
+            assert not any(key.lower().endswith("href") for key in element.attrib), "external asset ref"
         assert b"REVIEW" in svg and b"#EF4B32" in svg and b"No HADES logo" in svg
         original_png=cairosvg.svg2png(bytestring=svg,output_width=w,output_height=h)
         with Image.open(io.BytesIO(original_png)) as im:
