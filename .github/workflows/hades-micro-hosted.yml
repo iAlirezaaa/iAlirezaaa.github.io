@@ -1,0 +1,24 @@
+name: HADES micro bench independent hosted HTTP MIME SHA REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tests/hades-micro-hosted.py'
+      - '.github/workflows/hades-micro-hosted.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch live Pages via HTTPS and verify 10 SHA256 files
+        run: python3 tests/hades-micro-hosted.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Micro-Live-HTTPS-10-URL-REVIEW
+          path: hades-micro-hosted-QA/
+          if-no-files-found: warn
