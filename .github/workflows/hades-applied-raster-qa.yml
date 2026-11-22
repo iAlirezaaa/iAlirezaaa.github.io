@@ -1,0 +1,47 @@
+name: HADES Applied Covers real Chromium and independent hosted REVIEW QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/backgrounds/section-cuts/applied-raster/**'
+      - 'site/public/hades/library/backgrounds/section-cuts/applied-raster/**'
+      - 'hades/fa/library/backgrounds/section-cuts/applied-raster/**'
+      - 'site/public/hades/fa/library/backgrounds/section-cuts/applied-raster/**'
+      - 'tests/hades-applied-raster-qa.py'
+      - '.github/workflows/hades-applied-raster-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow playwright
+      - run: python -m playwright install --with-deps chromium
+      - name: Six real responsive FA EN browser modes plus mirrored raster QA
+        run: python tests/hades-applied-raster-qa.py --browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Applied-Raster-Chromium-Public-REVIEW
+          path: hades-applied-raster-qa/
+          if-no-files-found: ignore
+  public-host:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install pillow
+      - name: Real hosted GET HTTP 200 plus MIME and SHA-256 and ZIP comparison
+        run: python tests/hades-applied-raster-qa.py --hosted
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Applied-Raster-Actual-Pages-GET-REVIEW
+          path: hades-applied-raster-qa/
+          if-no-files-found: ignore
