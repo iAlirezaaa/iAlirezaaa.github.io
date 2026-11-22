@@ -45,7 +45,7 @@ with sync_playwright() as pw:
    page.wait_for_selector("#artboard svg",timeout=12000)
    for mode in ["classic","modern"]:
     page.locator("#mode").select_option(mode)
-    page.wait_for_function("""m=>document.querySelector('#artboard svg title')?.textContent.toLowerCase().includes(m)""",mode)
+    page.wait_for_function("""m=>document.querySelector('#artboard svg title')?.textContent.toLowerCase().includes(m)""",arg=mode)
     assert page.locator("#export").is_enabled(),(lang,width,mode,page.locator("#message").inner_text())
     assert not page.evaluate("document.documentElement.scrollWidth>innerWidth+1"),(lang,width,mode,"horizontal overflow")
     assert page.locator("#compTitle").evaluate("(el)=>parseFloat(getComputedStyle(el).fontSize)")>=20
