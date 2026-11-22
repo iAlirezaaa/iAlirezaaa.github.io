@@ -1,0 +1,36 @@
+name: HADES microtype Chromium and independent live audit REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/backgrounds/section-cuts/microtype/**'
+      - 'site/public/hades/library/backgrounds/section-cuts/microtype/**'
+      - 'hades/fa/library/backgrounds/section-cuts/microtype/**'
+      - 'site/public/hades/fa/library/backgrounds/section-cuts/microtype/**'
+      - 'tests/hades-microtype*.py'
+      - '.github/workflows/hades-microtype.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - run: python tests/hades-microtype.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: microtype-real-chromium-review
+          path: hades-microtype-qa/
+  hosted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - run: python tests/hades-microtype-hosted.py
