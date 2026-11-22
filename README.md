@@ -75,3 +75,9 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 
 ## Original mark micro recognition bench · PUBLIC REVIEW (2026-11-22)
 - [EN original-size optical bench](https://ialirezaaa.github.io/hades/brand-kit/logo-usage/micro-bench/) · [FA](https://ialirezaaa.github.io/hades/fa/brand-kit/logo-usage/micro-bench/). Original logo source unchanged, 48/96/400 CSS-pixel sampling, dark plaque on proposed bone backgrounds, local JSON observation export. Native phone/print/Mikhak remain OPEN.
+
+## HADES Section Cuts — artwork-specific text placement / PUBLIC REVIEW (2026-11-22)
+- [English editable placement editor](https://ialirezaaa.github.io/hades/library/backgrounds/section-cuts/placement/) · [ویرایشگر فارسی](https://ialirezaaa.github.io/hades/fa/library/backgrounds/section-cuts/placement/).
+- Three source-faithful architectural SVG artboards, 16:9, 9:16 and 1:1. Change headline and subtitle, toggle guide overlays, export editable SVG. New tool is distinct from generic Contrast Studio safe zones.
+- No new HADES mark. Logo reservation shows only a detached dark plate and written placeholder; insert **only the original owner PNG**, never redraw or recolor. Approved hue #EF4B32; neutral colors, typography and copy REVIEW, no FINAL.
+- Source and deployed mirrors have been verified in GitHub. A separate [CI QA workflow](.github/workflows/hades-section-placement-qa.yml) covers real Chromium FA/EN mobile and independent live HTTPS checks; no hosted success claim until the run result is observed. Physical phone, printing and real Mikhak remain OPEN.
