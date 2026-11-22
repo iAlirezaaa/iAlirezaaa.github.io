@@ -67,6 +67,15 @@ jobs:
                 for link in page.locator('a[download]').all():
                   got=page.request.get('http://127.0.0.1:8765'+link.get_attribute('href'))
                   assert got.status==200 and got.body().startswith(b'<?xml')
+                for kind in ('Classic','Modern'):
+                  asset=page.request.get('http://127.0.0.1:8765/hades/library/bookmarks/HADES_Bookmark_'+kind+'_'+lang+'_REVIEW.svg')
+                  assert asset.status==200
+                  sample=browser.new_page(viewport={'width':720,'height':980})
+                  sample.goto('http://127.0.0.1:8765/hades/library/bookmarks/HADES_Bookmark_'+kind+'_'+lang+'_REVIEW.svg',wait_until='load')
+                  out=sample.evaluate("""() => [...document.querySelectorAll('svg text')].map(t=>{const b=t.getBBox();return {text:t.textContent,x:b.x,right:b.x+b.width}})""")
+                  assert all(t['x']>=36 and t['right']<=465 for t in out),(lang,kind,out)
+                  sample.close()
+
                 page.screenshot(path=str(pth/f'HADES_Bookmark_{lang}_{width}_REVIEW.png'),full_page=True)
                 print('PASS',lang,width,'responsive + 3 SVG downloads')
                 page.close()
