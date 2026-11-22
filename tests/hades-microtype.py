@@ -32,6 +32,24 @@ with sync_playwright() as pw:
    assert pg.locator("#mobile-title").evaluate("(e)=>parseFloat(getComputedStyle(e).fontSize)")>=20
    assert pg.locator("#mobile-caption").evaluate("(e)=>parseFloat(getComputedStyle(e).fontSize)")>=14
    pg.screenshot(path=f"hades-microtype-qa/{lang}_{width}.png",full_page=True)
+   # Prove real edit/export, not merely an enabled button.
+   pg.locator("#title").fill("W"*42)
+   assert not pg.locator("#export").is_enabled(),(lang,width,"long copy should fail closed")
+   pg.locator("#title").fill("قلمرو / ساختار" if lang=="fa" else "REALM / FORM")
+   assert pg.locator("#export").is_enabled(),(lang,width,"recovery after reject")
+   with pg.expect_download() as dl_event:
+    pg.locator("#export").click()
+   dl=dl_event.value
+   exported=Path("hades-microtype-qa")/(f"edited_{lang}_{width}.svg")
+   dl.save_as(str(exported))
+   exported_root=ET.fromstring(exported.read_bytes())
+   assert exported_root.attrib["width"]=="1920" and exported_root.attrib["height"]=="1080"
+   embedded=list(exported_root.iter("{http://www.w3.org/2000/svg}image"))
+   assert len(embedded)==1
+   embedded_uri=embedded[0].attrib.get("{http://www.w3.org/1999/xlink}href",embedded[0].attrib.get("href",""))
+   assert base64.b64decode(embedded_uri.split(",",1)[1])==old
+   print("EXPORT PASS",lang,width,"exact owner-image bytes + valid SVG")
+
    print("PASS",lang,width)
    pg.close()
  br.close()
