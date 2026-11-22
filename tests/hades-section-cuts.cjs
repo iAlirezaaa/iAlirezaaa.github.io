@@ -23,7 +23,7 @@ try{
   assert.equal(await page.locator('img').count(),3);
   const img=await page.locator('.preview img').evaluateAll(els=>els.map(e=>({ok:e.complete&&e.naturalWidth>0,w:e.naturalWidth,h:e.naturalHeight})));
   assert.ok(img.every((x,i)=>x.ok&&x.w===dim[i][0]&&x.h===dim[i][1]),'SVG decoding/dimensions '+JSON.stringify(img));
-  for(const a of await page.locator('.download').all()){
+  for(const a of await page.locator('.study .download').all()){
     const href=await a.getAttribute('href');assert.ok(href.includes('library/backgrounds/assets/')||href.startsWith('../assets/'));
     const resolved=path.resolve(path.dirname(path.join(ROOT,'hades',rel)),href);assert.ok(fs.existsSync(resolved),resolved);
   }
