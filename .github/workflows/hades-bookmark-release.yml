@@ -64,10 +64,11 @@ jobs:
           RELEASE_SHA: ${{ steps.publish.outputs.sha }}
         run: |
           python - <<'PY'
-          import hashlib, os, time, urllib.request
+          import hashlib, os, time, urllib.request, json, datetime
           from pathlib import Path
           local = Path('hades/library/bookmarks/raster')
-          files = sorted(p for p in local.iterdir() if p.is_file())
+          files = sorted(p for p in local.iterdir() if p.is_file() and p.name != 'HADES_Bookmark_Hosted_HTTP_QA_REVIEW.json')
+          verified=[]
           assert len(files) >= 14, len(files)
           root='https://ialirezaaa.github.io/hades/library/bookmarks/raster/'
           for p in files:
@@ -89,6 +90,7 @@ jobs:
                                '.zip':['application/zip','application/x-zip-compressed','application/octet-stream']}
                       if mime not in allowed.get(p.suffix,[]):
                           raise ValueError(f'Unexpected MIME {mime}')
+                      verified.append({'file': p.name, 'http': code, 'mime': mime, 'bytes':len(data), 'sha256':expect})
                       print('PASS',p.name,'HTTP',code,'MIME',mime,'bytes',len(data),'SHA',expect[:12],flush=True)
                       break
                   except Exception as e:
@@ -96,4 +98,29 @@ jobs:
                       if attempt==17: raise RuntimeError(f'PUBLIC OPEN: {p.name}: {errors[-1]}')
                       time.sleep(12)
           print('PASS',len(files),'independent live GitHub Pages HTTP/MIME/SHA checks')
+          proof = {'status':'PASS — PUBLIC REVIEW, NOT FINAL',
+                   'verified_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                   'release_commit':os.environ['RELEASE_SHA'],
+                   'test':'Independent GitHub Pages HTTP 200, exact MIME, SHA-256 byte verification',
+                   'checked_count':len(verified), 'checks':verified,
+                   'physical_print':'OPEN', 'real_phone_48_96px':'OPEN','mikhak_file':'OPEN'}
+          for path in (Path('site/public/hades/library/bookmarks/raster'),
+                       Path('hades/library/bookmarks/raster')):
+              (path/'HADES_Bookmark_Hosted_HTTP_QA_REVIEW.json').write_text(
+                  json.dumps(proof,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
           PY
+      - name: Commit hosted HTTP proof only after all remote checks succeed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/public/hades/library/bookmarks/raster/HADES_Bookmark_Hosted_HTTP_QA_REVIEW.json hades/library/bookmarks/raster/HADES_Bookmark_Hosted_HTTP_QA_REVIEW.json
+          git commit -m "Verify HADES bookmark hosted PDF PNG WebP ZIP HTTP SHA (REVIEW)"
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || :; exit 1; }
+            sleep 4
+          done
+          exit 1
