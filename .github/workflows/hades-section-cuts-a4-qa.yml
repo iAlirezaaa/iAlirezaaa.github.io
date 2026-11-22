@@ -1,0 +1,48 @@
+name: HADES Section Cuts A4 original-mark real QA REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/library/backgrounds/section-cuts/**'
+      - 'site/public/hades/library/backgrounds/section-cuts/**'
+      - 'hades/fa/library/backgrounds/section-cuts/**'
+      - 'site/public/hades/fa/library/backgrounds/section-cuts/**'
+      - 'tests/hades-section-cuts-a4*'
+      - '.github/workflows/hades-section-cuts-a4-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - run: npm install --prefix /tmp/hades-a4 --no-save --no-package-lock playwright-core
+      - name: Inspect 3 original logos and 6 real mobile browser layouts; render A4 PDF
+        env:
+          NODE_PATH: /tmp/hades-a4/node_modules
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tests/hades-section-cuts-a4.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-A4-Section-Cuts-Real-Browser-REVIEW
+          path: hades-section-cuts-a4-QA/
+          if-no-files-found: warn
+  independent-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/hades-section-cuts-a4-hosted.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-A4-Section-Cuts-Live-HTTPS-REVIEW
+          path: hades-section-cuts-a4-hosted-QA/
+          if-no-files-found: warn
