@@ -62,6 +62,33 @@ const server=http.createServer((req,res)=>{try{
    const r=await page.request.get(base+"/hades/library/tools/contrast-studio/assets/HADES_Safe_Field_Guide_"+size+"_REVIEW.svg");
    assert.equal(r.status(),200);assert.ok((await r.text()).includes('xmlns="http://www.w3.org/2000/svg"'));
   }
+  // native PNG/WebP download QA (owner PNG source and SVG background from THIS checked-out site).
+  assert.equal(await page.locator("#export-png").count(),1);
+  assert.equal(await page.locator("#export-webp").count(),1);
+  const [nativePNG]=await Promise.all([
+    page.waitForEvent("download",{timeout:30000}),
+    page.locator("#export-png").click()
+  ]);
+  assert.ok(nativePNG.suggestedFilename().endsWith("_REVIEW.png"));
+  const png=fs.readFileSync(await nativePNG.path());
+  assert.equal(png.subarray(1,4).toString("ascii"),"PNG");
+  assert.equal(png.readUInt32BE(16),1080);
+  assert.equal(png.readUInt32BE(20),1080);
+  assert.ok(png.length>5000);
+  assert.ok((await page.locator("#export-status").innerText()).includes("1080"));
+  if(width===390) {
+    await page.locator("#ratio").selectOption("portrait");
+    const [webpDL]=await Promise.all([
+      page.waitForEvent("download",{timeout:30000}),
+      page.locator("#export-webp").click()
+    ]);
+    const webp=fs.readFileSync(await webpDL.path());
+    assert.equal(webp.subarray(0,4).toString("ascii"),"RIFF");
+    assert.equal(webp.subarray(8,12).toString("ascii"),"WEBP");
+    assert.ok(webp.length>5000);
+    assert.ok(webpDL.suggestedFilename().includes("9x16"));
+    await page.locator("#ratio").selectOption("square");
+  }
   await page.emulateMedia({media:"print"});
   assert.equal(await page.locator("#control-panel").evaluate(x=>getComputedStyle(x).display),"none");
   await page.emulateMedia({media:"screen"});

@@ -1,4 +1,4 @@
-name: HADES Contrast Studio REVIEW mobile Chromium QA
+name: HADES Contrast Studio REVIEW export and mobile Chromium QA
 on:
   push:
     branches: [main]
@@ -21,7 +21,7 @@ jobs:
         with:
           chrome-version: stable
       - run: npm install --prefix /tmp/hades-contrast-test --no-save --no-package-lock playwright-core
-      - name: Chromium six viewport checks EN FA 320 390 430
+      - name: Chromium FA EN six viewports and native PNG WebP downloaded outputs
         env:
           NODE_PATH: /tmp/hades-contrast-test/node_modules
           CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}

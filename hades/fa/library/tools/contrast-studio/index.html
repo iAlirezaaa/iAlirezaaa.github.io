@@ -44,7 +44,7 @@ select,input[type=text]{width:100%;padding:10px}.check{display:flex;align-items:
 <div class="field"><label for="subtitle">زیرعنوان</label><input id="subtitle" type="text" maxlength="120" value="قلمروی مستقل داستان‌ها و سیستم‌ها · متن نمونه، نه شعار تأییدشده"></div>
 <label class="check"><input type="checkbox" id="mark" checked><span>نمایش نشان سفیدِ اصلی بدون تغییر</span></label>
 <label class="check"><input type="checkbox" id="guides" checked><span>نمایش خطوط حریم امن</span></label>
-<div class="actions"><button type="button" id="print">چاپ / ذخیره PDF</button><button type="button" id="save">ذخیره تنظیمات طرح</button></div>
+<div class="actions"><button type="button" id="print">چاپ / ذخیره PDF</button><button type="button" id="save">ذخیره تنظیمات طرح</button><button type="button" id="export-png">دریافت PNG در اندازهٔ واقعی</button><button type="button" id="export-webp">دریافت WebP</button></div><p id="export-status" class="note" role="status" aria-live="polite">خروجی‌های PNG و WebP در مرورگر از تصاویر اصلی تولید می‌شوند؛ خوانایی اندازهٔ واقعی نیازمند بررسی است.</p>
 </form>
 <div class="stage-wrap">
 <div class="stage-scroll"><div id="stage" class="stage" data-ratio="wide" dir="rtl" aria-label="HADES graphic composition REVIEW">
@@ -87,4 +87,5 @@ $("save").addEventListener("click",()=>{
 });
 sync();
 </script>
+<script src="/hades/library/tools/contrast-studio/export.js"></script>
 </body></html>
