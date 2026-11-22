@@ -36,6 +36,7 @@ const server=http.createServer((req,res)=>{try{
   assert.ok(before.bgReady,"source background did not render");
   assert.ok(before.markReady,"source original mark not decoded");
   assert.equal(before.plate,"rgb(22, 21, 20)","original mark requires independent dark plate");
+  assert.equal(await page.locator("#logo-plate img").evaluate(x=>getComputedStyle(x).transform),"matrix(9, 0, 0, 9, 0, 0)","optical crop must be CSS only; never edit original source");
   assert.ok(before.overflow<=1,"page overflow "+JSON.stringify(before));
   assert.ok(before.guide.endsWith("HADES_Safe_Field_Guide_16x9_REVIEW.svg"));
   await page.locator("#headline").fill(locale==="fa"?"آزمون فارسی":"Test layout / verified");

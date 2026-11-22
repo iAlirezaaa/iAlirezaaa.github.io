@@ -31,3 +31,7 @@
 - `tests/hades-contrast-studio-hosted.cjs`: performs real HTTPS GET for 10 paths including all 3 SVG overlays, both localized HTML pages, owner raster, both libraries, both original-logo guides.
 - Requires HTTP 200, correct MIME and SHA-256 body equality with committed `hades/` bytes. Retry while Pages catches up, fail on any persistent mismatch. Only an actual successful run certifies this check.
 - `.github/workflows/hades-contrast-studio-hosted-qa.yml` starts on source build completion and has a direct push/dispatch trigger. No equality claim from git commit alone.
+
+## Owner-original raster optical placement correction
+- Reviewed the *actual* six-view screenshot artifact and source PNG. The white glyph occupies only a small central fraction of the 946×2048 owner raster, which initially appeared as a barely visible dot on the plate.
+- Applied a **CSS-only centered 9× viewport magnification** inside the overflow-clipped independent dark plate. This uses the identical original PNG URL and unmodified bytes, no recolor/invert/trace or substituted symbol. Magnification is a REVIEW placement heuristic, not a production crop/master. Re-run Chromium/screenshots to verify legibility.
