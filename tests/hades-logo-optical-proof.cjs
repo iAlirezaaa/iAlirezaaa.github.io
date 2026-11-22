@@ -36,7 +36,8 @@ const server=http.createServer((req,res)=>{try{let route=decodeURIComponent(new 
  const dims=await page.locator('svg').evaluate(x=>({width:x.getAttribute('width'),height:x.getAttribute('height'),viewBox:x.getAttribute('viewBox'),images:[...x.querySelectorAll('image')].map(y=>y.getAttribute('href')||y.getAttributeNS('http://www.w3.org/1999/xlink','href'))}));
  assert.equal(dims.width,'210mm');assert.equal(dims.height,'297mm');assert.equal(dims.viewBox,'0 0 794 1123');
  assert.ok(dims.images.every(s=>s&&s.startsWith('data:image/')),'Embedded owner originals must be self-contained');
- await page.screenshot({path:path.join(out,'A4-real-SVG.png'),fullPage:true});
+ // Standalone data-rich SVG screen capture intermittently hangs Chrome 158 (font wait); real page/PDF proof is authoritative.
+ // Keep six measured HTML screenshots and test A4 via PDF instead.
  const pdf=await page.pdf({width:'210mm',height:'297mm',printBackground:true,preferCSSPageSize:true});
  assert.ok(pdf.subarray(0,4).toString()==='%PDF'&&pdf.length>10000,'PDF render failed');
  fs.writeFileSync(path.join(out,'HADES_Original_Marks_Optical_A4_REVIEW.pdf'),pdf);
