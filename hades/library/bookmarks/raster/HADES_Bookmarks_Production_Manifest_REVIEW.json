@@ -1,0 +1,113 @@
+{
+  "title": "HADES Architectural Bookmarks / Classic & Modern / FA & EN",
+  "state": "PUBLIC REVIEW — NOT FINAL",
+  "approved_signature_color": "#EF4B32",
+  "supporting_colors_fonts": "PROPOSED ONLY",
+  "original_owner_png_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+  "original_svg_provenance": {
+    "HADES_Bookmark_Classic_EN_REVIEW.svg": {
+      "sha256": "6ea1192bb2ea03d74ea837507e1853050236fcbf640a9e9d06313161ac19b934",
+      "original_owner_png_embeddings": 1
+    },
+    "HADES_Bookmark_Classic_FA_REVIEW.svg": {
+      "sha256": "6a5ba6ef0c4a2aa78807bb2702339a20ba7a404f0efa3c7152389430df1e1ddf",
+      "original_owner_png_embeddings": 1
+    },
+    "HADES_Bookmark_Modern_EN_REVIEW.svg": {
+      "sha256": "d46326614ecbac908132ae9279e6514b35f29d158aaa8cb2b36fde18daf359a5",
+      "original_owner_png_embeddings": 1
+    },
+    "HADES_Bookmark_Modern_FA_REVIEW.svg": {
+      "sha256": "f00355db21e12aee37a72ae5ab38e40f7c73c2b39f7471678e01f996305ecd28",
+      "original_owner_png_embeddings": 1
+    },
+    "HADES_Bookmark_A4_EN_REVIEW.svg": {
+      "sha256": "ea7d21be9e52068d992857c78871c5c349c111d94273d8da013ded18d409837f",
+      "original_owner_png_embeddings": 2
+    },
+    "HADES_Bookmark_A4_FA_REVIEW.svg": {
+      "sha256": "821742a07a0fa00b87ce48e925421eafacfc8855d74b6f53fbaab5752e388e0b",
+      "original_owner_png_embeddings": 2
+    }
+  },
+  "files": {
+    "HADES_Bookmark_Classic_EN_REVIEW.png": {
+      "sha256": "dc609528bcc7c17c6568eaf4102feae0ba4eaa0d65c6eb30842c41f94dcc8129",
+      "bytes": 13963
+    },
+    "HADES_Bookmark_Classic_FA_REVIEW.png": {
+      "sha256": "c3b02b7eb1382c50cf9c2f880b54e5ffe80d104528072c8107550c02082d51bc",
+      "bytes": 13833
+    },
+    "HADES_Bookmark_Modern_EN_REVIEW.png": {
+      "sha256": "9b080a537d86f7241a86663196dc7159026ad336e8cf73597f63bfe6818a4e18",
+      "bytes": 13716
+    },
+    "HADES_Bookmark_Modern_FA_REVIEW.png": {
+      "sha256": "cade3b336110ee5ce99ad1fa104c61ece2945f6b2d6b230087e7ce586627be07",
+      "bytes": 13584
+    },
+    "HADES_Bookmark_Classic_EN_REVIEW.webp": {
+      "sha256": "2fe010e326828d815ee56e1206f8aa4610a8045a82944422489293733aae0587",
+      "bytes": 6490
+    },
+    "HADES_Bookmark_Classic_FA_REVIEW.webp": {
+      "sha256": "7a9fdfa8400e39d0a201a9afdeb6bb215690f5dd27bddd66b8c51fbfb28f1d91",
+      "bytes": 6492
+    },
+    "HADES_Bookmark_Modern_EN_REVIEW.webp": {
+      "sha256": "703c179f7109bb1d0963d96005551c721a3425fb2363ac8af724c7caa456a94c",
+      "bytes": 5756
+    },
+    "HADES_Bookmark_Modern_FA_REVIEW.webp": {
+      "sha256": "5639754f8e33a9ee1620dcb4d1ac8a9e7f095cf84cabe7e1f4731c7ba4016d6f",
+      "bytes": 5894
+    },
+    "HADES_Bookmark_A4_EN_REVIEW.png": {
+      "sha256": "2978b18874fb3c549b250d0cc895ef47eb943012a95edbb3079537883f62a39c",
+      "bytes": 54594
+    },
+    "HADES_Bookmark_A4_FA_REVIEW.png": {
+      "sha256": "4e5fe7c604a6977b12660c87792edc71270a96b6e4372f7966b40de3484ffc62",
+      "bytes": 52384
+    },
+    "HADES_Bookmark_A4_EN_REVIEW.pdf": {
+      "sha256": "dde56a8e942a2979cecf4b45f7816ffd023d4962b03d0e81784949b41f618d3e",
+      "bytes": 36980
+    },
+    "HADES_Bookmark_A4_FA_REVIEW.pdf": {
+      "sha256": "de739c3e26e6d608e7718de8fb701bfb3553d807ed5101e1832afc20d11b1112",
+      "bytes": 35666
+    },
+    "HADES_Bookmark_Classic_EN_REVIEW.svg": {
+      "sha256": "6ea1192bb2ea03d74ea837507e1853050236fcbf640a9e9d06313161ac19b934",
+      "bytes": 52607
+    },
+    "HADES_Bookmark_Classic_FA_REVIEW.svg": {
+      "sha256": "6a5ba6ef0c4a2aa78807bb2702339a20ba7a404f0efa3c7152389430df1e1ddf",
+      "bytes": 52666
+    },
+    "HADES_Bookmark_Modern_EN_REVIEW.svg": {
+      "sha256": "d46326614ecbac908132ae9279e6514b35f29d158aaa8cb2b36fde18daf359a5",
+      "bytes": 52542
+    },
+    "HADES_Bookmark_Modern_FA_REVIEW.svg": {
+      "sha256": "f00355db21e12aee37a72ae5ab38e40f7c73c2b39f7471678e01f996305ecd28",
+      "bytes": 52601
+    },
+    "HADES_Bookmark_A4_EN_REVIEW.svg": {
+      "sha256": "ea7d21be9e52068d992857c78871c5c349c111d94273d8da013ded18d409837f",
+      "bytes": 105349
+    },
+    "HADES_Bookmark_A4_FA_REVIEW.svg": {
+      "sha256": "821742a07a0fa00b87ce48e925421eafacfc8855d74b6f53fbaab5752e388e0b",
+      "bytes": 105521
+    }
+  },
+  "open": [
+    "physical phone recognition 48/96px",
+    "A4 ruler measurement on paper",
+    "licensed authentic Mikhak",
+    "owner FINAL authorization"
+  ]
+}
