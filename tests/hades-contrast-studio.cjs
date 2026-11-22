@@ -61,6 +61,14 @@ const server=http.createServer((req,res)=>{try{
   const svg=await proofResp.text();
   assert.ok(svg.includes('xlink:href="data:image/png;base64,iVBOR'));
   assert.ok(svg.includes("original-folded-arcade-background")&&svg.includes("PUBLIC REVIEW / NO REDRAW"));
+  if(width===390 && locale==="en") {
+    const proofPage=await browser.newPage({viewport:{width:960,height:540},deviceScaleFactor:1});
+    const svgResponse=await proofPage.goto(base+"/hades/library/tools/contrast-studio/assets/HADES_Folded_Arcade_Editorial_16x9_REVIEW.svg",{waitUntil:"networkidle"});
+    assert.equal(svgResponse.status(),200);
+    assert.equal(await proofPage.locator("svg image").count(),1,"One source PNG, never generated logo");
+    await proofPage.screenshot({path:path.join(screens,"folded-arcade-source-logo-application-REVIEW.png"),fullPage:true});
+    await proofPage.close();
+  }
   await page.locator("#ratio").selectOption("square");
   await page.waitForFunction(()=>document.querySelector("#backdrop").complete&&document.querySelector("#backdrop").naturalWidth>0);
   assert.ok((await page.locator("#guide-download").getAttribute("href")).endsWith("1x1_REVIEW.svg"));

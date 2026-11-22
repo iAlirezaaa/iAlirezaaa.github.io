@@ -9,6 +9,7 @@ const paths=[
 "/hades/library/tools/contrast-studio/assets/HADES_Safe_Field_Guide_16x9_REVIEW.svg",
 "/hades/library/tools/contrast-studio/assets/HADES_Safe_Field_Guide_9x16_REVIEW.svg",
 "/hades/library/tools/contrast-studio/assets/HADES_Safe_Field_Guide_1x1_REVIEW.svg",
+"/hades/library/tools/contrast-studio/assets/HADES_Folded_Arcade_Editorial_16x9_REVIEW.svg",
 "/hades/assets/IMG_7187(2).png",
 "/hades/library/index.html",
 "/hades/fa/library/index.html",
