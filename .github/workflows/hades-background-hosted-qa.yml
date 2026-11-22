@@ -37,6 +37,9 @@ jobs:
             "HADES_Threshold_Portico_16x9_REVIEW",
             "HADES_Threshold_Passage_9x16_REVIEW",
             "HADES_Threshold_Court_1x1_REVIEW",
+            "HADES_Strata_Gallery_16x9_REVIEW",
+            "HADES_Strata_Shaft_9x16_REVIEW",
+            "HADES_Strata_Plinth_1x1_REVIEW",
           ]
           relative=["index.html","fa/library/backgrounds/index.html"]
           def fetch(url, expected_sha):
@@ -58,9 +61,10 @@ jobs:
               time.sleep(10)
             raise RuntimeError(f"Hosted fetch FAILED: {url}: {last}")
           for name in names:
-            for ext in ((".svg",".png",".jpg",".webp") if name.startswith("HADES_Threshold_") else (".svg",".png")):
+            for ext in ((".svg",".png",".jpg",".webp") if name.startswith(("HADES_Threshold_","HADES_Strata_")) else (".svg",".png")):
               relative.append(f"library/backgrounds/assets/{name}{ext}")
           relative.extend(["library/backgrounds/threshold-manifest.REVIEW.json","library/backgrounds/HADES_Threshold_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip"])
+          relative.extend(["library/backgrounds/strata-manifest.REVIEW.json","library/backgrounds/HADES_Strata_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip"])
           for item in relative:
             site_rel="fa/library/backgrounds/index.html" if item.startswith("fa/") else item
             local=root/"hades"/item
@@ -85,5 +89,5 @@ jobs:
             if item.endswith(".html"):
               assert b"REVIEW" in remote and ("text/html" in mime),(item,mime)
             print("HOSTED PASS",item,len(remote),mime,flush=True)
-          print("HADES Backgrounds hosted source-byte parity PASS 24/24; site render on device, print and owner FINAL remain open.")
+          print("HADES Backgrounds hosted source-byte parity PASS (including Strata sources, binaries, ZIP); site render on device, print and owner FINAL remain open.")
           PY

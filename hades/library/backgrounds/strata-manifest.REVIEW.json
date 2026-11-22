@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "status": "PUBLIC REVIEW / NOT FINAL",
+  "date": "2026-11-22",
+  "collection": "HADES Architectural Strata",
+  "approved_accent": "#EF4B32",
+  "proposed_neutrals": {
+    "dark": "#191817",
+    "charcoal": "#33302B",
+    "bone": "#E5D8C8",
+    "stone": "#C1B19F",
+    "warm_shade": "#625A50"
+  },
+  "logo": "None included; all owner originals untouched",
+  "ratios": [
+    {
+      "stem": "HADES_Strata_Gallery_16x9_REVIEW",
+      "width": 1920,
+      "height": 1080,
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "process": "Source SVG committed directly; raster/ZIP created only by observed public build"
+    },
+    {
+      "stem": "HADES_Strata_Shaft_9x16_REVIEW",
+      "width": 1080,
+      "height": 1920,
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "process": "Source SVG committed directly; raster/ZIP created only by observed public build"
+    },
+    {
+      "stem": "HADES_Strata_Plinth_1x1_REVIEW",
+      "width": 1080,
+      "height": 1080,
+      "formats": [
+        "svg",
+        "png",
+        "jpg",
+        "webp"
+      ],
+      "process": "Source SVG committed directly; raster/ZIP created only by observed public build"
+    }
+  ],
+  "pending": [
+    "public HTTP 200/MIME/byte parity",
+    "physical print",
+    "native phone",
+    "licensed Mikhak",
+    "owner FINAL"
+  ]
+}

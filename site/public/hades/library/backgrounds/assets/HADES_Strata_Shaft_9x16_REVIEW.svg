@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-label="HADES Strata Shaft; geometric architectural background; REVIEW">
+<title>HADES · Strata Shaft · Architectural Strata · REVIEW</title>
+<desc>Independent editorial architecture background. No logos are included or modified. Vermilion #EF4B32 is the only approved hue; neutrals are REVIEW proposals. Geometry editable by grouped SVG shapes.</desc>
+<defs>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E5D8C8"/><stop offset=".55" stop-color="#CDBFAE"/><stop offset="1" stop-color="#B19F8D"/></linearGradient>
+<linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4B443E"/><stop offset="1" stop-color="#1A1918"/></linearGradient>
+<linearGradient id="sidelight" x1="0" y1="0" x2="1" y2=".1"><stop offset="0" stop-color="#161515"/><stop offset=".68" stop-color="#322F2B"/><stop offset="1" stop-color="#514B44"/></linearGradient>
+</defs>
+<g id="background"><rect width="1080" height="1920" fill="#191817"/></g>
+<g id="architecture">
+ <rect x="0" y="0" width="850" height="1920" fill="url(#shade)"/>
+ <path d="M0 0H654L411 535H0Z" fill="#38332E"/>
+ <path d="M0 0H325L0 778Z" fill="#4E473E" opacity=".56"/>
+ <path d="M684 0H1080V1920H1004L684 1668Z" fill="#242220"/>
+ <path d="M936 0H1080V1920H1030L936 1668Z" fill="#121212"/>
+ <path d="M0 1488H626L972 1920H0Z" fill="#C1B19F"/>
+ <path d="M0 1588H707L970 1920H0Z" fill="url(#stone)"/>
+ <path d="M0 1662H760L941 1897H0Z" fill="#E5D8C8" opacity=".85"/>
+ <path d="M0 1740H814L953 1920H0Z" fill="#B9A693" opacity=".74"/>
+ <path d="M540 0H612L317 579H240Z" fill="#D8C9B7" opacity=".76"/>
+</g>
+<g id="shadow-details" stroke="#292724" fill="none"><path d="M0 1588H707L970 1920" stroke-width="2"/><path d="M0 1662H760L941 1897" stroke-width="2"/><path d="M0 1740H814L953 1920" stroke-width="1"/></g>
+<g id="accent" fill="#EF4B32"><rect x="664" y="1042" width="4" height="152"/><rect x="648" y="1190" width="34" height="4"/></g>
+</svg>

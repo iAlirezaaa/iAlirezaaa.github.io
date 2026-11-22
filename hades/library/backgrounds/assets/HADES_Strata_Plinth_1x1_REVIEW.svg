@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-label="HADES Strata Plinth; geometric architectural background; REVIEW">
+<title>HADES · Strata Plinth · Architectural Strata · REVIEW</title>
+<desc>Independent editorial architecture background. No logos are included or modified. Vermilion #EF4B32 is the only approved hue; neutrals are REVIEW proposals. Geometry editable by grouped SVG shapes.</desc>
+<defs>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E5D8C8"/><stop offset=".55" stop-color="#CDBFAE"/><stop offset="1" stop-color="#B19F8D"/></linearGradient>
+<linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4B443E"/><stop offset="1" stop-color="#1A1918"/></linearGradient>
+<linearGradient id="sidelight" x1="0" y1="0" x2="1" y2=".1"><stop offset="0" stop-color="#161515"/><stop offset=".68" stop-color="#322F2B"/><stop offset="1" stop-color="#514B44"/></linearGradient>
+</defs>
+<g id="background"><rect width="1080" height="1080" fill="#E5D8C8"/></g>
+<g id="architecture">
+ <path d="M0 0H1080V260H0Z" fill="#C5B6A4"/>
+ <path d="M0 0H1080V120H0Z" fill="#E5D8C8"/>
+ <path d="M0 286H1080V956H0Z" fill="#D7C8B5"/>
+ <path d="M0 954H1080V1080H0Z" fill="#B9A996"/>
+ <path d="M120 222H982L915 855H182Z" fill="#33302B"/>
+ <path d="M182 276H915L869 808H217Z" fill="#242320"/>
+ <path d="M182 277H281L237 808H217Z" fill="#625A50"/>
+ <path d="M756 280H915L869 808H741Z" fill="#161616"/>
+ <path d="M94 854H961L1080 961H0Z" fill="#A89784"/>
+ <path d="M159 878H940L1036 953H58Z" fill="#C6B5A1"/>
+ <path d="M208 905H896L947 955H157Z" fill="#E3D5C5"/>
+ <path d="M0 989H1080V1015H0Z" fill="#817669" opacity=".18"/>
+</g>
+<g id="shadow-details" fill="none" stroke="#988875"><path d="M0 854H961L1080 961" stroke-width="2"/><path d="M0 989H1080" stroke-width="2"/></g>
+<g id="accent" fill="#EF4B32"><rect x="520" y="850" width="40" height="4"/><rect x="539" y="855" width="2" height="23"/></g>
+</svg>

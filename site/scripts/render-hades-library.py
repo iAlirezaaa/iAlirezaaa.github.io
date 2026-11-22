@@ -134,6 +134,9 @@ def render():
   'HADES_Aperture_Loggia_16x9_REVIEW':(1920,1080),
   'HADES_Aperture_Vestibule_9x16_REVIEW':(1080,1920),
   'HADES_Aperture_Court_1x1_REVIEW':(1080,1080),
+  'HADES_Strata_Gallery_16x9_REVIEW':(1920,1080),
+  'HADES_Strata_Shaft_9x16_REVIEW':(1080,1920),
+  'HADES_Strata_Plinth_1x1_REVIEW':(1080,1080),
  }
  for name,(w,h) in backgrounds.items():
   vector=bg_source/(name+'.svg')
@@ -148,7 +151,7 @@ def render():
   rendered=Image.open(generated)
   check(rendered.size==(w,h) and rendered.mode in ('RGB','RGBA'),'background raster preflight '+name)
   check(hashlib.sha256(generated.read_bytes()).digest()==hashlib.sha256((bg_dist/(name+'.png')).read_bytes()).digest(),'background source/build mismatch '+name)
-  if name.startswith(('HADES_Threshold_', 'HADES_Quiet_', 'HADES_Bone_', 'HADES_Charcoal_', 'HADES_Aperture_')):
+  if name.startswith(('HADES_Threshold_', 'HADES_Quiet_', 'HADES_Bone_', 'HADES_Charcoal_', 'HADES_Aperture_', 'HADES_Strata_')):
    rgb=rendered.convert('RGB')
    for ext,format,options in (('jpg','JPEG',{'quality':91,'subsampling':0,'optimize':True}),('webp','WEBP',{'quality':88,'method':6})):
     target=bg_source/(name+'.'+ext)
@@ -188,6 +191,16 @@ def render():
  with zipfile.ZipFile(apertures) as z:
   check(z.testzip() is None and len(z.namelist())==13,'Apertures ZIP integrity')
  (bg_dist.parent/apertures.name).write_bytes(apertures.read_bytes())
+ # Architectural Strata background family: independent geometry; no logos, no private pattern files.
+ strata_pack=bg_source.parent/'HADES_Strata_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip'
+ with zipfile.ZipFile(strata_pack,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=7) as z:
+  for item in ('HADES_Strata_Gallery_16x9_REVIEW','HADES_Strata_Shaft_9x16_REVIEW','HADES_Strata_Plinth_1x1_REVIEW'):
+   for ext in ('svg','png','jpg','webp'):
+    z.write(bg_source/(item+'.'+ext),arcname='assets/'+item+'.'+ext)
+  z.write(bg_source.parent/'strata-manifest.REVIEW.json',arcname='strata-manifest.REVIEW.json')
+ with zipfile.ZipFile(strata_pack) as z:
+  check(z.testzip() is None and len(z.namelist())==13,'Strata ZIP integrity')
+ (bg_dist.parent/strata_pack.name).write_bytes(strata_pack.read_bytes())
  # Separate logo-application plate (NOT an eleventh standalone background): render a real PNG from the fully embedded original raster sources.
  # The embedded JPEG/PNG bytes must EXACTLY match unchanged owner originals; no crop is applied to files, only a proposed viewport.
  contrast_name='HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW'
@@ -210,6 +223,6 @@ def render():
   check(proof.size==(1600,900) and proof.format=='PNG','contrast PNG decode/size failed')
  check(hashlib.sha256(contrast_png.read_bytes()).digest()==hashlib.sha256((bg_dist/(contrast_name+'.png')).read_bytes()).digest(),'contrast PNG byte parity')
  print('HADES contrast plate PASS: exact embedded JPEG/PNG source bytes, SVG XML, real 1600x900 PNG and source/dist mirror',flush=True)
- print('HADES backgrounds PASS: 13 SVG/PNG mirrored pairs; Threshold, Quiet Spaces, Apertures each 3×JPEG/WebP and real downloadable ZIP',flush=True)
+ print('HADES backgrounds PASS: 16 SVG/PNG mirrored pairs; Threshold, Quiet Spaces, Apertures each 3×JPEG/WebP and real downloadable ZIP',flush=True)
 
 if __name__=='__main__':render()

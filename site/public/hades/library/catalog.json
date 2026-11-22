@@ -3,7 +3,7 @@
   "status": "REVIEW / CONCEPT",
   "updated": "2026-11-22",
   "approved_exact_color": "#EF4B32",
-  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights. 2026-11-21: four standalone editable SVG backgrounds public REVIEW; generated photo-raster pack stored in conversation only. 2026-11-21: Quiet Spaces new 16:9/9:16/1:1 editable vector masters PUBLIC REVIEW; raster and ZIP links held until checked. 2026-11-21: source-faithful original logo contrast plate REVIEW; not new logo or standalone background. 2026-11-22 Architectural Apertures: 3 geometric source-only backgrounds staged in SVG; raster availability requires built binary readback; REVIEW.",
+  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights. 2026-11-21: four standalone editable SVG backgrounds public REVIEW; generated photo-raster pack stored in conversation only. 2026-11-21: Quiet Spaces new 16:9/9:16/1:1 editable vector masters PUBLIC REVIEW; raster and ZIP links held until checked. 2026-11-21: source-faithful original logo contrast plate REVIEW; not new logo or standalone background. 2026-11-22 Architectural Apertures: 3 geometric source-only backgrounds staged in SVG; raster availability requires built binary readback; REVIEW. 2026-11-22 Architectural Strata: three source SVGs released in REVIEW; no logo, raster/ZIP externally unverified.",
   "categories": {
     "stationery": {
       "en": "Stationery",
@@ -695,6 +695,42 @@
         "PNG/JPEG/WebP derived after CI verified"
       ],
       "rights_note": "Independent geometric background. Original logos absent. Supporting neutrals proposed; #EF4B32 only approved hue."
+    },
+    {
+      "id": "hades-strata-16-9",
+      "cat": "web",
+      "en": "Strata Gallery · 16:9",
+      "fa": "گالری لایه‌ها · 16:9",
+      "preview": "/hades/library/backgrounds/assets/HADES_Strata_Gallery_16x9_REVIEW.svg",
+      "page": "/hades/library/backgrounds/#strata-review",
+      "svg": "/hades/library/backgrounds/assets/HADES_Strata_Gallery_16x9_REVIEW.svg",
+      "status": "REVIEW",
+      "existing": true,
+      "format": "Editable SVG; raster/ZIP public readback pending"
+    },
+    {
+      "id": "hades-strata-9-16",
+      "cat": "web",
+      "en": "Strata Shaft · 9:16",
+      "fa": "شفت لایه‌ها · 9:16",
+      "preview": "/hades/library/backgrounds/assets/HADES_Strata_Shaft_9x16_REVIEW.svg",
+      "page": "/hades/library/backgrounds/#strata-review",
+      "svg": "/hades/library/backgrounds/assets/HADES_Strata_Shaft_9x16_REVIEW.svg",
+      "status": "REVIEW",
+      "existing": true,
+      "format": "Editable SVG; raster/ZIP public readback pending"
+    },
+    {
+      "id": "hades-strata-1-1",
+      "cat": "web",
+      "en": "Strata Plinth · 1:1",
+      "fa": "پایهٔ لایه‌ها · 1:1",
+      "preview": "/hades/library/backgrounds/assets/HADES_Strata_Plinth_1x1_REVIEW.svg",
+      "page": "/hades/library/backgrounds/#strata-review",
+      "svg": "/hades/library/backgrounds/assets/HADES_Strata_Plinth_1x1_REVIEW.svg",
+      "status": "REVIEW",
+      "existing": true,
+      "format": "Editable SVG; raster/ZIP public readback pending"
     }
   ]
 }
