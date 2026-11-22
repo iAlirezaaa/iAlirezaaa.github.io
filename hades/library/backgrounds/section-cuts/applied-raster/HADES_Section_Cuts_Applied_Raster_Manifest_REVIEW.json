@@ -1,0 +1,94 @@
+{
+  "family": "HADES Section Cuts / Applied Covers / PUBLIC REVIEW",
+  "status": "PUBLIC REVIEW — not FINAL",
+  "approved_colour_only": "#EF4B32",
+  "supporting_neutrals": "PROPOSED",
+  "original_logo_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+  "provenance": "CairoSVG/Pillow rasterisation of the existing 3 unchanged SVG compositions. The original PNG remains embedded byte-for-byte in each source SVG and on the detached dark plaque; these raster proofs do NOT replace original logo masters.",
+  "open": [
+    "physical phone 48/96px",
+    "measured A4 print",
+    "authentic Mikhak test",
+    "owner FINAL approval"
+  ],
+  "assets": [
+    {
+      "source": "library/backgrounds/section-cuts/HADES_Section_Cut_Cantilever_Applied_16x9_REVIEW.svg",
+      "source_sha256": "bfeb19e4aa11ff572aa985220f9bf4be72b769e3aff9a36652f98d6eaf947e9b",
+      "ratio": "16:9",
+      "logo_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+      "exports": [
+        {
+          "path": "library/backgrounds/section-cuts/applied-raster/HADES_Section_Cut_Cantilever_Applied_16x9_REVIEW.png",
+          "width": 1920,
+          "height": 1080,
+          "mime": "image/png",
+          "bytes": 29308,
+          "sha256": "a8c2b668031a916587333f29d31fa226dc2ad0afc81d4a5e58ba54ba22b6ae67"
+        },
+        {
+          "path": "library/backgrounds/section-cuts/applied-raster/HADES_Section_Cut_Cantilever_Applied_16x9_REVIEW.webp",
+          "width": 1920,
+          "height": 1080,
+          "mime": "image/webp",
+          "bytes": 15548,
+          "sha256": "c7c8bf6d6895186df89af55331d35261cbad762704bc4af59514b277bb20d4cb"
+        }
+      ]
+    },
+    {
+      "source": "library/backgrounds/section-cuts/HADES_Section_Cut_Sunken_Gallery_Applied_9x16_REVIEW.svg",
+      "source_sha256": "8ec1806121a7bd963b0813e9c987dcfdef035e6f0b4111d7675f384bbca9861d",
+      "ratio": "9:16",
+      "logo_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+      "exports": [
+        {
+          "path": "library/backgrounds/section-cuts/applied-raster/HADES_Section_Cut_Sunken_Gallery_Applied_9x16_REVIEW.png",
+          "width": 1080,
+          "height": 1920,
+          "mime": "image/png",
+          "bytes": 53188,
+          "sha256": "20d6e580a58e01d3f2807642768f016bf539d825e3364cd126aef5ae66ce5746"
+        },
+        {
+          "path": "library/backgrounds/section-cuts/applied-raster/HADES_Section_Cut_Sunken_Gallery_Applied_9x16_REVIEW.webp",
+          "width": 1080,
+          "height": 1920,
+          "mime": "image/webp",
+          "bytes": 26188,
+          "sha256": "e997643f6651404691a5367aea1171a6e6548d47a47d0ece9dbd4d9c5589aab9"
+        }
+      ]
+    },
+    {
+      "source": "library/backgrounds/section-cuts/HADES_Section_Cut_Suspended_Lintel_Applied_1x1_REVIEW.svg",
+      "source_sha256": "e1376f5fc50f992a29ca996a85f75cf07931f1a1bf4f8b4c166c971494e702d2",
+      "ratio": "1:1",
+      "logo_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+      "exports": [
+        {
+          "path": "library/backgrounds/section-cuts/applied-raster/HADES_Section_Cut_Suspended_Lintel_Applied_1x1_REVIEW.png",
+          "width": 1080,
+          "height": 1080,
+          "mime": "image/png",
+          "bytes": 15863,
+          "sha256": "f7a2f275170dde75e6f1e69f22b99d4bf5c232af4a65a8470bb4e0a60114c451"
+        },
+        {
+          "path": "library/backgrounds/section-cuts/applied-raster/HADES_Section_Cut_Suspended_Lintel_Applied_1x1_REVIEW.webp",
+          "width": 1080,
+          "height": 1080,
+          "mime": "image/webp",
+          "bytes": 10208,
+          "sha256": "44257ec9f3438f2dc99b89c375fe0d4d3c6d83b0943fe860b734372fcdc14b7a"
+        }
+      ]
+    }
+  ],
+  "contact": {
+    "path": "library/backgrounds/section-cuts/applied-raster/HADES_Section_Cuts_Applied_Contact_REVIEW.png",
+    "sha256": "4070bbf5aa6d3e80c5bd6a13130374969255e3b8db1889698d33b45749c7a1d4",
+    "width": 1600,
+    "height": 900
+  }
+}
