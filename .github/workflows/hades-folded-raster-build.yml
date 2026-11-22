@@ -1,0 +1,48 @@
+name: HADES Folded raster render and release REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/scripts/render-hades-folded-raster-review.py"
+      - ".github/workflows/hades-folded-raster-build.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-folded-raster-release
+  cancel-in-progress: true
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install SVG and raster renderers
+        run: python3 -m pip install --user cairosvg pillow
+      - name: Render and safely commit reviewed output bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python3 site/scripts/render-hades-folded-raster-review.py
+            git add -A -- site/public/hades/library/backgrounds/assets hades/library/backgrounds/assets site/public/hades/library/backgrounds/Folded_Spaces_Raster_Release_REVIEW.json hades/library/backgrounds/Folded_Spaces_Raster_Release_REVIEW.json site/public/hades/library/backgrounds/HADES_Folded_Spaces_Raster_and_SVG_3_Ratios_REVIEW.zip hades/library/backgrounds/HADES_Folded_Spaces_Raster_and_SVG_3_Ratios_REVIEW.zip
+            if git diff --cached --quiet; then
+              echo "Output already identical; no duplicate commit."
+              exit 0
+            fi
+            git commit -m "feat(hades): deliver nine Folded raster images and ZIP [REVIEW]"
+            if git push origin HEAD:main; then
+              echo "PUBLISHED 9 binary images, manifest and ZIP"
+              exit 0
+            fi
+            echo "Concurrent push; regenerating from latest origin main"
+            sleep 6
+          done
+          echo "OPEN - could not publish binaries after safe retries"
+          exit 1
