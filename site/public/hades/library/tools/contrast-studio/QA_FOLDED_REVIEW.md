@@ -7,3 +7,6 @@ An independently editable 16:9 SVG application is provided in [assets](assets/HA
 Source and deploy mirror parity is required. Actual six-case Chromium automation at 320/390/430 (EN/FA), 3 Folded ratios, native PNG and WebP, logo source and HTTP of local files is implemented in tests/hades-contrast-studio.cjs. **PASS OPEN until an actual successful run is read back**; live HTTPS 200/MIME/SHA also OPEN pending independent check. Physical print, actual handset 48/96px recognition, genuine Mikhak test, owner FINAL OPEN.
 
 Previous Folded raster bundle (nine PNG/JPEG/WebP plus ZIP) remains conversation-only and must not be advertised as public.
+
+## Actual hosted binary file
+New independently downloadable source-only ZIP `/hades/library/tools/contrast-studio/HADES_Folded_Studio_Editable_4_SVG_REVIEW.zip` (4 SVG source files + README + manifest) is a real GitHub binary blob, identical in both paths. Not the older 9-raster conversation-only pack. A fresh hosted test checks real ZIP HTTP 200, MIME and exact bytes; success is OPEN until workflow run logs confirm.
