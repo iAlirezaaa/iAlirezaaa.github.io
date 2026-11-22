@@ -45,6 +45,7 @@ jobs:
           print('PDF structural/source-exact mirror PASS; physical print OPEN')
           PY
           mkdir -p hades-logo-preflight-proof/pdf-render
+          if ! command -v pdfinfo >/dev/null 2>&1; then sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils; fi
           pdfinfo hades/brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf | tee hades-logo-preflight-proof/pdf-render/pdfinfo.txt
           pdfinfo hades/brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf | grep -E 'Pages:[[:space:]]+2'
           pdftoppm -f 1 -l 2 -scale-to 1200 -png hades/brand-kit/logo-usage/preflight/HADES_Classic_Original_A4_Print_Comparison_REVIEW.pdf hades-logo-preflight-proof/pdf-render/classic-A4
