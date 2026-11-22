@@ -4,8 +4,8 @@
 <g id="unchanged-source-architecture"><rect width="1080" height="1080" fill="#292723"/><path d="M0 0H1080V216H0Z" fill="#131211"/><path d="M85 158H950L894 348H126Z" fill="#E6D9C7"/><path d="M126 348H894L864 394H149Z" fill="#8E7B67"/><path d="M85 158L126 348L149 394L98 351Z" fill="#685B4D"/><path d="M950 158L894 348L864 394L922 347Z" fill="#544B42"/><path d="M164 395H350V1080H164Z" fill="#36312B"/><path d="M350 395H387V1080H350Z" fill="#4A4037"/><path d="M730 395H925V1080H730Z" fill="#191817"/><path d="M730 395H693V1080H730Z" fill="#484037"/><path d="M388 395H692V1080H388Z" fill="#131211"/><path d="M387 850H692V1080H387Z" fill="#1B1A18"/><path d="M402 859H681" stroke="#595044" stroke-width="2"/><path d="M906 439V566" stroke="#EF4B32" stroke-width="7"/><path d="M0 1040H1080V1080H0Z" fill="#211E1C"/></g>
 <g id="editable-copy-field"><rect x="402" y="555" width="278" height="265" fill="#131211" fill-opacity="0.85" rx="2"/>
 <path d="M427 586h120" stroke="#EF4B32" stroke-width="5"/>
-<text id="editable-title" x="425" y="647" fill="#F2EDE5" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="43" font-weight="400" letter-spacing=".25">THE / WORK</text>
-<text id="editable-subtitle" x="425" y="704" fill="#D6CBBE" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="21" font-weight="400">Editable editorial copy / REVIEW</text>
+<text id="editable-title" x="425" y="647" fill="#F2EDE5" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="43" font-weight="400" letter-spacing=".25">THE WORK</text>
+<text id="editable-subtitle" x="425" y="704" fill="#D6CBBE" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="21" font-weight="400">COPY / REVIEW</text>
 </g>
 <g id="detached-original-mark-reservation"><rect x="110" y="53" width="225" height="76" fill="#171514" fill-opacity=".96" stroke="#716357" stroke-width="2"/>
 <text x="125.75" y="84.16" fill="#E6D9C7" font-family="system-ui,Tahoma,Arial,sans-serif" font-size="11.25" font-weight="400">ORIGINAL MARK • RESERVED</text>
