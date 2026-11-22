@@ -36,7 +36,9 @@ jobs:
           paths=['index.html','fa/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','library/bookmarks/index.html','fa/library/bookmarks/index.html','library/bookmarks/README_REVIEW.md','library/HADES_Library_Guide_EN.md','library/HADES_Library_Guide_FA.md']
           for path in paths:
             assert (base/path).read_bytes()==(mirror/path).read_bytes(),path
-            if path.endswith('index.html') and '/bookmarks/' not in path:assert 'hades-bookmark-kit-20261122' in (base/path).read_text(),path
+            if path.endswith('index.html') and '/bookmarks/' not in path:
+              assert 'hades-bookmark-kit-20261122' in (base/path).read_text(),path
+              assert 'color:#E6D9C7;border-bottom:2px solid #EF4B32' in (base/path).read_text(),path
           print('PASS XML, original owner 37k PNG hash, 6 mirrored SVGs and 11 paired pages')
           PY
       - name: Install Chromium
