@@ -32,7 +32,7 @@ jobs:
           python - <<'PY'
           import hashlib
           from pathlib import Path
-          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/README_REVIEW.md','library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg']
+          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/README_REVIEW.md','library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg','library/object-stages/composer/HADES_Alpha_Bounds_A4_FA_EN_REVIEW.svg']
           for f in files:
               assert (Path('site/public/hades')/f).read_bytes()==(Path('hades')/f).read_bytes(),f
           assert (Path('hades/library/object-stages/HADES_Object_Stage_16x9_REVIEW.svg')).exists()
@@ -138,6 +138,53 @@ jobs:
               await browser.close()
           asyncio.run(test())
           PY
+      - name: Real browser transparent-padding optical placement, EN FA, all ratios
+        run: |
+          python - <<'PY'
+          import asyncio,io,json
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          from playwright.async_api import async_playwright
+          async def main():
+            fixture=Image.new('RGBA',(96,128),(0,0,0,0))
+            ImageDraw.Draw(fixture).rectangle((35,10,64,58),fill=(32,39,35,255))
+            buf=io.BytesIO();fixture.save(buf,'PNG')
+            async with async_playwright() as p:
+              browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ['en','fa']:
+                page=await browser.new_page(viewport={'width':390,'height':850},accept_downloads=True)
+                path='library/object-stages/composer/' if lang=='en' else 'fa/library/object-stages/composer/'
+                await page.goto('http://127.0.0.1:8765/hades/'+path,wait_until='networkidle')
+                await page.locator('#subjectFile').set_input_files({'name':'fixture.png','mimeType':'image/png','buffer':buf.getvalue()})
+                assert '32' in await page.locator('#alphaInfo').inner_text()
+                for ratio,size in {'16x9':(1920,1080),'9x16':(1080,1920),'1x1':(1080,1080)}.items():
+                  await page.locator('#ratio').select_option(ratio)
+                  await page.wait_for_function('!document.querySelector("#savePNG").disabled')
+                  await page.locator('#alignBase').click()
+                  old=int(await page.locator('#positionY').input_value())
+                  await page.locator('#alignVisible').click()
+                  new=int(await page.locator('#positionY').input_value())
+                  assert abs(new-old)>5,(lang,ratio,old,new)
+                  assert await page.locator('#alphaGuides').is_checked()
+                  assert not await page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                  async with page.expect_download() as event:await page.locator('#savePNG').click()
+                  assert Image.open(await (await event.value).path()).size==size
+                  async with page.expect_download() as event:await page.locator('#saveJSON').click()
+                  state=json.loads(Path(await (await event.value).path()).read_text())
+                  assert state['view']['alphaGuides']
+                  await page.locator('#remove').click()
+                  await page.locator('#loadJSON').set_input_files({'name':'settings.json','mimeType':'application/json','buffer':json.dumps(state).encode()})
+                  await page.wait_for_function('document.querySelector("#alphaInfo").textContent.includes("32")')
+                  assert await page.locator('#alphaGuides').is_checked()
+                  print('PASS alpha',lang,ratio,old,new,'PNG, JSON, optical bounds')
+                await page.screenshot(path='/tmp/hades-composer-proof/'+lang+'_alpha_bounds.png',full_page=True)
+                await page.close()
+              ref=await browser.new_page()
+              r=await ref.goto('http://127.0.0.1:8765/hades/library/object-stages/composer/HADES_Alpha_Bounds_A4_FA_EN_REVIEW.svg')
+              assert r.status==200 and await ref.locator('svg').count()==1
+              await browser.close()
+          asyncio.run(main())
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -149,7 +196,7 @@ jobs:
           python - <<'PY'
           import hashlib,time,urllib.request
           from pathlib import Path
-          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg','index.html','fa/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md']
+          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg','library/object-stages/composer/HADES_Alpha_Bounds_A4_FA_EN_REVIEW.svg','index.html','fa/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md']
           errors=[]
           for attempt in range(10):
             errors=[]

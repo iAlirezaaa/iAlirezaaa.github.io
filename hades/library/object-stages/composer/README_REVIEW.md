@@ -19,3 +19,8 @@ New optional preview-only geometry outline and approximate subject photo-bounds 
 **OPEN:** genuine physical 3D perspective/camera match, actual photos, physical print, native phone 48/96 px and Mikhak licensed source, owner FINAL. Only #EF4B32 approved, neutrals and fonts proposed.
 
 Next: (1) full three-ratio actual Chromium export/JSON readback with public hosted SHA; (2) real device and physical print evaluation with documented observations.
+
+## Local visible-alpha alignment — 2026-11-23 · PUBLIC REVIEW
+Optional locally measured nontransparent subject bounds (max sample 768 px, alpha >=32/255) provide approximate silhouette-bottom-to-plinth alignment. The pre-existing rectangle snap is retained for opaque files. Optional dashed outline is preview-only and excluded from PNG/SVG exports. Bilingual controls, local privacy messaging, compatibility with older JSON and a [bilingual editable A4 optical guide](HADES_Alpha_Bounds_A4_FA_EN_REVIEW.svg) are included. This is not floor detection, optical calibration or approved production artwork. No original HADES logo/manifest/stage source modified.
+
+OPEN: physical real-device/print calibration, genuine licensed Mikhak, owner FINAL. NEXT 1: real measurement log for phone 48/96px and A4 print. NEXT 2: optional threshold control only after UX evidence.
