@@ -32,9 +32,9 @@ jobs:
           files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/README_REVIEW.md','library/index.html','fa/library/index.html','downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md','library/object-stages/composer/HADES_Alpha_Fringe_Diagnostic_A4_FA_EN_REVIEW.svg']
           for f in files:
             assert (Path('hades')/f).read_bytes()==(Path('site/public/hades')/f).read_bytes(),f
-          r=ET.parse('hades/'+files[-1]).getroot()
+          r=ET.parse('hades/library/object-stages/composer/HADES_Alpha_Fringe_Diagnostic_A4_FA_EN_REVIEW.svg').getroot()
           assert (r.attrib['width'],r.attrib['height'],r.attrib['viewBox'])==('210mm','297mm','0 0 210 297')
-          assert 'PUBLIC REVIEW' in (Path('hades')/files[-1]).read_text()
+          assert 'PUBLIC REVIEW' in (Path('hades')/'library/object-stages/composer/HADES_Alpha_Fringe_Diagnostic_A4_FA_EN_REVIEW.svg').read_text()
           script=(Path('hades')/files[2]).read_text()
           for token in ['makeFringeMask','fringePreview','describeFringe']:
             assert token in script
