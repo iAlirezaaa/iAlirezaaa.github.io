@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297" role="img" aria-labelledby="title desc">
+<title id="title">HADES Object Stages — A4 Subject Placement Reference / راهنمای جایگاه سوژه</title>
+<desc id="desc">Editable bilingual A4 diagram with three aspect-ratio subject placement guides, independent proposed neutral swatches, physical 50 mm calibration, and REVIEW-only status. No logo or private artwork.</desc>
+<rect width="210" height="297" fill="#E6D9C7"/>
+<rect x="11" y="11" width="188" height="275" rx="0" fill="none" stroke="#6B6054" stroke-width="0.3" />
+<rect x="17" y="16" width="1.6" height="7" rx="0.3" fill="#EF4B32" stroke="none" stroke-width="0" />
+<g font-family="Tahoma,Arial,sans-serif" font-weight="400">
+<text x="22" y="21" font-size="4.6" fill="#1E1C1A">HADES / OBJECT STAGES</text>
+<text x="193" y="21" text-anchor="end" font-size="2.8" fill="#3F3A35">PUBLIC REVIEW · 2026-11-23</text>
+<text x="17" y="31" font-size="6.1" fill="#1E1C1A">Subject placement / جایگاه سوژه</text>
+<text x="17" y="38" font-size="3.05" fill="#48413A">Scale and crop planning, not a production-safe-area certification</text>
+<text x="193" y="45" text-anchor="end" font-size="3.1" fill="#48413A" direction="rtl" unicode-bidi="plaintext">راهنمای ترکیب‌بندی؛ اندازه‌های پیشنهادی و نیازمند آزمون عملی</text>
+<path d="M17 49 L193 49" fill="none" stroke="#6B6054" stroke-width="0.27" />
+<text x="17" y="57" font-size="3.3" fill="#1E1C1A">01 / WIDE · 16:9</text>
+<text x="143" y="57" font-size="3.3" fill="#1E1C1A">02 / VERTICAL · 9:16</text>
+<g role="group" aria-label="16 by 9 placement reference">
+<rect x="17" y="64" width="110" height="61.875" rx="1.1" fill="#131211" stroke="#B4A595" stroke-width="0.35" />
+<path d="M30.2 109.16874999999999 L113.8 109.16874999999999" fill="none" stroke="#B4A595" stroke-width="0.32" />
+<path d="M41.2 110.40625 L41.2 123.4" fill="none" stroke="#B4A595" stroke-width="0.2" />
+<path d="M100.6 110.40625 L100.6 123.4" fill="none" stroke="#B4A595" stroke-width="0.2" />
+<rect x="28" y="70.1875" width="88" height="49.5" rx="0.35" fill="none" stroke="#D9CCBD" stroke-width="0.32" stroke-dasharray="1.2 1.3"/>
+<rect x="50" y="83.8" width="44" height="29.7" rx="0.35" fill="none" stroke="#EF4B32" stroke-width="0.43" stroke-dasharray="2 1.25"/>
+<path d="M72 78.85 L72 111.64375000000001" fill="none" stroke="#D9CCBD" stroke-width="0.22" stroke-dasharray="1.4 1.5"/>
+<path d="M59.9 95.55625 L84.1 95.55625" fill="none" stroke="#D9CCBD" stroke-width="0.22" stroke-dasharray="1.4 1.5"/>
+<rect x="19" y="66" width="13" height="3.5" rx="0.5" fill="#131211" stroke="none" stroke-width="0" />
+<text x="20" y="68.6" font-size="2.05" fill="#E6D9C7">Dark / proposed</text>
+</g>
+<g role="group" aria-label="9 by 16 placement reference">
+<rect x="147" y="64" width="42" height="74.667" rx="1.1" fill="#E6D9C7" stroke="#5E5148" stroke-width="0.35" />
+<path d="M152.04 118.50691 L183.96 118.50691" fill="none" stroke="#5E5148" stroke-width="0.32" />
+<path d="M156.24 120.00025 L156.24 135.68032" fill="none" stroke="#5E5148" stroke-width="0.2" />
+<path d="M178.92000000000002 120.00025 L178.92000000000002 135.68032" fill="none" stroke="#5E5148" stroke-width="0.2" />
+<rect x="151.2" y="71.4667" width="33.6" height="59.7336" rx="0.35" fill="none" stroke="#38322D" stroke-width="0.32" stroke-dasharray="1.2 1.3"/>
+<rect x="159.6" y="87.89344" width="16.8" height="35.84016" rx="0.35" fill="none" stroke="#EF4B32" stroke-width="0.43" stroke-dasharray="2 1.25"/>
+<path d="M168 81.92008 L168 121.49359000000001" fill="none" stroke="#38322D" stroke-width="0.22" stroke-dasharray="1.4 1.5"/>
+<path d="M163.38 102.08017000000001 L172.62 102.08017000000001" fill="none" stroke="#38322D" stroke-width="0.22" stroke-dasharray="1.4 1.5"/>
+<rect x="149" y="66" width="13" height="3.5" rx="0.5" fill="#E6D9C7" stroke="none" stroke-width="0" />
+<text x="150" y="68.6" font-size="2.05" fill="#1F1D1A">Bone / proposed</text>
+</g>
+<text x="17" y="133" font-size="3.05" fill="#413B34">1920 × 1080 · Editable crop guide</text>
+<text x="143" y="146" font-size="2.9" fill="#413B34">1080 × 1920</text>
+<path d="M17 152 L193 152" fill="none" stroke="#6B6054" stroke-width="0.27" />
+<text x="17" y="160" font-size="3.3" fill="#1E1C1A">03 / SQUARE · 1:1</text>
+<g role="group" aria-label="1 by 1 placement reference">
+<rect x="17" y="166" width="74" height="74" rx="1.1" fill="#292723" stroke="#B4A595" stroke-width="0.35" />
+<path d="M25.88 220.01999999999998 L82.12 220.01999999999998" fill="none" stroke="#B4A595" stroke-width="0.32" />
+<path d="M33.28 221.5 L33.28 237.04" fill="none" stroke="#B4A595" stroke-width="0.2" />
+<path d="M73.24000000000001 221.5 L73.24000000000001 237.04" fill="none" stroke="#B4A595" stroke-width="0.2" />
+<rect x="24.4" y="173.4" width="59.2" height="59.2" rx="0.35" fill="none" stroke="#D9CCBD" stroke-width="0.32" stroke-dasharray="1.2 1.3"/>
+<rect x="39.2" y="189.68" width="29.6" height="35.519999999999996" rx="0.35" fill="none" stroke="#EF4B32" stroke-width="0.43" stroke-dasharray="2 1.25"/>
+<path d="M54 183.76 L54 222.98000000000002" fill="none" stroke="#D9CCBD" stroke-width="0.22" stroke-dasharray="1.4 1.5"/>
+<path d="M45.86 203.74 L62.14 203.74" fill="none" stroke="#D9CCBD" stroke-width="0.22" stroke-dasharray="1.4 1.5"/>
+<rect x="19" y="168" width="13" height="3.5" rx="0.5" fill="#131211" stroke="none" stroke-width="0" />
+<text x="20" y="170.6" font-size="2.05" fill="#E6D9C7">Charcoal / proposed</text>
+</g>
+<text x="17" y="247" font-size="3" fill="#413B34">1080 × 1080</text>
+<text x="104" y="163" font-size="3.6" fill="#1E1C1A">REFERENCE ONLY / فقط راهنما</text>
+<rect x="104" y="170" width="3.3" height="3.3" rx="0.2" fill="none" stroke="#625850" stroke-width="0.35" stroke-dasharray="1 1"/>
+<text x="111" y="172.9" font-size="2.9" fill="#292723">10% inset / حاشیه پیشنهادی ۱۰٪</text>
+<rect x="104" y="178" width="3.3" height="3.3" rx="0.2" fill="none" stroke="#EF4B32" stroke-width="0.4" stroke-dasharray="1.6 1"/>
+<text x="111" y="180.9" font-size="2.9" fill="#292723">Subject zone / محدودهٔ سوژه</text>
+<path d="M104 187 L108 187" fill="none" stroke="#655B51" stroke-width="0.3" />
+<text x="111" y="188" font-size="2.9" fill="#292723">Camera horizon / افق تقریبی</text>
+<text x="104" y="198" font-size="3" fill="#24211E">Place a real asset only after verifying crop</text>
+<text x="104" y="204" font-size="3" fill="#24211E">at 320, 390 and 430 CSS pixels.</text>
+<text x="104" y="212" font-size="3" fill="#24211E" direction="rtl" unicode-bidi="plaintext">سوژهٔ واقعی را با برش نهایی بررسی کنید.</text>
+<text x="104" y="223" font-size="2.85" fill="#44403A">Neutrals are unapproved proposals:</text>
+<text x="104" y="229" font-size="2.85" fill="#44403A">Dark #131211 · Bone #E6D9C7</text>
+<text x="104" y="235" font-size="2.85" fill="#44403A">Charcoal #292723</text>
+<text x="104" y="242" font-size="2.85" fill="#44403A">Approved accent ONLY: #EF4B32</text>
+<path d="M17 255 L193 255" fill="none" stroke="#6B6054" stroke-width="0.27" />
+<text x="17" y="264" font-size="3.3" fill="#1E1C1A">PRINT 100% · 50 mm control / کنترل مقیاس چاپ</text>
+<path d="M17 271 L67 271" fill="none" stroke="#1E1C1A" stroke-width="0.6" />
+<path d="M17 268.7 L17 273.3" fill="none" stroke="#1E1C1A" stroke-width="0.5" />
+<path d="M67 268.7 L67 273.3" fill="none" stroke="#1E1C1A" stroke-width="0.5" />
+<text x="76" y="272.1" font-size="3" fill="#292723">50 mm exact vector length</text>
+<text x="17" y="281" font-size="2.7" fill="#4B443E">Physical measurement, genuine Mikhak, original-logo 48/96 px, and FINAL approval: OPEN</text>
+</g></svg>
