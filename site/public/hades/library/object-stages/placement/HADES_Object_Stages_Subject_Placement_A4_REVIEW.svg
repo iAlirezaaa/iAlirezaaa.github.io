@@ -10,7 +10,7 @@
 <text x="193" y="21" text-anchor="end" font-size="2.8" fill="#3F3A35">PUBLIC REVIEW · 2026-11-23</text>
 <text x="17" y="31" font-size="6.1" fill="#1E1C1A">Subject placement / جایگاه سوژه</text>
 <text x="17" y="38" font-size="3.05" fill="#48413A">Scale and crop planning, not a production-safe-area certification</text>
-<text x="193" y="45" text-anchor="end" font-size="3.1" fill="#48413A" direction="rtl" unicode-bidi="plaintext">راهنمای ترکیب‌بندی؛ اندازه‌های پیشنهادی و نیازمند آزمون عملی</text>
+<text x="193" y="45" text-anchor="start" font-size="3.1" fill="#48413A" direction="rtl" unicode-bidi="plaintext">راهنمای ترکیب‌بندی؛ اندازه‌های پیشنهادی و نیازمند آزمون عملی</text>
 <path d="M17 49 L193 49" fill="none" stroke="#6B6054" stroke-width="0.27" />
 <text x="17" y="57" font-size="3.3" fill="#1E1C1A">01 / WIDE · 16:9</text>
 <text x="143" y="57" font-size="3.3" fill="#1E1C1A">02 / VERTICAL · 9:16</text>
@@ -64,7 +64,7 @@
 <text x="111" y="188" font-size="2.9" fill="#292723">Camera horizon / افق تقریبی</text>
 <text x="104" y="198" font-size="3" fill="#24211E">Place a real asset only after verifying crop</text>
 <text x="104" y="204" font-size="3" fill="#24211E">at 320, 390 and 430 CSS pixels.</text>
-<text x="104" y="212" font-size="3" fill="#24211E" direction="rtl" unicode-bidi="plaintext">سوژهٔ واقعی را با برش نهایی بررسی کنید.</text>
+<text x="190" y="212" text-anchor="start" font-size="3" fill="#24211E" direction="rtl" unicode-bidi="plaintext">سوژهٔ واقعی را با برش نهایی بررسی کنید.</text>
 <text x="104" y="223" font-size="2.85" fill="#44403A">Neutrals are unapproved proposals:</text>
 <text x="104" y="229" font-size="2.85" fill="#44403A">Dark #131211 · Bone #E6D9C7</text>
 <text x="104" y="235" font-size="2.85" fill="#44403A">Charcoal #292723</text>
