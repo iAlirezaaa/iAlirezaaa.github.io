@@ -156,7 +156,8 @@ jobs:
                 path='library/object-stages/composer/' if lang=='en' else 'fa/library/object-stages/composer/'
                 await page.goto('http://127.0.0.1:8765/hades/'+path,wait_until='networkidle')
                 await page.locator('#subjectFile').set_input_files({'name':'fixture.png','mimeType':'image/png','buffer':buf.getvalue()})
-                assert any(n in await page.locator('#alphaInfo').inner_text() for n in ['32','۳۲'])
+                alpha_text=await page.locator('#alphaInfo').inner_text()
+                assert '32' in alpha_text or '۳۲' in alpha_text
                 for ratio,size in {'16x9':(1920,1080),'9x16':(1080,1920),'1x1':(1080,1080)}.items():
                   await page.locator('#ratio').select_option(ratio)
                   await page.wait_for_function('!document.querySelector("#savePNG").disabled')
