@@ -80,3 +80,7 @@ Nine native-resolution PNG/JPEG/WebP applied-background files (16:9, 9:16, 1:1) 
 
 ### Raster edge lab · PUBLIC REVIEW
 Compare native PNG plaque crops against JPEG/WebP and download measured JSON. Human/print tests OPEN. [Open lab](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/edge-lab/).
+
+
+## Quiet Courts · Chapter divider · PUBLIC REVIEW
+Two 16:9 editable chapter-opening SVGs with unchanged original mark on a separate dark plaque. [FA](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/chapter-divider/) · [EN](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/chapter-divider/) · Mikhak / physical / FINAL: OPEN.
