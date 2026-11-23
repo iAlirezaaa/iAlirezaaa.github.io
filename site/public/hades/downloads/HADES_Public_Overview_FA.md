@@ -26,3 +26,7 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 
 ### 2026-11-23 · Adjustable alpha threshold — PUBLIC REVIEW
 ویرایشگر محلی اکنون آستانهٔ آلفای ۱ تا ۲۵۴ را برای تراز حدود دیداری تصویر انتخاب می‌کند؛ مقدار در JSON ذخیره می‌شود. [A4 FA/EN editable optical study](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Threshold_A4_FA_EN_REVIEW.svg) · [Composer](https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/). REVIEW only; print/phone tests OPEN.
+
+
+### 2026-11-23 · برگهٔ ثبت مشاهدهٔ واقعی A4 و گوشی — PUBLIC REVIEW
+[فرم خالی فارسی با فیلدهای قابل‌ویرایش و خروجی JSON](https://ialirezaaa.github.io/hades/fa/library/object-stages/observations/) · [English](https://ialirezaaa.github.io/hades/library/object-stages/observations/) · [SVG برداری A4 با خط ۱۰۰ میلی‌متری](https://ialirezaaa.github.io/hades/library/object-stages/observations/HADES_Physical_Observation_A4_REVIEW.svg). اندازه‌گیری چاپ و خوانایی لوگو در ۴۸/۹۶ پیکسل روی گوشی واقعی هنوز OPEN است؛ هیچ نتیجهٔ شبیه‌سازی‌شده‌ای PASS یا FINAL نیست.
