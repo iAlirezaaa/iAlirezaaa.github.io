@@ -13,7 +13,7 @@ const stages={
 };
 const srcBase="/hades/library/object-stages/";
 const canvas=$("stageCanvas"),ctx=canvas.getContext("2d",{alpha:false});
-let selected="16x9",stageImage=null,stageSource="",subjectImage=null,subjectData="",ready=false,nonce=0,drag=false,subjectAlpha=null;
+let selected="16x9",stageImage=null,stageSource="",subjectImage=null,subjectData="",ready=false,nonce=0,drag=false,subjectAlpha=null,fringeMask=null;
 const alphaThreshold=()=>Number($("alphaThreshold").value);
 const values=()=>({x:Number($("positionX").value),y:Number($("positionY").value),scale:Number($("subjectScale").value)});
 const setStatus=(message)=>{$("status").textContent=message;};
@@ -25,7 +25,10 @@ ctx.clearRect(0,0,d.w,d.h);
 if(stageImage)ctx.drawImage(stageImage,0,0,d.w,d.h);
 else {ctx.fillStyle="#131211";ctx.fillRect(0,0,d.w,d.h);}
 if(subjectImage){const w=d.w*a.scale/100,h=w*subjectImage.naturalHeight/subjectImage.naturalWidth;
-ctx.drawImage(subjectImage,d.w*a.x/100-w/2,d.h*a.y/100-h/2,w,h);}
+ctx.drawImage(subjectImage,d.w*a.x/100-w/2,d.h*a.y/100-h/2,w,h);
+/* Reversible opt-in optical overlay: never written to PNG/SVG exports. */
+if($("fringePreview").checked&&fringeMask?.canvas)ctx.drawImage(fringeMask.canvas,d.w*a.x/100-w/2,d.h*a.y/100-h/2,w,h);
+}
 if(subjectImage&&subjectAlpha?.kind==="transparent"&&$("alphaGuides").checked){
  const w=d.w*a.scale/100,h=w*subjectImage.naturalHeight/subjectImage.naturalWidth,b=subjectAlpha;
  ctx.save();ctx.strokeStyle="#EF4B32";ctx.lineWidth=Math.max(2,d.w/650);ctx.setLineDash([8,6]);
@@ -74,7 +77,7 @@ try{
 const url=await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=()=>no(new Error("File read failed"));r.readAsDataURL(file);});
 const img=new Image();img.src=url;await img.decode();
 if(img.naturalWidth*img.naturalHeight>26000000)throw new Error("Source image too large");
-subjectImage=img;subjectData=url;subjectAlpha=alphaBounds(img,alphaThreshold());describeAlpha();refresh();
+subjectImage=img;subjectData=url;subjectAlpha=alphaBounds(img,alphaThreshold());fringeMask=makeFringeMask(img,alphaThreshold());describeAlpha();describeFringe();refresh();
 setStatus(say("Local subject loaded; no upload made.","تصویر سوژه محلی بارگذاری شد؛ هیچ آپلودی انجام نشد."));
 }catch(err){setStatus(say("Image rejected: ","تصویر پذیرفته نشد: ")+err.message);}
 }
@@ -104,6 +107,38 @@ function describeAlpha(){
  const b=subjectAlpha,p=n=>Math.round(n*100)+"%";
  $("alphaInfo").textContent=say("Local alpha ≥"+alphaThreshold()+"/255: L "+p(b.left)+" T "+p(b.top)+" R "+p(b.right)+" B "+p(b.bottom)+". Bottom is approximate.","آلفای محلی ≥"+alphaThreshold()+"/۲۵۵: چپ "+p(b.left)+" بالا "+p(b.top)+" راست "+p(b.right)+" پایین "+p(b.bottom)+". تراز تقریبی است.");
 }
+
+/* Reversible visible-alpha edge diagnostic, computed entirely in the current browser.
+   Vermilion overlay marks pixels below the selected alpha cutoff (strong) and
+   near the cutoff up to +32 alpha units (subtle); the original data is never clipped.
+   Sample resolution <=768px, no pixels, masks or client media are uploaded. */
+function makeFringeMask(img,threshold){
+ const scale=Math.min(1,768/Math.max(img.naturalWidth,img.naturalHeight));
+ const w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
+ const source=document.createElement("canvas");source.width=w;source.height=h;
+ const c=source.getContext("2d",{willReadFrequently:true});c.drawImage(img,0,0,w,h);
+ const raw=c.getImageData(0,0,w,h).data,overlay=c.createImageData(w,h);
+ let excluded=0,near=0,nonzero=0;
+ for(let p=0;p<w*h;p++){
+   const alpha=raw[p*4+3];if(alpha===0)continue;nonzero++;
+   const isExcluded=alpha<threshold, isNear=alpha>=threshold&&alpha<Math.min(255,threshold+32);
+   if(!isExcluded&&!isNear)continue;
+   if(isExcluded)excluded++;else near++;
+   overlay.data[p*4]=239;overlay.data[p*4+1]=75;overlay.data[p*4+2]=50;
+   overlay.data[p*4+3]=isExcluded?175:65;
+ }
+ const mask=document.createElement("canvas");mask.width=w;mask.height=h;
+ mask.getContext("2d").putImageData(overlay,0,0);
+ return {canvas:mask,excluded,near,nonzero,sample:w+"×"+h};
+}
+function describeFringe(){
+ const target=$("fringeInfo");if(!subjectImage||!fringeMask){
+  target.textContent=say("No image loaded. Diagnostic is optional.","تصویر بارگذاری نشده است؛ نمایش لبه اختیاری است.");return;
+ }
+ target.textContent=say("Local preview only: "+fringeMask.excluded+" below cutoff, "+fringeMask.near+" near cutoff (sample "+fringeMask.sample+"). Subject and exports remain unchanged.",
+ "فقط پیش‌نمایش محلی: "+fringeMask.excluded+" پیکسل زیر آستانه و "+fringeMask.near+" نزدیک آستانه (نمونه "+fringeMask.sample+"). تصویر و خروجی‌ها بدون تغییر می‌مانند.");
+}
+
 function alignVisible(){
  if(!subjectImage||subjectAlpha?.kind!=="transparent"){setStatus(say("Transparent foreground required; use photo alignment for opaque images.","برای تراز سیلویت تصویر شفاف لازم است؛ برای عکس غیرشفاف تراز کادر را به‌کار ببرید."));return;}
  const d=stages[selected],g=d.plinth,a=values(),b=subjectAlpha,w=d.w*a.scale/100,h=w*subjectImage.naturalHeight/subjectImage.naturalWidth;
@@ -141,26 +176,26 @@ if(subjectImage){const w=d.w*a.scale/100,h=w*subjectImage.naturalHeight/subjectI
 c.drawImage(subjectImage,d.w*a.x/100-w/2,d.h*a.y/100-h/2,w,h);}
 out.toBlob(b=>{if(b)download(b,file);else setStatus("OPEN: PNG encode failed");},"image/png");}
 function saveSVG(){try{download(new Blob([svgExport()],{type:"image/svg+xml;charset=utf-8"}),"HADES_Object_Stage_Composed_"+selected+"_REVIEW.svg");}catch(e){setStatus("OPEN: "+e.message);}}
-function saveJSON(){const state={status:"PUBLIC REVIEW",ratio:selected,position:values(),view:{guides:$("guides").checked,plinthGuides:$("plinthGuides").checked,alphaGuides:$("alphaGuides").checked,alphaThreshold:alphaThreshold()},sourceFile:stages[selected].file,subjectData:subjectData||null,warning:"Local-only source; this JSON may contain your full private image bytes. Do not upload or share it without permission."};
+function saveJSON(){const state={status:"PUBLIC REVIEW",ratio:selected,position:values(),view:{guides:$("guides").checked,plinthGuides:$("plinthGuides").checked,alphaGuides:$("alphaGuides").checked,alphaThreshold:alphaThreshold(),fringePreview:$("fringePreview").checked},sourceFile:stages[selected].file,subjectData:subjectData||null,warning:"Local-only source; this JSON may contain your full private image bytes. Do not upload or share it without permission."};
 download(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),"HADES_Object_Stage_Settings_REVIEW.json");}
 async function loadJSON(file){if(!file||file.size>17*1024*1024){setStatus("OPEN: invalid JSON size");return;}
 try{const s=JSON.parse(await file.text());
 if(s.status!=="PUBLIC REVIEW"||!stages[s.ratio]||!s.position||!Number.isFinite(s.position.x)||!Number.isFinite(s.position.y)||!Number.isFinite(s.position.scale))throw Error("Invalid REVIEW settings");
 if(s.subjectData && (!/^data:image\/(png|jpeg|webp);base64,/.test(s.subjectData)||s.subjectData.length>17*1024*1024))throw Error("Invalid subject data");
-if(s.view && (typeof s.view.guides!=="boolean"||typeof s.view.plinthGuides!=="boolean"||(s.view.alphaGuides!==undefined&&typeof s.view.alphaGuides!=="boolean")||(s.view.alphaThreshold!==undefined&&(!Number.isInteger(s.view.alphaThreshold)||s.view.alphaThreshold<1||s.view.alphaThreshold>254))))throw Error("Invalid guide settings");
+if(s.view && (typeof s.view.guides!=="boolean"||typeof s.view.plinthGuides!=="boolean"||(s.view.alphaGuides!==undefined&&typeof s.view.alphaGuides!=="boolean")||(s.view.fringePreview!==undefined&&typeof s.view.fringePreview!=="boolean")||(s.view.alphaThreshold!==undefined&&(!Number.isInteger(s.view.alphaThreshold)||s.view.alphaThreshold<1||s.view.alphaThreshold>254))))throw Error("Invalid guide settings");
 $("alphaThreshold").value=String(s.view?.alphaThreshold??32);$("alphaOut").textContent=$("alphaThreshold").value+"/255";
-if(s.subjectData){const img=new Image();img.src=s.subjectData;await img.decode();if(img.naturalWidth*img.naturalHeight>26000000)throw Error("Image too large");subjectImage=img;subjectData=s.subjectData;subjectAlpha=alphaBounds(img,alphaThreshold());}else {subjectImage=null;subjectData="";subjectAlpha=null;}describeAlpha();
-if(s.view){$("guides").checked=s.view.guides;$("plinthGuides").checked=s.view.plinthGuides;if(s.view.alphaGuides!==undefined)$("alphaGuides").checked=s.view.alphaGuides;}
+if(s.subjectData){const img=new Image();img.src=s.subjectData;await img.decode();if(img.naturalWidth*img.naturalHeight>26000000)throw Error("Image too large");subjectImage=img;subjectData=s.subjectData;subjectAlpha=alphaBounds(img,alphaThreshold());fringeMask=makeFringeMask(img,alphaThreshold());}else {subjectImage=null;subjectData="";subjectAlpha=null;fringeMask=null;}describeAlpha();describeFringe();
+if(s.view){$("guides").checked=s.view.guides;$("plinthGuides").checked=s.view.plinthGuides;if(s.view.alphaGuides!==undefined)$("alphaGuides").checked=s.view.alphaGuides;$("fringePreview").checked=s.view.fringePreview??false;}
 $("ratio").value=s.ratio;setSliders(s.position.x,s.position.y,s.position.scale);await changeStage(s.ratio);
 }catch(e){setStatus(say("Settings not loaded: ","بارگذاری تنظیمات انجام نشد: ")+e.message);}}
 $("ratio").addEventListener("change",e=>changeStage(e.target.value));
 $("subjectFile").addEventListener("change",e=>upload(e.target.files[0]));
-["positionX","positionY","subjectScale","guides","plinthGuides","alphaGuides"].forEach(id=>$(id).addEventListener("input",refresh));
+["positionX","positionY","subjectScale","guides","plinthGuides","alphaGuides","fringePreview"].forEach(id=>$(id).addEventListener("input",refresh));
 $("alignBase").addEventListener("click",alignBaseToPlinth);
 $("alignVisible").addEventListener("click",alignVisible);
-$("alphaThreshold").addEventListener("input",()=>{$("alphaOut").textContent=alphaThreshold()+"/255";if(subjectImage)subjectAlpha=alphaBounds(subjectImage,alphaThreshold());describeAlpha();refresh();});
+$("alphaThreshold").addEventListener("input",()=>{$("alphaOut").textContent=alphaThreshold()+"/255";if(subjectImage){subjectAlpha=alphaBounds(subjectImage,alphaThreshold());fringeMask=makeFringeMask(subjectImage,alphaThreshold());}describeAlpha();describeFringe();refresh();});
 $("reset").addEventListener("click",()=>setSliders(50,53,30));
-$("remove").addEventListener("click",()=>{subjectImage=null;subjectData="";subjectAlpha=null;$("subjectFile").value="";describeAlpha();refresh();});
+$("remove").addEventListener("click",()=>{subjectImage=null;subjectData="";subjectAlpha=null;fringeMask=null;$("subjectFile").value="";describeAlpha();describeFringe();refresh();});
 $("savePNG").addEventListener("click",savePNG);
 $("saveSVG").addEventListener("click",saveSVG);
 $("saveJSON").addEventListener("click",saveJSON);
@@ -169,5 +204,5 @@ canvas.addEventListener("pointerdown",e=>{if(!subjectImage||!ready)return;drag=t
 canvas.addEventListener("pointermove",e=>{if(drag)position(e);});
 ["pointerup","pointercancel","lostpointercapture"].forEach(ev=>canvas.addEventListener(ev,()=>drag=false));
 function position(e){const r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;const x=(e.clientX-r.left)/r.width*100,y=(e.clientY-r.top)/r.height*100;setSliders(x,y,values().scale);}
-describeAlpha();changeStage(selected);
+describeAlpha();describeFringe();changeStage(selected);
 })();
