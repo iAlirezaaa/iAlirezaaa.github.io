@@ -48,3 +48,7 @@ The local stage composer now supports an adjustable 1–254 alpha cutoff, includ
 
 ## Stage × Alpha 3 × 3 composition matrix — PUBLIC REVIEW · 2026-11-23
 [Open nine-panel browser tool](https://ialirezaaa.github.io/hades/library/object-stages/composite-matrix/) · [Persian editor](https://ialirezaaa.github.io/hades/fa/library/object-stages/composite-matrix/). Live combinations of three unchanged architectural stage SVGs and three published synthetic transparent fixture PNG or lossless WebP images. Switch source codec and download a 1560×1150 PNG contact sheet locally. No upload, redrawn logo, client media or FINAL approval. Physical phone/print, Mikhak, rights for actual user media and FINAL remain OPEN.
+
+
+## Editable A4 alpha-edge diagrams / PUBLIC REVIEW
+[SVG · A4 · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg). Three synthetic vector tests and a defined 50mm print ruler. Owner logo masters untouched. Actual printed scale and HTTP/MIME proof OPEN.
