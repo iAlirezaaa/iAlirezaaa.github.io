@@ -72,7 +72,7 @@ jobs:
                   assert await page.locator('#fringePreview').count()==1
                   await page.locator('#subjectFile').set_input_files(str(fixture))
                   await page.locator('#fringePreview').check()
-                  await page.locator('#alphaThreshold').fill('32')
+                  await page.locator('#alphaThreshold').evaluate("el=>{el.value='32';el.dispatchEvent(new Event('input',{bubbles:true}));}")
                   stats=await page.locator('#fringeInfo').inner_text()
                   assert '1600' in stats,(lang,width,stats) # one alpha=15 stripe: 20*80 samples
                   for ratio in ('16x9','9x16','1x1'):
