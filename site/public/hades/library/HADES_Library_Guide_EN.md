@@ -33,3 +33,9 @@ Classic and Modern 50×180 mm editable source SVGs plus an A4 two-up 100%-scale 
 ## Architectural Object Stages · PUBLIC REVIEW
 
 Three new no-logo editable SVG product-presentation backgrounds (16:9, 9:16, 1:1). Proposed neutrals; Mikhak, physical-device and FINAL tests OPEN. [Preview and download](/hades/library/object-stages/).
+
+
+### Object-stage subject-placement worksheet / PUBLIC REVIEW (2026-11-23)
+
+- [EN guide](/hades/library/object-stages/placement/) · [Editable bilingual A4 SVG](/hades/library/object-stages/placement/HADES_Object_Stages_Subject_Placement_A4_REVIEW.svg)
+- Three ratio diagrams (16:9 / 9:16 / 1:1), illustrative subject and crop bounds, a true vector 50 mm control line. No new logo or real client content. Real paper, mobile, genuine Mikhak and FINAL remain OPEN.
