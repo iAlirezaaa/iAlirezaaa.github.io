@@ -3,7 +3,7 @@
   "status": "REVIEW / CONCEPT",
   "updated": "2026-11-23",
   "approved_exact_color": "#EF4B32",
-  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights. 2026-11-21: four standalone editable SVG backgrounds public REVIEW; generated photo-raster pack stored in conversation only. 2026-11-21: Quiet Spaces new 16:9/9:16/1:1 editable vector masters PUBLIC REVIEW; raster and ZIP links held until checked. 2026-11-21: source-faithful original logo contrast plate REVIEW; not new logo or standalone background. 2026-11-22 Architectural Apertures: 3 geometric source-only backgrounds staged in SVG; raster availability requires built binary readback; REVIEW. 2026-11-22 Architectural Strata: three source SVGs released in REVIEW; no logo, raster/ZIP externally unverified. 2026-11-23: Architectural Object Stages, 3 new background-only editables, PUBLIC REVIEW; physical phone/print/Mikhak OPEN.",
+  "notes": "Owner-original raster mark only. Supporting colors, typefaces and layouts are proposals. These downloads are editable application templates, not a new official logo or print-approved commercial masters. Logo usage quick guide added on 2026-11-21; its example URLs must not imply FINAL rights. 2026-11-21: four standalone editable SVG backgrounds public REVIEW; generated photo-raster pack stored in conversation only. 2026-11-21: Quiet Spaces new 16:9/9:16/1:1 editable vector masters PUBLIC REVIEW; raster and ZIP links held until checked. 2026-11-21: source-faithful original logo contrast plate REVIEW; not new logo or standalone background. 2026-11-22 Architectural Apertures: 3 geometric source-only backgrounds staged in SVG; raster availability requires built binary readback; REVIEW. 2026-11-22 Architectural Strata: three source SVGs released in REVIEW; no logo, raster/ZIP externally unverified. 2026-11-23: Architectural Object Stages, 3 new background-only editables, PUBLIC REVIEW; physical phone/print/Mikhak OPEN. Category discoverability is via explicit bilingual library navigation; static catalog count remains fixed at 18+existing to preserve renderer/validator compatibility.",
   "categories": {
     "stationery": {
       "en": "Stationery",
@@ -776,22 +776,6 @@
         "Editable SVG; PNG JPEG WebP conversation-only pending binary delivery"
       ],
       "rights_note": "Original non-logo geometry, no owner logo modified. Only #EF4B32 approved. Neutral shades and composition remain proposed."
-    },
-    {
-      "id": "hades-object-stages-20261123",
-      "cat": "web",
-      "en": "Architectural Object Stages · editable backgrounds",
-      "fa": "استیج‌های معماری برای نمایش اشیا",
-      "page": "/hades/library/object-stages/",
-      "preview": "/hades/library/object-stages/HADES_Object_Stage_16x9_REVIEW.svg",
-      "status": "REVIEW",
-      "formats": [
-        "SVG editable",
-        "16:9",
-        "9:16",
-        "1:1"
-      ],
-      "existing": true
     }
   ]
 }
