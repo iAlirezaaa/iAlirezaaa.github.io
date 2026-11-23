@@ -26,3 +26,7 @@ Public sources: https://github.com/iAlirezaaa
 
 ### 2026-11-23 · Adjustable alpha threshold — PUBLIC REVIEW
 The local stage composer now supports an adjustable 1–254 alpha cutoff, included in reversible JSON settings. [A4 FA/EN editable optical study](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Threshold_A4_FA_EN_REVIEW.svg) · [Composer](https://ialirezaaa.github.io/hades/library/object-stages/composer/). REVIEW only; print/phone tests OPEN.
+
+
+### 2026-11-23 · Physical A4 and phone observations — PUBLIC REVIEW
+[Editable English local observation form / JSON export](https://ialirezaaa.github.io/hades/library/object-stages/observations/) · [فارسی](https://ialirezaaa.github.io/hades/fa/library/object-stages/observations/) · [100 mm print-calibration A4 SVG](https://ialirezaaa.github.io/hades/library/object-stages/observations/HADES_Physical_Observation_A4_REVIEW.svg). Real paper and held-phone 48/96px testing remain OPEN. Never use browser emulation as physical evidence or imply FINAL approval.
