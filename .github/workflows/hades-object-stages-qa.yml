@@ -1,0 +1,32 @@
+name: HADES Object Stages / real Chromium and hosted SHA REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/public/hades/library/object-stages/**"
+      - "site/scripts/qa-hades-object-stages.py"
+      - ".github/workflows/hades-object-stages-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Verify exact sources, 6 real Chromium viewports, and 11 live URLs
+        run: python site/scripts/qa-hades-object-stages.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Object-Stages-6-Real-Chromium-REVIEW
+          path: hades-object-stage-chromium-qa/
+          if-no-files-found: ignore
