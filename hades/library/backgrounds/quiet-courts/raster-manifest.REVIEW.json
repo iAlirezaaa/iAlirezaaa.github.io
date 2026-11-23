@@ -1,0 +1,81 @@
+{
+  "status": "PUBLIC REVIEW",
+  "approved_accent": "#EF4B32",
+  "binary_source": "Identical published standalone SVG masters via CairoSVG/Pillow",
+  "derivatives": [
+    {
+      "file": "assets/HADES_Still_Threshold_16x9_REVIEW.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 27213,
+      "sha256": "8632bf95d883e0d6357eec90aec962b679e1c3a0cb7b5293a913eb11219ca1e2"
+    },
+    {
+      "file": "assets/HADES_Still_Threshold_16x9_REVIEW.jpg",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 57602,
+      "sha256": "93bc5d9c934d3bea5ba84896db19b5b879b072dba536f1cca2eb0b8af88ec3fd"
+    },
+    {
+      "file": "assets/HADES_Still_Threshold_16x9_REVIEW.webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 9176,
+      "sha256": "fd34387ea6347144a83a561617bc0d2e249acfd61ab2ee5ad7c7111ba4d6d062"
+    },
+    {
+      "file": "assets/HADES_Bone_Interstice_9x16_REVIEW.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 28584,
+      "sha256": "6de26fe3df5631d47c3e6c9b6f1cab88e309336c319b0f115a28931bb48b4ee2"
+    },
+    {
+      "file": "assets/HADES_Bone_Interstice_9x16_REVIEW.jpg",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 64197,
+      "sha256": "b51c31216eb4cc44299380277816bc122d1f700a0d757b5390cf26f0e7317339"
+    },
+    {
+      "file": "assets/HADES_Bone_Interstice_9x16_REVIEW.webp",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 9786,
+      "sha256": "b9d7b7038082054037ee2dcde40722416db3a32242efaac41711b893ae9738e7"
+    },
+    {
+      "file": "assets/HADES_Charcoal_Echelon_1x1_REVIEW.png",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 15034,
+      "sha256": "59ced5965ec86586ffeb7897fb934832dc8326c51b29fde11b3b220b19e78294"
+    },
+    {
+      "file": "assets/HADES_Charcoal_Echelon_1x1_REVIEW.jpg",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 29220,
+      "sha256": "48765cb7a7c334ac8ad046d9b67e3a292b8cc55614acc47da4bc2a6e4530c9eb"
+    },
+    {
+      "file": "assets/HADES_Charcoal_Echelon_1x1_REVIEW.webp",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 5156,
+      "sha256": "a2a0f58fd05f6f7ed5d274c4609ccff4e05c5920fbab9c8021011a51efb4ba0e"
+    }
+  ],
+  "all_original_svg_sha256": {
+    "assets/HADES_Still_Threshold_16x9_REVIEW.svg": "d80a37c83c14f7f48a9d3cad81b8d4f42625d988ffe3d15f7bc68d61de86183d",
+    "assets/HADES_Bone_Interstice_9x16_REVIEW.svg": "75a6889b70cd036501777bb33363203ac30bc612a3cb2f3b4a241076d3e83603",
+    "assets/HADES_Charcoal_Echelon_1x1_REVIEW.svg": "070e518e77815cea0119fc67a5692f125a59297d2ecdd84795d4fe3be1632da9"
+  },
+  "open": [
+    "Physical handset",
+    "Physical printing",
+    "Licensed Mikhak",
+    "Owner FINAL"
+  ]
+}
