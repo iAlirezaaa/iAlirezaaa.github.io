@@ -150,7 +150,7 @@ jobs:
                   await page.locator('.panel-inspect-trigger').nth(0).click()
                   assert await page.locator('#hades-panel-inspector').evaluate('(e)=>e.open')
                   assert '16:9' in (await page.locator('#inspector-label').inner_text())
-                  await page.locator('#inspector-scale').fill('200')
+                  await page.locator('#inspector-scale').evaluate('(e)=>{e.value="200";e.dispatchEvent(new Event("input",{bubbles:true}))}')
                   assert await page.locator('#inspector-scale-output').inner_text()=='200%'
                   await page.locator('#inspector-next').click()
                   assert '16:9' in (await page.locator('#inspector-label').inner_text())
