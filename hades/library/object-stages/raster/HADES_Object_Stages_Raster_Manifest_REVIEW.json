@@ -1,0 +1,125 @@
+{
+  "collection": "HADES Architectural Object Stages / Raster Release",
+  "status": "PUBLIC REVIEW — NOT FINAL",
+  "approved_accent": "#EF4B32",
+  "proposed_neutrals": {
+    "Dark": "#131211",
+    "Mammoth Bone": "#E6D9C7",
+    "Charcoal": "#292723"
+  },
+  "source_exact_svg": {
+    "HADES_Object_Stage_16x9_REVIEW.svg": {
+      "sha256": "2338f6921c346e1ac125c1d62e40e244b3319ee660922dea730ce1cc16d48acd",
+      "bytes": 1877,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    "HADES_Object_Stage_9x16_REVIEW.svg": {
+      "sha256": "fc1ca9252719bcaba4c31c620b2ae2d96834fad679da48652fef569c1f301fff",
+      "bytes": 1837,
+      "dimensions": [
+        1080,
+        1920
+      ]
+    },
+    "HADES_Object_Stage_1x1_REVIEW.svg": {
+      "sha256": "e80762a2d1211d09da8ac65573ccfcd01929510dfb5f491d0e273e7971cb4dfb",
+      "bytes": 1794,
+      "dimensions": [
+        1080,
+        1080
+      ]
+    }
+  },
+  "raster_outputs": {
+    "HADES_Object_Stage_16x9_REVIEW.png": {
+      "sha256": "62d80e5b8b7d0cbac5187b96373eb1e12519b76817a9e8ef103617a505e98499",
+      "bytes": 27819,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    "HADES_Object_Stage_16x9_REVIEW.jpg": {
+      "sha256": "52704bef0ee5d6ab9dde9b0681ae9065cbf4a0cb8915510d25a754386be22d75",
+      "bytes": 54823,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    "HADES_Object_Stage_16x9_REVIEW.webp": {
+      "sha256": "bba8b6196a32f50aaf4173085fe6a0904e852c3753da5678c64ad546aa0b6534",
+      "bytes": 9092,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    "HADES_Object_Stage_9x16_REVIEW.png": {
+      "sha256": "eea24ea49ddfc2b6da99a980d399de840b9a9aed4aabbdde87fc1d07b75797ec",
+      "bytes": 37373,
+      "dimensions": [
+        1080,
+        1920
+      ]
+    },
+    "HADES_Object_Stage_9x16_REVIEW.jpg": {
+      "sha256": "f19919ed6bffd3888512c772c10bade1292a527d135af5dcb401cfde17cc16ce",
+      "bytes": 59720,
+      "dimensions": [
+        1080,
+        1920
+      ]
+    },
+    "HADES_Object_Stage_9x16_REVIEW.webp": {
+      "sha256": "4e35ff4a1984973fb7ca61a370e135bae7b2a72bd202d0d6e0c6c1bc92f0d9cc",
+      "bytes": 9840,
+      "dimensions": [
+        1080,
+        1920
+      ]
+    },
+    "HADES_Object_Stage_1x1_REVIEW.png": {
+      "sha256": "3cc78c8fdf8efffbc1dc73bc4699b3fd6c26a24f38d19eaa4fe8f6a6b3b84882",
+      "bytes": 24087,
+      "dimensions": [
+        1080,
+        1080
+      ]
+    },
+    "HADES_Object_Stage_1x1_REVIEW.jpg": {
+      "sha256": "5eb55df73d756d3b2ed5ba698084e548fabcab6b8205d775e24fdeebd5be782c",
+      "bytes": 34090,
+      "dimensions": [
+        1080,
+        1080
+      ]
+    },
+    "HADES_Object_Stage_1x1_REVIEW.webp": {
+      "sha256": "d853b0ebee9b6002f4fc0c21f3d655c712338870510a9d47a81ff290df96a890",
+      "bytes": 8446,
+      "dimensions": [
+        1080,
+        1080
+      ]
+    },
+    "HADES_Object_Stages_Raster_Contact_REVIEW.png": {
+      "sha256": "68d1572a00077c0cc4e642bea9defb6f1d3b6c400baa1a6a7297cc4626526da1",
+      "bytes": 24428,
+      "dimensions": [
+        1500,
+        490
+      ]
+    }
+  },
+  "render_method": "CairoSVG SVG rasterization, Pillow high-quality JPEG/WebP encodes; no marks/subjects inserted",
+  "open": [
+    "real 48/96px phone recognition",
+    "physical print and staging fit",
+    "authentic licensable Mikhak",
+    "owner FINAL approval"
+  ]
+}
