@@ -29,13 +29,15 @@ jobs:
           from pathlib import Path
           from playwright.async_api import async_playwright
           root='library/backgrounds/quiet-courts/chapter-divider/'
-          names=["HADES_Quiet_Courts_Chapter_Divider_EN_16x9_PUBLIC_REVIEW.svg","HADES_Quiet_Courts_Chapter_Divider_FA_16x9_PUBLIC_REVIEW.svg"]
+          names=sorted(p.name for p in (Path('hades')/root).glob('HADES_Quiet_Courts_Chapter_Divider_*_PUBLIC_REVIEW.svg'))
+          assert len(names)==6
+          def dimensions(n):return (1920,1080) if '16x9' in n else (1080,1920) if '9x16' in n else (1080,1080)
           original=Path('hades/assets/IMG_7187(2).png').read_bytes()
           assert hashlib.sha256(original).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
           ns={'s':'http://www.w3.org/2000/svg'}
           for n in names:
             doc=ET.parse(Path('hades')/root/n)
-            assert doc.getroot().attrib['viewBox']=='0 0 1920 1080'
+            assert doc.getroot().attrib['viewBox']=='0 0 %d %d'%dimensions(n)
             imgs=doc.findall('.//s:image',ns)
             assert len(imgs)==1 and base64.b64decode(imgs[0].attrib['href'].split(',')[1])==original
             assert doc.find(".//s:g[@id='editable-chapter-copy']",ns) is not None
@@ -47,18 +49,24 @@ jobs:
                   page=await b.new_page(viewport={'width':w,'height':920},accept_downloads=True)
                   await page.goto('http://localhost:8782/hades/'+('fa/' if lang=='fa' else '')+root)
                   assert await page.locator('html').get_attribute('lang')==lang
-                  await page.wait_for_function("Array.from(document.images).every(i=>i.complete&&i.naturalWidth===1920)")
+                  await page.wait_for_function("Array.from(document.images).every(i=>i.complete&&i.naturalWidth>0)")
                   assert await page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
-                  assert await page.locator('a[download]').count()==2
+                  assert await page.locator('a[download]').count()==6
                   async with page.expect_download() as d:
                     await page.locator('a[download]').first.click()
                   assert (await d.value).suggested_filename in names
                   await page.screenshot(path=f'/tmp/chapter-proof/{lang}-{w}.png',full_page=True)
                   await page.close()
               for n in names:
-                page=await b.new_page(viewport={'width':1920,'height':1080},device_scale_factor=1)
+                width,height=dimensions(n)
+                page=await b.new_page(viewport={'width':width,'height':height},device_scale_factor=1)
                 await page.goto('http://localhost:8782/hades/'+root+n)
+                bounds=await page.evaluate("""()=>Array.from(document.querySelectorAll('#editable-chapter-copy text')).map(t=>{const b=t.getBBox();return [b.x,b.y,b.width,b.height]})""")
+                assert len(bounds)==3 and all(x>=64 and y>=0 and x+w<=width-64 and y+h<=height and w>0 for x,y,w,h in bounds),(n,bounds)
+                if '16x9' not in n:
+                  assert all(x>=90 and x+w<=835 for x,y,w,h in bounds),(n,bounds)
                 await page.screenshot(path='/tmp/chapter-proof/'+n+'.png')
+                print('PASS native text bounds',n,bounds)
                 await page.close()
               await b.close()
           asyncio.run(main())
@@ -75,6 +83,7 @@ jobs:
           import hashlib,urllib.request,time
           from pathlib import Path
           files=["library/backgrounds/quiet-courts/chapter-divider/HADES_Quiet_Courts_Chapter_Divider_EN_16x9_PUBLIC_REVIEW.svg","library/backgrounds/quiet-courts/chapter-divider/HADES_Quiet_Courts_Chapter_Divider_FA_16x9_PUBLIC_REVIEW.svg","library/backgrounds/quiet-courts/chapter-divider/index.html","fa/library/backgrounds/quiet-courts/chapter-divider/index.html","index.html","library/index.html","brand-kit/logo-usage/index.html","library/backgrounds/quiet-courts/index.html","fa/index.html","fa/library/index.html","fa/brand-kit/logo-usage/index.html","fa/library/backgrounds/quiet-courts/index.html","downloads/HADES_Public_Overview_EN.md","downloads/HADES_Public_Overview_FA.md"]
+          files += ['library/backgrounds/quiet-courts/chapter-divider/HADES_Quiet_Courts_Chapter_Divider_EN_9x16_PUBLIC_REVIEW.svg','library/backgrounds/quiet-courts/chapter-divider/HADES_Quiet_Courts_Chapter_Divider_FA_9x16_PUBLIC_REVIEW.svg','library/backgrounds/quiet-courts/chapter-divider/HADES_Quiet_Courts_Chapter_Divider_EN_1x1_PUBLIC_REVIEW.svg','library/backgrounds/quiet-courts/chapter-divider/HADES_Quiet_Courts_Chapter_Divider_FA_1x1_PUBLIC_REVIEW.svg']
           for f in files:
             assert (Path('hades')/f).read_bytes()==(Path('site/public/hades')/f).read_bytes(),f
           for attempt in range(25):
