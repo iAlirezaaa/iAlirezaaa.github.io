@@ -43,3 +43,8 @@ The local stage composer now supports an adjustable 1–254 alpha cutoff, includ
 
 ## True image files for synthetic alpha fixtures / PUBLIC REVIEW
 [Download actual 14-member SVG + 9 PNG/WebP/JPEG ZIP](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_Fixtures_3_Sources_9_Rasters_PUBLIC_REVIEW.zip) · [SHA256 manifest](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_Fixtures_Raster_SHA256_REVIEW.json). Three editable SVGs, 3 RGBA PNGs, 3 lossless alpha WebPs and 3 opaque demonstration JPEGs. Not original logos, not the previous architectural background raster pack, not FINAL. Real phone and print OPEN.
+
+
+
+## Stage × Alpha 3 × 3 composition matrix — PUBLIC REVIEW · 2026-11-23
+[Open nine-panel browser tool](https://ialirezaaa.github.io/hades/library/object-stages/composite-matrix/) · [Persian editor](https://ialirezaaa.github.io/hades/fa/library/object-stages/composite-matrix/). Live combinations of three unchanged architectural stage SVGs and three published synthetic transparent fixture PNG or lossless WebP images. Switch source codec and download a 1560×1150 PNG contact sheet locally. No upload, redrawn logo, client media or FINAL approval. Physical phone/print, Mikhak, rights for actual user media and FINAL remain OPEN.
