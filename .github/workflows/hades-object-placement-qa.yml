@@ -65,6 +65,14 @@ jobs:
                   await page.screenshot(path=f'/tmp/hades-placement-proofs/{lang}_{width}.png',full_page=True)
                   print(f'PASS Chromium {lang} {width}px img decode, no overflow, download link')
                   await page.close()
+              svgpage=await b.new_page(viewport={'width':1000,'height':1415})
+              svgresponse=await svgpage.goto('http://127.0.0.1:8765/hades/library/object-stages/placement/HADES_Object_Stages_Subject_Placement_A4_REVIEW.svg',wait_until='load')
+              assert svgresponse.status==200
+              outside=await svgpage.locator('svg text').evaluate_all('''els => els.map(e => {const b=e.getBBox();return {text:e.textContent,x:b.x,right:b.x+b.width,y:b.y,bottom:b.y+b.height}}).filter(b=>b.x<11 || b.right>199 || b.y<11 || b.bottom>286)''')
+              assert not outside,('SVG text clipped in true A4 viewBox',outside)
+              await svgpage.screenshot(path='/tmp/hades-placement-proofs/a4_exact_svg.png',full_page=True)
+              print('PASS full original SVG Chrome decoded with all text inside 11..199 mm A4 margin')
+              await svgpage.close()
               await b.close()
           asyncio.run(main())
           PY
