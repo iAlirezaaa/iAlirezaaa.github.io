@@ -8,6 +8,13 @@ on:
       - "hades/fa/library/object-stages/composer/**"
       - "site/public/hades/library/object-stages/composer/**"
       - "site/public/hades/fa/library/object-stages/composer/**"
+      - "hades/index.html"
+      - "hades/fa/index.html"
+      - "hades/library/index.html"
+      - "hades/fa/library/index.html"
+      - "hades/brand-kit/logo-usage/index.html"
+      - "hades/fa/brand-kit/logo-usage/index.html"
+      - "hades/downloads/HADES_Public_Overview_*.md"
 jobs:
   qa:
     runs-on: ubuntu-24.04
@@ -30,6 +37,16 @@ jobs:
               assert (Path('site/public/hades')/f).read_bytes()==(Path('hades')/f).read_bytes(),f
           assert (Path('hades/library/object-stages/HADES_Object_Stage_16x9_REVIEW.svg')).exists()
           assert 'PUBLIC REVIEW' in (Path('hades/library/object-stages/composer/stage-composer.js')).read_text()
+          link='/hades/library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg'
+          navs=['index.html','fa/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html']
+          for nav in navs:
+              source=(Path('site/public/hades')/nav).read_bytes()
+              assert source==(Path('hades')/nav).read_bytes(),nav
+              assert link.encode() in source,nav
+          for lang in ['EN','FA']:
+              f='downloads/HADES_Public_Overview_'+lang+'.md'
+              assert (Path('site/public/hades')/f).read_bytes()==(Path('hades')/f).read_bytes()
+              assert link.encode() in (Path('hades')/f).read_bytes()
           print('PASS: 5/5 mirrored composer files; existing SVG sources referenced, not modified')
           PY
       - name: Real Chromium 320, 390, 430 EN + FA with exports

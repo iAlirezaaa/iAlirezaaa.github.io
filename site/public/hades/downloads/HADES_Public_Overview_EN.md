@@ -13,3 +13,7 @@ The original image files on the website are preserved without recoloring, redraw
 
 Website: https://ialirezaaa.github.io/hades/
 Public sources: https://github.com/iAlirezaaa
+
+## 2026-11-23 · A4 platform geometry — PUBLIC REVIEW
+
+[Editable bilingual A4 plinth geometry SVG](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg) · [Local object-stage composer](https://ialirezaaa.github.io/hades/library/object-stages/composer/). Source-matched geometric reference only; no logo, no certified camera perspective. Neutrals and typefaces are proposals; only #EF4B32 is approved.

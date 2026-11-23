@@ -13,3 +13,7 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 
 وب‌سایت: https://ialirezaaa.github.io/hades/fa/
 گیت‌هاب عمومی: https://github.com/iAlirezaaa
+
+## 2026-11-23 · A4 platform geometry — PUBLIC REVIEW
+
+[دریافت SVG قابل‌ویرایش A4 برای هندسهٔ سکوی سه استیج](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg) · [ویرایشگر جایگاه سوژه](https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/). راهنمای صرفاً پیشنهادی؛ لوگو ندارد و بازسازی پرسپکتیو دوربین نیست. رنگ‌های خنثی و فونت پیشنهادی‌اند؛ فقط #EF4B32 تأیید شده است.
