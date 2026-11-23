@@ -57,3 +57,8 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 ## سه پس‌زمینهٔ معماری جدید · PUBLIC REVIEW (2026-11-23)
 فایل‌های SVG مستقل و قابل‌ویرایش برای سه نسبت، همراه کد رنگ‌های خنثی پیشنهادی و محاسبهٔ نسبت کنتراست: https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/
 Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINAL OPEN.
+
+
+## بستهٔ واقعی فایل‌های سه پس‌زمینهٔ جدید · PUBLIC REVIEW
+دانلود مستقیم بستهٔ ۱۴فایلی شامل ۳ SVG و ۹ تصویر PNG/JPEG/WebP: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/HADES_Quiet_Courts_3_SVG_9_Raster_PUBLIC_REVIEW.zip
+فهرست هش‌ها: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/raster-manifest.REVIEW.json

@@ -57,3 +57,8 @@ The local stage composer now supports an adjustable 1–254 alpha cutoff, includ
 ## Quiet Courts · architectural backgrounds · PUBLIC REVIEW (2026-11-23)
 Three independent editable SVG background artworks (16:9, 9:16, 1:1) with proposed neutral swatches and computed contrast ratios: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/
 Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINAL OPEN.
+
+
+## Actual Quiet Courts raster package · PUBLIC REVIEW
+Download the hosted 14-item ZIP containing 3 SVG and 9 native-resolution PNG/JPEG/WebP images: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/HADES_Quiet_Courts_3_SVG_9_Raster_PUBLIC_REVIEW.zip
+Binary SHA-256 manifest: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/raster-manifest.REVIEW.json

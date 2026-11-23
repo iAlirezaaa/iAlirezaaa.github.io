@@ -100,3 +100,5 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 
 ## Quiet Courts — architectural SVG pack · PUBLIC REVIEW (2026-11-23)
 [EN](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/) · [FA](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/). Three standalone 16:9/9:16/1:1 architectural vector designs, proposed neutrals, true-contrast metadata, untouched original marks. No approved new logo; no raster pack promised for this release.
+
+PUBLIC REVIEW raster release verified 2026-11-23: [14-file download](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/HADES_Quiet_Courts_3_SVG_9_Raster_PUBLIC_REVIEW.zip), [raster SHA-256 manifest](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/raster-manifest.REVIEW.json), [actual Chromium FA/EN mobile and independent live 9/9 HTTPS SHA-256 success](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/runs/45206629043). No new logo; neutrals REVIEW.
