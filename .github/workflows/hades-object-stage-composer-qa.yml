@@ -1,0 +1,107 @@
+name: HADES Object Stage Composer — REAL REVIEW browser and hosted QA
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/hades-object-stage-composer-qa.yml"
+      - "hades/library/object-stages/composer/**"
+      - "hades/fa/library/object-stages/composer/**"
+      - "site/public/hades/library/object-stages/composer/**"
+      - "site/public/hades/fa/library/object-stages/composer/**"
+jobs:
+  qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: |
+          python -m pip install --disable-pip-version-check playwright pillow
+          python -m playwright install --with-deps chromium
+      - name: Mirror and protected original asset checks
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/README_REVIEW.md']
+          for f in files:
+              assert (Path('site/public/hades')/f).read_bytes()==(Path('hades')/f).read_bytes(),f
+          assert (Path('hades/library/object-stages/HADES_Object_Stage_16x9_REVIEW.svg')).exists()
+          assert 'PUBLIC REVIEW' in (Path('hades/library/object-stages/composer/stage-composer.js')).read_text()
+          print('PASS: 4/4 mirrored new files; existing SVG sources referenced, not modified')
+          PY
+      - name: Real Chromium 320, 390, 430 EN + FA with exports
+        run: |
+          python -m http.server 8765 >/tmp/hades-composer-server.log 2>&1 &
+          mkdir -p /tmp/hades-composer-proof
+          python - <<'PY'
+          import asyncio,io,xml.etree.ElementTree as ET
+          from PIL import Image
+          from playwright.async_api import async_playwright
+          async def check():
+            im=Image.new('RGBA',(60,90),(235,75,50,220)); b=io.BytesIO(); im.save(b,format='PNG'); raw=b.getvalue()
+            async with async_playwright() as p:
+              browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ['en','fa']:
+                path='library/object-stages/composer/' if lang=='en' else 'fa/library/object-stages/composer/'
+                for width in [320,390,430]:
+                  page=await browser.new_page(viewport={'width':width,'height':820},accept_downloads=True)
+                  response=await page.goto('http://127.0.0.1:8765/hades/'+path,wait_until='networkidle')
+                  assert response.status==200
+                  await page.wait_for_function('!document.getElementById("savePNG").disabled')
+                  assert not await page.evaluate('document.documentElement.scrollWidth>innerWidth+1'),(lang,width,'overflow')
+                  await page.locator('#subjectFile').set_input_files({'name':'local-object.png','mimeType':'image/png','buffer':raw})
+                  await page.locator('#positionX').fill('65')
+                  await page.locator('#subjectScale').fill('28')
+                  async with page.expect_download() as ev:
+                    await page.locator('#saveSVG').click()
+                  svg=await (await ev.value).path()
+                  root=ET.parse(svg).getroot()
+                  elems=list(root.iter('{http://www.w3.org/2000/svg}image'))
+                  assert len(elems)==2,(lang,width,len(elems))
+                  assert 'data:image/svg+xml;base64,' in elems[0].get('href')
+                  assert 'data:image/png;base64,' in elems[1].get('href')
+                  async with page.expect_download() as ev2:
+                    await page.locator('#savePNG').click()
+                  png=Image.open(await (await ev2.value).path())
+                  assert png.size==(1920,1080),png.size
+                  await page.screenshot(path=f'/tmp/hades-composer-proof/{lang}_{width}.png',full_page=True)
+                  print('PASS',lang,width,'real local input, SVG 2 layers, native PNG 1920x1080, responsive')
+                  await page.close()
+              await browser.close()
+          asyncio.run(check())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-object-composer-six-chromium-review
+          path: /tmp/hades-composer-proof/
+          if-no-files-found: ignore
+      - name: Independent hosted HTTP 200 MIME SHA-256 — not build status
+        run: |
+          python - <<'PY'
+          import hashlib,time,urllib.request
+          from pathlib import Path
+          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js']
+          errors=[]
+          for attempt in range(10):
+            errors=[]
+            for f in files:
+              try:
+                req=urllib.request.Request('https://ialirezaaa.github.io/hades/'+f,headers={'User-Agent':'HADES-Composer-Review/1.0','Cache-Control':'no-cache'})
+                with urllib.request.urlopen(req,timeout=22) as resp:
+                  actual=resp.read()
+                  typ=resp.headers.get('Content-Type','')
+                  assert resp.status==200,(f,resp.status)
+                  assert (('javascript' in typ or 'text/plain' in typ) if f.endswith('.js') else 'text/html' in typ),(f,typ)
+                  assert hashlib.sha256(actual).digest()==hashlib.sha256((Path('hades')/f).read_bytes()).digest(),f
+              except Exception as ex:errors.append((f,str(ex)))
+            if not errors:
+              print('PASS',len(files),'/',len(files),'HTTP 200 + MIME + SHA-256 independent live checks')
+              break
+            print('Attempt',attempt+1,'OPEN',errors,flush=True)
+            if attempt<9:time.sleep(15)
+          assert not errors,errors
+          PY

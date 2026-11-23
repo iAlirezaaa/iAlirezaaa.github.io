@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HADES · Subject composer · Architectural Object Stages · PUBLIC REVIEW</title><meta name="description" content="Bilingual local-image subject composer for original architectural stages; editable SVG and native PNG export. PUBLIC REVIEW.">
+<link rel="canonical" href="https://ialirezaaa.github.io/hades/library/object-stages/composer/">
+<link rel="alternate" hreflang="fa" href="https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/"><link rel="alternate" hreflang="en" href="https://ialirezaaa.github.io/hades/library/object-stages/composer/">
+<style>
+:root{--bg:#131211;--panel:#27231f;--ink:#ece3d8;--dim:#c5b8aa;--line:#655b4f;--accent:#EF4B32;color-scheme:dark}
+*{box-sizing:border-box}html,body{max-width:100%;overflow-x:clip}body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.7 system-ui,Tahoma,Arial,sans-serif}
+a{color:inherit;text-underline-offset:4px}a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+main{max-width:1370px;margin:auto;padding:14px clamp(12px,2.2vw,28px) 38px}nav{display:flex;flex-wrap:wrap;gap:10px 18px;border-bottom:1px solid var(--line);padding:8px 0 16px;font-size:13px}
+.kicker{color:#ecaa99;font-size:12px;margin:24px 0 6px}h1{font-weight:400;font-size:clamp(22px,3.1vw,32px);line-height:1.3;margin:0 0 12px}p{margin:0 0 12px}.intro{max-width:890px;color:var(--dim)}
+.notice{border-inline-start:2px solid var(--accent);padding:10px 14px;background:#211e1b;font-size:13px;margin:18px 0}
+.layout{display:grid;grid-template-columns:minmax(250px,310px) minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:var(--panel);border:1px solid var(--line);padding:14px;min-width:0}.panel label{display:block;font-size:13px;margin:11px 0 5px}
+.panel input[type=file]{display:block;width:100%;min-width:0;font-size:12px}.panel select{font:inherit;width:100%;background:#161412;color:var(--ink);padding:9px;border:1px solid var(--line)}
+.panel input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}.numbers{display:flex;justify-content:space-between;align-items:center;gap:9px}.numbers output{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums;color:#f0b7aa}
+.small{font-size:12px;color:var(--dim)}.toggle{display:flex!important;gap:10px;align-items:flex-start}.toggle input{margin-top:6px;accent-color:var(--accent)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.actions button,.actions .load{font:inherit;font-size:12px;min-height:44px;border:1px solid #877669;background:transparent;color:var(--ink);cursor:pointer;padding:7px 8px;text-align:center}.actions .primary{border-color:var(--accent)}
+.actions .load input{display:none}.actions button:disabled{opacity:.38;cursor:not-allowed}.actions .load{margin:0;display:grid;place-items:center}
+#status{font-size:12px;color:#d7c6b6;border-top:1px solid var(--line);padding-top:12px;min-height:35px;overflow-wrap:anywhere}
+.preview{min-width:0;background:#1b1917;border:1px solid var(--line);padding:clamp(5px,1.2vw,16px);display:grid;place-items:center}
+#stageCanvas{display:block;max-width:100%;width:100%;height:auto;max-height:75vh;object-fit:contain;touch-action:none;cursor:crosshair}
+.legend{font-size:12px;color:var(--dim);margin:10px 0 0}.footer{border-top:1px solid var(--line);padding:18px 0;margin-top:22px;color:var(--dim);font-size:12px}
+@media(max-width:780px){.layout{grid-template-columns:minmax(0,1fr)}.panel{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.panel>.wide{grid-column:1/-1}}
+@media(max-width:450px){.panel{display:block}.actions{grid-template-columns:1fr 1fr}main{padding-inline:12px}nav{gap:8px 12px}#stageCanvas{max-height:65vh}}
+@media print{nav,.panel,.actions{display:none}body{background:white;color:black}.preview{border:0;background:white}.layout{display:block}.notice{font-size:11px}.footer{font-size:10px}}
+</style></head><body data-lang="en"><main>
+<nav><a href="/hades/">HADES home</a><a href="/hades/library/">Asset library</a><a href="/hades/brand-kit/logo-usage/">Logo usage</a><a href="/hades/library/object-stages/">Original stages</a><a href="/hades/library/object-stages/placement/">A4 placement guide</a><a href="/hades/fa/library/object-stages/composer/" lang="fa">فارسی</a></nav>
+<p class="kicker">HADES / OBJECT STAGES / PUBLIC REVIEW</p><h1>Compose a subject over an architectural stage</h1><p class="intro">Choose an existing HADES stage, load an authorized PNG/JPEG/WebP from your device, move and scale it, then export a full-resolution PNG or editable-layer SVG. Nothing is uploaded to a server.</p><p class="notice">PUBLIC REVIEW, not FINAL. Stage originals remain unchanged. No logo is added or altered; no images are sent to HADES servers. Only #EF4B32 is approved; other colors and typography are proposals.</p>
+<div class="layout"><section class="panel" aria-label="Stage controls">
+<div class="wide"><label for="ratio">Stage / aspect ratio</label><select id="ratio"><option value="16x9">16:9 · Recessed Atrium / Dark</option><option value="9x16">9:16 · Lightwell / Mammoth Bone</option><option value="1x1">1:1 · Folded Court / Charcoal</option></select></div>
+<div class="wide"><label for="subjectFile">Add your own subject image</label><input id="subjectFile" type="file" accept="image/png,image/jpeg,image/webp"><p class="small">Local image only; maximum 12 MB. Transparent PNG is recommended. Do not use client media without permission.</p></div>
+<div><label class="numbers" for="positionX"><span>Horizontal center (%)</span><output id="xOut">50%</output></label><input type="range" id="positionX" min="0" max="100" step="1" value="50"></div>
+<div><label class="numbers" for="positionY"><span>Vertical center (%)</span><output id="yOut">53%</output></label><input type="range" id="positionY" min="0" max="100" step="1" value="53"></div>
+<div><label class="numbers" for="subjectScale"><span>Subject width (%)</span><output id="scaleOut">30%</output></label><input type="range" id="subjectScale" min="5" max="100" step="1" value="30"></div>
+<div class="wide"><label class="toggle"><input type="checkbox" id="guides" checked><span>Show provisional 10% composition guides (preview only)</span></label></div>
+<div class="wide actions"><button type="button" id="reset">Reset position</button><button type="button" id="remove">Remove subject</button><button type="button" class="primary" id="savePNG" disabled>Download PNG · REVIEW</button><button type="button" class="primary" id="saveSVG" disabled>Download layered SVG · REVIEW</button><button type="button" id="saveJSON">Save editable settings (JSON)</button><label class="load" for="loadJSON">Load settings JSON<input id="loadJSON" type="file" accept=".json,application/json"></label></div>
+<div class="wide" id="status" role="status" aria-live="polite">Loading stage…</div></section>
+<section><div class="preview"><canvas id="stageCanvas" width="1920" height="1080" role="img" aria-label="Interactive architectural background with optional locally uploaded subject"></canvas></div><p class="legend">The SVG contains a separate raster subject layer and the exact unchanged stage SVG embedded as a background image. It is not an official vector logo. PNG is exported at the selected stage's native resolution. Guide marks are excluded from both exports.</p></section></div>
+<footer class="footer">OPEN: physical phone and print inspection, genuine licensed Mikhak testing, actual subject rights and owner FINAL. Pattern01: public REVIEW · Pattern02: private · Pattern03: stopped.</footer></main><script defer src="/hades/library/object-stages/composer/stage-composer.js"></script></body></html>
