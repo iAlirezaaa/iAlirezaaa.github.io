@@ -67,6 +67,7 @@ jobs:
                     await page.locator('#savePNG').click()
                   png=Image.open(await (await ev2.value).path())
                   assert png.size==(1920,1080),png.size
+                  assert png.convert('RGB').getpixel((192,108)) != (239,75,50), 'Preview guide leaked into exported PNG'
                   await page.screenshot(path=f'/tmp/hades-composer-proof/{lang}_{width}.png',full_page=True)
                   print('PASS',lang,width,'real local input, SVG 2 layers, native PNG 1920x1080, responsive')
                   await page.close()

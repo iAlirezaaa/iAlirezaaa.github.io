@@ -73,8 +73,13 @@ const x=d.w*a.x/100-w/2,y=d.h*a.y/100-h/2;
 overlay='<image id="editable-subject" x="'+x.toFixed(3)+'" y="'+y.toFixed(3)+'" width="'+w.toFixed(3)+'" height="'+h.toFixed(3)+'" href="'+subjectData+'" />';}
 return '<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="'+root+'" xmlns:xlink="http://www.w3.org/1999/xlink" width="'+d.w+'" height="'+d.h+'" viewBox="0 0 '+d.w+' '+d.h+'"><title>HADES Object Stage composition — PUBLIC REVIEW</title><desc>Unchanged source stage embedded as data SVG. Subject remains a separate movable raster image layer. No HADES logo included. Colors other than #EF4B32 proposed.</desc><image id="unchanged-stage" width="'+d.w+'" height="'+d.h+'" href="data:image/svg+xml;base64,'+bytesBase64(stageSource)+'" />'+overlay+'</svg>';
 }
-function savePNG(){if(!ready)return;const file="HADES_Object_Stage_Composed_"+selected+"_REVIEW.png";
-canvas.toBlob(b=>{if(b)download(b,file);else setStatus("OPEN: PNG encode failed");},"image/png");}
+function savePNG(){if(!ready||!stageImage)return;const file="HADES_Object_Stage_Composed_"+selected+"_REVIEW.png";
+/* Export to a separate bitmap; preview-only 10% guides must not be included in PNG. */
+const d=stages[selected],a=values(),out=document.createElement("canvas");out.width=d.w;out.height=d.h;
+const c=out.getContext("2d",{alpha:false});c.drawImage(stageImage,0,0,d.w,d.h);
+if(subjectImage){const w=d.w*a.scale/100,h=w*subjectImage.naturalHeight/subjectImage.naturalWidth;
+c.drawImage(subjectImage,d.w*a.x/100-w/2,d.h*a.y/100-h/2,w,h);}
+out.toBlob(b=>{if(b)download(b,file);else setStatus("OPEN: PNG encode failed");},"image/png");}
 function saveSVG(){try{download(new Blob([svgExport()],{type:"image/svg+xml;charset=utf-8"}),"HADES_Object_Stage_Composed_"+selected+"_REVIEW.svg");}catch(e){setStatus("OPEN: "+e.message);}}
 function saveJSON(){const state={status:"PUBLIC REVIEW",ratio:selected,position:values(),sourceFile:stages[selected].file,subjectData:subjectData||null,warning:"Local-only source; this JSON may contain your full private image bytes. Do not upload or share it without permission."};
 download(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),"HADES_Object_Stage_Settings_REVIEW.json");}
