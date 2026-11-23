@@ -1,0 +1,44 @@
+{
+  "id": "hades-quiet-courts-20261123-review",
+  "status": "PUBLIC REVIEW",
+  "approved_accent": "#EF4B32",
+  "approved_neutrals": false,
+  "rights": "Original synthetic architectural vector studies, no logos, client content or private pattern transfer",
+  "files": [
+    {
+      "file": "HADES_Still_Threshold_16x9_REVIEW.svg",
+      "width": 1920,
+      "height": 1080,
+      "ratio": "16:9",
+      "surface": "#161615",
+      "proposed_text": "#E8DCC9",
+      "contrast_ratio": "13.38"
+    },
+    {
+      "file": "HADES_Bone_Interstice_9x16_REVIEW.svg",
+      "width": 1080,
+      "height": 1920,
+      "ratio": "9:16",
+      "surface": "#DDD2C0",
+      "proposed_text": "#292926",
+      "contrast_ratio": "9.76"
+    },
+    {
+      "file": "HADES_Charcoal_Echelon_1x1_REVIEW.svg",
+      "width": 1080,
+      "height": 1080,
+      "ratio": "1:1",
+      "surface": "#292825",
+      "proposed_text": "#E4D9C6",
+      "contrast_ratio": "10.56"
+    }
+  ],
+  "open": [
+    "Physical phone",
+    "Physical print / calibrated color",
+    "Genuine Mikhak",
+    "Human micro-legibility",
+    "Owner approval for FINAL",
+    "JPEG/WebP production derivatives"
+  ]
+}

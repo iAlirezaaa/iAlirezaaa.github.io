@@ -97,3 +97,6 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 
 ## Stage × Alpha single-panel inspector · PUBLIC REVIEW (2026-11-23)
 - [EN panel inspector](https://ialirezaaa.github.io/hades/library/object-stages/composite-matrix/) · [FA](https://ialirezaaa.github.io/hades/fa/library/object-stages/composite-matrix/). Nine original canvas compositions now support keyboard-accessible single-panel viewing, 100–250% scrollable display zoom, readable bilingual captions and separate 500×340 native-panel PNG downloads. No originals/marks modified. Colors other than #EF4B32 remain proposals; native device, print and Mikhak OPEN.
+
+## Quiet Courts — architectural SVG pack · PUBLIC REVIEW (2026-11-23)
+[EN](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/) · [FA](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/). Three standalone 16:9/9:16/1:1 architectural vector designs, proposed neutrals, true-contrast metadata, untouched original marks. No approved new logo; no raster pack promised for this release.

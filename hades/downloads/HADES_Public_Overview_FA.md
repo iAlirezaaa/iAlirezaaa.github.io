@@ -52,3 +52,8 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 
 ## برگهٔ قابل‌ویرایش بررسی آلفا / PUBLIC REVIEW
 [SVG · A4 · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg). سه نمودار برداری مصنوعی و خط کالیبراسیون ۵۰ میلی‌متری. نشان اصلی دست‌نخورده است؛ اندازه‌گیری چاپ و HTTP/MIME واقعی همچنان OPEN است.
+
+
+## سه پس‌زمینهٔ معماری جدید · PUBLIC REVIEW (2026-11-23)
+فایل‌های SVG مستقل و قابل‌ویرایش برای سه نسبت، همراه کد رنگ‌های خنثی پیشنهادی و محاسبهٔ نسبت کنتراست: https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/
+Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINAL OPEN.

@@ -52,3 +52,8 @@ The local stage composer now supports an adjustable 1–254 alpha cutoff, includ
 
 ## Editable A4 alpha-edge diagrams / PUBLIC REVIEW
 [SVG · A4 · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg). Three synthetic vector tests and a defined 50mm print ruler. Owner logo masters untouched. Actual printed scale and HTTP/MIME proof OPEN.
+
+
+## Quiet Courts · architectural backgrounds · PUBLIC REVIEW (2026-11-23)
+Three independent editable SVG background artworks (16:9, 9:16, 1:1) with proposed neutral swatches and computed contrast ratios: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/
+Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINAL OPEN.

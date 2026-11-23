@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc"><title id="title">Still Threshold / HADES / PUBLIC REVIEW</title><desc id="desc">Minimal architectural courtyard and deep matte lintel, 16 by 9, dark. Supporting neutrals are proposals; #EF4B32 is the only approved brand accent. No logo or lettering.</desc><rect width="1920" height="1080" fill="#161615"/>
+<!-- A left-hand stone aperture opens to quiet negative space at right. -->
+<path d="M0 0H1040L952 133H94L0 216Z" fill="#2A2927"/>
+<path d="M0 216L94 133V824L0 975Z" fill="#3A3732"/>
+<path d="M94 133H952V824H94Z" fill="#BDB29F"/>
+<path d="M132 172H878V758H132Z" fill="#DCD0BC"/>
+<path d="M132 172H878L726 286H254Z" fill="#E8DCC9"/>
+<path d="M254 286H726V758H254Z" fill="#34322D"/>
+<path d="M254 286L326 355V729L254 758Z" fill="#454139"/>
+<path d="M726 286L660 355V729L726 758Z" fill="#24231F"/>
+<path d="M326 355H660V729H326Z" fill="#171715"/>
+<path d="M94 824H952L1090 1080H0Z" fill="#302F2B"/>
+<path d="M132 758H878L975 929H61Z" fill="#6E675B"/>
+<path d="M254 758H726L783 847H202Z" fill="#817869"/>
+<path d="M326 729H660L700 802H284Z" fill="#252420"/>
+<path d="M1030 0H1920V1080H1120L1021 836L1040 0Z" fill="#171716"/>
+<path d="M1157 0V1080" fill="none" stroke="#35332E" stroke-width="2"/>
+<path d="M1330 122H1840" stroke="#49453D" stroke-width="2"/>
+<path d="M1330 136H1710" stroke="#2D2A26" stroke-width="2"/>
+<rect x="1356" y="830" width="158" height="5" fill="#EF4B32"/>
+</svg>
