@@ -31,3 +31,8 @@ SVG طرح حاوی متن و ساختار وکتوری قابل‌ویرایش 
 - [English bookmark files](https://ialirezaaa.github.io/hades/library/bookmarks/)
 - [فایل‌های نشان کتاب فارسی](https://ialirezaaa.github.io/hades/fa/library/bookmarks/)
 - سنجش چاپ و تشخیص واقعی روی گوشی OPEN است.
+
+
+## استیج نمایش اشیا · PUBLIC REVIEW
+
+سه SVG بدون لوگو در نسبت‌های ۱۶:۹، ۹:۱۶ و ۱:۱. رنگ‌های خنثی پیشنهادی هستند؛ Mikhak، تست فیزیکی و FINAL باز مانده‌اند. [دانلود و پیش‌نمایش](/hades/fa/library/object-stages/).

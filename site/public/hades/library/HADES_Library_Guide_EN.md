@@ -28,3 +28,8 @@ Classic and Modern 50×180 mm editable source SVGs plus an A4 two-up 100%-scale 
 - [English bookmark files](https://ialirezaaa.github.io/hades/library/bookmarks/)
 - [فایل‌های نشان کتاب فارسی](https://ialirezaaa.github.io/hades/fa/library/bookmarks/)
 - Physical print and genuine phone recognition OPEN.
+
+
+## Architectural Object Stages · PUBLIC REVIEW
+
+Three new no-logo editable SVG product-presentation backgrounds (16:9, 9:16, 1:1). Proposed neutrals; Mikhak, physical-device and FINAL tests OPEN. [Preview and download](/hades/library/object-stages/).
