@@ -92,7 +92,7 @@ jobs:
                 await page.locator('#subjectFile').set_input_files({'name':'fixture.png','mimeType':'image/png','buffer':f.getvalue()})
                 for ratio,size in {'16x9':(1920,1080),'9x16':(1080,1920),'1x1':(1080,1080)}.items():
                   await page.locator('#ratio').select_option(ratio)
-                  await page.wait_for_function('(r)=>document.querySelector("#ratio").value===r && !document.querySelector("#savePNG").disabled',ratio)
+                  await page.wait_for_function('(r)=>document.querySelector("#ratio").value===r && !document.querySelector("#savePNG").disabled',arg=ratio)
                   await page.locator('#plinthGuides').check()
                   await page.locator('#alignBase').click()
                   assert not await page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
@@ -110,7 +110,7 @@ jobs:
                   await page.locator('#remove').click()
                   await page.locator('#plinthGuides').uncheck()
                   await page.locator('#loadJSON').set_input_files({'name':'settings.json','mimeType':'application/json','buffer':json.dumps(saved).encode()})
-                  await page.wait_for_function('(r)=>document.querySelector("#ratio").value===r && document.querySelector("#plinthGuides").checked && !document.querySelector("#savePNG").disabled',ratio)
+                  await page.wait_for_function('(r)=>document.querySelector("#ratio").value===r && document.querySelector("#plinthGuides").checked && !document.querySelector("#savePNG").disabled',arg=ratio)
                   assert int(await page.locator('#positionY').input_value())==saved['position']['y']
                   print('PASS',lang,ratio,'native PNG, exact stage SHA, 2 image layers, JSON restore')
                   await page.screenshot(path='/tmp/hades-composer-proof/'+lang+'_'+ratio+'_plinth.png',full_page=True)
