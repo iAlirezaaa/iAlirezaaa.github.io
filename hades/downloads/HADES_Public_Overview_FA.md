@@ -17,3 +17,8 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 ## 2026-11-23 · A4 platform geometry — PUBLIC REVIEW
 
 [دریافت SVG قابل‌ویرایش A4 برای هندسهٔ سکوی سه استیج](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg) · [ویرایشگر جایگاه سوژه](https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/). راهنمای صرفاً پیشنهادی؛ لوگو ندارد و بازسازی پرسپکتیو دوربین نیست. رنگ‌های خنثی و فونت پیشنهادی‌اند؛ فقط #EF4B32 تأیید شده است.
+
+
+### راهنمای محدودهٔ دیداری آلفا — PUBLIC REVIEW
+
+[دریافت SVG ویرایش‌پذیر A4 دو‌زبانه](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Bounds_A4_FA_EN_REVIEW.svg) · [ویرایشگر محلی فارسی](https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/). فایل تصویری به سرور ارسال نمی‌شود؛ تراز سیلویت تخمینی است، نه تشخیص واقعی تماس با زمین.

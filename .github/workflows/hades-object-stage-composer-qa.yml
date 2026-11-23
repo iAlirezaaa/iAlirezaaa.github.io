@@ -47,7 +47,7 @@ jobs:
               f='downloads/HADES_Public_Overview_'+lang+'.md'
               assert (Path('site/public/hades')/f).read_bytes()==(Path('hades')/f).read_bytes()
               assert link.encode() in (Path('hades')/f).read_bytes()
-          print('PASS: 5/5 mirrored composer files; existing SVG sources referenced, not modified')
+          print('PASS: 6/6 mirrored composer files; existing SVG sources referenced, not modified')
           PY
       - name: Real Chromium 320, 390, 430 EN + FA with exports
         run: |
