@@ -1,0 +1,129 @@
+name: HADES Quiet Courts vector-to-raster PUBLIC REVIEW release and live QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/public/hades/library/backgrounds/quiet-courts/assets/*.svg'
+      - 'site/scripts/render-hades-quiet-courts-review.py'
+      - '.github/workflows/hades-quiet-courts-release.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-quiet-courts-review-release
+  cancel-in-progress: true
+jobs:
+  render-validate-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install open vector renderer and browser
+        run: |
+          python -m pip install 'cairosvg==2.8.2' 'pillow==11.3.0' 'playwright==1.56.0'
+          python -m playwright install --with-deps chromium
+      - name: Render mirror-safe binary release with conflict retry
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python site/scripts/render-hades-quiet-courts-review.py
+            git add -A -- site/public/hades/library/backgrounds/quiet-courts/assets hades/library/backgrounds/quiet-courts/assets site/public/hades/library/backgrounds/quiet-courts/raster-manifest.REVIEW.json hades/library/backgrounds/quiet-courts/raster-manifest.REVIEW.json site/public/hades/library/backgrounds/quiet-courts/HADES_Quiet_Courts_3_SVG_9_Raster_PUBLIC_REVIEW.zip hades/library/backgrounds/quiet-courts/HADES_Quiet_Courts_3_SVG_9_Raster_PUBLIC_REVIEW.zip
+            if git diff --cached --quiet; then
+              echo "Identical binary pack already committed."
+              break
+            fi
+            git commit -m "assets(hades): publish Quiet Courts native PNG JPEG WebP and ZIP [REVIEW]"
+            if git push origin HEAD:main; then
+              echo "PUBLISHED real raster binaries"
+              break
+            fi
+            if [ "$attempt" -eq 4 ]; then exit 1; fi
+            sleep 5
+          done
+      - name: Actual Chromium FA/EN 320 390 430 screenshots and geometry
+        run: |
+          python -m http.server 8769 >/tmp/hades-quiet-courts-http.log 2>&1 &
+          mkdir -p /tmp/hades-quiet-courts-proof
+          python - <<'PY'
+          import asyncio
+          from pathlib import Path
+          from playwright.async_api import async_playwright
+          async def check():
+              async with async_playwright() as p:
+                  browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+                  for lang in ('en','fa'):
+                      path=('fa/' if lang=='fa' else '')+'library/backgrounds/quiet-courts/'
+                      for width in (320,390,430):
+                          page=await browser.new_page(viewport={'width':width,'height':880})
+                          res=await page.goto('http://127.0.0.1:8769/hades/'+path,wait_until='networkidle')
+                          assert res and res.status==200,(path,width)
+                          assert await page.locator('html').get_attribute('lang')==lang
+                          assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'),(lang,width)
+                          cards=page.locator('article.asset')
+                          assert await cards.count()==3,(lang,width)
+                          for k,expected in enumerate(((1920,1080),(1080,1920),(1080,1080))):
+                              image=cards.nth(k).locator('img')
+                              assert await image.evaluate('(e)=>e.complete && e.naturalWidth>0')
+                              dims=await image.evaluate('(e)=>[e.naturalWidth,e.naturalHeight]')
+                              assert tuple(dims)==expected,(lang,width,k,dims)
+                              assert await cards.nth(k).locator('a[download]').count()==1
+                          await page.screenshot(path=f'/tmp/hades-quiet-courts-proof/{lang}-{width}.png',full_page=True)
+                          print('BROWSER PASS',lang,width,flush=True)
+                          await page.close()
+                  await browser.close()
+          asyncio.run(check())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-quiet-courts-real-chromium-PUBLIC-REVIEW
+          path: /tmp/hades-quiet-courts-proof
+          if-no-files-found: ignore
+      - name: Independent hosted HTTP 200 MIME SHA256 proof after Pages deploy
+        run: |
+          python - <<'PY'
+          import hashlib,time,urllib.request
+          from pathlib import Path
+          root=Path('hades/library/backgrounds/quiet-courts')
+          files=[
+             'index.html','assets/HADES_Still_Threshold_16x9_REVIEW.svg',
+             'assets/HADES_Bone_Interstice_9x16_REVIEW.svg',
+             'assets/HADES_Charcoal_Echelon_1x1_REVIEW.svg',
+             'assets/HADES_Still_Threshold_16x9_REVIEW.png',
+             'assets/HADES_Bone_Interstice_9x16_REVIEW.jpg',
+             'assets/HADES_Charcoal_Echelon_1x1_REVIEW.webp',
+             'HADES_Quiet_Courts_3_SVG_9_Raster_PUBLIC_REVIEW.zip',
+             'raster-manifest.REVIEW.json'
+          ]
+          mime={'.html':'text/html','.svg':'image/svg+xml','.png':'image/png',
+                '.jpg':'image/jpeg','.webp':'image/webp','.zip':'application/zip','.json':'application/json'}
+          for attempt in range(22):
+              errors={}
+              for f in files:
+                  path=root/f
+                  url='https://ialirezaaa.github.io/'+path.as_posix()+'?qc='+str(attempt)
+                  try:
+                      req=urllib.request.Request(url,headers={'User-Agent':'HadesQuietCourtsQA/1.0'})
+                      with urllib.request.urlopen(req,timeout=15) as response:
+                          data=response.read()
+                          assert response.status==200
+                          got=response.headers.get('Content-Type','').split(';')[0]
+                      assert got in ({mime[path.suffix]} if path.suffix!='.zip' else {'application/zip','application/octet-stream','application/x-zip-compressed'}),(f,got)
+                      assert hashlib.sha256(data).digest()==hashlib.sha256(path.read_bytes()).digest(),f
+                  except Exception as e:errors[f]=str(e)
+              if not errors:
+                  print('HOSTED PASS independent 9/9 HTTP200 MIME SHA256',flush=True)
+                  break
+              print('OPEN attempt',attempt+1,errors,flush=True)
+              if attempt==21:raise RuntimeError('Public Pages not verified')
+              time.sleep(12)
+          PY
