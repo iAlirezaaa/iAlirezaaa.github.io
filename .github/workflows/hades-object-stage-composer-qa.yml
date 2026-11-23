@@ -149,7 +149,7 @@ jobs:
           python - <<'PY'
           import hashlib,time,urllib.request
           from pathlib import Path
-          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg']
+          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg','index.html','fa/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md']
           errors=[]
           for attempt in range(10):
             errors=[]
@@ -160,7 +160,7 @@ jobs:
                   actual=resp.read()
                   typ=resp.headers.get('Content-Type','')
                   assert resp.status==200,(f,resp.status)
-                  assert (('javascript' in typ or 'text/plain' in typ) if f.endswith('.js') else ('svg+xml' in typ or 'text/plain' in typ) if f.endswith('.svg') else 'text/html' in typ),(f,typ)
+                  assert (('javascript' in typ or 'text/plain' in typ) if f.endswith('.js') else ('svg+xml' in typ or 'text/plain' in typ) if f.endswith('.svg') else ('text/plain' in typ or 'text/markdown' in typ or 'text/html' in typ) if f.endswith('.md') else 'text/html' in typ),(f,typ)
                   assert hashlib.sha256(actual).digest()==hashlib.sha256((Path('hades')/f).read_bytes()).digest(),f
               except Exception as ex:errors.append((f,str(ex)))
             if not errors:
