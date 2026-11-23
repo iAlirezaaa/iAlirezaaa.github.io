@@ -1,0 +1,56 @@
+{
+  "status": "PUBLIC REVIEW",
+  "approval": "NOT FINAL",
+  "size": [
+    512,
+    512
+  ],
+  "generatedFrom": "three preserved public SVG sources",
+  "items": [
+    {
+      "name": "HADES_Alpha_hard-edge_512_REVIEW.png",
+      "bytes": 8430,
+      "sha256": "09dbae6c6730b1947f0bedc92f0c8ffc0d060476be7fbbf5256de36b1caab164"
+    },
+    {
+      "name": "HADES_Alpha_hard-edge_512_REVIEW.webp",
+      "bytes": 3068,
+      "sha256": "d0b3f0c7971053089c3a4d3494a7fbe9a86c3b687b3df13c9cf78cbbfb609a52"
+    },
+    {
+      "name": "HADES_Alpha_hard-edge_512_REVIEW.jpg",
+      "bytes": 11103,
+      "sha256": "bdb0a29c52bab6f47ca7a448f094272449d16caf9452be5e1119988ab1106929"
+    },
+    {
+      "name": "HADES_Alpha_tiered-alpha_512_REVIEW.png",
+      "bytes": 15659,
+      "sha256": "8bb3f54a12387d439498fd3ff6fe6ad031eaf8a46d743db49f89f4178bf99dd7"
+    },
+    {
+      "name": "HADES_Alpha_tiered-alpha_512_REVIEW.webp",
+      "bytes": 6146,
+      "sha256": "fd87d4bac213e1f64db8c3c6195e4edccb87c8504699b19bf95e31f45a7a4cce"
+    },
+    {
+      "name": "HADES_Alpha_tiered-alpha_512_REVIEW.jpg",
+      "bytes": 10789,
+      "sha256": "f4d30445eb6c904355781c171dd19cc7acecd6eb8e032343f6f329a2eb883825"
+    },
+    {
+      "name": "HADES_Alpha_soft-shadow_512_REVIEW.png",
+      "bytes": 14724,
+      "sha256": "383f5053ef1295f25bc77ce73c60652f811d4800539a755c4b593b4d8f3300ab"
+    },
+    {
+      "name": "HADES_Alpha_soft-shadow_512_REVIEW.webp",
+      "bytes": 9036,
+      "sha256": "0161a0050b08bbca2b49568eae4bcf879a596045b3d1bd93190335d5aa76b61e"
+    },
+    {
+      "name": "HADES_Alpha_soft-shadow_512_REVIEW.jpg",
+      "bytes": 10362,
+      "sha256": "5baa12d5ec343d9178b2bbcba767465b043ec49765b68d43804c4d8528e0c154"
+    }
+  ]
+}
