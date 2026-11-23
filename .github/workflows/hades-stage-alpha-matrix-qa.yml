@@ -33,12 +33,18 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import hashlib
-          paths=['library/object-stages/composite-matrix/index.html','fa/library/object-stages/composite-matrix/index.html','library/object-stages/composite-matrix/README_REVIEW.md']
+          paths=['library/object-stages/composite-matrix/index.html','fa/library/object-stages/composite-matrix/index.html','library/object-stages/composite-matrix/README_REVIEW.md','library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg']
           for p in paths:
             src=(Path('site/public/hades')/p).read_bytes()
             pub=(Path('hades')/p).read_bytes()
             assert src==pub and b'PUBLIC REVIEW' in src,p
             assert b'IMG_7187(2)' not in src and b'B3424A5B-3375' not in src
+            if p.endswith('.svg'):
+              import xml.etree.ElementTree as ET
+              rt=ET.fromstring(src)
+              assert rt.attrib['width']=='297mm' and rt.attrib['height']=='210mm'
+              assert len(rt.findall('{http://www.w3.org/2000/svg}g'))==3
+              print('PASS EDITABLE A4 SVG STRUCTURE')
             print('MIRROR OK',p,hashlib.sha256(src).hexdigest())
           PY
       - name: Real six-viewport Chromium plus hosted-source composer PNG/SVG
@@ -136,6 +142,7 @@ jobs:
            'library/object-stages/composite-matrix/index.html',
            'fa/library/object-stages/composite-matrix/index.html',
            'library/object-stages/composite-matrix/README_REVIEW.md',
+           'library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg',
            'index.html','fa/index.html','library/index.html','fa/library/index.html',
            'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
            'library/object-stages/index.html','fa/library/object-stages/index.html',
@@ -148,7 +155,7 @@ jobs:
                 with urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'HADES-Matrix-Live-QA/1'}),timeout=30) as res:
                   assert res.status==200,(p,res.status)
                   mime=res.headers.get('Content-Type','')
-                  assert ('text/html' in mime if p.endswith('.html') else 'text/' in mime),(p,mime)
+                  assert ('text/html' in mime if p.endswith('.html') else 'image/svg+xml' in mime if p.endswith('.svg') else 'text/' in mime),(p,mime)
                   content=res.read();got=hashlib.sha256(content).hexdigest()
                   assert got==want,(p,got,want)
                 print('PASS HOSTED 200 MIME SHA256',p,len(content),got)
