@@ -1,0 +1,113 @@
+name: HADES synthetic alpha fixture lab / public review QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-alpha-fixture-qa.yml'
+      - 'hades/library/object-stages/alpha-fixtures/**'
+      - 'hades/fa/library/object-stages/alpha-fixtures/**'
+      - 'site/public/hades/library/object-stages/alpha-fixtures/**'
+      - 'site/public/hades/fa/library/object-stages/alpha-fixtures/**'
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Chromium and PIL
+        run: |
+          python -m pip install playwright==1.56.0 pillow==11.3.0
+          python -m playwright install --with-deps chromium
+      - name: Verify source mirrors, SVG source and protected source exclusions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          d='library/object-stages/alpha-fixtures/'
+          files=[d+'index.html',d+'fixture-lab.js',d+'README_REVIEW.md','fa/'+d+'index.html']+[d+'HADES_Alpha_'+x+'_REVIEW.svg' for x in ['hard-edge','tiered-alpha','soft-shadow']]
+          for f in files:
+            a=(Path('hades')/f).read_bytes(); b=(Path('site/public/hades')/f).read_bytes()
+            assert a==b and b'PUBLIC REVIEW' in a or (a==b and f.endswith('.js')),(f,'mirror / status')
+            assert b'IMG_7187' not in a and b'B3424A5B' not in a
+          for p in ['hard-edge','tiered-alpha','soft-shadow']:
+            svg=ET.parse(Path('hades')/d/('HADES_Alpha_'+p+'_REVIEW.svg')).getroot()
+            assert svg.attrib['viewBox']=='0 0 512 512'
+            assert svg.attrib['width']==svg.attrib['height']=='512'
+          print('PASS',len(files),'mirrored source files and 3 valid self-contained SVGs')
+          PY
+      - name: Real Chromium bilingual 320 390 430 PNG alpha export
+        run: |
+          python -m http.server 8765 >/tmp/hades-fixture-server.log 2>&1 &
+          mkdir -p /tmp/hades-fixture-proofs
+          python - <<'PY'
+          import asyncio
+          from pathlib import Path
+          from PIL import Image
+          from playwright.async_api import async_playwright
+          async def run():
+            async with async_playwright() as p:
+              browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ('en','fa'):
+                for width in (320,390,430):
+                  page=await browser.new_page(viewport={'width':width,'height':840},accept_downloads=True)
+                  route='fa/' if lang=='fa' else ''
+                  resp=await page.goto('http://127.0.0.1:8765/hades/'+route+'library/object-stages/alpha-fixtures/',wait_until='networkidle')
+                  assert resp.status==200
+                  assert not await page.evaluate('document.documentElement.scrollWidth>window.innerWidth+1'),(lang,width,'overflow')
+                  await page.wait_for_function("document.getElementById('png').disabled===false")
+                  for k in ['hard-edge','tiered-alpha','soft-shadow']:
+                    await page.locator('#kind').select_option(k)
+                    await page.wait_for_function("document.getElementById('png').disabled===false")
+                    assert await page.locator('#svg').get_attribute('href')=='/hades/library/object-stages/alpha-fixtures/HADES_Alpha_'+k+'_REVIEW.svg'
+                    async with page.expect_download() as download:
+                      await page.locator('#png').click()
+                    a=await download.value; f=Path('/tmp/hades-fixture-proofs')/(lang+'_'+str(width)+'_'+k+'.png')
+                    await a.save_as(str(f))
+                    with Image.open(f) as im:
+                      assert im.size==(512,512) and im.mode=='RGBA'
+                      alpha=im.getchannel('A')
+                      vals=alpha.getextrema()
+                      assert vals[0]==0 and vals[1]==255,(k,vals)
+                      if k!='hard-edge': assert any(0<v<255 for v in alpha.getdata())
+                    await page.locator('#cutoff').evaluate("e=>{e.value='160';e.dispatchEvent(new Event('input',{bubbles:true}));}")
+                    assert '/255' in await page.locator('#cutoffText').inner_text()
+                  await page.screenshot(path='/tmp/hades-fixture-proofs/'+lang+'_'+str(width)+'.png',full_page=True)
+                  print('PASS chromium',lang,width,'3 real RGBA PNG downloads')
+                  await page.close()
+              await browser.close()
+          asyncio.run(run())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-alpha-fixture-real-browser-review
+          path: /tmp/hades-fixture-proofs/
+          if-no-files-found: ignore
+      - name: Independent HTTPS 200 MIME SHA-256 served site
+        run: |
+          python - <<'PY'
+          import hashlib,time,urllib.request
+          from pathlib import Path
+          p='library/object-stages/alpha-fixtures/'
+          paths=[p+'index.html','fa/'+p+'index.html',p+'fixture-lab.js',p+'README_REVIEW.md']+[p+'HADES_Alpha_'+x+'_REVIEW.svg' for x in ['hard-edge','tiered-alpha','soft-shadow']]
+          for path in paths:
+            wanted=(Path('hades')/path).read_bytes()
+            mime='image/svg+xml' if path.endswith('.svg') else ('application/javascript' if path.endswith('.js') else ('text/html' if path.endswith('.html') else 'text/plain'))
+            for attempt in range(10):
+              try:
+                req=urllib.request.Request('https://ialirezaaa.github.io/hades/'+path,headers={'User-Agent':'HADES-fixture-QA/1','Cache-Control':'no-cache'})
+                with urllib.request.urlopen(req,timeout=25) as r:
+                  body=r.read();status=r.status;ctype=r.headers.get('Content-Type','').lower()
+                if status==200 and hashlib.sha256(body).digest()==hashlib.sha256(wanted).digest() and mime in ctype:break
+              except Exception as exc: last_error=str(exc)
+              time.sleep(12)
+            else:
+              raise AssertionError((path,'public HTTP/MIME/SHA mismatch',locals().get('status'),locals().get('ctype'),locals().get('last_error')))
+            print('PASS HTTP 200 MIME SHA-256',path)
+          PY

@@ -35,3 +35,7 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 ## راهنمای تشخیص لبهٔ نیمه‌شفاف — PUBLIC REVIEW · ۲۰۲۶-۱۱-۲۳
 
 [دریافت SVG ویرایش‌پذیر A4 دوزبانه](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Fringe_Diagnostic_A4_FA_EN_REVIEW.svg) · [ویرایشگر فارسی](https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/) · [English](https://ialirezaaa.github.io/hades/library/object-stages/composer/). نمایش لبه‌های آلفا فقط در پیش‌نمایش است، قابل‌خاموش‌کردن است و پیکسل‌ها و خروجی PNG/SVG یا لوگوی اصلی را تغییر نمی‌دهد. فقط #EF4B32 تأیید شده و همهٔ دارایی‌ها REVIEW هستند. آزمون فیزیکی هنوز OPEN است.
+
+
+## آزمایشگاه تصاویر شفاف مصنوعی / PUBLIC REVIEW — ۲۰۲۶-۱۱-۲۳
+[نسخهٔ فارسی تولید PNG شفاف ۵۱۲ پیکسلی](https://ialirezaaa.github.io/hades/fa/library/object-stages/alpha-fixtures/) · [English](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/) · [نمونهٔ مرز سخت SVG](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/HADES_Alpha_hard-edge_REVIEW.svg) · [آلفای چندپله](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/HADES_Alpha_tiered-alpha_REVIEW.svg) · [سایهٔ نرم](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/HADES_Alpha_soft-shadow_REVIEW.svg). نمونه‌ها مصنوعی و بدون لوگو هستند؛ PNG در مرورگر کاربر ساخته می‌شود و به‌صورت فایل باینری جداگانه روی GitHub قرار ندارد. آزمون تصویر واقعی دارای مجوز، چاپ و گوشی OPEN است. تنها #EF4B32 تأیید شده است.
