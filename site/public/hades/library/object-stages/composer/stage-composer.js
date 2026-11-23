@@ -7,9 +7,9 @@ const $=id=>document.getElementById(id);
 const fa=document.body.dataset.lang==="fa";
 const say=(en,faText)=>fa?faText:en;
 const stages={
-"16x9":{w:1920,h:1080,file:"HADES_Object_Stage_16x9_REVIEW.svg"},
-"9x16":{w:1080,h:1920,file:"HADES_Object_Stage_9x16_REVIEW.svg"},
-"1x1":{w:1080,h:1080,file:"HADES_Object_Stage_1x1_REVIEW.svg"}
+"16x9":{w:1920,h:1080,file:"HADES_Object_Stage_16x9_REVIEW.svg",plinth:{"poly":[[550,735],[700,686],[1235,686],[1380,735],[1235,782],[700,782]],"cx":965,"cy":735}},
+"9x16":{w:1080,h:1920,file:"HADES_Object_Stage_9x16_REVIEW.svg",plinth:{"poly":[[290,1380],[410,1340],[670,1340],[790,1380],[670,1430],[410,1430]],"cx":540,"cy":1380}},
+"1x1":{w:1080,h:1080,file:"HADES_Object_Stage_1x1_REVIEW.svg",plinth:{"poly":[[240,730],[405,673],[824,673],[940,730],[824,785],[405,785]],"cx":590,"cy":730}}
 };
 const srcBase="/hades/library/object-stages/";
 const canvas=$("stageCanvas"),ctx=canvas.getContext("2d",{alpha:false});
@@ -26,6 +26,20 @@ else {ctx.fillStyle="#131211";ctx.fillRect(0,0,d.w,d.h);}
 if(subjectImage){const w=d.w*a.scale/100,h=w*subjectImage.naturalHeight/subjectImage.naturalWidth;
 ctx.drawImage(subjectImage,d.w*a.x/100-w/2,d.h*a.y/100-h/2,w,h);}
 if($("guides").checked){ctx.save();ctx.strokeStyle="#EF4B32";ctx.lineWidth=Math.max(2,d.w/640);ctx.setLineDash([d.w/100,d.w/120]);ctx.globalAlpha=.85;ctx.strokeRect(d.w*.1,d.h*.1,d.w*.8,d.h*.8);ctx.restore();}
+if($("plinthGuides").checked){
+ const g=d.plinth;
+ ctx.save();ctx.lineWidth=Math.max(2,d.w/700);
+ ctx.strokeStyle=selected==="9x16"?"#292723":"#E6D9C7";
+ ctx.setLineDash([Math.max(6,d.w/145),Math.max(4,d.w/220)]);
+ ctx.beginPath();g.poly.forEach((v,i)=>i?ctx.lineTo(...v):ctx.moveTo(...v));ctx.closePath();ctx.stroke();
+ ctx.setLineDash([]);ctx.fillStyle="#EF4B32";ctx.beginPath();ctx.arc(g.cx,g.cy,Math.max(5,d.w/140),0,2*Math.PI);ctx.fill();
+ if(subjectImage){
+  const w=d.w*a.scale/100,h=w*subjectImage.naturalHeight/subjectImage.naturalWidth;
+  ctx.strokeStyle="#EF4B32";ctx.setLineDash([Math.max(4,d.w/170),Math.max(3,d.w/240)]);
+  ctx.beginPath();ctx.moveTo(d.w*a.x/100,d.h*a.y/100+h/2);ctx.lineTo(g.cx,g.cy);ctx.stroke();
+ }
+ ctx.restore();
+}
 }
 function bytesBase64(str){const data=new TextEncoder().encode(str);let raw="";for(let i=0;i<data.length;i++)raw+=String.fromCharCode(data[i]);return btoa(raw);}
 function download(blob,name){const href=URL.createObjectURL(blob),a=document.createElement("a");a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),1200);}
@@ -64,6 +78,13 @@ $("positionY").value=String(Math.max(0,Math.min(100,Math.round(y))));
 $("subjectScale").value=String(Math.max(5,Math.min(100,Math.round(scale))));
 refresh();
 }
+function alignBaseToPlinth(){
+ if(!subjectImage){setStatus(say("Load a local subject first.","ابتدا عکس سوژه را اضافه کنید."));return;}
+ const d=stages[selected],g=d.plinth,a=values(),h=d.w*a.scale/100*subjectImage.naturalHeight/subjectImage.naturalWidth;
+ setSliders(g.cx/d.w*100,(g.cy-h/2)/d.h*100,a.scale);
+ $("plinthGuides").checked=true;refresh();
+ setStatus(say("Approximate image rectangle contact; adjust transparent margins manually.","تماس تقریبی کادر تصویر؛ حاشیه‌های شفاف را دستی تنظیم کنید."));
+}
 function svgExport(){
 if(!ready||!stageSource)throw Error("Stage unavailable");
 const d=stages[selected],a=values(),root='http://www.w3.org/2000/svg';
@@ -81,18 +102,21 @@ if(subjectImage){const w=d.w*a.scale/100,h=w*subjectImage.naturalHeight/subjectI
 c.drawImage(subjectImage,d.w*a.x/100-w/2,d.h*a.y/100-h/2,w,h);}
 out.toBlob(b=>{if(b)download(b,file);else setStatus("OPEN: PNG encode failed");},"image/png");}
 function saveSVG(){try{download(new Blob([svgExport()],{type:"image/svg+xml;charset=utf-8"}),"HADES_Object_Stage_Composed_"+selected+"_REVIEW.svg");}catch(e){setStatus("OPEN: "+e.message);}}
-function saveJSON(){const state={status:"PUBLIC REVIEW",ratio:selected,position:values(),sourceFile:stages[selected].file,subjectData:subjectData||null,warning:"Local-only source; this JSON may contain your full private image bytes. Do not upload or share it without permission."};
+function saveJSON(){const state={status:"PUBLIC REVIEW",ratio:selected,position:values(),view:{guides:$("guides").checked,plinthGuides:$("plinthGuides").checked},sourceFile:stages[selected].file,subjectData:subjectData||null,warning:"Local-only source; this JSON may contain your full private image bytes. Do not upload or share it without permission."};
 download(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),"HADES_Object_Stage_Settings_REVIEW.json");}
 async function loadJSON(file){if(!file||file.size>17*1024*1024){setStatus("OPEN: invalid JSON size");return;}
 try{const s=JSON.parse(await file.text());
 if(s.status!=="PUBLIC REVIEW"||!stages[s.ratio]||!s.position||!Number.isFinite(s.position.x)||!Number.isFinite(s.position.y)||!Number.isFinite(s.position.scale))throw Error("Invalid REVIEW settings");
 if(s.subjectData && (!/^data:image\/(png|jpeg|webp);base64,/.test(s.subjectData)||s.subjectData.length>17*1024*1024))throw Error("Invalid subject data");
-if(s.subjectData){const img=new Image();img.src=s.subjectData;await img.decode();subjectImage=img;subjectData=s.subjectData;}else {subjectImage=null;subjectData="";}
+if(s.view && (typeof s.view.guides!=="boolean"||typeof s.view.plinthGuides!=="boolean"))throw Error("Invalid guide settings");
+if(s.subjectData){const img=new Image();img.src=s.subjectData;await img.decode();if(img.naturalWidth*img.naturalHeight>26000000)throw Error("Image too large");subjectImage=img;subjectData=s.subjectData;}else {subjectImage=null;subjectData="";}
+if(s.view){$("guides").checked=s.view.guides;$("plinthGuides").checked=s.view.plinthGuides;}
 $("ratio").value=s.ratio;setSliders(s.position.x,s.position.y,s.position.scale);await changeStage(s.ratio);
 }catch(e){setStatus(say("Settings not loaded: ","بارگذاری تنظیمات انجام نشد: ")+e.message);}}
 $("ratio").addEventListener("change",e=>changeStage(e.target.value));
 $("subjectFile").addEventListener("change",e=>upload(e.target.files[0]));
-["positionX","positionY","subjectScale","guides"].forEach(id=>$(id).addEventListener("input",refresh));
+["positionX","positionY","subjectScale","guides","plinthGuides"].forEach(id=>$(id).addEventListener("input",refresh));
+$("alignBase").addEventListener("click",alignBaseToPlinth);
 $("reset").addEventListener("click",()=>setSliders(50,53,30));
 $("remove").addEventListener("click",()=>{subjectImage=null;subjectData="";$("subjectFile").value="";refresh();});
 $("savePNG").addEventListener("click",savePNG);

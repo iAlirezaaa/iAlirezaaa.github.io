@@ -25,12 +25,12 @@ jobs:
           python - <<'PY'
           import hashlib
           from pathlib import Path
-          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/README_REVIEW.md']
+          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/README_REVIEW.md','library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg']
           for f in files:
               assert (Path('site/public/hades')/f).read_bytes()==(Path('hades')/f).read_bytes(),f
           assert (Path('hades/library/object-stages/HADES_Object_Stage_16x9_REVIEW.svg')).exists()
           assert 'PUBLIC REVIEW' in (Path('hades/library/object-stages/composer/stage-composer.js')).read_text()
-          print('PASS: 4/4 mirrored new files; existing SVG sources referenced, not modified')
+          print('PASS: 5/5 mirrored composer files; existing SVG sources referenced, not modified')
           PY
       - name: Real Chromium 320, 390, 430 EN + FA with exports
         run: |
@@ -74,6 +74,53 @@ jobs:
               await browser.close()
           asyncio.run(check())
           PY
+      - name: New plinth controls, all three ratios, unchanged source and JSON roundtrip
+        run: |
+          python - <<'PY'
+          import asyncio,base64,hashlib,io,json,xml.etree.ElementTree as ET
+          from pathlib import Path
+          from PIL import Image
+          from playwright.async_api import async_playwright
+          async def test():
+            f=io.BytesIO();Image.new('RGBA',(60,90),(239,75,50,220)).save(f,'PNG')
+            async with async_playwright() as p:
+              browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ['en','fa']:
+                path='library/object-stages/composer/' if lang=='en' else 'fa/library/object-stages/composer/'
+                page=await browser.new_page(viewport={'width':430,'height':850},accept_downloads=True)
+                await page.goto('http://127.0.0.1:8765/hades/'+path,wait_until='networkidle')
+                await page.locator('#subjectFile').set_input_files({'name':'fixture.png','mimeType':'image/png','buffer':f.getvalue()})
+                for ratio,size in {'16x9':(1920,1080),'9x16':(1080,1920),'1x1':(1080,1080)}.items():
+                  await page.locator('#ratio').select_option(ratio)
+                  await page.wait_for_function('(r)=>document.querySelector("#ratio").value===r && !document.querySelector("#savePNG").disabled',ratio)
+                  await page.locator('#plinthGuides').check()
+                  await page.locator('#alignBase').click()
+                  assert not await page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                  async with page.expect_download() as dl:await page.locator('#saveSVG').click()
+                  root=ET.parse(await (await dl.value).path()).getroot()
+                  images=list(root.iter('{http://www.w3.org/2000/svg}image'))
+                  assert len(images)==2
+                  original=base64.b64decode(images[0].get('href').split(',',1)[1])
+                  assert hashlib.sha256(original).digest()==hashlib.sha256(Path('hades/library/object-stages/HADES_Object_Stage_'+ratio+'_REVIEW.svg').read_bytes()).digest()
+                  async with page.expect_download() as dl:await page.locator('#savePNG').click()
+                  png=Image.open(await (await dl.value).path());assert png.size==size,(ratio,png.size)
+                  async with page.expect_download() as dl:await page.locator('#saveJSON').click()
+                  saved=json.loads(Path(await (await dl.value).path()).read_text())
+                  assert saved['ratio']==ratio and saved['view']['plinthGuides'] is True
+                  await page.locator('#remove').click()
+                  await page.locator('#plinthGuides').uncheck()
+                  await page.locator('#loadJSON').set_input_files({'name':'settings.json','mimeType':'application/json','buffer':json.dumps(saved).encode()})
+                  await page.wait_for_function('(r)=>document.querySelector("#ratio").value===r && document.querySelector("#plinthGuides").checked && !document.querySelector("#savePNG").disabled',ratio)
+                  assert int(await page.locator('#positionY').input_value())==saved['position']['y']
+                  print('PASS',lang,ratio,'native PNG, exact stage SHA, 2 image layers, JSON restore')
+                  await page.screenshot(path='/tmp/hades-composer-proof/'+lang+'_'+ratio+'_plinth.png',full_page=True)
+                await page.close()
+              ref=await browser.new_page()
+              r=await ref.goto('http://127.0.0.1:8765/hades/library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg')
+              assert r.status==200 and await ref.locator('polygon').count()==3
+              await browser.close()
+          asyncio.run(test())
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -85,7 +132,7 @@ jobs:
           python - <<'PY'
           import hashlib,time,urllib.request
           from pathlib import Path
-          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js']
+          files=['library/object-stages/composer/index.html','fa/library/object-stages/composer/index.html','library/object-stages/composer/stage-composer.js','library/object-stages/composer/HADES_Platform_Geometry_A4_FA_EN_REVIEW.svg']
           errors=[]
           for attempt in range(10):
             errors=[]
@@ -96,7 +143,7 @@ jobs:
                   actual=resp.read()
                   typ=resp.headers.get('Content-Type','')
                   assert resp.status==200,(f,resp.status)
-                  assert (('javascript' in typ or 'text/plain' in typ) if f.endswith('.js') else 'text/html' in typ),(f,typ)
+                  assert (('javascript' in typ or 'text/plain' in typ) if f.endswith('.js') else ('svg+xml' in typ or 'text/plain' in typ) if f.endswith('.svg') else 'text/html' in typ),(f,typ)
                   assert hashlib.sha256(actual).digest()==hashlib.sha256((Path('hades')/f).read_bytes()).digest(),f
               except Exception as ex:errors.append((f,str(ex)))
             if not errors:

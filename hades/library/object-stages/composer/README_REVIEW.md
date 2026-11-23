@@ -12,3 +12,10 @@ The output SVG embeds the exact unchanged background SVG inside an independent i
 - **OPEN:** genuine held-phone checks, real printing, genuine licensed Mikhak, owner FINAL approval, actual rights clearance on user imagery.
 
 Only #EF4B32 is approved. Dark / Bone / Charcoal are working proposals. Classic/Modern are coordinated, not separate brand marks. Pattern01 public REVIEW; Pattern02 PRIVATE; Pattern03 stopped.
+
+## Sourced platform alignment — 2026-11-23 · PUBLIC REVIEW
+New optional preview-only geometry outline and approximate subject photo-bounds base snap. Stage-specific polygon vertices are copied from the original three SVGs; no source files or original logos change. Editable true-size A4 bilingual SVG geometry card included. Guides excluded from both exported PNG and SVG. JSON view flags are restored and old setting JSON files remain supported.
+
+**OPEN:** genuine physical 3D perspective/camera match, actual photos, physical print, native phone 48/96 px and Mikhak licensed source, owner FINAL. Only #EF4B32 approved, neutrals and fonts proposed.
+
+Next: (1) full three-ratio actual Chromium export/JSON readback with public hosted SHA; (2) real device and physical print evaluation with documented observations.
