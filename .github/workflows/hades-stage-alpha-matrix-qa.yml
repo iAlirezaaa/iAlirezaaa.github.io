@@ -1,0 +1,160 @@
+name: HADES stage-alpha compositing matrix / PUBLIC REVIEW real browser + HTTPS
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-stage-alpha-matrix-qa.yml'
+      - 'site/public/hades/library/object-stages/composite-matrix/**'
+      - 'site/public/hades/fa/library/object-stages/composite-matrix/**'
+      - 'hades/library/object-stages/composite-matrix/**'
+      - 'hades/fa/library/object-stages/composite-matrix/**'
+      - 'hades/library/index.html'
+      - 'hades/fa/library/index.html'
+      - 'hades/brand-kit/logo-usage/index.html'
+      - 'hades/fa/brand-kit/logo-usage/index.html'
+permissions:
+  contents: read
+jobs:
+  real-chromium-and-live-host:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install actual Chromium and Pillow
+        run: |
+          python -m pip install playwright==1.56.0 pillow==11.3.0
+          python -m playwright install --with-deps chromium
+      - name: Verify files mirrored and original protected manifest stays outside changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          paths=['library/object-stages/composite-matrix/index.html','fa/library/object-stages/composite-matrix/index.html','library/object-stages/composite-matrix/README_REVIEW.md']
+          for p in paths:
+            src=(Path('site/public/hades')/p).read_bytes()
+            pub=(Path('hades')/p).read_bytes()
+            assert src==pub and b'PUBLIC REVIEW' in src,p
+            assert b'IMG_7187(2)' not in src and b'B3424A5B-3375' not in src
+            print('MIRROR OK',p,hashlib.sha256(src).hexdigest())
+          PY
+      - name: Real six-viewport Chromium plus hosted-source composer PNG/SVG
+        run: |
+          python -m http.server 8765 >/tmp/hades-matrix-server.log 2>&1 &
+          mkdir -p /tmp/hades-stage-matrix-proof
+          python - <<'PY'
+          import asyncio,hashlib,io,urllib.request,time
+          from pathlib import Path
+          from PIL import Image
+          from playwright.async_api import async_playwright
+          base='https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_tiered-alpha_512_REVIEW.png'
+          wanted=Path('hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_tiered-alpha_512_REVIEW.png').read_bytes()
+          remote=None
+          for n in range(15):
+            try:
+              with urllib.request.urlopen(urllib.request.Request(base,headers={'User-Agent':'HADES-Matrix-CI/1'}),timeout=25) as r:
+                assert r.status==200
+                assert 'image/png' in r.headers.get('Content-Type','')
+                remote=r.read()
+              assert hashlib.sha256(remote).digest()==hashlib.sha256(wanted).digest(), 'Hosted fixture differs from repo'
+              break
+            except Exception as e:
+              if n==14: raise
+              time.sleep(10)
+          print('HOSTED FIXTURE HTTP 200 PNG SHA verified, bytes',len(remote))
+          async def run():
+            async with async_playwright() as p:
+              browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ('en','fa'):
+                lead='fa/' if lang=='fa' else ''
+                for width in (320,390,430):
+                  page=await browser.new_page(viewport={'width':width,'height':900},accept_downloads=True)
+                  response=await page.goto('http://127.0.0.1:8765/hades/'+lead+'library/object-stages/composite-matrix/',wait_until='networkidle')
+                  assert response and response.status==200
+                  await page.wait_for_function('document.getElementById("export").disabled===false',timeout=30000)
+                  assert not await page.evaluate('document.documentElement.scrollWidth>window.innerWidth+1'),(lang,width,'overflow')
+                  assert await page.locator('.cell canvas').count()==9
+                  for codec in ('png','webp'):
+                    await page.locator('#codec').select_option(codec)
+                    await page.wait_for_function('document.getElementById("export").disabled===false')
+                    for i in range(9):
+                      assert await page.locator('.cell canvas').nth(i).evaluate('(e)=>e.width===500&&e.height===340')
+                    async with page.expect_download() as ev: await page.locator('#export').click()
+                    item=await ev.value
+                    path=Path('/tmp/hades-stage-matrix-proof')/(lang+'-'+str(width)+'-'+codec+'.png')
+                    await item.save_as(str(path))
+                    with Image.open(path) as im:
+                      assert im.size==(1560,1150) and im.mode in ('RGB','RGBA')
+                      assert len(im.getcolors(maxcolors=10000000) or [])>100
+                    print('PASS MATRIX',lang,width,codec,path.stat().st_size)
+                  await page.screenshot(path='/tmp/hades-stage-matrix-proof/'+lang+'-'+str(width)+'.png',full_page=True)
+                  await page.close()
+              for lang in ('en','fa'):
+                lead='fa/' if lang=='fa' else ''
+                page=await browser.new_page(viewport={'width':390,'height':820},accept_downloads=True)
+                await page.goto('http://127.0.0.1:8765/hades/'+lead+'library/object-stages/composer/',wait_until='networkidle')
+                await page.locator('#subjectFile').set_input_files({'name':'actual-hosted-fixture.png','mimeType':'image/png','buffer':remote})
+                await page.wait_for_function('document.getElementById("alphaInfo").textContent.includes("32") || document.getElementById("alphaInfo").textContent.includes("۳۲")')
+                for ratio,shape in [('16x9',(1920,1080)),('9x16',(1080,1920)),('1x1',(1080,1080))]:
+                  await page.locator('#ratio').select_option(ratio)
+                  await page.wait_for_function('document.getElementById("savePNG").disabled===false')
+                  files=[]
+                  for state in (False,True):
+                    await page.locator('#fringePreview').set_checked(state)
+                    async with page.expect_download() as ev: await page.locator('#savePNG').click()
+                    file=await ev.value
+                    name='/tmp/hades-stage-matrix-proof/composer-'+lang+'-'+ratio+'-'+str(state)+'.png'
+                    await file.save_as(name);files.append(Path(name).read_bytes())
+                    with Image.open(name) as im:
+                      assert im.size==shape
+                  assert hashlib.sha256(files[0]).digest()==hashlib.sha256(files[1]).digest(),(lang,ratio,'preview overlay leaked')
+                  async with page.expect_download() as ev: await page.locator('#saveSVG').click()
+                  f=await ev.value;sv=Path('/tmp/hades-stage-matrix-proof')/('composer-'+lang+'-'+ratio+'.svg')
+                  await f.save_as(str(sv))
+                  source=sv.read_text()
+                  assert 'id="editable-subject"' in source and 'id="unchanged-stage"' in source
+                  print('PASS HOSTED PNG composer',lang,ratio,'native PNG equality and layered SVG')
+                await page.close()
+              await browser.close()
+          asyncio.run(run())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-stage-alpha-matrix-real-chromium-review
+          path: /tmp/hades-stage-matrix-proof/
+          if-no-files-found: ignore
+      - name: Independent deployed GitHub Pages GET HTTP 200 MIME SHA256 for every new file
+        run: |
+          python - <<'PY'
+          import hashlib,time,urllib.request
+          from pathlib import Path
+          targets=[
+           'library/object-stages/composite-matrix/index.html',
+           'fa/library/object-stages/composite-matrix/index.html',
+           'library/object-stages/composite-matrix/README_REVIEW.md',
+           'index.html','fa/index.html','library/index.html','fa/library/index.html',
+           'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
+           'library/object-stages/index.html','fa/library/object-stages/index.html',
+           'downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md']
+          for p in targets:
+            expected=(Path('hades')/p).read_bytes();want=hashlib.sha256(expected).hexdigest()
+            for n in range(15):
+              try:
+                u='https://ialirezaaa.github.io/hades/'+p
+                with urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'HADES-Matrix-Live-QA/1'}),timeout=30) as res:
+                  assert res.status==200,(p,res.status)
+                  mime=res.headers.get('Content-Type','')
+                  assert ('text/html' in mime if p.endswith('.html') else 'text/' in mime),(p,mime)
+                  content=res.read();got=hashlib.sha256(content).hexdigest()
+                  assert got==want,(p,got,want)
+                print('PASS HOSTED 200 MIME SHA256',p,len(content),got)
+                break
+              except Exception:
+                if n==14: raise
+                time.sleep(12)
+          print('ALL',len(targets),'independent public files verified')
+          PY
