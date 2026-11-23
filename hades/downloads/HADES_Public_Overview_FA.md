@@ -30,3 +30,8 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 
 ### 2026-11-23 · برگهٔ ثبت مشاهدهٔ واقعی A4 و گوشی — PUBLIC REVIEW
 [فرم خالی فارسی با فیلدهای قابل‌ویرایش و خروجی JSON](https://ialirezaaa.github.io/hades/fa/library/object-stages/observations/) · [English](https://ialirezaaa.github.io/hades/library/object-stages/observations/) · [SVG برداری A4 با خط ۱۰۰ میلی‌متری](https://ialirezaaa.github.io/hades/library/object-stages/observations/HADES_Physical_Observation_A4_REVIEW.svg). اندازه‌گیری چاپ و خوانایی لوگو در ۴۸/۹۶ پیکسل روی گوشی واقعی هنوز OPEN است؛ هیچ نتیجهٔ شبیه‌سازی‌شده‌ای PASS یا FINAL نیست.
+
+
+## راهنمای تشخیص لبهٔ نیمه‌شفاف — PUBLIC REVIEW · ۲۰۲۶-۱۱-۲۳
+
+[دریافت SVG ویرایش‌پذیر A4 دوزبانه](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Fringe_Diagnostic_A4_FA_EN_REVIEW.svg) · [ویرایشگر فارسی](https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/) · [English](https://ialirezaaa.github.io/hades/library/object-stages/composer/). نمایش لبه‌های آلفا فقط در پیش‌نمایش است، قابل‌خاموش‌کردن است و پیکسل‌ها و خروجی PNG/SVG یا لوگوی اصلی را تغییر نمی‌دهد. فقط #EF4B32 تأیید شده و همهٔ دارایی‌ها REVIEW هستند. آزمون فیزیکی هنوز OPEN است.
