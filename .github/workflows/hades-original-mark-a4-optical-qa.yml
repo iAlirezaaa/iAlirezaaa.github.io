@@ -1,0 +1,113 @@
+name: HADES original-mark A4 optical sheet | Chromium + live HTTPS | REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/public/hades/library/backgrounds/quiet-courts/mark-plate/print-sheet/**'
+      - 'site/public/hades/fa/library/backgrounds/quiet-courts/mark-plate/print-sheet/**'
+      - '.github/workflows/hades-original-mark-a4-optical-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source bytes, A4 print geometry and original provenance
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re,hashlib,base64,xml.etree.ElementTree as ET
+          sub='library/backgrounds/quiet-courts/mark-plate/print-sheet/'
+          file=sub+'HADES_Original_Mark_Print_Optical_A4_FA_EN_PUBLIC_REVIEW.svg'
+          paths=[file,sub+'index.html',sub+'README_REVIEW.md','fa/'+sub+'index.html']
+          for p in paths:
+              a=(Path('site/public/hades')/p).read_bytes()
+              b=(Path('hades')/p).read_bytes()
+              assert a==b,p
+              assert b'REVIEW' in a,p
+              print('PASS MIRROR',p,len(a),hashlib.sha256(a).hexdigest())
+          r=ET.fromstring((Path('hades')/file).read_bytes())
+          assert r.attrib['width']=='297mm' and r.attrib['height']=='210mm'
+          assert r.attrib['viewBox']=='0 0 297 210'
+          ns='{http://www.w3.org/2000/svg}'
+          images=r.findall('.//'+ns+'image')
+          assert len(images)==1,len(images)
+          x=images[0].get('href') or images[0].get('{http://www.w3.org/1999/xlink}href')
+          assert x.startswith('data:image/png;base64,')
+          orig=base64.b64decode(x.split(',',1)[1],validate=True)
+          file_bytes=Path('hades/assets/IMG_7187(2).png').read_bytes()
+          assert orig==file_bytes
+          assert hashlib.sha256(orig).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
+          # Exactly three non-destructive nested viewport crops, not new vector marks.
+          assert len([c for c in r.findall('.//'+ns+'svg') if c.attrib.get('viewBox')=='318 755 444 410'])==3
+          assert len(r.findall('.//'+ns+'use'))==3
+          assert '50 mm calibration' in (Path('hades')/file).read_text()
+          print('PASS A4, 3 real-size plaques, 50mm ruler, byte-exact owner original')
+          PY
+      - name: Install Chromium / Playwright
+        run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Actual six responsive browser tests and SVG screenshot evidence
+        run: |
+          mkdir -p /tmp/hades-original-a4-evidence
+          python -m http.server 8878 >/tmp/hades-a4-optical-http.log 2>&1 &
+          python - <<'PY'
+          import asyncio
+          from playwright.async_api import async_playwright
+          async def main():
+              async with async_playwright() as p:
+                  browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+                  for lang in ('en','fa'):
+                      part=('fa/' if lang=='fa' else '')+'library/backgrounds/quiet-courts/mark-plate/print-sheet/'
+                      for w in (320,390,430):
+                          page=await browser.new_page(viewport={'width':w,'height':890},device_scale_factor=1)
+                          r=await page.goto('http://127.0.0.1:8878/hades/'+part,wait_until='networkidle')
+                          assert r and r.status==200
+                          assert await page.locator('html').get_attribute('lang')==lang
+                          assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth+1'),(lang,w,'overflow')
+                          v=await page.locator('#sheet').evaluate('(e)=>({complete:e.complete,w:e.naturalWidth,h:e.naturalHeight})')
+                          assert v['complete'] and v['w']>1000 and v['h']>700,(lang,w,v)
+                          assert await page.get_by_role('link',name='فارسی' if lang=='en' else 'English').count()>=1
+                          await page.screenshot(path=f'/tmp/hades-original-a4-evidence/{lang}-{w}.png',full_page=True)
+                          await page.close()
+                  await browser.close()
+          asyncio.run(main())
+          print('PASS 6/6 real Chromium responsive; cannot replace human physical print')
+          PY
+      - name: Independently served public HTTP 200, MIME and SHA-256
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import urllib.request,hashlib,time
+          root='library/backgrounds/quiet-courts/mark-plate/print-sheet/'
+          subs=[root, 'fa/'+root, root+'HADES_Original_Mark_Print_Optical_A4_FA_EN_PUBLIC_REVIEW.svg']
+          for sub in subs:
+              path=sub+'index.html' if sub.endswith('/') else sub
+              expected=(Path('hades')/path).read_bytes()
+              last=None
+              for attempt in range(16):
+                  try:
+                      req=urllib.request.Request('https://ialirezaaa.github.io/hades/'+sub,headers={'User-Agent':'HADES-optical-PUBLIC-REVIEW/1'})
+                      with urllib.request.urlopen(req,timeout=22) as r:
+                          assert r.status==200,(sub,r.status)
+                          mime=r.headers.get('Content-Type','')
+                          assert ('image/svg+xml' if sub.endswith('.svg') else 'text/html') in mime,(sub,mime)
+                          actual=r.read()
+                      assert hashlib.sha256(actual).digest()==hashlib.sha256(expected).digest(),sub
+                      print('PASS LIVE 200 MIME SHA256',sub,len(actual))
+                      break
+                  except Exception as exc:
+                      last=exc
+                      if attempt==15: raise RuntimeError(f'OPEN LIVE {sub}: {last}')
+                      time.sleep(15)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Original-A4-Actual-Chromium-REVIEW
+          path: /tmp/hades-original-a4-evidence
+          if-no-files-found: ignore
