@@ -57,12 +57,18 @@ jobs:
                       if codec=='webp':assert m['metrics']['max']==0,m
                       else:assert m['metrics']['changed']>0,m
                       print(lang,width,scene,codec,m['metrics'],flush=True)
+                  await page.locator('#edge-focus').screenshot(path=f'/tmp/hades-edge-proof/{lang}-{width}-focus.png')
+                  await page.select_option('#focus-size','128')
+                  assert await page.locator('#focus-reference').evaluate('(c)=>c.width')==128
+                  await page.locator('#reference').click(position={'x':20,'y':20})
+                  assert await page.locator('#focus-reference').evaluate('(c)=>c.width')==128
                   await page.select_option('#focus-size','32')
                   await page.locator('#focus-x').fill('0')
                   await page.locator('#focus-x').dispatch_event('change')
                   await page.locator('#focus-y').fill('0')
                   await page.locator('#focus-y').dispatch_event('change')
                   assert await page.locator('#focus-reference').evaluate('(c)=>c.width')==32
+                  assert ('No reference edge' in await page.locator('#focus-status').inner_text()) if lang=='en' else ('لبه‌ای' in await page.locator('#focus-status').inner_text())
                   assert await page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
                   await page.screenshot(path=f'/tmp/hades-edge-proof/{lang}-{width}.png',full_page=True)
                   await page.close()
