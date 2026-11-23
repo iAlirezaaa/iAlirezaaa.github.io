@@ -50,9 +50,20 @@ jobs:
                       await dl.save_as(path)
                       m=json.loads(path.read_text())
                       assert m['codec']==codec and m['metrics']['pixels']>100000
+                      e=m['edgeFocus']; assert e['metrics']['edgePixels']>0 and e['wholePlaqueEdgeMetrics']['edgePixels']>0,e
+                      assert e['nativeRect'][2:]==[64,64],e
+                      assert await page.locator('#focus-coords').get_attribute('dir')=='ltr'
+                      if codec=='webp': assert e['metrics']['max']==0 and e['wholePlaqueEdgeMetrics']['max']==0,e
                       if codec=='webp':assert m['metrics']['max']==0,m
                       else:assert m['metrics']['changed']>0,m
                       print(lang,width,scene,codec,m['metrics'],flush=True)
+                  await page.select_option('#focus-size','32')
+                  await page.locator('#focus-x').fill('0')
+                  await page.locator('#focus-x').dispatch_event('change')
+                  await page.locator('#focus-y').fill('0')
+                  await page.locator('#focus-y').dispatch_event('change')
+                  assert await page.locator('#focus-reference').evaluate('(c)=>c.width')==32
+                  assert await page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
                   await page.screenshot(path=f'/tmp/hades-edge-proof/{lang}-{width}.png',full_page=True)
                   await page.close()
               await b.close()
@@ -69,7 +80,7 @@ jobs:
           import hashlib,urllib.request,time
           from pathlib import Path
           base='library/backgrounds/quiet-courts/mark-plate/ratios/'
-          files=[base+'edge-lab/index.html','fa/'+base+'edge-lab/index.html',base+'edge-lab/edge-lab.js',base+'index.html','fa/'+base+'index.html']
+          files=[base+'edge-lab/index.html','fa/'+base+'edge-lab/index.html',base+'edge-lab/edge-lab.js',base+'edge-lab/edge-focus.js',base+'index.html','fa/'+base+'index.html']
           for f in files:
             p=Path('hades')/f
             assert p.read_bytes()==(Path('site/public/hades')/f).read_bytes(),f
@@ -87,5 +98,5 @@ jobs:
             if not errors:break
             time.sleep(12)
           assert not errors,errors
-          print('PASS live independent HTTP 200 MIME SHA256 5/5')
+          print('PASS live independent HTTP 200 MIME SHA256 6/6')
           PY
