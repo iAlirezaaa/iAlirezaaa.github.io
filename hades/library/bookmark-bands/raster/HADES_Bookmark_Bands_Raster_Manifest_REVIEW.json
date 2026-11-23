@@ -1,0 +1,57 @@
+{
+  "title": "HADES Architectural Bookmark Bands / A4 FA & EN",
+  "state": "PUBLIC REVIEW — NOT FINAL",
+  "approved_signature_color": "#EF4B32",
+  "supporting_colors_fonts": "PROPOSED ONLY",
+  "original_owner_png_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+  "original_svg_provenance": {
+    "HADES_Bookmark_Bands_A4_EN_REVIEW.svg": {
+      "sha256": "1a52a98b045dc348603e19811ab5ce6c89307c6717432f3498208b7fb17da593",
+      "original_owner_png_embeddings": 1
+    },
+    "HADES_Bookmark_Bands_A4_FA_REVIEW.svg": {
+      "sha256": "cd46b88c848790a065f2acb4cb19cd5283134ce01edea9a5ed54179a17c1e660",
+      "original_owner_png_embeddings": 1
+    }
+  },
+  "files": {
+    "HADES_Bookmark_Bands_A4_EN_REVIEW.png": {
+      "sha256": "d4d7974225ed8cb974be6089ff39fae98d418b95c4ab7d6a2a3b0437973376d6",
+      "bytes": 42924
+    },
+    "HADES_Bookmark_Bands_A4_FA_REVIEW.png": {
+      "sha256": "8ef6ef3cb8a32f09c69c6fe08e1747f567813e534ce2603c9dbf22da2fbdd069",
+      "bytes": 37145
+    },
+    "HADES_Bookmark_Bands_A4_EN_REVIEW.webp": {
+      "sha256": "f23b7f348aa1b4cfbd5aa9f935f52908684910b6ab2af9eb592bd1cb9ef0ea5a",
+      "bytes": 24134
+    },
+    "HADES_Bookmark_Bands_A4_FA_REVIEW.webp": {
+      "sha256": "969ffdec4fe2abfe56ebc13503ff1db11dce608121c5f40610375b6b1d10e0ec",
+      "bytes": 22100
+    },
+    "HADES_Bookmark_Bands_A4_EN_REVIEW.pdf": {
+      "sha256": "a92d1910e623beb8cdce191733eb83b213501bd77377fe271ce933d4293d8f00",
+      "bytes": 31705
+    },
+    "HADES_Bookmark_Bands_A4_FA_REVIEW.pdf": {
+      "sha256": "4ba34940a79b69cb6334da20b078915e79469fa8538e58ae749c590f8be0c1c7",
+      "bytes": 31928
+    },
+    "HADES_Bookmark_Bands_A4_EN_REVIEW.svg": {
+      "sha256": "1a52a98b045dc348603e19811ab5ce6c89307c6717432f3498208b7fb17da593",
+      "bytes": 57162
+    },
+    "HADES_Bookmark_Bands_A4_FA_REVIEW.svg": {
+      "sha256": "cd46b88c848790a065f2acb4cb19cd5283134ce01edea9a5ed54179a17c1e660",
+      "bytes": 57406
+    }
+  },
+  "open": [
+    "physical phone recognition 48/96px",
+    "A4 ruler measurement on paper",
+    "licensed authentic Mikhak",
+    "owner FINAL authorization"
+  ]
+}
