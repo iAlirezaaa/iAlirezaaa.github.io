@@ -102,7 +102,7 @@ jobs:
               text=await page.locator('svg text').evaluate_all('''e=>e.map(t=>{const b=t.getBBox();return {x:b.x,y:b.y,r:b.x+b.width,b:b.y+b.height,s:t.textContent}})''')
               bad=[t for t in text if t['x']<11 or t['r']>199 or t['y']<11 or t['b']>287]
               assert not bad,bad
-              await page.screenshot(path='/tmp/hades-alpha-proofs/a4_bilingual.svg.png',full_page=True)
+              # Direct SVG was decoded and text bbox checked; Chromium SVG full-page screenshot can deadlock on Linux. Six actual HTML viewport screenshots remain archived.
               await b.close()
               print('PASS actual editable SVG opened in Chromium with margins')
           asyncio.run(main())
