@@ -76,3 +76,7 @@ Binary SHA-256 manifest: https://ialirezaaa.github.io/hades/library/backgrounds/
 
 ### Native raster originals-on-plaque · three ratios · PUBLIC REVIEW
 Nine native-resolution PNG/JPEG/WebP applied-background files (16:9, 9:16, 1:1) using the untouched owner-supplied white logo within separate dark plaques. Not official logo masters; real-device and print tests OPEN. [Gallery](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/) · [ZIP PUBLIC REVIEW](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/raster/HADES_Original_Mark_Plaques_3_Ratios_9_Rasters_PUBLIC_REVIEW.zip).
+
+
+### Raster edge lab · PUBLIC REVIEW
+Compare native PNG plaque crops against JPEG/WebP and download measured JSON. Human/print tests OPEN. [Open lab](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/edge-lab/).

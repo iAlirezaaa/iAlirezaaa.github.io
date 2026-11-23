@@ -76,3 +76,7 @@ Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINA
 
 ### خروجی‌های PNG/JPEG/WebP پلاکِ نشان در سه نسبت · PUBLIC REVIEW
 تصاویر PNG/JPEG/WebP با ابعاد اصلی ۱۶:۹، ۹:۱۶ و ۱:۱ و نشان اصلی بدون تغییر. فایل‌های ترکیبی رسمی لوگو نیستند؛ چاپ/گوشی واقعی OPEN. [گالری](/hades/fa/library/backgrounds/quiet-courts/mark-plate/ratios/) · [ZIP PUBLIC REVIEW](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/raster/HADES_Original_Mark_Plaques_3_Ratios_9_Rasters_PUBLIC_REVIEW.zip).
+
+
+### Raster edge lab · PUBLIC REVIEW
+مقایسهٔ عددی برش پلاک PNG با JPEG و WebP و دانلود JSON؛ آزمون انسانی و چاپ OPEN. [آزمایشگاه](/hades/fa/library/backgrounds/quiet-courts/mark-plate/ratios/edge-lab/).
