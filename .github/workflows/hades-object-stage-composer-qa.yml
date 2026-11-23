@@ -53,8 +53,8 @@ jobs:
                   await page.wait_for_function('!document.getElementById("savePNG").disabled')
                   assert not await page.evaluate('document.documentElement.scrollWidth>innerWidth+1'),(lang,width,'overflow')
                   await page.locator('#subjectFile').set_input_files({'name':'local-object.png','mimeType':'image/png','buffer':raw})
-                  await page.locator('#positionX').fill('65')
-                  await page.locator('#subjectScale').fill('28')
+                  await page.locator('#positionX').evaluate('(e)=>{e.value="65";e.dispatchEvent(new Event("input",{bubbles:true}))}')
+                  await page.locator('#subjectScale').evaluate('(e)=>{e.value="28";e.dispatchEvent(new Event("input",{bubbles:true}))}')
                   async with page.expect_download() as ev:
                     await page.locator('#saveSVG').click()
                   svg=await (await ev.value).path()
