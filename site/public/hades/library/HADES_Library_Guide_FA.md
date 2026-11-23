@@ -36,3 +36,9 @@ SVG طرح حاوی متن و ساختار وکتوری قابل‌ویرایش 
 ## استیج نمایش اشیا · PUBLIC REVIEW
 
 سه SVG بدون لوگو در نسبت‌های ۱۶:۹، ۹:۱۶ و ۱:۱. رنگ‌های خنثی پیشنهادی هستند؛ Mikhak، تست فیزیکی و FINAL باز مانده‌اند. [دانلود و پیش‌نمایش](/hades/fa/library/object-stages/).
+
+
+### راهنمای جایگاه سوژه · A4 / PUBLIC REVIEW (2026-11-23)
+
+- [صفحهٔ راهنما](/hades/fa/library/object-stages/placement/) · [دریافت فایل SVG دوزبانهٔ A4](/hades/library/object-stages/placement/HADES_Object_Stages_Subject_Placement_A4_REVIEW.svg)
+- راهنمای سه نسبت ۱۶:۹، ۹:۱۶ و ۱:۱ با حاشیه و محدودهٔ سوژهٔ پیشنهادی و خط واقعی برداری ۵۰ میلی‌متر. فایل بدون لوگو و اطلاعات مشتری است. چاپ واقعی، گوشی واقعی، Mikhak و FINAL همچنان OPEN.
