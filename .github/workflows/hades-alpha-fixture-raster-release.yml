@@ -1,0 +1,112 @@
+name: HADES alpha fixture raster binary release / PUBLIC REVIEW
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-alpha-fixture-raster-release.yml'
+      - 'hades/library/object-stages/alpha-fixtures/HADES_Alpha_*_REVIEW.svg'
+permissions:
+  contents: write
+concurrency:
+  group: hades-alpha-fixture-raster-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install tested binary raster encoders
+        run: python -m pip install cairosvg==2.8.2 pillow==11.3.0
+      - name: Render 3 exact SVG assets to 3 PNG + 3 WebP + 3 JPEG with SHA manifest and ZIP
+        run: |
+          python - <<'PY'
+          import hashlib,io,json,zipfile
+          from pathlib import Path
+          from PIL import Image
+          import cairosvg
+          base=Path('hades/library/object-stages/alpha-fixtures')
+          served=Path('site/public/hades/library/object-stages/alpha-fixtures')
+          d=base/'raster';d.mkdir(parents=True,exist_ok=True)
+          metas=[('hard-edge','#131211'),('tiered-alpha','#E6D9C7'),('soft-shadow','#292723')]
+          binary=[]
+          for slug,bg in metas:
+            svg=base/f'HADES_Alpha_{slug}_REVIEW.svg'
+            assert svg.read_bytes()==(served/svg.name).read_bytes(),slug
+            png=cairosvg.svg2png(bytestring=svg.read_bytes(),output_width=512,output_height=512)
+            im=Image.open(io.BytesIO(png)).convert('RGBA')
+            assert im.size==(512,512)
+            assert im.getchannel('A').getextrema()==(0,255)
+            assert any(0<x<255 for x in im.getchannel('A').getdata()) or slug=='hard-edge'
+            out=d/f'HADES_Alpha_{slug}_512_REVIEW.png';im.save(out,format='PNG',optimize=True)
+            web=d/f'HADES_Alpha_{slug}_512_REVIEW.webp';im.save(web,format='WEBP',lossless=True,method=6)
+            backdrop=Image.new('RGBA',im.size,bg);backdrop.alpha_composite(im)
+            jpg=d/f'HADES_Alpha_{slug}_512_REVIEW.jpg';backdrop.convert('RGB').save(jpg,format='JPEG',quality=93,subsampling=0,optimize=True)
+            for f in [out,web,jpg]:
+              with Image.open(f) as check:
+                assert check.size==(512,512)
+                if f.suffix in ('.png','.webp'):assert check.mode=='RGBA'
+              binary.append(f)
+            print('PASS real raster',slug,'RGBA PNG and WebP + proposed-background JPEG')
+          readme=d/'README_REVIEW.md'
+          readme.write_text('# PUBLIC REVIEW · Synthetic transparent-alpha raster pack\n\n3 geometry-only SVG source files plus 3 transparent PNG / 3 lossless alpha WebP / 3 composited JPEG. JPEG surfaces: Dark #131211, Mammoth Bone #E6D9C7, Charcoal #292723 (all proposals). Only signature vermilion #EF4B32 is owner-approved. No new logo, no private or client asset, not a photograph, not FINAL.\n\nChrome PNG exported locally from the online lab can vary in anti-alias pixels from this offline CairoSVG export. A 512x512 fixture is not a responsive or physical-accuracy proof.\n',encoding='utf-8')
+          sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+          manifest=d/'HADES_Alpha_Fixtures_Raster_SHA256_REVIEW.json'
+          manifest.write_text(json.dumps({'status':'PUBLIC REVIEW','approval':'NOT FINAL','size':[512,512],'generatedFrom':'three preserved public SVG sources','items':[{'name':f.name,'bytes':f.stat().st_size,'sha256':sha(f)} for f in binary]},indent=2)+'\n',encoding='utf-8')
+          zipf=d/'HADES_Alpha_Fixtures_3_Sources_9_Rasters_PUBLIC_REVIEW.zip'
+          with zipfile.ZipFile(zipf,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=7) as z:
+            for f in [base/f'HADES_Alpha_{slug}_REVIEW.svg' for slug,_ in metas]+binary+[readme,manifest]:
+              info=zipfile.ZipInfo(f.name,date_time=(2026,1,1,0,0,0))
+              info.compress_type=zipfile.ZIP_DEFLATED
+              z.writestr(info,f.read_bytes())
+          with zipfile.ZipFile(zipf) as z:
+            assert z.testzip() is None
+            assert len(z.namelist())==14
+          for f in binary+[readme,manifest,zipf]:
+            dst=served/'raster'/f.name;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(f.read_bytes())
+            assert f.read_bytes()==dst.read_bytes()
+          print('PASS 12 mirrored raster/pack files, ZIP 14 members')
+          PY
+      - name: Commit actual binaries to BOTH public GitHub trees
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hades/library/object-stages/alpha-fixtures/raster site/public/hades/library/object-stages/alpha-fixtures/raster
+          if git diff --cached --quiet; then echo 'No binary changes'; else
+            git commit -m 'release(hades): publish real synthetic alpha PNG WebP JPEG ZIP binaries (REVIEW)'
+            git push origin HEAD:main
+          fi
+          git rev-parse HEAD
+      - name: Independently verify live Pages GET 200 MIME and binary SHA-256
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import time,urllib.request,hashlib
+          local=Path('hades/library/object-stages/alpha-fixtures/raster')
+          files=sorted(p for p in local.iterdir() if p.is_file())
+          for attempt in range(12):
+            errors=[]
+            for f in files:
+              try:
+                u='https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/'+f.name
+                with urllib.request.urlopen(urllib.request.Request(u,headers={'Cache-Control':'no-cache','User-Agent':'HADES-Raster-QA/1'}),timeout=20) as resp:
+                  assert resp.status==200
+                  mime=resp.headers.get('Content-Type','').lower()
+                  suffix=f.suffix
+                  check={'png':'image/png','webp':'image/webp','jpg':'image/jpeg','zip':'zip','json':'json'}.get(suffix[1:])
+                  if suffix=='.md':assert mime.startswith('text/')
+                  elif check:assert check in mime,(f.name,mime)
+                  assert hashlib.sha256(f.read_bytes()).digest()==hashlib.sha256(resp.read()).digest(),f.name
+              except Exception as e:errors.append((f.name,str(e)))
+            if not errors:break
+            print('Retry',attempt,errors[:3])
+            time.sleep(15)
+          assert not errors,errors
+          print('PASS',len(files),'independent hosted HTTP 200 MIME SHA-256 exact bytes, not inferred from CI build')
+          PY
