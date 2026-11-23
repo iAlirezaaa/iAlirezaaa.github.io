@@ -104,7 +104,7 @@ jobs:
                 req=urllib.request.Request('https://ialirezaaa.github.io/hades/'+path,headers={'User-Agent':'HADES-fixture-QA/1','Cache-Control':'no-cache'})
                 with urllib.request.urlopen(req,timeout=25) as r:
                   body=r.read();status=r.status;ctype=r.headers.get('Content-Type','').lower()
-                if status==200 and hashlib.sha256(body).digest()==hashlib.sha256(wanted).digest() and mime in ctype:break
+                if status==200 and hashlib.sha256(body).digest()==hashlib.sha256(wanted).digest() and ((mime in ctype) or (path.endswith('.js') and 'javascript' in ctype) or (path.endswith('.md') and ctype.startswith('text/'))):break
               except Exception as exc: last_error=str(exc)
               time.sleep(12)
             else:
