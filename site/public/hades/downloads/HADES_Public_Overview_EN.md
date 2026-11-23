@@ -67,3 +67,8 @@ Binary SHA-256 manifest: https://ialirezaaa.github.io/hades/library/backgrounds/
 ## 2026-11-23 · Quiet Courts · exact owner-white-raster / detached dark plaque · PUBLIC REVIEW
 
 [Editable standalone SVG and micro-size review](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/) · [فارسی](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/mark-plate/) · [SVG](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/HADES_Bone_Original_White_Mark_Detached_Plaque_PUBLIC_REVIEW.svg). Exact unchanged owner PNG is embedded; only a reversible display clipping viewport conceals black unused margins. Physical validation remains OPEN.
+
+
+## 2026-11-23 · Original white mark A4 optical observation / PUBLIC REVIEW
+
+[Editable A4 true-size print sheet and observation form](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/print-sheet/) · [SVG](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/print-sheet/HADES_Original_Mark_Print_Optical_A4_FA_EN_PUBLIC_REVIEW.svg). Original logo bytes intact, separate dark plaques at 18/27/38 mm, 50 mm calibration rule, blank observations. Actual printer / 48–96px human phone test / Mikhak / FINAL: OPEN.

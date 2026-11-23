@@ -67,3 +67,8 @@ Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINA
 ## 2026-11-23 · Quiet Courts · exact owner-white-raster / detached dark plaque · PUBLIC REVIEW
 
 [نمونهٔ وکتوری قابل ویرایش و آزمون ۴۸/۹۶ پیکسل](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/mark-plate/) · [English](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/) · [SVG مستقل](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/HADES_Bone_Original_White_Mark_Detached_Plaque_PUBLIC_REVIEW.svg). اصل تصویر لوگو بدون تغییر و همراه با برش نمایشیِ غیرمخربِ حاشیه‌های سیاه بر پلاک مستقل قرار گرفته است؛ تأیید فیزیکی OPEN.
+
+
+## 2026-11-23 · Original white mark A4 optical observation / PUBLIC REVIEW
+
+[برگهٔ A4 قابل‌ویرایش و آزمون چاپ](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/mark-plate/print-sheet/) · [SVG](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/print-sheet/HADES_Original_Mark_Print_Optical_A4_FA_EN_PUBLIC_REVIEW.svg). Original logo bytes intact, separate dark plaques at 18/27/38 mm, 50 mm calibration rule, blank observations. Actual printer / 48–96px human phone test / Mikhak / FINAL: OPEN.
