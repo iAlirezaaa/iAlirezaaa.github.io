@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297" role="img" aria-label="HADES A4 bilingual alpha threshold study, printable and editable, PUBLIC REVIEW">
+<title>HADES — Optical Alpha Threshold Study / راهنمای آستانهٔ آلفا · PUBLIC REVIEW</title>
+<desc>Editable vector study on neutral proposed colors. Three illustrative alpha-edge conditions, not photographed results. 100 mm print-calibration path. No logos or real private imagery.</desc>
+<rect width="210" height="297" fill="#E6D9C7"/>
+<rect x="9" y="9" width="192" height="279" fill="none" stroke="#292723" stroke-width=".25"/>
+<g font-family="Arial, Tahoma, sans-serif" font-weight="400" fill="#292723">
+<text x="17" y="22" font-size="4.4" letter-spacing=".8">HADES  /  STAGE COMPOSER  /  OPTICAL STUDIES</text>
+<text x="17" y="36" font-size="9">Alpha Threshold / Visible Bounds</text>
+<text x="17" y="44" font-size="3.1">PUBLIC REVIEW  ·  editable vector A4  ·  illustrative geometry only</text>
+<text x="193" y="55" font-size="4.8" text-anchor="end" direction="rtl" unicode-bidi="plaintext">راهنمای آستانهٔ آلفا و محدودهٔ دیداری</text>
+<text x="193" y="62" font-size="3.2" text-anchor="end" direction="rtl" unicode-bidi="plaintext">سه آستانهٔ پیشنهادی برای بررسی لبهٔ تصاویر شفاف</text>
+</g>
+<line x1="17" y1="69" x2="193" y2="69" stroke="#292723" stroke-width=".3"/>
+<g font-family="Arial, Tahoma, sans-serif" fill="#292723" font-weight="400">
+<text x="17" y="78" font-size="3.6">LOW / 08</text><text x="193" y="78" font-size="3.4" text-anchor="end" direction="rtl">لبه‌های ضعیف نیز محاسبه می‌شوند</text>
+<text x="17" y="137" font-size="3.6">DEFAULT / 32</text><text x="193" y="137" font-size="3.4" text-anchor="end" direction="rtl">مرزهای کمرنگ ممکن است حذف شوند</text>
+<text x="17" y="196" font-size="3.6">HIGH / 160</text><text x="193" y="196" font-size="3.4" text-anchor="end" direction="rtl">فقط ناحیهٔ پُرآلفاتر محاسبه می‌شود</text>
+</g>
+<g stroke="#292723" stroke-width=".25" fill="none">
+<rect x="17" y="82" width="176" height="49"/><rect x="17" y="141" width="176" height="49"/><rect x="17" y="200" width="176" height="49"/>
+</g>
+<g transform="translate(105 106)">
+<rect x="-33" y="-17" width="66" height="34" rx="2" fill="#292723" opacity=".035"/>
+<rect x="-28" y="-15" width="56" height="30" rx="2" fill="#292723" opacity=".09"/>
+<rect x="-23" y="-12" width="46" height="24" rx="1" fill="#292723" opacity=".34"/>
+<rect x="-18" y="-9" width="36" height="18" fill="#292723" opacity=".96"/>
+<rect x="-33" y="-17" width="66" height="34" fill="none" stroke="#EF4B32" stroke-width=".65" stroke-dasharray="2 1"/>
+</g>
+<g transform="translate(105 165)">
+<rect x="-33" y="-17" width="66" height="34" rx="2" fill="#292723" opacity=".035"/>
+<rect x="-28" y="-15" width="56" height="30" rx="2" fill="#292723" opacity=".09"/>
+<rect x="-23" y="-12" width="46" height="24" rx="1" fill="#292723" opacity=".34"/>
+<rect x="-18" y="-9" width="36" height="18" fill="#292723" opacity=".96"/>
+<rect x="-23" y="-12" width="46" height="24" fill="none" stroke="#EF4B32" stroke-width=".65" stroke-dasharray="2 1"/>
+</g>
+<g transform="translate(105 224)">
+<rect x="-33" y="-17" width="66" height="34" rx="2" fill="#292723" opacity=".035"/>
+<rect x="-28" y="-15" width="56" height="30" rx="2" fill="#292723" opacity=".09"/>
+<rect x="-23" y="-12" width="46" height="24" rx="1" fill="#292723" opacity=".34"/>
+<rect x="-18" y="-9" width="36" height="18" fill="#292723" opacity=".96"/>
+<rect x="-18" y="-9" width="36" height="18" fill="none" stroke="#EF4B32" stroke-width=".65" stroke-dasharray="2 1"/>
+</g>
+<g fill="#292723" font-family="Arial, Tahoma, sans-serif" font-weight="400">
+<text x="17" y="258" font-size="2.95">Illustration, not sampled photo. Source image is never uploaded. Guides excluded from exports.</text>
+<text x="193" y="265" font-size="2.95" text-anchor="end" direction="rtl">تصویر شماتیک است، نه تست واقعی؛ خطوط راهنما وارد خروجی نمی‌شوند.</text>
+<text x="17" y="273" font-size="3.1">Print calibration / 100 mm — actual-size printing only (100%)</text>
+<text x="17" y="284" font-size="2.9">#EF4B32 owner-approved; neutral colors / font unapproved. No final logo art.</text>
+</g>
+<path d="M17 278 L117 278 M17 276.4 L17 279.6 M117 276.4 L117 279.6" fill="none" stroke="#292723" stroke-width=".35"/>
+</svg>

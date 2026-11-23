@@ -22,3 +22,7 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 ### راهنمای محدودهٔ دیداری آلفا — PUBLIC REVIEW
 
 [دریافت SVG ویرایش‌پذیر A4 دو‌زبانه](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Bounds_A4_FA_EN_REVIEW.svg) · [ویرایشگر محلی فارسی](https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/). فایل تصویری به سرور ارسال نمی‌شود؛ تراز سیلویت تخمینی است، نه تشخیص واقعی تماس با زمین.
+
+
+### 2026-11-23 · Adjustable alpha threshold — PUBLIC REVIEW
+ویرایشگر محلی اکنون آستانهٔ آلفای ۱ تا ۲۵۴ را برای تراز حدود دیداری تصویر انتخاب می‌کند؛ مقدار در JSON ذخیره می‌شود. [A4 FA/EN editable optical study](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Threshold_A4_FA_EN_REVIEW.svg) · [Composer](https://ialirezaaa.github.io/hades/fa/library/object-stages/composer/). REVIEW only; print/phone tests OPEN.

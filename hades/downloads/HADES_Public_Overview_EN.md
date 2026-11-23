@@ -22,3 +22,7 @@ Public sources: https://github.com/iAlirezaaa
 ### Visible-alpha bounds guide — PUBLIC REVIEW
 
 [Download editable bilingual A4 SVG](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Bounds_A4_FA_EN_REVIEW.svg) · [Local English composer](https://ialirezaaa.github.io/hades/library/object-stages/composer/). Local subject pixels are not uploaded; silhouette bottom is optical guidance, not physical floor-contact detection.
+
+
+### 2026-11-23 · Adjustable alpha threshold — PUBLIC REVIEW
+The local stage composer now supports an adjustable 1–254 alpha cutoff, included in reversible JSON settings. [A4 FA/EN editable optical study](https://ialirezaaa.github.io/hades/library/object-stages/composer/HADES_Alpha_Threshold_A4_FA_EN_REVIEW.svg) · [Composer](https://ialirezaaa.github.io/hades/library/object-stages/composer/). REVIEW only; print/phone tests OPEN.
