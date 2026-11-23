@@ -1,0 +1,75 @@
+{
+  "status": "PASS — PUBLIC REVIEW, NOT FINAL",
+  "verified_at_utc": "2026-11-23T00:35:16.831527+00:00",
+  "release_commit": "bde7442401940d53e9e2a582a0995fc9e86f91a1",
+  "test": "Independent GitHub Pages HTTP 200, exact MIME, SHA-256 byte verification",
+  "checked_count": 9,
+  "checks": [
+    {
+      "file": "HADES_Bookmark_Bands_A4_EN_REVIEW.pdf",
+      "http": 200,
+      "mime": "application/pdf",
+      "bytes": 31705,
+      "sha256": "a92d1910e623beb8cdce191733eb83b213501bd77377fe271ce933d4293d8f00"
+    },
+    {
+      "file": "HADES_Bookmark_Bands_A4_EN_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 42924,
+      "sha256": "d4d7974225ed8cb974be6089ff39fae98d418b95c4ab7d6a2a3b0437973376d6"
+    },
+    {
+      "file": "HADES_Bookmark_Bands_A4_EN_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 24134,
+      "sha256": "f23b7f348aa1b4cfbd5aa9f935f52908684910b6ab2af9eb592bd1cb9ef0ea5a"
+    },
+    {
+      "file": "HADES_Bookmark_Bands_A4_FA_REVIEW.pdf",
+      "http": 200,
+      "mime": "application/pdf",
+      "bytes": 31928,
+      "sha256": "4ba34940a79b69cb6334da20b078915e79469fa8538e58ae749c590f8be0c1c7"
+    },
+    {
+      "file": "HADES_Bookmark_Bands_A4_FA_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 37145,
+      "sha256": "8ef6ef3cb8a32f09c69c6fe08e1747f567813e534ce2603c9dbf22da2fbdd069"
+    },
+    {
+      "file": "HADES_Bookmark_Bands_A4_FA_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 22100,
+      "sha256": "969ffdec4fe2abfe56ebc13503ff1db11dce608121c5f40610375b6b1d10e0ec"
+    },
+    {
+      "file": "HADES_Bookmark_Bands_A4_PDF_PNG_WEBP_SVG_REVIEW.zip",
+      "http": 200,
+      "mime": "application/x-zip-compressed",
+      "bytes": 177052,
+      "sha256": "9f67137b01bf638d947efaccb7fec87c71879bd3cde418a5c6d2593255702358"
+    },
+    {
+      "file": "HADES_Bookmark_Bands_Raster_Manifest_REVIEW.json",
+      "http": 200,
+      "mime": "application/json",
+      "bytes": 2138,
+      "sha256": "6d5bb272cd345f0c09f36625300bc559951b3715fe5e5a51af6a3bf9c7e72048"
+    },
+    {
+      "file": "README_REVIEW.txt",
+      "http": 200,
+      "mime": "text/plain",
+      "bytes": 605,
+      "sha256": "2ecac161378c1b27bce50971b1995f7ebbefdd42168296025efdb3bda7226a51"
+    }
+  ],
+  "physical_print": "OPEN",
+  "real_phone_48_96px": "OPEN",
+  "mikhak_file": "OPEN"
+}
