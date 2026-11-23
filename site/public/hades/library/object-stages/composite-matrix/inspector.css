@@ -1,0 +1,18 @@
+/* Stage × Alpha accessible 9-panel inspector. Supporting swatches REVIEW. */
+.panel-inspect-trigger{width:100%;padding:7px 9px;margin-top:6px;min-height:38px;font:400 12px/1.5 system-ui,Tahoma,Arial,sans-serif;color:#E6D9C7;background:#292723;border:1px solid #8b7868;cursor:pointer}
+.panel-inspect-trigger:hover{border-color:#EF4B32}
+.panel-inspect-trigger:focus-visible,.hades-panel-inspector button:focus-visible,.hades-panel-inspector input:focus-visible{outline:2px solid #EF4B32;outline-offset:2px}
+.hades-panel-inspector{box-sizing:border-box;width:min(930px,calc(100vw - 16px));max-width:930px;max-height:calc(100dvh - 16px);padding:clamp(12px,2vw,26px);margin:auto;background:#131211;color:#E6D9C7;border:1px solid #8b7868;box-shadow:0 15px 70px #080706c0;font:400 14px/1.6 system-ui,Tahoma,Arial,sans-serif}
+.hades-panel-inspector::backdrop{background:#080706d9}
+.hades-panel-inspector .inspector-head{display:flex;justify-content:space-between;align-items:start;gap:14px}
+.hades-panel-inspector h2{font-size:clamp(18px,3vw,22px);line-height:1.4;font-weight:400;margin:3px 0 9px}
+.hades-panel-inspector .inspector-kicker{font-size:12px;color:#F2A294;margin:0}
+.hades-panel-inspector .inspector-label{font-size:15px;margin:5px 0 12px}
+.hades-panel-inspector .inspector-viewport{overflow:auto;max-height:min(64dvh,650px);min-height:100px;background:#1e1b18;border:1px solid #706557}
+.hades-panel-inspector canvas{display:block;width:100%;height:auto;max-width:none}
+.hades-panel-inspector .inspector-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:16px 0 8px}
+.hades-panel-inspector .inspector-actions input{width:110px;accent-color:#EF4B32}
+.hades-panel-inspector button{color:#E6D9C7;background:#292723;border:1px solid #8b7868;font:400 13px/1.6 inherit;padding:8px 11px;min-height:40px;cursor:pointer}
+.hades-panel-inspector .inspector-foot{font-size:12px;color:#CDC0AF;margin:12px 0 0}
+@media(max-width:390px){.hades-panel-inspector .inspector-actions{gap:9px}.hades-panel-inspector .inspector-actions button{flex:1 1 100px}.hades-panel-inspector .inspector-viewport{max-height:48dvh}}
+@media print{.panel-inspect-trigger,.hades-panel-inspector{display:none!important}}

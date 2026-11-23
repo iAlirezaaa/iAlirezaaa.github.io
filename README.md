@@ -94,3 +94,6 @@ No indexing, rankings or Search Console ownership are guaranteed by publishing t
 - [English editable A4 band sheet](https://ialirezaaa.github.io/hades/library/bookmark-bands/) · [برگهٔ فارسی](https://ialirezaaa.github.io/hades/fa/library/bookmark-bands/).
 - Four 130×32mm fold/cut bands per true A4 artboard, alternating Classic/Modern. Exact original PNG retained on dark plaques. No new mark. Only #EF4B32 approved.
 - [6-browser and independent 4-URL hosted verification](https://github.com/iAlirezaaa/iAlirezaaa.github.io/actions/runs/45083761166). Real paper/phone, Mikhak and FINAL OPEN.
+
+## Stage × Alpha single-panel inspector · PUBLIC REVIEW (2026-11-23)
+- [EN panel inspector](https://ialirezaaa.github.io/hades/library/object-stages/composite-matrix/) · [FA](https://ialirezaaa.github.io/hades/fa/library/object-stages/composite-matrix/). Nine original canvas compositions now support keyboard-accessible single-panel viewing, 100–250% scrollable display zoom, readable bilingual captions and separate 500×340 native-panel PNG downloads. No originals/marks modified. Colors other than #EF4B32 remain proposals; native device, print and Mikhak OPEN.

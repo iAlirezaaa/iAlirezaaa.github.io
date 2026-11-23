@@ -33,7 +33,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import hashlib
-          paths=['library/object-stages/composite-matrix/index.html','fa/library/object-stages/composite-matrix/index.html','library/object-stages/composite-matrix/README_REVIEW.md','library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg']
+          paths=['library/object-stages/composite-matrix/index.html','fa/library/object-stages/composite-matrix/index.html','library/object-stages/composite-matrix/README_REVIEW.md','library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg','library/object-stages/composite-matrix/inspector.js','library/object-stages/composite-matrix/inspector.css']
           for p in paths:
             src=(Path('site/public/hades')/p).read_bytes()
             pub=(Path('hades')/p).read_bytes()
@@ -127,6 +127,47 @@ jobs:
               await browser.close()
           asyncio.run(run())
           PY
+      - name: Chromium panel inspector keyboard, zoom and individual PNG export
+        run: |
+          python -m http.server 8767 >/tmp/hades-matrix-inspector.log 2>&1 &
+          mkdir -p /tmp/hades-stage-matrix-proof
+          python - <<'PY'
+          import asyncio
+          from pathlib import Path
+          from PIL import Image
+          from playwright.async_api import async_playwright
+          async def check():
+            async with async_playwright() as p:
+              browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ('en','fa'):
+                lead='fa/' if lang=='fa' else ''
+                for width in (320,390,430):
+                  page=await browser.new_page(viewport={'width':width,'height':900},accept_downloads=True)
+                  resp=await page.goto('http://127.0.0.1:8767/hades/'+lead+'library/object-stages/composite-matrix/',wait_until='networkidle')
+                  assert resp and resp.status==200
+                  await page.wait_for_function('!document.querySelector("#export").disabled',timeout=30000)
+                  assert await page.locator('.panel-inspect-trigger').count()==9
+                  await page.locator('.panel-inspect-trigger').nth(0).click()
+                  assert await page.locator('#hades-panel-inspector').evaluate('(e)=>e.open')
+                  assert '16:9' in (await page.locator('#inspector-label').inner_text())
+                  await page.locator('#inspector-scale').fill('200')
+                  assert await page.locator('#inspector-scale-output').inner_text()=='200%'
+                  await page.locator('#inspector-next').click()
+                  assert '16:9' in (await page.locator('#inspector-label').inner_text())
+                  async with page.expect_download() as download:
+                    await page.locator('#inspector-download').click()
+                  f=await download.value
+                  target=Path('/tmp/hades-stage-matrix-proof')/(f'inspect-{lang}-{width}.png')
+                  await f.save_as(str(target))
+                  with Image.open(target) as im: assert im.size==(500,340)
+                  assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth+1')
+                  await page.screenshot(path=f'/tmp/hades-stage-matrix-proof/inspect-{lang}-{width}.screen.png')
+                  await page.locator('#inspector-close').click()
+                  assert not await page.locator('#hades-panel-inspector').evaluate('(e)=>e.open')
+                  await page.close()
+              await browser.close()
+          asyncio.run(check())
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -143,6 +184,7 @@ jobs:
            'fa/library/object-stages/composite-matrix/index.html',
            'library/object-stages/composite-matrix/README_REVIEW.md',
            'library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg',
+           'library/object-stages/composite-matrix/inspector.js','library/object-stages/composite-matrix/inspector.css',
            'index.html','fa/index.html','library/index.html','fa/library/index.html',
            'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
            'library/object-stages/index.html','fa/library/object-stages/index.html',
@@ -155,7 +197,7 @@ jobs:
                 with urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'HADES-Matrix-Live-QA/1'}),timeout=30) as res:
                   assert res.status==200,(p,res.status)
                   mime=res.headers.get('Content-Type','')
-                  assert ('text/html' in mime if p.endswith('.html') else 'image/svg+xml' in mime if p.endswith('.svg') else 'text/' in mime),(p,mime)
+                  assert ('text/html' in mime if p.endswith('.html') else 'image/svg+xml' in mime if p.endswith('.svg') else 'javascript' in mime if p.endswith('.js') else 'text/css' in mime if p.endswith('.css') else 'text/' in mime),(p,mime)
                   content=res.read();got=hashlib.sha256(content).hexdigest()
                   assert got==want,(p,got,want)
                 print('PASS HOSTED 200 MIME SHA256',p,len(content),got)
