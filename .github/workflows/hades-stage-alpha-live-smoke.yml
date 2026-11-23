@@ -7,6 +7,8 @@ on:
       - '.github/workflows/hades-stage-alpha-live-smoke.yml'
       - 'hades/library/object-stages/composite-matrix/**'
       - 'site/public/hades/library/object-stages/composite-matrix/**'
+      - 'hades/fa/library/object-stages/composite-matrix/**'
+      - 'site/public/hades/fa/library/object-stages/composite-matrix/**'
 permissions:
   contents: read
 jobs:
@@ -24,6 +26,9 @@ jobs:
             'library/object-stages/composite-matrix/index.html',
             'fa/library/object-stages/composite-matrix/index.html',
             'library/object-stages/composite-matrix/README_REVIEW.md',
+            'library/object-stages/composite-matrix/HADES_Stage_Alpha_Focus_A4_FA_EN_REVIEW.svg',
+            'library/object-stages/composite-matrix/inspector.js',
+            'library/object-stages/composite-matrix/inspector.css',
             'index.html','fa/index.html',
             'library/index.html','fa/library/index.html',
             'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
@@ -36,7 +41,7 @@ jobs:
             pub=(Path('hades')/path).read_bytes()
             assert src==pub,('source/mirror mismatch',path)
             expected=hashlib.sha256(src).hexdigest()
-            mime='image/png' if path.endswith('.png') else ('image/webp' if path.endswith('.webp') else ('text/html' if path.endswith('.html') else 'text/plain'))
+            mime=('image/png' if path.endswith('.png') else 'image/webp' if path.endswith('.webp') else 'image/svg+xml' if path.endswith('.svg') else 'javascript' if path.endswith('.js') else 'text/css' if path.endswith('.css') else 'text/html' if path.endswith('.html') else 'text/' if path.endswith('.md') else 'text/plain')
             url='https://ialirezaaa.github.io/hades/'+path
             for attempt in range(20):
               try:
@@ -51,5 +56,5 @@ jobs:
               except Exception as e:
                 if attempt==19:raise RuntimeError(f'OPEN hosted validation for {path}: {e}')
                 time.sleep(12)
-          print('PASS 15/15 independent live GitHub Pages GET+MIME+SHA',flush=True)
+          print('PASS',len(entries),'independent live GitHub Pages GET+MIME+SHA',flush=True)
           PY
