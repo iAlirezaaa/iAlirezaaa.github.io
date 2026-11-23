@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'site/public/hades/library/backgrounds/quiet-courts/assets/*.svg'
+      - 'site/public/hades/library/backgrounds/quiet-courts/index.html'
+      - 'site/public/hades/fa/library/backgrounds/quiet-courts/index.html'
       - 'site/scripts/render-hades-quiet-courts-review.py'
       - '.github/workflows/hades-quiet-courts-release.yml'
   workflow_dispatch:
@@ -75,7 +77,10 @@ jobs:
                               assert await image.evaluate('(e)=>e.complete && e.naturalWidth>0')
                               dims=await image.evaluate('(e)=>[e.naturalWidth,e.naturalHeight]')
                               assert tuple(dims)==expected,(lang,width,k,dims)
-                              assert await cards.nth(k).locator('a[download]').count()==1
+                              assert await cards.nth(k).locator('a[download]').count()==4
+                              links=await cards.nth(k).locator('a[download]').evaluate_all('(items)=>items.map(x=>x.getAttribute("href"))')
+                              assert [u.split(".")[-1] for u in links]==['svg','png','jpg','webp'],(lang,width,k,links)
+                          assert await page.locator('a[href$=".zip"]').count()>=1,(lang,width,'ZIP download link absent')
                           await page.screenshot(path=f'/tmp/hades-quiet-courts-proof/{lang}-{width}.png',full_page=True)
                           print('BROWSER PASS',lang,width,flush=True)
                           await page.close()
