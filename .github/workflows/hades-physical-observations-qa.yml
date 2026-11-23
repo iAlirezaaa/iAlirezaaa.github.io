@@ -1,0 +1,134 @@
+name: HADES physical observation worksheet / browser and hosted REVIEW proof
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-physical-observations-qa.yml'
+      - 'hades/library/object-stages/observations/**'
+      - 'site/public/hades/library/object-stages/observations/**'
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Source exactness and A4 physical-rule XML proof
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          files=['library/object-stages/observations/HADES_Physical_Observation_A4_REVIEW.svg',
+            'library/object-stages/observations/index.html',
+            'fa/library/object-stages/observations/index.html',
+            'index.html','fa/index.html','library/index.html','fa/library/index.html',
+            'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
+            'downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md',
+            'library/object-stages/index.html','fa/library/object-stages/index.html']
+          for file in files:
+            assert (Path('hades')/file).read_bytes()==(Path('site/public/hades')/file).read_bytes(),file
+          path=Path('hades')/files[0]
+          svg=path.read_text(encoding='utf-8')
+          root=ET.fromstring(svg)
+          assert root.attrib['width']=='210mm' and root.attrib['height']=='297mm'
+          assert root.attrib['viewBox']=='0 0 210 297'
+          assert 'x1="19" y1="66" x2="119" y2="66"' in svg
+          assert not root.findall('.//{http://www.w3.org/2000/svg}image')
+          assert 'PUBLIC REVIEW' in svg and '#EF4B32' in svg
+          print(f'PASS {len(files)} exact mirror pairs, blank 100mm A4 vector and no embedded logo')
+          PY
+      - name: Real Chromium EN FA at 320 390 430 plus editable JSON export
+        run: |
+          python -m http.server 8765 >/tmp/hades-physical-observations-server.log 2>&1 &
+          mkdir -p /tmp/hades-physical-observations-proofs
+          python - <<'PY'
+          import asyncio,json
+          from pathlib import Path
+          from playwright.async_api import async_playwright
+          async def main():
+            async with async_playwright() as p:
+              browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ('en','fa'):
+                route=('fa/' if lang=='fa' else '')+'library/object-stages/observations/'
+                for width in (320,390,430):
+                  page=await browser.new_page(viewport={'width':width,'height':840},accept_downloads=True)
+                  response=await page.goto('http://127.0.0.1:8765/hades/'+route,wait_until='networkidle')
+                  assert response.status==200
+                  assert await page.locator('input,textarea,select').count()==17
+                  assert not await page.evaluate('document.documentElement.scrollWidth>innerWidth+1'),(lang,width,'overflow')
+                  assert await page.locator('a[href$="HADES_Physical_Observation_A4_REVIEW.svg"]').count()==1
+                  await page.locator('#observer').fill('synthetic-QA-only')
+                  await page.locator('#measured').fill('100.2')
+                  await page.locator('#micro48').select_option('uncertain')
+                  async with page.expect_download() as d:
+                    await page.locator('#export').click()
+                  dl=await d.value
+                  name=f'/tmp/hades-physical-observations-proofs/{lang}_{width}.json'
+                  await dl.save_as(name)
+                  data=json.loads(Path(name).read_text())
+                  assert data['schema']=='hades-physical-observation-v1'
+                  assert data['status']=='REVIEW' and data['locale']==lang
+                  assert data['fields']['measured']=='100.2'
+                  assert data['fields']['micro48']=='uncertain'
+                  assert data['physicalEvidenceVerified'] is False and data['ownerFinalApproved'] is False
+                  assert data['fields']['micro96']==''
+                  await page.screenshot(path=f'/tmp/hades-physical-observations-proofs/{lang}_{width}.png',full_page=True)
+                  print(f'PASS real Chromium {lang} {width}px, no overflow, local editable JSON remains OPEN')
+                  await page.close()
+              svg=await browser.new_page()
+              resp=await svg.goto('http://127.0.0.1:8765/hades/library/object-stages/observations/HADES_Physical_Observation_A4_REVIEW.svg',wait_until='load')
+              assert resp.status==200
+              bounds=await svg.locator('svg text').evaluate_all('''nodes=>nodes.map(t=>{const b=t.getBBox();return {t:t.textContent,x:b.x,r:b.x+b.width,y:b.y,b:b.y+b.height}}).filter(x=>x.x<11||x.r>199||x.y<11||x.b>286)''')
+              assert not bounds,('A4 svg text outside margins',bounds)
+              print('PASS SVG rendered in Chromium, all SVG text inside A4 margins')
+              await browser.close()
+          asyncio.run(main())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-physical-observations-chromium-review
+          path: /tmp/hades-physical-observations-proofs/
+          if-no-files-found: ignore
+      - name: Independent live hosted HTTPS 200 MIME and SHA-256 verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import urllib.request,hashlib,time
+          files=['library/object-stages/observations/HADES_Physical_Observation_A4_REVIEW.svg',
+            'library/object-stages/observations/index.html','fa/library/object-stages/observations/index.html',
+            'index.html','fa/index.html','library/index.html','fa/library/index.html',
+            'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
+            'downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md',
+            'library/object-stages/index.html','fa/library/object-stages/index.html']
+          for attempt in range(12):
+            errors=[]
+            for file in files:
+              expected=(Path('hades')/file).read_bytes()
+              url='https://ialirezaaa.github.io/hades/'+file
+              try:
+                req=urllib.request.Request(url,headers={'User-Agent':'HADES-Physical-Observation-QA/1.0','Cache-Control':'no-cache'})
+                with urllib.request.urlopen(req,timeout=20) as res:
+                  got=res.read();mime=res.headers.get('Content-Type','')
+                  assert res.status==200
+                  if file.endswith('.svg'):assert 'image/svg+xml' in mime,(file,mime)
+                  elif file.endswith('.html'):assert 'text/html' in mime,(file,mime)
+                  else:assert 'text/' in mime,(file,mime)
+                  assert hashlib.sha256(got).digest()==hashlib.sha256(expected).digest(),file
+              except Exception as e:errors.append((file,str(e)))
+            if not errors:
+              print(f'PASS {len(files)} independent hosted HTTPS 200 + MIME + exact SHA256; attempt {attempt+1}')
+              break
+            print('HOSTED OPEN attempt',attempt+1,'errors',errors[:3],flush=True)
+            if attempt<11:time.sleep(15)
+          assert not errors,errors
+          PY
