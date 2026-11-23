@@ -95,7 +95,7 @@ jobs:
           import hashlib,time,urllib.request
           from pathlib import Path
           p='library/object-stages/alpha-fixtures/'
-          paths=[p+'index.html','fa/'+p+'index.html',p+'fixture-lab.js',p+'README_REVIEW.md']+[p+'HADES_Alpha_'+x+'_REVIEW.svg' for x in ['hard-edge','tiered-alpha','soft-shadow']]
+          paths=[p+'index.html','fa/'+p+'index.html',p+'fixture-lab.js',p+'README_REVIEW.md']+[p+'HADES_Alpha_'+x+'_REVIEW.svg' for x in ['hard-edge','tiered-alpha','soft-shadow']]+['index.html','fa/index.html','library/index.html','fa/library/index.html','brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html','library/object-stages/index.html','fa/library/object-stages/index.html','downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md']
           for path in paths:
             wanted=(Path('hades')/path).read_bytes()
             mime='image/svg+xml' if path.endswith('.svg') else ('application/javascript' if path.endswith('.js') else ('text/html' if path.endswith('.html') else 'text/plain'))
