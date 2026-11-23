@@ -62,3 +62,8 @@ Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINA
 ## Actual Quiet Courts raster package · PUBLIC REVIEW
 Download the hosted 14-item ZIP containing 3 SVG and 9 native-resolution PNG/JPEG/WebP images: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/HADES_Quiet_Courts_3_SVG_9_Raster_PUBLIC_REVIEW.zip
 Binary SHA-256 manifest: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/raster-manifest.REVIEW.json
+
+
+## 2026-11-23 · Quiet Courts · exact owner-white-raster / detached dark plaque · PUBLIC REVIEW
+
+[Editable standalone SVG and micro-size review](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/) · [فارسی](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/mark-plate/) · [SVG](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/HADES_Bone_Original_White_Mark_Detached_Plaque_PUBLIC_REVIEW.svg). Exact unchanged owner PNG is embedded; only a reversible display clipping viewport conceals black unused margins. Physical validation remains OPEN.

@@ -62,3 +62,8 @@ Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINA
 ## بستهٔ واقعی فایل‌های سه پس‌زمینهٔ جدید · PUBLIC REVIEW
 دانلود مستقیم بستهٔ ۱۴فایلی شامل ۳ SVG و ۹ تصویر PNG/JPEG/WebP: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/HADES_Quiet_Courts_3_SVG_9_Raster_PUBLIC_REVIEW.zip
 فهرست هش‌ها: https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/raster-manifest.REVIEW.json
+
+
+## 2026-11-23 · Quiet Courts · exact owner-white-raster / detached dark plaque · PUBLIC REVIEW
+
+[نمونهٔ وکتوری قابل ویرایش و آزمون ۴۸/۹۶ پیکسل](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/mark-plate/) · [English](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/) · [SVG مستقل](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/HADES_Bone_Original_White_Mark_Detached_Plaque_PUBLIC_REVIEW.svg). اصل تصویر لوگو بدون تغییر و همراه با برش نمایشیِ غیرمخربِ حاشیه‌های سیاه بر پلاک مستقل قرار گرفته است؛ تأیید فیزیکی OPEN.
