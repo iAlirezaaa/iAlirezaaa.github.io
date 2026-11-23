@@ -1,0 +1,114 @@
+{
+  "status": "PUBLIC REVIEW — not FINAL",
+  "schema": "hades-mark-plate-raster-v1",
+  "approved_accent": "#EF4B32",
+  "other_palette_approved": false,
+  "logo_source": "IMG_7187(2).png",
+  "logo_original_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+  "native_image_dimensions": [
+    [
+      1920,
+      1080
+    ],
+    [
+      1080,
+      1920
+    ],
+    [
+      1080,
+      1080
+    ]
+  ],
+  "files": [
+    {
+      "file": "HADES_Still_Threshold_16x9_Original_Mark_1920x1080_PUBLIC_REVIEW.png",
+      "format": "png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 29030,
+      "sha256": "a3468a5e0c0ed841b754dc878b6a14c613ff999eb2719607b69348aaa3f19b57"
+    },
+    {
+      "file": "HADES_Still_Threshold_16x9_Original_Mark_1920x1080_PUBLIC_REVIEW.jpg",
+      "format": "jpg",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 71563,
+      "sha256": "a1dfde93ae04388361da92ca2e8569ed9d6737ed42581786cd962d80bffd551d"
+    },
+    {
+      "file": "HADES_Still_Threshold_16x9_Original_Mark_1920x1080_PUBLIC_REVIEW.webp",
+      "format": "webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 10140,
+      "sha256": "5e3c1d20f48394d119c33ceb3ecdf6bfcd3c0a74c7fc5a890561e6dbec0a85e6"
+    },
+    {
+      "source_svg": "library/backgrounds/quiet-courts/mark-plate/ratios/HADES_Still_Threshold_16x9_Original_Mark_PUBLIC_REVIEW.svg",
+      "sha256": "c783d0b713c1d32fadb73118fc320a4c63fc878058acb0fb905be1ab127afd81",
+      "original_owner_mark_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7"
+    },
+    {
+      "file": "HADES_Bone_Interstice_9x16_Original_Mark_1080x1920_PUBLIC_REVIEW.png",
+      "format": "png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 31507,
+      "sha256": "51e6126e3d9075a37255561e8029227317ebe2a481fcd79dd32d2845e9402fe2"
+    },
+    {
+      "file": "HADES_Bone_Interstice_9x16_Original_Mark_1080x1920_PUBLIC_REVIEW.jpg",
+      "format": "jpg",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 81359,
+      "sha256": "6dd727385c8baf734aacecaeb819dfe1ff4f49f2157855cc20702e2b5540537e"
+    },
+    {
+      "file": "HADES_Bone_Interstice_9x16_Original_Mark_1080x1920_PUBLIC_REVIEW.webp",
+      "format": "webp",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 13290,
+      "sha256": "fba3a8a0ed0164b148ad67bc1bd8caedef6d1537a217e2f2b8b45094026bd6dd"
+    },
+    {
+      "source_svg": "library/backgrounds/quiet-courts/mark-plate/HADES_Bone_Original_White_Mark_Detached_Plaque_PUBLIC_REVIEW.svg",
+      "sha256": "569d599e57b6bf67867eb8e05ff26464953ce2053c4aafdec6767b75d5f68bbd",
+      "original_owner_mark_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7"
+    },
+    {
+      "file": "HADES_Charcoal_Echelon_1x1_Original_Mark_1080x1080_PUBLIC_REVIEW.png",
+      "format": "png",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 15381,
+      "sha256": "2c0c4d53df7f612e67b68151d4b01080e8004e52c4b222d3747765de92a37e6f"
+    },
+    {
+      "file": "HADES_Charcoal_Echelon_1x1_Original_Mark_1080x1080_PUBLIC_REVIEW.jpg",
+      "format": "jpg",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 38609,
+      "sha256": "12e2811a7082ab2fe3269aa4e2e88d483a9c5ad0f22033e4b8e886a108d4dd46"
+    },
+    {
+      "file": "HADES_Charcoal_Echelon_1x1_Original_Mark_1080x1080_PUBLIC_REVIEW.webp",
+      "format": "webp",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 6108,
+      "sha256": "99a93b66bad5717e555560f456fe5958291ab1ce9ac6eb1a2cec70de4e26a9f5"
+    },
+    {
+      "source_svg": "library/backgrounds/quiet-courts/mark-plate/ratios/HADES_Charcoal_Echelon_1x1_Original_Mark_PUBLIC_REVIEW.svg",
+      "sha256": "3ec753c0cb1f23af18039e109b108a2a906d1211472b5d136b5b350e7d5890d6",
+      "original_owner_mark_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7"
+    }
+  ],
+  "real_device_recognition": "OPEN",
+  "physical_print": "OPEN",
+  "mikhak_genuine_font": "OPEN"
+}
