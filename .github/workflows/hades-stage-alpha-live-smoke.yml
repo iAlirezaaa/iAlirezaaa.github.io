@@ -1,0 +1,55 @@
+name: HADES 3x3 matrix independent public HTTP 200 and mirror SHA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-stage-alpha-live-smoke.yml'
+      - 'hades/library/object-stages/composite-matrix/**'
+      - 'site/public/hades/library/object-stages/composite-matrix/**'
+permissions:
+  contents: read
+jobs:
+  independent-live:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read back source/served mirrors then fetch public deployed bytes (not build)
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import time,hashlib,urllib.request
+          entries=[
+            'library/object-stages/composite-matrix/index.html',
+            'fa/library/object-stages/composite-matrix/index.html',
+            'library/object-stages/composite-matrix/README_REVIEW.md',
+            'index.html','fa/index.html',
+            'library/index.html','fa/library/index.html',
+            'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
+            'library/object-stages/index.html','fa/library/object-stages/index.html',
+            'downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md',
+            'library/object-stages/alpha-fixtures/raster/HADES_Alpha_tiered-alpha_512_REVIEW.png',
+            'library/object-stages/alpha-fixtures/raster/HADES_Alpha_tiered-alpha_512_REVIEW.webp']
+          for path in entries:
+            src=(Path('site/public/hades')/path).read_bytes()
+            pub=(Path('hades')/path).read_bytes()
+            assert src==pub,('source/mirror mismatch',path)
+            expected=hashlib.sha256(src).hexdigest()
+            mime='image/png' if path.endswith('.png') else ('image/webp' if path.endswith('.webp') else ('text/html' if path.endswith('.html') else 'text/plain'))
+            url='https://ialirezaaa.github.io/hades/'+path
+            for attempt in range(20):
+              try:
+                req=urllib.request.Request(url,headers={'User-Agent':'HADES-Public-Source-Verifier/1'})
+                with urllib.request.urlopen(req,timeout=30) as response:
+                  status=response.status;ct=response.headers.get('Content-Type','')
+                  raw=response.read()
+                got=hashlib.sha256(raw).hexdigest()
+                assert status==200 and mime in ct and got==expected,(path,status,ct,got,expected)
+                print('PASS LIVE HTTP200 MIME SHA256 + MIRROR',path,len(raw),expected,flush=True)
+                break
+              except Exception as e:
+                if attempt==19:raise RuntimeError(f'OPEN hosted validation for {path}: {e}')
+                time.sleep(12)
+          print('PASS 15/15 independent live GitHub Pages GET+MIME+SHA',flush=True)
+          PY
