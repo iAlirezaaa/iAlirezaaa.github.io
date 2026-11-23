@@ -1,0 +1,129 @@
+name: HADES native source-stage PNG proof / PUBLIC REVIEW
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'site/public/hades/library/object-stages/composite-matrix/**'
+      - 'site/public/hades/fa/library/object-stages/composite-matrix/**'
+      - 'hades/library/object-stages/composite-matrix/**'
+      - 'hades/fa/library/object-stages/composite-matrix/**'
+      - '.github/workflows/hades-native-stage-export-qa.yml'
+permissions:
+  contents: read
+jobs:
+  real-browser-and-live-host:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install real Chromium and image decoder
+        run: |
+          python -m pip install playwright==1.56.0 pillow==11.3.0
+          python -m playwright install --with-deps chromium
+      - name: Verify both source and Pages mirrors
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          paths=['library/object-stages/composite-matrix/index.html',
+           'fa/library/object-stages/composite-matrix/index.html',
+           'library/object-stages/composite-matrix/native-export.js',
+           'library/object-stages/composite-matrix/inspector.js',
+           'library/object-stages/composite-matrix/inspector.css',
+           'library/object-stages/composite-matrix/README_REVIEW.md']
+          for name in paths:
+            a=(Path('site/public/hades')/name).read_bytes()
+            b=(Path('hades')/name).read_bytes()
+            assert a==b, name
+            print('MIRROR PASS',name,hashlib.sha256(a).hexdigest())
+          assert b'PUBLIC REVIEW' in (Path('hades/library/object-stages/composite-matrix/native-export.js')).read_bytes()
+          PY
+      - name: Six viewport Chromium downloads at all native ratios, both fixture codecs
+        run: |
+          python -m http.server 8768 >/tmp/hades-native-stage-qa.log 2>&1 &
+          mkdir -p /tmp/hades-native-stage-proof
+          python - <<'PY'
+          import asyncio,hashlib
+          from pathlib import Path
+          from PIL import Image, ImageChops
+          from playwright.async_api import async_playwright
+          async def run():
+            async with async_playwright() as p:
+              browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ('en','fa'):
+                route='fa/' if lang=='fa' else ''
+                for viewport in (320,390,430):
+                  page=await browser.new_page(viewport={'width':viewport,'height':850},accept_downloads=True)
+                  response=await page.goto('http://127.0.0.1:8768/hades/'+route+'library/object-stages/composite-matrix/',wait_until='networkidle')
+                  assert response and response.status==200
+                  await page.wait_for_function('!document.querySelector("#export").disabled',timeout=30000)
+                  assert await page.locator('#inspector-native-download').count()==1
+                  assert not await page.evaluate('document.documentElement.scrollWidth>innerWidth+1')
+                  await page.locator('.panel-inspect-trigger').first.click()
+                  for codec in ('png','webp'):
+                    if codec!='png':
+                      await page.locator('#inspector-close').click()
+                      await page.locator('#codec').select_option('webp')
+                      await page.wait_for_function('!document.querySelector("#export").disabled')
+                      await page.locator('.panel-inspect-trigger').first.click()
+                    for panel,shape in ((0,(1920,1080)),(3,(1080,1920)),(6,(1080,1080))):
+                      await page.locator('.panel-inspect-trigger').nth(panel).evaluate('(e)=>e.dataset.nativeProbe="1"')
+                      # The modal increments through matrix order: 0->3->6 via native next controls
+                      for _ in range((panel-int(await page.locator('#hades-panel-inspector').get_attribute('data-panel-index')))%9):
+                        await page.locator('#inspector-next').click()
+                      assert int(await page.locator('#hades-panel-inspector').get_attribute('data-panel-index'))==panel
+                      async with page.expect_download(timeout=60000) as dl:
+                        await page.locator('#inspector-native-download').click()
+                      file=await dl.value
+                      target=Path('/tmp/hades-native-stage-proof')/(f'{lang}-{viewport}-{codec}-{panel}.png')
+                      await file.save_as(str(target))
+                      with Image.open(target) as im:
+                        assert im.size==shape,(target,im.size)
+                        assert len(im.getcolors(maxcolors=4000000) or [])>200,target
+                        assert im.getpixel((2,2))!=im.getpixel((shape[0]//2,shape[1]//2)),target
+                      assert await page.locator('#inspector-native-download').get_attribute('data-last-size')==f'{shape[0]}x{shape[1]}'
+                      assert 'OPEN:' not in await page.locator('#inspector-native-status').inner_text()
+                      print('NATIVE PNG PASS',lang,viewport,codec,panel,shape,hashlib.sha256(target.read_bytes()).hexdigest())
+                  await page.screenshot(path=f'/tmp/hades-native-stage-proof/{lang}-{viewport}.screen.png',full_page=True)
+                  await page.close()
+              await browser.close()
+          asyncio.run(run())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-native-stage-source-size-qa-review
+          path: /tmp/hades-native-stage-proof/
+          if-no-files-found: ignore
+      - name: Independently fetch deployed public Pages and compare MIME / SHA256
+        run: |
+          python - <<'PY'
+          import time,hashlib,urllib.request
+          from pathlib import Path
+          names=[
+            'library/object-stages/composite-matrix/index.html',
+            'fa/library/object-stages/composite-matrix/index.html',
+            'library/object-stages/composite-matrix/native-export.js',
+            'library/object-stages/composite-matrix/inspector.js',
+            'library/object-stages/composite-matrix/inspector.css',
+            'library/object-stages/composite-matrix/README_REVIEW.md']
+          for name in names:
+            expect=hashlib.sha256((Path('hades')/name).read_bytes()).hexdigest()
+            for attempt in range(15):
+              try:
+                req=urllib.request.Request('https://ialirezaaa.github.io/hades/'+name,headers={'User-Agent':'HADES-Native-Review/1'})
+                with urllib.request.urlopen(req,timeout=30) as rsp:
+                  assert rsp.status==200,(name,rsp.status)
+                  mime=rsp.headers.get('Content-Type','')
+                  assert ('text/html' in mime if name.endswith('.html') else 'javascript' in mime if name.endswith('.js') else 'text/css' in mime if name.endswith('.css') else 'text/' in mime),(name,mime)
+                  got=hashlib.sha256(rsp.read()).hexdigest()
+                  assert got==expect,(name,'HOST_SHA_MISMATCH')
+                print('LIVE PASS HTTP200 MIME SHA',name,got);break
+              except Exception:
+                if attempt==14: raise
+                time.sleep(12)
+          PY

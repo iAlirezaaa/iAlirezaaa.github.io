@@ -16,3 +16,7 @@
 .hades-panel-inspector .inspector-foot{font-size:12px;color:#CDC0AF;margin:12px 0 0}
 @media(max-width:390px){.hades-panel-inspector .inspector-actions{gap:9px}.hades-panel-inspector .inspector-actions button{flex:1 1 100px}.hades-panel-inspector .inspector-viewport{max-height:48dvh}}
 @media print{.panel-inspect-trigger,.hades-panel-inspector{display:none!important}}
+/* Source-stage-size export remains visibly separate from 500×340 preview */
+#inspector-native-download{border-color:#EF4B32}
+#inspector-native-download:disabled{opacity:.48;cursor:wait}
+#inspector-native-status{flex:1 1 100%;font-size:12px;min-height:18px;color:#CDC0AF}

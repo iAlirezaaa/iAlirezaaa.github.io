@@ -20,6 +20,7 @@ function ready(){return !exportAll.disabled}
 function name(i){return ratios[Math.floor(i/3)]+" · "+labels[i%3]}
 function applyScale(){const n=Number(slider.value);preview.style.width=n+"%";$("inspector-scale-output").textContent=n+"%";viewport.scrollTo(0,0)}
 function refresh(){
+ dialog.dataset.panelIndex=String(selected);
  if(!ready()){ $("inspector-label").textContent=words.unready;return false;}
  const src=cells[selected].querySelector("canvas");
  const ctx=preview.getContext("2d",{alpha:false});if(!ctx)return false;
