@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297" role="img" aria-label="HADES object stage real-world observation, blank printable A4 worksheet, PUBLIC REVIEW">
+<title>HADES Object Stage Observation — A4 PRINT + 48/96 px micro mark — PUBLIC REVIEW</title>
+<desc>Blank on-paper measurement sheet. Do not treat a browser preview as physical printer or phone evidence. No source logo embedded or modified.</desc>
+<rect width="210" height="297" fill="#E6D9C7"/><rect x="10" y="10" width="190" height="277" fill="none" stroke="#292723" stroke-width=".35"/>
+<text x="15" y="21" font-family="Arial, Tahoma, sans-serif" font-size="3.7" font-weight="400" fill="#292723" >HADES  /  ARCHITECTURAL OBJECT STAGES</text>
+<text x="195" y="21" font-family="Arial, Tahoma, sans-serif" font-size="3.2" font-weight="400" fill="#EF4B32" text-anchor="end">PUBLIC REVIEW</text>
+<text x="15" y="31" font-family="Arial, Tahoma, sans-serif" font-size="7.7" font-weight="400" fill="#292723" >Physical Observation Record</text>
+<text x="15" y="38" font-family="Arial, Tahoma, sans-serif" font-size="3.15" font-weight="400" fill="#292723" >Blank evidence sheet / complete on actual paper and held phone; no simulated PASS.</text>
+<line x1="15" y1="43" x2="195" y2="43" stroke="#EF4B32" stroke-width="0.55"/>
+<text x="15" y="51" font-family="Arial, Tahoma, sans-serif" font-size="4.3" font-weight="400" fill="#292723" >01   PRINT CALIBRATION  /  ACTUAL A4 AT 100%</text>
+<text x="15" y="58" font-family="Arial, Tahoma, sans-serif" font-size="3.1" font-weight="400" fill="#292723" >100 mm reference line: measure with a physical ruler AFTER printing</text>
+<line x1="19" y1="66" x2="119" y2="66" stroke="#292723" stroke-width="0.52"/>
+<line x1="19" y1="63.5" x2="19" y2="68.5" stroke="#292723" stroke-width="0.4"/>
+<line x1="44" y1="63.5" x2="44" y2="68.5" stroke="#292723" stroke-width="0.4"/>
+<line x1="69" y1="63.5" x2="69" y2="68.5" stroke="#292723" stroke-width="0.4"/>
+<line x1="94" y1="63.5" x2="94" y2="68.5" stroke="#292723" stroke-width="0.4"/>
+<line x1="119" y1="63.5" x2="119" y2="68.5" stroke="#292723" stroke-width="0.4"/>
+<text x="129" y="66.8" font-family="Arial, Tahoma, sans-serif" font-size="3.1" font-weight="400" fill="#292723" >Expected: 100.0 mm</text>
+<text x="15" y="77" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Measured length (mm)</text>
+<line x1="15" y1="81" x2="70" y2="81" stroke="#292723" stroke-width="0.24"/>
+<text x="80" y="77" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Absolute error (mm)</text>
+<line x1="80" y1="81" x2="130" y2="81" stroke="#292723" stroke-width="0.24"/>
+<text x="140" y="77" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Printer / paper type</text>
+<line x1="140" y1="81" x2="195" y2="81" stroke="#292723" stroke-width="0.24"/>
+<text x="15" y="91" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Scale setting (%)</text>
+<line x1="15" y1="95" x2="70" y2="95" stroke="#292723" stroke-width="0.24"/>
+<text x="80" y="91" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Print date</text>
+<line x1="80" y1="95" x2="130" y2="95" stroke="#292723" stroke-width="0.24"/>
+<text x="140" y="91" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Observer initials</text>
+<line x1="140" y1="95" x2="195" y2="95" stroke="#292723" stroke-width="0.24"/>
+<line x1="15" y1="99" x2="195" y2="99" stroke="#EF4B32" stroke-width="0.5"/>
+<text x="15" y="107" font-family="Arial, Tahoma, sans-serif" font-size="4.2" font-weight="400" fill="#292723" >02   HELD-PHONE MICRO RECOGNITION  /  ORIGINAL MARK ONLY</text>
+<text x="15" y="113" font-family="Arial, Tahoma, sans-serif" font-size="2.9" font-weight="400" fill="#292723" >Open the existing original-source micro bench; never redraw, recolor or trace the mark.</text>
+<text x="15" y="123" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Device / OS</text>
+<line x1="15" y1="127" x2="70" y2="127" stroke="#292723" stroke-width="0.24"/>
+<text x="80" y="123" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Browser / zoom</text>
+<line x1="80" y1="127" x2="130" y2="127" stroke="#292723" stroke-width="0.24"/>
+<text x="140" y="123" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Distance / light</text>
+<line x1="140" y1="127" x2="195" y2="127" stroke="#292723" stroke-width="0.24"/>
+<rect x="15" y="137" width="85" height="40" fill="none" stroke="#292723" stroke-width=".3" />
+<rect x="109" y="137" width="86" height="40" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="19" y="144" font-family="Arial, Tahoma, sans-serif" font-size="3.65" font-weight="400" fill="#292723" >48 CSS px / held phone</text>
+<text x="113" y="144" font-family="Arial, Tahoma, sans-serif" font-size="3.65" font-weight="400" fill="#292723" >96 CSS px / held phone</text>
+<rect x="20" y="150" width="2.8" height="2.8" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="25" y="152.7" font-family="Arial, Tahoma, sans-serif" font-size="3.1" font-weight="400" fill="#292723" >Readable</text>
+<rect x="20" y="156" width="2.8" height="2.8" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="25" y="152.7" font-family="Arial, Tahoma, sans-serif" font-size="3.1" font-weight="400" fill="#292723" >Uncertain</text>
+<rect x="20" y="162" width="2.8" height="2.8" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="25" y="152.7" font-family="Arial, Tahoma, sans-serif" font-size="3.1" font-weight="400" fill="#292723" >Not readable</text>
+<rect x="114" y="150" width="2.8" height="2.8" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="119" y="152.7" font-family="Arial, Tahoma, sans-serif" font-size="3.1" font-weight="400" fill="#292723" >Readable</text>
+<rect x="114" y="156" width="2.8" height="2.8" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="119" y="152.7" font-family="Arial, Tahoma, sans-serif" font-size="3.1" font-weight="400" fill="#292723" >Uncertain</text>
+<rect x="114" y="162" width="2.8" height="2.8" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="119" y="152.7" font-family="Arial, Tahoma, sans-serif" font-size="3.1" font-weight="400" fill="#292723" >Not readable</text>
+<text x="15" y="183" font-family="Arial, Tahoma, sans-serif" font-size="2.95" font-weight="400" fill="#292723" >Evidence file / photo reference (optional, store privately):</text>
+<line x1="15" y1="188" x2="195" y2="188" stroke="#292723" stroke-width="0.26"/>
+<line x1="15" y1="195" x2="195" y2="195" stroke="#EF4B32" stroke-width="0.5"/>
+<text x="15" y="203" font-family="Arial, Tahoma, sans-serif" font-size="4.2" font-weight="400" fill="#292723" >03   STAGE COMPOSITION  /  CROP &amp; ALIGNMENT</text>
+<text x="15" y="213" font-family="Arial, Tahoma, sans-serif" font-size="3.7" font-weight="400" fill="#292723" >16:9</text>
+<text x="39" y="213" font-family="Arial, Tahoma, sans-serif" font-size="3" font-weight="400" fill="#292723" >Wide / 1920 × 1080</text>
+<text x="105" y="211" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Observed artifact</text>
+<line x1="105" y1="215" x2="148" y2="215" stroke="#292723" stroke-width="0.24"/>
+<text x="155" y="211" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Notes / initials</text>
+<line x1="155" y1="215" x2="195" y2="215" stroke="#292723" stroke-width="0.24"/>
+<text x="15" y="225" font-family="Arial, Tahoma, sans-serif" font-size="3.7" font-weight="400" fill="#292723" >9:16</text>
+<text x="39" y="225" font-family="Arial, Tahoma, sans-serif" font-size="3" font-weight="400" fill="#292723" >Portrait / 1080 × 1920</text>
+<text x="105" y="223" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Observed artifact</text>
+<line x1="105" y1="227" x2="148" y2="227" stroke="#292723" stroke-width="0.24"/>
+<text x="155" y="223" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Notes / initials</text>
+<line x1="155" y1="227" x2="195" y2="227" stroke="#292723" stroke-width="0.24"/>
+<text x="15" y="237" font-family="Arial, Tahoma, sans-serif" font-size="3.7" font-weight="400" fill="#292723" >1:1</text>
+<text x="39" y="237" font-family="Arial, Tahoma, sans-serif" font-size="3" font-weight="400" fill="#292723" >Square / 1080 × 1080</text>
+<text x="105" y="235" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Observed artifact</text>
+<line x1="105" y1="239" x2="148" y2="239" stroke="#292723" stroke-width="0.24"/>
+<text x="155" y="235" font-family="Arial, Tahoma, sans-serif" font-size="2.85" font-weight="400" fill="#292723" >Notes / initials</text>
+<line x1="155" y1="239" x2="195" y2="239" stroke="#292723" stroke-width="0.24"/>
+<line x1="15" y1="248" x2="195" y2="248" stroke="#EF4B32" stroke-width="0.5"/>
+<text x="15" y="256" font-family="Arial, Tahoma, sans-serif" font-size="4.2" font-weight="400" fill="#292723" >04   HUMAN REVIEW  /  NO AUTOMATIC FINAL</text>
+<rect x="15" y="262" width="3" height="3" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="21" y="264.8" font-family="Arial, Tahoma, sans-serif" font-size="2.95" font-weight="400" fill="#292723" >Real paper ruler measured</text>
+<rect x="15" y="270" width="3" height="3" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="21" y="272.8" font-family="Arial, Tahoma, sans-serif" font-size="2.95" font-weight="400" fill="#292723" >Real held-phone mark checked</text>
+<rect x="116" y="262" width="3" height="3" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="122" y="264.8" font-family="Arial, Tahoma, sans-serif" font-size="2.95" font-weight="400" fill="#292723" >Evidence archived</text>
+<rect x="116" y="270" width="3" height="3" fill="none" stroke="#292723" stroke-width=".3" />
+<text x="122" y="272.8" font-family="Arial, Tahoma, sans-serif" font-size="2.95" font-weight="400" fill="#292723" >Owner FINAL approval (separate)</text>
+<text x="15" y="282" font-family="Arial, Tahoma, sans-serif" font-size="2.8" font-weight="400" fill="#292723" >Proposed neutral #E6D9C7; approved accent #EF4B32 only. No logos altered.</text>
+</svg>
