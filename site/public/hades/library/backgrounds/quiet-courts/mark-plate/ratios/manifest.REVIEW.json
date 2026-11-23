@@ -1,0 +1,48 @@
+{
+  "status": "PUBLIC REVIEW",
+  "date": "2026-11-23",
+  "approved_color": "#EF4B32",
+  "owner_original": "IMG_7187(2).png",
+  "owner_original_sha256": "79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7",
+  "originals_untouched": true,
+  "aspect_ratio_sources": [
+    {
+      "ratio": "16:9",
+      "file": "HADES_Still_Threshold_16x9_Original_Mark_PUBLIC_REVIEW.svg",
+      "pixel_size": [
+        1920,
+        1080
+      ],
+      "new": true,
+      "background": "HADES_Still_Threshold_16x9_REVIEW.svg"
+    },
+    {
+      "ratio": "9:16",
+      "file": "../HADES_Bone_Original_White_Mark_Detached_Plaque_PUBLIC_REVIEW.svg",
+      "pixel_size": [
+        1080,
+        1920
+      ],
+      "new": false,
+      "background": "HADES_Bone_Interstice_9x16_REVIEW.svg"
+    },
+    {
+      "ratio": "1:1",
+      "file": "HADES_Charcoal_Echelon_1x1_Original_Mark_PUBLIC_REVIEW.svg",
+      "pixel_size": [
+        1080,
+        1080
+      ],
+      "new": true,
+      "background": "HADES_Charcoal_Echelon_1x1_REVIEW.svg"
+    }
+  ],
+  "qa_open": [
+    "actual physical phone",
+    "human 48/96px reading",
+    "physical print",
+    "licensed installed Mikhak",
+    "owner FINAL",
+    "live HTTP 200 and responsive browser until workflow succeeds"
+  ]
+}

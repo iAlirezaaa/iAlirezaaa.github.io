@@ -39,3 +39,7 @@ Three new no-logo editable SVG product-presentation backgrounds (16:9, 9:16, 1:1
 
 - [EN guide](/hades/library/object-stages/placement/) · [Editable bilingual A4 SVG](/hades/library/object-stages/placement/HADES_Object_Stages_Subject_Placement_A4_REVIEW.svg)
 - Three ratio diagrams (16:9 / 9:16 / 1:1), illustrative subject and crop bounds, a true vector 50 mm control line. No new logo or real client content. Real paper, mobile, genuine Mikhak and FINAL remain OPEN.
+
+
+## Quiet Courts original-mark aspect applications · PUBLIC REVIEW
+Two new source-editable standalone SVGs for 16:9 Dark and 1:1 Charcoal; existing 9:16 Bone reused. Exact original white PNG on separate dark plaques; originals unchanged. [English gallery](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/) · [فارسی](/hades/fa/library/backgrounds/quiet-courts/mark-plate/ratios/). Phone/print/Mikhak/FINAL OPEN.

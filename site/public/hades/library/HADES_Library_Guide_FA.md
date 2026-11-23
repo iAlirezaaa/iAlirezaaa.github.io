@@ -42,3 +42,7 @@ SVG طرح حاوی متن و ساختار وکتوری قابل‌ویرایش 
 
 - [صفحهٔ راهنما](/hades/fa/library/object-stages/placement/) · [دریافت فایل SVG دوزبانهٔ A4](/hades/library/object-stages/placement/HADES_Object_Stages_Subject_Placement_A4_REVIEW.svg)
 - راهنمای سه نسبت ۱۶:۹، ۹:۱۶ و ۱:۱ با حاشیه و محدودهٔ سوژهٔ پیشنهادی و خط واقعی برداری ۵۰ میلی‌متر. فایل بدون لوگو و اطلاعات مشتری است. چاپ واقعی، گوشی واقعی، Mikhak و FINAL همچنان OPEN.
+
+
+## کاربرد نشان اصلی در سه نسبت Quiet Courts · PUBLIC REVIEW
+دو SVG وکتوری تازه برای ۱۶:۹ و ۱:۱، همراه با نمونهٔ ۹:۱۶ قبلی بدون ساخت تکراری. PNG اصلی روی پلاک تیرهٔ مستقل، بدون تغییر. [گالری فارسی](/hades/fa/library/backgrounds/quiet-courts/mark-plate/ratios/) · [English](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/). چاپ، گوشی، Mikhak و FINAL همچنان OPEN.

@@ -1,0 +1,106 @@
+name: HADES original mark detached plates three ratios | REVIEW
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/public/hades/library/backgrounds/quiet-courts/mark-plate/ratios/**'
+      - 'site/public/hades/fa/library/backgrounds/quiet-courts/mark-plate/ratios/**'
+      - '.github/workflows/hades-three-ratio-original-plate-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-and-host:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 29
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify standalone SVG vectors, PNG original fidelity and mirrored files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re,base64,hashlib,xml.etree.ElementTree as ET
+          base='library/backgrounds/quiet-courts/mark-plate/ratios/'
+          root=Path('hades')
+          names=['HADES_Still_Threshold_16x9_Original_Mark_PUBLIC_REVIEW.svg','HADES_Charcoal_Echelon_1x1_Original_Mark_PUBLIC_REVIEW.svg']
+          src=Path('hades/assets/IMG_7187(2).png').read_bytes()
+          assert hashlib.sha256(src).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
+          for name,(w,h) in zip(names,[(1920,1080),(1080,1080)]):
+              data=(root/base/name).read_bytes()
+              svg=ET.fromstring(data)
+              assert svg.attrib['width']==str(w) and svg.attrib['height']==str(h)
+              imgs=svg.findall('.//{http://www.w3.org/2000/svg}image')
+              assert len(imgs)==1
+              b64=imgs[0].get('href').split(',',1)[1]
+              assert base64.b64decode(b64,validate=True)==src
+              assert b'PUBLIC REVIEW' in data
+              print('PASS original bytes and XML',name,len(data))
+          for path in [base+n for n in names]+[base+'index.html','fa/'+base+'index.html',base+'README_REVIEW.md',base+'manifest.REVIEW.json']:
+              assert (Path('hades')/path).read_bytes()==(Path('site/public/hades')/path).read_bytes(),path
+              print('PASS mirror',path)
+          PY
+      - name: Install browser
+        run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Responsive EN FA actual Chromium 320 390 430
+        run: |
+          mkdir -p /tmp/hades-three-ratio-screens
+          python -m http.server 8878 >/tmp/hades-three-ratio-http.log 2>&1 &
+          python - <<'PY'
+          import asyncio
+          from playwright.async_api import async_playwright
+          async def main():
+              async with async_playwright() as p:
+                  browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+                  for lang in ('en','fa'):
+                      for width in (320,390,430):
+                          page=await browser.new_page(viewport={'width':width,'height':940},device_scale_factor=1)
+                          path=('fa/' if lang=='fa' else '')+'library/backgrounds/quiet-courts/mark-plate/ratios/'
+                          resp=await page.goto('http://127.0.0.1:8878/hades/'+path,wait_until='networkidle')
+                          assert resp and resp.status==200,(lang,width)
+                          assert await page.locator('html').get_attribute('lang')==lang
+                          assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth+1'),(lang,width,'overflow')
+                          links=page.locator('.card a.dl')
+                          assert await links.count()==3,(lang,width)
+                          for i in range(3):
+                              img=page.locator('.card img').nth(i)
+                              assert await img.evaluate('(e)=>e.complete && e.naturalWidth>1000 && e.naturalHeight>1000'),(lang,width,i)
+                          await page.screenshot(path=f'/tmp/hades-three-ratio-screens/{lang}-{width}.png',full_page=True)
+                          print('PASS browser',lang,width)
+                          await page.close()
+                  await browser.close()
+          asyncio.run(main())
+          PY
+      - name: Independently verify deployed live HTTP 200 MIME and SHA-256
+        run: |
+          python - <<'PY'
+          import urllib.request,hashlib,time
+          from pathlib import Path
+          base='library/backgrounds/quiet-courts/mark-plate/ratios/'
+          files=[base+'index.html','fa/'+base+'index.html',base+'HADES_Still_Threshold_16x9_Original_Mark_PUBLIC_REVIEW.svg',base+'HADES_Charcoal_Echelon_1x1_Original_Mark_PUBLIC_REVIEW.svg']
+          for file in files:
+              target='https://ialirezaaa.github.io/hades/'+file.replace('index.html','') if file.endswith('index.html') else 'https://ialirezaaa.github.io/hades/'+file
+              expected=Path('hades')/file
+              mime='text/html' if file.endswith('.html') else 'image/svg+xml'
+              for attempt in range(16):
+                  try:
+                      req=urllib.request.Request(target,headers={'User-Agent':'Hades-original-plaque-PUBLIC-REVIEW'})
+                      with urllib.request.urlopen(req,timeout=25) as response:
+                          assert response.status==200,(target,response.status)
+                          assert mime in response.headers.get('Content-Type',''),(target,response.headers)
+                          data=response.read()
+                      assert hashlib.sha256(data).digest()==hashlib.sha256(expected.read_bytes()).digest(),target
+                      print('PASS LIVE 200 MIME SHA256',target,len(data))
+                      break
+                  except Exception as err:
+                      if attempt==15: raise
+                      print('RETRY live',attempt,target,str(err)[:90])
+                      time.sleep(15)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: HADES-Three-Ratio-Mark-Actual-Chromium-REVIEW
+          path: /tmp/hades-three-ratio-screens
+          if-no-files-found: ignore
