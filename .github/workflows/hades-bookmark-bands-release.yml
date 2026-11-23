@@ -30,7 +30,7 @@ jobs:
       - name: Generate and validate source-locked PDFs, PNG, WebP, ZIP
         run: python site/scripts/render-hades-bookmark-bands-review.py
       - name: QA real Chromium EN/FA at 320, 390 and 430 pixels
-        run: python site/scripts/qa-hades-bookmark-bands.py
+        run: HADES_QA_LOCAL_ONLY=1 python site/scripts/qa-hades-bookmark-bands.py
       - name: Upload six actual bilingual mobile screenshots
         uses: actions/upload-artifact@v4
         with:
