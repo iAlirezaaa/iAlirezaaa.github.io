@@ -43,3 +43,8 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 
 ## True image files for synthetic alpha fixtures / PUBLIC REVIEW
 [Download actual 14-member SVG + 9 PNG/WebP/JPEG ZIP](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_Fixtures_3_Sources_9_Rasters_PUBLIC_REVIEW.zip) · [SHA256 manifest](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_Fixtures_Raster_SHA256_REVIEW.json). Three editable SVGs, 3 RGBA PNGs, 3 lossless alpha WebPs and 3 opaque demonstration JPEGs. Not original logos, not the previous architectural background raster pack, not FINAL. Real phone and print OPEN.
+
+
+
+## ماتریس ۹ قاب استیج و آلفا — PUBLIC REVIEW · ۲۰۲۶-۱۱-۲۳
+[ویرایشگر فارسی](https://ialirezaaa.github.io/hades/fa/library/object-stages/composite-matrix/) · [English](https://ialirezaaa.github.io/hades/library/object-stages/composite-matrix/). ترکیب سه استیج SVG اصلی و دست‌نخورده با سه PNG/WebP شفاف مصنوعی موجود در سایت؛ جابه‌جایی قالب فایل و دریافت یک برگهٔ تصویری واقعی ۱۵۶۰×۱۱۵۰ به‌صورت محلی. بدون تصویر مشتری، بارگذاری سرور، لوگوی تازه یا تأیید FINAL. چاپ واقعی، گوشی واقعی، آزمون Mikhak و حقوق تصاویر واقعی OPEN هستند.
