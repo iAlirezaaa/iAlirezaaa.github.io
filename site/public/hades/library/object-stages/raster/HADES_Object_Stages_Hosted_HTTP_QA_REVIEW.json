@@ -1,0 +1,104 @@
+{
+  "status": "PUBLIC REVIEW — NOT FINAL",
+  "result": "PASS",
+  "verified_at_utc": "2026-11-23T02:34:01.694339+00:00",
+  "release_commit": "263e71213a3aca0cba27a5355ba65c72b85aab40",
+  "checks_count": 13,
+  "checks": [
+    {
+      "file": "HADES_Object_Stage_16x9_REVIEW.jpg",
+      "http": 200,
+      "mime": "image/jpeg",
+      "bytes": 54823,
+      "sha256": "52704bef0ee5d6ab9dde9b0681ae9065cbf4a0cb8915510d25a754386be22d75"
+    },
+    {
+      "file": "HADES_Object_Stage_16x9_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 27819,
+      "sha256": "62d80e5b8b7d0cbac5187b96373eb1e12519b76817a9e8ef103617a505e98499"
+    },
+    {
+      "file": "HADES_Object_Stage_16x9_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 9092,
+      "sha256": "bba8b6196a32f50aaf4173085fe6a0904e852c3753da5678c64ad546aa0b6534"
+    },
+    {
+      "file": "HADES_Object_Stage_1x1_REVIEW.jpg",
+      "http": 200,
+      "mime": "image/jpeg",
+      "bytes": 34090,
+      "sha256": "5eb55df73d756d3b2ed5ba698084e548fabcab6b8205d775e24fdeebd5be782c"
+    },
+    {
+      "file": "HADES_Object_Stage_1x1_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 24087,
+      "sha256": "3cc78c8fdf8efffbc1dc73bc4699b3fd6c26a24f38d19eaa4fe8f6a6b3b84882"
+    },
+    {
+      "file": "HADES_Object_Stage_1x1_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 8446,
+      "sha256": "d853b0ebee9b6002f4fc0c21f3d655c712338870510a9d47a81ff290df96a890"
+    },
+    {
+      "file": "HADES_Object_Stage_9x16_REVIEW.jpg",
+      "http": 200,
+      "mime": "image/jpeg",
+      "bytes": 59720,
+      "sha256": "f19919ed6bffd3888512c772c10bade1292a527d135af5dcb401cfde17cc16ce"
+    },
+    {
+      "file": "HADES_Object_Stage_9x16_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 37373,
+      "sha256": "eea24ea49ddfc2b6da99a980d399de840b9a9aed4aabbdde87fc1d07b75797ec"
+    },
+    {
+      "file": "HADES_Object_Stage_9x16_REVIEW.webp",
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 9840,
+      "sha256": "4e35ff4a1984973fb7ca61a370e135bae7b2a72bd202d0d6e0c6c1bc92f0d9cc"
+    },
+    {
+      "file": "HADES_Object_Stages_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip",
+      "http": 200,
+      "mime": "application/x-zip-compressed",
+      "bytes": 181631,
+      "sha256": "a1a575eab47cb556937290ce608c4dca27fc9ee5596f8253670d24ea99e6a593"
+    },
+    {
+      "file": "HADES_Object_Stages_Raster_Contact_REVIEW.png",
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 24428,
+      "sha256": "68d1572a00077c0cc4e642bea9defb6f1d3b6c400baa1a6a7297cc4626526da1"
+    },
+    {
+      "file": "HADES_Object_Stages_Raster_Manifest_REVIEW.json",
+      "http": 200,
+      "mime": "application/json",
+      "bytes": 3368,
+      "sha256": "6ad9f0581be3240b1591dfdbcdf5438bcc6160102f291a067ff29204e2d6b66d"
+    },
+    {
+      "file": "README_REVIEW.txt",
+      "http": 200,
+      "mime": "text/plain",
+      "bytes": 502,
+      "sha256": "013e95d352211f059877e7d8f2f5def1221607e367e371e84eaff0a98410d860"
+    }
+  ],
+  "physical_phone": "OPEN",
+  "physical_print": "OPEN",
+  "authentic_Mikhak": "OPEN",
+  "owner_FINAL": "OPEN"
+}
