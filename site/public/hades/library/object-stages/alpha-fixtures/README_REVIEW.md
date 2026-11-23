@@ -12,3 +12,6 @@ Standalone synthetic, original geometric sample images. Not HADES identity marks
 - **OPEN:** independent live GitHub Pages HTTP 200/MIME/SHA, physical device, real print, owned/licensed real imagery, Mikhak and any FINAL approval until separately proven.
 
 Next: (1) real Chromium 320/390/430 EN/FA plus PNG decoding and 3 ratio downstream composer regression; (2) real-photo permission-cleared shadow/soft matte study and measured real device/print worksheet.
+
+## Real pre-hosted binary release
+The companion release workflow committed 3 true transparent RGBA PNG, 3 lossless transparent WebP, 3 separate JPEGs composited on proposed Dark/Bone/Charcoal surfaces, a checksum manifest, README and a 14-member real ZIP (3 SVG + 9 raster + README + manifest) into both GitHub source and publish trees. These real binaries **differ** from browser-generated local PNG files; never claim they are a preexisting JPEG/WebP architectural background set. [Download the real ZIP](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_Fixtures_3_Sources_9_Rasters_PUBLIC_REVIEW.zip). PDF, licensed physical sample and FINAL remain OPEN.

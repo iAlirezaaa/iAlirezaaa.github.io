@@ -39,3 +39,7 @@ Classic و Modern دو بیان یک هویت واحدند. رنگ امضایی 
 
 ## آزمایشگاه تصاویر شفاف مصنوعی / PUBLIC REVIEW — ۲۰۲۶-۱۱-۲۳
 [نسخهٔ فارسی تولید PNG شفاف ۵۱۲ پیکسلی](https://ialirezaaa.github.io/hades/fa/library/object-stages/alpha-fixtures/) · [English](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/) · [نمونهٔ مرز سخت SVG](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/HADES_Alpha_hard-edge_REVIEW.svg) · [آلفای چندپله](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/HADES_Alpha_tiered-alpha_REVIEW.svg) · [سایهٔ نرم](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/HADES_Alpha_soft-shadow_REVIEW.svg). نمونه‌ها مصنوعی و بدون لوگو هستند؛ PNG در مرورگر کاربر ساخته می‌شود و به‌صورت فایل باینری جداگانه روی GitHub قرار ندارد. آزمون تصویر واقعی دارای مجوز، چاپ و گوشی OPEN است. تنها #EF4B32 تأیید شده است.
+
+
+## True image files for synthetic alpha fixtures / PUBLIC REVIEW
+[Download actual 14-member SVG + 9 PNG/WebP/JPEG ZIP](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_Fixtures_3_Sources_9_Rasters_PUBLIC_REVIEW.zip) · [SHA256 manifest](https://ialirezaaa.github.io/hades/library/object-stages/alpha-fixtures/raster/HADES_Alpha_Fixtures_Raster_SHA256_REVIEW.json). Three editable SVGs, 3 RGBA PNGs, 3 lossless alpha WebPs and 3 opaque demonstration JPEGs. Not original logos, not the previous architectural background raster pack, not FINAL. Real phone and print OPEN.
