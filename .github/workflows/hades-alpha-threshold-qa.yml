@@ -1,0 +1,144 @@
+name: HADES alpha threshold / real browser and hosted SHA REVIEW
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-alpha-threshold-qa.yml'
+      - 'hades/library/object-stages/composer/**'
+      - 'site/public/hades/library/object-stages/composer/**'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 26
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install real browser and image fixture library
+        run: |
+          python -m pip install playwright==1.56.0 pillow
+          python -m playwright install --with-deps chromium
+      - name: Exact public/served mirror and editable SVG preflight
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          names=['library/object-stages/composer/stage-composer.js','library/object-stages/composer/index.html',
+           'library/object-stages/composer/HADES_Alpha_Threshold_A4_FA_EN_REVIEW.svg',
+           'library/object-stages/composer/README_REVIEW.md','fa/library/object-stages/composer/index.html',
+           'index.html','fa/index.html','library/index.html','fa/library/index.html',
+           'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
+           'downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md']
+          for n in names:
+            assert (Path('hades')/n).read_bytes()==(Path('site/public/hades')/n).read_bytes(),n
+          s=(Path('hades')/names[2]).read_text()
+          r=ET.fromstring(s)
+          assert r.attrib['width']=='210mm' and r.attrib['height']=='297mm'
+          assert r.attrib['viewBox']=='0 0 210 297'
+          assert 'M17 278 L117 278' in s and '#EF4B32' in s
+          assert 'PUBLIC REVIEW' in s and 'IMG_7187' not in s
+          print('PASS',len(names),'mirror pairs and editable A4 with 100mm vector ruler')
+          PY
+      - name: Real Chromium FA EN 320 390 430 and 3 optical fixture cutoffs
+        run: |
+          python -m http.server 8765 >/tmp/hades-alpha-threshold-http.log 2>&1 &
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          f=Image.new('RGBA',(64,64),(0,0,0,0))
+          for box,a in [((4,4,60,60),12),((12,12,52,52),90),((20,20,44,44),245)]:
+            for y in range(box[1],box[3]):
+              for x in range(box[0],box[2]): f.putpixel((x,y),(60,40,30,a))
+          f.save('/tmp/hades-alpha-synthetic.png')
+          PY
+          mkdir -p /tmp/hades-alpha-proofs
+          python - <<'PY'
+          import asyncio,re,json
+          from pathlib import Path
+          from playwright.async_api import async_playwright
+          def get_left(s,lang):
+            m=re.search((r'چپ\s+(\d+)%' if lang=='fa' else r'L\s+(\d+)%'),s)
+            assert m,(lang,s)
+            return int(m.group(1))
+          async def main():
+            async with async_playwright() as p:
+              b=await p.chromium.launch(headless=True,args=['--no-sandbox'])
+              for lang in ('en','fa'):
+                route='fa/library/object-stages/composer/' if lang=='fa' else 'library/object-stages/composer/'
+                for width in (320,390,430):
+                  page=await b.new_page(viewport={'width':width,'height':850})
+                  resp=await page.goto('http://127.0.0.1:8765/hades/'+route,wait_until='networkidle')
+                  assert resp.status==200,(lang,width,resp.status)
+                  await page.locator('#subjectFile').set_input_files('/tmp/hades-alpha-synthetic.png')
+                  await page.wait_for_function("document.getElementById('alphaInfo').textContent.includes('%')")
+                  low_default=get_left(await page.locator('#alphaInfo').inner_text(),lang)
+                  assert 15<=low_default<=24,(lang,low_default)
+                  async def cutoff(value):
+                    await page.locator('#alphaThreshold').evaluate('(e,v)=>{e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}));}',str(value))
+                    return get_left(await page.locator('#alphaInfo').inner_text(),lang)
+                  lo=await cutoff(8);hi=await cutoff(160)
+                  assert 3<=lo<=11 and 27<=hi<=36 and lo<low_default<hi,(lang,width,lo,low_default,hi)
+                  assert await page.locator('#alphaOut').inner_text()=='160/255'
+                  assert not await page.evaluate('document.documentElement.scrollWidth>window.innerWidth+1'),(lang,width,'overflow')
+                  async with page.expect_download() as dl:
+                    await page.locator('#saveJSON').click()
+                  downloaded=await dl.value
+                  data=json.loads(Path(await downloaded.path()).read_text())
+                  assert data['view']['alphaThreshold']==160
+                  await page.locator('#alphaThreshold').evaluate('(e)=>{e.value=8;e.dispatchEvent(new Event("input",{bubbles:true}));}')
+                  await page.locator('#loadJSON').set_input_files({'name':'restored.json','mimeType':'application/json','buffer':json.dumps(data).encode()})
+                  await page.wait_for_function("document.getElementById('alphaOut').textContent === '160/255'")
+                  assert 27<=get_left(await page.locator('#alphaInfo').inner_text(),lang)<=36
+                  await page.screenshot(path=f'/tmp/hades-alpha-proofs/{lang}_{width}.png',full_page=True)
+                  print('PASS',lang,width,'px; default/low/high alpha + JSON readback + no overflow')
+                  await page.close()
+              page=await b.new_page(viewport={'width':960,'height':1360})
+              resp=await page.goto('http://127.0.0.1:8765/hades/library/object-stages/composer/HADES_Alpha_Threshold_A4_FA_EN_REVIEW.svg')
+              assert resp.status==200
+              text=await page.locator('svg text').evaluate_all('''e=>e.map(t=>{const b=t.getBBox();return {x:b.x,y:b.y,r:b.x+b.width,b:b.y+b.height,s:t.textContent}})''')
+              bad=[t for t in text if t['x']<11 or t['r']>199 or t['y']<11 or t['b']>287]
+              assert not bad,bad
+              await page.screenshot(path='/tmp/hades-alpha-proofs/a4_bilingual.svg.png',full_page=True)
+              await b.close()
+              print('PASS actual editable SVG opened in Chromium with margins')
+          asyncio.run(main())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-alpha-threshold-6-real-chromium-review
+          path: /tmp/hades-alpha-proofs/
+          if-no-files-found: ignore
+      - name: Independent hosted GET status MIME SHA256 (not build status)
+        run: |
+          python - <<'PY'
+          import time,hashlib,urllib.request
+          from pathlib import Path
+          paths=['library/object-stages/composer/stage-composer.js','library/object-stages/composer/index.html',
+          'fa/library/object-stages/composer/index.html','library/object-stages/composer/HADES_Alpha_Threshold_A4_FA_EN_REVIEW.svg',
+          'index.html','fa/index.html','library/index.html','fa/library/index.html',
+          'brand-kit/logo-usage/index.html','fa/brand-kit/logo-usage/index.html',
+          'downloads/HADES_Public_Overview_EN.md','downloads/HADES_Public_Overview_FA.md']
+          for attempt in range(12):
+            errors=[]
+            for path in paths:
+              expected=(Path('hades')/path).read_bytes()
+              req=urllib.request.Request('https://ialirezaaa.github.io/hades/'+path,headers={'User-Agent':'HADES-Threshold-REVIEW-QA/1.0','Cache-Control':'no-cache'})
+              try:
+                with urllib.request.urlopen(req,timeout=20) as r:
+                  got=r.read();ct=r.headers.get('content-type','')
+                  mime=('image/svg+xml' if path.endswith('.svg') else 'javascript' if path.endswith('.js') else 'text/html' if path.endswith('.html') else 'text/plain')
+                  assert r.status==200 and (mime in ct or (path.endswith('.md') and 'text/' in ct)),(path,r.status,ct)
+                  assert hashlib.sha256(expected).digest()==hashlib.sha256(got).digest(),path
+              except Exception as e: errors.append((path,str(e)))
+            if not errors:
+              print('PASS',len(paths),'independent hosted HTTPS 200 / MIME / SHA256; attempt',attempt+1)
+              break
+            print('Hosted attempt',attempt+1,'has',len(errors),'OPEN:',errors[:2],flush=True)
+            if attempt<11:time.sleep(15)
+          assert not errors,errors
+          PY
