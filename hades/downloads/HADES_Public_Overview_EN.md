@@ -72,3 +72,7 @@ Binary SHA-256 manifest: https://ialirezaaa.github.io/hades/library/backgrounds/
 ## 2026-11-23 · Original white mark A4 optical observation / PUBLIC REVIEW
 
 [Editable A4 true-size print sheet and observation form](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/print-sheet/) · [SVG](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/print-sheet/HADES_Original_Mark_Print_Optical_A4_FA_EN_PUBLIC_REVIEW.svg). Original logo bytes intact, separate dark plaques at 18/27/38 mm, 50 mm calibration rule, blank observations. Actual printer / 48–96px human phone test / Mikhak / FINAL: OPEN.
+
+
+### Native raster originals-on-plaque · three ratios · PUBLIC REVIEW
+Nine native-resolution PNG/JPEG/WebP applied-background files (16:9, 9:16, 1:1) using the untouched owner-supplied white logo within separate dark plaques. Not official logo masters; real-device and print tests OPEN. [Gallery](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/) · [ZIP PUBLIC REVIEW](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/raster/HADES_Original_Mark_Plaques_3_Ratios_9_Rasters_PUBLIC_REVIEW.zip).

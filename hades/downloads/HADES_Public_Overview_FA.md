@@ -72,3 +72,7 @@ Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINA
 ## 2026-11-23 · Original white mark A4 optical observation / PUBLIC REVIEW
 
 [برگهٔ A4 قابل‌ویرایش و آزمون چاپ](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/mark-plate/print-sheet/) · [SVG](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/mark-plate/print-sheet/HADES_Original_Mark_Print_Optical_A4_FA_EN_PUBLIC_REVIEW.svg). Original logo bytes intact, separate dark plaques at 18/27/38 mm, 50 mm calibration rule, blank observations. Actual printer / 48–96px human phone test / Mikhak / FINAL: OPEN.
+
+
+### خروجی‌های PNG/JPEG/WebP پلاکِ نشان در سه نسبت · PUBLIC REVIEW
+تصاویر PNG/JPEG/WebP با ابعاد اصلی ۱۶:۹، ۹:۱۶ و ۱:۱ و نشان اصلی بدون تغییر. فایل‌های ترکیبی رسمی لوگو نیستند؛ چاپ/گوشی واقعی OPEN. [گالری](/hades/fa/library/backgrounds/quiet-courts/mark-plate/ratios/) · [ZIP PUBLIC REVIEW](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/raster/HADES_Original_Mark_Plaques_3_Ratios_9_Rasters_PUBLIC_REVIEW.zip).
