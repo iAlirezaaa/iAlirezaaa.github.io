@@ -1,0 +1,19 @@
+name: HADES motion-safe public HTTP QA
+on:
+  push:
+    paths:
+      - 'hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/**'
+      - 'hades/fa/library/backgrounds/quiet-courts/closing-cards/motion-safe/**'
+      - '.github/workflows/hades-motion-safe-http.yml'
+      - 'scripts/hades-motion-safe-http.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hosted:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent live HTTP and exact body hash
+        run: python3 scripts/hades-motion-safe-http.py
