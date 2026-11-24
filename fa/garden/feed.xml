@@ -3,7 +3,7 @@
   <title>باغ دیجیتال هادس</title>
   <link href="https://ialirezaaa.github.io/fa/garden/feed.xml" rel="self"/>
   <link href="https://ialirezaaa.github.io/fa/garden/"/>
-  <updated>2026-11-24T22:40:56Z</updated>
+  <updated>2026-11-24T23:31:06Z</updated>
   <id>https://ialirezaaa.github.io/fa/garden/</id><entry>
     <title>diffusion-from-noise</title>
     <updated>2026-11-25T00:00:00.000Z</updated>
@@ -72,7 +72,7 @@ with urlopen(request, timeout=15) as response:
     <link href="https://ialirezaaa.github.io/fa/blog/comfyui-repo-review/"/>
   </entry><entry>
     <title>همهٔ نوشته‌ها</title>
-    <updated>2026-11-24T22:40:53Z</updated>
+    <updated>2026-11-24T23:31:04Z</updated>
     <id>https://ialirezaaa.github.io/fa/blog/</id>
     <content type="html">&lt;p class=&quot;article-deck&quot;&gt;از پشت‌صحنهٔ انیمیشن گرفته تا قصه‌گویی و ابزارهایی که موقع ساختن به کارم می‌آیند. هر نوشته به مفهوم‌ها و یادداشت‌های مرتبطش وصل است.&lt;/p&gt;
 &lt;nav class=&quot;garden-directory-nav&quot; aria-label=&quot;مرور نوشته‌ها&quot;&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/categories/&quot;&gt;دسته‌بندی‌ها&lt;/a&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/tags/&quot;&gt;برچسب‌ها&lt;/a&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/&quot;&gt;باغ دیجیتال&lt;/a&gt;&lt;/nav&gt;
