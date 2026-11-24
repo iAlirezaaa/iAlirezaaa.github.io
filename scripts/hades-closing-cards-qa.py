@@ -8,7 +8,7 @@ base=Path('hades/library/backgrounds/quiet-courts/closing-cards')
 fa=Path('hades/fa/library/backgrounds/quiet-courts/closing-cards')
 proof=Path('closing-proof'); proof.mkdir(exist_ok=True)
 files=list(base.glob('*.svg'))+[base/'index.html',fa/'index.html']
-assert len(files)==4
+assert len(files)==8
 navs=['hades/index.html','hades/fa/index.html','hades/library/index.html','hades/fa/library/index.html','hades/brand-kit/logo-usage/index.html','hades/fa/brand-kit/logo-usage/index.html','hades/downloads/HADES_Public_Overview_EN.md','hades/downloads/HADES_Public_Overview_FA.md']
 for p in files+[Path(n) for n in navs]:
     assert p.read_bytes()==(Path('site/public')/p).read_bytes()
@@ -28,10 +28,19 @@ with sync_playwright() as pw:
             assert page.locator('html').get_attribute('lang')==lang
             assert page.locator('html').get_attribute('dir')==('rtl' if lang=='fa' else 'ltr')
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
-            assert page.locator('img').count()==2
-            assert page.locator('img').evaluate_all('(imgs)=>imgs.every(i=>i.complete&&i.naturalWidth===1920)')
+            assert page.locator('img').count()==6
+            assert page.locator('img').evaluate_all('(imgs)=>imgs.every(i=>i.complete&&i.naturalWidth===Number(i.getAttribute("width"))&&i.naturalHeight===Number(i.getAttribute("height")))')
             page.screenshot(path=str(proof/f'{lang}-{w}.png'),full_page=True)
             page.close()
+    for f in sorted(base.glob('*.svg')):
+        svg=ET.parse(f).getroot()
+        w,h=int(svg.attrib['width']),int(svg.attrib['height'])
+        page=browser.new_page(viewport={'width':w,'height':h})
+        page.goto(f'http://127.0.0.1:{server.server_port}/{f}')
+        boxes=page.locator('#editable-credits text').evaluate_all('(els)=>els.map(e=>{const b=e.getBBox();return [b.x,b.y,b.width,b.height]})')
+        assert all(x>=0 and x+ww<=w and y>=0 and y+hh<=h for x,y,ww,hh in boxes)
+        page.screenshot(path=str(proof/(f.stem+'.png')))
+        page.close()
     browser.close()
 print('PASS 6 Chromium responsive checks; embedded source SHA and mirrors')
 old=base.parent/'chapter-divider'
