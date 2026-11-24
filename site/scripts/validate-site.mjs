@@ -21,7 +21,7 @@ const titles = new Set()
 assert.match(robots, /User-agent:\s*\*/)
 assert.match(robots, /Allow:\s*\//)
 assert.ok(robots.includes(origin + 'sitemap.xml'))
-assert.equal([...sitemap.matchAll(/<loc>/g)].length, endpoints.length * 2 + 1)
+assert.equal([...sitemap.matchAll(/<loc>/g)].length, endpoints.length * 2 + 1 + blogEntries.length)
 assert.equal([...sitemap.matchAll(/hreflang="fa"/g)].length, endpoints.length * 2)
 assert.equal([...sitemap.matchAll(/hreflang="en"/g)].length, endpoints.length * 2)
 
@@ -110,5 +110,22 @@ const fixture = {slug:'fixture', title:'یک نوشته', date:'2026-11-24', des
 assert.deepEqual(readingStats(fixture), {words:182, minutes:2})
 assert.deepEqual(visibleEntries([null, {...fixture, date:'2026-02-30'}, {...fixture, slug:'bad/post'}, fixture]), [fixture])
 assert.equal(visibleEntries(blogEntries).length, blogEntries.length)
+for (const entry of blogEntries) {
+  const route = '/fa/blog/' + entry.slug + '/'
+  const canonical = new URL(route, origin).href
+  const article = read(path.join(dist, route, 'index.html'))
+  assert.ok(blog.includes('href="' + route + '"'))
+  assert.ok(sitemap.includes('<loc>' + canonical + '</loc>'))
+  assert.ok(article.includes('<link rel="canonical" href="' + canonical + '">'))
+  assert.ok(article.includes('property="og:image" content="' + new URL(entry.hero.path, origin).href + '"'))
+  assert.ok(article.includes('datetime="' + entry.date + '"'))
+  assert.ok(article.includes('دقیقه مطالعه'))
+  assert.ok(article.includes('id="prose"><'))
+  assert.ok(!article.includes('id="article" hidden'))
+  assert.ok(fs.existsSync(path.join(dist, entry.hero.path)))
+  const image = fs.readFileSync(path.join(dist, entry.hero.path))
+  assert.equal(image.toString('ascii', 0, 4), 'RIFF')
+  assert.equal(image.toString('ascii', 8, 12), 'WEBP')
+}
 console.log('Persian-only blog, entry validation and reading controls: PASS')
 console.log('SEO, language routing, project translations, five official links and ten pages: PASS')
