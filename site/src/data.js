@@ -19,17 +19,21 @@ export const projects = [
   { id:'reporter', title:'Reporter', kind:'Animation', date:'Dec 2017 – Jan 2018', role:'First animation production', text:'The first professional step into animation: a one-month deadline, rapid scheduling, department coordination and a first experience leading a team under supervision.', discipline:'Direction', note:'Every practice has a first frame.' },
 ]
 
+const projectNode = (id, label, x, y) => ({
+  id, label, x, y, group:'project', description:projects.find(project => project.id === id).text,
+})
+
 export const graphNodes = [
   { id:'hades', label:'HADES', x:400, y:256, group:'realm', description:'A personal framework connecting narrative, production and creative intelligence.' },
   { id:'production', label:'Production', x:240, y:188, group:'practice', description:'The architecture that carries an idea through teams, revisions and delivery.' },
   { id:'intelligence', label:'AI workflows', x:547, y:169, group:'practice', description:'Choose tools deliberately. Creative value comes from how they fit the work.' },
   { id:'narrative', label:'Worldbuilding', x:473, y:375, group:'practice', description:'Myth, memory and character become the rules of a cinematic world.' },
-  { id:'dolphin', label:'Dolphin Boy', x:150, y:289, group:'project', description:projects[0].text },
-  { id:'dragon', label:'Princess & Dragon', x:225, y:84, group:'project', description:projects[1].text },
-  { id:'parkophobia', label:'PARKOPHOBIA', x:637, y:271, group:'project', description:projects[2].text },
-  { id:'savior', label:'Savior Ship', x:127, y:164, group:'project', description:projects[3].text },
-  { id:'maryam', label:'Maryam', x:314, y:402, group:'project', description:projects[4].text },
-  { id:'reporter', label:'Reporter', x:188, y:379, group:'project', description:projects[5].text },
+  projectNode('dolphin', 'Dolphin Boy', 150, 289),
+  projectNode('dragon', 'Princess & Dragon', 225, 84),
+  projectNode('parkophobia', 'PARKOPHOBIA', 637, 271),
+  projectNode('savior', 'Savior Ship', 127, 164),
+  projectNode('maryam', 'Maryam', 314, 402),
+  projectNode('reporter', 'Reporter', 188, 379),
   { id:'mythos', label:'Mythos', x:574, y:425, group:'realm', description:'The story archive: symbols, archetypes and rules that give a world continuity.' },
   { id:'orpheus', label:'Orpheus', x:616, y:100, group:'realm', description:'An envisioned orchestration layer within the Hades ecosystem.' },
   { id:'memory', label:'Production memory', x:375, y:79, group:'idea', description:'Preserve the reason behind each decision, not just its final output.' },
