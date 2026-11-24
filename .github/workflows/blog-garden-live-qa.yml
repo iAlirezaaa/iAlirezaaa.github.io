@@ -6,14 +6,29 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: garden-live-verification
+  cancel-in-progress: true
 jobs:
   verify:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            site/package-lock.json
+            garden/package-lock.json
+      - name: Build the expected Persian garden release
+        run: |
+          npm ci --prefix site
+          npm ci --prefix garden
+          npm --prefix site run build
+          node site/scripts/postbuild.mjs
       - name: Independent live HTTP 200, MIME, SHA and article link checks
         run: node site/scripts/verify-garden-live.mjs

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="system" data-size="regular" data-measure="regular" data-leading="regular">
+<head>
+<title>{{ title or page.fileSlug }}{% if title != 'باغ دیجیتال هادس' %} | باغ دیجیتال هادس{% endif %}</title>
+{% include "components/pageheader.njk" %}
+{% set slotName = "common.head" %}{% include "components/pluginSlot.njk" %}
+{% for imp in dynamics.common.head %}{% include imp %}{% endfor %}
+</head>
+<body class="hades-garden markdown-preview-view markdown-rendered" data-garden-page="{{ page.url }}">
+<a class="skip-link" href="#content">رفتن به محتوای اصلی</a>
+<progress class="reading-progress" id="reading-progress" max="100" value="0" aria-label="پیشرفت مطالعه"></progress>
+<header class="garden-topbar">
+  <div class="topbar-start"><button type="button" class="icon-button mobile-tree-toggle" data-panel-open="navigation" aria-controls="garden-navigation" aria-expanded="false" aria-label="باز کردن فهرست یادداشت‌ها"><span aria-hidden="true">☰</span></button><a class="topbar-name" href="/fa/garden/">باغ دیجیتال <bdi>هادس</bdi></a></div>
+  <nav class="topbar-links" aria-label="بخش‌های سایت"><a href="/fa/blog/">نوشته‌ها</a><a href="/fa/garden/">یادداشت‌ها</a><a href="/fa/work/">آثار</a></nav>
+  <div class="topbar-actions"><button type="button" class="icon-button" data-search-open aria-label="جست‌وجو در نوشته‌ها و یادداشت‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><button type="button" class="icon-button" data-settings-open aria-label="تنظیمات مطالعه"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M9 3v6M15 9v6M9 15v6"/></svg></button><button type="button" class="icon-button mobile-context-toggle" data-panel-open="context" aria-controls="garden-context" aria-expanded="false" aria-label="فهرست مطالب و پیوندهای این صفحه"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></button></div>
+</header>
+<div class="garden-layout">
+  {% include "components/hadesNavigation.njk" %}
+  <main class="content garden-content cm-s-obsidian {{ contentClasses }}" id="content" tabindex="-1">
+    <header class="note-header">
+      <nav class="note-breadcrumb" aria-label="مسیر صفحه"><a href="/fa/garden/">باغ دیجیتال</a><span aria-hidden="true">/</span>{% if categoryURL %}<a href="{{ categoryURL }}">{{ categoryLabel or group }}</a>{% else %}<span>{{ group or 'یادداشت‌ها' }}</span>{% endif %}</nav>
+      <h1>{{ title or page.fileSlug }}</h1>
+      {% if description %}<p class="note-description">{{ description }}</p>{% endif %}
+      <div class="note-meta"><span class="article-byline">علیرضا عسگرپور</span>{% if updated or date %}<span aria-hidden="true">·</span><time class="persian-date" datetime="{{ (updated or date) | hadesISODate }}">{{ (updated or date) | hadesDate }}</time>{% endif %}<span class="reading-time" data-reading-time{% if readingMinutes %} data-reading-minutes="{{ readingMinutes }}"{% endif %}>{% if readingMinutes %}· {{ readingMinutes | hadesNumber }} دقیقه مطالعه{% endif %}</span></div>
+      {% if tags and settings.dgShowTags !== false %}<div class="note-tags" aria-label="برچسب‌های یادداشت">{% for tag in tags %}{% if tag != 'gardenEntry' and tag != 'note' %}<button type="button" data-search-query="{{ tag }}">#{{ tag }}</button>{% endif %}{% endfor %}</div>{% endif %}
+      {% set slotName = "common.header" %}{% include "components/pluginSlot.njk" %}
+    </header>
+    <article class="note-body" id="prose" data-note-body>
+    {% set slotName = "common.beforeContent" %}{% include "components/pluginSlot.njk" %}
+    {{ content | hideDataview | taggify | link | resolveMdLinks | safe }}
+    {% set slotName = "common.afterContent" %}{% include "components/pluginSlot.njk" %}
+    </article>
+    <footer class="note-footer"><p>ایده‌ها با ارتباط پیدا کردن رشد می‌کنند.</p><div><button type="button" data-copy-link>کپی پیوند</button><a href="#content">بازگشت به ابتدای نوشته</a><span class="copy-status" role="status" aria-live="polite"></span></div></footer>
+  </main>
+  {% include "components/sidebar.njk" %}
+</div>
+<div class="garden-backdrop" data-panel-close hidden></div>
+{% include "components/hadesDialogs.njk" %}
+{% set slotName = "common.footer" %}{% include "components/pluginSlot.njk" %}
+{% for imp in dynamics.common.footer %}{% include imp %}{% endfor %}
+{% if contentClasses and 'canvas-page' in contentClasses %}{% include "components/canvasScript.njk" %}{% endif %}
+{% include "components/basesScript.njk" %}
+{% include "components/excalidrawScript.njk" %}
+</body>
+</html>

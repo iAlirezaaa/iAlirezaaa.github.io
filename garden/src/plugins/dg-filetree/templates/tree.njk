@@ -1,0 +1,4 @@
+{% macro menuItem(name, item, step, currentPath) %}
+{% if item.isNote and not item.hide %}<li class="tree-note"><a href="{{ item.permalink }}" class="filename internal-link">{{ item.name }}</a></li>{% elif item.isFolder %}<li class="tree-folder"><details open data-folder="{{ currentPath }}"><summary><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6"/></svg><span>{{ name }}</span></summary><ul>{% for childName, child in item %}{{ menuItem(childName, child, step+1, currentPath+'/'+childName) }}{% endfor %}</ul></details></li>{% endif %}
+{% endmacro %}
+<ul class="tree-root">{% for name, item in filetree %}{{ menuItem(name, item, 0, name) }}{% endfor %}</ul>

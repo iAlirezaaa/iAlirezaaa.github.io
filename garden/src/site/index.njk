@@ -1,0 +1,3 @@
+<div class="garden-fallback-index">
+{% if publishedNotes.length > 0 %}<p>{{ publishedNotes.length | hadesNumber }} یادداشت برای خواندن و دنبال کردن ارتباط‌ها.</p><ul>{% for note in publishedNotes %}<li><a class="internal-link" href="{{ note.url }}">{{ note.title }}</a></li>{% endfor %}</ul>{% else %}<p>هنوز یادداشتی در باغ منتشر نشده است.</p><p><a href="/fa/blog/">نوشته‌های هادس را ببین.</a></p>{% endif %}
+</div>

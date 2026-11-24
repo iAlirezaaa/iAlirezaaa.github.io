@@ -1,0 +1,23 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="generator" content="Obsidian Digital Garden / Eleventy">
+<meta name="robots" content="{{ robots or (metatags and metatags.robots) or 'index, follow' }}">
+<meta name="description" content="{{ description or 'یادداشت‌های به‌هم‌پیوستهٔ علیرضا عسگرپور دربارهٔ هوش مصنوعی، انیمیشن و روایت.' }}">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:title" content="{{ title or page.fileSlug }}{% if title != 'باغ دیجیتال هادس' %} | باغ دیجیتال هادس{% endif %}">
+<meta property="og:description" content="{{ description or 'ایده‌ها، نوشته‌ها و ارتباط میان آن‌ها.' }}">
+<meta property="og:type" content="{{ (metatags and metatags['og:type']) or ('article' if page.url != '/' else 'website') }}">
+<meta property="og:url" content="{{ canonical or ('https://ialirezaaa.github.io' + (page.url | hadesUrl)) }}">
+<link rel="canonical" href="{{ canonical or ('https://ialirezaaa.github.io' + (page.url | hadesUrl)) }}">
+{% if metatags %}{% for name, value in metatags %}{% if name not in ['robots', 'description', 'og:locale', 'og:title', 'og:description', 'og:type', 'og:url'] %}<meta {{ 'property' if ':' in name else 'name' }}="{{ name }}" content="{{ value }}">{% endif %}{% endfor %}{% endif %}
+<link rel="icon" href="/img/hades-site-favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fa/garden/fonts/mikhak.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+(function(){try{var p=JSON.parse(localStorage.getItem('hades-garden-reading')||'{}');var d=document.documentElement;for(var k of ['theme','size','measure','leading'])if(p[k])d.dataset[k]=p[k];if(!d.dataset.theme)d.dataset.theme='system';}catch(e){}})();
+</script>
+<link rel="stylesheet" href="/styles/user/hades.css">
+{%- for style in plugins.styles -%}<link href="{{style}}" rel="stylesheet">{%- endfor -%}
+{%- for style in dynamics.styles -%}{%- if '/user/hades.css' not in style -%}<link href="{{style}}" rel="stylesheet">{%- endif -%}{%- endfor -%}
+{%- for script in plugins.scripts -%}<script defer src="{{script}}"></script>{%- endfor -%}
+<script type="module" src="/scripts/hades.js"></script>

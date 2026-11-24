@@ -89,7 +89,14 @@ for (const page of pages) {
 }
 entries.push('  <url>\n    <loc>' + base + 'fa/blog/</loc>\n  </url>')
 for (const article of renderBlog(dist)) entries.push('  <url>\n    <loc>' + article.url + '</loc>\n    <lastmod>' + article.date + '</lastmod>\n  </url>')
-buildGarden(dist)
-entries.push('  <url>\n    <loc>' + base + 'fa/garden/</loc>\n  </url>')
+const garden = await buildGarden(dist)
+const existingURLs = new Set(entries.flatMap(entry => [...entry.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1])))
+for (const item of garden.urls) {
+  const url = new URL(typeof item === 'string' ? item : item.url, base).href
+  if (!existingURLs.has(url)) {
+    entries.push('  <url>\n    <loc>' + esc(url) + '</loc>\n  </url>')
+    existingURLs.add(url)
+  }
+}
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + entries.join('\n') + '\n</urlset>\n'
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap)
