@@ -30,6 +30,7 @@ jobs:
         run: |
           python - <<'PY'
           import io, json, sys, zipfile, tempfile, shutil
+          sys.dont_write_bytecode=True
           from pathlib import Path
           from PIL import Image, ImageChops
           root=Path('hades/library/backgrounds/quiet-courts/closing-cards/motion-safe')
@@ -118,7 +119,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           dir=library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/frame-sheet/alpha-sequence
-          git add "hades/$dir" "hades/fa/$dir" "site/public/hades/$dir" "site/public/hades/fa/$dir"
+          git add "hades/$dir/index.html" "hades/fa/$dir/index.html" "site/public/hades/$dir/index.html" "site/public/hades/fa/$dir/index.html" "hades/$dir/HADES_Alpha_EN_16x9_24fps_3s_PUBLIC_REVIEW.zip" "site/public/hades/$dir/HADES_Alpha_EN_16x9_24fps_3s_PUBLIC_REVIEW.zip"
           git diff --cached --quiet || git commit -m 'Publish native 72-frame straight-alpha sample (REVIEW)'
           for attempt in 1 2 3; do
             git fetch origin main
