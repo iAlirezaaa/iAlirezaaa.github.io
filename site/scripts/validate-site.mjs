@@ -21,7 +21,7 @@ const titles = new Set()
 assert.match(robots, /User-agent:\s*\*/)
 assert.match(robots, /Allow:\s*\//)
 assert.ok(robots.includes(origin + 'sitemap.xml'))
-assert.equal([...sitemap.matchAll(/<loc>/g)].length, endpoints.length * 2 + 2 + blogEntries.length)
+assert.equal([...sitemap.matchAll(/<loc>/g)].length, endpoints.length * 2 + 4 + blogEntries.length + new Set(blogEntries.map(entry => entry.categoryId).filter(Boolean)).size)
 assert.equal([...sitemap.matchAll(/hreflang="fa"/g)].length, endpoints.length * 2)
 assert.equal([...sitemap.matchAll(/hreflang="en"/g)].length, endpoints.length * 2)
 
@@ -98,6 +98,23 @@ assert.ok(officialLinks.some(link => link.name === 'Airis Feed' && link.personal
 const googleVerificationFile = read(path.join(dist, 'googleb94d773f21def0ef.html'))
 assert.equal(googleVerificationFile, 'google-site-verification: googleb94d773f21def0ef.html', 'Google Search Console HTML verification file must remain exact')
 const blog = read(fileFor('blog', 'fa'))
+for (const slug of ['categories','tags']) {
+  const route = 'blog/' + slug + '/'
+  const directory = read(path.join(dist, 'fa', route, 'index.html'))
+  assert.ok(directory.includes('href="/fa/' + route + '" aria-current="page"'))
+  assert.ok(sitemap.includes('<loc>' + origin + 'fa/' + route + '</loc>'))
+  assert.ok(blog.includes('href="/fa/' + route + '"'))
+}
+assert.ok(sitemap.includes('<loc>' + origin + 'fa/garden/</loc>'))
+for (const slug of ['papers','repo-analysis','fundamentals']) {
+  const route = '/fa/blog/categories/' + slug + '/'
+  const category = read(path.join(dist, route, 'index.html'))
+  const count = blogEntries.filter(entry => entry.categoryId === slug).length
+  assert.equal(category.includes('برای این دسته هنوز نوشته‌ای منتشر نشده.'), !count)
+  assert.equal(sitemap.includes('<loc>' + new URL(route, origin).href + '</loc>'), !!count)
+  assert.equal(category.includes('noindex, follow'), !count)
+  assert.equal([...category.matchAll(/class="post-card"/g)].length, count)
+}
 assert.match(blog, /<html lang="fa" dir="rtl"/)
 assert.ok(blog.includes('href="' + origin + 'fa/blog/"'))
 assert.ok(sitemap.includes('<loc>' + origin + 'fa/blog/</loc>'))
@@ -121,6 +138,10 @@ for (const entry of blogEntries) {
   assert.ok(article.includes('datetime="' + entry.date + '"'))
   assert.ok(article.includes('دقیقه مطالعه'))
   assert.ok(article.includes('id="prose"><'))
+  assert.ok(article.includes('class="article-byline">علیرضا عسگرپور'))
+  assert.ok(article.includes('<progress id="read-progress"'))
+  assert.ok(article.includes('id="copy-link"'))
+  if (entry.categoryId) assert.ok(article.includes('href="/fa/blog/categories/' + entry.categoryId + '/"'))
   assert.ok(!article.includes('id="article" hidden'))
   assert.ok(fs.existsSync(path.join(dist, entry.hero.path)))
   const schemas = [...article.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]))

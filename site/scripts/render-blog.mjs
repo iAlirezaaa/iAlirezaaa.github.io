@@ -6,6 +6,21 @@ import { readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
 const blogRoot = 'https://ialirezaaa.github.io/fa/blog/'
 const ddpmFigure = 'https://arxiv.org/html/2006.11239v2/pgm_diagram_xarrow_small.png'
 const topicNames = {'ai-basics':'پایه‌های هوش مصنوعی',diffusion:'دیفیوژن','ai-image-making':'تصویرسازی با هوش مصنوعی','paper-explainer':'شرح مقاله'}
+const categories = {
+  papers:{name:'شرح مقاله‌های هوش مصنوعی',description:'ایدهٔ اصلی پژوهش‌ها، به زبان ساده و همراه با شکل‌ها و مثال‌های کاربردی.'},
+  'repo-analysis':{name:'تحلیل ریپوها',description:'سر زدن به کد و مستندات ابزارهای متن‌باز، برای اینکه ببینیم چطور کار می‌کنند و کجا به درد می‌خورند.'},
+  fundamentals:{name:'پایه‌های هوش مصنوعی',description:'مفهوم‌های پایه با مثال‌هایی که از دل کارِ ساخت تصویر و انیمیشن می‌آیند.'},
+}
+const categoryPath = slug => '/fa/blog/categories/' + slug + '/'
+const markNav = (html, target) => html.replace(' href="/fa/blog/" aria-current="page"', ' href="/fa/blog/"').replace(' href="' + target + '"', ' href="' + target + '" aria-current="page"')
+const pageHead = (html, title, description, url, noindex = false) => html
+  .replace(/<title>[^<]*<\/title>/, () => '<title>' + esc(title) + ' | وبلاگ هادس</title>')
+  .replace(/(<meta name="description" content=")[^"]*/, (_, start) => start + esc(description))
+  .replace(/(<meta property="og:title" content=")[^"]*/, (_, start) => start + esc(title + ' | وبلاگ هادس'))
+  .replace(/(<meta property="og:description" content=")[^"]*/, (_, start) => start + esc(description))
+  .replace(/(<meta property="og:url" content=")[^"]*/, (_, start) => start + url)
+  .replace(/(<link rel="canonical" href=")[^"]*/, (_, start) => start + url)
+  .replace(/(<meta name="robots" content=")[^"]*/, (_, start) => start + (noindex ? 'noindex, follow' : 'index, follow'))
 const topicPath = slug => '/fa/blog/tags/' + slug + '/'
 const topicLinks = (items = [], current, all = false) => items.length ? '<nav class="topic-nav" aria-label="موضوع‌های وبلاگ"><ul>' + (all ? '<li><a href="/fa/blog/"' + (current ? '' : ' aria-current="page"') + '>همهٔ نوشته‌ها</a></li>' : '') + items.map(id => '<li><a href="' + topicPath(id) + '"' + (current === id ? ' aria-current="page"' : '') + '>' + esc(topicNames[id]) + '</a></li>').join('') + '</ul></nav>' : ''
 const safeJSON = item => JSON.stringify(item).replaceAll('<', '\\u003c')
@@ -52,6 +67,7 @@ function validatedEntries(folder) {
     const expected = '/fa/blog/media/' + entry.slug + '.webp'
     if (!hero || hero.path !== expected || !Number.isInteger(hero.width) || hero.width < 1 || !Number.isInteger(hero.height) || hero.height < 1 || typeof hero.alt !== 'string' || !hero.alt.trim()) throw new Error('Invalid blog cover for ' + entry.slug)
     if (!fs.existsSync(path.join(folder, 'media', entry.slug + '.webp'))) throw new Error('Missing blog cover: ' + entry.slug)
+    if (entry.categoryId && !Object.hasOwn(categories, entry.categoryId)) throw new Error('Invalid category: ' + entry.slug)
     const ids = entry.tags ?? []
     if (!Array.isArray(ids) || !ids.every(id => Object.hasOwn(topicNames, id)) || new Set(ids).size !== ids.length) throw new Error('Invalid topics: ' + entry.slug)
     for (const asset of entry.figures ?? []) {
@@ -75,22 +91,46 @@ export function renderBlog(dist) {
   const approved = validatedEntries(folder)
   const sourcePaths = []
   const topics = Object.keys(topicNames).filter(id => approved.some(entry => entry.tags?.includes(id)))
-  function listPage(current) {
-    const selected = current ? approved.filter(entry => entry.tags?.includes(current)) : approved
-    if (!selected.length) return shell
-    const cards = selected.map(entry => '<li><a class="post-card" href="/fa/blog/' + entry.slug + '/">' + image(entry.hero, 'card') + '<div><h3>' + esc(entry.title) + '</h3><p>' + esc(entry.description) + '</p><p class="article-meta">' + metadata(entry) + '</p></div></a>' + topicLinks(entry.tags) + '</li>')
-    const label = current ? ' / ' + esc(topicNames[current]) : ''
-    let html = shell.replace(/<p id="empty">[^<]*<\/p>\s*<ul id="list" hidden><\/ul>/, () => '<ul id="list">' + cards.join('') + '</ul>')
-      .replace('<h2 id="posts-title">نوشته‌ها</h2>', () => '<h2 id="posts-title">نوشته‌ها' + label + '</h2>' + topicLinks(topics, current, true))
-    if (current) html = html.replace(/<title>[^<]*<\/title>/, () => '<title>' + esc(topicNames[current]) + ' | وبلاگ هادس</title>')
-      .replace(/(<meta name="robots" content=")[^"]*/, '$1noindex, follow')
-    return html
+  const today = new Date().toISOString().slice(0,10)
+  const empty = text => '<p class="directory-state">' + esc(text) + ' <a href="/fa/blog/">به همهٔ نوشته‌ها برگرد.</a></p>'
+  const cards = list => '<ul id="list">' + list.map(entry => '<li>' + (entry.categoryId ? '<a class="card-category" href="' + categoryPath(entry.categoryId) + '">' + esc(categories[entry.categoryId].name) + '</a>' : '') + '<a class="post-card" href="/fa/blog/' + entry.slug + '/">' + image(entry.hero,'card') + '<div><h3>' + esc(entry.title) + '</h3><p>' + esc(entry.description) + '</p><p class="article-meta">' + metadata({...entry,category:null}) + '</p></div></a>' + topicLinks(entry.tags) + '</li>').join('') + '</ul>'
+  const replaceList = (html, title, content) => html.replace('<h2 id="posts-title">تازه‌ترین نوشته‌ها</h2>', () => '<h2 id="posts-title">' + esc(title) + '</h2>')
+    .replace(/<p id="empty">[^<]*<\/p>\s*<ul id="list" hidden><\/ul>/, () => content)
+  const top = (html,title,description) => html.replace(/<header class="intro" id="intro">[\s\S]*?<\/header>/, () => '<header class="intro" id="intro"><p class="eyebrow">وبلاگ هادس</p><h1 id="page-title">' + esc(title) + '</h1><p>' + esc(description) + '</p></header>')
+  const writeRoute = (route,html) => {
+    const location = path.join(folder, route)
+    fs.mkdirSync(location,{recursive:true})
+    fs.writeFileSync(path.join(location,'index.html'), html)
   }
-  fs.writeFileSync(entryFile, listPage(null))
+  fs.writeFileSync(entryFile, approved.length ? replaceList(shell,'تازه‌ترین نوشته‌ها',cards(approved)) : shell)
+  const categoryList = Object.entries(categories).map(([id,cat]) => {
+    const count = approved.filter(entry => entry.categoryId === id).length
+    return '<li><a href="' + categoryPath(id) + '"><strong>' + esc(cat.name) + '</strong><p>' + esc(cat.description) + '</p><span>' + (count ? numbers.format(count) + ' نوشته' : 'هنوز نوشته‌ای ندارد') + '</span></a></li>'
+  }).join('')
+  const descriptions = {categories:'نوشته‌ها بر اساس مسیرهای مطالعه: مقالهٔ پژوهشی، تحلیل ریپو یا مفاهیم پایه.',tags:'نوشته‌ها را با برچسب موضوعی پیدا کن، از دیفیوژن تا تصویرسازی با هوش مصنوعی.'}
+  for (const [slug,title,list] of [
+    ['categories','دسته‌بندی‌ها','<ul class="directory-list">' + categoryList + '</ul>'],
+    ['tags','برچسب‌ها',topics.length ? topicLinks(topics) : empty('هنوز هیچ برچسبی ثبت نشده.')],
+  ]) {
+    const url = blogRoot + slug + '/'
+    const page = markNav(pageHead(top(shell,title,descriptions[slug]),title,descriptions[slug],url),'/fa/blog/' + slug + '/')
+    writeRoute(slug,replaceList(page, slug === 'tags' ? 'مرور برچسب‌ها' : 'مسیرهای مطالعه', list))
+    sourcePaths.push({url, date:today})
+  }
+  for (const [id,cat] of Object.entries(categories)) {
+    const selected = approved.filter(entry => entry.categoryId === id)
+    const heading = cat.name
+    const url = blogRoot+'categories/'+id+'/'
+    const page = markNav(pageHead(top(shell,heading,cat.description),heading,cat.description,url,!selected.length),'/fa/blog/categories/')
+    writeRoute('categories/'+id,replaceList(page,'نوشته‌های این دسته',selected.length ? cards(selected) : empty('برای این دسته هنوز نوشته‌ای منتشر نشده.')))
+    if (selected.length) sourcePaths.push({url,date:selected[0].modified || selected[0].date})
+  }
   for (const id of topics) {
-    const output = path.join(folder, 'tags', id)
-    fs.mkdirSync(output, {recursive:true})
-    fs.writeFileSync(path.join(output, 'index.html'), listPage(id))
+    const selected = approved.filter(entry => entry.tags?.includes(id))
+    const label = topicNames[id]
+    const description = 'نوشته‌های وبلاگ هادس با برچسب «'+label+'».'
+    const page = markNav(pageHead(top(shell,label,description),label,description,blogRoot,true),'/fa/blog/tags/')
+    writeRoute('tags/'+id,replaceList(page,'نوشته‌ها / '+label,topicLinks(topics,id,true)+cards(selected)))
   }
   for (const entry of approved) {
     const url = blogRoot + entry.slug + '/'
@@ -109,10 +149,10 @@ export function renderBlog(dist) {
       .replace('</head>', () => jsonLD(entry, url, heroUrl) + '<meta property="og:image" content="' + esc(heroUrl) + '">\n  <meta property="og:image:width" content="' + entry.hero.width + '">\n  <meta property="og:image:height" content="' + entry.hero.height + '">\n  <meta property="og:image:alt" content="' + esc(entry.hero.alt) + '">\n  <meta property="article:published_time" content="' + entry.date + '">\n</head>')
       .replace('<a href="/fa/blog/" aria-current="page">', '<a href="/fa/blog/">')
       .replace('<main class="shell" id="content"', '<main class="shell article-page" id="content"')
-      .replace(/<h1 id="page-title">[\s\S]*?<\/header>/, () => '<h1 id="page-title">' + esc(entry.title) + '</h1><p class="article-deck reader">' + esc(entry.description) + '</p>')
+      .replace(/<header class="intro" id="intro">[\s\S]*?<\/header>/, () => '<header class="intro" id="intro"><nav class="breadcrumb" aria-label="مسیر نوشته"><a href="/fa/blog/">همهٔ نوشته‌ها</a>' + (entry.categoryId ? '<span aria-hidden="true">/</span><a class="category" href="' + categoryPath(entry.categoryId) + '">' + esc(categories[entry.categoryId].name) + '</a>' : '') + '</nav><h1 id="page-title">' + esc(entry.title) + '</h1><p class="article-deck reader">' + esc(entry.description) + '</p><p class="article-meta" id="article-meta"><span class="article-byline">علیرضا عسگرپور</span> · ' + metadata({...entry,category:null}) + '</p></header>')
       .replace(/    <section class="posts reader"[\s\S]*?<\/section>/, '')
       .replace('<article class="reader" id="article" hidden>', '<article class="reader" id="article" aria-labelledby="page-title">')
-      .replace('<p class="article-meta" id="article-meta"></p>', () => '<p class="article-meta" id="article-meta">' + metadata(entry) + '</p>' + topicLinks(entry.tags) + figure(entry.hero, 'hero'))
+      .replace('<div id="article-media"></div>', () => figure(entry.hero, 'hero') + topicLinks(entry.tags))
       .replace(/<nav class="toc"[\s\S]*?<\/nav>/, () => toc.length > 1 ? '<nav class="toc" aria-label="فهرست بخش‌های نوشته"><strong>در این نوشته</strong><ol>' + toc.join('') + '</ol></nav>' : '')
       .replace('<div id="prose"></div>', () => '<div id="prose">' + prose + '</div>' + sources)
     const out = path.join(folder, entry.slug)

@@ -49,9 +49,25 @@ if(fontField){
   $('reset').addEventListener('click',()=>{fontField.value='estedad';document.documentElement.dataset.font='estedad';try{localStorage.removeItem(fontKey)}catch{}})
 }
 const progress=document.getElementById('read-progress')
-if(progress){
+if(progress && document.querySelector('main.article-page')){
+  progress.hidden=false
   let queued=false
-  const update=()=>{queued=false;const el=document.documentElement;const max=el.scrollHeight-innerHeight;progress.style.width=(max>0?Math.min(100,Math.max(0,scrollY/max*100)):100)+'%'}
+  const update=()=>{queued=false;const el=document.documentElement;const max=el.scrollHeight-innerHeight;progress.value=max>0?Math.round(Math.min(100,Math.max(0,scrollY/max*100))):100}
   addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(update)}},{passive:true})
-  addEventListener('resize',update);update()
+  addEventListener('resize',update)
+  if ('ResizeObserver' in window) new ResizeObserver(update).observe(document.querySelector('main'))
+  update()
+}
+
+const copyLink=$('copy-link')
+if(copyLink && document.querySelector('main.article-page')) {
+  copyLink.hidden=false
+  copyLink.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(document.querySelector('link[rel="canonical"]').href)
+      $('copy-status').textContent='لینک کپی شد.'
+    } catch {
+      $('copy-status').textContent='کپی نشد. لینک نوشته توی نوار آدرس مرورگره.'
+    }
+  })
 }
