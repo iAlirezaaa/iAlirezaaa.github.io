@@ -1,0 +1,63 @@
+name: HADES motion-safe native raster delivery
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-motion-safe-raster.yml'
+      - 'site/scripts/hades-motion-safe-raster.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-motion-safe-raster
+  cancel-in-progress: false
+jobs:
+  delivery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install playwright==1.56.0 pillow==11.3.0
+          python -m playwright install --with-deps chromium
+      - run: python site/scripts/hades-motion-safe-raster.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HADES-motion-safe-raster-REVIEW
+          path: hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/raster/
+      - name: Commit actual tested binary files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/raster site/public/hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/raster hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/index.html site/public/hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/index.html hades/fa/library/backgrounds/quiet-courts/closing-cards/motion-safe/index.html site/public/hades/fa/library/backgrounds/quiet-courts/closing-cards/motion-safe/index.html
+          git diff --cached --quiet || git commit -m 'Publish tested HADES transparent closing PNGs (REVIEW)'
+          git push origin HEAD:main
+          git fetch origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)"
+      - name: Independent live HTTP MIME SHA and mirror verification
+        run: |
+          python - <<'PY'
+          import hashlib,urllib.request,time,subprocess
+          from pathlib import Path
+          root=Path('hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/')
+          files=sorted(root.glob('*.svg'))+sorted((root/'raster').iterdir())+[root/'index.html',Path('hades/fa')/Path(*root.parts[1:])/'index.html']
+          for p in files:
+            assert p.read_bytes()==(Path('site/public')/p).read_bytes()
+            assert subprocess.check_output(['git','show','origin/main:'+str(p)])==p.read_bytes()
+          allowed={'.svg':{'image/svg+xml'},'.png':{'image/png'},'.zip':{'application/zip','application/x-zip-compressed'},'.json':{'application/json'},'.txt':{'text/plain'},'.html':{'text/html'}}
+          for attempt in range(25):
+            errors=[]
+            for p in files:
+              try:
+                with urllib.request.urlopen('https://ialirezaaa.github.io/'+str(p)+'?motion-raster='+str(attempt),timeout=12) as r:
+                  assert r.status==200 and r.headers.get_content_type() in allowed[p.suffix]
+                  assert hashlib.sha256(r.read()).digest()==hashlib.sha256(p.read_bytes()).digest()
+              except Exception as e: errors.append((str(p),str(e)))
+            if not errors: break
+            time.sleep(12)
+          assert not errors,errors
+          print('PASS independent live HTTP 200 MIME SHA256',len(files))
+          PY
