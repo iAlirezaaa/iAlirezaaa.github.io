@@ -4,6 +4,11 @@ import { entries } from '../public/fa/blog/entries.js'
 import { readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
 
 const blogRoot = 'https://ialirezaaa.github.io/fa/blog/'
+const ddpmFigure = 'https://arxiv.org/html/2006.11239v2/pgm_diagram_xarrow_small.png'
+const topicNames = {'ai-basics':'پایه‌های هوش مصنوعی',diffusion:'دیفیوژن','ai-image-making':'تصویرسازی با هوش مصنوعی','paper-explainer':'شرح مقاله'}
+const topicPath = slug => '/fa/blog/tags/' + slug + '/'
+const topicLinks = (items = [], current, all = false) => items.length ? '<nav class="topic-nav" aria-label="موضوع‌های وبلاگ"><ul>' + (all ? '<li><a href="/fa/blog/"' + (current ? '' : ' aria-current="page"') + '>همهٔ نوشته‌ها</a></li>' : '') + items.map(id => '<li><a href="' + topicPath(id) + '"' + (current === id ? ' aria-current="page"' : '') + '>' + esc(topicNames[id]) + '</a></li>').join('') + '</ul></nav>' : ''
+const safeJSON = item => JSON.stringify(item).replaceAll('<', '\\u003c')
 const esc = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 const persianDate = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {timeZone:'UTC', dateStyle:'long'})
 const numbers = new Intl.NumberFormat('fa-IR')
@@ -14,9 +19,29 @@ function metadata(entry) {
   return (entry.category ? '<span class="category">' + esc(entry.category) + '</span> · ' : '') + '<time datetime="' + entry.date + '">' + esc(date) + '</time> · ' + numbers.format(minutes) + ' دقیقه مطالعه · ' + numbers.format(words) + ' واژه'
 }
 
-function image(entry, card) {
-  const { width, height, path: src, alt } = entry.hero
-  return '<img width="' + width + '" height="' + height + '" src="' + esc(src) + '" alt="' + (card ? '' : esc(alt)) + '" decoding="async"' + (card ? ' loading="lazy"' : ' fetchpriority="high"') + '>'
+function image(asset, variant) {
+  const {width,height,path:src,alt} = asset
+  return '<img width="' + width + '" height="' + height + '" src="' + esc(src) + '" alt="' + (variant === 'card' ? '' : esc(alt)) + '" decoding="async"' + (variant === 'hero' ? ' fetchpriority="high"' : ' loading="lazy"') + '>'
+}
+function figure(asset, role) {
+  const credit = asset.credit ? (asset.sourceUrl ? '<a href="' + esc(asset.sourceUrl) + '">' + esc(asset.credit) + '</a>' : esc(asset.credit)) : ''
+  const caption = asset.caption || credit ? '<figcaption>' + esc(asset.caption || '') + (credit ? '<small>' + credit + '</small>' : '') + '</figcaption>' : ''
+  const classes = role === 'hero' ? 'hero' : asset.path === ddpmFigure ? 'article-figure paper-original' : 'article-figure'
+  return '<figure class="' + classes + '">' + image(asset, role) + caption + '</figure>'
+}
+function jsonLD(entry, url, heroUrl) {
+  const script = value => '<script type="application/ld+json">' + safeJSON(value) + '</script>'
+  return script({
+    '@context':'https://schema.org','@type':'BlogPosting', mainEntityOfPage:url, '@id':url+'#article',
+    headline:entry.title, description:entry.description, inLanguage:'fa', datePublished:entry.date,
+    ...(entry.modified ? {dateModified:entry.modified} : {}),
+    image:{'@type':'ImageObject',url:heroUrl,width:entry.hero.width,height:entry.hero.height,caption:entry.hero.alt},
+    author:{'@type':'Person',name:'علیرضا عسگرپور',url:new URL('/fa/',blogRoot).href,'@id':new URL('/#person',blogRoot).href},
+    keywords:(entry.tags || []).map(id => topicNames[id]), wordCount:readingStats(entry).words,
+  }) + script({
+    '@context':'https://schema.org','@type':'BreadcrumbList',
+    itemListElement:[['خانه',new URL('/fa/',blogRoot).href],['وبلاگ هادس',blogRoot],[entry.title,url]].map(([name,item],index) => ({'@type':'ListItem',position:index+1,name,item})),
+  })
 }
 
 function validatedEntries(folder) {
@@ -27,6 +52,15 @@ function validatedEntries(folder) {
     const expected = '/fa/blog/media/' + entry.slug + '.webp'
     if (!hero || hero.path !== expected || !Number.isInteger(hero.width) || hero.width < 1 || !Number.isInteger(hero.height) || hero.height < 1 || typeof hero.alt !== 'string' || !hero.alt.trim()) throw new Error('Invalid blog cover for ' + entry.slug)
     if (!fs.existsSync(path.join(folder, 'media', entry.slug + '.webp'))) throw new Error('Missing blog cover: ' + entry.slug)
+    const ids = entry.tags ?? []
+    if (!Array.isArray(ids) || !ids.every(id => Object.hasOwn(topicNames, id)) || new Set(ids).size !== ids.length) throw new Error('Invalid topics: ' + entry.slug)
+    for (const asset of entry.figures ?? []) {
+      const remote = asset.path === ddpmFigure
+      if (!remote && (typeof asset.path !== 'string' || !/^\/fa\/blog\/media\/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:webp|png|jpg|svg)$/.test(asset.path))) throw new Error('Invalid article image path')
+      if (![asset.width,asset.height].every(n => Number.isInteger(n) && n > 0) || typeof asset.alt !== 'string' || !asset.alt.trim() || typeof asset.caption !== 'string' || !asset.caption.trim() || !Number.isInteger(asset.afterSection) || asset.afterSection < 1 || asset.afterSection > entry.sections.length) throw new Error('Invalid article image metadata')
+      if (!remote && !fs.existsSync(path.join(folder, 'media', path.basename(asset.path)))) throw new Error('Missing figure: ' + asset.path)
+      if (asset.sourceUrl && new URL(asset.sourceUrl).protocol !== 'https:') throw new Error('Invalid figure source')
+    }
     for (const source of entry.sources ?? []) {
       if (typeof source.title !== 'string' || !source.title.trim() || !new URL(source.url).href.startsWith('https://')) throw new Error('Invalid blog citation: ' + entry.slug)
     }
@@ -40,18 +74,30 @@ export function renderBlog(dist) {
   const shell = fs.readFileSync(entryFile, 'utf8')
   const approved = validatedEntries(folder)
   const sourcePaths = []
-  let index = shell
-  if (approved.length) {
-    const cards = approved.map(entry => '<li><a class="post-card" href="/fa/blog/' + entry.slug + '/">' + image(entry, true) + '<div><h3>' + esc(entry.title) + '</h3><p>' + esc(entry.description) + '</p><p class="article-meta">' + metadata(entry) + '</p></div></a></li>')
-    index = index.replace(/<p id="empty">[^<]*<\/p>\s*<ul id="list" hidden><\/ul>/, () => '<ul id="list">' + cards.join('') + '</ul>')
+  const topics = Object.keys(topicNames).filter(id => approved.some(entry => entry.tags?.includes(id)))
+  function listPage(current) {
+    const selected = current ? approved.filter(entry => entry.tags?.includes(current)) : approved
+    if (!selected.length) return shell
+    const cards = selected.map(entry => '<li><a class="post-card" href="/fa/blog/' + entry.slug + '/">' + image(entry.hero, 'card') + '<div><h3>' + esc(entry.title) + '</h3><p>' + esc(entry.description) + '</p><p class="article-meta">' + metadata(entry) + '</p></div></a>' + topicLinks(entry.tags) + '</li>')
+    const label = current ? ' / ' + esc(topicNames[current]) : ''
+    let html = shell.replace(/<p id="empty">[^<]*<\/p>\s*<ul id="list" hidden><\/ul>/, () => '<ul id="list">' + cards.join('') + '</ul>')
+      .replace('<h2 id="posts-title">نوشته‌ها</h2>', () => '<h2 id="posts-title">نوشته‌ها' + label + '</h2>' + topicLinks(topics, current, true))
+    if (current) html = html.replace(/<title>[^<]*<\/title>/, () => '<title>' + esc(topicNames[current]) + ' | وبلاگ هادس</title>')
+      .replace(/(<meta name="robots" content=")[^"]*/, '$1noindex, follow')
+    return html
   }
-  fs.writeFileSync(entryFile, index)
+  fs.writeFileSync(entryFile, listPage(null))
+  for (const id of topics) {
+    const output = path.join(folder, 'tags', id)
+    fs.mkdirSync(output, {recursive:true})
+    fs.writeFileSync(path.join(output, 'index.html'), listPage(id))
+  }
   for (const entry of approved) {
     const url = blogRoot + entry.slug + '/'
     const title = entry.title + ' | وبلاگ هادس'
     const heroUrl = new URL(entry.hero.path, url).href
     const toc = entry.sections.flatMap((section, i) => section.title ? ['<li><a href="#section-' + (i + 1) + '">' + esc(section.title) + '</a></li>'] : [])
-    const prose = entry.sections.map((section, i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + section.paragraphs.map(p => '<p>' + esc(p) + '</p>').join('') + (Number.isInteger(section.relatedSource) && entry.sources?.[section.relatedSource] ? '<p class="inline-source"><a href="' + esc(entry.sources[section.relatedSource].url) + '">دیدن شکل ۲ مقاله ↗</a></p>' : '')).join('')
+    const prose = entry.sections.map((section, i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + section.paragraphs.map(p => '<p>' + esc(p) + '</p>').join('') + (entry.figures ?? []).filter(asset => asset.afterSection === i + 1).map(asset => figure(asset, 'inline')).join('')).join('')
     const sources = entry.sources?.length ? '<section class="sources" aria-labelledby="sources-title"><h2 id="sources-title">برای بیشتر خوندن</h2><ul>' + entry.sources.map(source => '<li><a href="' + esc(source.url) + '"><bdi>' + esc(source.title) + '</bdi></a></li>').join('') + '</ul></section>' : ''
     const article = shell.replace(/<title>[^<]*<\/title>/, () => '<title>' + esc(title) + '</title>')
       .replace(/(<meta name="description" content=")[^"]*/, (_, start) => start + esc(entry.description))
@@ -60,19 +106,19 @@ export function renderBlog(dist) {
       .replace(/(<meta property="og:description" content=")[^"]*/, (_, start) => start + esc(entry.description))
       .replace(/(<meta property="og:url" content=")[^"]*/, (_, start) => start + url)
       .replace(/(<link rel="canonical" href=")[^"]*/, (_, start) => start + url)
-      .replace('</head>', () => '<meta property="og:image" content="' + esc(heroUrl) + '">\n  <meta property="og:image:width" content="' + entry.hero.width + '">\n  <meta property="og:image:height" content="' + entry.hero.height + '">\n  <meta property="og:image:alt" content="' + esc(entry.hero.alt) + '">\n  <meta property="article:published_time" content="' + entry.date + '">\n</head>')
+      .replace('</head>', () => jsonLD(entry, url, heroUrl) + '<meta property="og:image" content="' + esc(heroUrl) + '">\n  <meta property="og:image:width" content="' + entry.hero.width + '">\n  <meta property="og:image:height" content="' + entry.hero.height + '">\n  <meta property="og:image:alt" content="' + esc(entry.hero.alt) + '">\n  <meta property="article:published_time" content="' + entry.date + '">\n</head>')
       .replace('<a href="/fa/blog/" aria-current="page">', '<a href="/fa/blog/">')
       .replace('<main class="shell" id="content"', '<main class="shell article-page" id="content"')
       .replace(/<h1 id="page-title">[\s\S]*?<\/header>/, () => '<h1 id="page-title">' + esc(entry.title) + '</h1><p class="article-deck reader">' + esc(entry.description) + '</p>')
       .replace(/    <section class="posts reader"[\s\S]*?<\/section>/, '')
       .replace('<article class="reader" id="article" hidden>', '<article class="reader" id="article" aria-labelledby="page-title">')
-      .replace('<p class="article-meta" id="article-meta"></p>', () => '<p class="article-meta" id="article-meta">' + metadata(entry) + '</p><figure class="hero">' + image(entry, false) + '</figure>')
+      .replace('<p class="article-meta" id="article-meta"></p>', () => '<p class="article-meta" id="article-meta">' + metadata(entry) + '</p>' + topicLinks(entry.tags) + figure(entry.hero, 'hero'))
       .replace(/<nav class="toc"[\s\S]*?<\/nav>/, () => toc.length > 1 ? '<nav class="toc" aria-label="فهرست بخش‌های نوشته"><strong>در این نوشته</strong><ol>' + toc.join('') + '</ol></nav>' : '')
       .replace('<div id="prose"></div>', () => '<div id="prose">' + prose + '</div>' + sources)
     const out = path.join(folder, entry.slug)
     fs.mkdirSync(out, { recursive:true })
     fs.writeFileSync(path.join(out, 'index.html'), article)
-    sourcePaths.push({url, date:entry.date})
+    sourcePaths.push({url, date:entry.modified || entry.date})
   }
   return sourcePaths
 }

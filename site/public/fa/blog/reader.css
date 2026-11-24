@@ -61,3 +61,16 @@ button{cursor:pointer}
 .sources ul{padding-inline-start:1.25em}
 
 .category,.inline-source a{color:var(--accent)}
+
+.article-page .reader,.article-page h1,.article-page .settings{inline-size:100%;max-inline-size:var(--measure);margin-inline:auto}
+.hero,.article-figure{margin-inline:0}
+.article-figure{margin-block:1.25rem 1.75rem}
+.article-figure img{display:block;inline-size:100%;block-size:auto;border-radius:.4rem;background:var(--paper)}
+figcaption{color:var(--muted);font-size:.85em;line-height:1.8;margin-block-start:.6rem}
+figcaption small{display:block;font-size:inherit}
+.topic-nav ul,.posts .topic-nav ul{display:flex;flex-wrap:wrap;list-style:none;padding:0;margin-block:.9rem 1.1rem;gap:.4rem .55rem}
+.topic-nav li,.posts .topic-nav li{border:0;padding:0}
+.topic-nav a{display:inline-flex;align-items:center;min-block-size:44px;padding:.25em .68em;border:1px solid var(--rule);border-radius:99px;color:var(--ink);background:var(--paper);font-size:.8em;text-decoration:none}
+.topic-nav a:hover,.topic-nav a[aria-current]{border-color:var(--accent);color:var(--accent)}
+
+.paper-original img{background:#fff}

@@ -123,6 +123,33 @@ for (const entry of blogEntries) {
   assert.ok(article.includes('id="prose"><'))
   assert.ok(!article.includes('id="article" hidden'))
   assert.ok(fs.existsSync(path.join(dist, entry.hero.path)))
+  const schemas = [...article.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]))
+  const posting = schemas.find(schema => schema['@type'] === 'BlogPosting')
+  assert.equal(posting.mainEntityOfPage, canonical)
+  assert.equal(posting.inLanguage, 'fa')
+  assert.equal(posting.image.url, new URL(entry.hero.path, origin).href)
+  assert.deepEqual(schemas.find(schema => schema['@type'] === 'BreadcrumbList').itemListElement.map(item => item.position), [1, 2, 3])
+  for (const tag of entry.tags ?? []) {
+    const filter = '/fa/blog/tags/' + tag + '/'
+    const filteredPage = read(path.join(dist, filter, 'index.html'))
+    assert.ok(article.includes('href="' + filter + '"'))
+    assert.ok(blog.includes('href="' + filter + '"'))
+    assert.ok(filteredPage.includes('href="' + filter + '" aria-current="page"'))
+    assert.ok(filteredPage.includes('href="' + route + '"'))
+    assert.ok(filteredPage.includes('<link rel="canonical" href="' + origin + 'fa/blog/">'))
+    assert.ok(filteredPage.includes('name="robots" content="noindex, follow"'))
+    assert.ok(!sitemap.includes('<loc>' + new URL(filter, origin).href + '</loc>'))
+  }
+  for (const figure of entry.figures ?? []) {
+    assert.ok(article.includes('src="' + figure.path + '"'))
+    assert.ok(article.includes('class="article-figure"'))
+    assert.ok(article.includes('<figcaption>'))
+    if (figure.path.startsWith('https:')) {
+      assert.equal(new URL(figure.path).origin, 'https://arxiv.org')
+      assert.ok(!article.includes('href="' + figure.path + '"'))
+      assert.ok(!article.includes('#page=2'))
+    } else assert.ok(fs.existsSync(path.join(dist, figure.path)))
+  }
   const image = fs.readFileSync(path.join(dist, entry.hero.path))
   assert.equal(image.toString('ascii', 0, 4), 'RIFF')
   assert.equal(image.toString('ascii', 8, 12), 'WEBP')
