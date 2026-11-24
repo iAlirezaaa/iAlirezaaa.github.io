@@ -1,0 +1,77 @@
+{
+  "status": "PUBLIC REVIEW",
+  "assets": [
+    {
+      "file": "counterlight.svg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "82fe28a66d067aa68486874f961b2b1b504e30ab322e538aa627805d1eb4b7a2"
+    },
+    {
+      "file": "counterlight.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "47f9b96352bf69f1730d23d44284f10113ae348ee556fc42ad81adf31807bc81"
+    },
+    {
+      "file": "counterlight.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "cf9fdf334461941c32d249166410df528a2f3703c9c957e55593c0241789662c"
+    },
+    {
+      "file": "counterlight.webp",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2a0c07d2e28d760974acee635d301eee5feefd547cb53070d11f02ed3655af91"
+    },
+    {
+      "file": "blind-stair.svg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "b06a9ec0f22ce8b9b3f687499678bacca9dc1e5ece2f9349dd48117f37147abb"
+    },
+    {
+      "file": "blind-stair.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "c08c32c390fbefd3123eea1e086789cf1d47da045747dc8dcca2f02ee77f65a0"
+    },
+    {
+      "file": "blind-stair.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "9295daf2cc62efcca741a9eaff12d76999e2cab6da284be6df9c830476c2b16b"
+    },
+    {
+      "file": "blind-stair.webp",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "f98a7a4e7ae8cd78ff64a7aefeda651e8d33f064116506486a78386f157b8052"
+    },
+    {
+      "file": "offset-chamber.svg",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "c8c06fea5941f53d1899f374f2f3028f71d8bc22bc0ce388f7ca11e7395264ed"
+    },
+    {
+      "file": "offset-chamber.png",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "ac84d68e4d410cd9b87d3ea033280205caa5c547db30d79a033864a8a81e5f0b"
+    },
+    {
+      "file": "offset-chamber.jpg",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "8dc63cae86f0d2e57c589ee84221ca6283256dfd2e74c7e5c401b098180b2ab5"
+    },
+    {
+      "file": "offset-chamber.webp",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "052092b6710035b3b91eba5822d780170df4f595c2ba636ecb46eda6f11d4998"
+    }
+  ]
+}
