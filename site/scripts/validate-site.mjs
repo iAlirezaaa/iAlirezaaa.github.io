@@ -21,7 +21,7 @@ const titles = new Set()
 assert.match(robots, /User-agent:\s*\*/)
 assert.match(robots, /Allow:\s*\//)
 assert.ok(robots.includes(origin + 'sitemap.xml'))
-assert.equal([...sitemap.matchAll(/<loc>/g)].length, endpoints.length * 2 + 1 + blogEntries.length)
+assert.equal([...sitemap.matchAll(/<loc>/g)].length, endpoints.length * 2 + 2 + blogEntries.length)
 assert.equal([...sitemap.matchAll(/hreflang="fa"/g)].length, endpoints.length * 2)
 assert.equal([...sitemap.matchAll(/hreflang="en"/g)].length, endpoints.length * 2)
 
