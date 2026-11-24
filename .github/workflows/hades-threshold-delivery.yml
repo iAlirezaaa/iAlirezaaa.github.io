@@ -1,0 +1,41 @@
+name: HADES Threshold transition native delivery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/hades-threshold-delivery.yml'
+permissions:
+  contents: write
+concurrency:
+  group: hades-threshold-delivery
+  cancel-in-progress: false
+jobs:
+  delivery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow playwright && python -m playwright install --with-deps chromium
+      - run: python site/scripts/hades-threshold-qa.py local
+      - name: Publish native sequence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hades/library/backgrounds/quiet-courts/transitions hades/fa/library/backgrounds/quiet-courts/transitions site/public/hades/library/backgrounds/quiet-courts/transitions site/public/hades/fa/library/backgrounds/quiet-courts/transitions
+          if ! git diff --cached --quiet; then git commit -m 'Publish HADES Threshold transparent 30-frame sequence (REVIEW)'; fi
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then break; fi
+            if [ "$n" = 5 ]; then exit 1; fi
+          done
+          git ls-tree -r HEAD -- hades/library/backgrounds/quiet-courts/transitions
+          git fetch origin main
+          git merge-base --is-ancestor HEAD origin/main
+      - name: Independent live HTTP and byte verification
+        run: python site/scripts/hades-threshold-qa.py hosted
