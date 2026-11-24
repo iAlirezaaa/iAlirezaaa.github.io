@@ -1,0 +1,1 @@
+HADES Quiet Courts architectural closing cards. PUBLIC REVIEW only. Six editable SVGs plus native PNG, JPEG quality 95 4:4:4 and lossless WebP. Original raster mark unchanged in each SVG. Fonts and neutral colors proposed; Mikhak, physical phone and print OPEN. Only #EF4B32 approved.

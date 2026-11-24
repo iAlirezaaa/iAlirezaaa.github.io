@@ -1,0 +1,131 @@
+{
+  "status": "PUBLIC REVIEW NOT FINAL",
+  "files": [
+    {
+      "file": "HADES_Architectural_Closing_EN_16x9_PUBLIC_REVIEW.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "d39759250cae128610b48b171dac0e3c9fd9de0a0efa7b48859f8d65449d13f4",
+      "source_sha256": "ae593e321b0b17e86546671b573f2be9d38422e2b214027d18e0068ec058be95"
+    },
+    {
+      "file": "HADES_Architectural_Closing_EN_16x9_PUBLIC_REVIEW.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "5b34ad9d6f45cefb4954f46a7e72810a5139364c0d45f7181e5f60d910a5e697",
+      "source_sha256": "ae593e321b0b17e86546671b573f2be9d38422e2b214027d18e0068ec058be95"
+    },
+    {
+      "file": "HADES_Architectural_Closing_EN_16x9_PUBLIC_REVIEW.webp",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a747d8ff5868a25c4b6649acf99994477dc7c5e5325bbe181e3441ea0292f128",
+      "source_sha256": "ae593e321b0b17e86546671b573f2be9d38422e2b214027d18e0068ec058be95"
+    },
+    {
+      "file": "HADES_Architectural_Closing_EN_1x1_PUBLIC_REVIEW.png",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "36747eea0e78618ebcd5cfef2963ab035fced481b5fe13bb5fc3f25588b56ac9",
+      "source_sha256": "48ea4fc97508095f7e352d7d813d1e574fbc4c65ee867d31dae59d5d677d6b47"
+    },
+    {
+      "file": "HADES_Architectural_Closing_EN_1x1_PUBLIC_REVIEW.jpg",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "696042e265432b39920efd491aa2b2fd1c92084ca554e62ed9286d6bf64d381d",
+      "source_sha256": "48ea4fc97508095f7e352d7d813d1e574fbc4c65ee867d31dae59d5d677d6b47"
+    },
+    {
+      "file": "HADES_Architectural_Closing_EN_1x1_PUBLIC_REVIEW.webp",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "5043cf9c76ef81288fe6d6f45cd08ecf0cb6d689443603da353292f67cde4134",
+      "source_sha256": "48ea4fc97508095f7e352d7d813d1e574fbc4c65ee867d31dae59d5d677d6b47"
+    },
+    {
+      "file": "HADES_Architectural_Closing_EN_9x16_PUBLIC_REVIEW.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "adf7509b43b3b20bc8c5f403d4eec2a4e86fc3ef6ba83e4cd4cbff57b8c93038",
+      "source_sha256": "c9810c51872b0abec89d80078055fbed4a9a826485904213c277dc915d453026"
+    },
+    {
+      "file": "HADES_Architectural_Closing_EN_9x16_PUBLIC_REVIEW.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "eb1b0e65ee8cafd7fdb1ecf9252c5e8e5038746ddf6ed844106671ef8e654cf5",
+      "source_sha256": "c9810c51872b0abec89d80078055fbed4a9a826485904213c277dc915d453026"
+    },
+    {
+      "file": "HADES_Architectural_Closing_EN_9x16_PUBLIC_REVIEW.webp",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "ea7bf7740b37994b6498c2ffda6123c94dce451efe9cf441dde2c1e2a7cfb22b",
+      "source_sha256": "c9810c51872b0abec89d80078055fbed4a9a826485904213c277dc915d453026"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_16x9_PUBLIC_REVIEW.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "e9b19949ffe2ea9a7a1caa0b8f26cca842899c3e3ac0fdac4e965dd698bc6173",
+      "source_sha256": "67b3748e0d5fd6754607ab44b03225ca6d01e270375130b8dc8416e952830539"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_16x9_PUBLIC_REVIEW.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "cd9bdfe77a756ca28e078ff781e0b4de92e7dfad43e6c089e9aa158b8e439b1c",
+      "source_sha256": "67b3748e0d5fd6754607ab44b03225ca6d01e270375130b8dc8416e952830539"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_16x9_PUBLIC_REVIEW.webp",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "762db2eb055289a20b28e02b5b9a24fc1c46c3f45fe7d95ba833ed3dafed51f9",
+      "source_sha256": "67b3748e0d5fd6754607ab44b03225ca6d01e270375130b8dc8416e952830539"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_1x1_PUBLIC_REVIEW.png",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "cd25184b6f0a5c4c078ebc5566d3c70ce6cf7008e24ba3e89248bbe20d280cfa",
+      "source_sha256": "7de71ed0c09ff3fbb3866564193503bbfbdc3cd93c4ef27d175a7ab0b254d93d"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_1x1_PUBLIC_REVIEW.jpg",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "9e2259b6d1aabd93b0ab12048df0ba44a090c3ecc577f50db49ef2ace273a25b",
+      "source_sha256": "7de71ed0c09ff3fbb3866564193503bbfbdc3cd93c4ef27d175a7ab0b254d93d"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_1x1_PUBLIC_REVIEW.webp",
+      "width": 1080,
+      "height": 1080,
+      "sha256": "56ff2b50178e4587aea36dfdb6ea0aa11693a4c62d4e90e86b2dc54a565e9bf3",
+      "source_sha256": "7de71ed0c09ff3fbb3866564193503bbfbdc3cd93c4ef27d175a7ab0b254d93d"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_9x16_PUBLIC_REVIEW.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "ec2e2ede2449356d9d78a982ff2b8e95f43965b5aa9213a85d2d807747d27791",
+      "source_sha256": "2a7699feb2e1ed3837f791aebb508fb14021cc07899e34d3eec15dab21b1830a"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_9x16_PUBLIC_REVIEW.jpg",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "aeab7b61cc6813d1e4867082ef502bb096d429a1ce838a122b25bb8539314279",
+      "source_sha256": "2a7699feb2e1ed3837f791aebb508fb14021cc07899e34d3eec15dab21b1830a"
+    },
+    {
+      "file": "HADES_Architectural_Closing_FA_9x16_PUBLIC_REVIEW.webp",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "cef2749fce46e7e633a32c8b6929a1b7a731499be5f1fe7282970a4cb5d27aa7",
+      "source_sha256": "2a7699feb2e1ed3837f791aebb508fb14021cc07899e34d3eec15dab21b1830a"
+    }
+  ]
+}
