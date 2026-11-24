@@ -19,8 +19,10 @@ for(const name of fs.readdirSync(dir).filter(x=>/^[a-z0-9-]+\.md$/.test(x))){
 const nodes=[...all.values()].sort((a,b)=>a.id.localeCompare(b.id))
 const edges=[...new Set(nodes.flatMap(n=>n.links.filter(t=>all.has(t)).map(t=>[n.id,t].sort().join('|'))))].map(x=>{const [source,target]=x.split('|');return {source,target}})
 const graph={version:1,status:'PUBLIC REVIEW',nodes:nodes.map(({links,...rest})=>rest),edges}
-fs.mkdirSync(path.dirname(out),{recursive:true})
-fs.writeFileSync(out,JSON.stringify(graph,null,2)+'\n')
+if(!process.argv[2]){
+  fs.mkdirSync(path.dirname(out),{recursive:true})
+  fs.writeFileSync(out,JSON.stringify(graph,null,2)+'\n')
+}
 const dist=process.argv[2]
 if(dist){const dest=path.join(dist,'fa','garden','graph.json');fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,JSON.stringify(graph,null,2)+'\n')}
 console.log('Garden:',nodes.length,'public nodes,',edges.length,'edges')
