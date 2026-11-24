@@ -1,0 +1,111 @@
+name: HADES frame sheet QA (PUBLIC REVIEW)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-frame-sheet-qa.yml'
+      - 'hades/**/architectural-motion/**'
+      - 'site/public/hades/**/architectural-motion/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hosted:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent live MIME and exact byte verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlopen, Request
+          from hashlib import sha256
+          from time import sleep
+          suffix='library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/'
+          paths=[f'hades/{locale}{suffix}{name}index.html' for locale in ('','fa/') for name in ('','frame-sheet/')]
+          for path in paths:
+              assert Path(path).read_bytes()==Path('site/public',path).read_bytes()
+          for attempt in range(30):
+              errors=[]
+              for path in paths:
+                  expected=Path(path).read_bytes()
+                  url='https://ialirezaaa.github.io/'+path.removesuffix('index.html')
+                  try:
+                      with urlopen(Request(url,headers={'Cache-Control':'no-cache'}),timeout=15) as response:
+                          assert response.status==200 and response.headers.get_content_type()=='text/html'
+                          assert sha256(response.read()).digest()==sha256(expected).digest()
+                  except Exception as exc:
+                      errors.append((url,str(exc)))
+              if not errors:
+                  print('PASS independent live HTTP 200 MIME SHA256',len(paths))
+                  break
+              print('pending',attempt,errors)
+              sleep(10)
+          else:
+              raise SystemExit('OPEN: exact hosted revision not verified')
+          PY
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium
+      - name: Test actual checkout routes in Chromium
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/hades-http.log 2>&1 &
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          import csv, json, io
+          from pathlib import Path
+          root='http://127.0.0.1:8765/hades/'
+          suffix='library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/'
+          count=0
+          with sync_playwright() as p:
+              b=p.chromium.launch()
+              for lang in ('en','fa'):
+                  for width in (320,390,430):
+                      page=b.new_page(viewport={'width':width,'height':1200},accept_downloads=True)
+                      url=root+('fa/' if lang=='fa' else '')+suffix
+                      page.goto(url)
+                      assert page.locator('#frameSheet').get_attribute('href').endswith('frame-sheet/')
+                      if lang=='fa': assert page.locator('#bg option').first.inner_text()=='سنگ'
+                      page.locator('#frameSheet').click()
+                      assert page.locator('html').get_attribute('lang')==lang
+                      for ratio in ('16x9','9x16','1x1'):
+                          page.select_option('#ratio',ratio)
+                          page.wait_for_function('document.querySelector("#art").complete && document.querySelector("#art").naturalWidth>0')
+                          assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                          for fps in (24,25,30):
+                              page.select_option('#rate',str(fps))
+                              for seconds in (3,5,8):
+                                  page.select_option('#duration',str(seconds))
+                                  r=page.evaluate('recipe()')
+                                  n=fps*seconds
+                                  assert r['frame_count']==n and r['last_visible_frame']==n-1 and r['end_exclusive']==n
+                                  a=page.evaluate('Array.from({length:recipe().frame_count},(_,f)=>opacity(f,recipe()))')
+                                  assert len(a)==n and a[0]==a[-1]==0 and all(0<=v<=1 for v in a)
+                                  assert all(a[k['frame']]==k['opacity'] for k in r['keys'])
+                                  count+=1
+                      page.select_option('#rate','25')
+                      page.select_option('#duration','5')
+                      for kind in ('json','csv'):
+                          with page.expect_download() as d: page.locator('#'+kind).click()
+                          data=Path(d.value.path()).read_text()
+                          if kind=='json': assert json.loads(data)['frame_count']==125
+                          else:
+                              rows=list(csv.DictReader(io.StringIO(data)))
+                              assert len(rows)==125 and rows[-1]['frame']=='124' and float(rows[-1]['opacity'])==0
+                      page.close()
+                      print('PASS',lang,width)
+              b.close()
+          assert count==162
+          print('PASS configurations',count)
+          PY
