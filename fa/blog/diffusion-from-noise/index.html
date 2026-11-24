@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="system" data-size="regular" data-measure="regular" data-leading="regular">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.">
+  <meta name="robots" content="index, follow">
+  <meta name="color-scheme" content="dark light">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="fa_IR">
+  <meta property="og:title" content="چطور از برفک، تصویر درمیاد؟ | وبلاگ هادس">
+  <meta property="og:description" content="مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.">
+  <meta property="og:url" content="https://ialirezaaa.github.io/fa/blog/diffusion-from-noise/">
+  <link rel="canonical" href="https://ialirezaaa.github.io/fa/blog/diffusion-from-noise/">
+  <link rel="icon" type="image/svg+xml" href="/hades.svg">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@100..900&amp;display=swap">
+  <link rel="stylesheet" href="/fa/blog/reader.css">
+  <script type="module" src="/fa/blog/reader.js"></script>
+  <title>چطور از برفک، تصویر درمیاد؟ | وبلاگ هادس</title>
+<meta property="og:image" content="https://ialirezaaa.github.io/fa/blog/media/diffusion-from-noise.webp">
+  <meta property="og:image:width" content="1440">
+  <meta property="og:image:height" content="810">
+  <meta property="og:image:alt" content="فانوس دریایی سرخ روی صخره‌ای تیره، کنار دریایی که از بافتی شبیه برفک بیرون میاد.">
+  <meta property="article:published_time" content="2026-11-25">
+</head>
+<body>
+  <a class="skip" href="#content">رفتن به محتوا</a>
+  <header class="header shell">
+    <a class="brand" href="/fa/" aria-label="صفحهٔ اصلی هادس"><bdi lang="en">H · III</bdi><span>علیرضا عسگرپور</span></a>
+    <nav aria-label="مسیر صفحه"><a href="/fa/">خانه</a><a href="/fa/blog/">وبلاگ</a></nav>
+  </header>
+  <main class="shell article-page" id="content" tabindex="-1">
+    <h1 id="page-title">چطور از برفک، تصویر درمیاد؟</h1><p class="article-deck reader">مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.</p>
+    <details class="settings" id="settings" hidden>
+      <summary>تنظیمات مطالعه</summary>
+      <fieldset>
+        <legend class="sr-only">ظاهر و خوانایی متن</legend>
+        <label>ظاهر
+          <select id="theme"><option value="system">طبق تنظیم دستگاه</option><option value="light">روز</option><option value="dark">شب</option></select>
+        </label>
+        <label>اندازهٔ نوشته
+          <select id="size"><option value="small">کوچک</option><option value="regular">معمولی</option><option value="large">درشت</option><option value="extra">خیلی درشت</option></select>
+        </label>
+        <label>عرض ستون
+          <select id="measure"><option value="narrow">باریک</option><option value="regular">معمولی</option><option value="wide">عریض</option></select>
+        </label>
+        <label>فاصلهٔ خطوط
+          <select id="leading"><option value="compact">فشرده</option><option value="regular">معمولی</option><option value="airy">باز</option></select>
+        </label>
+      </fieldset>
+      <div class="setting-footer"><button type="button" id="reset">بازگرداندن پیش‌فرض‌ها</button><p id="setting-note" aria-live="polite">انتخاب‌هات در همین مرورگر ذخیره می‌شن.</p></div>
+    </details>
+
+    <article class="reader" id="article" aria-labelledby="page-title">
+      <a class="back" href="/fa/blog/">همهٔ نوشته‌ها <span aria-hidden="true">↗</span></a>
+      <p class="article-meta" id="article-meta"><span class="category">پایه‌های هوش مصنوعی</span> · <time datetime="2026-11-25">۴ آذر ۱۴۰۵</time> · ۳ دقیقه مطالعه · ۴۴۳ واژه</p><figure class="hero"><img width="1440" height="810" src="/fa/blog/media/diffusion-from-noise.webp" alt="فانوس دریایی سرخ روی صخره‌ای تیره، کنار دریایی که از بافتی شبیه برفک بیرون میاد." decoding="async" fetchpriority="high"></figure>
+      <nav class="toc" aria-label="فهرست بخش‌های نوشته"><strong>در این نوشته</strong><ol><li><a href="#section-1">چرا از برفک شروع می‌کنه؟</a></li><li><a href="#section-2">موقع آموزش، جوابِ تمرین رو داریم</a></li><li><a href="#section-3">شکل ۲ مقاله رو چطور بخونیم؟</a></li><li><a href="#section-4">پس پرامپت کجای کار میاد؟</a></li><li><a href="#section-5">یه تمرین کوچیک برای طراحی نما</a></li></ol></nav>
+      <div id="prose"><h2 id="section-1" tabindex="-1">چرا از برفک شروع می‌کنه؟</h2><p>به یه مدل تصویرساز می‌گی «فانوس دریایی وسط طوفان»، اما نقطهٔ شروعش نه دریاست و نه فانوس؛ یه مشت نویز تصادفیه. شبیه برفک تلویزیون. سؤال جالب اینه: مدل از کجا می‌فهمه این برفک باید به چه تصویری تبدیل بشه؟</p><p>مقالهٔ DDPM سال ۲۰۲۰ یه ایدهٔ ساده رو جدی گرفت: اول یاد بگیریم چطور تصویر رو خراب کنیم تا بعد بتونیم مدل رو برای برگشت از نویز آموزش بدیم.</p><h2 id="section-2" tabindex="-1">موقع آموزش، جوابِ تمرین رو داریم</h2><p>یه تصویر واقعی بردار. یک‌بار بهش کمی نویز اضافه کن و یک‌بار آن‌قدر که شکل اصلی به‌سختی معلوم باشه. هر بار می‌دونیم دقیقاً چه نویزی به تصویر اضافه کردیم. توی روش مقاله، شبکه تصویر شلوغ و شمارهٔ اون مرحله رو می‌بینه و حدس می‌زنه نویز اضافه‌شده چی بوده. فرق حدسش با جواب معلوم، به شبکه می‌گه کجای کارش رو باید بهتر کنه.</p><p>نکتهٔ قشنگش اینه که لازم نیست برای هر تمرین از پلهٔ اول تا آخر بری. مقاله یه مرحله رو تصادفی انتخاب می‌کنه و نسخهٔ نویزی همون مرحله رو مستقیم می‌سازه تا شبکه با مقدارهای مختلف نویز تمرین کنه.</p><h2 id="section-3" tabindex="-1">شکل ۲ مقاله رو چطور بخونیم؟</h2><p>از سمت راست شروع کن: x₀ عکس تمیزه. فلشِ خط‌چین به سمت چپ مسیرِ اضافه‌شدن نویزه؛ هرچی جلوتر می‌ری، شکل اصلی محوتر می‌شه. فلش‌های پیوسته مسیر برعکسن: مدل از نویزِ سمت چپ شروع می‌کنه و مرحله‌به‌مرحله به سمت تصویر می‌ره. لینک مستقیم شکل در بخش منابع است.</p><p>نکته همین‌جاست: موقع ساخت تصویر تازه، عکس اصلی‌ای زیر نویز قایم نشده که مدل پیداش کنه. مدل از چیزی که یاد گرفته استفاده می‌کنه تا از نویز یه تصویر تازه بسازه. توی مخزن نویسنده‌ها هم می‌تونی این دو مسیر رو جدا ببینی: q_sample تصویر نویزی می‌سازه و p_sample یه قدم در جهت برعکس برمی‌داره.</p><p class="inline-source"><a href="https://proceedings.neurips.cc/paper_files/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf#page=2">دیدن شکل ۲ مقاله ↗</a></p><h2 id="section-4" tabindex="-1">پس پرامپت کجای کار میاد؟</h2><p>خود DDPM در مقالهٔ سال ۲۰۲۰ یه ابزار متن‌به‌تصویر مثل نمونه‌های امروزی نبود. توی کارهای بعدی، مثل Latent Diffusion، متن می‌تونه روند ساخت تصویر رو هدایت کنه. «فانوس قرمز کنار ساحل سنگی» به مدل جهت می‌ده، ولی پیکسل‌ها یا جای دقیق فانوس رو تعیین نمی‌کنه. به همین خاطر دو شروع تصادفی می‌تونن با یک متن، دو قاب متفاوت بسازن.</p><h2 id="section-5" tabindex="-1">یه تمرین کوچیک برای طراحی نما</h2><p>اگه ابزار تصویرسازت گزینهٔ Seed داره، متن و تنظیمات رو ثابت نگه دار و فقط Seed، یعنی عددی که شروع تصادفی رو تعیین می‌کنه، عوض کن. دو خروجی رو کنار هم بذار. اول به ترکیب‌بندی و جای فانوس نگاه کن، نه به موج‌های قشنگ‌تر. بعد برعکسش رو امتحان کن: Seed و تنظیمات رو ثابت نگه دار و فقط یه چیز توی متن عوض کن، مثلاً «نمای باز» رو بکن «نمای نزدیک». این‌طوری راحت‌تر می‌بینی تغییر از کجا اومده، چون دو چیز رو هم‌زمان عوض نکردی.</p></div><section class="sources" aria-labelledby="sources-title"><h2 id="sources-title">برای بیشتر خوندن</h2><ul><li><a href="https://proceedings.neurips.cc/paper_files/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf#page=2"><bdi>شکل ۲ مقالهٔ DDPM؛ دو جهتِ اضافه‌کردن نویز و ساخت تصویر</bdi></a></li><li><a href="https://proceedings.neurips.cc/paper_files/paper/2020/hash/4c5bcfec8584af0d967f1ab10179ca4b-Abstract.html"><bdi>مقالهٔ اصلی DDPM، ۲۰۲۰</bdi></a></li><li><a href="https://github.com/hojonathanho/diffusion/blob/master/diffusion_tf/diffusion_utils_2.py#L90"><bdi>کد نویسنده‌ها؛ مسیر رفت و برگشت نویز</bdi></a></li><li><a href="https://openaccess.thecvf.com/content/CVPR2022/html/Rombach_High-Resolution_Image_Synthesis_With_Latent_Diffusion_Models_CVPR_2022_paper.html"><bdi>مقالهٔ Latent Diffusion، ۲۰۲۲</bdi></a></li></ul></section>
+      <a href="#content" class="back">برگشت به بالای صفحه <span aria-hidden="true">↑</span></a>
+    </article>
+  </main>
+  <footer class="footer shell"><span>وبلاگ فارسی هادس</span><a href="/fa/work/">دیدن آثار</a></footer>
+</body>
+</html>

@@ -48,3 +48,16 @@ button{cursor:pointer}
 #prose blockquote{margin-inline:0;border-inline-start:2px solid var(--brand);padding-inline-start:1.1em;color:var(--muted)}
 .footer{border-block-start:1px solid var(--rule);border-block-end:0}
 .sr-only{position:absolute;inline-size:1px;block-size:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+
+.article-page h1{font-size:clamp(2rem,6vw,4.25rem);max-inline-size:57rem}
+.article-deck{margin-block:.7rem 2rem;color:var(--muted)}
+.hero{margin:1.3rem 0 1.7rem}
+.hero img,.post-card img{display:block;inline-size:100%;block-size:auto;background:var(--paper);border-radius:.4rem}
+.post-card{display:grid;grid-template-columns:minmax(0,7.5rem) minmax(0,1fr);gap:clamp(.75rem,3vw,1.2rem);text-decoration:none;align-items:start}
+.post-card h3{margin:0;text-decoration:underline}
+.post-card .article-meta,.post-card div>p:nth-child(2){color:var(--muted)}
+.sources{margin-block:2rem;border-block-start:1px solid var(--rule);padding-block-start:1.1rem}
+.sources h2{font-size:1.2em}
+.sources ul{padding-inline-start:1.25em}
+
+.category,.inline-source a{color:var(--accent)}
