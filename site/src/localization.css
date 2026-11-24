@@ -202,3 +202,5 @@ html[lang="fa"] .contact-profiles-note { font-size:11px; }
   .contact-profiles-note { font-size:9px; }
 }
 @media(prefers-reduced-motion:reduce) { .contact-profile-card,.contact-profile-arrow { transition:none; } }
+
+html[lang="fa"] .blog-entry { font-family: var(--fa-font); font-size: 11px; }

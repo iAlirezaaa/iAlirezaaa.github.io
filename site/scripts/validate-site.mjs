@@ -5,6 +5,9 @@ import { fileURLToPath } from 'node:url'
 import { graphNodes, projects, routes } from '../src/data.js'
 import { alternateLocaleUrl, isPersianPath, officialLinks, pathnameFor, translate } from '../src/i18n.js'
 
+import { entries as blogEntries } from '../public/fa/blog/entries.js'
+import { defaults, normalizeSettings, readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
+
 const dist = fileURLToPath(new URL('../dist/', import.meta.url))
 const origin = 'https://ialirezaaa.github.io/'
 const endpoints = ['', 'about', 'work', 'systems', 'contact']
@@ -18,7 +21,7 @@ const titles = new Set()
 assert.match(robots, /User-agent:\s*\*/)
 assert.match(robots, /Allow:\s*\//)
 assert.ok(robots.includes(origin + 'sitemap.xml'))
-assert.equal([...sitemap.matchAll(/<loc>/g)].length, endpoints.length * 2)
+assert.equal([...sitemap.matchAll(/<loc>/g)].length, endpoints.length * 2 + 1)
 assert.equal([...sitemap.matchAll(/hreflang="fa"/g)].length, endpoints.length * 2)
 assert.equal([...sitemap.matchAll(/hreflang="en"/g)].length, endpoints.length * 2)
 
@@ -40,6 +43,7 @@ for (const route of endpoints) {
     assert.ok(html.includes('علیرضا عسگرپور'), 'Missing Persian full name')
     assert.ok(html.includes('Alireza Asgarpour'), 'Missing English full name')
     assert.ok(html.includes('<noscript>'), 'Missing no-JS text fallback')
+    assert.equal(html.includes('href="' + origin + 'fa/blog/"'), lang === 'fa', 'Blog link should appear only in Persian')
     const match = html.match(/<script type="application\/ld\+json">([\s\S]+?)<\/script>/)
     assert.ok(match, 'Missing structured data: ' + url)
     const schema = JSON.parse(match[1])
@@ -93,4 +97,18 @@ for (const link of officialLinks) {
 assert.ok(officialLinks.some(link => link.name === 'Airis Feed' && link.personal === false), 'News channel must remain distinct from personal profiles')
 const googleVerificationFile = read(path.join(dist, 'googleb94d773f21def0ef.html'))
 assert.equal(googleVerificationFile, 'google-site-verification: googleb94d773f21def0ef.html', 'Google Search Console HTML verification file must remain exact')
+const blog = read(fileFor('blog', 'fa'))
+assert.match(blog, /<html lang="fa" dir="rtl"/)
+assert.ok(blog.includes('href="' + origin + 'fa/blog/"'))
+assert.ok(sitemap.includes('<loc>' + origin + 'fa/blog/</loc>'))
+assert.ok(!fs.existsSync(fileFor('blog', 'en')))
+for (const name of ['reader.css','reader.js','entries.js','reader-model.js']) assert.ok(fs.existsSync(path.join(dist, 'fa', 'blog', name)))
+for (const key of Object.keys(defaults)) assert.ok(blog.includes('id="' + key + '"'))
+assert.deepEqual(normalizeSettings(null), defaults)
+assert.deepEqual(normalizeSettings({theme:'light', size:'oops', measure:'wide', leading:'airy'}), {theme:'light', size:'regular', measure:'wide', leading:'airy'})
+const fixture = {slug:'fixture', title:'یک نوشته', date:'2026-11-24', description:'برای آزمون', sections:[{title:'آزمون', paragraphs:['پشت‌صحنه '+ 'واژه '.repeat(180)]}]}
+assert.deepEqual(readingStats(fixture), {words:182, minutes:2})
+assert.deepEqual(visibleEntries([null, {...fixture, date:'2026-02-30'}, {...fixture, slug:'bad/post'}, fixture]), [fixture])
+assert.equal(visibleEntries(blogEntries).length, blogEntries.length)
+console.log('Persian-only blog, entry validation and reading controls: PASS')
 console.log('SEO, language routing, project translations, five official links and ten pages: PASS')

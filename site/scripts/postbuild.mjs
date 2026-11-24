@@ -50,7 +50,8 @@ function documentFor(page, language) {
   pageNode.inLanguage = language
   html = put(html, /<script type="application\/ld\+json">[\s\S]*?<\/script>/, '<script type="application/ld+json">' + JSON.stringify(graph) + '</script>', 'JSON-LD')
   const names = language === 'fa' ? ['صفحهٔ اصلی', 'درباره', 'آثار', 'اطلس', 'تماس'] : ['Home', 'About', 'Work', 'Atlas', 'Contact']
-  const navigation = pages.map((item, index) => '<a href="' + urlFor(item, language) + '">' + names[index] + '</a>').join(' · ')
+  const blogLink = language === 'fa' ? ' · <a href="' + base + 'fa/blog/">وبلاگ</a>' : ''
+  const navigation = pages.map((item, index) => '<a href="' + urlFor(item, language) + '">' + names[index] + '</a>').join(' · ') + blogLink
   const accounts = [
     ['LinkedIn', 'https://ae.linkedin.com/in/ialirezaaa'],
     ['Instagram', 'https://www.instagram.com/hades.3rd/'],
@@ -84,5 +85,6 @@ for (const page of pages) {
     entries.push('  <url>\n    <loc>' + url + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <xhtml:link rel="alternate" hreflang="en" href="' + urlFor(page, 'en') + '"/>\n    <xhtml:link rel="alternate" hreflang="fa" href="' + urlFor(page, 'fa') + '"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="' + urlFor(page, 'en') + '"/>\n  </url>')
   }
 }
+entries.push('  <url>\n    <loc>' + base + 'fa/blog/</loc>\n  </url>')
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + entries.join('\n') + '\n</urlset>\n'
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap)
