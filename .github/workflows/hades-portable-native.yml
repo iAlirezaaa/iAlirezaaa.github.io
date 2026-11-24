@@ -1,0 +1,69 @@
+name: HADES portable native sample delivery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/hades-portable-native.yml'
+      - 'hades/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/build_portable.py'
+permissions:
+  contents: write
+concurrency:
+  group: hades-portable-native
+  cancel-in-progress: false
+jobs:
+  delivery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install bpy==4.5.11 pillow cairosvg
+      - run: python hades/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/build_portable.py /tmp/hades-portable
+      - name: Publish only validated native archives
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil,re
+          p=Path('hades/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/')
+          files=sorted(Path('/tmp/hades-portable').glob('*.zip'))
+          assert len(files)==3
+          for prefix in ('','site/public/'):
+              for f in files: shutil.copyfile(f,Path(prefix)/p/f.name)
+          for locale in ('','fa/'):
+              rel=Path('hades')/locale/'library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/index.html'
+              h=rel.read_text()
+              h=re.sub(r'<section id="native-downloads">.*?</section>','',h,flags=re.S)
+              section='<section id="native-downloads"><h2>ZIP · PUBLIC REVIEW</h2>'+''.join(f'<p><a href="/{p}/{f.name}" download>{f.name}</a></p>' for f in files)+'</section>'
+              h=h.replace('</main>',section+'</main>',1).replace('Native Blender bundle is still OPEN.','Native bundles built; hosted byte verification is separate.').replace('فایل بومی بلندر هنوز OPEN است.','بسته‌های بومی ساخته شده‌اند؛ آزمون دسترسی مستقل جداگانه است.')
+              for prefix in ('','site/public/'): (Path(prefix)/rel).write_text(h)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'hades/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/' 'site/public/hades/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/' 'hades/fa/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/' 'site/public/hades/fa/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/'
+          git diff --cached --quiet || git commit -m 'Publish validated portable Blender samples REVIEW'
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push origin HEAD:main && break; test "$i" != 5 || exit 1; sleep 5; done
+      - name: Independent live HTTP bytes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, urllib.request, time
+          p=Path('hades/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/')
+          files=sorted(p.glob('*.zip'))+[p/'index.html',Path('hades/fa/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/portable/index.html'),p/'plate-a.svg',p/'plate-b.svg']
+          assert len(files)==7
+          for attempt in range(24):
+              try:
+                  for f in files:
+                      assert f.read_bytes()==(Path('site/public')/f).read_bytes()
+                      with urllib.request.urlopen(urllib.request.Request('https://ialirezaaa.github.io/'+str(f)+'?proof='+str(time.time_ns()),headers={'User-Agent':'HADES QA'}),timeout=20) as res:
+                          assert res.status==200
+                          assert res.headers.get_content_type() in ({'.zip':('application/zip','application/x-zip-compressed','application/octet-stream'),'.html':('text/html',),'.svg':('image/svg+xml',)}[f.suffix])
+                          assert hashlib.sha256(res.read()).digest()==hashlib.sha256(f.read_bytes()).digest()
+                  break
+              except Exception as e:
+                  print('OPEN',attempt,e,flush=True)
+                  if attempt==23: raise
+                  time.sleep(20)
+          for f in files: print('HTTP 200 MIME SHA256 PASS',f)
+          PY
