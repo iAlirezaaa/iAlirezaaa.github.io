@@ -1,0 +1,125 @@
+name: HADES opening title native raster delivery
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-opening-raster-delivery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-opening-raster-delivery
+  cancel-in-progress: false
+jobs:
+  delivery:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python -m pip install playwright pillow
+          python -m playwright install --with-deps chromium
+      - name: Render and validate six native transparent PNGs
+        run: |
+          python - <<'PY'
+          import base64, hashlib, json, re, pathlib, shutil, zipfile
+          from PIL import Image
+          from playwright.sync_api import sync_playwright
+          root=pathlib.Path('hades/library/backgrounds/quiet-courts/opening-titles')
+          raster=root/'raster'; raster.mkdir(exist_ok=True)
+          records=[]
+          with sync_playwright() as pw:
+              browser=pw.chromium.launch()
+              for lang in ('EN','FA'):
+                  for ratio,w,h in [('16x9',1920,1080),('9x16',1080,1920),('1x1',1080,1080)]:
+                      src=root/f'HADES_Architectural_Opening_{lang}_{ratio}_PUBLIC_REVIEW.svg'
+                      raw=src.read_bytes()
+                      assert raw==pathlib.Path('site/public',src).read_bytes()
+                      mark=re.search(rb'data:image/png;base64,([A-Za-z0-9+/=]+)',raw).group(1)
+                      assert hashlib.sha256(base64.b64decode(mark)).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
+                      page=browser.new_page(viewport={'width':w,'height':h},device_scale_factor=1)
+                      page.set_content('<style>body{margin:0}</style>'+raw.decode())
+                      page.evaluate('document.fonts.ready')
+                      boxes=page.locator('svg > g#editable-title > text, svg > text').evaluate_all('(els)=>els.map(e=>{let b=e.getBBox();return [b.x,b.y,b.width,b.height]})')
+                      assert len(boxes)==4 and all(x>=w*.1 and y>=h*.1 and x+ww<=w*.9 and y+hh<=h*.9 for x,y,ww,hh in boxes),boxes
+                      dst=raster/src.with_suffix('.png').name
+                      page.screenshot(path=str(dst),omit_background=True)
+                      with Image.open(dst) as im:
+                          im.load()
+                          assert im.size==(w,h) and im.mode=='RGBA'
+                          lo,hi=im.getchannel('A').getextrema()
+                          assert (lo,hi)==(0,255) and im.getpixel((0,0))[3]==0
+                      page.close()
+                      for f in [src,dst]:
+                          records.append({'file':f.name,'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'width':w,'height':h})
+                      print('PASS native PNG, original and text bounds',lang,ratio)
+              browser.close()
+          manifest=raster/'HADES_Opening_Native_Manifest_REVIEW.json'
+          manifest.write_text(json.dumps({'status':'PUBLIC REVIEW — NOT FINAL','files':records},indent=2)+'\n')
+          guide=raster/'README_REVIEW.txt'
+          guide.write_text('PUBLIC REVIEW — NOT FINAL\nSix native PNG RGBA overlays and editable SVG source files. Only #EF4B32 is approved; supporting colours and fonts are proposals. Mikhak, print, actual phone and editor import remain OPEN. Independent product attribution requires permission.\nشش قالب شفاف و فایل SVG قابل‌ویرایش. نمونه برای بررسی است، نه نسخه نهایی.\n')
+          pack=raster/'HADES_Opening_6_SVG_6_PNG_PUBLIC_REVIEW.zip'
+          with zipfile.ZipFile(pack,'w',zipfile.ZIP_DEFLATED) as z:
+              for row in records:
+                  name=row['file']; z.write((root if name.endswith('.svg') else raster)/name,name)
+              z.write(manifest,manifest.name); z.write(guide,guide.name)
+          with zipfile.ZipFile(pack) as z:
+              assert z.testzip() is None and len(z.namelist())==14
+              for row in records: assert hashlib.sha256(z.read(row['file'])).hexdigest()==row['sha256']
+          for f in raster.iterdir():
+              target=pathlib.Path('site/public',f); target.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(f,target)
+              assert target.read_bytes()==f.read_bytes()
+          for locale,caption in [('', 'Download all six SVG and transparent PNG overlays (ZIP)'),('fa/','دانلود بستهٔ شش SVG و شش PNG شفاف (ZIP)')]:
+              page=pathlib.Path('hades',locale,'library/backgrounds/quiet-courts/opening-titles/index.html')
+              old=page.read_text()
+              marker='id="native-raster-pack"'
+              if marker not in old:
+                  link=f'<p {marker}><a download href="/{pack.as_posix()}">{caption}</a></p>'
+                  old=old.replace('<h2>',link+'<h2>',1)
+                  assert marker in old
+                  page.write_text(old)
+              pathlib.Path('site/public',page).write_bytes(page.read_bytes())
+          print('PASS six native files and 14-member ZIP')
+          PY
+      - name: Commit real binaries without force
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hades/library/backgrounds/quiet-courts/opening-titles/ site/public/hades/library/backgrounds/quiet-courts/opening-titles/ hades/fa/library/backgrounds/quiet-courts/opening-titles/index.html site/public/hades/fa/library/backgrounds/quiet-courts/opening-titles/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish six native HADES opening RGBA PNGs and REVIEW ZIP'
+            for attempt in 1 2 3 4; do
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+              if git push origin HEAD:main; then break; fi
+              test "$attempt" != 4 || exit 1
+            done
+          fi
+          git fetch origin main
+          git rev-parse origin/main
+          git ls-tree -r origin/main -- hades/library/backgrounds/quiet-courts/opening-titles/raster/
+      - name: Independent exact hosted binary and download links
+        run: |
+          python - <<'PY'
+          import hashlib, pathlib, time, urllib.request
+          root=pathlib.Path('hades/library/backgrounds/quiet-courts/opening-titles')
+          checks=[(f, 'image/png' if f.suffix=='.png' else 'application/zip' if f.suffix=='.zip' else 'application/json' if f.suffix=='.json' else 'text/plain') for f in (root/'raster').iterdir()]
+          checks += [(root/'index.html','text/html'),(pathlib.Path('hades/fa/library/backgrounds/quiet-courts/opening-titles/index.html'),'text/html')]
+          for attempt in range(24):
+              try:
+                  for f,mime in checks:
+                      with urllib.request.urlopen('https://ialirezaaa.github.io/'+f.as_posix()+'?qa='+str(attempt),timeout=15) as r:
+                          allowed={mime,'application/x-zip-compressed','application/octet-stream'} if f.suffix=='.zip' else {mime}
+                          assert r.status==200 and r.headers.get_content_type() in allowed
+                          assert hashlib.sha256(r.read()).digest()==hashlib.sha256(f.read_bytes()).digest(),f
+                  print('PASS independent HTTP 200 MIME SHA256',len(checks))
+                  break
+              except Exception as e:
+                  print('Await exact hosted bytes',attempt,repr(e))
+                  if attempt==23: raise
+                  time.sleep(15)
+          PY
