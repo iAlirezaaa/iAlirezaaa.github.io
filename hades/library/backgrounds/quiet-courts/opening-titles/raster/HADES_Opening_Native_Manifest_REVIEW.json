@@ -1,0 +1,77 @@
+{
+  "status": "PUBLIC REVIEW \u2014 NOT FINAL",
+  "files": [
+    {
+      "file": "HADES_Architectural_Opening_EN_16x9_PUBLIC_REVIEW.svg",
+      "sha256": "fa2248b3551687ca4435d1cc9e34a45acb8db357ee135d6265ce8917eda1f52d",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "HADES_Architectural_Opening_EN_16x9_PUBLIC_REVIEW.png",
+      "sha256": "7a76a7664eb220b636ba7bc2238631d2be17fd508b1c2a8a5df73764250f0dec",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "HADES_Architectural_Opening_EN_9x16_PUBLIC_REVIEW.svg",
+      "sha256": "f2781bc80d6ce6bf5438d20114a8af1ae514ab5478830ad07dc00913875b2b43",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "file": "HADES_Architectural_Opening_EN_9x16_PUBLIC_REVIEW.png",
+      "sha256": "b11ab2fe4e7c774f6b08fd2a21500bc23c42cd3398b2667b1c1868400b0c4fa8",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "file": "HADES_Architectural_Opening_EN_1x1_PUBLIC_REVIEW.svg",
+      "sha256": "733d78aefc183b82edff5f84e4ed8993e284cbb99b7b07047b6f57493529bcf3",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "file": "HADES_Architectural_Opening_EN_1x1_PUBLIC_REVIEW.png",
+      "sha256": "4aeacd3db12142b479f9a5f65cd4547c1f11e31ba6ca4961c31b9708a0379720",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "file": "HADES_Architectural_Opening_FA_16x9_PUBLIC_REVIEW.svg",
+      "sha256": "ebb9ff96aaf4d80d5d60550340d9f58a44be81cd2034a2f0bcd3a4fe27e397d4",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "HADES_Architectural_Opening_FA_16x9_PUBLIC_REVIEW.png",
+      "sha256": "da1b3cf900b8fe280ba368a66a30605cc9585ec9f8d7555ecb9f5e63aed9edc8",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "file": "HADES_Architectural_Opening_FA_9x16_PUBLIC_REVIEW.svg",
+      "sha256": "a723a8e6eca1468616155b87b2032be6f06030a3fa5940df8198cbdfd16d2dcd",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "file": "HADES_Architectural_Opening_FA_9x16_PUBLIC_REVIEW.png",
+      "sha256": "dc052ac32ed6f5fc3ccc091b6f93575204a1f3fd262c8ac918251a6e09fcf27c",
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "file": "HADES_Architectural_Opening_FA_1x1_PUBLIC_REVIEW.svg",
+      "sha256": "52992199a05a2347848beea824f7c06e7dbb600e5d188f18abcf7d499c00607d",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "file": "HADES_Architectural_Opening_FA_1x1_PUBLIC_REVIEW.png",
+      "sha256": "6b43c9fca3d9d9fb9a8e1dd443d7df27483e2a7d00f72f0683122336058dcac6",
+      "width": 1080,
+      "height": 1080
+    }
+  ]
+}
