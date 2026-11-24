@@ -3,52 +3,56 @@
   "status": "PUBLIC REVIEW",
   "nodes": [
     {
-      "id": "diffusion",
-      "title": "دیفیوژن؛ از نویز تا تصویر",
-      "group": "مقاله",
-      "url": "/fa/blog/diffusion-from-noise/",
-      "text": "شرح دیفیوژن و مقالهٔ DDPM با مثال فانوس دریایی."
-    },
-    {
-      "id": "noise",
-      "title": "نویز",
-      "group": "مفهوم",
-      "url": "",
-      "text": "نویز تصادفی در فرایند نمونه‌گیری."
-    },
-    {
       "id": "ddpm",
       "title": "DDPM",
       "group": "مقاله و روش",
       "url": "",
-      "text": "مدل‌های انتشار احتمالاتی و حذف نویز."
+      "text": "Denoising Diffusion Probabilistic Models روش آموزش معکوس‌سازی نویز را بررسی می‌کند. مرتبط با diffusion و latent-diffusion."
+    },
+    {
+      "id": "diffusion",
+      "title": "دیفیوژن؛ از نویز تا تصویر",
+      "group": "مقاله",
+      "url": "/fa/blog/diffusion-from-noise/",
+      "text": "توضیح مقدماتی دربارهٔ نویز و DDPM، با مثال فانوس دریایی. این گره به مقالهٔ منتشرشده لینک می‌شود؛ متن مقاله در بلاگ اصلی باقی می‌ماند."
     },
     {
       "id": "latent-diffusion",
       "title": "Latent Diffusion",
       "group": "مفهوم",
       "url": "",
-      "text": "دیفیوژن در فضای نهفته."
+      "text": "نسخه‌ای از تولید تصویر در فضای نهفته، مرتبط با ddpm و diffusion."
+    },
+    {
+      "id": "noise",
+      "title": "نویز",
+      "group": "مفهوم",
+      "url": "",
+      "text": "نویز در مدل‌های انتشار نقطهٔ شروع نمونه‌سازی است. مرتبط با diffusion و Seed."
     },
     {
       "id": "seed",
       "title": "Seed",
       "group": "مفهوم",
       "url": "",
-      "text": "بذر تصادفی برای نمونه‌گیری."
+      "text": "بذر تصادفی، آغاز فرایند نمونه‌گیری را تعیین می‌کند؛ مرتبط با noise و diffusion."
     }
   ],
   "edges": [
+    {
+      "source": "ddpm",
+      "target": "diffusion"
+    },
+    {
+      "source": "ddpm",
+      "target": "latent-diffusion"
+    },
     {
       "source": "diffusion",
       "target": "noise"
     },
     {
       "source": "diffusion",
-      "target": "ddpm"
-    },
-    {
-      "source": "ddpm",
       "target": "latent-diffusion"
     },
     {
@@ -58,14 +62,6 @@
     {
       "source": "diffusion",
       "target": "seed"
-    },
-    {
-      "source": "ddpm",
-      "target": "diffusion"
-    },
-    {
-      "source": "latent-diffusion",
-      "target": "diffusion"
     }
   ]
 }

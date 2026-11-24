@@ -19,16 +19,16 @@
   <title>وبلاگ هادس | علیرضا عسگرپور</title>
 </head>
 <body>
-  <div id="read-progress" class="read-progress" aria-hidden="true"></div>
+  <progress id="read-progress" class="read-progress" max="100" value="0" aria-label="پیشرفت مطالعه" hidden></progress>
   <a class="skip" href="#content">رفتن به محتوا</a>
   <header class="header shell">
     <a class="brand" href="/fa/" aria-label="صفحهٔ اصلی هادس"><bdi lang="en">H · III</bdi><span>علیرضا عسگرپور</span></a>
-    <nav aria-label="مسیر صفحه"><a href="/fa/">خانه</a><a href="/fa/blog/" aria-current="page">وبلاگ</a><a href="/fa/garden/">گاردن / نقشهٔ دانش</a></nav>
+    <nav aria-label="ناوبری وبلاگ"><a href="/fa/blog/" aria-current="page">نوشته‌ها</a><a href="/fa/blog/categories/">دسته‌بندی‌ها</a><a href="/fa/blog/tags/">برچسب‌ها</a><a href="/fa/garden/">نقشهٔ دانش</a></nav>
   </header>
   <main class="shell" id="content" tabindex="-1">
-    <h1 id="page-title">وبلاگ <span>هادس</span></h1>
     <header class="intro" id="intro">
       <p class="eyebrow">یادداشت‌های علیرضا عسگرپور</p>
+      <h1 id="page-title">وبلاگ <span>هادس</span></h1>
       <p>از پشت‌صحنهٔ انیمیشن گرفته تا قصه‌گویی و ابزارهایی که موقع ساختن به کارم می‌آیند.</p>
     </header>
     <details class="settings" id="settings" hidden>
@@ -54,16 +54,14 @@
       <div class="setting-footer"><button type="button" id="reset">بازگرداندن پیش‌فرض‌ها</button><p id="setting-note" aria-live="polite">انتخاب‌هات در همین مرورگر ذخیره می‌شن.</p></div>
     </details>
     <section class="posts reader" id="posts" aria-labelledby="posts-title">
-      <h2 id="posts-title">نوشته‌ها</h2><p><a class="garden-link" href="/fa/garden/">نقشهٔ موضوع‌ها و پیوند یادداشت‌ها</a></p>
-      <p id="empty">هنوز نوشته‌ای منتشر نشده.</p>
-      <ul id="list" hidden></ul>
+      <h2 id="posts-title">تازه‌ترین نوشته‌ها</h2>
+      <ul id="list"><li><a class="card-category" href="/fa/blog/categories/papers/">شرح مقاله‌های هوش مصنوعی</a><a class="post-card" href="/fa/blog/diffusion-from-noise/"><img width="1440" height="810" src="/fa/blog/media/diffusion-from-noise.webp" alt="" decoding="async" loading="lazy"><div><h3>چطور از برفک، تصویر درمیاد؟</h3><p>مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.</p><p class="article-meta"><time datetime="2026-11-25">۴ آذر ۱۴۰۵</time> · ۳ دقیقه مطالعه · ۵۳۲ واژه</p></div></a><nav class="topic-nav" aria-label="موضوع‌های وبلاگ"><ul><li><a href="/fa/blog/tags/ai-basics/">پایه‌های هوش مصنوعی</a></li><li><a href="/fa/blog/tags/diffusion/">دیفیوژن</a></li><li><a href="/fa/blog/tags/ai-image-making/">تصویرسازی با هوش مصنوعی</a></li><li><a href="/fa/blog/tags/paper-explainer/">شرح مقاله</a></li></ul></nav></li></ul>
     </section>
     <article class="reader" id="article" hidden>
-      <a class="back" href="/fa/blog/">همهٔ نوشته‌ها <span aria-hidden="true">↗</span></a>
-      <p class="article-meta" id="article-meta"></p>
+      <div id="article-media"></div>
       <nav class="toc" aria-label="فهرست بخش‌های نوشته" id="toc" hidden><strong>در این نوشته</strong><ol id="toc-list"></ol></nav>
       <p><a class="garden-link" href="/fa/garden/?focus=diffusion">این نوشته در گراف دانش</a></p><div id="prose"></div>
-      <a href="#content" class="back">برگشت به بالای صفحه <span aria-hidden="true">↑</span></a>
+      <div class="article-actions"><button type="button" id="copy-link" hidden>کپی لینک نوشته</button><a href="#content">برگشت به بالا <span aria-hidden="true">↑</span></a><span id="copy-status" role="status"></span></div>
     </article>
   </main>
   <footer class="footer shell"><span>وبلاگ فارسی هادس</span><a href="/fa/work/">دیدن آثار</a></footer>

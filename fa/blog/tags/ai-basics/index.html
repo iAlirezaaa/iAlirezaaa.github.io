@@ -3,39 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="وبلاگ فارسی علیرضا عسگرپور دربارهٔ انیمیشن، روایت، پشت‌صحنهٔ تولید و ابزارهای خلاق.">
+  <meta name="description" content="نوشته‌های وبلاگ هادس با برچسب «پایه‌های هوش مصنوعی».">
   <meta name="robots" content="noindex, follow">
   <meta name="color-scheme" content="dark light">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fa_IR">
-  <meta property="og:title" content="وبلاگ هادس | علیرضا عسگرپور">
-  <meta property="og:description" content="یادداشت‌هایی از پشت‌صحنهٔ انیمیشن، روایت و ابزارهایی که موقع ساختن به کار می‌آیند.">
+  <meta property="og:title" content="پایه‌های هوش مصنوعی | وبلاگ هادس">
+  <meta property="og:description" content="نوشته‌های وبلاگ هادس با برچسب «پایه‌های هوش مصنوعی».">
   <meta property="og:url" content="https://ialirezaaa.github.io/fa/blog/">
   <link rel="canonical" href="https://ialirezaaa.github.io/fa/blog/">
   <link rel="icon" type="image/svg+xml" href="/hades.svg">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@100..900&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@100..900&amp;family=Vazirmatn:wght@300..700&amp;display=swap">
   <link rel="stylesheet" href="/fa/blog/reader.css">
   <script type="module" src="/fa/blog/reader.js"></script>
   <title>پایه‌های هوش مصنوعی | وبلاگ هادس</title>
 </head>
 <body>
+  <progress id="read-progress" class="read-progress" max="100" value="0" aria-label="پیشرفت مطالعه" hidden></progress>
   <a class="skip" href="#content">رفتن به محتوا</a>
   <header class="header shell">
     <a class="brand" href="/fa/" aria-label="صفحهٔ اصلی هادس"><bdi lang="en">H · III</bdi><span>علیرضا عسگرپور</span></a>
-    <nav aria-label="مسیر صفحه"><a href="/fa/">خانه</a><a href="/fa/blog/" aria-current="page">وبلاگ</a></nav>
+    <nav aria-label="ناوبری وبلاگ"><a href="/fa/blog/">نوشته‌ها</a><a href="/fa/blog/categories/">دسته‌بندی‌ها</a><a href="/fa/blog/tags/" aria-current="page">برچسب‌ها</a><a href="/fa/garden/">نقشهٔ دانش</a></nav>
   </header>
   <main class="shell" id="content" tabindex="-1">
-    <h1 id="page-title">وبلاگ <span>هادس</span></h1>
-    <header class="intro" id="intro">
-      <p class="eyebrow">یادداشت‌های علیرضا عسگرپور</p>
-      <p>از پشت‌صحنهٔ انیمیشن گرفته تا قصه‌گویی و ابزارهایی که موقع ساختن به کارم می‌آیند.</p>
-    </header>
+    <header class="intro" id="intro"><p class="eyebrow">وبلاگ هادس</p><h1 id="page-title">پایه‌های هوش مصنوعی</h1><p>نوشته‌های وبلاگ هادس با برچسب «پایه‌های هوش مصنوعی».</p></header>
     <details class="settings" id="settings" hidden>
       <summary>تنظیمات مطالعه</summary>
       <fieldset>
         <legend class="sr-only">ظاهر و خوانایی متن</legend>
         <label>ظاهر
           <select id="theme"><option value="system">طبق تنظیم دستگاه</option><option value="light">روز</option><option value="dark">شب</option></select>
+        </label>
+        <label>قلم مطالعه
+          <select id="font"><option value="estedad">Estedad</option><option value="vazirmatn">Vazirmatn</option><option value="system">قلم دستگاه</option></select>
         </label>
         <label>اندازهٔ نوشته
           <select id="size"><option value="small">کوچک</option><option value="regular">معمولی</option><option value="large">درشت</option><option value="extra">خیلی درشت</option></select>
@@ -50,15 +50,14 @@
       <div class="setting-footer"><button type="button" id="reset">بازگرداندن پیش‌فرض‌ها</button><p id="setting-note" aria-live="polite">انتخاب‌هات در همین مرورگر ذخیره می‌شن.</p></div>
     </details>
     <section class="posts reader" id="posts" aria-labelledby="posts-title">
-      <h2 id="posts-title">نوشته‌ها / پایه‌های هوش مصنوعی</h2><nav class="topic-nav" aria-label="موضوع‌های وبلاگ"><ul><li><a href="/fa/blog/">همهٔ نوشته‌ها</a></li><li><a href="/fa/blog/tags/ai-basics/" aria-current="page">پایه‌های هوش مصنوعی</a></li><li><a href="/fa/blog/tags/diffusion/">دیفیوژن</a></li><li><a href="/fa/blog/tags/ai-image-making/">تصویرسازی با هوش مصنوعی</a></li><li><a href="/fa/blog/tags/paper-explainer/">شرح مقاله</a></li></ul></nav>
-      <ul id="list"><li><a class="post-card" href="/fa/blog/diffusion-from-noise/"><img width="1440" height="810" src="/fa/blog/media/diffusion-from-noise.webp" alt="" decoding="async" loading="lazy"><div><h3>چطور از برفک، تصویر درمیاد؟</h3><p>مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.</p><p class="article-meta"><span class="category">پایه‌های هوش مصنوعی</span> · <time datetime="2026-11-25">۴ آذر ۱۴۰۵</time> · ۳ دقیقه مطالعه · ۵۳۲ واژه</p></div></a><nav class="topic-nav" aria-label="موضوع‌های وبلاگ"><ul><li><a href="/fa/blog/tags/ai-basics/">پایه‌های هوش مصنوعی</a></li><li><a href="/fa/blog/tags/diffusion/">دیفیوژن</a></li><li><a href="/fa/blog/tags/ai-image-making/">تصویرسازی با هوش مصنوعی</a></li><li><a href="/fa/blog/tags/paper-explainer/">شرح مقاله</a></li></ul></nav></li></ul>
+      <h2 id="posts-title">نوشته‌ها / پایه‌های هوش مصنوعی</h2>
+      <nav class="topic-nav" aria-label="موضوع‌های وبلاگ"><ul><li><a href="/fa/blog/">همهٔ نوشته‌ها</a></li><li><a href="/fa/blog/tags/ai-basics/" aria-current="page">پایه‌های هوش مصنوعی</a></li><li><a href="/fa/blog/tags/diffusion/">دیفیوژن</a></li><li><a href="/fa/blog/tags/ai-image-making/">تصویرسازی با هوش مصنوعی</a></li><li><a href="/fa/blog/tags/paper-explainer/">شرح مقاله</a></li></ul></nav><ul id="list"><li><a class="card-category" href="/fa/blog/categories/papers/">شرح مقاله‌های هوش مصنوعی</a><a class="post-card" href="/fa/blog/diffusion-from-noise/"><img width="1440" height="810" src="/fa/blog/media/diffusion-from-noise.webp" alt="" decoding="async" loading="lazy"><div><h3>چطور از برفک، تصویر درمیاد؟</h3><p>مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.</p><p class="article-meta"><time datetime="2026-11-25">۴ آذر ۱۴۰۵</time> · ۳ دقیقه مطالعه · ۵۳۲ واژه</p></div></a><nav class="topic-nav" aria-label="موضوع‌های وبلاگ"><ul><li><a href="/fa/blog/tags/ai-basics/">پایه‌های هوش مصنوعی</a></li><li><a href="/fa/blog/tags/diffusion/">دیفیوژن</a></li><li><a href="/fa/blog/tags/ai-image-making/">تصویرسازی با هوش مصنوعی</a></li><li><a href="/fa/blog/tags/paper-explainer/">شرح مقاله</a></li></ul></nav></li></ul>
     </section>
     <article class="reader" id="article" hidden>
-      <a class="back" href="/fa/blog/">همهٔ نوشته‌ها <span aria-hidden="true">↗</span></a>
-      <p class="article-meta" id="article-meta"></p>
+      <div id="article-media"></div>
       <nav class="toc" aria-label="فهرست بخش‌های نوشته" id="toc" hidden><strong>در این نوشته</strong><ol id="toc-list"></ol></nav>
-      <div id="prose"></div>
-      <a href="#content" class="back">برگشت به بالای صفحه <span aria-hidden="true">↑</span></a>
+      <p><a class="garden-link" href="/fa/garden/?focus=diffusion">این نوشته در گراف دانش</a></p><div id="prose"></div>
+      <div class="article-actions"><button type="button" id="copy-link" hidden>کپی لینک نوشته</button><a href="#content">برگشت به بالا <span aria-hidden="true">↑</span></a><span id="copy-status" role="status"></span></div>
     </article>
   </main>
   <footer class="footer shell"><span>وبلاگ فارسی هادس</span><a href="/fa/work/">دیدن آثار</a></footer>
