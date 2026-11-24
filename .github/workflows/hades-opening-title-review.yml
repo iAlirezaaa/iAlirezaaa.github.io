@@ -30,6 +30,7 @@ jobs:
           for loc,lang in [('', 'EN'),('fa/','FA')]:
               svg=root+f'HADES_Architectural_Opening_{lang}_16x9_PUBLIC_REVIEW.svg'
               page=loc+root+'index.html'
+              routes += [root+f'HADES_Architectural_Opening_{lang}_{ratio}_PUBLIC_REVIEW.svg' for ratio in ('9x16','1x1')]
               routes += [svg,page,loc+'index.html',loc+'library/index.html',loc+'brand-kit/logo-usage/index.html',f'downloads/HADES_Public_Overview_{lang}.md']
               data=pathlib.Path('hades/'+svg).read_text()
               mark=re.search(r'data:image/png;base64,([A-Za-z0-9+/=]+)',data).group(1)
@@ -51,8 +52,19 @@ jobs:
                       page.locator('#play').click()
                       assert page.locator('#time').evaluate('(el)=>el.value')=='4.00 s'
                       page.locator('#stop').click()
-                      link=page.locator('a[download]').get_attribute('href')
-                      assert page.request.get('http://localhost:8765'+link).ok
+                      for ratio in ('16x9','9x16','1x1'):
+                          page.locator('#ratio').select_option(ratio)
+                          page.locator('#art').evaluate('(el)=>el.decode()')
+                          assert page.locator('#stage').get_attribute('data-ratio')==ratio
+                          assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                          page.locator('#zoom').click()
+                          assert page.locator('#zoom').get_attribute('aria-pressed')=='true'
+                          assert page.locator('#stage').evaluate('(el)=>el.scrollWidth>el.clientWidth')
+                          assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                          page.locator('#zoom').click()
+                          assert page.locator('#zoom').get_attribute('aria-pressed')=='false'
+                      for link in page.locator('a[download]').evaluate_all('(els)=>els.map(e=>e.getAttribute("href"))'):
+                          assert page.request.get('http://localhost:8765'+link).ok
                       print('PASS browser',lang,w)
                       page.close()
               browser.close()
@@ -68,7 +80,7 @@ jobs:
           root='library/backgrounds/quiet-courts/opening-titles/'
           paths=[]
           for loc,lang in [('', 'EN'),('fa/','FA')]:
-              paths += [(loc+root+'index.html','text/html'),(root+f'HADES_Architectural_Opening_{lang}_16x9_PUBLIC_REVIEW.svg','image/svg+xml')]
+              paths += [(loc+root+'index.html','text/html')]+[(root+f'HADES_Architectural_Opening_{lang}_{ratio}_PUBLIC_REVIEW.svg','image/svg+xml') for ratio in ('16x9','9x16','1x1')]
           for attempt in range(24):
               try:
                   for f,mime in paths:
