@@ -1,0 +1,59 @@
+name: HADES native handoff proof
+on:
+  push:
+    paths:
+      - '.github/workflows/hades-native-handoff-qa.yml'
+      - 'hades/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact live bytes and content types
+        run: |
+          python - <<'PY'
+          import pathlib, hashlib, urllib.request, time
+          root='library/backgrounds/quiet-courts/transitions/composite-desk/'
+          files=['hades/'+root+'native-handoff/index.html','hades/fa/'+root+'native-handoff/index.html','hades/'+root+'native-handoff/hades_vse.py','hades/'+root+'index.html','hades/fa/'+root+'index.html']
+          for p in files:
+              assert pathlib.Path(p).read_bytes()==pathlib.Path('site/public/'+p).read_bytes()
+          for attempt in range(24):
+              try:
+                  for p in files:
+                      req=urllib.request.Request('https://ialirezaaa.github.io/'+p+'?native-proof='+str(time.time_ns()),headers={'User-Agent':'HADES independent QA'})
+                      with urllib.request.urlopen(req,timeout=20) as r:
+                          assert r.status==200
+                          mime=r.headers.get_content_type()
+                          assert mime=='text/html' if p.endswith('.html') else mime in ('text/plain','application/octet-stream','text/x-python','application/x-python-code')
+                          assert hashlib.sha256(r.read()).digest()==hashlib.sha256(pathlib.Path(p).read_bytes()).digest()
+                  break
+              except Exception as e:
+                  print('retry',attempt,str(e),flush=True)
+                  if attempt==23: raise
+                  time.sleep(20)
+          for p in files: print('HTTP 200 MIME SHA256 PASS',p)
+          PY
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install bpy==4.5.11
+      - name: Build and reopen native blend projects
+        run: |
+          python - <<'PY'
+          import pathlib, subprocess, sys, tempfile
+          root=pathlib.Path('hades/library/backgrounds/quiet-courts/transitions/composite-desk').resolve()
+          for ratio in ('16x9','9x16','1x1'):
+              out=pathlib.Path(tempfile.mkdtemp())/'edit'
+              subprocess.run([sys.executable,str(root/'native-handoff/hades_vse.py'),str(root/f'HADES_{ratio}_composite_30frames_REVIEW.zip'),'--out',str(out)],check=True)
+              check='import bpy,sys,pathlib; p=pathlib.Path(sys.argv[1]); bpy.ops.wm.open_mainfile(filepath=str(p)); s=bpy.context.scene; a=sorted(s.sequence_editor.strips,key=lambda x:x.frame_final_start); assert len(a)==30 and s.render.fps==24 and s.frame_end==30; assert [(x.frame_final_start,x.frame_final_end) for x in a]==[(i,i+1) for i in range(1,31)]; assert all((pathlib.Path(bpy.path.abspath(x.directory))/x.elements[0].filename).is_file() for x in a); assert any(m.frame==16 for m in s.timeline_markers); print("NATIVE REOPEN PASS",p)'
+              subprocess.run([sys.executable,'-c',check,str(out/'HADES_Transition_REVIEW.blend')],check=True)
+          PY
