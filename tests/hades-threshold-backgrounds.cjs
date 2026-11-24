@@ -35,8 +35,8 @@ const server=http.createServer((req,res)=>{try{
     logo:!!logo&&logo.complete&&logo.naturalWidth>0,review:document.body.innerText.includes('REVIEW'),
     links:[...document.querySelectorAll('a[download]')].map(a=>a.getAttribute('href'))};
   });
-  assert.equal(result.tiles,20,'19 original background thumbnails plus one exact-original logo contrast application');
-  assert.equal(result.good,20,'20 actually decoded SVG images');
+  assert.equal(result.tiles,23,'20 prior thumbnails plus three Folded Spaces WebP previews');
+  assert.equal(result.good,23,'23 decoded thumbnails with alt text');
   assert.ok(result.overflow<=1,'horizontal overflow '+JSON.stringify(result));
   assert.ok(result.logo,'unaltered original logo image did not load');
   assert.equal(result.plate,'rgb(24, 22, 21)','white logo must be backed by dark plate');
@@ -56,14 +56,14 @@ const server=http.createServer((req,res)=>{try{
   }
   for(const stem of ['HADES_Folded_Arcade_16x9_REVIEW','HADES_Bone_Lightwell_9x16_REVIEW','HADES_Charcoal_Alcove_1x1_REVIEW']) {
     assert.ok(result.links.includes('/hades/library/backgrounds/assets/'+stem+'.svg'),'Folded Spaces SVG download missing '+stem);
-    for(const ext of ['png','jpg','webp'])assert.ok(!result.links.includes('/hades/library/backgrounds/assets/'+stem+'.'+ext),'Folded raster links are not released '+stem+'.'+ext);
+    for(const ext of ['png','jpg','webp']){const href='/hades/library/backgrounds/assets/'+stem+'.'+ext;assert.ok(result.links.includes(href),'Folded raster link missing '+href);assert.equal((await page.request.get(base+href)).status(),200,'Folded raster file missing '+href);}
   }
   assert.ok(result.links.some(h=>h.endsWith('HADES_Quiet_Spaces_3_Ratios_SVG_PNG_JPEG_WEBP_REVIEW.zip')),'Quiet Spaces pack missing');
   assert.ok(result.links.some(h=>h.endsWith('HADES_Quiet_Spaces_Overview_1600x1000_REVIEW.svg')),'Overview editable SVG link missing');
   assert.ok(result.links.includes('/hades/library/backgrounds/assets/HADES_Original_Logo_Dark_Plate_Contrast_16x9_REVIEW.svg'),'Exact-original contrast application SVG link missing');
   assert.deepEqual(errors,[],'page errors');
   await page.screenshot({path:path.join(proof,locale+'-'+width+'.png'),fullPage:true});
-  console.log('CHROMIUM PASS',locale,width,'images '+result.good+'/20','overflow '+result.overflow,'dark plate '+result.plate);
+  console.log('CHROMIUM PASS',locale,width,'images '+result.good+'/23','overflow '+result.overflow,'dark plate '+result.plate);
   passed++;await page.close();
  }
  assert.equal(passed,6);console.log('HADES ARCHITECTURAL CHROMIUM PASS 6/6; Mikhak, native phone, print, owner FINAL remain OPEN');
