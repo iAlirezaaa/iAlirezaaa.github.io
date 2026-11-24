@@ -4,6 +4,7 @@ on:
     branches: [main, feat/contact-official-social-directory-2026-11-17]
     paths:
       - "site/**"
+      - "garden/**"
       - ".github/workflows/portfolio.yml"
   workflow_dispatch:
 
@@ -27,9 +28,14 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: site/package-lock.json
+          cache-dependency-path: |
+            site/package-lock.json
+            garden/package-lock.json
       - name: Install original dependencies
         working-directory: site
+        run: npm ci
+      - name: Install original Digital Garden template dependencies
+        working-directory: garden
         run: npm ci
       - name: Build original portfolio
         working-directory: site
@@ -40,7 +46,7 @@ jobs:
       - name: Generate direct route HTML files
         working-directory: site
         run: node scripts/postbuild.mjs
-      - name: Verify blog and Git-backed Obsidian garden
+      - name: Verify Persian Digital Garden and article integration
         working-directory: site
         run: node scripts/verify-blog-garden.mjs
       - name: Verify bilingual pages, sitemap and profile metadata

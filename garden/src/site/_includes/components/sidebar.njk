@@ -1,0 +1,11 @@
+<aside class="garden-context garden-panel" id="garden-context" data-panel="context" aria-label="دربارهٔ این صفحه">
+<div class="panel-mobile-heading"><strong>دربارهٔ این صفحه</strong><button type="button" class="icon-button" data-panel-close aria-label="بستن پنل این صفحه">×</button></div>
+{% set tocHtml = content and (content | hideDataview | link | toc) %}
+{% if tocHtml %}<section class="context-section toc-section"><h2>در این صفحه</h2><div class="toc-container" data-toc>{{ tocHtml | safe }}</div></section>{% endif %}
+<section class="context-section"><div class="section-heading"><h2>ارتباط این صفحه</h2><button type="button" class="small-button" data-global-graph-open aria-label="باز کردن گراف کامل">گراف کامل</button></div><div class="local-graph" data-local-graph aria-label="گراف ارتباط‌های این یادداشت"><p class="muted">در حال دریافت ارتباط‌ها…</p></div><div class="local-graph-legend"><span class="legend-current"></span><span>همین صفحه</span><span class="legend-related"></span><span>پیوندهای مرتبط</span></div></section>
+<section class="context-section backlinks-section"><h2>پیوندهای ورودی</h2><p class="context-caption">صفحه‌هایی که به اینجا اشاره کرده‌اند</p><ul class="backlink-list" data-backlinks>
+{%- set currentNode = graph.nodes[page.url] -%}
+{%- if currentNode and currentNode.backLinks.length -%}{%- for backlink in currentNode.backLinks -%}{%- if graph.nodes[backlink] and graph.nodes[backlink].url != page.url and not graph.nodes[backlink].private -%}<li><a class="internal-link" href="{{graph.nodes[backlink].url}}">{{graph.nodes[backlink].title}}</a></li>{%- endif -%}{%- endfor -%}{%- else -%}<li class="muted">هنوز یادداشتی به این صفحه پیوند نداده.</li>{%- endif -%}
+</ul></section>
+<section class="context-section context-about"><p>یک مجموعهٔ زنده از یادداشت‌ها و ارتباط‌ها.</p><a href="https://github.com/oleeskild/obsidian-digital-garden" rel="noopener" target="_blank">ساخته‌شده با Digital Garden</a></section>
+</aside>

@@ -6,8 +6,8 @@ import { readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
 
 const blogRoot = 'https://ialirezaaa.github.io/fa/blog/'
 const ddpmFigure = 'https://arxiv.org/html/2006.11239v2/pgm_diagram_xarrow_small.png'
-const topicNames = {'ai-basics':'پایه‌های هوش مصنوعی',diffusion:'دیفیوژن','ai-image-making':'تصویرسازی با هوش مصنوعی','paper-explainer':'شرح مقاله',comfyui:'ComfyUI',workflow:'گردش‌کار',python:'پایتون'}
-const categories = {
+export const topicNames = {'ai-basics':'پایه‌های هوش مصنوعی',diffusion:'دیفیوژن','ai-image-making':'تصویرسازی با هوش مصنوعی','paper-explainer':'شرح مقاله',comfyui:'ComfyUI',workflow:'گردش‌کار',python:'پایتون'}
+export const categories = {
   papers:{name:'شرح مقاله‌های هوش مصنوعی',description:'ایدهٔ اصلی پژوهش‌ها، به زبان ساده و همراه با شکل‌ها و مثال‌های کاربردی.'},
   'repo-analysis':{name:'تحلیل ریپوها',description:'سر زدن به کد و مستندات ابزارهای متن‌باز، برای اینکه ببینیم چطور کار می‌کنند و کجا به درد می‌خورند.'},
   fundamentals:{name:'پایه‌های هوش مصنوعی',description:'مفهوم‌های پایه با مثال‌هایی که از دل کارِ ساخت تصویر و انیمیشن می‌آیند.'},
@@ -71,12 +71,14 @@ function renderInlines(items) {
     throw new Error('Unsupported or unsafe rich inline node: ' + type)
   }).join('')
 }
-function renderBlocks(blocks, label, tight = false) {
+export function renderBlocks(blocks, label, tight = false) {
   return blocks.map(([type, value, value2]) => {
     if (type === 'p' || type === 'h3') return tight && type === 'p' ? renderInlines(value) : '<' + type + '>' + renderInlines(value) + '</' + type + '>'
     if (type === 'pre') {
       const lang = /^[a-z][a-z0-9-]*$/.test(value) ? ' class="language-' + value + '"' : ''
-      return '<pre class="article-code" dir="ltr" tabindex="0" role="region" aria-label="نمونهٔ کد"><code' + lang + '>' + esc(value2) + '</code></pre>'
+      // A standalone HTML pre block keeps blank lines, indentation and URLs
+      // literal when this HTML is embedded in a Digital Garden Markdown note.
+      return '\n\n<pre class="article-code" dir="ltr" tabindex="0" role="region" aria-label="نمونهٔ کد"><code' + lang + '>' + esc(value2) + '</code></pre>\n\n'
     }
     if (type === 'bullets') return '<ul>' + value.map(item => '<li>' + renderBlocks(item,label) + '</li>').join('') + '</ul>'
     if (type === 'table') {

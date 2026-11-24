@@ -1,0 +1,10 @@
+{% set title = 'یک یادداشت برای کشف کردن' %}
+{% set robots = 'noindex, follow' %}
+{% set content %}
+<p>در حال باز کردن یک یادداشت از باغ دیجیتال…</p>
+<noscript><p>برای انتخاب تصادفی یادداشت، جاوااسکریپت را روشن کن. می‌توانی از <a href="/fa/garden/">فهرست یادداشت‌ها</a> هم شروع کنی.</p></noscript>
+<script>
+(function(){const pages=[{% for note in collections.note %}{% if note.data['dg-publish'] %}{{ (note.url | hadesUrl) | jsonify | safe }},{% endif %}{% endfor %}];if(pages.length)location.replace(pages[Math.floor(Math.random()*pages.length)]);})();
+</script>
+{% endset %}
+{% include "components/hadesShell.njk" %}

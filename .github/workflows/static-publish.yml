@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "garden/**"
       - ".github/workflows/static-publish.yml"
   workflow_dispatch:
 
@@ -26,9 +27,14 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: site/package-lock.json
+          cache-dependency-path: |
+            site/package-lock.json
+            garden/package-lock.json
       - name: Install dependencies
         working-directory: site
+        run: npm ci
+      - name: Install original Digital Garden template dependencies
+        working-directory: garden
         run: npm ci
       - name: Build original React/Vite design
         working-directory: site
@@ -39,6 +45,9 @@ jobs:
       - name: Create route entry points
         working-directory: site
         run: node scripts/postbuild.mjs
+      - name: Verify Persian Digital Garden and article integration
+        working-directory: site
+        run: node scripts/verify-blog-garden.mjs
       - name: Verify bilingual pages and profile metadata
         working-directory: site
         run: node scripts/validate-site.mjs
@@ -66,6 +75,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          built_source_ref="$(git rev-parse HEAD)"
           rm -rf index.html 404.html assets about work systems contact fa sitemap.xml robots.txt
           cp -a site/dist/. .
           touch .nojekyll
@@ -82,8 +92,13 @@ jobs:
               echo "Published generated Pages root without force."
               exit 0
             fi
-            echo "Concurrent branch update detected; safely rebasing generated commit."
+            echo "Concurrent branch update detected; checking the source used for this build."
             git fetch origin main
+            if ! git diff --quiet "$built_source_ref" origin/main -- site/ garden/ .github/workflows/static-publish.yml; then
+              echo "::notice::Skipping stale generated output: build sources changed on main. The newer source-triggered workflow owns publication."
+              exit 0
+            fi
+            echo "Build sources are unchanged; safely rebasing the generated commit."
             if ! git rebase origin/main; then
               git rebase --abort || true
               echo "::warning::Rebase conflict: source may have changed; preserving remote rather than overwriting."

@@ -1,3 +1,3 @@
-import {execFileSync} from 'node:child_process'
-import {fileURLToPath} from 'node:url'
-export function buildGarden(dist){execFileSync(process.execPath,[fileURLToPath(new URL('./build-garden.mjs',import.meta.url)),dist],{stdio:'inherit'})}
+import {buildDigitalGarden} from '../../garden/scripts/build.mjs'
+import {getBlogGardenNotes} from './garden-blog-content.mjs'
+export function buildGarden(dist){return buildDigitalGarden(dist,getBlogGardenNotes(dist))}
