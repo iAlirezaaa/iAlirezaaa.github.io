@@ -1,6 +1,6 @@
 from pathlib import Path
 import base64, hashlib, re, time, urllib.request, xml.etree.ElementTree as ET
-from playwright.sync_api import sync_playwright
+import os, sys
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from threading import Thread
 import zipfile, io
@@ -17,32 +17,36 @@ for p in files+[Path(n) for n in navs]:
         ET.parse(p)
         data=re.search(r'data:image/png;base64,([A-Za-z0-9+/=]+)',p.read_text()).group(1)
         assert hashlib.sha256(base64.b64decode(data)).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
-server=ThreadingHTTPServer(('127.0.0.1',0),SimpleHTTPRequestHandler)
-Thread(target=server.serve_forever,daemon=True).start()
-with sync_playwright() as pw:
-    browser=pw.chromium.launch()
-    for lang,p in [('en',base),('fa',fa)]:
-        for w in (320,390,430):
-            page=browser.new_page(viewport={'width':w,'height':900})
-            page.goto(f'http://127.0.0.1:{server.server_port}/{p}/',wait_until='networkidle')
-            assert page.locator('html').get_attribute('lang')==lang
-            assert page.locator('html').get_attribute('dir')==('rtl' if lang=='fa' else 'ltr')
-            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
-            assert page.locator('img').count()==6
-            assert page.locator('img').evaluate_all('(imgs)=>imgs.every(i=>i.complete&&i.naturalWidth===Number(i.getAttribute("width"))&&i.naturalHeight===Number(i.getAttribute("height")))')
-            page.screenshot(path=str(proof/f'{lang}-{w}.png'),full_page=True)
+if not os.environ.get('HADES_HTTP_ONLY'):
+    from playwright.sync_api import sync_playwright
+    server=ThreadingHTTPServer(('127.0.0.1',0),SimpleHTTPRequestHandler)
+    Thread(target=server.serve_forever,daemon=True).start()
+    with sync_playwright() as pw:
+        browser=pw.chromium.launch()
+        for lang,p in [('en',base),('fa',fa)]:
+            for w in (320,390,430):
+                page=browser.new_page(viewport={'width':w,'height':900})
+                page.goto(f'http://127.0.0.1:{server.server_port}/{p}/',wait_until='networkidle')
+                assert page.locator('html').get_attribute('lang')==lang
+                assert page.locator('html').get_attribute('dir')==('rtl' if lang=='fa' else 'ltr')
+                assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+                assert page.locator('img').count()==6
+                assert page.locator('img').evaluate_all('(imgs)=>imgs.every(i=>i.complete&&i.naturalWidth===Number(i.getAttribute("width"))&&i.naturalHeight===Number(i.getAttribute("height")))')
+                page.screenshot(path=str(proof/f'{lang}-{w}.png'),full_page=True)
+                page.close()
+        for f in sorted(base.glob('*.svg')):
+            svg=ET.parse(f).getroot()
+            w,h=int(svg.attrib['width']),int(svg.attrib['height'])
+            page=browser.new_page(viewport={'width':w,'height':h})
+            page.goto(f'http://127.0.0.1:{server.server_port}/{f}')
+            boxes=page.locator('#editable-credits text').evaluate_all('(els)=>els.map(e=>{const b=e.getBBox();return [b.x,b.y,b.width,b.height]})')
+            assert all(x>=0 and x+ww<=w and y>=0 and y+hh<=h for x,y,ww,hh in boxes)
+            page.screenshot(path=str(proof/(f.stem+'.png')))
             page.close()
-    for f in sorted(base.glob('*.svg')):
-        svg=ET.parse(f).getroot()
-        w,h=int(svg.attrib['width']),int(svg.attrib['height'])
-        page=browser.new_page(viewport={'width':w,'height':h})
-        page.goto(f'http://127.0.0.1:{server.server_port}/{f}')
-        boxes=page.locator('#editable-credits text').evaluate_all('(els)=>els.map(e=>{const b=e.getBBox();return [b.x,b.y,b.width,b.height]})')
-        assert all(x>=0 and x+ww<=w and y>=0 and y+hh<=h for x,y,ww,hh in boxes)
-        page.screenshot(path=str(proof/(f.stem+'.png')))
-        page.close()
-    browser.close()
-print('PASS 6 Chromium responsive checks; embedded source SHA and mirrors')
+        browser.close()
+    print('PASS 6 Chromium responsive checks; embedded source SHA and mirrors')
+if os.environ.get('HADES_LOCAL_ONLY'):
+    sys.exit(0)
 old=base.parent/'chapter-divider'
 files+=sorted((old/'raster').iterdir())+[old/'index.html',Path('hades/fa')/Path(*old.parts[1:])/'index.html']
 allowed={'.svg':{'image/svg+xml'},'.html':{'text/html'},'.png':{'image/png'},'.jpg':{'image/jpeg'},'.webp':{'image/webp'},'.zip':{'application/zip','application/x-zip-compressed'},'.json':{'application/json'},'.txt':{'text/plain'}}

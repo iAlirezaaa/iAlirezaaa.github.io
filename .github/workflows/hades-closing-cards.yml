@@ -10,7 +10,7 @@ permissions:
   contents: read
 jobs:
   qa:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -18,9 +18,22 @@ jobs:
           python-version: '3.11'
       - run: pip install playwright==1.56.0
       - run: python -m playwright install --with-deps chromium
-      - run: python scripts/hades-closing-cards-qa.py
+      - run: HADES_LOCAL_ONLY=1 python scripts/hades-closing-cards-qa.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: hades-closing-cards-qa
+          name: hades-closing-cards-browser-proof
           path: closing-proof/
+  hosted:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: HADES_HTTP_ONLY=1 python scripts/hades-closing-cards-qa.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-closing-cards-hosted-proof
+          path: closing-proof/http.txt
