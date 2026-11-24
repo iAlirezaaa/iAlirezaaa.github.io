@@ -1,0 +1,793 @@
+{
+  "version": 2,
+  "generator": "oleeskild/digitalgarden",
+  "language": "fa",
+  "direction": "rtl",
+  "basePath": "/fa/garden/",
+  "notes": [
+    {
+      "id": "home",
+      "title": "باغ دیجیتال هادس",
+      "url": "/fa/garden/",
+      "source": "خانه.md",
+      "text": "یادداشت‌هایی به‌هم‌پیوسته دربارهٔ هوش مصنوعی، تصویرسازی و ساختن؛ جایی برای دنبال کردن ایده‌ها از یک مفهوم به مفهوم بعدی.",
+      "group": "شروع",
+      "tags": [],
+      "aliases": [
+        "باغ دیجیتال هادس",
+        "خانه",
+        "خانه",
+        "خانه",
+        "Home"
+      ],
+      "links": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/noise/",
+        "/fa/garden/seed/",
+        "/fa/garden/ddpm/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/blog/"
+      ],
+      "backlinks": [],
+      "headings": [
+        {
+          "title": "از کجا شروع کنیم؟",
+          "id": "از-کجا-شروع-کنیم"
+        },
+        {
+          "title": "نوشته‌های مفصل",
+          "id": "نوشته-های-مفصل"
+        },
+        {
+          "title": "مسیر مطالعهٔ خودت را بساز",
+          "id": "مسیر-مطالعه-خودت-را-بساز"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25T00:00:00.000Z",
+      "updated": "2026-11-25T00:00:00.000Z",
+      "kind": "note",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "diffusion",
+      "title": "دیفیوژن؛ از نویز تا تصویر",
+      "url": "/fa/garden/diffusion/",
+      "source": "مسیرهای مطالعه/دیفیوژن.md",
+      "text": "یک مسیر مطالعه برای رسیدن از نویز و بذر تصادفی به DDPM و دیفیوژن نهفته، همراه با نوشتهٔ تصویری اصلی.",
+      "group": "مسیر مطالعه",
+      "tags": [
+        "مسیر-مطالعه",
+        "دیفیوژن"
+      ],
+      "aliases": [
+        "دیفیوژن؛ از نویز تا تصویر",
+        "دیفیوژن",
+        "مسیرهای مطالعه/دیفیوژن",
+        "diffusion",
+        "Diffusion",
+        "دیفیوژن"
+      ],
+      "links": [
+        "/fa/garden/noise/",
+        "/fa/garden/seed/",
+        "/fa/garden/ddpm/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "backlinks": [
+        "/fa/garden/",
+        "/fa/garden/seed/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/garden/noise/",
+        "/fa/garden/ddpm/",
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "headings": [
+        {
+          "title": "نوشتهٔ اصلی",
+          "id": "نوشته-اصلی"
+        },
+        {
+          "title": "مفهوم‌های این مسیر",
+          "id": "مفهوم-های-این-مسیر"
+        },
+        {
+          "title": "رفت‌وبرگشت میان یادداشت‌ها",
+          "id": "رفت-وبرگشت-میان-یادداشت-ها"
+        }
+      ],
+      "articleUrl": "/fa/blog/diffusion-from-noise/",
+      "created": "2026-11-25T00:00:00.000Z",
+      "updated": "2026-11-25T00:00:00.000Z",
+      "kind": "note",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "seed",
+      "title": "بذر تصادفی",
+      "url": "/fa/garden/seed/",
+      "source": "مفاهیم/بذر تصادفی.md",
+      "text": "بذر تصادفی یا Seed به تعیین نقطهٔ شروع نمونه‌گیری کمک می‌کند و برای مقایسهٔ نتیجه‌ها مفید است.",
+      "group": "مفهوم",
+      "tags": [
+        "مفهوم",
+        "تصویرسازی"
+      ],
+      "aliases": [
+        "بذر تصادفی",
+        "بذر تصادفی",
+        "مفاهیم/بذر تصادفی",
+        "seed",
+        "Seed",
+        "بذر"
+      ],
+      "links": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/noise/"
+      ],
+      "backlinks": [
+        "/fa/garden/",
+        "/fa/garden/diffusion/",
+        "/fa/garden/noise/",
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "headings": [
+        {
+          "title": "چرا موقع مقایسه مهم است؟",
+          "id": "چرا-موقع-مقایسه-مهم-است"
+        },
+        {
+          "title": "ادامهٔ مسیر",
+          "id": "ادامه-مسیر"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25T00:00:00.000Z",
+      "updated": "2026-11-25T00:00:00.000Z",
+      "kind": "note",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "latent-diffusion",
+      "title": "دیفیوژن نهفته",
+      "url": "/fa/garden/latent-diffusion/",
+      "source": "مفاهیم/دیفیوژن نهفته.md",
+      "text": "دیفیوژن نهفته، فرایند ساخت تصویر را در یک نمایش فشرده‌تر از تصویر انجام می‌دهد.",
+      "group": "مفهوم",
+      "tags": [
+        "مفهوم",
+        "دیفیوژن"
+      ],
+      "aliases": [
+        "دیفیوژن نهفته",
+        "دیفیوژن نهفته",
+        "مفاهیم/دیفیوژن نهفته",
+        "latent-diffusion",
+        "Latent Diffusion",
+        "انتشار نهفته"
+      ],
+      "links": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/noise/",
+        "/fa/garden/ddpm/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "backlinks": [
+        "/fa/garden/",
+        "/fa/garden/diffusion/",
+        "/fa/garden/ddpm/",
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "headings": [
+        {
+          "title": "فضای نهفته یعنی چه؟",
+          "id": "فضای-نهفته-یعنی-چه"
+        },
+        {
+          "title": "ارتباط با روش‌های پایه",
+          "id": "ارتباط-با-روش-های-پایه"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25T00:00:00.000Z",
+      "updated": "2026-11-25T00:00:00.000Z",
+      "kind": "note",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "noise",
+      "title": "نویز",
+      "url": "/fa/garden/noise/",
+      "source": "مفاهیم/نویز.md",
+      "text": "نویز در مدل‌های انتشار، نقطهٔ شروع فرایند ساخت تصویر است؛ یک مفهوم پایه برای فهم دیفیوژن.",
+      "group": "مفهوم",
+      "tags": [
+        "مفهوم",
+        "دیفیوژن"
+      ],
+      "aliases": [
+        "نویز",
+        "نویز",
+        "مفاهیم/نویز",
+        "noise",
+        "Noise"
+      ],
+      "links": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/ddpm/",
+        "/fa/garden/seed/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "backlinks": [
+        "/fa/garden/",
+        "/fa/garden/diffusion/",
+        "/fa/garden/seed/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/garden/ddpm/",
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "headings": [
+        {
+          "title": "نقش نویز در ساخت تصویر",
+          "id": "نقش-نویز-در-ساخت-تصویر"
+        },
+        {
+          "title": "چه چیزی نقطهٔ شروع را تعیین می‌کند؟",
+          "id": "چه-چیزی-نقطه-شروع-را-تعیین-می-کند"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25T00:00:00.000Z",
+      "updated": "2026-11-25T00:00:00.000Z",
+      "kind": "note",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "ddpm",
+      "title": "روش DDPM",
+      "url": "/fa/garden/ddpm/",
+      "source": "مقاله‌ها/DDPM.md",
+      "text": "یادداشتی برای وصل کردن روش DDPM به ایدهٔ حذف نویز و مدل‌های دیفیوژن.",
+      "group": "مقاله و روش",
+      "tags": [
+        "مقاله",
+        "دیفیوژن"
+      ],
+      "aliases": [
+        "روش DDPM",
+        "DDPM",
+        "مقاله‌ها/DDPM",
+        "ddpm",
+        "DDPM",
+        "Denoising Diffusion Probabilistic Models"
+      ],
+      "links": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/noise/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "backlinks": [
+        "/fa/garden/",
+        "/fa/garden/diffusion/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/garden/noise/",
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "headings": [
+        {
+          "title": "ایدهٔ اصلی",
+          "id": "ایده-اصلی"
+        },
+        {
+          "title": "برای بیشتر خواندن",
+          "id": "برای-بیشتر-خواندن"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25T00:00:00.000Z",
+      "updated": "2026-11-25T00:00:00.000Z",
+      "kind": "note",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "همهٔ نوشته‌ها",
+      "title": "نوشته‌ها و مقاله‌ها",
+      "url": "/fa/blog/",
+      "source": "نوشته‌ها/همهٔ نوشته‌ها.md",
+      "text": "از مفاهیم پایهٔ هوش مصنوعی تا مقاله‌های پژوهشی و ابزارهای ساخت تصویر و انیمیشن.",
+      "group": "نوشته‌ها",
+      "tags": [],
+      "aliases": [
+        "نوشته‌ها و مقاله‌ها",
+        "همهٔ نوشته‌ها",
+        "نوشته‌ها/همهٔ نوشته‌ها"
+      ],
+      "links": [
+        "/fa/garden/",
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/diffusion-from-noise/"
+      ],
+      "backlinks": [
+        "/fa/garden/"
+      ],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "دسته‌بندی‌ها",
+      "title": "دسته‌بندی‌ها",
+      "url": "/fa/blog/categories/",
+      "source": "راهنماها/دسته‌بندی‌ها.md",
+      "text": "مسیرهای مطالعه بر اساس نوع نوشته: شرح پژوهش، تحلیل ریپو و مفاهیم پایه.",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "دسته‌بندی‌ها",
+        "دسته‌بندی‌ها",
+        "راهنماها/دسته‌بندی‌ها"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "index, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/categories/"
+    },
+    {
+      "id": "برچسب‌ها",
+      "title": "برچسب‌ها",
+      "url": "/fa/blog/tags/",
+      "source": "راهنماها/برچسب‌ها.md",
+      "text": "موضوع‌های نوشته‌ها و مقاله‌های هادس.",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "برچسب‌ها",
+        "برچسب‌ها",
+        "راهنماها/برچسب‌ها"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "index, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/tags/"
+    },
+    {
+      "id": "papers",
+      "title": "شرح مقاله‌های هوش مصنوعی",
+      "url": "/fa/blog/categories/papers/",
+      "source": "راهنماها/دسته‌ها/papers.md",
+      "text": "ایدهٔ اصلی پژوهش‌ها، به زبان ساده و همراه با شکل‌ها و مثال‌های کاربردی.",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "شرح مقاله‌های هوش مصنوعی",
+        "papers",
+        "راهنماها/دسته‌ها/papers"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "index, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/categories/papers/"
+    },
+    {
+      "id": "repo-analysis",
+      "title": "تحلیل ریپوها",
+      "url": "/fa/blog/categories/repo-analysis/",
+      "source": "راهنماها/دسته‌ها/repo-analysis.md",
+      "text": "سر زدن به کد و مستندات ابزارهای متن‌باز، برای اینکه ببینیم چطور کار می‌کنند و کجا به درد می‌خورند.",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "تحلیل ریپوها",
+        "repo-analysis",
+        "راهنماها/دسته‌ها/repo-analysis"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "index, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/categories/repo-analysis/"
+    },
+    {
+      "id": "fundamentals",
+      "title": "پایه‌های هوش مصنوعی",
+      "url": "/fa/blog/categories/fundamentals/",
+      "source": "راهنماها/دسته‌ها/fundamentals.md",
+      "text": "مفهوم‌های پایه با مثال‌هایی که از دل کارِ ساخت تصویر و انیمیشن می‌آیند.",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "پایه‌های هوش مصنوعی",
+        "fundamentals",
+        "راهنماها/دسته‌ها/fundamentals"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/categories/fundamentals/"
+    },
+    {
+      "id": "ai-basics",
+      "title": "پایه‌های هوش مصنوعی",
+      "url": "/fa/blog/tags/ai-basics/",
+      "source": "راهنماها/برچسب‌ها/ai-basics.md",
+      "text": "نوشته‌های هادس با برچسب «پایه‌های هوش مصنوعی».",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "پایه‌های هوش مصنوعی",
+        "ai-basics",
+        "راهنماها/برچسب‌ها/ai-basics"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "diffusion",
+      "title": "دیفیوژن",
+      "url": "/fa/blog/tags/diffusion/",
+      "source": "راهنماها/برچسب‌ها/diffusion.md",
+      "text": "نوشته‌های هادس با برچسب «دیفیوژن».",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "دیفیوژن",
+        "diffusion",
+        "راهنماها/برچسب‌ها/diffusion"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "ai-image-making",
+      "title": "تصویرسازی با هوش مصنوعی",
+      "url": "/fa/blog/tags/ai-image-making/",
+      "source": "راهنماها/برچسب‌ها/ai-image-making.md",
+      "text": "نوشته‌های هادس با برچسب «تصویرسازی با هوش مصنوعی».",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "تصویرسازی با هوش مصنوعی",
+        "ai-image-making",
+        "راهنماها/برچسب‌ها/ai-image-making"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "paper-explainer",
+      "title": "شرح مقاله",
+      "url": "/fa/blog/tags/paper-explainer/",
+      "source": "راهنماها/برچسب‌ها/paper-explainer.md",
+      "text": "نوشته‌های هادس با برچسب «شرح مقاله».",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "شرح مقاله",
+        "paper-explainer",
+        "راهنماها/برچسب‌ها/paper-explainer"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "comfyui",
+      "title": "ComfyUI",
+      "url": "/fa/blog/tags/comfyui/",
+      "source": "راهنماها/برچسب‌ها/comfyui.md",
+      "text": "نوشته‌های هادس با برچسب «ComfyUI».",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "ComfyUI",
+        "comfyui",
+        "راهنماها/برچسب‌ها/comfyui"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "workflow",
+      "title": "گردش‌کار",
+      "url": "/fa/blog/tags/workflow/",
+      "source": "راهنماها/برچسب‌ها/workflow.md",
+      "text": "نوشته‌های هادس با برچسب «گردش‌کار».",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "گردش‌کار",
+        "workflow",
+        "راهنماها/برچسب‌ها/workflow"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "python",
+      "title": "پایتون",
+      "url": "/fa/blog/tags/python/",
+      "source": "راهنماها/برچسب‌ها/python.md",
+      "text": "نوشته‌های هادس با برچسب «پایتون».",
+      "group": "راهنماها",
+      "tags": [],
+      "aliases": [
+        "پایتون",
+        "python",
+        "راهنماها/برچسب‌ها/python"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "comfyui-repo-review",
+      "title": "کالبدشکافی ریپوی ComfyUI: وقتی Queue می‌زنی، پشت صحنه چه می‌گذره؟",
+      "url": "/fa/blog/comfyui-repo-review/",
+      "source": "نوشته‌ها/comfyui-repo-review.md",
+      "text": "از Queue تا PNG: ورودی هر نود، کار کش، فرق دو نوع JSON و تحویل گردش‌کارِ قابل‌بازتولید در ComfyUI.",
+      "group": "مقاله‌ها",
+      "tags": [
+        "ComfyUI",
+        "دیفیوژن",
+        "گردش‌کار",
+        "تصویرسازی با هوش مصنوعی",
+        "پایتون"
+      ],
+      "aliases": [
+        "کالبدشکافی ریپوی ComfyUI: وقتی Queue می‌زنی، پشت صحنه چه می‌گذره؟",
+        "comfyui-repo-review",
+        "نوشته‌ها/comfyui-repo-review"
+      ],
+      "links": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/noise/",
+        "/fa/garden/ddpm/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/garden/seed/"
+      ],
+      "backlinks": [
+        "/fa/blog/"
+      ],
+      "headings": [
+        {
+          "title": "پیوندهای این نوشته",
+          "id": "پیوندهای-این-نوشته"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25",
+      "updated": "2026-11-25",
+      "kind": "article",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/comfyui-repo-review/"
+    },
+    {
+      "id": "diffusion-from-noise",
+      "title": "چطور از برفک، تصویر درمیاد؟",
+      "url": "/fa/blog/diffusion-from-noise/",
+      "source": "نوشته‌ها/diffusion-from-noise.md",
+      "text": "مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.",
+      "group": "مقاله‌ها",
+      "tags": [
+        "پایه‌های هوش مصنوعی",
+        "دیفیوژن",
+        "تصویرسازی با هوش مصنوعی",
+        "شرح مقاله"
+      ],
+      "aliases": [
+        "چطور از برفک، تصویر درمیاد؟",
+        "diffusion-from-noise",
+        "نوشته‌ها/diffusion-from-noise"
+      ],
+      "links": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/noise/",
+        "/fa/garden/ddpm/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/garden/seed/"
+      ],
+      "backlinks": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/garden/noise/",
+        "/fa/garden/ddpm/",
+        "/fa/blog/"
+      ],
+      "headings": [
+        {
+          "title": "پیوندهای این نوشته",
+          "id": "پیوندهای-این-نوشته"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25",
+      "updated": "2026-11-25",
+      "kind": "article",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/diffusion-from-noise/"
+    }
+  ],
+  "urls": [
+    "/fa/garden/",
+    "/fa/garden/diffusion/",
+    "/fa/garden/seed/",
+    "/fa/garden/latent-diffusion/",
+    "/fa/garden/noise/",
+    "/fa/garden/ddpm/",
+    "/fa/blog/",
+    "/fa/blog/categories/",
+    "/fa/blog/tags/",
+    "/fa/blog/categories/papers/",
+    "/fa/blog/categories/repo-analysis/",
+    "/fa/blog/comfyui-repo-review/",
+    "/fa/blog/diffusion-from-noise/"
+  ],
+  "sourceDigest": "330dc21b237f465262534a6be4da7347e2ee4262c9f9ca2da0203100ef78ed36",
+  "assets": {
+    "/fa/garden/~random/index.html": "8adc8fa72400f4f9f2e1676f919787b4095c42204d1e66cbcaf215c4aeca3f9f",
+    "/fa/garden/404/index.html": "ba0d385ed5dfc46108b9ee23ec217d1236359847b31193c25759ff1772a416a8",
+    "/fa/garden/ddpm/index.html": "f43d5fdc77b34113eea2d6460da060b06896fd0200081c88864450b9fe8a01ec",
+    "/fa/garden/diffusion/index.html": "a26bf2e76509f77bd4674a3152fa0f9da4bf34c371fb27f1a188d6c7dcdf634e",
+    "/fa/blog/categories/fundamentals/index.html": "ec682679ed233f45117399c8dfe82276db3d843302955693208dae1a9dae5ec1",
+    "/fa/blog/categories/index.html": "3ec4dffdd54853466fa29f8dee1387c01db01f05e3ad29d93e0e3bda366530f6",
+    "/fa/blog/categories/papers/index.html": "f382acb3a728a3cf68032858430877f5cf3ab555cc4bcc3e2ff6110370140084",
+    "/fa/blog/categories/repo-analysis/index.html": "5c25ec33e7444f27f34594255a58ce3811201bb43359e36d982a0573d3d7653c",
+    "/fa/blog/comfyui-repo-review/index.html": "c896acef91e3501b0aaaa86119836265110106ed68e16a252828b968bac5320f",
+    "/fa/blog/diffusion-from-noise/index.html": "ebeb9499465f36c3db15e4e40e9425202cb768b9f97c50d52ef319f4b77dbebb",
+    "/fa/blog/index.html": "86f832ad95c6d275a00be54407fcfabe6bb57a2f05d0f44e98e232bdd02e71da",
+    "/fa/blog/tags/ai-basics/index.html": "745add4bcf06c0e265c3e9f342889ffe9eb750a2437930042bad2efd98c16395",
+    "/fa/blog/tags/ai-image-making/index.html": "9fe8d448843e968e4d959468438be229464cd2abed0e2eff290be8ea4bef4b11",
+    "/fa/blog/tags/comfyui/index.html": "199f72cc92eb3ed85ca42cb38ccd425c4ef24d6895a80a9952b06e46ca1923ea",
+    "/fa/blog/tags/diffusion/index.html": "859529c27131ade897b24642d58fbb0b7d4940e7f05e04ba7e04271c1b86986c",
+    "/fa/blog/tags/index.html": "283b561d7cd87f96931127d45602682bceee9b8c3230cd1b92ef93d7ef510f44",
+    "/fa/blog/tags/paper-explainer/index.html": "1c97f9ff81d1dda911543e6b6967ef6dcbfb09b0002de4daa81ff360dafb5f6e",
+    "/fa/blog/tags/python/index.html": "89ac5d825481bcac8ade9bb3b51f13be47da29652cd48a06a96ff4865bbea3ec",
+    "/fa/blog/tags/workflow/index.html": "c621f7a9731a5cac56759c14dc35ba7b73708daa01f4326348ea1283f340f674",
+    "/fa/garden/feed.xml": "290432ecad18ff8dae575a378a99de3878850f17c291140cf85d6a921f919488",
+    "/fa/garden/filetree.html": "441b83289996c38852aeb13bb9893ab6d7d911a1ac3d63384e9bf5ec4d27f000",
+    "/fa/garden/fonts/mikhak.woff2": "18e507e1ae85db40fac1ae651655ebdf5b7ec990835328bdede753ce6654007a",
+    "/fa/garden/fonts/OFL.txt": "071f566f77f4d56b39c15c9f685bc8806b04a1a9543ad6c5f3806497996d046f",
+    "/fa/garden/fonts/SOURCE.md": "8d713ad6f9a79d8aa839839ed00e4eec8739082a70d02fad9045ebadde8d9c27",
+    "/fa/garden/graph.json": "563d547118a05e3800dcc36a731ef07adaf08a86b3233e138c3562131ddcd7ff",
+    "/fa/garden/img/default-note-icon.svg": "82297d74920cc15bdf2ab0dc6c00d37db6ec32b4bcf5e43f27ee3b9bf728c4a8",
+    "/fa/garden/img/fonts/epilogue-latin-ext-wght-normal.woff2": "8026084714d57bf555eb958d7ec15bd5dc71b75ba79490111711300af524b645",
+    "/fa/garden/img/fonts/epilogue-latin-wght-normal.woff2": "943ab208b058dbb0a8b257c02d6d9cfe5932a72c4deea8c77d192111c7c14519",
+    "/fa/garden/img/fonts/Epilogue-OFL.txt": "6f84852ae089c9490e7709d36856b196ae4d4d30faa477525815fc1846a7b7f5",
+    "/fa/garden/img/fonts/manrope-latin-ext-wght-normal.woff2": "3911b66d9f2e005a4b989223405d0e5032619c668597ba467cc76a23c8fffcfb",
+    "/fa/garden/img/fonts/manrope-latin-wght-normal.woff2": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972",
+    "/fa/garden/img/fonts/Manrope-OFL.txt": "d826ab6583b12c26807d8716a545bdbbb672df04f48608a364ba9efdbe501c30",
+    "/fa/garden/img/hades-site-favicon.svg": "9461a3a7928e18194c5bf0570e1da789540d91df86a4499349e04312b8fe3a66",
+    "/fa/garden/img/outgoing.svg": "a7c6a118d17f6a296037b519e9891e08951de59c289fe41ec2596a63c3b28516",
+    "/fa/garden/img/tree-1.svg": "271d2c6bd0b942cd8cf185610bee3699381f223859c7ff51086244602d612a4a",
+    "/fa/garden/img/tree-2.svg": "5347e932d7eca4a221657648e7f8c1fd5af574ef5cd4ae46c6febfba8a6907a7",
+    "/fa/garden/img/tree-3.svg": "571626b1fc89f34a1ec71b058c4bd7356fedeea8e3db88055e7611ecf67edf34",
+    "/fa/garden/index.html": "4eb1b5f3e240506695b08722eccd90bfe50f6cdf665d62f2e3d4553e92c27e70",
+    "/fa/garden/latent-diffusion/index.html": "90989c59ed857f70e706ee03ec04d58255f3ec39bfde6701ade0ec83072f5e93",
+    "/fa/garden/noise/index.html": "5743390fb058d44da989e84b8c703c4046fcb72e46f951b410c7764cc17c9e96",
+    "/fa/garden/scripts/hades.js": "4c610593a336387c04b1bc17c4ccc24367d89724a05476ef0e1779717e7033a9",
+    "/fa/garden/searchIndex.json": "b1b8de04fe2dccc36e03eb439676b297118b43caf55d00080c6d54409c66ffa0",
+    "/fa/garden/seed/index.html": "439ee7409107ac316bbae4db1e92c6f9eadf08c45425a3bbb32d59a27d528e21",
+    "/fa/garden/sitemap.xml": "a8f815d0d8ef14f96e0dc80609a12b246c80a0121a89668a2ab5a9ca3d537e62",
+    "/fa/garden/styles/custom-style.css": "e230d094db3d021ddaa2541c9bc96d31c777052b9cf34b07a3beb7d524e95867",
+    "/fa/garden/styles/custom-style.css.map": "96fd2d10919de215cbdd74f73d1267c6072d3b485bd93ce0cc2a12eac994a470",
+    "/fa/garden/styles/digital-garden-base.css": "06e0836918a64e96300e3c46d9d8c9bf4656a73ccf2f7b79009cdc3ed9184d92",
+    "/fa/garden/styles/digital-garden-base.css.map": "d7017ae3254efc3d1f464526e52ab54f085f0578f81103d423561bb9c1096d17",
+    "/fa/garden/styles/obsidian-base.css": "eebcdc7dbc040e0f96fb5331361e52bbd8b2d4ef589936358eea530cbdba273f",
+    "/fa/garden/styles/obsidian-base.css.map": "88f4319dd424d6aedae0ff14d3535de770be8ca4118477db54832c7afd663ef6",
+    "/fa/garden/styles/obsidian-bases.css": "35cac9ec8759c47752c4ecb79d9cbf1328166687dca3eea8e4247e592abdcdfd",
+    "/fa/garden/styles/obsidian-bases.css.map": "113fe730c9b88784f7364b94f9123c68ef3c969e13487f28a20fb79a74ce5f39",
+    "/fa/garden/styles/style.css": "ea92cdca997ae35733db741329c0ba8316ab151c0ca86d7c69758eacc3436752",
+    "/fa/garden/styles/style.css.map": "2db90eb0fefdf32bdbab4a2274106f1d8f156fbb6c827dc19b6e7f243c6543da",
+    "/fa/garden/styles/user/hades.css": "97675ad65f7be981b0af43ffdf04fdefffd3c1e3546525e1bc7242205955f426",
+    "/fa/garden/styles/user/hades.css.map": "f7cb146838ca24529adbef3b3233bed9049c4703806dcc22e2e120e4dd177f63"
+  }
+}

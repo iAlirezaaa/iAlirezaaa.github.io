@@ -100,4 +100,19 @@
   <url>
     <loc>https://ialirezaaa.github.io/fa/garden/</loc>
   </url>
+  <url>
+    <loc>https://ialirezaaa.github.io/fa/garden/diffusion/</loc>
+  </url>
+  <url>
+    <loc>https://ialirezaaa.github.io/fa/garden/seed/</loc>
+  </url>
+  <url>
+    <loc>https://ialirezaaa.github.io/fa/garden/latent-diffusion/</loc>
+  </url>
+  <url>
+    <loc>https://ialirezaaa.github.io/fa/garden/noise/</loc>
+  </url>
+  <url>
+    <loc>https://ialirezaaa.github.io/fa/garden/ddpm/</loc>
+  </url>
 </urlset>
