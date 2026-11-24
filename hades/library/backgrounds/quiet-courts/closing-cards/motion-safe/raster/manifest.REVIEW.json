@@ -1,0 +1,74 @@
+[
+  {
+    "file": "HADES_Motion_Safe_Closing_EN_16x9_PUBLIC_REVIEW.svg",
+    "sha256": "841b71fd20cdd43e72f21500133f6435b9fd0530177e5792264ce96c2481688b",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_EN_16x9_PUBLIC_REVIEW.png",
+    "sha256": "01f3b2ccd2af43c12901eee15c2e6db6deb0af4347c71a78e7dff01297a2f2b8",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_EN_1x1_PUBLIC_REVIEW.svg",
+    "sha256": "bee5701036e2aa0717543d1b10d409c904cdf1e174a827d83d5314ba2f53168f",
+    "width": 1080,
+    "height": 1080
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_EN_1x1_PUBLIC_REVIEW.png",
+    "sha256": "0a14d2e5378f11bd8646a14a964f4c951fbac382485f3f8db1aba99c9c16f18a",
+    "width": 1080,
+    "height": 1080
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_EN_9x16_PUBLIC_REVIEW.svg",
+    "sha256": "9e85f84b4eaab0001619c2dcb2271803d7f79c4a1f9628d8b1271ec7e81f777b",
+    "width": 1080,
+    "height": 1920
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_EN_9x16_PUBLIC_REVIEW.png",
+    "sha256": "adc8727ebac21fe1fa4305a34fd60e785931754091c294b17f642ab1429603dc",
+    "width": 1080,
+    "height": 1920
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_FA_16x9_PUBLIC_REVIEW.svg",
+    "sha256": "b96b9a05be8478759a86b59b2815d6c7d05bd593018666adba27f3bd9497bbe1",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_FA_16x9_PUBLIC_REVIEW.png",
+    "sha256": "c41585a77b962755beec39040c91ebe2539c7a6fcae025e0e576a809829be909",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_FA_1x1_PUBLIC_REVIEW.svg",
+    "sha256": "2730701f3fd7cbbb0e8305c273a23510a936d4081311998e8bf42740d7840caa",
+    "width": 1080,
+    "height": 1080
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_FA_1x1_PUBLIC_REVIEW.png",
+    "sha256": "77c69eb489cb29b372a09894dd18ecdb0529d22610ec237779dcd4e6c384407f",
+    "width": 1080,
+    "height": 1080
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_FA_9x16_PUBLIC_REVIEW.svg",
+    "sha256": "492a3ea249db74a08aac5d5bbdb1f5d765691bfbc7a352e345651bf664374573",
+    "width": 1080,
+    "height": 1920
+  },
+  {
+    "file": "HADES_Motion_Safe_Closing_FA_9x16_PUBLIC_REVIEW.png",
+    "sha256": "862f66f148e925bf2630574839c406a70c030c0184be560de6632cd93ca58778",
+    "width": 1080,
+    "height": 1920
+  }
+]

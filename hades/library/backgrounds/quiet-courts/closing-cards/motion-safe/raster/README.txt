@@ -1,0 +1,1 @@
+PUBLIC REVIEW / NOT FINAL. Six SVG sources and six native transparent PNGs. Only #EF4B32 approved. 10% title-safe is proposed. Platform overlay, phone, print, actual Mikhak and editing application import OPEN.
