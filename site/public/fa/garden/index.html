@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>گاردن دانش | بلاگ هادس</title><meta name="description" content="نقشهٔ تعاملی مفاهیم و پیوند مقاله‌های هوش مصنوعی هادس؛ یادداشت‌های Markdown در GitHub.">
+<link rel="canonical" href="https://ialirezaaa.github.io/fa/garden/"><link rel="icon" href="/hades.svg"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300..700&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#171716;--fg:#e8dcc9;--line:#5f5950;--muted:#bfb3a2;--red:#ef4b32;font-family:Vazirmatn,Tahoma,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);line-height:1.8}a{color:inherit}header,main,footer{max-width:1100px;margin:auto;padding:18px clamp(16px,4vw,42px)}header{display:flex;align-items:center;gap:20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+h1{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:500;margin:20px 0 6px}p{color:var(--muted)}.eyebrow{font-size:.85rem;color:var(--red)}
+.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(240px,1fr);gap:18px}.panel{border:1px solid var(--line);border-radius:12px;background:#222220;padding:16px;min-width:0}
+#graph{width:100%;height:auto;aspect-ratio:1.45;background:#191918;border-radius:9px;touch-action:manipulation}
+#graph .edge{stroke:#69645c;stroke-width:1.4}#graph .node{fill:#383630;stroke:#b6a997;stroke-width:1.4;cursor:pointer}#graph .node.active{fill:var(--red);stroke:#ffe5da;stroke-width:2.4}
+#graph text{fill:var(--fg);font:13px Vazirmatn,Tahoma,sans-serif;pointer-events:none}
+button,input{font:inherit;background:#292825;border:1px solid #8b8073;color:var(--fg);padding:9px;border-radius:8px;min-height:44px}
+input{width:100%}button{cursor:pointer}button:hover,button:focus-visible{border-color:var(--red)}#related{padding-inline-start:20px}
+#detail{min-height:70px}.pill{display:inline-block;color:var(--red);font-size:.8rem}#status{font-size:.8rem}
+footer{border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+@media(max-width:690px){.layout{grid-template-columns:1fr}#graph{aspect-ratio:1.2}}
+@media(prefers-reduced-motion:no-preference){.node{transition:fill .2s,stroke .2s}.panel{animation:enter .45s ease both}@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><a href="/fa/">خانه</a><a href="/fa/blog/">بلاگ</a><a href="/fa/garden/" aria-current="page">گاردن</a></header>
+<main><span class="eyebrow">HADES / PUBLIC REVIEW</span><h1>گاردن دانش</h1>
+<p>مقاله‌ها و مفاهیم به هم وصل‌اند؛ روی هر گره بزن تا پیوندها و منبع یادداشتش را ببینی.</p>
+<div class="layout"><section class="panel" aria-label="گراف پیوندها"><label for="search">جست‌وجوی گره</label><input id="search" type="search" placeholder="مثلاً نویز، DDPM یا Seed"><svg id="graph" viewBox="0 0 700 480" role="img" aria-label="نقشهٔ پیوندهای مفاهیم"></svg><p id="status" aria-live="polite">در حال دریافت گراف…</p></section>
+<section class="panel"><span class="pill">Obsidian / Markdown / GitHub</span><h2 id="name">یک موضوع انتخاب کن</h2><p id="detail">این گراف از یادداشت‌هایی ساخته می‌شود که انتشارشان مجاز شده است.</p><p><a id="article-link" hidden>مشاهدهٔ مقالهٔ کامل</a></p><h3>پیوندهای مرتبط</h3><ul id="related"></ul><p><a href="https://github.com/iAlirezaaa/iAlirezaaa.github.io/tree/main/site/garden/notes">منبع Markdown در GitHub</a></p></section></div>
+</main><footer>فقط گره‌های دارای dg-publish: true و public: true منتشر می‌شوند. هیچ فایل خصوصی خودکار وارد گراف نمی‌شود. · REVIEW</footer>
+<script type="module">
+const svg=document.querySelector('#graph'),search=document.querySelector('#search'),status=document.querySelector('#status')
+const $=s=>document.querySelector(s),ns='http://www.w3.org/2000/svg'
+let nodes=[],edges=[],current=null
+function el(name,props={},parent=svg){const e=document.createElementNS(ns,name);for(const [k,v] of Object.entries(props))e.setAttribute(k,v);parent.append(e);return e}
+function select(id){current=id;const n=nodes.find(x=>x.id===id);if(!n)return
+$('#name').textContent=n.title;$('#detail').textContent=n.text;const a=$('#article-link');a.hidden=!n.url;if(n.url)a.href=n.url
+$('#related').replaceChildren();const ids=new Set(edges.filter(e=>e.source===id||e.target===id).flatMap(e=>[e.source,e.target]).filter(x=>x!==id))
+for(const item of nodes.filter(x=>ids.has(x.id))){const li=document.createElement('li'),b=document.createElement('button');b.type='button';b.textContent=item.title;b.addEventListener('click',()=>select(item.id));li.append(b);$('#related').append(li)}
+svg.querySelectorAll('.node').forEach(c=>c.classList.toggle('active',c.dataset.id===id))
+history.replaceState(null,'','?focus='+encodeURIComponent(id))
+}
+function draw(filter=''){svg.replaceChildren();const visible=nodes.filter(n=>!filter||[n.title,n.id,n.text].join(' ').toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
+const ids=new Set(visible.map(x=>x.id)),cx=350,cy=240,rx=225,ry=158;const pos=new Map(visible.map((n,i)=>[n.id,{x:cx+rx*Math.cos((i/visible.length)*Math.PI*2-Math.PI/2),y:cy+ry*Math.sin((i/visible.length)*Math.PI*2-Math.PI/2)}]))
+for(const e of edges.filter(e=>ids.has(e.source)&&ids.has(e.target))){const a=pos.get(e.source),b=pos.get(e.target);el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:'edge'})}
+for(const n of visible){const {x,y}=pos.get(n.id);const g=el('g',{tabindex:'0',role:'button','aria-label':n.title});const circle=el('circle',{cx:x,cy:y,r:25,class:'node', 'data-id':n.id},g);circle.dataset.id=n.id;const label=el('text',{x,y:y+46,'text-anchor':'middle'},g);label.textContent=n.title;g.addEventListener('click',()=>select(n.id));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(n.id)}})}
+status.textContent=visible.length+' گره / '+edges.filter(e=>ids.has(e.source)&&ids.has(e.target)).length+' پیوند'
+if(current)select(current)
+}
+try{const response=await fetch('./graph.json',{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);const data=await response.json();nodes=data.nodes;edges=data.edges;draw();const focus=new URLSearchParams(location.search).get('focus');select(nodes.find(n=>n.id===focus)?.id||nodes[0]?.id);search.addEventListener('input',()=>draw(search.value.trim()))}
+catch(e){status.textContent='گراف قابل دریافت نیست؛ لینک یادداشت‌های GitHub همچنان در دسترس است.'}
+</script></body></html>

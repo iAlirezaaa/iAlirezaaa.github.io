@@ -33,3 +33,25 @@ $('reset').addEventListener('click', () => {
 })
 applyPreferences()
 $('settings').hidden = false
+
+const fontKey='hades-fa-blog-font-v2'
+const fonts=['estedad','vazirmatn','system']
+const fontField=$('font')
+if(fontField){
+  let preferred='estedad'
+  try{const v=localStorage.getItem(fontKey);if(fonts.includes(v))preferred=v}catch{}
+  document.documentElement.dataset.font=preferred; fontField.value=preferred
+  fontField.addEventListener('change',()=>{
+    const chosen=fonts.includes(fontField.value)?fontField.value:'estedad'
+    document.documentElement.dataset.font=chosen
+    try{localStorage.setItem(fontKey,chosen)}catch{}
+  })
+  $('reset').addEventListener('click',()=>{fontField.value='estedad';document.documentElement.dataset.font='estedad';try{localStorage.removeItem(fontKey)}catch{}})
+}
+const progress=document.getElementById('read-progress')
+if(progress){
+  let queued=false
+  const update=()=>{queued=false;const el=document.documentElement;const max=el.scrollHeight-innerHeight;progress.style.width=(max>0?Math.min(100,Math.max(0,scrollY/max*100)):100)+'%'}
+  addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(update)}},{passive:true})
+  addEventListener('resize',update);update()
+}

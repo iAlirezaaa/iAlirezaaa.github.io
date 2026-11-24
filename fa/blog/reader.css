@@ -74,3 +74,20 @@ figcaption small{display:block;font-size:inherit}
 .topic-nav a:hover,.topic-nav a[aria-current]{border-color:var(--accent);color:var(--accent)}
 
 .paper-original img{background:#fff}
+
+/* Reader v2: subtle, accessible motion and alternate typefaces; REVIEW */
+:root{--reader-font:Estedad,Tahoma,Arial,sans-serif;scroll-behavior:smooth}
+body{font-family:var(--reader-font)}
+[data-font=vazirmatn]{--reader-font:Vazirmatn,Tahoma,Arial,sans-serif}
+[data-font=system]{--reader-font:Tahoma,Arial,sans-serif}
+[data-font=estedad]{--reader-font:Estedad,Tahoma,Arial,sans-serif}
+.read-progress{position:fixed;inset-block-start:0;inset-inline-start:0;inline-size:0;block-size:3px;background:#EF4B32;z-index:30;pointer-events:none}
+#prose p,#prose h2,.post-card,.article-figure{animation:fade-rise .5s ease-out both}
+@keyframes fade-rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.article-page .hero img{object-fit:cover}
+.garden-link{display:inline-flex;gap:.45em;align-items:center;text-decoration:none;border:1px solid var(--rule);padding:.35em .8em;border-radius:99px;margin-block:.6rem 1rem;font-size:.85em}
+.garden-link:hover{border-color:var(--brand)}
+.article-page .reader:focus-within{scroll-margin-block-start:2rem}
+@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:430px){.article-page h1{font-size:clamp(1.8rem,7vw,2.7rem)}.post-card{grid-template-columns:minmax(0,5.5rem) minmax(0,1fr)}.shell{padding-inline:1rem}}
+@media print{.read-progress,.settings,.garden-link{display:none!important}body{background:white;color:black}#prose p,#prose h2{animation:none}.reader{max-inline-size:100%}}

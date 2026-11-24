@@ -13,16 +13,17 @@
   <meta property="og:url" content="https://ialirezaaa.github.io/fa/blog/">
   <link rel="canonical" href="https://ialirezaaa.github.io/fa/blog/">
   <link rel="icon" type="image/svg+xml" href="/hades.svg">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@100..900&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Estedad:wght@100..900&amp;family=Vazirmatn:wght@300..700&amp;display=swap">
   <link rel="stylesheet" href="/fa/blog/reader.css">
   <script type="module" src="/fa/blog/reader.js"></script>
   <title>وبلاگ هادس | علیرضا عسگرپور</title>
 </head>
 <body>
+  <div id="read-progress" class="read-progress" aria-hidden="true"></div>
   <a class="skip" href="#content">رفتن به محتوا</a>
   <header class="header shell">
     <a class="brand" href="/fa/" aria-label="صفحهٔ اصلی هادس"><bdi lang="en">H · III</bdi><span>علیرضا عسگرپور</span></a>
-    <nav aria-label="مسیر صفحه"><a href="/fa/">خانه</a><a href="/fa/blog/" aria-current="page">وبلاگ</a></nav>
+    <nav aria-label="مسیر صفحه"><a href="/fa/">خانه</a><a href="/fa/blog/" aria-current="page">وبلاگ</a><a href="/fa/garden/">گاردن / نقشهٔ دانش</a></nav>
   </header>
   <main class="shell" id="content" tabindex="-1">
     <h1 id="page-title">وبلاگ <span>هادس</span></h1>
@@ -37,6 +38,9 @@
         <label>ظاهر
           <select id="theme"><option value="system">طبق تنظیم دستگاه</option><option value="light">روز</option><option value="dark">شب</option></select>
         </label>
+        <label>قلم مطالعه
+          <select id="font"><option value="estedad">Estedad</option><option value="vazirmatn">Vazirmatn</option><option value="system">قلم دستگاه</option></select>
+        </label>
         <label>اندازهٔ نوشته
           <select id="size"><option value="small">کوچک</option><option value="regular">معمولی</option><option value="large">درشت</option><option value="extra">خیلی درشت</option></select>
         </label>
@@ -50,7 +54,7 @@
       <div class="setting-footer"><button type="button" id="reset">بازگرداندن پیش‌فرض‌ها</button><p id="setting-note" aria-live="polite">انتخاب‌هات در همین مرورگر ذخیره می‌شن.</p></div>
     </details>
     <section class="posts reader" id="posts" aria-labelledby="posts-title">
-      <h2 id="posts-title">نوشته‌ها</h2>
+      <h2 id="posts-title">نوشته‌ها</h2><p><a class="garden-link" href="/fa/garden/">نقشهٔ موضوع‌ها و پیوند یادداشت‌ها</a></p>
       <p id="empty">هنوز نوشته‌ای منتشر نشده.</p>
       <ul id="list" hidden></ul>
     </section>
@@ -58,7 +62,7 @@
       <a class="back" href="/fa/blog/">همهٔ نوشته‌ها <span aria-hidden="true">↗</span></a>
       <p class="article-meta" id="article-meta"></p>
       <nav class="toc" aria-label="فهرست بخش‌های نوشته" id="toc" hidden><strong>در این نوشته</strong><ol id="toc-list"></ol></nav>
-      <div id="prose"></div>
+      <p><a class="garden-link" href="/fa/garden/?focus=diffusion">این نوشته در گراف دانش</a></p><div id="prose"></div>
       <a href="#content" class="back">برگشت به بالای صفحه <span aria-hidden="true">↑</span></a>
     </article>
   </main>
