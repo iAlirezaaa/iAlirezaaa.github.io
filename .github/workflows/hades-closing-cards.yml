@@ -1,0 +1,26 @@
+name: HADES closing cards and chapter hosted verification
+on:
+  push:
+    paths:
+      - '.github/workflows/hades-closing-cards.yml'
+      - 'scripts/hades-closing-cards-qa.py'
+      - 'site/public/hades/library/backgrounds/quiet-courts/closing-cards/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/hades-closing-cards-qa.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hades-closing-cards-qa
+          path: closing-proof/
