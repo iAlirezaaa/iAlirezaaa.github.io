@@ -84,3 +84,5 @@ Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINA
 
 ## Quiet Courts · Chapter divider · PUBLIC REVIEW
 دو قالب SVG قابل‌ویرایش ۱۶:۹ برای آغاز فصل ارائه؛ نشان اصلی دست‌نخورده روی پلاک مستقل تیره. [FA](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/chapter-divider/) · [EN](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/chapter-divider/) · Mikhak / physical / FINAL: OPEN.
+
+- [کارت پایان معماری · SVG · REVIEW](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/closing-cards/)
