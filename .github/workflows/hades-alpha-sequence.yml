@@ -1,0 +1,158 @@
+name: HADES native alpha sequence delivery (PUBLIC REVIEW)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-alpha-sequence.yml'
+      - 'hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/frame-sheet/alpha-sequence/alpha_sequence.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-alpha-sequence
+  cancel-in-progress: false
+jobs:
+  delivery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python -m pip install pillow==11.3.0 playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Verify native straight-alpha frames from published inputs
+        run: |
+          python - <<'PY'
+          import io, json, sys, zipfile, tempfile, shutil
+          from pathlib import Path
+          from PIL import Image, ImageChops
+          root=Path('hades/library/backgrounds/quiet-courts/closing-cards/motion-safe')
+          dest=root/'architectural-motion/frame-sheet/alpha-sequence'
+          sys.path.insert(0,str(dest))
+          import alpha_sequence as a
+          manifest=root/'raster/manifest.REVIEW.json'
+          files=sorted((root/'raster').glob('*.png'))
+          assert len(files)==6
+          sample=dest/'HADES_Alpha_EN_16x9_24fps_3s_PUBLIC_REVIEW.zip'
+          for source in files:
+              with tempfile.TemporaryDirectory() as tmp:
+                  zpath=Path(tmp)/'out.zip'
+                  r=a.export(source,manifest,zpath,24,3)
+                  with zipfile.ZipFile(zpath) as z:
+                      assert z.testzip() is None and len(z.namelist())==73
+                      base=Image.open(source)
+                      alpha=base.getchannel('A')
+                      rgb=base.convert('RGB')
+                      for f in r['frames']:
+                          data=z.read(f['file'])
+                          assert a.digest(data)==f['sha256']
+                          im=Image.open(io.BytesIO(data))
+                          assert im.size==base.size and im.mode=='RGBA'
+                          x,y=a.fraction(f['frame'],r['keys'])
+                          assert ImageChops.difference(im.getchannel('A'),alpha.point([(v*x+y//2)//y for v in range(256)])).getbbox() is None
+                          assert ImageChops.difference(im.convert('RGB'),rgb).getbbox() is None
+                  if 'EN_16x9' in source.name:
+                      shutil.copyfile(zpath,sample)
+              print('PASS 72 frames',source.name)
+          assert sample.exists()
+          for fps in (24,25,30):
+              for sec in (3,5,8):
+                  n=fps*sec
+                  k=a.keys_for(n)
+                  assert k==(0,round(n*.2),round(n*.8),n-1)
+                  assert all(0<=x<=y for x,y in (a.fraction(f,k) for f in range(n)))
+          print('PASS 432 native frames and 9 timing recipes')
+          shutil.copyfile(sample,Path('site/public')/sample)
+          for locale in ('','fa/'):
+              page=Path('hades/'+locale+str(dest.relative_to('hades')))/'index.html'
+              html=page.read_text()
+              if '<!-- alpha-sample -->' not in html:
+                  label='دانلود نمونهٔ ۷۲ فریمی انگلیسی' if locale else 'Download EN 72-frame sample ZIP'
+                  html=html.replace('</main>',f'<!-- alpha-sample --><p><a download href="/{sample}">{label} · REVIEW</a></p></main>')
+                  page.write_text(html)
+              (Path('site/public')/page).write_bytes(page.read_bytes())
+          PY
+      - name: Test guide routes, links and real downloads in Chromium
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/hades-alpha-http.log 2>&1 &
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          from pathlib import Path
+          import zipfile
+          base='http://127.0.0.1:8765/hades/'
+          suffix='library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/frame-sheet/'
+          with sync_playwright() as p:
+              b=p.chromium.launch()
+              for locale in ('','fa/'):
+                  for width in (320,390,430):
+                      page=b.new_page(viewport={'width':width,'height':1100},accept_downloads=True)
+                      page.goto(base+locale+suffix)
+                      page.locator('a[href$="alpha-sequence/"]').click()
+                      assert page.locator('html').get_attribute('lang')==('fa' if locale else 'en')
+                      page.wait_for_function('document.querySelector("img").complete && document.querySelector("img").naturalWidth>0')
+                      assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                      for ext in ('alpha_sequence.py','HADES_Alpha_EN_16x9_24fps_3s_PUBLIC_REVIEW.zip'):
+                          with page.expect_download() as d:
+                              page.locator('a[href$="'+ext+'"]').click()
+                          if ext.endswith('.zip'):
+                              with zipfile.ZipFile(d.value.path()) as z:
+                                  assert z.testzip() is None and len(z.namelist())==73
+                          else:
+                              assert Path(d.value.path()).read_text().startswith('#!/usr/bin/env python3')
+                      page.close()
+                      print('PASS guide',locale or 'en',width)
+              b.close()
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HADES-alpha-sequence-72-frame-REVIEW
+          path: hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/frame-sheet/alpha-sequence/*.zip
+      - name: Commit tested sample with bilingual download links
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          dir=library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/frame-sheet/alpha-sequence
+          git add "hades/$dir" "hades/fa/$dir" "site/public/hades/$dir" "site/public/hades/fa/$dir"
+          git diff --cached --quiet || git commit -m 'Publish native 72-frame straight-alpha sample (REVIEW)'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+            if git push origin HEAD:main; then break; fi
+            test "$attempt" != 3 || exit 1
+          done
+          git fetch origin main
+          git merge-base --is-ancestor HEAD origin/main
+      - name: Independent HTTPS status and exact content
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, urllib.request, time, subprocess
+          suffix='library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/frame-sheet/alpha-sequence/'
+          paths=[Path('hades/'+x+suffix+'index.html') for x in ('','fa/')]
+          paths.extend(Path('hades/'+suffix).glob('*.py'))
+          paths.extend(Path('hades/'+suffix).glob('*.zip'))
+          assert len(paths)==4
+          for p in paths:
+              assert p.read_bytes()==(Path('site/public')/p).read_bytes()
+              assert subprocess.check_output(['git','show','origin/main:'+str(p)])==p.read_bytes()
+          allowed={'.html':{'text/html'},'.py':{'text/plain','text/x-python','application/octet-stream'},'.zip':{'application/zip','application/x-zip-compressed','application/octet-stream'}}
+          for attempt in range(30):
+              errors=[]
+              for p in paths:
+                  try:
+                      url='https://ialirezaaa.github.io/'+str(p)+'?alpha='+str(attempt)
+                      with urllib.request.urlopen(url,timeout=15) as r:
+                          assert r.status==200 and r.headers.get_content_type() in allowed[p.suffix]
+                          assert hashlib.sha256(r.read()).digest()==hashlib.sha256(p.read_bytes()).digest()
+                  except Exception as e: errors.append((str(p),str(e)))
+              if not errors: break
+              time.sleep(10)
+          assert not errors,errors
+          print('PASS independent HTTP 200 MIME SHA256',len(paths))
+          PY
