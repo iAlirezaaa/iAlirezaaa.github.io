@@ -6,7 +6,7 @@ import { readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
 
 const blogRoot = 'https://ialirezaaa.github.io/fa/blog/'
 const ddpmFigure = 'https://arxiv.org/html/2006.11239v2/pgm_diagram_xarrow_small.png'
-const topicNames = {'ai-basics':'پایه‌های هوش مصنوعی',diffusion:'دیفیوژن','ai-image-making':'تصویرسازی با هوش مصنوعی','paper-explainer':'شرح مقاله'}
+const topicNames = {'ai-basics':'پایه‌های هوش مصنوعی',diffusion:'دیفیوژن','ai-image-making':'تصویرسازی با هوش مصنوعی','paper-explainer':'شرح مقاله',comfyui:'ComfyUI',workflow:'گردش‌کار',python:'پایتون'}
 const categories = {
   papers:{name:'شرح مقاله‌های هوش مصنوعی',description:'ایدهٔ اصلی پژوهش‌ها، به زبان ساده و همراه با شکل‌ها و مثال‌های کاربردی.'},
   'repo-analysis':{name:'تحلیل ریپوها',description:'سر زدن به کد و مستندات ابزارهای متن‌باز، برای اینکه ببینیم چطور کار می‌کنند و کجا به درد می‌خورند.'},
@@ -60,6 +60,32 @@ function jsonLD(entry, url, heroUrl) {
   })
 }
 
+function renderInlines(items) {
+  return items.map(item => {
+    if (typeof item === 'string') return esc(item)
+    const [type, payload, children] = item
+    if (type === 'strong' || type === 'em') return '<' + type + '>' + renderInlines(payload) + '</' + type + '>'
+    if (type === 'br') return '<br>'
+    if (type === 'code') return '<bdi dir="ltr"><code>' + esc(payload) + '</code></bdi>'
+    if (type === 'a' && new URL(payload).protocol === 'https:') return '<a href="' + esc(payload) + '"><bdi>' + renderInlines(children) + '</bdi></a>'
+    throw new Error('Unsupported or unsafe rich inline node: ' + type)
+  }).join('')
+}
+function renderBlocks(blocks, label, tight = false) {
+  return blocks.map(([type, value, value2]) => {
+    if (type === 'p' || type === 'h3') return tight && type === 'p' ? renderInlines(value) : '<' + type + '>' + renderInlines(value) + '</' + type + '>'
+    if (type === 'pre') {
+      const lang = /^[a-z][a-z0-9-]*$/.test(value) ? ' class="language-' + value + '"' : ''
+      return '<pre class="article-code" dir="ltr" tabindex="0" role="region" aria-label="نمونهٔ کد"><code' + lang + '>' + esc(value2) + '</code></pre>'
+    }
+    if (type === 'bullets') return '<ul>' + value.map(item => '<li>' + renderBlocks(item,label) + '</li>').join('') + '</ul>'
+    if (type === 'table') {
+      const rows = (group,cell) => group.map(row => '<tr>' + row.map(nodes => '<' + cell + (cell === 'th' ? ' scope="col"' : '') + '>' + renderBlocks(nodes,label,true) + '</' + cell + '>').join('') + '</tr>').join('')
+      return '<div class="article-table" tabindex="0" role="region" aria-label="جدول: ' + esc(label || 'راهنمای نوشته') + '"><table><thead>' + rows(value,'th') + '</thead><tbody>' + rows(value2,'td') + '</tbody></table></div>'
+    }
+    throw new Error('Unsupported rich block: ' + type)
+  }).join('')
+}
 function validatedEntries(folder) {
   const approved = visibleEntries(entries)
   if (approved.length !== entries.length || new Set(approved.map(entry => entry.slug)).size !== approved.length) throw new Error('Invalid or duplicate Persian blog entry')
@@ -145,7 +171,7 @@ export function renderBlog(dist) {
     const title = entry.title + ' | وبلاگ هادس'
     const heroUrl = new URL(entry.hero.path, url).href
     const toc = entry.sections.flatMap((section, i) => section.title ? ['<li><a href="#section-' + (i + 1) + '">' + esc(section.title) + '</a></li>'] : [])
-    const prose = entry.sections.map((section, i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + section.paragraphs.map(p => '<p>' + esc(p) + '</p>').join('') + (entry.figures ?? []).filter(asset => asset.afterSection === i + 1).map(asset => figure(asset, 'inline')).join('')).join('')
+    const prose = entry.sections.map((section, i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + (section.blocks ? renderBlocks(section.blocks,section.title) : section.paragraphs.map(p => '<p>' + esc(p) + '</p>').join('')) + (entry.figures ?? []).filter(asset => asset.afterSection === i + 1).map(asset => figure(asset, 'inline')).join('')).join('')
     const sources = entry.sources?.length ? '<section class="sources" aria-labelledby="sources-title"><h2 id="sources-title">برای بیشتر خوندن</h2><ul>' + entry.sources.map(source => '<li><a href="' + esc(source.url) + '"><bdi>' + esc(source.title) + '</bdi></a></li>').join('') + '</ul></section>' : ''
     const article = shell.replace(/<title>[^<]*<\/title>/, () => '<title>' + esc(title) + '</title>')
       .replace(/(<meta name="description" content=")[^"]*/, (_, start) => start + esc(entry.description))
@@ -163,6 +189,7 @@ export function renderBlog(dist) {
       .replace('<div id="article-media"></div>', () => figure(entry.hero, 'hero') + topicLinks(entry.tags))
       .replace(/<nav class="toc"[\s\S]*?<\/nav>/, () => toc.length > 1 ? '<nav class="toc" aria-label="فهرست بخش‌های نوشته"><strong>در این نوشته</strong><ol>' + toc.join('') + '</ol></nav>' : '')
       .replace('<div id="prose"></div>', () => '<div id="prose">' + prose + '</div>' + sources)
+      .replace('<p><a class="garden-link" href="/fa/garden/?focus=diffusion">این نوشته در گراف دانش</a></p>', item => entry.slug === 'diffusion-from-noise' ? item : '')
     const out = path.join(folder, entry.slug)
     fs.mkdirSync(out, { recursive:true })
     fs.writeFileSync(path.join(out, 'index.html'), article)

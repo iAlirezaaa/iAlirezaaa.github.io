@@ -171,6 +171,14 @@ for (const entry of blogEntries) {
       assert.ok(!article.includes('#page=2'))
     } else assert.ok(fs.existsSync(path.join(dist, figure.path)))
   }
+  if (entry.slug === 'comfyui-repo-review') {
+    assert.equal([...article.matchAll(/<table>/g)].length, 2)
+    assert.equal([...article.matchAll(/<h3>/g)].length, 1)
+    assert.ok(article.includes('<pre class="article-code" dir="ltr" tabindex="0"'))
+    assert.ok(article.includes('class="language-python"'))
+    assert.ok(article.includes('https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.46.0'))
+    assert.ok(article.includes('http://127.0.0.1:8188/prompt'))
+  }
   const image = fs.readFileSync(path.join(dist, entry.hero.path))
   assert.equal(image.toString('ascii', 0, 4), 'RIFF')
   assert.equal(image.toString('ascii', 8, 12), 'WEBP')
