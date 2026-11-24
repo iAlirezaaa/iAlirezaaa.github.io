@@ -1,0 +1,104 @@
+name: HADES Recessed Editorial Covers QA
+on:
+  push:
+    paths:
+      - 'site/public/hades/library/backgrounds/recessed-planes/editorial-covers/**'
+      - '.github/workflows/hades-recessed-editorial-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow playwright
+      - run: playwright install --with-deps chromium
+      - name: Source integrity, real SVG render and browser responsive QA
+        run: |
+          python -m http.server 8769 >/tmp/hades-editorial.log 2>&1 &
+          python - <<'PY'
+          import base64, hashlib, io, pathlib, xml.etree.ElementTree as ET
+          from PIL import Image
+          from playwright.sync_api import sync_playwright
+          root=pathlib.Path('hades/library/backgrounds/recessed-planes/editorial-covers')
+          logo=pathlib.Path('hades/assets/IMG_7187(2).png').read_bytes()
+          assert hashlib.sha256(logo).hexdigest()=='79867ef2cea0777a277df45a2754ea012ff552d466963f8cb831e5940a5cafb7'
+          orig=Image.open(io.BytesIO(logo)).convert('RGBA')
+          white=orig.point(lambda p:p)
+          mask=Image.new('L',orig.size)
+          mask.putdata([255 if min(r,g,b)>180 and a>100 else 0 for r,g,b,a in orig.getdata()])
+          bounds=mask.getbbox()
+          assert bounds and bounds[0]>=350 and bounds[1]>=880 and bounds[2]<=596 and bounds[3]<=1168, bounds
+          print('ORIGINAL BRIGHT MARK BOUNDS PASS',bounds,flush=True)
+          ns={'s':'http://www.w3.org/2000/svg'}
+          paths=[]
+          for p in sorted(root.glob('*.svg')):
+              assert p.read_bytes()==(pathlib.Path('site/public')/p).read_bytes()
+              svg=ET.parse(p).getroot()
+              embedded=svg.find('.//s:image',ns).attrib['{http://www.w3.org/1999/xlink}href']
+              assert base64.b64decode(embedded.split(',',1)[1])==logo
+              assert len(svg.findall('.//s:text',ns))==4
+              paths.append(p)
+              print('EXACT EMBED AND EDITABLE COPY PASS',p,flush=True)
+          assert len(paths)==6
+          base='http://127.0.0.1:8769/'
+          with sync_playwright() as pw:
+              b=pw.chromium.launch()
+              for p in paths:
+                  page=b.new_page(viewport={'width':1080,'height':1080})
+                  assert page.goto(base+p.as_posix()).status==200
+                  boxes=page.locator('#editable-copy text').evaluate_all('(els)=>els.map(e=>{let b=e.getBBox();return [b.x,b.y,b.width,b.height]})')
+                  left,right=(132,870) if 'counterlight' in p.name else (90,990) if 'blind-stair' in p.name else (642,1000)
+                  assert all(x>=left-4 and x+w<=right+4 and w>0 and h>0 for x,y,w,h in boxes),(p,boxes)
+                  page.screenshot()
+                  page.close()
+                  print('SVG CHROMIUM COPY ZONE PASS',p,flush=True)
+              for lang in ('en','fa'):
+                  p=pathlib.Path('hades')/('fa/' if lang=='fa' else '')/'library/backgrounds/recessed-planes/editorial-covers/index.html'
+                  assert p.read_bytes()==(pathlib.Path('site/public')/p).read_bytes()
+                  paths.append(p)
+                  for w in (320,390,430):
+                      page=b.new_page(viewport={'width':w,'height':850})
+                      assert page.goto(base+p.as_posix()).status==200
+                      assert page.locator('html').get_attribute('lang')==lang
+                      assert page.locator('html').get_attribute('dir')==('rtl' if lang=='fa' else 'ltr')
+                      assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                      assert page.locator('img').evaluate_all('(els)=>els.every(e=>e.complete&&e.naturalWidth>0)')
+                      assert page.locator('a.download').count()==3
+                      page.screenshot(full_page=True)
+                      page.emulate_media(media='print')
+                      assert not page.locator('nav').is_visible()
+                      page.pdf(format='A4')
+                      page.close()
+                      print('BROWSER LOCALE PRINT CSS PASS',lang,w,flush=True)
+              b.close()
+          PY
+      - name: Independent public HTTP status MIME SHA256
+        run: |
+          python - <<'PY'
+          import hashlib,pathlib,time,urllib.request
+          root=pathlib.Path('hades/library/backgrounds/recessed-planes/editorial-covers')
+          paths=list(root.glob('*.svg'))+[root/'index.html',pathlib.Path('hades/fa/library/backgrounds/recessed-planes/editorial-covers/index.html')]
+          for lang in ('','fa/'):
+              for sub in ('library/backgrounds/recessed-planes/','brand-kit/logo-usage/'):
+                  paths.append(pathlib.Path('hades/'+lang+sub+'index.html'))
+          for i in range(30):
+              errors=[]
+              for p in paths:
+                  try:
+                      url='https://ialirezaaa.github.io/'+p.as_posix()+'?editorialqa='+str(i)
+                      with urllib.request.urlopen(url,timeout=15) as r:
+                          assert r.status==200 and r.headers.get_content_type()==('image/svg+xml' if p.suffix=='.svg' else 'text/html')
+                          assert hashlib.sha256(r.read()).digest()==hashlib.sha256(p.read_bytes()).digest()
+                  except Exception as e: errors.append((str(p),str(e)))
+              if not errors:
+                  for p in paths: print('HTTP 200 MIME SHA256 PASS',p,flush=True)
+                  break
+              print('OPEN',i,errors,flush=True)
+              if i==29: raise RuntimeError('Hosted bytes not verified')
+              time.sleep(15)
+          PY
