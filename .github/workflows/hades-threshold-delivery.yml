@@ -21,7 +21,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install pillow playwright && python -m playwright install --with-deps chromium
-      - run: python site/scripts/hades-threshold-qa.py local
+      - name: Render native straight RGBA (including fully opaque frames)
+        run: python site/scripts/hades-threshold-qa.py local
       - name: Publish native sequence
         run: |
           git config user.name 'github-actions[bot]'

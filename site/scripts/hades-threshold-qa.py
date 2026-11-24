@@ -40,7 +40,8 @@ def render():
                     assert abs(actual-math.floor(sign*w*(1-p)+.5))<.1,(a,i,side,actual)
                 if i in (0,14) or ratio=="16x9":
                     raw=page.screenshot(omit_background=True)
-                    im=Image.open(io.BytesIO(raw))
+                    im=Image.open(io.BytesIO(raw)).convert("RGBA")
+                    buf=io.BytesIO();im.save(buf,format="PNG");raw=buf.getvalue()
                     assert im.mode=="RGBA" and im.size==(w,h)
                     ext=im.getchannel("A").getextrema()
                     if i in (0,14): assert ext==((0,0) if (i==0)==(phase=="IN") else (255,255)),(a,i,ext)
