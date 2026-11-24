@@ -18,7 +18,7 @@ jobs:
           python - <<'PY'
           import pathlib, hashlib, urllib.request, time
           root='library/backgrounds/quiet-courts/transitions/composite-desk/'
-          files=['hades/'+root+'native-handoff/index.html','hades/fa/'+root+'native-handoff/index.html','hades/'+root+'native-handoff/hades_vse.py','hades/'+root+'index.html','hades/fa/'+root+'index.html']
+          files=['hades/'+root+'native-handoff/index.html','hades/fa/'+root+'native-handoff/index.html','hades/'+root+'native-handoff/hades_vse.py','hades/'+root+'native-handoff/hades_two_shots.py','hades/'+root+'index.html','hades/fa/'+root+'index.html']
           for p in files:
               assert pathlib.Path(p).read_bytes()==pathlib.Path('site/public/'+p).read_bytes()
           for attempt in range(24):
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install bpy==4.5.11
+      - run: pip install bpy==4.5.11 pillow
       - name: Build and reopen native blend projects
         run: |
           python - <<'PY'
@@ -56,4 +56,30 @@ jobs:
               subprocess.run([sys.executable,str(root/'native-handoff/hades_vse.py'),str(root/f'HADES_{ratio}_composite_30frames_REVIEW.zip'),'--out',str(out)],check=True)
               check='import bpy,sys,pathlib; p=pathlib.Path(sys.argv[1]); bpy.ops.wm.open_mainfile(filepath=str(p)); s=bpy.context.scene; a=sorted(s.sequence_editor.strips,key=lambda x:x.frame_final_start); assert len(a)==30 and s.render.fps==24 and s.frame_end==30; assert [(x.frame_final_start,x.frame_final_end) for x in a]==[(i,i+1) for i in range(1,31)]; assert all((pathlib.Path(bpy.path.abspath(x.directory))/x.elements[0].filename).is_file() for x in a); assert any(m.frame==16 for m in s.timeline_markers); print("NATIVE REOPEN PASS",p)'
               subprocess.run([sys.executable,'-c',check,str(out/'HADES_Transition_REVIEW.blend')],check=True)
+          PY
+      - name: Build two-shot alpha project and reopen after relocation
+        run: |
+          python - <<'PY'
+          import pathlib, subprocess, sys, tempfile, hashlib, json, zipfile, io
+          from PIL import Image
+          root=pathlib.Path('hades/library/backgrounds/quiet-courts/transitions/composite-desk/native-handoff').resolve()
+          with tempfile.TemporaryDirectory() as d:
+              d=pathlib.Path(d)
+              size=(1920,1080)
+              for name,color in [('A.png','#E8DCC9'),('B.png','#292825')]:
+                  Image.new('RGB',size,color).save(d/name)
+              outputs=[]
+              with zipfile.ZipFile(d/'alpha.zip','w',zipfile.ZIP_DEFLATED) as z:
+                  for i in range(30):
+                      name=f'frame_{i:04d}.png'
+                      b=io.BytesIO()
+                      Image.new('RGBA',size,(41,40,37,255 if i in (14,15) else 0)).save(b,format='PNG')
+                      data=b.getvalue()
+                      z.writestr(name,data)
+                      outputs.append({'name':name,'sha256':hashlib.sha256(data).hexdigest()})
+                  z.writestr('project.json',json.dumps({'schema':'hades-batch-1','dimensions':size,'fps':24,'cut':[14,15],'mode':'alpha','outputs':outputs}))
+              subprocess.run([sys.executable,str(root/'hades_two_shots.py'),str(d/'alpha.zip'),str(d/'A.png'),str(d/'B.png'),'--out',str(d/'edit')],check=True)
+              (d/'edit').rename(d/'relocated')
+              check='import bpy,sys,pathlib; p=pathlib.Path(sys.argv[1]); bpy.ops.wm.open_mainfile(filepath=str(p)); s=bpy.context.scene; strips=s.sequence_editor.strips; a=sorted([x for x in strips if x.channel==1],key=lambda x:x.frame_final_start); b=sorted([x for x in strips if x.channel==2],key=lambda x:x.frame_final_start); assert [(x.frame_final_start,x.frame_final_end) for x in a]==[(1,16),(16,31)]; assert [(x.frame_final_start,x.frame_final_end) for x in b]==[(i,i+1) for i in range(1,31)]; assert all((pathlib.Path(bpy.path.abspath(x.directory))/x.elements[0].filename).is_file() for x in strips); print("TWO SHOT RELOCATED REOPEN PASS")'
+              subprocess.run([sys.executable,'-c',check,str(d/'relocated/HADES_Transition_REVIEW.blend')],check=True)
           PY
