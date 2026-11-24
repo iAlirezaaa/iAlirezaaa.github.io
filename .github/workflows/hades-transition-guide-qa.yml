@@ -1,0 +1,71 @@
+name: HADES transition guide hosted QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hades/**/transitions/editing-guide/**'
+      - '.github/workflows/hades-transition-guide-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlopen, Request
+          from urllib.error import URLError
+          import time, hashlib, re
+          from playwright.sync_api import sync_playwright
+          root='https://ialirezaaa.github.io/'
+          stem='library/backgrounds/quiet-courts/transitions/'
+          pages=['hades/'+p+stem+'editing-guide/index.html' for p in ('','fa/')]
+          with sync_playwright() as pw:
+              browser=pw.chromium.launch()
+              for path in pages:
+                  data=Path(path).read_bytes()
+                  assert data==Path('site/public',path).read_bytes()
+                  for width in (320,390,430):
+                      page=browser.new_page(viewport={'width':width,'height':900})
+                      page.set_content(data.decode())
+                      assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+                      assert page.locator('.sample svg').count()==9
+                      page.emulate_media(media='print')
+                      assert page.locator('nav').is_hidden()
+                      assert page.locator('.timeline span').first.evaluate('(e)=>getComputedStyle(e).color')=='rgb(232, 220, 201)'
+                      print('responsive and print CSS PASS',path,width)
+                      page.close()
+              browser.close()
+          targets=set(pages)
+          for path in pages:
+              for href in re.findall(r'<a href="(/hades/[^"]+)"',Path(path).read_text()):
+                  p=href.lstrip('/')
+                  if p.endswith('/'): p+='index.html'
+                  assert Path(p).is_file(),p
+                  targets.add(p)
+          for p in sorted(targets):
+              if not ('transitions/' in p): continue
+              expected=Path(p).read_bytes()
+              url=root+(p[:-10] if p.endswith('/index.html') else p)
+              for attempt in range(24):
+                  try:
+                      with urlopen(Request(url,headers={'User-Agent':'HADES-QA','Cache-Control':'no-cache'}),timeout=20) as response:
+                          data=response.read()
+                          mime=response.headers.get_content_type()
+                          assert response.status==200
+                          assert hashlib.sha256(data).digest()==hashlib.sha256(expected).digest()
+                          assert mime in (('application/zip','application/x-zip-compressed','application/octet-stream') if p.endswith('.zip') else ('text/html',))
+                      print('HTTP 200 MIME SHA256 PASS',url)
+                      break
+                  except (AssertionError,URLError,TimeoutError) as exc:
+                      if attempt==23: raise
+                      time.sleep(15)
+          PY
