@@ -1,0 +1,111 @@
+name: HADES Aperture QA and native delivery
+on:
+  push:
+    paths:
+      - '.github/workflows/hades-aperture-delivery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-aperture-delivery
+  cancel-in-progress: false
+jobs:
+  delivery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright pillow
+      - run: python -m playwright install --with-deps chromium
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          from PIL import Image
+          import hashlib, io, json, zipfile, shutil
+          base=Path('hades/library/backgrounds/quiet-courts/transitions/aperture')
+          fa=Path('hades/fa/library/backgrounds/quiet-courts/transitions/aperture')
+          files=sorted(base.glob('*.svg'))
+          assert len(files)==3
+          with sync_playwright() as p:
+            browser=p.chromium.launch()
+            page=browser.new_page()
+            for path in [base/'index.html',fa/'index.html']:
+              for width in [320,390,430]:
+                page.set_viewport_size({'width':width,'height':844})
+                page.goto(path.resolve().as_uri())
+                assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                for ratio in ['16x9','9x16','1x1']:
+                  page.select_option('#ratio',ratio)
+                  page.locator('#seek').evaluate('(e)=>{e.value=22;e.dispatchEvent(new Event("input"))}')
+                  assert page.locator('#frame').inner_text()=='22 / 29'
+                  box=page.locator('.stage svg').bounding_box()
+                  x,y=map(int,ratio.split('x'))
+                  assert abs(box['width']/box['height']-x/y)<.025,(ratio,box)
+                print('responsive PASS',path,width)
+            hashes={}
+            with zipfile.ZipFile(base/'HADES_Aperture_30_PNG_PUBLIC_REVIEW.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for path in files:
+                svg=path.read_text()
+                w,h=map(int,__import__('re').search(r'width="(\d+)" height="(\d+)"',svg).groups())
+                page.set_viewport_size({'width':w,'height':h})
+                page.set_content('<style>html,body{margin:0;background:transparent;overflow:hidden}svg{display:block}</style>'+svg)
+                page.evaluate('document.querySelector("svg").pauseAnimations()')
+                for n in range(30):
+                  page.evaluate('(n)=>document.querySelector("svg").setCurrentTime((n+.5)/24)',n)
+                  if n in [0,14,15,29] or w==1920:
+                    im=Image.open(io.BytesIO(page.screenshot(omit_background=True))).convert('RGBA')
+                    assert im.size==(w,h)
+                    if n in [0,29]: assert im.getchannel('A').getextrema()==(0,0)
+                    if n in [14,15]: assert im.getchannel('A').getextrema()==(255,255)
+                    if n not in [0,14,15,29]: assert im.getchannel('A').getextrema()[0]==0
+                    if w==1920:
+                      buf=io.BytesIO();im.save(buf,format='PNG',optimize=True);data=buf.getvalue()
+                      name=f'frame_{n:04}.png';z.writestr(name,data);hashes[name]=hashlib.sha256(data).hexdigest()
+              z.writestr('manifest.json',json.dumps({'status':'PUBLIC REVIEW','fps':24,'cut_between':[14,15],'alpha':'straight','sha256':hashes},indent=2))
+            browser.close()
+          with zipfile.ZipFile(base/'HADES_Aperture_3_SVG_PUBLIC_REVIEW.zip','w',zipfile.ZIP_DEFLATED) as z:
+            for path in files:z.write(path,path.name)
+          for path in base.glob('*.zip'):
+            with zipfile.ZipFile(path) as z: assert z.testzip() is None
+            shutil.copyfile(path,Path('site/public')/path)
+          for path in [base/'index.html',fa/'index.html']:
+            txt=path.read_text()
+            if 'HADES_Aperture_30_PNG_PUBLIC_REVIEW.zip' not in txt:
+              label='دانلود توالی ۳۰ تصویر شفاف PNG' if path==fa/'index.html' else 'Download 30 straight-alpha PNG frames'
+              links=f'<p><a download href="/{base}/HADES_Aperture_30_PNG_PUBLIC_REVIEW.zip">{label}</a> · <a download href="/{base}/HADES_Aperture_3_SVG_PUBLIC_REVIEW.zip">SVG ZIP</a></p>'
+              path.write_text(txt.replace('</main>',links+'</main>'))
+            shutil.copyfile(path,Path('site/public')/path)
+          print('native delivery PASS',len(hashes))
+          PY
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hades/library/backgrounds/quiet-courts/transitions/aperture hades/fa/library/backgrounds/quiet-courts/transitions/aperture site/public/hades/library/backgrounds/quiet-courts/transitions/aperture site/public/hades/fa/library/backgrounds/quiet-courts/transitions/aperture
+          if ! git diff --cached --quiet; then git commit -m 'Publish Aperture native alpha and SVG downloads (PUBLIC REVIEW)'; fi
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push origin HEAD:main && break; test "$i" != 5 || exit 1; sleep 5; done
+      - run: |
+          python - <<'PY'
+          import urllib.request,hashlib,time
+          from pathlib import Path
+          base=Path('hades/library/backgrounds/quiet-courts/transitions')
+          files=list((base/'aperture').glob('*.svg'))+list((base/'aperture').glob('*.zip'))+list(base.glob('*.zip'))+list((base/'lintel').glob('*.zip'))
+          files += [base/'aperture/index.html',Path('hades/fa/library/backgrounds/quiet-courts/transitions/aperture/index.html')]
+          for attempt in range(15):
+            errors=[]
+            for path in files:
+              url='https://ialirezaaa.github.io/'+str(path).removesuffix('index.html')
+              try:
+                req=urllib.request.Request(url,headers={'User-Agent':'HADES QA','Cache-Control':'no-cache'})
+                with urllib.request.urlopen(req,timeout=30) as r:
+                  data=r.read(); mime=r.headers.get_content_type()
+                  allowed={'.svg':['image/svg+xml'],'.zip':['application/zip','application/x-zip-compressed','application/octet-stream'],'.html':['text/html']}[path.suffix]
+                  assert r.status==200 and mime in allowed and hashlib.sha256(data).digest()==hashlib.sha256(path.read_bytes()).digest(),(r.status,mime)
+                print('HTTP 200 MIME SHA256 PASS',url)
+              except Exception as e: errors.append((url,str(e)))
+            if not errors:break
+            print('OPEN',errors);time.sleep(25)
+          else:raise SystemExit('Hosted verification failed')
+          PY
