@@ -1,0 +1,53 @@
+name: HADES Architectural Motion review QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-architectural-motion-qa.yml'
+      - 'site/scripts/hades-architectural-motion-qa.py'
+      - 'hades/**/architectural-motion/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+          python site/scripts/hades-architectural-motion-qa.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HADES-architectural-motion-review
+          path: motion-*-430.png
+  hosted:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python - <<'PY'
+          import hashlib, time, urllib.request
+          from pathlib import Path
+          files=[Path('hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/index.html'),Path('hades/fa/library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/index.html')]
+          files+=sorted(Path('hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/').glob('*.svg'))
+          for p in files:
+            assert p.read_bytes()==(Path('site/public')/p).read_bytes()
+          for attempt in range(20):
+            errors=[]
+            for p in files:
+              try:
+                with urllib.request.urlopen('https://ialirezaaa.github.io/'+str(p)+'?motion='+str(attempt),timeout=12) as r:
+                  assert r.status==200 and r.headers.get_content_type()==('text/html' if p.suffix=='.html' else 'image/svg+xml')
+                  assert hashlib.sha256(r.read()).digest()==hashlib.sha256(p.read_bytes()).digest()
+              except Exception as e: errors.append((str(p),str(e)))
+            if not errors: break
+            time.sleep(12)
+          assert not errors,errors
+          print('PASS independent HTTP 200 MIME SHA256',len(files))
+          PY

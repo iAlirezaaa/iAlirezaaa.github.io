@@ -17,6 +17,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -34,9 +37,14 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/raster site/public/hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/raster hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/index.html site/public/hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/index.html hades/fa/library/backgrounds/quiet-courts/closing-cards/motion-safe/index.html site/public/hades/fa/library/backgrounds/quiet-courts/closing-cards/motion-safe/index.html
           git diff --cached --quiet || git commit -m 'Publish tested HADES transparent closing PNGs (REVIEW)'
-          git push origin HEAD:main
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+            if git push origin HEAD:main; then break; fi
+            test "$attempt" != 3 || exit 1
+          done
           git fetch origin main
-          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)"
+          git merge-base --is-ancestor HEAD origin/main
       - name: Independent live HTTP MIME SHA and mirror verification
         run: |
           python - <<'PY'

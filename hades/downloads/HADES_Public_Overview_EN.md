@@ -86,3 +86,5 @@ Compare native PNG plaque crops against JPEG/WebP and download measured JSON. Hu
 Two 16:9 editable chapter-opening SVGs with unchanged original mark on a separate dark plaque. [FA](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/chapter-divider/) · [EN](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/chapter-divider/) · Mikhak / physical / FINAL: OPEN.
 
 - [Architectural closing cards · SVG · REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/closing-cards/)
+
+- [Architectural Motion · closing timing preview · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/)
