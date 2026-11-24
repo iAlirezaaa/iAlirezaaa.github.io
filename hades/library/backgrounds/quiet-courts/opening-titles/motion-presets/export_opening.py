@@ -11,7 +11,7 @@ def recipe(fps, seconds):
     return dict(fps=fps,seconds=seconds,frame_count=n,end_exclusive=n,keys=[0,a,b,n-1],opacity_millionths=values)
 def export(source, manifest, output, fps, seconds):
     if fps not in (24,25,30) or seconds not in (3,5,8): raise ValueError("Unsupported timing")
-    raw=source.read_bytes(); entries=json.loads(manifest.read_text(encoding="utf-8"))
+    raw=source.read_bytes(); entries=json.loads(manifest.read_text(encoding="utf-8"))["files"]
     matches=[e for e in entries if e["file"]==source.name]
     if len(matches)!=1 or matches[0]["sha256"]!=sha(raw): raise ValueError("Source hash mismatch")
     with Image.open(io.BytesIO(raw)) as d:
