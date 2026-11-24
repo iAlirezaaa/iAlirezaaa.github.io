@@ -88,3 +88,5 @@ Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINA
 - [کارت پایان معماری · SVG · REVIEW](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/closing-cards/)
 
 - [پیش‌نمایش متحرک و زمان‌بندی کارت پایان · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/)
+
+- [عنوان آغاز معماری · SVG و پیش‌نمایش زمان‌بندی · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/opening-titles/)

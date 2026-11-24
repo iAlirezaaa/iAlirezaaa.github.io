@@ -88,3 +88,5 @@ Two 16:9 editable chapter-opening SVGs with unchanged original mark on a separat
 - [Architectural closing cards · SVG · REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/closing-cards/)
 
 - [Architectural Motion · closing timing preview · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/)
+
+- [Architectural opening titles · SVG and timing preview · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/opening-titles/)
