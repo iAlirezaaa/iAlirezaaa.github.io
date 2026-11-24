@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { entries } from '../public/fa/blog/entries.js'
 import { readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
@@ -87,7 +88,14 @@ function validatedEntries(folder) {
 export function renderBlog(dist) {
   const folder = path.join(dist, 'fa', 'blog')
   const entryFile = path.join(folder, 'index.html')
+  const version = files => {
+    const hash = createHash('sha256')
+    for (const file of files) hash.update(fs.readFileSync(path.join(folder,file)))
+    return hash.digest('hex').slice(0,12)
+  }
   const shell = fs.readFileSync(entryFile, 'utf8')
+    .replace('/fa/blog/reader.css"', '/fa/blog/reader.css?v=' + version(['reader.css']) + '"')
+    .replace('/fa/blog/reader.js"', '/fa/blog/reader.js?v=' + version(['reader.js','reader-model.js']) + '"')
   const approved = validatedEntries(folder)
   const sourcePaths = []
   const topics = Object.keys(topicNames).filter(id => approved.some(entry => entry.tags?.includes(id)))
