@@ -1,0 +1,67 @@
+name: HADES closing native raster delivery
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hades-closing-raster-delivery.yml'
+      - 'site/scripts/hades-closing-raster-delivery.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hades-closing-raster-delivery
+  cancel-in-progress: false
+jobs:
+  delivery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install playwright==1.56.0 pillow==11.3.0
+          python -m playwright install --with-deps chromium
+      - name: Render and test native files
+        run: |
+          python -m http.server 8783 >/tmp/closing-raster-server.log 2>&1 &
+          python site/scripts/hades-closing-raster-delivery.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HADES-closing-raster-REVIEW
+          path: hades/library/backgrounds/quiet-courts/closing-cards/raster/
+      - name: Commit tested files to both mirrors
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hades/library/backgrounds/quiet-courts/closing-cards/raster site/public/hades/library/backgrounds/quiet-courts/closing-cards/raster hades/library/backgrounds/quiet-courts/closing-cards/index.html hades/fa/library/backgrounds/quiet-courts/closing-cards/index.html site/public/hades/library/backgrounds/quiet-courts/closing-cards/index.html site/public/hades/fa/library/backgrounds/quiet-courts/closing-cards/index.html
+          git diff --cached --quiet || git commit -m 'Publish native HADES closing cards raster bundle (REVIEW)'
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "BINARY_COMMIT=$(git rev-parse HEAD)"
+      - name: Independent live HTTPS and repository readback
+        run: |
+          python - <<'PY'
+          import hashlib,urllib.request,time,subprocess
+          from pathlib import Path
+          root=Path('hades/library/backgrounds/quiet-courts/closing-cards')
+          files=sorted((root/'raster').iterdir())+[root/'index.html',Path('hades/fa')/Path(*root.parts[1:])/'index.html']
+          for p in files:
+            assert p.read_bytes()==(Path('site/public')/p).read_bytes()
+            assert subprocess.check_output(['git','show','HEAD:'+str(p)])==p.read_bytes()
+          for attempt in range(25):
+            errors=[]
+            for p in files:
+              try:
+                with urllib.request.urlopen('https://ialirezaaa.github.io/'+str(p)+'?closing-raster='+str(attempt),timeout=12) as r:
+                  assert r.status==200
+                  allowed={'.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.zip':'application/zip','.json':'application/json','.txt':'text/plain','.html':'text/html'}
+                  assert r.headers.get_content_type() in ({'application/zip','application/x-zip-compressed'} if p.suffix=='.zip' else {allowed[p.suffix]}),(p,r.headers.get_content_type())
+                  assert hashlib.sha256(r.read()).digest()==hashlib.sha256(p.read_bytes()).digest(),p
+              except Exception as e:errors.append((str(p),str(e)))
+            if not errors:break
+            time.sleep(12)
+          assert not errors,errors
+          print('PASS independent live HTTP 200 MIME SHA256',len(files))
+          PY
