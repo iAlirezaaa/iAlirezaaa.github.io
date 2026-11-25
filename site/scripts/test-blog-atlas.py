@@ -51,12 +51,14 @@ try:
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         for width in (320, 390, 430, 1440):
-            page = browser.new_page(viewport={"width": width, "height": 900}, reduced_motion="reduce")
+            page = browser.new_page(viewport={"width": width, "height": 900}, reduced_motion="reduce", has_touch=width <= 430)
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url, wait_until="load")
+            assert page.locator('[data-blog-comments]').count() == 0
             recent = page.locator('[data-recent-reading]')
-            recent.wait_for(state='visible')
+            recent.wait_for(state='attached')
+            assert not recent.is_visible()
             assert recent.locator('ol a').count() == 0
             assert page.evaluate("localStorage.getItem('hades-reading-trail-v1')") is None
             assert recent.locator('[data-recent-manage]').get_attribute('href') == '#reading-history-title'
@@ -70,6 +72,8 @@ try:
                 page.locator('.mobile-tree-toggle').click()
             assert nav.is_visible() and not nav.evaluate('(el)=>el.inert'), (width,'explorer unavailable')
             assert page.locator('.workspace-strip').count() == 1
+            assert page.locator('.topbar-links').count() == 0
+            assert page.locator('.workspace-strip').is_visible() == (width <= 900)
             tree = nav.locator('[data-filetree]')
             urls = tree.evaluate("el=>[...el.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).sort()")
             assert urls == expected_tree_urls, (width, 'rendered tree URL parity', urls, expected_tree_urls, tree.inner_html()[:1000])
@@ -163,12 +167,72 @@ try:
             assert graph.locator(".graph-node").first.get_attribute("aria-label")
             graph.locator(".graph-node").first.focus()
             assert "ارتباط" in page.locator("[data-graph-detail]").inner_text()
+            # Mouse or actual Chromium touch input moves a node and all its connected edges.
+            node = graph.locator('.graph-node').first
+            dot = node.locator('circle:not(.graph-hit)').first
+            node_id = node.get_attribute('data-graph-id')
+            graph.scroll_into_view_if_needed()
+            # Responsive reflow can change the coordinate system when inspector text wraps.
+            # Compare actual relative positions to the original home position, not stale pixels.
+            position = """el=>{const v=el.ownerSVGElement.viewBox.baseVal;return [Number(el.getAttribute('cx'))/v.width,Number(el.getAttribute('cy'))/v.height]}"""
+            page.wait_for_function("""()=>{const c=document.querySelector('[data-global-graph]'),v=c.querySelector('svg').viewBox.baseVal;return v.width===Math.max(200,c.clientWidth)&&v.height===Math.max(200,c.clientHeight)}""")
+            original_normalized = dot.evaluate(position)
+            original = (float(dot.get_attribute('cx')), float(dot.get_attribute('cy')))
+            box = dot.bounding_box()
+            bounds = graph.bounding_box()
+            x, y = box['x'] + box['width']/2, box['y'] + box['height']/2
+            dx = 28 if x < bounds['x'] + bounds['width']/2 else -28
+            dy = 14 if y < bounds['y'] + bounds['height']/2 else -14
+            previous_url = page.url
+            if width <= 430:
+                cdp = page.context.new_cdp_session(page)
+                cdp.send('Input.dispatchTouchEvent', {'type':'touchStart','touchPoints':[{'x':x,'y':y}]})
+                cdp.send('Input.dispatchTouchEvent', {'type':'touchMove','touchPoints':[{'x':x+dx/2,'y':y+dy/2}]})
+                cdp.send('Input.dispatchTouchEvent', {'type':'touchMove','touchPoints':[{'x':x+dx,'y':y+dy}]})
+                cdp.send('Input.dispatchTouchEvent', {'type':'touchEnd','touchPoints':[]})
+                cdp.detach()
+            else:
+                page.mouse.move(x,y)
+                page.mouse.down()
+                page.mouse.move(x+dx,y+dy,steps=5)
+                page.mouse.up()
+            page.wait_for_function("document.querySelector('[data-global-graph]')?.dataset.layoutChanged==='true'")
+            moved = (float(dot.get_attribute('cx')),float(dot.get_attribute('cy')))
+            assert abs(moved[0]-original[0])+abs(moved[1]-original[1]) > 8, (width,original,moved)
+            assert page.url == previous_url, (width,'drag navigated away')
+            assert graph.evaluate("""(el,id)=>{const n=[...el.querySelectorAll('.graph-node')].find(a=>a.dataset.graphId===id);const c=n.querySelector('circle:not(.graph-hit)');const edges=[...el.querySelectorAll('.graph-edge')].filter(e=>e.dataset.source===id||e.dataset.target===id);return edges.length>0&&edges.every(e=>{const k=e.dataset.source===id?'1':'2';return e.getAttribute('x'+k)===c.getAttribute('cx')&&e.getAttribute('y'+k)===c.getAttribute('cy')})}""", node_id)
+            node.focus()
+            node.press('ArrowRight')
+            assert float(dot.get_attribute('cx')) > moved[0]
+            assert graph.evaluate(check_labels)['intersections'] == 0
+            reset_button = page.locator('[data-graph-zoom="reset"]')
+            reset_button.scroll_into_view_if_needed()
+            reset_button.click()
+            assert graph.get_attribute('data-layout-changed') is None, (width, 'reset click did not fire')
+            reset_normalized = dot.evaluate(position)
+            assert max(abs(a-b) for a,b in zip(original_normalized, reset_normalized)) < .003, (width, 'reset relative position', original_normalized, reset_normalized)
+            assert graph.get_attribute('data-layout-changed') is None
+            # Resize while a node has been moved, then check normalized position and camera.
+            node.focus()
+            node.press('ArrowRight')
+            page.locator('[data-graph-zoom="in"]').click()
+            before_resize = dot.evaluate(position)
+            old_viewbox = graph.locator('svg').get_attribute('viewBox')
+            page.set_viewport_size({'width':width+24,'height':850})
+            page.wait_for_function("old=>document.querySelector('[data-global-graph] svg').getAttribute('viewBox')!==old",arg=old_viewbox)
+            assert max(abs(a-b) for a,b in zip(before_resize,dot.evaluate(position))) < .003, (width, 'node position lost on resize')
+            assert float(graph.get_attribute('data-scale')) > 1
+            page.set_viewport_size({'width':width,'height':900})
+            page.wait_for_function("""()=>{const c=document.querySelector('[data-global-graph]'),v=c.querySelector('svg').viewBox.baseVal;return v.width===Math.max(200,c.clientWidth)&&v.height===Math.max(200,c.clientHeight)}""")
+            page.locator('[data-graph-zoom="reset"]').click()
             page.locator('[data-graph-zoom="in"]').click()
             assert float(graph.get_attribute("data-scale")) > 1
             page.wait_for_timeout(300) # allow ResizeObserver to settle; camera must survive
             assert float(graph.get_attribute('data-scale')) > 1, (width, 'camera reset after resize')
             assert graph.evaluate(check_labels)["intersections"] == 0
+            page.locator('.graph-atlas-settings summary').click()
             page.locator('[data-graph-pan="right"]').click()
+            page.locator('.graph-atlas-settings summary').click()
             assert graph.evaluate(check_labels)["intersections"] == 0
             page.locator('[data-graph-zoom="reset"]').click()
             assert graph.get_attribute("data-scale") == "1"
@@ -231,6 +295,29 @@ try:
             # Real canonical graph links and local opt-in history (including reload).
             article_url = next(u for u in expected_urls if '/notes/' not in u)
             page.goto('http://127.0.0.1:8765' + article_url, wait_until='load')
+            comments = page.locator('[data-blog-comments]')
+            assert comments.count() == 1
+            issue = comments.get_attribute('data-issue')
+            assert issue and issue.isdigit()
+            write = comments.locator('.comment-write')
+            assert write.get_attribute('href') == 'https://github.com/iAlirezaaa/iAlirezaaa.github.io/issues/' + issue + '#new_comment_field'
+            api = 'https://api.github.com/repos/iAlirezaaa/iAlirezaaa.github.io/issues/' + issue + '/comments?per_page=100'
+            # Synthetic read-only response; never post a test comment publicly.
+            unsafe = '<img src=x onerror=alert(1)> TEST_COMMENT'
+            response = [{"id":123456,"body":unsafe,"user":{"login":"fixture-user"},"created_at":"2026-11-25T10:00:00Z"}]
+            page.route(api, lambda route: route.fulfill(status=200, headers={"Access-Control-Allow-Origin":"*"}, json=response))
+            comments.locator('[data-comments-load]').press('Enter')
+            page.wait_for_function("document.querySelector('[data-comments-list]')?.textContent.includes('TEST_COMMENT')")
+            assert comments.locator('.blog-comment-body').inner_text() == unsafe
+            assert comments.locator('[data-comments-list] img').count() == 0
+            assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+            comments.screenshot(path=str(output / f"comments-{width}.png"))
+            page.unroute(api)
+            page.route(api, lambda route: route.fulfill(status=403, headers={"Access-Control-Allow-Origin":"*"}, json={"message":"rate limit"}))
+            comments.locator('[data-comments-load]').click()
+            page.wait_for_function("document.querySelector('[data-comments-status]')?.textContent.includes('ممکن نشد')")
+            assert write.is_visible()
+            page.unroute(api)
             history = page.locator('[data-reading-history]')
             history.wait_for(state='visible')
             assert history.locator('[data-reading-toggle]').get_attribute('aria-pressed') == 'false'

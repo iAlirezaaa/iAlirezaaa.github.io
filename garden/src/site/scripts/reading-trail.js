@@ -64,7 +64,8 @@ export function installReadingTrail({document, graph, here, storage}) {
     fill(recent.querySelector('[data-recent-visits]'), items);
     recent.querySelector('[data-recent-status]').textContent = !enabled ? 'تاریخچه خاموش است؛ چیزی ثبت نمی‌شود.' : items.length ? 'آخرین نوشته‌های بازشده در این مرورگر' : 'هنوز نوشته‌ای ثبت نشده است.';
     recent.querySelector('[data-recent-manage]').textContent = enabled ? 'مدیریت تاریخچه' : 'فعال کردن تاریخچه';
-    recent.hidden = false;
+    // Do not show an empty promotional panel when the visitor has no history.
+    recent.hidden = !items.length;
   }
   function render(message) {
     renderRecent();

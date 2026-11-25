@@ -352,3 +352,91 @@ body.hades-garden .garden-context .section-heading h2{font-size:.92rem;font-weig
   .workspace-ribbon :is(a,button){transition:background-color .15s,color .15s,border-color .15s}
 }
 @media print{.workspace-ribbon{display:none!important}}
+
+/* REVIEW — opt-in public comments. Existing Obsidian workspace remains unchanged. */
+.blog-comments{margin-block:2.2rem 1.4rem;padding:1rem 0;border-block-start:1px solid var(--line);min-width:0}
+.blog-comments h2{font-size:1.18rem;font-weight:550;margin:0 0 .3rem}
+.blog-comments header p,.blog-comments .comment-account,.blog-comments [data-comments-status]{font-size:.86rem;line-height:1.9;color:var(--muted);margin-block:.45rem}
+.blog-comment-actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-block:.9rem}
+.blog-comment-actions :is(a,button){display:inline-flex;align-items:center;justify-content:center;gap:.35rem;min-height:44px;padding:.4rem .75rem;border:1px solid var(--line);border-radius:5px;font-size:.86rem;line-height:1.6;color:var(--ink);text-decoration:none}
+.blog-comment-actions .comment-write{border-inline-start:2px solid var(--brand);background:var(--surface)}
+.blog-comment-actions :is(a,button):hover{background:var(--subtle)}
+.blog-comments ol{list-style:none;padding:0;margin:.8rem 0}
+.blog-comments li{padding:.85rem 0;border-block-end:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.blog-comment-meta{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:baseline;font-size:.82rem;color:var(--muted)}
+.blog-comment-meta bdi{color:var(--ink)}
+.blog-comment-body{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.96rem;line-height:1.9;margin-block:.45rem}
+.blog-comments li>a{font-size:.75rem;color:var(--muted)}
+@media(max-width:430px){.blog-comment-actions>*{flex:1 1 100%}}
+@media print{.blog-comments{display:none!important}}
+
+/* REVIEW — quieter workspace and drag-responsive atlas; retain existing content and HADES identity. */
+body.hades-garden .atlas-preview-section{padding:.85rem;margin-block:1rem 1.35rem;border-radius:5px;box-shadow:none}
+body.hades-garden .atlas-preview-header{margin-block-end:.55rem;gap:.55rem}
+body.hades-garden .atlas-preview-header h2{font-size:1.1rem;margin:0}
+body.hades-garden .atlas-preview-header button{min-height:38px;font-size:.83rem;width:auto}
+body.hades-garden .atlas-preview{height:clamp(16rem,32dvh,25rem);min-width:0}
+body.hades-garden .atlas-preview-inspector{padding:.45rem 0;gap:.3rem .8rem}
+body.hades-garden .atlas-preview-inspector [data-atlas-detail]{min-height:0}
+body.hades-garden .atlas-legend{font-size:.72rem;gap:.5rem;margin-block-start:.45rem}
+.graph-node,.graph-hit{touch-action:none;cursor:grab}
+.global-graph .graph-node{cursor:grab}
+.graph-node.is-dragging,.graph-node.is-dragging .graph-hit{cursor:grabbing}
+.atlas-preview svg,.local-graph svg{touch-action:pan-y}
+.graph-dialog .global-graph{height:clamp(240px,52dvh,560px);min-height:0;max-width:100%}
+.graph-dialog .graph-atlas-settings{margin:.35rem 0 .5rem;padding:.4rem .65rem}
+.graph-pan-controls{display:flex;flex-wrap:wrap;gap:.4rem;padding:.3rem 0}
+.graph-pan-controls button{min-width:44px;min-height:44px}
+.graph-layout-reset{min-height:36px;font-size:.78rem;margin-block:.35rem;padding:.2rem .5rem}
+body.hades-garden .workspace-strip{margin-block-end:.6rem}
+body.hades-garden .workspace-pane-tools{margin-block:0 .5rem}
+body.hades-garden .workspace-pane-tools summary{min-height:34px;font-size:.78rem}
+body.hades-garden.is-directory .note-header h1{font-size:clamp(1.35rem,2vw,1.75rem);font-weight:550}
+body.hades-garden.is-directory .note-header{padding-block-end:.75rem;margin-block-end:.65rem}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin-block: .65rem 1.5rem!important}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial>:is(li,.is-featured){display:grid;grid-column:auto;grid-template-columns:minmax(75px,clamp(90px,18vw,155px)) minmax(0,1fr);align-items:start;gap:.85rem;padding:.8rem 0;margin:0!important;border:0;border-block-end:1px solid var(--line)}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial>:is(li,.is-featured) .garden-post-cover{height:auto;min-height:0;aspect-ratio:16/10;border-radius:4px;align-self:start}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial>:is(li,.is-featured) .post-card-copy{padding:0;gap:.15rem}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial>:is(li,.is-featured) h3{font-size:clamp(1rem,1.3vw,1.2rem);font-weight:550;line-height:1.7;margin:0 0 .1rem}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial .post-card-summary{font-size:.85rem;line-height:1.8;margin:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial .post-card-eyebrow{margin:0;gap:.45rem}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial .post-card-eyebrow :is(.editorial-kicker,.garden-post-category){font-size:.74rem}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial .garden-tags{display:none}
+body.hades-garden.is-directory .note-body .garden-post-list--editorial .post-card-meta{padding:0;border:0;gap:.35rem .75rem;margin:.25rem 0 0;font-size:.74rem;justify-content:flex-start}
+body.hades-garden.is-directory .note-body .blog-knowledge-grid{grid-template-columns:minmax(0,1fr);gap:0;margin-block:.65rem 1.4rem}
+body.hades-garden.is-directory .note-body .blog-knowledge-grid>li>a{height:auto;padding:.7rem 0;border:0;border-block-end:1px solid var(--line);border-radius:0;background:transparent;transform:none}
+body.hades-garden.is-directory .blog-knowledge-grid h3{font-size:1rem;margin:.15rem 0}
+body.hades-garden.is-directory .blog-knowledge-grid p{font-size:.85rem;line-height:1.8}
+body.hades-garden.is-directory .blog-knowledge-grid :is(.knowledge-card-kind,.knowledge-card-meta){font-size:.74rem}
+body.hades-garden.is-directory .blog-knowledge-grid .knowledge-card-meta{padding-block-start:.25rem}
+body.hades-garden.is-directory .blog-explorer{margin-block:.65rem .9rem;padding-block:.6rem 0;gap:0 .7rem}
+body.hades-garden.is-directory .blog-explorer :is(input,select){min-height:42px}
+body.hades-garden.is-directory .explorer-status{min-height:2.4rem}
+@media screen and (min-width:901px){
+  body.hades-garden:has(.workspace-ribbon:not([hidden])) .workspace-strip{display:none}
+  body.hades-garden:has(.workspace-ribbon:not([hidden])) .topbar-actions [data-search-open]{display:none}
+  body.hades-garden:has(.workspace-ribbon:not([hidden])) .garden-navigation .garden-search-button{display:none}
+}
+@media screen and (max-width:600px){
+  body.hades-garden .atlas-preview-section{padding:.6rem;margin-block:.65rem 1rem}
+  body.hades-garden .atlas-preview{height:clamp(15rem,35dvh,21rem)}
+  .garden-dialog.graph-dialog{position:fixed;inset:0;width:100%;max-width:100%;height:100dvh;max-height:100dvh;margin:0;border-radius:0;padding:.65rem;overflow-y:auto}
+  .graph-dialog .global-graph{height:clamp(220px,48dvh,440px)}
+  .graph-dialog .dialog-description{font-size:.78rem;line-height:1.8;margin:.3rem 0}
+  .graph-dialog .graph-atlas-meta{margin:.3rem 0}
+  body.hades-garden.is-directory .note-body .garden-post-list--editorial>:is(li,.is-featured){grid-template-columns:minmax(72px,24%) minmax(0,1fr);gap:.65rem}
+  body.hades-garden.is-directory .note-body .garden-post-list--editorial .post-card-meta{line-height:1.7}
+  .graph-dialog .graph-actions{gap:.35rem;margin-block:.5rem}
+}
+@media print{
+  body.hades-garden.is-directory .note-body .garden-post-list--editorial>:is(li,.is-featured){display:block}
+  body.hades-garden.is-directory .note-body .garden-post-list--editorial .post-card-summary{display:block;overflow:visible}
+  .graph-layout-reset{display:none!important}
+}
+
+/* The inspector must not move the graph or reset/zoom controls as focus changes. */
+.garden-dialog.graph-dialog{scrollbar-gutter:stable}
+.graph-dialog .graph-atlas-meta{display:grid;grid-template-columns:minmax(0,1fr);gap:.15rem;min-width:0;align-items:start}
+.graph-dialog .graph-atlas-meta [data-graph-count]{min-width:0;line-height:1.7}
+.graph-dialog .graph-atlas-meta [data-graph-detail]{min-width:0;block-size:3.6em;line-height:1.8;overflow-y:auto;overflow-wrap:anywhere;overscroll-behavior:contain;scrollbar-gutter:stable}
+@media(min-width:901px){.graph-dialog .graph-atlas-meta{grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:.5rem}}
