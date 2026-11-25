@@ -7,8 +7,8 @@
   <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .2126 .7152 .0722 0 0" result="luma"/>
   <feComponentTransfer in="luma" result="bright"><feFuncA type="linear" slope="10" intercept="-1.05"/></feComponentTransfer>
   <!-- Recover low-contrast dark ornament edges conservatively rather than redrawing. -->
-  <feGaussianBlur in="luma" stdDeviation="1.4" result="clean"/>
-  <feGaussianBlur in="luma" stdDeviation="13" result="local"/>
+  <feGaussianBlur in="luma" stdDeviation="1.4" edgeMode="duplicate" result="clean"/>
+  <feGaussianBlur in="luma" stdDeviation="13" edgeMode="duplicate" result="local"/>
   <feComposite in="clean" in2="local" operator="arithmetic" k1="0" k2="1" k3="-1" k4="0" result="positive"/>
   <feComposite in="local" in2="clean" operator="arithmetic" k1="0" k2="1" k3="-1" k4="0" result="negative"/>
   <feComposite in="positive" in2="negative" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="detail"/>

@@ -179,6 +179,20 @@ def assert_shell(page, width, expected_tree_urls, content_page=False):
     mark = brand.locator('.brand-original')
     assert mark.get_attribute('src').endswith('/HADES_Original_Emblem_Transparent_Web_REVIEW.svg')
     assert mark.evaluate("(img)=>img.decode().then(()=>img.naturalWidth>0&&getComputedStyle(img).backgroundColor==='rgba(0, 0, 0, 0)')"), (width,'transparent original emblem failed')
+    # Inspect actual rendered alpha and the preserved colored mark, not only CSS.
+    if width==1440 and not content_page:
+        pixels=mark.evaluate("""async img=>{
+          await img.decode();const orig=new Image();orig.src='/hades/assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg';await orig.decode();
+          const c=document.createElement('canvas');c.width=c.height=1254;const ctx=c.getContext('2d',{willReadFrequently:true});
+          ctx.drawImage(orig,0,0,1254,1254);const source=ctx.getImageData(0,0,1254,1254).data;
+          ctx.clearRect(0,0,1254,1254);ctx.drawImage(img,0,0,1254,1254);const out=ctx.getImageData(0,0,1254,1254).data;
+          const corners=[[50,50],[1200,50],[50,1200],[1200,1200],[100,600],[1150,600]].map(([x,y])=>out[(y*1254+x)*4+3]);
+          let gold=0,preserved=0;for(let y=216;y<283;y++)for(let x=619;x<628;x++){const k=(y*1254+x)*4;if(source[k]>115&&source[k]>source[k+2]*1.25){gold++;if(out[k+3]>=245&&[0,1,2].every(j=>Math.abs(out[k+j]-source[k+j])<=4))preserved++;}}
+          return {corners,gold,preserved};
+        }""")
+        assert max(pixels['corners'])<=32, ('dark background still visible',pixels)
+        assert pixels['gold']>100 and pixels['preserved']/pixels['gold']>.95, ('original gold pixels not preserved',pixels)
+        print('PASS transparent emblem: '+str(pixels))
     assert brand.evaluate("""el=>{const r=el.getBoundingClientRect(),m=el.querySelector('img').getBoundingClientRect(),w=el.querySelector('.brand-name').getBoundingClientRect();return Math.abs((r.left+r.right-m.left-m.right)/2)<2&&Math.abs((r.left+r.right-w.left-w.right)/2)<2}"""), (width,'desktop/drawer HADES not centered')
     if width<=1100:
         assert page.locator('.topbar-name').evaluate("""el=>{const r=el.getBoundingClientRect(),p=el.parentElement.getBoundingClientRect();return Math.abs((r.left+r.right-p.left-p.right)/2)<2}"""), (width,'mobile HADES not centered')
