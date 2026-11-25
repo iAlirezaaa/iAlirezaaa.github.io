@@ -218,6 +218,27 @@ try:
             related = page.locator('[data-reading-related]')
             actual = sorted(related.locator('a[href]').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))"))
             assert actual == related_urls, (width, actual, related_urls)
+            relation_filter = related.locator('[data-reading-relation]')
+            if related_urls:
+                assert relation_filter.is_visible()
+                expected_relations = {}
+                for url_item in related_urls:
+                    node_id = raw_graph['nodes'][url_item]['id']
+                    outgoing = any(e['source']==current['id'] and e['target']==node_id for e in links)
+                    incoming = any(e['target']==current['id'] and e['source']==node_id for e in links)
+                    expected_relations[url_item] = 'mutual' if outgoing and incoming else 'outgoing' if outgoing else 'incoming'
+                actual_relations = related.locator('li[data-relation]').evaluate_all("(els)=>Object.fromEntries(els.map(el=>[el.querySelector('a').getAttribute('href'),el.dataset.relation]))")
+                assert actual_relations == expected_relations, (width,actual_relations,expected_relations)
+                relation_filter.focus()
+                relation_filter.press('Home')
+                relation_filter.press('ArrowDown')
+                assert relation_filter.input_value() == 'mutual'
+                for relation in ('mutual','outgoing','incoming','all'):
+                    relation_filter.select_option(relation)
+                    expected_visible = sorted(u for u,r in expected_relations.items() if relation=='all' or r==relation)
+                    actual_visible = sorted(related.locator('li[data-relation]:visible a').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))"))
+                    assert actual_visible == expected_visible, (width,relation,actual_visible,expected_visible)
+                related.screenshot(path=str(output / f"reading-relations-{width}.png"))
             toggle = history.locator('[data-reading-toggle]')
             toggle.focus()
             toggle.press('Space')

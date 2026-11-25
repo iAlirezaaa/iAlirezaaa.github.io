@@ -25,6 +25,32 @@ export function installReadingTrail({document, graph, here, storage}) {
     fill(related.querySelector('[data-reading-out]'), connected.filter(n => graph.links.some(l => l.source === current.id && l.target === n.id)));
     fill(related.querySelector('[data-reading-in]'), connected.filter(n => !graph.links.some(l => l.source === current.id && l.target === n.id)));
     for (const group of related.querySelectorAll('[data-reading-group]')) group.hidden = !group.querySelector('li');
+    const filter = related.querySelector('[data-reading-relation]');
+    const count = related.querySelector('[data-reading-count]');
+    const outgoing = new Set(graph.links.filter(l => l.source === current.id).map(l => l.target));
+    const incoming = new Set(graph.links.filter(l => l.target === current.id).map(l => l.source));
+    const labels = {mutual:'پیوند دوسویه', outgoing:'فقط از این نوشته', incoming:'فقط به این نوشته'};
+    for (const li of related.querySelectorAll('li')) {
+      const node = byUrl.get(li.querySelector('a').getAttribute('href'));
+      if (!node) continue;
+      const relation = outgoing.has(node.id) ? (incoming.has(node.id) ? 'mutual' : 'outgoing') : 'incoming';
+      li.dataset.relation = relation;
+      const badge = document.createElement('span');
+      badge.className = 'trail-relation-label'; badge.textContent = labels[relation]; li.append(badge);
+    }
+    if (filter && count) {
+      const format = new Intl.NumberFormat('fa-IR');
+      const apply = () => {
+        let visible = 0;
+        for (const li of related.querySelectorAll('[data-relation]')) {
+          li.hidden = filter.value !== 'all' && li.dataset.relation !== filter.value;
+          if (!li.hidden) visible++;
+        }
+        for (const group of related.querySelectorAll('[data-reading-group]')) group.hidden = !group.querySelector('li:not([hidden])');
+        count.textContent = visible ? format.format(visible) + ' از ' + format.format(connected.length) + ' ارتباط' : 'ارتباطی از این نوع وجود ندارد.';
+      };
+      filter.addEventListener('change', apply); apply();
+    }
     related.hidden = !connected.length;
   }
   const history = document.querySelector('[data-reading-history]');

@@ -276,3 +276,14 @@
 #reading-history-title{scroll-margin-block-start:calc(var(--topbar-height) + 1rem)}
 @media(prefers-reduced-motion:no-preference){.recent-reading a{transition:background-color .14s}}
 @media print{.recent-reading{display:none!important}}
+
+/* REVIEW: relation types and accessible native filter. */
+
+.trail-filter{display:flex;align-items:center;gap:.5rem .75rem;flex-wrap:wrap;margin:.8rem 0;color:var(--muted);font-size:.82rem}
+.trail-filter select{min-height:40px;max-width:100%;padding:.35rem .5rem;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);font:inherit}
+.trail-filter p{margin:0;flex-basis:100%}
+.trail-panel [data-relation]{padding-block:.15rem}
+.trail-panel [data-relation] a{padding-block:.35rem .15rem}
+.trail-relation-label{display:block;padding:0 .4rem .4rem;color:var(--muted);font-size:.75rem}
+.trail-panel [data-relation=mutual] .trail-relation-label{border-inline-start:2px solid var(--brand);margin-inline-start:.4rem;padding-inline-start:.4rem}
+@media print{.trail-filter{display:none!important}.trail-panel [data-relation][hidden],.trail-panel [data-reading-group][hidden]{display:block!important}}
