@@ -292,6 +292,7 @@ function initializeGarden() {
   function drawGraph(container,data,all=false){
     container.dataset.graphReady='false';
     atlasState.delete(container);
+    delete container.dataset.layoutChanged;
     const resetButton=container.parentElement?.querySelector('[data-graph-layout-reset]');
     if(resetButton)resetButton.hidden=true;
     container.replaceChildren();
@@ -467,6 +468,7 @@ function initializeGarden() {
       state.apply();
     };
     state.reset=()=>{
+      state.reflow();
       for(const n of nodeEls){n.x=n.homeX;n.y=n.homeY;}
       state.scale=1;state.dx=0;state.dy=0;delete container.dataset.layoutChanged;
       if(resetButton)resetButton.hidden=true;

@@ -171,8 +171,12 @@ try:
             node = graph.locator('.graph-node').first
             dot = node.locator('circle:not(.graph-hit)').first
             node_id = node.get_attribute('data-graph-id')
-            original = (float(dot.get_attribute('cx')), float(dot.get_attribute('cy')))
             graph.scroll_into_view_if_needed()
+            # Responsive reflow can change the coordinate system when inspector text wraps.
+            # Compare actual relative positions to the original home position, not stale pixels.
+            position = """el=>{const v=el.ownerSVGElement.viewBox.baseVal;return [Number(el.getAttribute('cx'))/v.width,Number(el.getAttribute('cy'))/v.height]}"""
+            original_normalized = dot.evaluate(position)
+            original = (float(dot.get_attribute('cx')), float(dot.get_attribute('cy')))
             box = dot.bounding_box()
             bounds = graph.bounding_box()
             x, y = box['x'] + box['width']/2, box['y'] + box['height']/2
@@ -201,7 +205,22 @@ try:
             assert float(dot.get_attribute('cx')) > moved[0]
             assert graph.evaluate(check_labels)['intersections'] == 0
             page.locator('[data-graph-zoom="reset"]').click()
-            assert abs(float(dot.get_attribute('cx'))-original[0]) < 1 and abs(float(dot.get_attribute('cy'))-original[1]) < 1
+            reset_normalized = dot.evaluate(position)
+            assert max(abs(a-b) for a,b in zip(original_normalized, reset_normalized)) < .003, (width, 'reset relative position', original_normalized, reset_normalized)
+            assert graph.get_attribute('data-layout-changed') is None
+            # Resize while a node has been moved, then check normalized position and camera.
+            node.focus()
+            node.press('ArrowRight')
+            page.locator('[data-graph-zoom="in"]').click()
+            before_resize = dot.evaluate(position)
+            old_viewbox = graph.locator('svg').get_attribute('viewBox')
+            page.set_viewport_size({'width':width+24,'height':850})
+            page.wait_for_function("old=>document.querySelector('[data-global-graph] svg').getAttribute('viewBox')!==old",arg=old_viewbox)
+            assert max(abs(a-b) for a,b in zip(before_resize,dot.evaluate(position))) < .003, (width, 'node position lost on resize')
+            assert float(graph.get_attribute('data-scale')) > 1
+            page.set_viewport_size({'width':width,'height':900})
+            page.wait_for_function("""()=>{const c=document.querySelector('[data-global-graph]'),v=c.querySelector('svg').viewBox.baseVal;return v.width===Math.max(200,c.clientWidth)&&v.height===Math.max(200,c.clientHeight)}""")
+            page.locator('[data-graph-zoom="reset"]').click()
             page.locator('[data-graph-zoom="in"]').click()
             assert float(graph.get_attribute("data-scale")) > 1
             page.wait_for_timeout(300) # allow ResizeObserver to settle; camera must survive
