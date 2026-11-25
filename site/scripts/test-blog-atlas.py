@@ -81,6 +81,30 @@ try:
                 page.keyboard.press('Escape')
                 assert nav.evaluate('(el)=>el.inert')
                 assert page.locator('.mobile-tree-toggle').evaluate('(el)=>document.activeElement===el')
+            if width > 900:
+                controls = page.locator('[data-workspace-panes]')
+                assert controls.is_visible()
+                controls.locator('summary').click()
+                slider = controls.locator('[data-workspace-width="navigation"]')
+                slider.press('End')
+                assert slider.input_value() == '300'
+                assert abs(nav.bounding_box()['width'] - 300) <= 2
+                toggle = controls.locator('[data-workspace-toggle="navigation"]')
+                toggle.click()
+                assert not nav.is_visible() and nav.evaluate('(el)=>el.inert')
+                toggle.click()
+                assert nav.is_visible() and not nav.evaluate('(el)=>el.inert')
+                focus = controls.locator('[data-workspace-focus]')
+                focus.click()
+                assert focus.get_attribute('aria-pressed') == 'true' and not nav.is_visible()
+                focus.click()
+                assert nav.is_visible() and focus.get_attribute('aria-pressed') == 'false'
+                assert slider.input_value() == '300'
+                controls.locator('[data-workspace-reset]').click()
+                assert slider.input_value() == '230'
+                controls.locator('summary').click()
+            else:
+                assert not page.locator('[data-workspace-panes]').is_visible()
             page.screenshot(path=str(output / f"workspace-{width}.png"), full_page=False)
             preview = page.locator("[data-atlas-preview]")
             page.wait_for_selector('[data-atlas-preview][data-graph-ready="true"] .graph-node')
@@ -152,6 +176,29 @@ try:
             restored=preview.evaluate(snapshot)
             assert restored['urls']==expected_urls and restored['count']==full_count, (width,'restored inline atlas',restored)
             assert preview.evaluate(check_labels)['intersections']==0
+            if width == 1440:
+                article = next(u for u in expected_urls if '/notes/' not in u)
+                page.goto('http://127.0.0.1:8765' + article, wait_until='load')
+                controls = page.locator('[data-workspace-panes]')
+                controls.locator('summary').click()
+                context = page.locator('#garden-context')
+                toggle = controls.locator('[data-workspace-toggle="context"]')
+                assert context.is_visible()
+                toggle.click()
+                assert not context.is_visible() and context.evaluate('(el)=>el.inert')
+                toggle.click()
+                slider = controls.locator('[data-workspace-width="context"]')
+                slider.press('End')
+                assert slider.input_value() == '280'
+                assert abs(context.bounding_box()['width'] - 280) <= 2
+                controls.locator('[data-workspace-focus]').click()
+                assert not context.is_visible() and not page.locator('#garden-navigation').is_visible()
+                controls.locator('[data-workspace-focus]').click()
+                assert context.is_visible() and slider.input_value() == '280'
+                assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+                controls.locator('[data-workspace-reset]').click()
+                controls.locator('summary').click()
+                page.screenshot(path=str(output / 'workspace-article-1440.png'),full_page=False)
             assert not errors, (width, errors)
             results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "background_while_modal": after, "restored_count": restored["count"], "console_page_errors": errors, "status": "PASS"})
             page.close()

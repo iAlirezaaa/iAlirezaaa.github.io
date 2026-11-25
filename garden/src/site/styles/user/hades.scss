@@ -209,3 +209,34 @@
   .workspace-strip :is(a,button),.garden-filetree .tree-note a{transition:background-color .14s,color .14s}
 }
 @media print{.workspace-strip,.workspace-tree-filter{display:none!important}body.hades-garden.is-directory .garden-layout{display:block;padding:0}}
+
+
+/* REVIEW — adjustable, reversible workspace; mobile retains accessible drawers. */
+.workspace-pane-tools{display:none}
+@media(min-width:901px){
+  .workspace-pane-tools{display:flex;justify-content:flex-end;align-items:flex-start;gap:.55rem;flex-wrap:wrap;margin:-.75rem 0 1rem;font-size:.8rem}
+  .workspace-pane-tools>button,.workspace-pane-tools summary{border:1px solid var(--line);border-radius:4px;padding:.3rem .65rem;min-height:36px;background:var(--surface);color:var(--muted);cursor:pointer;font:inherit}
+  .workspace-pane-tools details{max-width:100%;min-width:0}
+  .workspace-pane-tools details[open]{flex-basis:min(100%,23rem)}
+  .workspace-pane-fields{display:grid;gap:.45rem;padding:.75rem;border:1px solid var(--line);background:var(--surface);margin-block-start:.3rem;border-radius:5px}
+  .workspace-pane-fields button{font-size:.78rem;min-height:36px;text-align:start}
+  .workspace-pane-fields label{display:flex;justify-content:space-between;gap:.5rem;color:var(--muted)}
+  .workspace-pane-fields output{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+  .workspace-pane-fields input{width:100%;min-width:0;accent-color:var(--brand)}
+  .workspace-pane-tools button[aria-pressed=true]{color:var(--ink);box-shadow:inset -2px 0 var(--brand);background:var(--subtle)}
+  .workspace-pane-tools button:disabled{opacity:.5;cursor:default}
+  .workspace-context-options{display:none}
+  body.hades-garden.is-directory .garden-layout,body.hades-garden:not(.is-directory) .garden-layout{grid-template-columns:var(--workspace-explorer-width,230px) minmax(0,1fr)}
+  body.hades-garden[data-workspace-navigation=closed] .garden-navigation,body.hades-garden[data-workspace-focus=true] .garden-navigation{display:none}
+  body.hades-garden[data-workspace-navigation=closed] .garden-layout,body.hades-garden[data-workspace-focus=true] .garden-layout{grid-template-columns:minmax(0,1fr)}
+  body.hades-garden[data-workspace-focus=true].is-directory .garden-content{max-width:65rem}
+}
+@media(min-width:1241px){
+  .workspace-context-options{display:grid;gap:.45rem}
+  body.hades-garden:not(.is-directory) .garden-layout{grid-template-columns:var(--workspace-explorer-width,230px) minmax(0,1fr) var(--workspace-context-width,240px)}
+  body.hades-garden:not(.is-directory)[data-workspace-navigation=closed] .garden-layout{grid-template-columns:minmax(0,1fr) var(--workspace-context-width,240px)}
+  body.hades-garden:not(.is-directory)[data-workspace-context=closed] .garden-layout{grid-template-columns:var(--workspace-explorer-width,230px) minmax(0,1fr)}
+  body.hades-garden[data-workspace-context=closed] .garden-context,body.hades-garden[data-workspace-focus=true] .garden-context{display:none}
+  body.hades-garden:not(.is-directory)[data-workspace-navigation=closed][data-workspace-context=closed] .garden-layout,body.hades-garden:not(.is-directory)[data-workspace-focus=true] .garden-layout{grid-template-columns:minmax(0,1fr)}
+}
+@media print{.workspace-pane-tools{display:none!important}body.hades-garden .garden-layout{display:block!important}}

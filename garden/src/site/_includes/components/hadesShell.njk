@@ -24,6 +24,22 @@
       <button type="button" data-global-graph-open aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 7 6 5 6-7M12 12l6 7M12 12l-6 6"/><circle cx="6" cy="7" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="19" r="2"/><circle cx="6" cy="18" r="2"/></svg><span>نقشهٔ دانش</span></button>
       {% if not blogIndex %}<span class="workspace-current" aria-current="page" title="{{ title or page.fileSlug }}">{{ title or page.fileSlug }}</span>{% endif %}
     </nav>
+    <section class="workspace-pane-tools" data-workspace-panes hidden aria-label="تنظیم فضای مطالعه">
+      <button type="button" data-workspace-focus aria-pressed="false">حالت تمرکز</button>
+      <details><summary>تنظیم پنل‌ها</summary>
+        <div class="workspace-pane-fields">
+          <button type="button" data-workspace-toggle="navigation" aria-controls="garden-navigation" aria-pressed="true">کاوشگر نوشته‌ها</button>
+          <label for="workspace-explorer-width">عرض کاوشگر <output data-workspace-value="navigation"></output></label>
+          <input type="range" id="workspace-explorer-width" data-workspace-width="navigation" min="180" max="300" step="10" value="230">
+          {% if not isDirectory %}<div class="workspace-context-options">
+            <button type="button" data-workspace-toggle="context" aria-controls="garden-context" aria-pressed="true">پنل ارتباط‌ها</button>
+            <label for="workspace-context-width">عرض ارتباط‌ها <output data-workspace-value="context"></output></label>
+            <input type="range" id="workspace-context-width" data-workspace-width="context" min="180" max="280" step="10" value="240">
+          </div>{% endif %}
+          <button type="button" data-workspace-reset>بازنشانی پنل‌ها</button>
+        </div>
+      </details>
+    </section>
     <header class="note-header">
       <nav class="note-breadcrumb" aria-label="مسیر صفحه"><a href="/fa/blog/">وبلاگ هادس</a><span aria-hidden="true">/</span>{% if categoryURL %}<a href="{{ categoryURL }}">{{ categoryLabel or group }}</a>{% else %}<span>{{ group or 'یادداشت‌ها' }}</span>{% endif %}</nav>
       <h1>{{ title or page.fileSlug }}</h1>

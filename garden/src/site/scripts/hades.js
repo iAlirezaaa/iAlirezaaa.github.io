@@ -1,4 +1,5 @@
 import { installCodeCopy } from './reader-tools.js';
+import { installWorkspacePanes } from './workspace-panes.js';
 /** HADES' Persian reading layer for the upstream Eleventy Digital Garden. */
 export function normalizeSearchText(value = '') {
   return String(value).normalize('NFKC').toLocaleLowerCase('fa-IR')
@@ -204,10 +205,10 @@ function initializeGarden() {
 
   const panels={navigation:$('#garden-navigation'),context:$('#garden-context')};
   const navMobile=matchMedia('(max-width: 900px)'),contextMobile=matchMedia('(max-width: 1240px)');
-  let panelOpener=null,activePanel=null;
+  let panelOpener=null,activePanel=null,workspace=null;
   const backdrop=$('.garden-backdrop');
   function syncPanelInert() {
-    for(const [name,panel] of Object.entries(panels))if(panel)panel.inert=(name==='navigation'?navMobile.matches:contextMobile.matches)&&activePanel!==name;
+    for(const [name,panel] of Object.entries(panels))if(panel){const mobile=name==='navigation'?navMobile.matches:contextMobile.matches;panel.inert=mobile?activePanel!==name:Boolean(workspace?.isHidden(name));}
   }
   function closePanel(restore=true) {
     const old=activePanel;activePanel=null;delete document.body.dataset.openPanel;
@@ -240,6 +241,7 @@ function initializeGarden() {
     }
   });
   [navMobile,contextMobile].forEach(query=>query.addEventListener('change',()=>{closePanel(false);syncPanelInert();}));
+  workspace=installWorkspacePanes({body:document.body,storage:safeStorage,onChange:syncPanelInert});
   syncPanelInert();
 
   // Dates, reading time, progress and section indicator are all local.
