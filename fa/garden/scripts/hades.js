@@ -316,23 +316,38 @@ function initializeGarden() {
       n.y=height/2+Math.sin(angle)*Math.max(55,height*.34)*fraction*spread;
       if(nodes.length===1){n.x=width/2;n.y=height/2;}
     }));
+    if(container.matches('[data-local-graph]')){
+      const center=nodes.find(n=>n.current);
+      if(center){
+        center.x=width/2;center.y=height/2;
+        const neighbors=nodes.filter(n=>!n.current);
+        neighbors.forEach((n,i)=>{
+          const angle=2*Math.PI*i/Math.max(1,neighbors.length)-Math.PI/2;
+          n.x=width/2+Math.cos(angle)*width*.32;
+          n.y=height/2+Math.sin(angle)*height*.34;
+        });
+      }
+    }
     const byId=new Map(nodes.map(n=>[n.id,n]));
     const edges=rawEdges.map(l=>({source:byId.get(l.source),target:byId.get(l.target)}));
     const edgeEls=edges.map(e=>{const line=svgElement('line',{x1:e.source.x,y1:e.source.y,x2:e.target.x,y2:e.target.y,class:'graph-edge'});group.append(line);return{...e,line};});
     const nodeEls=[];
     const preview=container.closest('.atlas-preview-section');
-    const status=interactive?$('[data-graph-detail]'):preview?.querySelector('[data-atlas-detail]');
-    const total=interactive?$('[data-graph-count]'):preview?.querySelector('[data-atlas-count]');
+    const local=container.closest('[data-local-graph-section]');
+    const status=interactive?$('[data-graph-detail]'):preview?.querySelector('[data-atlas-detail]')||local?.querySelector('[data-local-detail]');
+    const total=interactive?$('[data-graph-count]'):preview?.querySelector('[data-atlas-count]')||local?.querySelector('[data-local-count]');
     if(total)total.textContent=numbers.format(counts.article)+' مقاله · '+numbers.format(counts.note)+' یادداشت · '+numbers.format(edges.length)+' ارتباط';
     if(status)status.textContent='برای دیدن عنوان کامل، روی یک نود مکث کن یا با صفحه‌کلید آن را انتخاب کن.';
+    const defaultId=local?(nodes.find(n=>n.current)?.id??null):null;
     let active=null;
     const state={scale:1,dx:0,dy:0,apply:null,reflow:null,width,height};
     function prioritize(id){
+      if(id===null&&local)id=defaultId;
       active=id;
       const neighbors=new Set([id]);
       for(const e of edgeEls){const connected=e.source.id===id||e.target.id===id;e.line.classList.toggle('is-related',id!==null&&connected);e.line.classList.toggle('is-dim',id!==null&&!connected);if(connected){neighbors.add(e.source.id);neighbors.add(e.target.id);}}
       for(const n of nodeEls){n.a.classList.toggle('is-related',id!==null&&neighbors.has(n.id));n.a.classList.toggle('is-dim',id!==null&&!neighbors.has(n.id));}
-      if(status)status.textContent=id===null?'یک نود را انتخاب یا با صفحه‌کلید روی آن فوکوس کن.':byId.get(id).title+' · '+numbers.format(byId.get(id).degree)+' ارتباط';
+      if(status)status.textContent=id===null?'یک نود را انتخاب یا با صفحه‌کلید روی آن فوکوس کن.':byId.get(id).title+' · '+numbers.format(byId.get(id).degree)+' ارتباط'+(local?' در این نما':'');
       placeLabels();
     }
     for(const [i,node] of nodes.entries()){
@@ -380,7 +395,7 @@ function initializeGarden() {
     state.apply=()=>{group.setAttribute('transform','translate('+(width/2+state.dx)+' '+(height/2+state.dy)+') scale('+state.scale+') translate('+(-width/2)+' '+(-height/2)+')');container.dataset.scale=String(state.scale);placeLabels();};
     state.reflow=placeLabels;
     atlasState.set(container,state);
-    state.apply();document.fonts?.ready.then(()=>{if(svg.isConnected)placeLabels();});
+    state.apply();if(local&&defaultId!==null)prioritize(defaultId);document.fonts?.ready.then(()=>{if(svg.isConnected)placeLabels();});
     if(interactive){
       let drag=null;
       svg.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('a'))return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,dx:state.dx,dy:state.dy};svg.setPointerCapture(e.pointerId);svg.classList.add('is-panning');});
