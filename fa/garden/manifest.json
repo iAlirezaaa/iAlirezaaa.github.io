@@ -1154,7 +1154,7 @@
     "/fa/garden/ddpm/": "/fa/blog/notes/ddpm/"
   },
   "assets": {
-    "/fa/garden/~random/index.html": "5df0629b697d5817ebd28a313af0c1d119056fe9011c7a713cd9bc18c5866236",
+    "/fa/garden/~random/index.html": "d808e569d3146b65dda2dd723f88883202186c697e626de6eb8712b8e1e0ffaf",
     "/fa/garden/404/index.html": "5b5686973b6208a72cd50ee29bd3e40800be9cd3805c78db96ae5b0a895e1081",
     "/fa/blog/categories/fundamentals/index.html": "3d42ae48de746330710763a2456ef26b608ecf5d87690a692d91709c03ab5cb7",
     "/fa/blog/categories/index.html": "cba75207f340334815d7c73f84744f698d1e4540f538024009958975b5919a7c",
@@ -1190,7 +1190,7 @@
     "/fa/blog/tags/python/index.html": "96109a3ce12fda8c4edba18c48b49c94204e8de65a8cb245e37ab691f39bc3bb",
     "/fa/blog/tags/rife/index.html": "70c38d66a1017a94856c01f3168c3caef6b9b8e0274c1cce7befe4a2a05c7f73",
     "/fa/blog/tags/workflow/index.html": "b995b58abd49d2bcf89ad736d660c21bc4fd6981f6acf60121d1afdb090e98ca",
-    "/fa/garden/feed.xml": "1ea4fa75d18dd4ec11428318868dd4747e32e0fdf1c58f4b5f0593fd166d6cae",
+    "/fa/garden/feed.xml": "741d5d63a749a02ff97570d9e9b7f29acc515d322550494d8d7ed952d6917bea",
     "/fa/garden/filetree.html": "2cf78411ca799f8b0e7f2622e43ec9d23de27632d70ece83c43fe15933fe419d",
     "/fa/garden/fonts/mikhak.woff2": "18e507e1ae85db40fac1ae651655ebdf5b7ec990835328bdede753ce6654007a",
     "/fa/garden/fonts/OFL.txt": "071f566f77f4d56b39c15c9f685bc8806b04a1a9543ad6c5f3806497996d046f",
@@ -1215,7 +1215,7 @@
     "/fa/garden/scripts/reader-tools.js": "ce941cf8b83b556bfdfe4d0b33a41078d92f8d6e8a93baea2c67b4e1d144db6e",
     "/fa/garden/scripts/reading-trail.js": "d500e1e8e6a15e94cec1d442b830b804a27c7e47e54ebf6673017d0addd23819",
     "/fa/garden/scripts/workspace-panes.js": "52a82fbf47edad7cfb4aef0af2aa1a2b9e081f29314771e2f2cba91a188b8206",
-    "/fa/garden/searchIndex.json": "f5f56a8f826790ed0a1a0ac897c5c95216af1bb4a5310b820a3b4df71afee5aa",
+    "/fa/garden/searchIndex.json": "53d92d54baa3410c9835968af6633c7a8bc49c1fc162cf8380a1609b3e85dd83",
     "/fa/garden/sitemap.xml": "ebf168b0f5ab446e6afcd4bd808f7546bb33db43ddf44bfcd20a10b748294d82",
     "/fa/garden/styles/custom-style.css": "e230d094db3d021ddaa2541c9bc96d31c777052b9cf34b07a3beb7d524e95867",
     "/fa/garden/styles/custom-style.css.map": "96fd2d10919de215cbdd74f73d1267c6072d3b485bd93ce0cc2a12eac994a470",
