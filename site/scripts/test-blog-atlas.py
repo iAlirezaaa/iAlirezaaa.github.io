@@ -79,7 +79,11 @@ def assert_focus_trapped(page, selector):
         }""", {"selector": FOCUSABLE, "end": end})
         assert count > 0, (selector, 'no keyboard targets')
         page.keyboard.press(key)
-        assert panel.evaluate('(el)=>el.contains(document.activeElement)'), (selector, key, 'focus escaped')
+        focus = panel.evaluate("""el=>{const a=document.activeElement;return {
+          inside:el.contains(a),tag:a?.tagName,id:a?.id,classes:a?.getAttribute('class'),
+          label:a?.getAttribute('aria-label'),tabindex:a?.getAttribute('tabindex'),open:el.open
+        }}""")
+        assert focus['inside'], (selector, key, 'focus escaped', focus)
     page.locator('#content').evaluate('(el)=>el.focus()')
     assert panel.evaluate('(el)=>el.contains(document.activeElement)'), (selector, 'background accepted focus')
 
@@ -174,6 +178,9 @@ def check_search_and_settings(page, width):
     dialog = page.locator('#garden-search')
     assert dialog.is_visible()
     assert page.locator('#garden-search-input').evaluate('(el)=>document.activeElement===el')
+    # The result list is fetched asynchronously. Establish its final keyboard
+    # endpoints before testing Tab wrapping; do not focus a replaced result.
+    page.wait_for_function("document.querySelectorAll('#garden-search-results a').length>0")
     assert_focus_trapped(page, '#garden-search')
     field = page.locator('#garden-search-input')
     field.fill('DDPM')

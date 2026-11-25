@@ -72,7 +72,9 @@ function initializeGarden() {
   $$('[data-setting]').forEach(control=>control.addEventListener('change',()=>{preferences[control.dataset.setting]=control.value;applyPreferences(true);}));
   $('[data-settings-reset]')?.addEventListener('click',()=>{preferences={...defaults};applyPreferences(true);});
 
-  // Native dialogs provide focus trapping and Escape; restore the opener explicitly.
+  // Native dialogs make the page inert and handle Escape. Keep Tab inside the
+  // visible controls as well: Chrome can otherwise tab into browser chrome
+  // after the last control, even while a modal dialog is open.
   const searchDialog=$('#garden-search'), searchInput=$('#garden-search-input'), settingsDialog=$('#garden-settings'), graphDialog=$('#garden-graph');
   const dialogOpeners=new WeakMap();
   function openDialog(dialog,focusTarget) {
@@ -88,6 +90,18 @@ function initializeGarden() {
     $('[data-dialog-close]',dialog)?.addEventListener('click',()=>dialog.close());
     dialog.addEventListener('close',()=>dialogOpeners.get(dialog)?.focus());
     dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+    dialog.addEventListener('keydown',event=>{
+      if(event.key!=='Tab'||event.altKey||event.ctrlKey||event.metaKey)return;
+      const targets=$$('a[href],button,input,select,textarea,summary,[tabindex]',dialog).filter(element=>{
+        const visibility=getComputedStyle(element).visibility;
+        return element.tabIndex>=0&&!element.matches(':disabled')&&!element.closest('[inert]')&&element.getClientRects().length&&visibility!=='hidden'&&visibility!=='collapse';
+      });
+      const first=targets[0],last=targets.at(-1),active=document.activeElement;
+      if(!first){event.preventDefault();dialog.focus();return;}
+      if(event.shiftKey?(active===first||active===dialog||!dialog.contains(active)):(active===last||active===dialog||!dialog.contains(active))){
+        event.preventDefault();(event.shiftKey?last:first).focus();
+      }
+    });
   });
   $$('[data-settings-open]').forEach(button=>button.addEventListener('click',()=>openDialog(settingsDialog,$('[data-setting]',settingsDialog))));
 
