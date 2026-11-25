@@ -1,12 +1,12 @@
-<aside class="garden-navigation garden-panel" id="garden-navigation" aria-label="فهرست وبلاگ" data-panel="navigation">
-  <div class="panel-mobile-heading"><strong>نوشته‌ها</strong><button type="button" class="icon-button" data-panel-close aria-label="بستن فهرست نوشته‌ها">×</button></div>
-  <a class="garden-wordmark" href="/fa/blog/"><span lang="en" dir="ltr">HADES<span class="wordmark-dot">.</span></span><small>وبلاگ علیرضا عسگرپور</small></a>
-  <button class="garden-search-button" data-search-open type="button"><span>جست‌وجوی نوشته‌ها</span><kbd dir="ltr">⌘ K</kbd></button>
-  <nav class="garden-sections" aria-label="مسیرهای اصلی"><a href="/fa/blog/">همهٔ نوشته‌ها</a><a href="/fa/blog/#notes">یادداشت‌ها و مسیرها</a><a href="/fa/blog/categories/">بخش‌های وبلاگ</a><a href="/fa/blog/tags/">موضوع‌ها</a><button type="button" data-global-graph-open>نقشهٔ ارتباط‌ها</button></nav>
-  <div class="navigation-divider"></div>
-  <div class="tree-heading"><h2>کاوشگر نوشته‌ها</h2><button type="button" data-tree-collapse aria-label="باز و بسته کردن بخش‌ها">جمع کردن</button></div>
-  <div class="workspace-tree-filter" data-tree-filter-box hidden><label for="workspace-tree-query" class="sr-only">فیلتر عنوان نوشته‌ها</label><input id="workspace-tree-query" type="search" dir="auto" data-tree-filter placeholder="فیلتر عنوان‌ها…" autocomplete="off" aria-controls="workspace-filetree"><p data-tree-filter-status role="status"></p></div>
-  <nav class="garden-filetree" id="workspace-filetree" data-filetree aria-label="فهرست نوشته‌ها">{% include "plugins/dg-filetree/tree.njk" ignore missing %}<p class="filetree-loading">در حال دریافت فهرست…</p></nav>
-  <noscript><nav class="no-script-notes" aria-label="فهرست نوشته‌ها">{% for note in collections.note | notHidden %}<a href="{{note.url}}">{{note.data.title or note.fileSlug}}</a>{% endfor %}</nav></noscript>
-  <footer class="navigation-footer"><a href="/fa/">دربارهٔ هادس</a><a href="/fa/work/">آثار</a></footer>
+<aside class="garden-navigation garden-panel" id="garden-navigation" aria-label="فهرست نوشته‌ها" data-panel="navigation">
+  <div class="panel-mobile-heading"><strong>فهرست و جست‌وجو</strong><button type="button" class="icon-button" data-panel-close aria-label="بستن فهرست نوشته‌ها">×</button></div>
+  <a class="garden-wordmark" href="/fa/blog/" aria-label="صفحهٔ شروع وبلاگ هادس">
+    <img class="brand-original" src="/hades/assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg" width="48" height="48" alt="">
+    <span class="brand-name"><bdi>HADES</bdi><small>یادداشت‌های علیرضا عسگرپور</small></span>
+  </a>
+  <button type="button" class="garden-search-button" data-search-open aria-haspopup="dialog" aria-label="جست‌وجو در نوشته‌ها و یادداشت‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>جست‌وجو در نوشته‌ها</span><kbd dir="ltr">⌘ K</kbd></button>
+  <div class="tree-heading"><h2>نوشته‌ها</h2><button type="button" data-tree-collapse aria-label="باز و بسته کردن پوشه‌ها">باز کردن</button></div>
+  <nav class="garden-filetree" id="workspace-filetree" data-filetree aria-label="فهرست نوشته‌ها"><p class="filetree-loading">در حال دریافت فهرست…</p></nav>
+
+  <footer class="navigation-footer"><a href="/fa/">دربارهٔ هادس</a><button type="button" data-settings-open aria-haspopup="dialog" aria-label="تنظیمات ظاهر و اندازهٔ متن"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7m10 10 1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/><circle cx="12" cy="12" r="4"/></svg>ظاهر</button></footer>
 </aside>

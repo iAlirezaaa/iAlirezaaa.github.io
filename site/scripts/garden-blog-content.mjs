@@ -3,7 +3,7 @@ import { visibleEntries, readingStats } from '../public/fa/blog/reader-model.js'
 import { categories, topicNames, renderBlocks } from './render-blog.mjs'
 import { fileURLToPath } from 'node:url'
 import { readNotes } from '../../garden/scripts/publishing.mjs'
-import { topics, topicGroups, blogCopy, noteTaxonomy, noteKinds, entryTopics, getTopicId } from './blog-taxonomy.mjs'
+import { topics, topicGroups, blogCopy, noteTaxonomy, entryTopics, getTopicId } from './blog-taxonomy.mjs'
 
 // Approved articles remain authored in entries.js; the original Digital Garden
 // template renders them alongside notes. No duplicate public article sources.
@@ -30,19 +30,13 @@ function figure(asset, hero = false, index = 0) {
   return '<figure class="' + (hero ? 'hero ' : '') + 'article-figure' + (remotePaper ? ' paper-original' : '') + '"><img src="' + esc(asset.path) + '" alt="' + esc(asset.alt) + '" width="' + asset.width + '" height="' + asset.height + '" decoding="async" ' + (hero ? 'fetchpriority="high"' : 'loading="lazy"') + '>' + caption + '</figure>'
 }
 
-function discoveryAttributes({ title, description, categoryId, tags, date, minutes, kind, aliases = [] }) {
-  const vocabulary = tags.flatMap(id => [id, topics[id]?.name, ...(topics[id]?.aliases || [])])
-  return ' data-explorer-item data-kind="' + kind + '" data-category="' + esc(categoryId) + '" data-topics="' + esc(tags.join(' ')) + '" data-date="' + esc(date || '') + '" data-minutes="' + minutes + '" data-title="' + esc(title) + '" data-search="' + esc([title, description, categories[categoryId]?.name, ...vocabulary, ...aliases].filter(Boolean).join(' ')) + '"'
-}
-
-function cards(list, editorial = false) {
-  if (!list.length) return '<p class="directory-state">هنوز مقاله‌ای در این بخش منتشر نشده. <a href="/fa/blog/">مرور همهٔ نوشته‌ها</a></p>'
-  return '<ul class="garden-post-list garden-post-list--editorial' + (editorial ? '' : ' garden-post-list--archive') + '" data-explorer-list="articles">' + list.map((entry, index) => {
-    const tags = entryTopics(entry)
-    const featured = editorial && index === 0
-    const attrs = discoveryAttributes({ ...entry, tags, kind: 'article', minutes: readingStats(entry).minutes })
+// Directory entries are plain links. Finding a specific term belongs to the
+// single shared search; the landing page does not repeat it as a filter form.
+function cards(list) {
+  if (!list.length) return '<p class="directory-state">هنوز مقاله‌ای در این بخش منتشر نشده. <a href="/fa/blog/">بازگشت به شروع</a></p>'
+  return '<ul class="garden-post-list" data-content-list="articles">' + list.map(entry => {
     const date = dates.format(new Date(entry.date + 'T12:00:00Z'))
-    return '<li' + (featured ? ' class="is-featured"' : '') + attrs + '><a class="garden-post-cover internal-link" aria-label="خواندن: ' + esc(entry.title) + '" href="' + articlePath(entry) + '"><img src="' + esc(entry.hero.path) + '" alt="" width="' + entry.hero.width + '" height="' + entry.hero.height + '" decoding="async" ' + (featured ? 'fetchpriority="high"' : 'loading="lazy"') + '></a><div class="post-card-copy"><div class="post-card-eyebrow">' + (featured ? '<span class="editorial-kicker">' + blogCopy.index.featured + '</span>' : '') + '<a class="garden-post-category internal-link" href="' + categoryPath(entry.categoryId) + '">' + esc(categories[entry.categoryId]?.name || entry.category) + '</a></div><h3><a class="internal-link" href="' + articlePath(entry) + '">' + esc(entry.title) + '</a></h3><p class="post-card-summary">' + esc(entry.description) + '</p>' + tagLinks(tags) + '<p class="post-card-meta"><time datetime="' + entry.date + '">' + date + '</time><span>' + numbers.format(readingStats(entry).minutes) + ' دقیقه مطالعه</span></p></div></li>'
+    return '<li data-content-item data-kind="article"><div class="post-card-copy"><h3><a class="internal-link" href="' + articlePath(entry) + '">' + esc(entry.title) + '</a></h3><p class="post-card-summary">' + esc(entry.description) + '</p><p class="post-card-meta"><time datetime="' + entry.date + '">' + date + '</time><span>' + numbers.format(readingStats(entry).minutes) + ' دقیقه مطالعه</span></p></div></li>'
   }).join('') + '</ul>'
 }
 
@@ -57,17 +51,12 @@ function publishedNotes() {
 }
 
 function noteCards(list) {
-  return '<ul class="blog-knowledge-grid" data-explorer-list="notes">' + list.map(item => '<li' + discoveryAttributes({ ...item, tags: item.topics, kind: 'note' }) + '><a class="internal-link" href="' + esc(item.url) + '"><span class="knowledge-card-kind">' + esc(noteKinds[item.kind] || noteKinds.concept) + '</span><h3>' + esc(item.title) + '</h3><p>' + esc(item.description) + '</p><span class="knowledge-card-meta">' + numbers.format(item.minutes) + ' دقیقه مطالعه</span></a></li>').join('') + '</ul>'
+  return '<ul class="knowledge-note-list" data-content-list="notes">' + list.map(item => '<li data-content-item data-kind="note"><h3><a class="internal-link" href="' + esc(item.url) + '">' + esc(item.title) + '</a></h3><p>' + esc(item.description) + '</p><span class="knowledge-card-meta">' + numbers.format(item.minutes) + ' دقیقه مطالعه</span></li>').join('') + '</ul>'
 }
 
-function knowledgeSection(list, index = false) {
+function knowledgeSection(list) {
   if (!list.length) return ''
-  return '<section class="blog-knowledge-index" id="notes" data-explorer-section="notes" aria-labelledby="blog-knowledge-title"><header class="blog-knowledge-heading"><div><p class="editorial-kicker">برای عمیق‌تر خواندن</p><h2 id="blog-knowledge-title">' + blogCopy.notes.title + '</h2></div>' + (index ? '<button type="button" data-global-graph-open>' + blogCopy.graph + '</button>' : '') + '</header><p>' + blogCopy.notes.description + '</p>' + noteCards(list) + '</section>'
-}
-
-function explorerControls(activeTopics) {
-  const options = (items, empty) => '<option value="">' + empty + '</option>' + items.map(([id, label]) => '<option value="' + esc(id) + '">' + esc(label) + '</option>').join('')
-  return '<form class="blog-explorer" data-blog-explorer hidden aria-label="پیدا کردن نوشته" role="search"><div class="explorer-search"><label for="blog-query">' + blogCopy.filters.searchLabel + '</label><input id="blog-query" name="q" type="search" autocomplete="off" placeholder="' + blogCopy.filters.searchPlaceholder + '" aria-controls="blog-results" dir="auto"></div><details class="explorer-options"><summary>فیلتر و ترتیب نمایش<span aria-hidden="true">⌄</span></summary><div class="explorer-fields"><label for="blog-kind">نوع نوشته<select id="blog-kind" name="kind"><option value="">مقاله و یادداشت</option><option value="article">مقاله‌ها</option><option value="note">یادداشت‌ها و مسیرها</option></select></label><label for="blog-category">بخش وبلاگ<select id="blog-category" name="category">' + options(Object.entries(categories).map(([id, value]) => [id, value.name]), blogCopy.categories.all) + '</select></label><label for="blog-topic">موضوع<select id="blog-topic" name="topic">' + options(activeTopics.map(id => [id, topicNames[id]]), blogCopy.topics.all) + '</select></label><label for="blog-sort">ترتیب نمایش<select id="blog-sort" name="sort"><option value="newest">تازه‌ترین</option><option value="shortest">مطالعهٔ کوتاه‌تر</option><option value="title">عنوان، از الف تا ی</option></select></label></div></details><div class="explorer-status"><p role="status" aria-live="polite" aria-atomic="true" data-explorer-count></p><button type="reset">' + blogCopy.filters.reset + '</button></div></form><noscript><style>.blog-explorer[hidden]{display:none!important}</style><p class="directory-state">همهٔ نوشته‌ها در ادامه در دسترس‌اند. برای انتخاب موضوع، از <a href="/fa/blog/tags/">فهرست موضوع‌ها</a> استفاده کن.</p></noscript>'
+  return '<section class="blog-knowledge-index" id="notes" aria-labelledby="blog-knowledge-title"><h2 id="blog-knowledge-title">یادداشت‌ها</h2>' + noteCards(list) + '</section>'
 }
 
 function note(fileName, title, permalink, description, content, extra = {}) {
@@ -111,35 +100,33 @@ export function getBlogGardenNotes() {
   const notes = publishedNotes()
   const activeTags = Object.keys(topics).filter(id => approved.some(e => entryTopics(e, {includeLegacy:true}).includes(id)) || notes.some(n => n.topics.includes(id)))
   const publicTopics = activeTags.filter(id => !topics[id].legacy)
-  const directories = {group:blogCopy.categories.title,'dg-hide':true,contentClasses:'blog-directory',dgShowLocalGraph:false,dgShowBacklinks:false}
-  const summary = '<p class="blog-index-overview"><span>' + numbers.format(approved.length) + ' مقاله</span><span>' + numbers.format(notes.length) + ' یادداشت و مسیر</span><span>علیرضا عسگرپور</span></p>'
-
-  const indexContent = '<div class="blog-discovery-intro">' + summary + '</div>' + explorerControls(publicTopics) + '<div id="blog-results"><section data-explorer-section="articles" aria-labelledby="articles"><h2 class="blog-index-section-title" id="articles">مقاله‌ها</h2>' + cards(approved,true) + '</section>' + knowledgeSection(notes,true) + '<section class="explorer-empty" data-explorer-empty hidden><h2>' + blogCopy.filters.emptyTitle + '</h2><p>' + blogCopy.filters.emptyDescription + '</p><button type="button" data-explorer-reset>نمایش همهٔ نوشته‌ها</button></section></div>'
-  const records = [note('نوشته‌ها/همهٔ نوشته‌ها.md',blogCopy.index.title,root,blogCopy.index.description,indexContent,{...directories,blogIndex:true,group:'همهٔ نوشته‌ها'})]
+  const directories = {group:blogCopy.categories.title,'dg-hide':true,contentClasses:'blog-directory',dgShowLocalGraph:true,dgShowBacklinks:false}
+  const introduction = '<div class="blog-start-intro" id="notes"><p class="start-links">اگر تازه به اینجا آمده‌ای، <a class="internal-link" href="/fa/blog/notes/start/">راهنمای مطالعه</a> مسیرها را نشان می‌دهد. برای شروع از مفهوم‌های ساخت تصویر، <a class="internal-link" href="/fa/blog/notes/diffusion/">دیفیوژن؛ از نویز تا تصویر</a> را دنبال کن.</p></div>'
+  const indexContent = introduction + '<section class="blog-latest" aria-labelledby="articles"><h2 class="blog-index-section-title" id="articles">تازه‌ترین نوشته‌ها</h2>' + cards(approved) + '</section>'
+  const records = [note('نوشته‌ها/همهٔ نوشته‌ها.md','از اینجا شروع کن',root,'یادداشت‌های هادس دربارهٔ هوش مصنوعی، تصویر و ساختن.',indexContent,{...directories,blogIndex:true,group:'شروع'})]
 
   const categoryCards = '<ul class="garden-category-list">' + Object.entries(categories).map(([id,cat]) => {
     const articleCount = approved.filter(e => e.categoryId === id).length
     const noteCount = notes.filter(n => n.categoryId === id).length
     return '<li><a class="internal-link" href="' + categoryPath(id) + '"><span class="directory-prompt">' + esc(cat.prompt) + '</span><h2>' + esc(cat.name) + '</h2><p>' + esc(cat.description) + '</p><span class="directory-count">' + numbers.format(articleCount) + ' مقاله · ' + numbers.format(noteCount) + ' یادداشت</span></a></li>'
   }).join('') + '</ul>'
-  const directoryNav = '<nav class="garden-directory-nav" aria-label="مرور وبلاگ"><a href="/fa/blog/">همهٔ نوشته‌ها</a><a href="/fa/blog/categories/">بخش‌های وبلاگ</a><a href="/fa/blog/tags/">موضوع‌ها</a></nav>'
-  records.push(note('راهنماها/دسته‌بندی‌ها.md',blogCopy.categories.title,root+'categories/',blogCopy.categories.description,directoryNav + categoryCards,directories))
+  records.push(note('راهنماها/دسته‌بندی‌ها.md',blogCopy.categories.title,root+'categories/',blogCopy.categories.description,categoryCards,directories))
   const topicDirectory = topicGroups.map(group => '<section class="topic-group" aria-labelledby="topic-group-' + group.id + '"><h2 id="topic-group-' + group.id + '">' + esc(group.name) + '</h2><ul class="topic-directory-grid">' + publicTopics.filter(id => topics[id].group === group.id).map(id => {
     const count = approved.filter(e => entryTopics(e).includes(id)).length + notes.filter(n => n.topics.includes(id)).length
     return '<li><a class="internal-link" href="' + tagPath(id) + '"><h3>' + esc(topicNames[id]) + '</h3><p>' + esc(topics[id].description) + '</p><span>' + numbers.format(count) + ' نوشته</span></a></li>'
   }).join('') + '</ul></section>').join('')
-  records.push(note('راهنماها/برچسب‌ها.md',blogCopy.topics.title,root+'tags/',blogCopy.topics.description,directoryNav + topicDirectory,{...directories,group:blogCopy.topics.title}))
+  records.push(note('راهنماها/برچسب‌ها.md',blogCopy.topics.title,root+'tags/',blogCopy.topics.description,topicDirectory,{...directories,group:blogCopy.topics.title}))
 
   for (const [id,cat] of Object.entries(categories)) {
     const list = approved.filter(e => e.categoryId === id)
     const matchingNotes = notes.filter(n => n.categoryId === id)
     const robots = list.length || matchingNotes.length ? 'index, follow' : 'noindex, follow'
-    records.push(note('راهنماها/دسته‌ها/'+id+'.md',cat.name,categoryPath(id),cat.description,directoryNav + '<h2 class="blog-index-section-title" id="articles">مقاله‌ها</h2>' + cards(list) + knowledgeSection(matchingNotes),{...directories,robots,metatags:{description:cat.description,robots}}))
+    records.push(note('راهنماها/دسته‌ها/'+id+'.md',cat.name,categoryPath(id),cat.description,'<h2 class="blog-index-section-title" id="articles">مقاله‌ها</h2>' + cards(list) + knowledgeSection(matchingNotes),{...directories,robots,metatags:{description:cat.description,robots}}))
   }
   for (const id of activeTags) {
     const title = topicNames[id]
     const description = topics[id].description
-    const content = directoryNav + '<h2 class="blog-index-section-title" id="articles">مقاله‌ها</h2>' + cards(approved.filter(e => entryTopics(e,{includeLegacy:true}).includes(id))) + knowledgeSection(notes.filter(n => n.topics.includes(id)))
+    const content = '<h2 class="blog-index-section-title" id="articles">مقاله‌ها</h2>' + cards(approved.filter(e => entryTopics(e,{includeLegacy:true}).includes(id))) + knowledgeSection(notes.filter(n => n.topics.includes(id)))
     records.push(note('راهنماها/برچسب‌ها/'+id+'.md',title,tagPath(id),description,content,{...directories,canonical:origin+root,robots:'noindex, follow',metatags:{description,robots:'noindex, follow'}}))
   }
   for (const entry of approved) {

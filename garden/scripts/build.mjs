@@ -56,12 +56,19 @@ export function buildDigitalGarden(destination,extraNotes=[]) {
   const gardenOut=path.join(output,'fa/garden')
   fs.rmSync(gardenOut,{recursive:true,force:true});fs.mkdirSync(gardenOut,{recursive:true})
   const textTypes=new Set(['.html','.js','.css','.json','.xml','.svg','.webmanifest'])
+  // Render the tree once, then reuse the finished markup. Every page gets a
+  // usable no-JavaScript explorer without invoking the recursive macro per page.
+  const renderedTree=fs.readFileSync(path.join(built,'filetree.html'),'utf8')
   const assets={}
   for(const file of walk(built)){
     const rel=path.relative(built,file).split(path.sep).join('/')
     const dest=path.join(rel.startsWith('fa/blog/')?output:gardenOut,rel)
     fs.mkdirSync(path.dirname(dest),{recursive:true})
-    if(textTypes.has(path.extname(file))){fs.writeFileSync(dest,prefixText(fs.readFileSync(file,'utf8'),path.extname(file)))}else fs.copyFileSync(file,dest)
+    if(textTypes.has(path.extname(file))){
+      let text=fs.readFileSync(file,'utf8')
+      if(path.extname(file)==='.html')text=text.replace(/(<nav\b[^>]*\bdata-filetree(?:="")?[^>]*>)[\s\S]*?<\/nav>/g,(_,opening)=>opening+renderedTree+'</nav>')
+      fs.writeFileSync(dest,prefixText(text,path.extname(file)))
+    }else fs.copyFileSync(file,dest)
     assets['/'+path.relative(output,dest).split(path.sep).join('/')]=hash(fs.readFileSync(dest))
   }
   // Old note URLs remain functional compatibility redirects; only the blog routes

@@ -73,7 +73,7 @@ if (typeof document !== 'undefined') {
       clearTimeout(inputTimer);
       for (const [name, field] of Object.entries(fields)) field.value = name === 'sort' ? 'newest' : '';
       apply();
-      fields.q.focus({ preventScroll: true });
+      form.querySelector('summary')?.focus({ preventScroll: true });
     }
     form.addEventListener('reset', event => { event.preventDefault(); clearFilters(); });
     document.querySelector('[data-explorer-reset]')?.addEventListener('click', clearFilters);

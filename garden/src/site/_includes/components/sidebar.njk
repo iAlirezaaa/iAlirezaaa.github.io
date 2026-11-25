@@ -1,11 +1,23 @@
-<aside class="garden-context garden-panel" id="garden-context" data-panel="context" aria-label="راهنمای خواندن">
-<div class="panel-mobile-heading"><strong>راهنمای خواندن</strong><button type="button" class="icon-button" data-panel-close aria-label="بستن پنل این صفحه">×</button></div>
-{% set tocHtml = content and (content | hideDataview | link | toc) %}
-{% if tocHtml %}<section class="context-section toc-section"><h2>در این صفحه</h2><div class="toc-container" data-toc>{{ tocHtml | safe }}</div></section>{% endif %}
-{% if settings.dgShowLocalGraph !== false %}<section class="context-section" data-local-graph-section><div class="section-heading"><h2>ادامهٔ این موضوع</h2><button type="button" class="small-button" data-global-graph-open aria-label="باز کردن نقشهٔ کامل">نقشهٔ کامل</button></div>{% if settings.dgShowGraphDepthControl %}<label class="context-caption" for="local-graph-depth">عمق ارتباط‌ها <select id="local-graph-depth" data-local-depth><option value="1">۱</option><option value="2">۲</option><option value="3">۳</option></select></label>{% endif %}<div class="local-graph" data-local-graph aria-label="نقشهٔ نوشته‌های مرتبط"><p class="muted">در حال دریافت ارتباط‌ها…</p></div><button type="button" class="graph-layout-reset" data-graph-layout-reset hidden>بازنشانی نودها</button><div class="local-graph-inspector"><p data-local-count></p><p data-local-detail aria-live="polite">عنوان کامل نود پس از انتخاب نمایش داده می‌شود.</p></div><div class="local-graph-legend"><span class="legend-current"></span><span>همین صفحه</span><span class="legend-related"></span><span>پیوندهای مرتبط</span></div></section>{% endif %}
-{% if settings.dgShowBacklinks !== false %}<section class="context-section backlinks-section"><h2>در نوشته‌های دیگر</h2><p class="context-caption">نوشته‌هایی که به این صفحه پیوند داده‌اند.</p><ul class="backlink-list" data-backlinks>
-{%- set currentNode = graph.nodes[page.url] -%}
-{%- if currentNode and currentNode.backLinks.length -%}{%- for backlink in currentNode.backLinks -%}{%- if graph.nodes[backlink] and graph.nodes[backlink].url != page.url and not graph.nodes[backlink].private -%}<li><a class="internal-link" href="{{graph.nodes[backlink].url}}">{{graph.nodes[backlink].title}}</a></li>{%- endif -%}{%- endfor -%}{%- else -%}<li class="muted">هنوز نوشتهٔ دیگری به این صفحه پیوند نداده.</li>{%- endif -%}
-</ul></section>{% endif %}
-<section class="context-section context-about"><p>موضوع را از میان نوشته‌های مرتبط دنبال کن.</p><a href="https://github.com/oleeskild/obsidian-digital-garden" rel="noopener" target="_blank">ساخته‌شده با Digital Garden</a></section>
+<aside class="garden-context garden-panel" id="garden-context" data-panel="context" aria-label="گراف و راهنمای صفحه">
+  <div class="panel-mobile-heading"><strong>گراف و راهنمای صفحه</strong><button type="button" class="icon-button" data-panel-close aria-label="بستن راهنمای صفحه">×</button></div>
+  <section class="context-section graph-section" data-local-graph-section aria-labelledby="local-graph-heading">
+    <h2 id="local-graph-heading">{% if isDirectory %}ارتباط نوشته‌ها{% else %}گراف این نوشته{% endif %}</h2>
+    <div class="graph-card">
+      <div class="graph-mini-controls">
+        {% if not isDirectory %}<button type="button" class="icon-button" data-graph-scope aria-pressed="false" aria-label="نمایش همهٔ نوشته‌ها در گراف" title="گراف محلی یا همهٔ نوشته‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 7 6 5 6-7M12 12v7"/><circle cx="6" cy="7" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="20" r="2"/></svg></button>{% endif %}
+        <button type="button" class="icon-button" data-global-graph-open aria-haspopup="dialog" aria-label="باز کردن گراف کامل" title="گراف کامل"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7"/></svg></button>
+      </div>
+      <div class="local-graph" data-local-graph aria-label="نقشهٔ ارتباط نوشته‌ها"><p class="muted">در حال دریافت ارتباط‌ها…</p></div>
+    </div>
+    <p class="graph-hint">هر نقطه یک نوشته است؛ برای خواندن، انتخابش کن.</p>
+    <p class="sr-only" data-local-count role="status"></p><p class="sr-only" data-local-detail aria-live="polite"></p>
+  </section>
+  {% if not isDirectory %}
+  {% set tocHtml = content and (content | hideDataview | link | toc) %}
+  {% if tocHtml %}<section class="context-section toc-section"><h2>در این صفحه</h2><div class="toc-container" data-toc>{{ tocHtml | safe }}</div></section>{% endif %}
+  {% set currentNode = graph.nodes[page.url] %}
+  {% if settings.dgShowBacklinks !== false and currentNode and currentNode.backLinks.length %}
+  <section class="context-section backlinks-section"><details><summary>ارجاع به این نوشته</summary><ul class="backlink-list" data-backlinks>{%- for url in currentNode.backLinks -%}{%- if graph.nodes[url] and url != page.url and not graph.nodes[url].private -%}<li><a class="internal-link" href="{{url}}">{{graph.nodes[url].title}}</a></li>{%- endif -%}{%- endfor -%}</ul></details></section>
+  {% endif %}
+  {% endif %}
 </aside>
