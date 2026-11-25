@@ -58,7 +58,8 @@ try:
             # Workspace explorer stays docked on desktop and uses the existing accessible drawer on phones.
             nav = page.locator('#garden-navigation')
             query = page.locator('[data-tree-filter]')
-            page.wait_for_selector('[data-filetree][data-tree-ready="true"] .tree-note a', state='attached')
+            page.wait_for_selector('[data-filetree][data-tree-ready]', state='attached')
+            assert nav.locator('[data-filetree]').get_attribute('data-tree-ready') == 'true', (width, 'tree initialization failed', errors, nav.locator('[data-filetree]').inner_html()[:500])
             if width <= 900:
                 assert nav.evaluate('(el)=>el.inert')
                 page.locator('.mobile-tree-toggle').click()
