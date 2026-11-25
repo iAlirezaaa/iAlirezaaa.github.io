@@ -15,9 +15,15 @@ const tagPath = id => root + 'tags/' + id + '/'
 const articlePath = entry => root + entry.slug + '/'
 const tagLinks = tags => '<nav class="garden-tags" aria-label="برچسب‌های نوشته">' + (tags || []).map(id => '<a class="tag internal-link" href="' + tagPath(id) + '">' + esc(topicNames[id] || id) + '</a>').join('') + '</nav>'
 
-function figure(asset, hero = false) {
+function figure(asset, hero = false, index = 0) {
   const remotePaper = asset.path.startsWith('https://arxiv.org/')
-  const caption = asset.caption ? '<figcaption>' + esc(asset.caption) + (asset.credit ? '<small>' + (asset.sourceUrl ? '<a href="' + esc(asset.sourceUrl) + '">' + esc(asset.credit) + '</a>' : esc(asset.credit)) + '</small>' : '') + '</figcaption>' : ''
+  const label = 'تصویر در این نوشته · ' + numbers.format(index)
+  const number = hero ? '' : '<span class="figure-index">' + label + '</span>'
+  const text = asset.caption ? '<span>' + esc(asset.caption) + '</span>' : ''
+  const credit = asset.credit ? '<small>' + (asset.sourceUrl ? '<a href="' + esc(asset.sourceUrl) + '">' + esc(asset.credit) + '</a>' : esc(asset.credit)) + '</small>' : ''
+  const canOpen = !hero && (asset.path.startsWith('/fa/blog/media/') || remotePaper)
+  const open = canOpen ? '<a class="figure-open" href="' + esc(asset.path) + '" aria-label="نمایش ' + label + ' در اندازهٔ اصلی">نمایش در اندازهٔ اصلی</a>' : ''
+  const caption = number || text || credit || open ? '<figcaption>' + number + text + credit + open + '</figcaption>' : ''
   return '<figure class="' + (hero ? 'hero ' : '') + 'article-figure' + (remotePaper ? ' paper-original' : '') + '"><img src="' + esc(asset.path) + '" alt="' + esc(asset.alt) + '" width="' + asset.width + '" height="' + asset.height + '" decoding="async" ' + (hero ? 'fetchpriority="high"' : 'loading="lazy"') + '>' + caption + '</figure>'
 }
 
@@ -49,7 +55,8 @@ function note(fileName, title, permalink, description, content, extra = {}) {
 }
 
 function articleContent(entry) {
-  const sections = entry.sections.map((section,i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + (section.blocks ? renderBlocks(section.blocks, section.title) : (section.paragraphs || []).map(p => '<p>' + esc(p) + '</p>').join('\n')) + (entry.figures || []).filter(f => f.afterSection === i + 1).map(f => figure(f)).join('\n')).join('\n\n')
+  let figureIndex = 0
+  const sections = entry.sections.map((section,i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + (section.blocks ? renderBlocks(section.blocks, section.title) : (section.paragraphs || []).map(p => '<p>' + esc(p) + '</p>').join('\n')) + (entry.figures || []).filter(f => f.afterSection === i + 1).map(f => figure(f, false, ++figureIndex)).join('\n')).join('\n\n')
   const sources = entry.sources?.length ? '<section class="sources" aria-labelledby="sources-title"><h2 id="sources-title">برای بیشتر خوندن</h2><ul>' + entry.sources.map(s => '<li><a href="' + esc(s.url) + '"><bdi>' + esc(s.title) + '</bdi></a></li>').join('') + '</ul></section>' : ''
   const related = entry.tags?.includes('diffusion') ? '\n\n## پیوندهای این نوشته\n\nبرای دنبال‌کردن مفهوم‌ها، از [[diffusion|دیفیوژن]] به [[noise|نویز]]، [[ddpm|DDPM]]، [[latent-diffusion|فضای نهفته]] و [[seed|بذر تصادفی]] سر بزن.\n\n' : '\n\n[مرور یادداشت‌های مرتبط](/fa/garden/)\n\n'
   const stats = readingStats(entry)
