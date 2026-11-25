@@ -44,7 +44,7 @@ export function buildDigitalGarden(destination,extraNotes=[]) {
   const defaults=JSON.parse(fs.readFileSync(path.join(root,'garden.config.json'),'utf8'))
   const settings=fs.existsSync(path.join(root,'.env'))?dotenv.parse(fs.readFileSync(path.join(root,'.env'))):{}
   const safeSettings=Object.fromEntries(Object.entries(settings).filter(([key])=>/^(?:dg[A-Z]|UI_|SHOW_|TIMESTAMP_FORMAT$|DATE_FORMAT$|NOTE_ICON_|STYLE_SETTINGS_|BASE_THEME$|THEME$|USE_FULL_RESOLUTION_IMAGES$|LOGO_HEIGHT$)/.test(key)))
-  const env={...process.env,...defaults,...safeSettings,SITE_BASE_URL:ORIGIN,SITE_MAIN_LANGUAGE:'fa',SITE_NAME_HEADER:'باغ دیجیتال هادس',ELEVENTY_ENV:'prod',NODE_ENV:'production',HADES_GARDEN_STAGED:'1'}
+  const env={...process.env,...defaults,...safeSettings,SITE_BASE_URL:ORIGIN,SITE_MAIN_LANGUAGE:'fa',SITE_NAME_HEADER:'وبلاگ هادس',ELEVENTY_ENV:'prod',NODE_ENV:'production',HADES_GARDEN_STAGED:'1'}
   for(const [key,value] of Object.entries(env))env[key]=String(value)
   execFileSync(process.execPath,[path.join(root,'node_modules/sass/sass.js'),'src/site/styles:dist/styles','--style=compressed','--quiet-deps'],{cwd:stage,env,stdio:'inherit'})
   execFileSync(process.execPath,[path.join(root,'node_modules/@11ty/eleventy/cmd.cjs')],{cwd:stage,env,stdio:'inherit'})
