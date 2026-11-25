@@ -616,6 +616,12 @@ try:
                 page.goto(home, wait_until='load')
                 assert page.locator('[data-blog-comments]').count() == 0
                 assert_shell(page, width, expected_tree_urls)
+                covers=page.locator('.garden-post-cover')
+                assert covers.count()>0 and covers.count()==page.locator('.garden-post-list > li[data-content-item]').count()
+                for img in covers.all():
+                    img.evaluate("img=>{img.loading='eager';return img.decode()}")
+                    assert img.evaluate('img=>img.naturalWidth>0&&img.getBoundingClientRect().width>60&&img.getBoundingClientRect().height>40')
+                assert_no_overflow(page,width)
                 page.screenshot(path=str(output / f'home-{width}.png'), full_page=False)
                 stage = 'search and reading preferences'
                 check_search_and_settings(page, width)
@@ -629,6 +635,19 @@ try:
                 stage = 'article shell'
                 page.goto(origin + article_url, wait_until='load')
                 assert_shell(page, width, expected_tree_urls, content_page=True)
+                progress=page.locator('#reading-progress')
+                assert progress.count()==1 and progress.get_attribute('role')=='progressbar'
+                page.evaluate('window.scrollTo(0,0)')
+                page.wait_for_function("document.querySelector('#reading-progress').getAttribute('aria-valuenow')==='0'")
+                page.evaluate("window.scrollTo(0,document.scrollingElement.scrollHeight*.35)")
+                page.wait_for_function("Number(document.querySelector('#reading-progress').getAttribute('aria-valuenow'))>0")
+                assert progress.locator('.reading-progress-fill').evaluate("el=>getComputedStyle(el).backgroundColor==='rgb(239, 75, 50)'&&el.getBoundingClientRect().width>0")
+                assert abs(progress.bounding_box()['y'])<2 and progress.bounding_box()['height']>=3
+                page.screenshot(path=str(output / f'progress-{width}.png'), full_page=False)
+                page.evaluate('window.scrollTo(0,document.scrollingElement.scrollHeight)')
+                page.wait_for_function("document.querySelector('#reading-progress').getAttribute('aria-valuenow')==='100'")
+                page.evaluate('window.scrollTo(0,0)')
+                page.wait_for_function("document.querySelector('#reading-progress').getAttribute('aria-valuenow')==='0'")
                 page.screenshot(path=str(output / f'article-{width}.png'), full_page=False)
                 stage = 'article local graph and backlinks'
                 local_count = check_content_graph(page, width, article_url, expected_urls, nodes_by_url, links)

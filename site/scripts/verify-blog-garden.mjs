@@ -140,7 +140,8 @@ for (const card of editorialCards) {
   assert.equal(card.querySelectorAll('a[href]').length, 1, 'Article row repeats a destination')
   assert.ok(card.querySelector('h3 a')?.text.trim(), 'Article row needs a named title link')
   assert.ok(localFile(card.querySelector('h3 a')?.getAttribute('href')), 'Article row points to an unbuilt route')
-  assert.equal(card.querySelector('img'), null, 'Directory image competes with the simplified reading list')
+  assert.equal(card.querySelectorAll('img.garden-post-cover').length,1,'Each article has one local thumbnail')
+  assert.ok(localFile(card.querySelector('img.garden-post-cover')?.getAttribute('src')),'Missing article thumbnail')
   assert.match(card.querySelector('time')?.getAttribute('datetime') || '', /^\d{4}-\d{2}-\d{2}$/, 'Article row has no publication date')
 }
 const figureNumbers = new Intl.NumberFormat('fa-IR')
