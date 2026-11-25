@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+<title id="title">HADES Production Slate 9:16 — PUBLIC REVIEW</title><desc id="desc">Portrait editable production identification card; sample data only, no logo. Neutral colors and type proposed.</desc>
+<g id="architecture"><rect width="1080" height="1920" fill="#161615"/><path d="M0 0H244L144 1920H0Z" fill="#242321"/><path d="M0 0H72V1920H0Z" fill="#292825"/><path d="M244 0H254L154 1920H144Z" fill="#EF4B32"/><path d="M1012 0H1080V1920H946Z" fill="#201F1D"/></g>
+<g id="layout" fill="none" stroke="#70685D" stroke-width="2"><path d="M292 322H930M292 650H930M292 1070H930M292 1490H930M292 1630H930"/><path d="M611 650V1490"/></g>
+<g id="labels" fill="#D0C3B0" font-family="Arial, sans-serif" font-size="40"><text x="292" y="270">PRODUCTION SLATE / REVIEW</text><text x="292" y="406">PROJECT</text><text x="292" y="740">SCENE</text><text x="650" y="740">SHOT</text><text x="292" y="1160">VERSION</text><text x="650" y="1160">FPS</text></g>
+<g id="editable-values" fill="#E8DCC9" font-family="Arial, sans-serif" font-weight="400"><text id="project" x="292" y="540" font-size="60">PROJECT TITLE</text><text id="scene" x="292" y="930" font-size="72">010</text><text id="shot" x="650" y="930" font-size="72">020</text><text id="version" x="292" y="1350" font-size="72">v001</text><text id="fps" x="650" y="1350" font-size="72">24</text></g>
+<g fill="#D0C3B0" font-family="Arial, sans-serif" font-size="36"><text x="292" y="1560">HADES / WORKING TEMPLATE</text><text x="292" y="1710">PUBLIC REVIEW · NOT FINAL</text></g>
+</svg>
