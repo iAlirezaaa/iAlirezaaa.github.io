@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url'
 import {execFileSync} from 'node:child_process'
 import {createRequire} from 'node:module'
 import {createHash} from 'node:crypto'
-import {readNotes,walk,canonicalizeWikiLinks,manifestFor,prefixText,ORIGIN} from './publishing.mjs'
+import {readNotes,walk,canonicalizeWikiLinks,manifestFor,prefixText,ORIGIN,BLOG_PATH,GARDEN_PATH} from './publishing.mjs'
 const require=createRequire(import.meta.url)
 const yaml=require('yaml')
 const dotenv=require('dotenv')
@@ -60,11 +60,32 @@ export function buildDigitalGarden(destination,extraNotes=[]) {
     if(textTypes.has(path.extname(file))){fs.writeFileSync(dest,prefixText(fs.readFileSync(file,'utf8'),path.extname(file)))}else fs.copyFileSync(file,dest)
     assets['/'+path.relative(output,dest).split(path.sep).join('/')]=hash(fs.readFileSync(dest))
   }
+  // Old note URLs remain functional compatibility redirects; only the blog routes
+  // contain indexable content. Assets stay in the existing garden namespace.
+  const redirects=Object.create(null)
+  const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
+  for(const item of manifest.notes){
+    if(!item.legacyUrl)continue
+    const from=item.legacyUrl
+    const target=from===GARDEN_PATH?BLOG_PATH:item.url
+    const anchoredTarget=item.url
+    const relative=from.slice(GARDEN_PATH.length)
+    const dest=path.join(gardenOut,relative.endsWith('.html')?relative:path.join(relative,'index.html'))
+    if(fs.existsSync(dest))throw new Error('Legacy redirect collides with generated asset: '+from)
+    const safeTarget=escape(target)
+    const script='const target=location.hash?'+JSON.stringify(anchoredTarget)+':'+JSON.stringify(target)+';location.replace(target+location.search+location.hash);'
+    const html='<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, follow"><link rel="canonical" href="'+escape(ORIGIN+target)+'"><meta http-equiv="refresh" content="0; url='+safeTarget+'"><title>انتقال به وبلاگ هادس</title></head><body><p>این نوشته به وبلاگ هادس منتقل شده است. <a href="'+safeTarget+'">باز کردن وبلاگ</a></p><script>'+script.replaceAll('<','\\u003c')+'</script></body></html>'
+    fs.mkdirSync(path.dirname(dest),{recursive:true})
+    fs.writeFileSync(dest,html)
+    redirects[from]=target
+    assets['/'+path.relative(output,dest).split(path.sep).join('/')]=hash(fs.readFileSync(dest))
+  }
+  manifest.redirects=redirects
   const graph=JSON.parse(fs.readFileSync(path.join(gardenOut,'graph.json'),'utf8'))
   for(const item of manifest.notes){const node=graph.nodes[item.url];if(node){item.links=node.outBound.filter(url=>Object.hasOwn(graph.nodes,url));item.backlinks=node.backLinks}}
   manifest.assets=assets
   fs.writeFileSync(path.join(gardenOut,'manifest.json'),JSON.stringify(manifest,null,2)+'\n')
-  console.log('Digital Garden: '+notes.length+' published pages, '+graph.links.length+' directed links; Persian routes at /fa/garden/ and /fa/blog/')
+  console.log('Digital Garden: '+notes.length+' published pages, '+graph.links.length+' directed links; Unified public content at /fa/blog/; old note URLs redirect')
   return {urls:manifest.urls,manifest,graph}
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))buildDigitalGarden(process.argv[2])
