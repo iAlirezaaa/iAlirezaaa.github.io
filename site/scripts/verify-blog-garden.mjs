@@ -62,7 +62,7 @@ for (const [route, document] of documents) {
   assert.ok(document.querySelector('main h1')?.text.trim(), 'Note title missing: ' + route)
   const directory = Boolean(document.querySelector('main.blog-directory'))
   const featureSelectors = ['#garden-navigation', '[data-filetree]', '#garden-search', '#garden-search-input', '#garden-search-results', '#garden-settings', '#garden-graph', '#garden-context', '[data-local-graph]']
-  if (!directory) featureSelectors.push('[data-copy-link]', 'progress#reading-progress')
+  if (!directory) featureSelectors.push('[data-copy-link]', '#reading-progress[role="progressbar"]')
   else assert.equal(document.querySelector('[data-copy-link]'), null, 'Directory includes an article-only share action: ' + route)
   for (const selector of featureSelectors) {
     assert.ok(document.querySelector(selector), 'Garden feature missing ' + selector + ': ' + route)

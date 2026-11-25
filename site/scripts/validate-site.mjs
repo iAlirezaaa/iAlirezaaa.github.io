@@ -235,7 +235,7 @@ for (const entry of blogEntries) {
   const prose = document.querySelector('#prose')
   assert.ok(prose, 'Server-rendered article text missing')
   assert.ok(document.querySelector('.article-byline')?.text.includes('علیرضا عسگرپور'))
-  assert.ok(document.querySelector('progress#reading-progress'))
+  assert.ok(document.querySelector('#reading-progress[role="progressbar"]'))
   assert.ok(document.querySelector('[data-copy-link]'))
   if (entry.categoryId) assert.ok(document.querySelector('a[href="/fa/blog/categories/' + entry.categoryId + '/"]'))
   assert.ok(!document.querySelector('article[hidden]'))
