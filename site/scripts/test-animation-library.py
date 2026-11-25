@@ -9,7 +9,12 @@ inv=json.loads((root/'garden/docs/animation-source-inventory.json').read_text())
 notes=root/'garden/src/site/notes/انیمیشن'
 assets=root/'garden/src/site/img/user/animation'
 with zipfile.ZipFile(out/'hades-animation-fa.zip','w',zipfile.ZIP_DEFLATED) as z:
-    for f in sorted(notes.glob('*.md')):
+    # The downloadable reference collection follows its source inventory, not
+    # every original lesson that may later share the Animation folder.
+    collection = [root/'garden/src/site/notes'/entry['note_file'] for entry in inv['inventory']]
+    assert all(f.parent == notes and f.is_file() for f in collection)
+    assert len({f.name for f in collection}) == len(collection)
+    for f in sorted(collection):
         z.writestr(f.name,f.read_text().replace('/img/user/animation/','images/'))
     for f in sorted(assets.glob('*.svg')): z.write(f,'images/'+f.name)
     z.write(root/'garden/docs/animation-source-inventory.json','source-inventory.json')
