@@ -43,6 +43,7 @@ jobs:
           node scripts/verify-blog-garden.mjs
           node scripts/verify-blog-discovery.mjs
           node scripts/validate-site.mjs
+          node scripts/verify-animation-library.mjs
           node --test scripts/blog-explorer.test.mjs ../garden/scripts/publishing.test.mjs
       - name: Build isolated native content compatibility fixture
         run: node --test garden/scripts/content-compat.test.mjs
@@ -54,6 +55,15 @@ jobs:
         run: |
           python -m pip install playwright
           python -m playwright install --with-deps chromium
+      - name: Check and package animation library
+        run: python site/scripts/test-animation-library.py
+      - name: Upload animation pages and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: animation-library-fa
+          path: site/animation-evidence/
+          if-no-files-found: ignore
       - name: Check responsive graph in real Chromium
         run: python site/scripts/test-blog-atlas.py
       - name: Upload graph screenshots and QA results

@@ -284,9 +284,9 @@ function initializeGarden() {
 
 // REVIEW: inline enlargement; retain native image links without JS.
 export function installFigureViewer() {
-  const article = document.querySelector('.blog-article');
+  const article = document.querySelector('main.blog-article, main.animation-lesson');
   if (!article || typeof HTMLDialogElement === 'undefined' || !HTMLDialogElement.prototype.showModal || article.dataset.figureViewer) return;
-  const links = [...article.querySelectorAll('figure.article-figure .figure-open')];
+  const links = [...article.querySelectorAll('figure.article-figure .figure-open, figure.animation-study-figure .figure-open')];
   if (!links.length) return;
   article.dataset.figureViewer = 'ready';
   const dialog = document.createElement('dialog');
@@ -310,13 +310,13 @@ export function installFigureViewer() {
     const figure = link.closest('figure'), source = figure?.querySelector('img');
     let url;
     try { url = new URL(link.getAttribute('href'), document.baseURI); } catch { continue; }
-    if (!source || !((url.origin === new URL(document.baseURI).origin && url.pathname.startsWith('/fa/blog/media/')) || (url.origin === 'https://arxiv.org' && url.pathname.startsWith('/html/')))) continue;
+    if (!source || !((url.origin === new URL(document.baseURI).origin && (url.pathname.startsWith('/fa/blog/media/') || url.pathname.startsWith('/fa/garden/img/user/animation/'))) || (url.origin === 'https://arxiv.org' && url.pathname.startsWith('/html/')))) continue;
     link.setAttribute('aria-haspopup', 'dialog');
     link.addEventListener('click', event => {
       if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || dialog.open) return;
       opener = link;
       title.textContent = figure.querySelector('.figure-index')?.textContent || 'نمایش تصویر';
-      caption.textContent = figure.querySelector('figcaption > span:not(.figure-index)')?.textContent || source.alt;
+      caption.textContent = figure.querySelector('figcaption > span:not(.figure-index)')?.textContent || figure.querySelector('figcaption')?.textContent || source.alt;
       image.alt = source.alt;
       original.href = url.href;
       status.hidden = true; image.hidden = false;

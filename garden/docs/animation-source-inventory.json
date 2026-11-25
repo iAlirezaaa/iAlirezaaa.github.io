@@ -1,0 +1,1926 @@
+{
+  "source": "https://mister-chad.com/welcome",
+  "source_license": "https://mister-chad.com/random%20stuff/uncopyright",
+  "license_note": "CC0 general text policy excludes author art and visual design; separately credited third-party material requires separate permission. Original visuals not republished or translated. All 23 local SVGs are independent teaching illustrations.",
+  "source_pages": 27,
+  "source_image_references": 67,
+  "source_unique_image_names": 66,
+  "original_images_republished": 0,
+  "original_local_figures": 23,
+  "inventory": [
+    {
+      "source_title": "! animation",
+      "source_url": "https://mister-chad.com/animation/!%20animation",
+      "note_file": "انیمیشن/index.md",
+      "canonical": "/fa/blog/notes/animation/",
+      "source_inventory": {
+        "path": "animation/! animation.md",
+        "headings": [
+          "animation",
+          "animation overview",
+          "animation concepts",
+          "developing the story",
+          "presenting the work"
+        ],
+        "linked_notes": [
+          "! after effects|You can learn the basics of animating with Adobe After Effects.",
+          "history of animation",
+          "5 types of animation",
+          "sequential art",
+          "12 principles of animation",
+          "five types of motion & easing",
+          "animating on the ones, two, and threes",
+          "aspect ratios",
+          "camera shots",
+          "frame-by-frame and keyframing",
+          "keyframes and breakdowns",
+          "animated type",
+          "story",
+          "storyboards",
+          "storyboarding essentials book",
+          "character design",
+          "environment design",
+          "framing and blocking",
+          "animatics",
+          "lower thirds",
+          "demo reel",
+          "uncopyright",
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": true,
+        "characters": 6532
+      }
+    },
+    {
+      "source_title": "12 principles of animation",
+      "source_url": "https://mister-chad.com/animation/12%20principles%20of%20animation",
+      "note_file": "انیمیشن/principles.md",
+      "canonical": "/fa/blog/notes/animation/principles/",
+      "source_inventory": {
+        "path": "animation/12 principles of animation.md",
+        "headings": [
+          "12 principles of animation",
+          "1. squash and stretch",
+          "2. anticipation",
+          "3. staging",
+          "4. straight ahead action and pose to pose",
+          "5. follow through and overlapping action",
+          "6. slow in and slow out",
+          "7. arc",
+          "8. secondary action",
+          "9. timing",
+          "10. exaggeration",
+          "11. solid drawing",
+          "12. appeal"
+        ],
+        "linked_notes": [
+          "12 principles of animation#5 follow through and overlapping action|follow through part of principle 5",
+          "12 principles of animation#10 exaggeration|exaggeration (principle 10)",
+          "12 principles of animation#12 appeal|appeal (principle 12)",
+          "frame-by-frame and keyframing",
+          "12 principles of animation#3 staging|staging in principle 3",
+          "12 principles of animation#5 follow through and overlapping action|follow through in principle 5",
+          "five types of motion & easing",
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 10415
+      }
+    },
+    {
+      "source_title": "5 types of animation",
+      "source_url": "https://mister-chad.com/animation/5%20types%20of%20animation",
+      "note_file": "انیمیشن/types.md",
+      "canonical": "/fa/blog/notes/animation/types/",
+      "source_inventory": {
+        "path": "animation/5 types of animation.md",
+        "headings": [
+          "five types of animation",
+          "traditional ",
+          "2d animation",
+          "3d animation",
+          "motion graphics",
+          "stop motion"
+        ],
+        "linked_notes": [
+          "history of animation",
+          "frame-by-frame and keyframing|frame-by-frame or keyframed",
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "anim-snowWhite.png",
+            "paths": [
+              "anim-snowWhite.png",
+              "z_resources/anim-snowWhite.png"
+            ]
+          },
+          {
+            "reference": "anim-tangled2d.png",
+            "paths": [
+              "anim-tangled2d.png",
+              "z_resources/anim-tangled2d.png"
+            ]
+          },
+          {
+            "reference": "anim-tangled3d.png",
+            "paths": [
+              "anim-tangled3d.png",
+              "z_resources/anim-tangled3d.png"
+            ]
+          },
+          {
+            "reference": "anim-motion.png",
+            "paths": [
+              "anim-motion.png",
+              "z_resources/anim-motion.png"
+            ]
+          },
+          {
+            "reference": "anim-rudolph.png",
+            "paths": [
+              "anim-rudolph.png",
+              "z_resources/anim-rudolph.png"
+            ]
+          }
+        ],
+        "rights_markers": true,
+        "characters": 6598
+      }
+    },
+    {
+      "source_title": "adobe animate basics",
+      "source_url": "https://mister-chad.com/animation/adobe%20animate%20basics",
+      "note_file": "انیمیشن/adobe-animate.md",
+      "canonical": "/fa/blog/notes/animation/adobe-animate/",
+      "source_inventory": {
+        "path": "animation/adobe animate basics.md",
+        "headings": [
+          "adobe animate basics",
+          "should you use animate?",
+          "get started",
+          "interface",
+          "properties panel",
+          "breadcrumb trail",
+          "drawing in animate",
+          "set the object drawing mode first",
+          "the brushes",
+          "draw with shapes instead",
+          "library and symbols",
+          "the library is where you store all of your stuff",
+          "symbols are the boxes that hold drawings",
+          "timeline and keyframes",
+          "tweening and motion"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "animate interface.png",
+            "paths": [
+              "animate interface.png",
+              "z_resources/animate interface.png"
+            ]
+          },
+          {
+            "reference": "177cffb7c727cb5c358a281b168401b3_MD5.jpeg",
+            "paths": [
+              "177cffb7c727cb5c358a281b168401b3_MD5.jpeg",
+              "z_resources/177cffb7c727cb5c358a281b168401b3_MD5.jpeg"
+            ]
+          },
+          {
+            "reference": "e4921422fe8710ceb5b976dce558f278_MD5.jpeg",
+            "paths": [
+              "e4921422fe8710ceb5b976dce558f278_MD5.jpeg",
+              "z_resources/e4921422fe8710ceb5b976dce558f278_MD5.jpeg"
+            ]
+          },
+          {
+            "reference": "16ab95a3f6c2037a3e569368728179ef_MD5.jpeg",
+            "paths": [
+              "16ab95a3f6c2037a3e569368728179ef_MD5.jpeg",
+              "z_resources/16ab95a3f6c2037a3e569368728179ef_MD5.jpeg"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 8698
+      }
+    },
+    {
+      "source_title": "animated type",
+      "source_url": "https://mister-chad.com/animation/animated%20type",
+      "note_file": "انیمیشن/animated-type.md",
+      "canonical": "/fa/blog/notes/animation/animated-type/",
+      "source_inventory": {
+        "path": "animation/animated type.md",
+        "headings": [
+          "animated type"
+        ],
+        "linked_notes": [
+          "5 types of animation#motion graphics|motion graphics animation",
+          "type effects in after effects|type effects",
+          "after effects masking|use masking in After Effects to create reveal effects",
+          "2.5d & parallax animation|use 2.5D in After Effects to create camera and parallax effects",
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 2690
+      }
+    },
+    {
+      "source_title": "animatics",
+      "source_url": "https://mister-chad.com/animation/animatics",
+      "note_file": "انیمیشن/animatics.md",
+      "canonical": "/fa/blog/notes/animation/animatics/",
+      "source_inventory": {
+        "path": "animation/animatics.md",
+        "headings": [
+          "animatics"
+        ],
+        "linked_notes": [
+          "story|storyboards",
+          "framing and blocking",
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 1351
+      }
+    },
+    {
+      "source_title": "animating on the ones, two, and threes",
+      "source_url": "https://mister-chad.com/animation/animating%20on%20the%20ones%2C%20two%2C%20and%20threes",
+      "note_file": "انیمیشن/ones-twos-threes.md",
+      "canonical": "/fa/blog/notes/animation/ones-twos-threes/",
+      "source_inventory": {
+        "path": "animation/animating on the ones, two, and threes.md",
+        "headings": [
+          "animating on the ones, two, and threes",
+          "ones",
+          "twos",
+          "threes",
+          "fours, fives, beyond…",
+          "mix it up."
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "animationdrawing.png",
+            "paths": [
+              "animationdrawing.png",
+              "z_resources/animationdrawing.png"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 3600
+      }
+    },
+    {
+      "source_title": "aspect ratios",
+      "source_url": "https://mister-chad.com/animation/aspect%20ratios",
+      "note_file": "انیمیشن/aspect-ratios.md",
+      "canonical": "/fa/blog/notes/animation/aspect-ratios/",
+      "source_inventory": {
+        "path": "animation/aspect ratios.md",
+        "headings": [
+          "aspect ratios",
+          "common aspect ratios"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "aspectRatio.png",
+            "paths": [
+              "aspectRatio.png",
+              "z_resources/aspectRatio.png"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 2766
+      }
+    },
+    {
+      "source_title": "bouncing ball - part one",
+      "source_url": "https://mister-chad.com/animation/bouncing%20ball%20-%20part%20one",
+      "note_file": "انیمیشن/ball-1.md",
+      "canonical": "/fa/blog/notes/animation/ball-1/",
+      "source_inventory": {
+        "path": "animation/bouncing ball - part one.md",
+        "headings": [
+          "bouncing ball",
+          "part one - basic drop",
+          "vertical timing",
+          "squash & stretch",
+          "diminishing bounces",
+          "the finished product",
+          "next step: bouncing arcs"
+        ],
+        "linked_notes": [
+          "12 principles of animation#6 slow in and slow out|Animation Principle 6: Slow in and slow out",
+          "12 principles of animation#10 exaggeration|exaggerate",
+          "12 principles of animation#1 squash and stretch|squashes and stretches",
+          "bouncing ball - part two|bounce across the screen",
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "diminishedBounces.gif|200",
+            "paths": [
+              "diminishedBounces.gif",
+              "z_resources/diminishedBounces.gif"
+            ]
+          },
+          {
+            "reference": "verticaltiming.png",
+            "paths": [
+              "verticaltiming.png",
+              "z_resources/verticaltiming.png"
+            ]
+          },
+          {
+            "reference": "squashStretch.png",
+            "paths": [
+              "squashStretch.png",
+              "z_resources/squashStretch.png"
+            ]
+          },
+          {
+            "reference": "diminishedBounces.png",
+            "paths": [
+              "diminishedBounces.png",
+              "z_resources/diminishedBounces.png"
+            ]
+          },
+          {
+            "reference": "diminishedBouncesSlow.gif|200",
+            "paths": [
+              "diminishedBouncesSlow.gif",
+              "z_resources/diminishedBouncesSlow.gif"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 3843
+      }
+    },
+    {
+      "source_title": "bouncing ball - part two",
+      "source_url": "https://mister-chad.com/animation/bouncing%20ball%20-%20part%20two",
+      "note_file": "انیمیشن/ball-2.md",
+      "canonical": "/fa/blog/notes/animation/ball-2/",
+      "source_inventory": {
+        "path": "animation/bouncing ball - part two.md",
+        "headings": [
+          "bouncing ball",
+          "part two - arcs",
+          "move ball along path",
+          "the finished product"
+        ],
+        "linked_notes": [
+          "bouncing ball - part one|part one",
+          "12 principles of animation#7 arc",
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "diminishedBounces-across.gif",
+            "paths": [
+              "diminishedBounces-across.gif",
+              "z_resources/diminishedBounces-across.gif"
+            ]
+          },
+          {
+            "reference": "arcingBouncePath.png",
+            "paths": [
+              "arcingBouncePath.png",
+              "z_resources/arcingBouncePath.png"
+            ]
+          },
+          {
+            "reference": "bouncingAcrossBalls.png",
+            "paths": [
+              "bouncingAcrossBalls.png",
+              "z_resources/bouncingAcrossBalls.png"
+            ]
+          },
+          {
+            "reference": "Bounces-across-slow.gif",
+            "paths": [
+              "Bounces-across-slow.gif",
+              "z_resources/Bounces-across-slow.gif"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 1427
+      }
+    },
+    {
+      "source_title": "camera shots",
+      "source_url": "https://mister-chad.com/animation/camera%20shots",
+      "note_file": "انیمیشن/camera-shots.md",
+      "canonical": "/fa/blog/notes/animation/camera-shots/",
+      "source_inventory": {
+        "path": "animation/camera shots.md",
+        "headings": [
+          "camera angles and shots",
+          "camera moves",
+          "common camera angles",
+          "camera shots"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "Pasted image 20220922194759.png",
+            "paths": [
+              "Pasted image 20220922194759.png",
+              "z_resources/Pasted image 20220922194759.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922194819.png",
+            "paths": [
+              "Pasted image 20220922194819.png",
+              "z_resources/Pasted image 20220922194819.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922194938.png",
+            "paths": [
+              "Pasted image 20220922194938.png",
+              "z_resources/Pasted image 20220922194938.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922194944.png",
+            "paths": [
+              "Pasted image 20220922194944.png",
+              "z_resources/Pasted image 20220922194944.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922194951.png",
+            "paths": [
+              "Pasted image 20220922194951.png",
+              "z_resources/Pasted image 20220922194951.png"
+            ]
+          },
+          {
+            "reference": "7d09ed92cf45fa3d55f1e9d79fc60d98_MD5.jpeg",
+            "paths": [
+              "7d09ed92cf45fa3d55f1e9d79fc60d98_MD5.jpeg",
+              "z_resources/7d09ed92cf45fa3d55f1e9d79fc60d98_MD5.jpeg"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922195415.png",
+            "paths": [
+              "Pasted image 20220922195415.png",
+              "z_resources/Pasted image 20220922195415.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922195443.png",
+            "paths": [
+              "Pasted image 20220922195443.png",
+              "z_resources/Pasted image 20220922195443.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922195423.png",
+            "paths": [
+              "Pasted image 20220922195423.png",
+              "z_resources/Pasted image 20220922195423.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922195454.png",
+            "paths": [
+              "Pasted image 20220922195454.png",
+              "z_resources/Pasted image 20220922195454.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922195433.png",
+            "paths": [
+              "Pasted image 20220922195433.png",
+              "z_resources/Pasted image 20220922195433.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20220922195501.png",
+            "paths": [
+              "Pasted image 20220922195501.png",
+              "z_resources/Pasted image 20220922195501.png"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 4559
+      }
+    },
+    {
+      "source_title": "character design",
+      "source_url": "https://mister-chad.com/animation/character%20design",
+      "note_file": "انیمیشن/character-design.md",
+      "canonical": "/fa/blog/notes/animation/character-design/",
+      "source_inventory": {
+        "path": "animation/character design.md",
+        "headings": [
+          "character design",
+          "character design process",
+          "character sheets"
+        ],
+        "linked_notes": [
+          "! creative process|creative process",
+          "environment design|environments",
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 6021
+      }
+    },
+    {
+      "source_title": "demo reel",
+      "source_url": "https://mister-chad.com/animation/demo%20reel",
+      "note_file": "انیمیشن/demo-reel.md",
+      "canonical": "/fa/blog/notes/animation/demo-reel/",
+      "source_inventory": {
+        "path": "animation/demo reel.md",
+        "headings": [
+          "demo reel"
+        ],
+        "linked_notes": [
+          "lower thirds",
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 1288
+      }
+    },
+    {
+      "source_title": "environment design",
+      "source_url": "https://mister-chad.com/animation/environment%20design",
+      "note_file": "انیمیشن/environment-design.md",
+      "canonical": "/fa/blog/notes/animation/environment-design/",
+      "source_inventory": {
+        "path": "animation/environment design.md",
+        "headings": [
+          "environment design"
+        ],
+        "linked_notes": [
+          "character design|characters",
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "forest-joker-chen.png",
+            "paths": [
+              "forest-joker-chen.png",
+              "z_resources/forest-joker-chen.png"
+            ]
+          },
+          {
+            "reference": "mushroom-house.png",
+            "paths": [
+              "mushroom-house.png",
+              "z_resources/mushroom-house.png"
+            ]
+          },
+          {
+            "reference": "fantasy-village.png",
+            "paths": [
+              "fantasy-village.png",
+              "z_resources/fantasy-village.png"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 3652
+      }
+    },
+    {
+      "source_title": "five types of motion & easing",
+      "source_url": "https://mister-chad.com/animation/five%20types%20of%20motion%20%26%20easing",
+      "note_file": "انیمیشن/motion-easing.md",
+      "canonical": "/fa/blog/notes/animation/motion-easing/",
+      "source_inventory": {
+        "path": "animation/five types of motion & easing.md",
+        "headings": [
+          "five types of motion",
+          "static or zero-motion",
+          "constant motion",
+          "increasing or accelerating motion",
+          "decreasing or decelerating motion",
+          "irregular motion"
+        ],
+        "linked_notes": [
+          "12 principles of animation#6 slow in and slow out|Slow In and Slow Out",
+          "12 principles of animation",
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "Pasted image 20221016140048.png",
+            "paths": [
+              "Pasted image 20221016140048.png",
+              "z_resources/Pasted image 20221016140048.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221016140023.png",
+            "paths": [
+              "Pasted image 20221016140023.png",
+              "z_resources/Pasted image 20221016140023.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221016140127.png",
+            "paths": [
+              "Pasted image 20221016140127.png",
+              "z_resources/Pasted image 20221016140127.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221016140201.png",
+            "paths": [
+              "Pasted image 20221016140201.png",
+              "z_resources/Pasted image 20221016140201.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221016140230.png",
+            "paths": [
+              "Pasted image 20221016140230.png",
+              "z_resources/Pasted image 20221016140230.png"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 2105
+      }
+    },
+    {
+      "source_title": "flour sack animation",
+      "source_url": "https://mister-chad.com/animation/flour%20sack%20animation",
+      "note_file": "انیمیشن/flour-sack.md",
+      "canonical": "/fa/blog/notes/animation/flour-sack/",
+      "source_inventory": {
+        "path": "animation/flour sack animation.md",
+        "headings": [
+          "flour sack animation"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 80
+      }
+    },
+    {
+      "source_title": "frame-by-frame and keyframing",
+      "source_url": "https://mister-chad.com/animation/frame-by-frame%20and%20keyframing",
+      "note_file": "انیمیشن/frame-by-frame.md",
+      "canonical": "/fa/blog/notes/animation/frame-by-frame/",
+      "source_inventory": {
+        "path": "animation/frame-by-frame and keyframing.md",
+        "headings": [
+          "frame by frame and keyframing",
+          "frame-by-frame",
+          "keyframing"
+        ],
+        "linked_notes": [
+          "12 principles of animation#4 straight ahead action and pose to pose|straight ahead and pose to pose",
+          "keyframes and breakdowns|Keyframes and breakdowns",
+          "12 principles of animation#2 anticipation|anticipation",
+          "12 principles of animation#5 follow through and overlapping action|follow through and overlapping action",
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 3298
+      }
+    },
+    {
+      "source_title": "framing and blocking",
+      "source_url": "https://mister-chad.com/animation/framing%20and%20blocking",
+      "note_file": "انیمیشن/framing-blocking.md",
+      "canonical": "/fa/blog/notes/animation/framing-blocking/",
+      "source_inventory": {
+        "path": "animation/framing and blocking.md",
+        "headings": [
+          "framing and blocking"
+        ],
+        "linked_notes": [
+          "storyboards",
+          "story",
+          "camera shots|the camera",
+          "iteration|iterative process",
+          "divergent thinking",
+          "convergent thinking",
+          "animatics",
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 2588
+      }
+    },
+    {
+      "source_title": "history of animation",
+      "source_url": "https://mister-chad.com/animation/history%20of%20animation",
+      "note_file": "انیمیشن/history.md",
+      "canonical": "/fa/blog/notes/animation/history/",
+      "source_inventory": {
+        "path": "animation/history of animation.md",
+        "headings": [
+          "history of animation"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 747
+      }
+    },
+    {
+      "source_title": "keyframes and breakdowns",
+      "source_url": "https://mister-chad.com/animation/keyframes%20and%20breakdowns",
+      "note_file": "انیمیشن/keyframes-breakdowns.md",
+      "canonical": "/fa/blog/notes/animation/keyframes-breakdowns/",
+      "source_inventory": {
+        "path": "animation/keyframes and breakdowns.md",
+        "headings": [
+          "keyframes and breakdowns",
+          "playing with the 12 principles of animation",
+          "anticipation",
+          "follow through & overlapping action"
+        ],
+        "linked_notes": [
+          "frame-by-frame and keyframing#keyframing|keyframing",
+          "12 principles of animation#2 anticipation|Anticipation",
+          "12 principles of animation#5 follow through and overlapping action|follow through and overlapping action",
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "poseAnimation.webp",
+            "paths": [
+              "poseAnimation.webp",
+              "z_resources/poseAnimation.webp"
+            ]
+          },
+          {
+            "reference": "AnimationChart-Jump0001.jpg",
+            "paths": [
+              "AnimationChart-Jump0001.jpg",
+              "z_resources/AnimationChart-Jump0001.jpg"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 3316
+      }
+    },
+    {
+      "source_title": "lower thirds",
+      "source_url": "https://mister-chad.com/animation/lower%20thirds",
+      "note_file": "انیمیشن/lower-thirds.md",
+      "canonical": "/fa/blog/notes/animation/lower-thirds/",
+      "source_inventory": {
+        "path": "animation/lower thirds.md",
+        "headings": [
+          "lower thirds",
+          "make your own",
+          "download a template"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "lowerthirds.jpg",
+            "paths": [
+              "lowerthirds.jpg",
+              "z_resources/lowerthirds.jpg"
+            ]
+          },
+          {
+            "reference": "weather-icons.png",
+            "paths": [
+              "weather-icons.png",
+              "z_resources/weather-icons.png"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 3720
+      }
+    },
+    {
+      "source_title": "photoshop timeline animation",
+      "source_url": "https://mister-chad.com/animation/photoshop%20timeline%20animation",
+      "note_file": "انیمیشن/photoshop.md",
+      "canonical": "/fa/blog/notes/animation/photoshop/",
+      "source_inventory": {
+        "path": "animation/photoshop timeline animation.md",
+        "headings": [
+          "photoshop timeline animation",
+          "panel overview",
+          "panel menu",
+          "set frame rate",
+          "turn on onion-skinning",
+          "keyframes",
+          "how to keyframe",
+          "keyframes are adjustable",
+          "change duration",
+          "export animation",
+          "save a gif"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "photoshopVideoTimelinePanel.png",
+            "paths": [
+              "photoshopVideoTimelinePanel.png",
+              "z_resources/photoshopVideoTimelinePanel.png"
+            ]
+          },
+          {
+            "reference": "29062784dbb215a5dad5ededed1daea5_MD5.jpeg",
+            "paths": [
+              "29062784dbb215a5dad5ededed1daea5_MD5.jpeg",
+              "z_resources/29062784dbb215a5dad5ededed1daea5_MD5.jpeg"
+            ]
+          },
+          {
+            "reference": "571ec1770797dddc2313a482bc1e4dff_MD5.jpeg",
+            "paths": [
+              "571ec1770797dddc2313a482bc1e4dff_MD5.jpeg",
+              "z_resources/571ec1770797dddc2313a482bc1e4dff_MD5.jpeg"
+            ]
+          },
+          {
+            "reference": "6ac9aac884d2c544c91ac195a4f5d4e2_MD5.jpeg",
+            "paths": [
+              "6ac9aac884d2c544c91ac195a4f5d4e2_MD5.jpeg",
+              "z_resources/6ac9aac884d2c544c91ac195a4f5d4e2_MD5.jpeg"
+            ]
+          },
+          {
+            "reference": "79b62967ca31c4bb1cb60ece951a4676_MD5.jpeg",
+            "paths": [
+              "79b62967ca31c4bb1cb60ece951a4676_MD5.jpeg",
+              "z_resources/79b62967ca31c4bb1cb60ece951a4676_MD5.jpeg"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 4414
+      }
+    },
+    {
+      "source_title": "sequential art",
+      "source_url": "https://mister-chad.com/animation/sequential%20art",
+      "note_file": "انیمیشن/sequential-art.md",
+      "canonical": "/fa/blog/notes/animation/sequential-art/",
+      "source_inventory": {
+        "path": "animation/sequential art.md",
+        "headings": [
+          "sequential art",
+          "multiple images",
+          "time based",
+          "has a narrative flow",
+          "motion in a single image",
+          "narrative in a series of images",
+          "comics, cartoons, graphic novels"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "Pasted image 20221129103602.png",
+            "paths": [
+              "Pasted image 20221129103602.png",
+              "z_resources/Pasted image 20221129103602.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129103622.png",
+            "paths": [
+              "Pasted image 20221129103622.png",
+              "z_resources/Pasted image 20221129103622.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129103743.png",
+            "paths": [
+              "Pasted image 20221129103743.png",
+              "z_resources/Pasted image 20221129103743.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129103808.png",
+            "paths": [
+              "Pasted image 20221129103808.png",
+              "z_resources/Pasted image 20221129103808.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129103845.png",
+            "paths": [
+              "Pasted image 20221129103845.png",
+              "z_resources/Pasted image 20221129103845.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129103920.png",
+            "paths": [
+              "Pasted image 20221129103920.png",
+              "z_resources/Pasted image 20221129103920.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129104051.png",
+            "paths": [
+              "Pasted image 20221129104051.png",
+              "z_resources/Pasted image 20221129104051.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129104258.png",
+            "paths": [
+              "Pasted image 20221129104258.png",
+              "z_resources/Pasted image 20221129104258.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129104425.png",
+            "paths": [
+              "Pasted image 20221129104425.png",
+              "z_resources/Pasted image 20221129104425.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129104505.png",
+            "paths": [
+              "Pasted image 20221129104505.png",
+              "z_resources/Pasted image 20221129104505.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221129104537.png",
+            "paths": [
+              "Pasted image 20221129104537.png",
+              "z_resources/Pasted image 20221129104537.png"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 3708
+      }
+    },
+    {
+      "source_title": "story",
+      "source_url": "https://mister-chad.com/animation/story",
+      "note_file": "انیمیشن/story.md",
+      "canonical": "/fa/blog/notes/animation/story/",
+      "source_inventory": {
+        "path": "animation/story.md",
+        "headings": [
+          "writing the story"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 1542
+      }
+    },
+    {
+      "source_title": "storyboarding essentials book",
+      "source_url": "https://mister-chad.com/animation/storyboarding%20essentials%20book",
+      "note_file": "انیمیشن/storyboarding-book.md",
+      "canonical": "/fa/blog/notes/animation/storyboarding-book/",
+      "source_inventory": {
+        "path": "animation/storyboarding essentials book.md",
+        "headings": [
+          "storyboarding essentials",
+          "how to translate your story to the screen for film, TV, and other media",
+          "what is storyboarding?",
+          "interpreting the written word",
+          "rendering",
+          "principles, elements, and conventions",
+          "continuity",
+          "what the camera sees",
+          "move me!",
+          "the martini shot",
+          "appendix"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [],
+        "rights_markers": false,
+        "characters": 12549
+      }
+    },
+    {
+      "source_title": "storyboards",
+      "source_url": "https://mister-chad.com/animation/storyboards",
+      "note_file": "انیمیشن/storyboards.md",
+      "canonical": "/fa/blog/notes/animation/storyboards/",
+      "source_inventory": {
+        "path": "animation/storyboards.md",
+        "headings": [
+          "storyboards",
+          "storyboarding examples",
+          "storyboard templates"
+        ],
+        "linked_notes": [
+          "camera shots",
+          "aspect ratios|aspect ratio",
+          "framing and blocking",
+          "story",
+          "animatics",
+          "aspect ratios",
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "Pasted image 20221207090537.png",
+            "paths": [
+              "Pasted image 20221207090537.png",
+              "z_resources/Pasted image 20221207090537.png"
+            ]
+          },
+          {
+            "reference": "Pasted image 20221207112827.png",
+            "paths": [
+              "Pasted image 20221207112827.png",
+              "z_resources/Pasted image 20221207112827.png"
+            ]
+          },
+          {
+            "reference": "storyboard-template.png",
+            "paths": [
+              "storyboard-template.png",
+              "z_resources/storyboard-template.png"
+            ]
+          }
+        ],
+        "rights_markers": true,
+        "characters": 6574
+      }
+    },
+    {
+      "source_title": "walk cycle",
+      "source_url": "https://mister-chad.com/animation/walk%20cycle",
+      "note_file": "انیمیشن/walk-cycle.md",
+      "canonical": "/fa/blog/notes/animation/walk-cycle/",
+      "source_inventory": {
+        "path": "animation/walk cycle.md",
+        "headings": [
+          "walk cycle",
+          "quick historical highlights",
+          "cave paintings",
+          "Eadweard Muybridge: The Human Figure in Motion",
+          "Ryan Larkin animates Walking",
+          "breaking down the poses",
+          "feel what it feels like to walk",
+          "the named poses",
+          "Alan Becker's breakdown is awesome",
+          "Preston Blair's classic chart"
+        ],
+        "linked_notes": [
+          "! animation"
+        ],
+        "images": [
+          {
+            "reference": "Pasted image 20221129103743.png|cave painting of boar walking",
+            "paths": [
+              "Pasted image 20221129103743.png",
+              "z_resources/Pasted image 20221129103743.png"
+            ]
+          },
+          {
+            "reference": "b00b9d7bb7eb571ed53119e927985410_MD5.jpeg|muybridge photos of woman walking",
+            "paths": [
+              "b00b9d7bb7eb571ed53119e927985410_MD5.jpeg",
+              "z_resources/b00b9d7bb7eb571ed53119e927985410_MD5.jpeg"
+            ]
+          },
+          {
+            "reference": "Pasted image 20240923125059.png|important poses in the walk cycle",
+            "paths": [
+              "Pasted image 20240923125059.png",
+              "z_resources/Pasted image 20240923125059.png"
+            ]
+          },
+          {
+            "reference": "a5a459697c44e906471c69d55c2072e0_MD5.jpeg|various walk cycles mapped out",
+            "paths": [
+              "a5a459697c44e906471c69d55c2072e0_MD5.jpeg",
+              "z_resources/a5a459697c44e906471c69d55c2072e0_MD5.jpeg"
+            ]
+          }
+        ],
+        "rights_markers": false,
+        "characters": 6271
+      }
+    }
+  ],
+  "image_credit_context": [
+    {
+      "page": "5 types of animation",
+      "refs": [
+        [
+          "anim-snowWhite.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_copyright [walt disney animation studio](https://disneyanimation.com/)_"
+      ]
+    },
+    {
+      "page": "5 types of animation",
+      "refs": [
+        [
+          "anim-tangled2d.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_copyright [disney television animation](https://disneytvanimation.com/)_"
+      ]
+    },
+    {
+      "page": "5 types of animation",
+      "refs": [
+        [
+          "anim-tangled3d.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_copyright [walt disney animation studio](https://disneyanimation.com/)_"
+      ]
+    },
+    {
+      "page": "5 types of animation",
+      "refs": [
+        [
+          "anim-motion.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_copyright [motioncabin](https://motioncabin.com/)_"
+      ]
+    },
+    {
+      "page": "5 types of animation",
+      "refs": [
+        [
+          "anim-rudolph.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_copyright [rankin-bass](http://www.rankinbass.com/)_"
+      ]
+    },
+    {
+      "page": "adobe animate basics",
+      "refs": [
+        [
+          "animate interface.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "adobe animate basics",
+      "refs": [
+        [
+          "177cffb7c727cb5c358a281b168401b3_MD5.jpeg",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "adobe animate basics",
+      "refs": [
+        [
+          "e4921422fe8710ceb5b976dce558f278_MD5.jpeg",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "adobe animate basics",
+      "refs": [
+        [
+          "16ab95a3f6c2037a3e569368728179ef_MD5.jpeg",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "animating on the ones, two, and threes",
+      "refs": [
+        [
+          "animationdrawing.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "aspect ratios",
+      "refs": [
+        [
+          "aspectRatio.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_from The Tree of Life_"
+      ]
+    },
+    {
+      "page": "bouncing ball - part one",
+      "refs": [
+        [
+          "diminishedBounces.gif|200",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "bouncing ball - part one",
+      "refs": [
+        [
+          "verticaltiming.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "bouncing ball - part one",
+      "refs": [
+        [
+          "squashStretch.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "bouncing ball - part one",
+      "refs": [
+        [
+          "diminishedBounces.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "bouncing ball - part one",
+      "refs": [
+        [
+          "diminishedBouncesSlow.gif|200",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "bouncing ball - part two",
+      "refs": [
+        [
+          "diminishedBounces-across.gif",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "bouncing ball - part two",
+      "refs": [
+        [
+          "arcingBouncePath.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "bouncing ball - part two",
+      "refs": [
+        [
+          "bouncingAcrossBalls.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "bouncing ball - part two",
+      "refs": [
+        [
+          "Bounces-across-slow.gif",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922194759.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922194819.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922194938.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922194944.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922194951.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "7d09ed92cf45fa3d55f1e9d79fc60d98_MD5.jpeg",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_[studiobinder shot size cheatsheet](https://www.studiobinder.com/blog/ultimate-guide-to-camera-shots/)_"
+      ]
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922195415.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922195443.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922195423.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922195454.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922195433.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "camera shots",
+      "refs": [
+        [
+          "Pasted image 20220922195501.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "environment design",
+      "refs": [
+        [
+          "forest-joker-chen.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_[joker chen](https://www.artstation.com/artwork/b5E4yo)_"
+      ]
+    },
+    {
+      "page": "environment design",
+      "refs": [
+        [
+          "mushroom-house.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_[x tan.s](https://www.artstation.com/artwork/9NJ0LR)_"
+      ]
+    },
+    {
+      "page": "environment design",
+      "refs": [
+        [
+          "fantasy-village.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_[momu koshu](https://www.artstation.com/peachlab)_"
+      ]
+    },
+    {
+      "page": "five types of motion & easing",
+      "refs": [
+        [
+          "Pasted image 20221016140048.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "five types of motion & easing",
+      "refs": [
+        [
+          "Pasted image 20221016140023.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "five types of motion & easing",
+      "refs": [
+        [
+          "Pasted image 20221016140127.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "five types of motion & easing",
+      "refs": [
+        [
+          "Pasted image 20221016140201.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "five types of motion & easing",
+      "refs": [
+        [
+          "Pasted image 20221016140230.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "keyframes and breakdowns",
+      "refs": [
+        [
+          "poseAnimation.webp",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_unknown source_"
+      ]
+    },
+    {
+      "page": "keyframes and breakdowns",
+      "refs": [
+        [
+          "AnimationChart-Jump0001.jpg",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_[toon boom](https://learn.toonboom.com/modules/animation-principles/topic/straight-ahead-and-pose-to-pose-principle)_"
+      ]
+    },
+    {
+      "page": "lower thirds",
+      "refs": [
+        [
+          "lowerthirds.jpg",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_[from adobe makeitcenter](https://makeitcenter.adobe.com/en/blog/how-to-make-animated-lower-thirds.html)_"
+      ]
+    },
+    {
+      "page": "lower thirds",
+      "refs": [
+        [
+          "weather-icons.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_[from metgraphics](https://www.metgraphics.net/weather-icons-2/)_"
+      ]
+    },
+    {
+      "page": "photoshop timeline animation",
+      "refs": [
+        [
+          "photoshopVideoTimelinePanel.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "photoshop timeline animation",
+      "refs": [
+        [
+          "29062784dbb215a5dad5ededed1daea5_MD5.jpeg",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "photoshop timeline animation",
+      "refs": [
+        [
+          "571ec1770797dddc2313a482bc1e4dff_MD5.jpeg",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "photoshop timeline animation",
+      "refs": [
+        [
+          "6ac9aac884d2c544c91ac195a4f5d4e2_MD5.jpeg",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "photoshop timeline animation",
+      "refs": [
+        [
+          "79b62967ca31c4bb1cb60ece951a4676_MD5.jpeg",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129103602.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129103622.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129103743.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129103808.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129103845.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129103920.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129104051.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129104258.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129104425.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129104505.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "sequential art",
+      "refs": [
+        [
+          "Pasted image 20221129104537.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "storyboards",
+      "refs": [
+        [
+          "Pasted image 20221207090537.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_copyright [Steve Skroce](https://blog.pond5.com/6727-something-sketchy-a-beginners-guide-to-storyboarding/) through [pond5](https://www.pond5.com/)_"
+      ]
+    },
+    {
+      "page": "storyboards",
+      "refs": [
+        [
+          "Pasted image 20221207112827.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "storyboards",
+      "refs": [
+        [
+          "storyboard-template.png",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "walk cycle",
+      "refs": [
+        [
+          "Pasted image 20221129103743.png|cave painting of boar walking",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "walk cycle",
+      "refs": [
+        [
+          "b00b9d7bb7eb571ed53119e927985410_MD5.jpeg|muybridge photos of woman walking",
+          "",
+          ""
+        ]
+      ],
+      "credits": [
+        "_[nucius](https://nucius.org/en/photographs/eadweard-muybridge-the-human-figure-in-motion-sequences-1887-1901/)_"
+      ]
+    },
+    {
+      "page": "walk cycle",
+      "refs": [
+        [
+          "Pasted image 20240923125059.png|important poses in the walk cycle",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    },
+    {
+      "page": "walk cycle",
+      "refs": [
+        [
+          "a5a459697c44e906471c69d55c2072e0_MD5.jpeg|various walk cycles mapped out",
+          "",
+          ""
+        ]
+      ],
+      "credits": []
+    }
+  ]
+}

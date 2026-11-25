@@ -39,6 +39,11 @@ export const topics = {
     description: 'حفظ ویژگی‌های یک شخصیت یا سوژه در تصویرهای متفاوت.',
     group: 'making', aliases: ['راکورد', 'تداوم شخصیت', 'character continuity', 'character consistency'],
   },
+  animation: {
+    name: 'انیمیشن',
+    description: 'اصول حرکت، روایت، طراحی، دوربین، پیش‌تولید و اجرای انیمیشن.',
+    group: 'making', aliases: ['Animation', 'پویانمایی'],
+  },
   'frame-interpolation': {
     name: 'فریم‌های میانی',
     description: 'ساخت فریم بین دو تصویر و مسئله‌های حرکت و پوشیدگی.',

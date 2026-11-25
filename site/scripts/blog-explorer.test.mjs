@@ -70,7 +70,7 @@ test('alphabetical ordering respects Persian titles without mutating records', (
 
 test('all previously published topic IDs survive the vocabulary update', () => {
   const existing = ['ai-basics', 'diffusion', 'ai-image-making', 'paper-explainer', 'comfyui', 'workflow', 'python', 'dreambooth', 'character-continuity', 'rife', 'frame-interpolation', 'cfg', 'controlnet', 'depth-map', 'ddpm']
-  assert.deepEqual(Object.keys(topics).sort(), [...existing, 'image-control'].sort())
+  assert.deepEqual(Object.keys(topics).sort(), [...existing, 'image-control', 'animation'].sort())
   for (const entry of entries) {
     const sourceTopics = [...entry.tags]
     const discoverable = entryTopics(entry, { includeLegacy: true })

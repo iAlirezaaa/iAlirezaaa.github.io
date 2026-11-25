@@ -243,3 +243,21 @@ kbd{font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;border:1px soli
   .garden-topbar,.garden-navigation,.garden-context,.reading-progress,.note-footer,.garden-dialog,.garden-backdrop,.link-preview,.reader-code-toolbar{display:none!important}
   .garden-layout{display:block;padding:0}.garden-content{max-width:none;margin:0;padding:0;color:#111;background:#fff}.note-body{font-size:12pt;line-height:1.8}.note-header{border-color:#ccc}.note-body a{color:#111}.note-body pre{white-space:pre-wrap}.note-body img{max-height:18cm;object-fit:contain}
 }
+
+/* Animation lessons: one uncluttered reading column; images belong to the lesson. */
+.animation-lesson .note-header{padding-block-end:1rem;margin-block-end:1.4rem}
+.animation-lesson .note-header h1{font-weight:550;font-size:clamp(1.5rem,2.3vw,2.05rem);line-height:1.75}
+.animation-lesson .note-breadcrumb{color:var(--muted);font-size:.8rem}
+.animation-lesson .note-tags{display:none}
+.animation-lesson .note-body>h2{margin-block:1.7em .55em;font-weight:550;font-size:1.2em}
+.animation-lesson .note-body>p{margin-block-end:1em}
+.animation-lesson .note-body .animation-study-figure{margin:1.15rem auto 1.85rem;max-inline-size:100%;min-inline-size:0}
+.animation-lesson .animation-study-figure>a{display:block;width:100%;border:0;border-radius:5px;overflow:hidden;background:#f3f0e8;cursor:zoom-in}
+.animation-lesson .animation-study-figure img{display:block;width:100%;max-width:100%;height:auto;margin:0;border-radius:0}
+.animation-lesson .animation-study-figure figcaption{margin:.5rem 0 0;font-size:.84rem;line-height:1.85;text-align:center;color:var(--muted)}
+.animation-lesson .animation-study-figure>a:focus-visible{outline-offset:3px}
+.animation-lesson .note-body table{font-size:.89em}
+.animation-lesson .lesson-source{font-size:.85rem;color:var(--muted)}
+@media(min-width:1101px){.garden-layout:has(.animation-lesson){grid-template-columns:248px minmax(0,1fr) 218px}.garden-content.animation-lesson{max-width:52rem;padding-inline:clamp(1.6rem,3vw,3rem)}}
+@media(max-width:600px){.garden-content.animation-lesson{padding-inline:1rem}.animation-lesson .animation-study-figure{margin-block:1rem 1.45rem}.animation-lesson .animation-study-figure figcaption{font-size:.78rem}.animation-lesson .note-body>h2{font-size:1.15em}}
+@media print{.animation-lesson .animation-study-figure{break-inside:avoid}.animation-lesson .animation-study-figure>a{background:transparent}}
