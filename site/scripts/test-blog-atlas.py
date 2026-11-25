@@ -508,6 +508,15 @@ def check_content_graph(page, width, page_url, expected_urls, nodes_by_url, link
       return Math.abs(Number(c.getAttribute('cx'))/v.width-.5)<.08&&Math.abs(Number(c.getAttribute('cy'))/v.height-.5)<.08}"""), (width, 'active page not centered in local graph')
     center.focus()
     assert local.evaluate(LABELS)['intersections'] == 0
+    # Sidebar drag exercises a letterboxed viewBox, not only the expanded graph.
+    dot=center.locator('circle:not(.graph-hit)').first
+    before=dot.evaluate(POSITION)
+    b=dot.bounding_box()
+    pointer_drag(page,width<=430,b['x']+b['width']/2,b['y']+b['height']/2,20,12)
+    page.wait_for_function("document.querySelector('[data-local-graph]').dataset.layoutChanged==='true'")
+    after=dot.evaluate(POSITION)
+    assert sum(abs(a-b) for a,b in zip(before,after))>.015,(width,'local graph drag did not move selected node',before,after)
+    assert_edges_follow(local,center.get_attribute('data-graph-id'))
     toggle = page.locator('[data-graph-scope]')
     assert toggle.is_visible() and toggle.get_attribute('aria-pressed') == 'false'
     toggle.click()

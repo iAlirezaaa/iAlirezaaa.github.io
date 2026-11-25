@@ -9,8 +9,8 @@
       </div>
       <div class="local-graph" data-local-graph aria-label="نقشهٔ ارتباط نوشته‌ها"><p class="muted">در حال دریافت ارتباط‌ها…</p></div>
     </div>
-    <p class="graph-hint">هر نقطه یک نوشته است؛ برای خواندن، انتخابش کن.</p>
-    <p class="sr-only" data-local-count role="status"></p><p class="sr-only" data-local-detail aria-live="polite"></p>
+    <p class="graph-hint" data-local-detail aria-live="polite">هر نقطه یک نوشته است؛ برای خواندن، انتخابش کن.</p>
+    <p class="sr-only" data-local-count role="status"></p>
   </section>
   {% if not isDirectory %}
   {% set tocHtml = content and (content | hideDataview | link | toc) %}

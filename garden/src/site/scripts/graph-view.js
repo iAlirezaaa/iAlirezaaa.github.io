@@ -107,6 +107,24 @@ function forceLayout(nodes, edges, width, height, currentId = null) {
   return result.map(({fx, fy, ...node}) => node);
 }
 
+// Initial center separation is independent of the force simulation. The local
+// graph preserves its current note at the center and resize preserves positions.
+export function separateGraphNodes(nodes, width, height, pinnedId = null) {
+  const gap=Math.min(28,Math.sqrt(width*height/Math.max(1,nodes.length))*.68);
+  const pad=Math.min(17,width/5,height/5);
+  for(let round=0;round<36;round++){
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i],b=nodes[j];let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);
+      if(d>=gap)continue;
+      if(d<.001){const angle=(i*17+j*13)*2.399963;dx=Math.cos(angle);dy=Math.sin(angle);d=1;}
+      const shift=(gap-d)*.53,ax=a.id===pinnedId?0:b.id===pinnedId?2:1,bx=b.id===pinnedId?0:a.id===pinnedId?2:1;
+      a.x-=dx/d*shift*ax;a.y-=dy/d*shift*ax;b.x+=dx/d*shift*bx;b.y+=dy/d*shift*bx;
+    }
+    for(const n of nodes){if(n.id===pinnedId){n.x=width/2;n.y=height/2;}else{n.x=clamp(n.x,pad,width-pad);n.y=clamp(n.y,pad,height-pad);}}
+  }
+  return nodes;
+}
+
 export function installGraphViews({getGraph, here, trimPath, graphDialog, openDialog}) {
   const $ = (selector, within = document) => within?.querySelector(selector) ?? null;
   const $$ = (selector, within = document) => within ? [...within.querySelectorAll(selector)] : [];
@@ -158,7 +176,8 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
       degrees.set(edge.target, degrees.get(edge.target) + 1);
     }
     const currentId = data.nodes.find(node => trimPath(node.url) === here)?.id ?? null;
-    const nodes = layoutGraphNodes(data.nodes, edges, width, height, !expanded && data.scope === 'local' ? currentId : null);
+    const pinned = !expanded && data.scope === 'local' ? currentId : null;
+    const nodes=separateGraphNodes(layoutGraphNodes(data.nodes,edges,width,height,pinned),width,height,pinned);
     const byId = new Map(nodes.map(node => [node.id, node]));
     const svg = svgElement('svg', {viewBox:`0 0 ${width} ${height}`, role:'group',
       tabindex:0, 'aria-label':'گراف نوشته‌ها؛ انتخاب نود برای خواندن، کشیدن برای جابه‌جایی، کلیدهای جهت برای حرکت و مثبت و منفی برای بزرگ‌نمایی.'});
@@ -260,14 +279,17 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
       scene.setAttribute('transform', `translate(${width / 2 + camera.dx} ${height / 2 + camera.dy}) scale(${camera.scale}) translate(${-width / 2} ${-height / 2})`);
       container.dataset.scale = String(camera.scale); placeLabels();
     }
-    function viewportPoint(x, y) {
-      const rect = svg.getBoundingClientRect();
-      return {x:(x - rect.left) * width / rect.width, y:(y - rect.top) * height / rect.height};
+    // Use the real transform: SVG letterboxing and zoom invalidate bounding-box ratios.
+    function matrixPoint(element,x,y){
+      const matrix=element.getScreenCTM();
+      return matrix?new DOMPoint(x,y).matrixTransform(matrix.inverse()):null;
     }
-    function scenePoint(x, y) {
-      const point = viewportPoint(x, y);
-      return {x:(point.x - width / 2 - camera.dx) / camera.scale + width / 2,
-        y:(point.y - height / 2 - camera.dy) / camera.scale + height / 2};
+    function viewportPoint(x,y){return matrixPoint(svg,x,y)||{x:width/2,y:height/2};}
+    function scenePoint(x,y){
+      const direct=matrixPoint(scene,x,y);
+      if(direct)return direct;
+      const point=viewportPoint(x,y);
+      return {x:(point.x-width/2-camera.dx)/camera.scale+width/2,y:(point.y-height/2-camera.dy)/camera.scale+height/2};
     }
     function moveNode(node, x, y) {
       node.x = clamp(x, 15, width - 15); node.y = clamp(y, 15, height - 15);
@@ -293,12 +315,12 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
       const point = scenePoint(event.clientX, event.clientY);
       // Hit areas can overlap when the corpus grows. Resolve to the closest
       // actual dot, not whichever transparent SVG circle was painted last.
-      let node = null, distance = Infinity;
-      for (const candidate of nodes) {
-        const d = Math.hypot(candidate.x - point.x, candidate.y - point.y);
-        if (d <= Math.max(13, candidate.radius + 6) && d < distance) {
-          node = candidate; distance = d;
-        }
+      let node=null,distance=Infinity;
+      const transform=scene.getScreenCTM(),scale=transform?Math.hypot(transform.a,transform.b):1;
+      for(const candidate of nodes){
+        const d=Math.hypot(candidate.x-point.x,candidate.y-point.y)*scale;
+        const limit=clamp(Math.max(13,candidate.radius+6)*scale,10,event.pointerType==='touch'?22:18);
+        if(d<=limit&&d<distance){node=candidate;distance=d;}
       }
       const record = {id:event.pointerId, x:event.clientX, y:event.clientY, startX:event.clientX, startY:event.clientY,
         dx:camera.dx, dy:camera.dy, node, offsetX:node ? node.x - point.x : 0, offsetY:node ? node.y - point.y : 0, moved:false};
@@ -330,9 +352,8 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
         moveNode(pointer.node, point.x + pointer.offsetX, point.y + pointer.offsetY);
       } else {
         svg.classList.add('is-panning');
-        const rect = svg.getBoundingClientRect();
-        camera.dx = pointer.dx + (pointer.x - pointer.startX) * width / rect.width;
-        camera.dy = pointer.dy + (pointer.y - pointer.startY) * height / rect.height;
+        const from=viewportPoint(pointer.startX,pointer.startY),to=viewportPoint(pointer.x,pointer.y);
+        camera.dx=pointer.dx+to.x-from.x;camera.dy=pointer.dy+to.y-from.y;
         apply();
       }
     });
