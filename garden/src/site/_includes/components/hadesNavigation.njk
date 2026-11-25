@@ -4,8 +4,9 @@
   <button class="garden-search-button" data-search-open type="button"><span>جست‌وجوی نوشته‌ها</span><kbd dir="ltr">⌘ K</kbd></button>
   <nav class="garden-sections" aria-label="مسیرهای اصلی"><a href="/fa/blog/">همهٔ نوشته‌ها</a><a href="/fa/blog/#notes">یادداشت‌ها و مسیرها</a><a href="/fa/blog/categories/">بخش‌های وبلاگ</a><a href="/fa/blog/tags/">موضوع‌ها</a><button type="button" data-global-graph-open>نقشهٔ ارتباط‌ها</button></nav>
   <div class="navigation-divider"></div>
-  <div class="tree-heading"><h2>فهرست نوشته‌ها</h2><button type="button" data-tree-collapse aria-label="جمع‌کردن بخش‌ها">جمع کردن</button></div>
-  <nav class="garden-filetree" data-filetree aria-label="فهرست نوشته‌ها">{% include "plugins/dg-filetree/tree.njk" ignore missing %}<p class="filetree-loading">در حال دریافت فهرست…</p></nav>
+  <div class="tree-heading"><h2>کاوشگر نوشته‌ها</h2><button type="button" data-tree-collapse aria-label="باز و بسته کردن بخش‌ها">جمع کردن</button></div>
+  <div class="workspace-tree-filter" data-tree-filter-box hidden><label for="workspace-tree-query" class="sr-only">فیلتر عنوان نوشته‌ها</label><input id="workspace-tree-query" type="search" dir="auto" data-tree-filter placeholder="فیلتر عنوان‌ها…" autocomplete="off" aria-controls="workspace-filetree"><p data-tree-filter-status role="status"></p></div>
+  <nav class="garden-filetree" id="workspace-filetree" data-filetree aria-label="فهرست نوشته‌ها">{% include "plugins/dg-filetree/tree.njk" ignore missing %}<p class="filetree-loading">در حال دریافت فهرست…</p></nav>
   <noscript><nav class="no-script-notes" aria-label="فهرست نوشته‌ها">{% for note in collections.note | notHidden %}<a href="{{note.url}}">{{note.data.title or note.fileSlug}}</a>{% endfor %}</nav></noscript>
   <footer class="navigation-footer"><a href="/fa/">دربارهٔ هادس</a><span>پژوهش، مفهوم، ساخت</span></footer>
 </aside>

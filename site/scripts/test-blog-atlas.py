@@ -1,5 +1,6 @@
 """Chromium smoke test for built blog knowledge atlas; no production claims."""
 import json
+from html.parser import HTMLParser
 import pathlib
 import subprocess
 import sys
@@ -34,6 +35,18 @@ try:
     # Compare canonical URL sets against the actual built graph, not a hard-coded count.
     raw_graph = json.loads((root / 'dist/fa/garden/graph.json').read_text(encoding='utf-8'))
     expected_urls = sorted(n['url'] for n in raw_graph['nodes'].values() if not n.get('hide') and not n.get('private'))
+    class TreeLinks(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.urls = []
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == 'a' and attrs.get('href'):
+                self.urls.append(attrs['href'])
+    tree_parser = TreeLinks()
+    tree_parser.feed((root / 'dist/fa/garden/filetree.html').read_text(encoding='utf-8'))
+    expected_tree_urls = sorted(tree_parser.urls)
+    assert set(expected_urls) <= set(expected_tree_urls), ('built tree misses public nodes', expected_urls, expected_tree_urls)
     snapshot = """el => ({ready:el.dataset.graphReady, kind:el.dataset.graphKind, count:Number(el.dataset.graphCount), urls:[...el.querySelectorAll('.graph-node')].map(a=>a.getAttribute('href')).sort()})"""
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
@@ -42,6 +55,57 @@ try:
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url, wait_until="load")
+            # Workspace explorer stays docked on desktop and uses the existing accessible drawer on phones.
+            nav = page.locator('#garden-navigation')
+            query = page.locator('[data-tree-filter]')
+            page.wait_for_selector('[data-filetree][data-tree-ready]', state='attached')
+            assert nav.locator('[data-filetree]').get_attribute('data-tree-ready') == 'true', (width, 'tree initialization failed', errors, nav.locator('[data-filetree]').inner_html()[:500])
+            if width <= 900:
+                assert nav.evaluate('(el)=>el.inert')
+                page.locator('.mobile-tree-toggle').click()
+            assert nav.is_visible() and not nav.evaluate('(el)=>el.inert'), (width,'explorer unavailable')
+            assert page.locator('.workspace-strip').count() == 1
+            tree = nav.locator('[data-filetree]')
+            urls = tree.evaluate("el=>[...el.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).sort()")
+            assert urls == expected_tree_urls, (width, 'rendered tree URL parity', urls, expected_tree_urls, tree.inner_html()[:1000])
+            all_titles = len(urls)
+            query.fill('DDPM')
+            visible_titles = page.locator('[data-filetree] .tree-note:not([hidden]) a')
+            assert visible_titles.count() >= 1 and visible_titles.count() < all_titles
+            assert any('DDPM' in title for title in visible_titles.all_text_contents())
+            query.fill('zz-no-such-title-zz')
+            assert page.locator('[data-filetree] .tree-note:not([hidden])').count() == 0
+            query.press('Escape')
+            assert query.input_value() == '' and page.locator('[data-filetree] .tree-note:not([hidden])').count() == all_titles
+            if width <= 900:
+                page.keyboard.press('Escape')
+                assert nav.evaluate('(el)=>el.inert')
+                assert page.locator('.mobile-tree-toggle').evaluate('(el)=>document.activeElement===el')
+            if width > 900:
+                controls = page.locator('[data-workspace-panes]')
+                assert controls.is_visible()
+                controls.locator('summary').click()
+                slider = controls.locator('[data-workspace-width="navigation"]')
+                slider.press('End')
+                assert slider.input_value() == '300'
+                assert abs(nav.bounding_box()['width'] - 300) <= 2
+                toggle = controls.locator('[data-workspace-toggle="navigation"]')
+                toggle.click()
+                assert not nav.is_visible() and nav.evaluate('(el)=>el.inert')
+                toggle.click()
+                assert nav.is_visible() and not nav.evaluate('(el)=>el.inert')
+                focus = controls.locator('[data-workspace-focus]')
+                focus.click()
+                assert focus.get_attribute('aria-pressed') == 'true' and not nav.is_visible()
+                focus.click()
+                assert nav.is_visible() and focus.get_attribute('aria-pressed') == 'false'
+                assert slider.input_value() == '300'
+                controls.locator('[data-workspace-reset]').click()
+                assert slider.input_value() == '230'
+                controls.locator('summary').click()
+            else:
+                assert not page.locator('[data-workspace-panes]').is_visible()
+            page.screenshot(path=str(output / f"workspace-{width}.png"), full_page=False)
             preview = page.locator("[data-atlas-preview]")
             page.wait_for_selector('[data-atlas-preview][data-graph-ready="true"] .graph-node')
             page.evaluate("document.fonts.ready")
@@ -112,6 +176,29 @@ try:
             restored=preview.evaluate(snapshot)
             assert restored['urls']==expected_urls and restored['count']==full_count, (width,'restored inline atlas',restored)
             assert preview.evaluate(check_labels)['intersections']==0
+            if width == 1440:
+                article = next(u for u in expected_urls if '/notes/' not in u)
+                page.goto('http://127.0.0.1:8765' + article, wait_until='load')
+                controls = page.locator('[data-workspace-panes]')
+                controls.locator('summary').click()
+                context = page.locator('#garden-context')
+                toggle = controls.locator('[data-workspace-toggle="context"]')
+                assert context.is_visible()
+                toggle.click()
+                assert not context.is_visible() and context.evaluate('(el)=>el.inert')
+                toggle.click()
+                slider = controls.locator('[data-workspace-width="context"]')
+                slider.press('End')
+                assert slider.input_value() == '280'
+                assert abs(context.bounding_box()['width'] - 280) <= 2
+                controls.locator('[data-workspace-focus]').click()
+                assert not context.is_visible() and not page.locator('#garden-navigation').is_visible()
+                controls.locator('[data-workspace-focus]').click()
+                assert context.is_visible() and slider.input_value() == '280'
+                assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+                controls.locator('[data-workspace-reset]').click()
+                controls.locator('summary').click()
+                page.screenshot(path=str(output / 'workspace-article-1440.png'),full_page=False)
             assert not errors, (width, errors)
             results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "background_while_modal": after, "restored_count": restored["count"], "console_page_errors": errors, "status": "PASS"})
             page.close()
