@@ -58,3 +58,49 @@ test('hidden topic directories cannot shadow published concepts with the same sl
   assert.equal(resolveNote('دیفیوژن',noteIndex([concept,conflicting])),null)
   assert.equal(resolveNote('diffusion',noteIndex([concept,conflicting])),concept)
 })
+
+import {publishedAssetPaths,listPublicAssetCandidates} from './public-assets.mjs'
+test('published asset body and properties preserve PDF/cover without leaking unrelated files',()=>{
+  const candidates=['images/cover.png','docs/example file.pdf','a/ambiguous.png','b/ambiguous.png','private.png','images/other.webp']
+  const note={content:'<iframe src="/img/user/docs/example%20file.pdf#page=2"></iframe> /img/user/../private.png',frontmatter:{cover:'[[cover.png]]','dg-note-properties':{other:'[[ambiguous.png]]',explicit:'/img/user/images/other.webp'}}}
+  assert.deepEqual(publishedAssetPaths(note,candidates),['docs/example file.pdf','images/cover.png','images/other.webp'])
+  assert.deepEqual(publishedAssetPaths({content:'',frontmatter:{cover:'[[ambiguous.png]]'}},candidates),[])
+})
+test('asset enumeration does not follow symlinks',()=>{
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'hades-assets-'))
+  try{
+    fs.writeFileSync(path.join(dir,'public.png'),'x')
+    fs.symlinkSync(path.join(dir,'public.png'),path.join(dir,'link.png'))
+    assert.deepEqual(listPublicAssetCandidates(dir),['public.png'])
+  }finally{fs.rmSync(dir,{recursive:true,force:true})}
+})
+
+test('local graph depth includes only public reachable nodes, including numeric ID zero',async()=>{
+  const {graphAtDepth}=await import('../src/site/scripts/garden-content-compat.js')
+  const graph={nodes:[{id:0},{id:1},{id:2},{id:3},{id:4}],links:[{source:0,target:1},{source:2,target:1},{source:2,target:3},{source:3,target:4},{source:0,target:99}]}
+  const ids=d=>graphAtDepth(graph,0,d).nodes.map(n=>n.id)
+  assert.deepEqual(ids(1),[0,1])
+  assert.deepEqual(ids(2),[0,1,2])
+  assert.deepEqual(ids(3),[0,1,2,3])
+  assert.deepEqual(ids(8),[0,1,2,3])
+  assert.equal(graphAtDepth(graph,0,3).links.length,3)
+  assert.deepEqual(graphAtDepth(graph,99,2),{nodes:[],links:[]})
+})
+test('Mermaid is lazy and preserves original source on renderer or network failure',async()=>{
+  const {renderMermaid}=await import('../src/site/scripts/garden-content-compat.js')
+  let loads=0
+  assert.deepEqual(await renderMermaid({querySelectorAll:()=>[]},async()=>{loads++}),{rendered:0,failed:0})
+  assert.equal(loads,0)
+  const valid={textContent:'graph TD; A --> B',dataset:{}},invalid={textContent:'invalid graph',dataset:{}}
+  let config
+  const result=await renderMermaid({querySelectorAll:()=>[valid,invalid]},async()=>({default:{initialize(c){config=c},async render(id,source){if(source==='invalid graph')throw Error('invalid');return {svg:'<svg></svg>'}}}}))
+  assert.equal(config.securityLevel,'strict')
+  assert.equal(valid.dataset.diagramState,'rendered')
+  assert.equal(invalid.textContent,'invalid graph')
+  assert.equal(invalid.dataset.diagramState,'invalid')
+  assert.deepEqual(result,{rendered:1,failed:1})
+  const unavailable={textContent:'graph LR; A --> B',dataset:{}}
+  assert.deepEqual(await renderMermaid({querySelectorAll:()=>[unavailable]},async()=>{throw Error('offline')}),{rendered:0,failed:1})
+  assert.equal(unavailable.textContent,'graph LR; A --> B')
+  assert.equal(unavailable.dataset.diagramState,'unavailable')
+})

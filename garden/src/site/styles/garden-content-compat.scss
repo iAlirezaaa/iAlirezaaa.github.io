@@ -1,0 +1,26 @@
+// Existing upstream Bases component styles only; never import its site theme.
+@use 'obsidian-bases';
+.note-body {
+  .canvas-wrapper { position:relative; width:100%; height: min(70vh,42rem); min-height:20rem; overflow:hidden; cursor:grab; background:var(--surface); }
+  .canvas-wrapper.hide { opacity:0; }
+  .canvas-wrapper:active { cursor:grabbing; }
+  .canvas { position:absolute; transform-origin:0 0; z-index:1; direction:ltr; }
+  .canvas-background { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .canvas-edges-container { position:absolute; top:0; left:0; overflow:visible; pointer-events:none; max-width:none; }
+  .canvas-node { position:absolute; background:var(--surface); border:1px solid var(--line); border-radius:4px; }
+  .canvas-node.has-color { border-color:var(--canvas-color); }
+  .canvas-node-group { border-style:dashed; background:var(--subtle); }
+  .canvas-node-group .canvas-node-container { display:none; }
+  .canvas-node-container,.canvas-node-content { width:100%;height:100%;overflow:auto; }
+  .canvas-node-text-content,.canvas-file-content { padding:12px;unicode-bidi:plaintext; }
+  .canvas-file-iframe,.canvas-link-iframe,.canvas-youtube-iframe { width:100%;height:100%;border:0;display:block; }
+  .canvas-node-image img { width:100%;height:100%;object-fit:contain; }
+  .canvas-edge { pointer-events:none; }
+  .canvas-edge-label { text-anchor:middle;dominant-baseline:middle; }
+  .canvas.small-scale :is(.canvas-node-label,.canvas-node-text-content,.canvas-edge-label) { display:none; }
+  .canvas-hints { position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;flex-wrap:wrap;gap:8px;z-index:10;max-width:95%;background:var(--surface);padding:6px 10px;font-size:.75rem; }
+  .canvas-hints.hidden { display:none; }
+  pre.mermaid[data-diagram-state=rendered] { overflow:auto;white-space:normal; }
+  pre.mermaid svg { max-width:100%;height:auto; }
+  iframe[src$=".pdf"],iframe[src*=".pdf#"],iframe[src*=".pdf?"] { max-width:100%; }
+}

@@ -286,7 +286,7 @@ module.exports = function(eleventyConfig) {
         const token = tokens[idx];
         if (token.info === "mermaid") {
           const code = token.content.trim();
-          return `<pre class="mermaid">${code}</pre>`;
+          return `<pre class="mermaid">${md.utils.escapeHtml(code)}</pre>`;
         }
         if (token.info === "transclusion") {
           const code = token.content.trim();
@@ -709,7 +709,7 @@ module.exports = function(eleventyConfig) {
     }
 
     for (const t of parsed.querySelectorAll(
-      ".cm-s-obsidian > .block-language-dataview > table"
+      ".cm-s-obsidian .block-language-dataview > table, .cm-s-obsidian .block-language-dataviewjs > table"
     )) {
       t.classList.add("dataview");
       t.classList.add("table-view-table");

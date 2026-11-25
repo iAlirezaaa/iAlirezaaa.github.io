@@ -56,7 +56,7 @@
     {% if blogIndex %}<section class="atlas-preview-section" aria-labelledby="atlas-preview-title"><header class="atlas-preview-header"><div><span class="atlas-kicker" lang="en" dir="ltr">KNOWLEDGE ATLAS</span><h2 id="atlas-preview-title">نقشهٔ دانش</h2><p>ارتباط واقعی میان مقاله‌ها و یادداشت‌های وبلاگ.</p></div><button type="button" data-global-graph-open>کاوش در نقشه ↗</button></header><div class="atlas-preview" data-atlas-preview aria-label="پیش‌نمایش نقشهٔ دانش"><p class="muted">در حال دریافت ارتباط‌ها…</p></div><div class="atlas-preview-inspector"><p data-atlas-count role="status"></p><p data-atlas-detail aria-live="polite">برای دیدن عنوان کامل، یک نود را انتخاب کن.</p></div><p class="atlas-legend"><span><i class="atlas-article" aria-hidden="true"></i>مقاله</span><span><i aria-hidden="true"></i>یادداشت</span><span>عنوان‌های متراکم هوشمندانه پنهان می‌شوند.</span></p><noscript><p>نقشه به جاوااسکریپت نیاز دارد؛ نوشته‌ها در فهرست زیر قابل دسترسی هستند.</p></noscript></section>{% endif %}
     <article class="note-body" id="prose" data-note-body>
     {% set slotName = "common.beforeContent" %}{% include "components/pluginSlot.njk" %}
-    {{ content | hideDataview | taggify | link | resolveMdLinks | safe }}
+    {{ content | hideDataview | taggify | link | resolveMdLinks(page.inputPath) | safe }}
 
     {% set slotName = "common.afterContent" %}{% include "components/pluginSlot.njk" %}
     </article>
@@ -70,7 +70,7 @@
 {% include "components/hadesDialogs.njk" %}
 {% set slotName = "common.footer" %}{% include "components/pluginSlot.njk" %}
 {% for imp in dynamics.common.footer %}{% include imp %}{% endfor %}
-{% if contentClasses and 'canvas-page' in contentClasses %}{% include "components/canvasScript.njk" %}{% endif %}
+{% if (contentClasses and 'canvas-page' in contentClasses) or (content and 'canvas-wrapper' in content) %}{% include "components/canvasScript.njk" %}{% endif %}
 {% include "components/basesScript.njk" %}
 {% include "components/excalidrawScript.njk" %}
 </body>

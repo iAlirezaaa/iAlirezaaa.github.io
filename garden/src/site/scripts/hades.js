@@ -1,6 +1,7 @@
 import { installCodeCopy } from './reader-tools.js';
 import { installReadingTrail } from './reading-trail.js';
 import { installWorkspacePanes } from './workspace-panes.js';
+import { graphAtDepth } from './garden-content-compat.js';
 /** HADES' Persian reading layer for the upstream Eleventy Digital Garden. */
 export function normalizeSearchText(value = '') {
   return String(value).normalize('NFKC').toLocaleLowerCase('fa-IR')
@@ -273,12 +274,11 @@ function initializeGarden() {
     return graphPromise;
   }
   if ($('[data-reading-history]')) getGraph().then(graph => installReadingTrail({document, graph, here, storage:safeStorage})).catch(()=>{});
+  let localDepth=1;
   function graphSubset(graph,all=false){
     if(all)return graph;
     const current=graph.nodes.find(n=>trimPath(n.url)===here);
-    if(!current)return{nodes:[],links:[]};
-    const ids=new Set([current.id]);for(const link of graph.links){if(link.source===current.id)ids.add(link.target);if(link.target===current.id)ids.add(link.source);}
-    return{nodes:graph.nodes.filter(n=>ids.has(n.id)),links:graph.links.filter(l=>ids.has(l.source)&&ids.has(l.target))};
+    return graphAtDepth(graph,current?.id,localDepth);
   }
   function svgElement(name,attrs={}){const el=document.createElementNS('http://www.w3.org/2000/svg',name);for(const [key,value] of Object.entries(attrs))el.setAttribute(key,String(value));return el;}
 
@@ -409,6 +409,10 @@ function initializeGarden() {
     container.dataset.graphReady='true';
   }
   async function renderLocalGraph(){const c=$('[data-local-graph]');if(!c||!c.clientWidth)return;try{drawGraph(c,graphSubset(await getGraph()));}catch{c.replaceChildren(textElement('p','گراف دریافت نشد.','muted'));}}
+  $('[data-local-depth]')?.addEventListener('change',event=>{
+    localDepth=Math.max(1,Math.min(3,Number(event.target.value)||1));
+    renderLocalGraph();
+  });
   async function renderAtlasPreview(){const c=$('[data-atlas-preview]');if(!c||!c.clientWidth)return;try{drawGraph(c,await getGraph(),true);}catch{c.replaceChildren(textElement('p','نقشه در دسترس نیست؛ فهرست نوشته‌ها در ادامه قرار دارد.','muted'));}}
   let globalRenderVersion=0;
   async function renderGlobal(){const c=$('[data-global-graph]');if(!graphDialog?.open||!c)return;const version=++globalRenderVersion;c.dataset.graphReady='false';try{const data=await getGraph();if(version!==globalRenderVersion||!graphDialog.open)return;drawGraph(c,data,true);}catch{if(version===globalRenderVersion)c.replaceChildren(textElement('p','گراف دریافت نشد. دوباره امتحان کن.','muted'));}}

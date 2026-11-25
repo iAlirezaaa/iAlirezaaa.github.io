@@ -44,6 +44,8 @@ jobs:
           node scripts/verify-blog-discovery.mjs
           node scripts/validate-site.mjs
           node --test scripts/blog-explorer.test.mjs ../garden/scripts/publishing.test.mjs
+      - name: Build isolated native content compatibility fixture
+        run: node --test garden/scripts/content-compat.test.mjs
       - name: Verify canonical note tree routes
         working-directory: garden
         run: npx vitest run src/helpers/filetreeUtils.test.js

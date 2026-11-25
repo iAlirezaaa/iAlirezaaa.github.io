@@ -21,5 +21,8 @@
 {%- for style in dynamics.styles -%}{%- if '/user/hades.css' not in style -%}<link href="{{style}}" rel="stylesheet">{%- endif -%}{%- endfor -%}
 {%- for script in plugins.scripts -%}<script defer src="{{script}}"></script>{%- endfor -%}
 <script type="module" src="/scripts/hades.js"></script>
+{# Functional content assets only; do not load the upstream site theme. #}
+{% if content and ('obsidian-base' in content or 'canvas-wrapper' in content or 'transclusion' in content or 'mermaid' in content or 'dataview' in content or 'excalidraw' in content) %}<link rel="stylesheet" href="/styles/garden-content-compat.css">{% endif %}
+{% if content and 'mermaid' in content %}<script type="module" src="/scripts/garden-content-compat.js"></script>{% endif %}
 
 {% if blogIndex %}<script type="module" src="/scripts/blog-explorer.js"></script>{% endif %}
