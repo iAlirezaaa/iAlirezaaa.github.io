@@ -240,3 +240,20 @@
   body.hades-garden:not(.is-directory)[data-workspace-navigation=closed][data-workspace-context=closed] .garden-layout,body.hades-garden:not(.is-directory)[data-workspace-focus=true] .garden-layout{grid-template-columns:minmax(0,1fr)}
 }
 @media print{.workspace-pane-tools{display:none!important}body.hades-garden .garden-layout{display:block!important}}
+
+/* REVIEW: connected reading and opt-in local history, no motion dependency. */
+.trail-panel{border-block-start:1px solid var(--line);padding-block:1rem;margin-block:1.5rem;min-width:0}
+.trail-panel h2{font-size:1rem;font-weight:500;margin:0 0 .35rem}
+.trail-panel h3{font-size:.85rem;font-weight:500;color:var(--muted);margin:0 0 .35rem}
+.trail-panel p{font-size:.84rem;color:var(--muted);margin:.3rem 0}
+.trail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.8rem}
+.trail-panel ul{list-style:none;padding:0;margin:.5rem 0}
+.trail-panel li+li{border-block-start:1px solid var(--line)}
+.trail-panel a{display:block;padding:.5rem .4rem;color:var(--ink);overflow-wrap:anywhere;text-align:start;text-decoration:none}
+.trail-panel a:hover{background:var(--subtle);text-decoration:underline}
+.trail-actions{display:flex;gap:.4rem;flex-wrap:wrap}
+.trail-actions button{background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:.4rem .6rem;min-height:36px;font:inherit;font-size:.82rem;border-radius:4px;cursor:pointer}
+.trail-actions button:disabled{opacity:.6;cursor:default}
+.trail-panel :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.trail-panel[hidden],.trail-panel [hidden]{display:none!important}
+@media print{[data-reading-history]{display:none!important}}
