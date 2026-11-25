@@ -5,12 +5,14 @@ export const entries = [
     "title": "همون فضانورده، یا فقط یه فضانورد شبیهشه؟",
     "description": "چرا پرامپت یکسان همیشه همون کاراکتر رو برنمی‌گردونه؟ مقالهٔ DreamBooth رو با مثال یه عروسک فضانورد می‌خونیم و برای سنجش راکورد سه معیار می‌ذاریم.",
     "date": "2026-11-25",
-    "category": "شرح مقاله‌های هوش مصنوعی",
+    "category": "پژوهش و مقالهٔ علمی",
     "categoryId": "papers",
     "tags": [
       "paper-explainer",
       "diffusion",
-      "ai-image-making"
+      "ai-image-making",
+      "dreambooth",
+      "character-continuity"
     ],
     "sections": [
       {
@@ -119,11 +121,13 @@ export const entries = [
     "title": "یه فریم وسط می‌سازه؛ از کجا می‌فهمه دست پشت ستون رفته؟",
     "description": "ریپوی RIFE رو از فرمان ساخت یک فریم میانی تا جریان حرکت و مشکل پنهان‌شدن پشت ستون باز می‌کنیم، تا بدونیم کِی توی تدوین به درد می‌خوره.",
     "date": "2026-11-25",
-    "category": "تحلیل ریپوها",
+    "category": "ابزارها و کد متن‌باز",
     "categoryId": "repo-analysis",
     "tags": [
       "workflow",
-      "python"
+      "python",
+      "rife",
+      "frame-interpolation"
     ],
     "sections": [
       {
@@ -308,12 +312,13 @@ export const entries = [
     "title": "CFG رو زیاد کردی؛ چرا چراغ بهتر شد ولی کل قاب خراب شد؟",
     "description": "CFG توی مدل دیفیوژن چی رو تغییر می‌ده؟ با مقایسهٔ سه عدد برای نور یه چراغ قرمز، می‌بینیم چطور پایبندی به متن رو جدا از کیفیت قاب بسنجیم.",
     "date": "2026-11-25",
-    "category": "پایه‌های هوش مصنوعی",
+    "category": "مبانی و مفاهیم",
     "categoryId": "fundamentals",
     "tags": [
       "ai-basics",
       "diffusion",
-      "ai-image-making"
+      "ai-image-making",
+      "cfg"
     ],
     "sections": [
       {
@@ -455,13 +460,15 @@ export const entries = [
     "title": "چطور با ControlNet قاب رو نگه داریم، ولی ظاهرش رو عوض کنیم؟",
     "description": "وقتی پرامپت ظاهر خوبی می‌ده ولی در و دیوار رو جابه‌جا می‌کنه، یه نقشهٔ عمق به مدل می‌گه کدوم بخش‌های قاب نزدیک‌ترن. با یه مثال راهرو می‌بینیم کجا کمک می‌کنه و کجا نه.",
     "date": "2026-11-25",
-    "category": "شرح مقاله‌های هوش مصنوعی",
+    "category": "پژوهش و مقالهٔ علمی",
     "categoryId": "papers",
     "tags": [
       "paper-explainer",
       "diffusion",
       "comfyui",
-      "ai-image-making"
+      "ai-image-making",
+      "controlnet",
+      "depth-map"
     ],
     "sections": [
       {
@@ -682,7 +689,7 @@ export const entries = [
     "title": "کالبدشکافی ریپوی ComfyUI: وقتی Queue می‌زنی، پشت صحنه چه می‌گذره؟",
     "description": "از Queue تا PNG: ورودی هر نود، کار کش، فرق دو نوع JSON و تحویل گردش‌کارِ قابل‌بازتولید در ComfyUI.",
     "date": "2026-11-25",
-    "category": "تحلیل ریپوها",
+    "category": "ابزارها و کد متن‌باز",
     "categoryId": "repo-analysis",
     "tags": [
       "comfyui",
@@ -1729,7 +1736,7 @@ export const entries = [
     "title": "چطور از برفک، تصویر درمیاد؟",
     "description": "مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.",
     "date": "2026-11-25",
-    "category": "شرح مقاله‌های هوش مصنوعی",
+    "category": "پژوهش و مقالهٔ علمی",
     "sections": [
       {
         "title": "چرا از برفک شروع می‌کنه؟",
@@ -1791,7 +1798,8 @@ export const entries = [
       "ai-basics",
       "diffusion",
       "ai-image-making",
-      "paper-explainer"
+      "paper-explainer",
+      "ddpm"
     ],
     "figures": [
       {

@@ -26,7 +26,7 @@ export function searchNotes(notes, query, limit = 40) {
   }).filter(Boolean).sort((a,b) => b.score-a.score || a.note.title.localeCompare(b.note.title,'fa')).slice(0,limit).map(result => result.note);
 }
 
-if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); }
+if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); installBlogDiscovery(); }
 function initializeGarden() {
   const root = document.documentElement;
   const $ = (selector, within = document) => within.querySelector(selector);
@@ -342,4 +342,32 @@ export function installFigureViewer() {
       close.focus();
     });
   }
+}
+
+
+// Progressive enhancement: without JS all articles and native links remain visible.
+export function blogCardMatches(card,query='',category='',topic='') {
+  const terms=normalizeSearchText(query).slice(0,240).split(' ').filter(Boolean);
+  const text=normalizeSearchText(card.search);
+  return (!category || card.category===category) && (!topic || String(card.topics||'').split(' ').includes(topic)) && terms.every(term=>text.includes(term)||text.replaceAll(' ','').includes(term));
+}
+function installBlogDiscovery(){
+  const panel=document.querySelector('[data-blog-discovery]');
+  if(!panel)return;
+  const cards=[...document.querySelectorAll('.garden-post-list--editorial > [data-blog-card]')];
+  const query=panel.querySelector('[data-blog-query]'),category=panel.querySelector('[data-blog-category]'),topic=panel.querySelector('[data-blog-topic]');
+  const count=panel.querySelector('[data-blog-count]'),empty=panel.querySelector('[data-blog-empty]');
+  if(!cards.length||!query||!category||!topic||!count||!empty)return;
+  const format=new Intl.NumberFormat('fa-IR');
+  function apply(){
+    let visible=0;
+    for(const card of cards){card.hidden=!blogCardMatches(card.dataset,query.value,category.value,topic.value);if(!card.hidden)visible++;}
+    count.textContent=format.format(visible)+' از '+format.format(cards.length)+' مقاله';
+    empty.hidden=visible!==0;
+  }
+  query.addEventListener('input',apply);
+  category.addEventListener('change',apply);
+  topic.addEventListener('change',apply);
+  panel.querySelector('[data-blog-reset]').addEventListener('click',()=>{query.value=category.value=topic.value='';apply();query.focus();});
+  panel.hidden=false;apply();
 }

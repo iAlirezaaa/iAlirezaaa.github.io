@@ -6,11 +6,28 @@ import { readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
 
 const blogRoot = 'https://ialirezaaa.github.io/fa/blog/'
 const ddpmFigure = 'https://arxiv.org/html/2006.11239v2/pgm_diagram_xarrow_small.png'
-export const topicNames = {'ai-basics':'پایه‌های هوش مصنوعی',diffusion:'دیفیوژن','ai-image-making':'تصویرسازی با هوش مصنوعی','paper-explainer':'شرح مقاله',comfyui:'ComfyUI',workflow:'گردش‌کار',python:'پایتون'}
+export const topicDetails = {
+  'ai-basics': ['مبانی یادگیری ماشین','مفهوم‌هایی که برای فهم مدل‌ها و فرایند آموزش لازم‌اند.','مبانی'],
+  diffusion: ['مدل‌های دیفیوژن','از نویز اولیه تا فرایند بازسازی تصویر.','مدل‌ها و روش‌ها'],
+  'ai-image-making': ['تولید تصویر با هوش مصنوعی','روش‌های کنترل و ساخت تصویر در فرایند تولید.','کاربردها'],
+  'paper-explainer': ['خواندن مقالهٔ علمی','ایده، روش و محدودیت پژوهش‌های منتشرشده.','مطالعه'],
+  comfyui: ['ComfyUI','نودها، مدل‌ها و ساخت گردش‌کار تصویری.','ابزارها'],
+  workflow: ['گردش‌کار تولید','اتصال ابزارها و تصمیم‌های عملی در تولید تصویر و ویدئو.','کاربردها'],
+  python: ['Python','کد، ساختار پروژه و پیاده‌سازی ابزارها.','ابزارها'],
+  dreambooth: ['DreamBooth','شخصی‌سازی مدل با نمونه‌های یک سوژهٔ مشخص.','مدل‌ها و روش‌ها'],
+  'character-continuity': ['راکورد کاراکتر','حفظ نشانه‌های هویتی شخصیت در نماهای مختلف.','کاربردها'],
+  rife: ['RIFE','ساخت فریم میانی و بررسی حرکت میان دو تصویر.','ابزارها'],
+  'frame-interpolation': ['میان‌یابی فریم','افزودن فریم بین تصاویر برای تغییر ریتم حرکت.','کاربردها'],
+  cfg: ['هدایت CFG','تأثیر شدت هدایت متن بر نمونه‌گیری مدل.','مدل‌ها و روش‌ها'],
+  controlnet: ['ControlNet','کنترل ساختار تصویر با ورودی‌های شرطی.','مدل‌ها و روش‌ها'],
+  'depth-map': ['نقشهٔ عمق','استفاده از عمق نسبی برای کنترل ساختار صحنه.','کاربردها'],
+  ddpm: ['DDPM','مدل احتمالاتی حذف تدریجی نویز.','مدل‌ها و روش‌ها'],
+}
+export const topicNames = Object.fromEntries(Object.entries(topicDetails).map(([id,detail])=>[id,detail[0]]))
 export const categories = {
-  papers:{name:'شرح مقاله‌های هوش مصنوعی',description:'ایدهٔ اصلی پژوهش‌ها، به زبان ساده و همراه با شکل‌ها و مثال‌های کاربردی.'},
-  'repo-analysis':{name:'تحلیل ریپوها',description:'سر زدن به کد و مستندات ابزارهای متن‌باز، برای اینکه ببینیم چطور کار می‌کنند و کجا به درد می‌خورند.'},
-  fundamentals:{name:'پایه‌های هوش مصنوعی',description:'مفهوم‌های پایه با مثال‌هایی که از دل کارِ ساخت تصویر و انیمیشن می‌آیند.'},
+  papers:{name:'پژوهش و مقالهٔ علمی',description:'از پرسش پژوهش تا روش و نتیجه؛ مقاله‌های علمی را با مثال، شکل و توجه به محدودیت‌هایشان بخوان.'},
+  'repo-analysis':{name:'ابزارها و کد متن‌باز',description:'ساختار مخزن، معماری ابزار، کد و کاربرد آن در خط تولید تصویر و انیمیشن.'},
+  fundamentals:{name:'مبانی و مفاهیم',description:'از سازوکار مدل تا نمونه‌گیری؛ مفاهیم فنی را قدم‌به‌قدم و با مثال‌های تصویری دنبال کن.'},
 }
 const categoryPath = slug => '/fa/blog/categories/' + slug + '/'
 const markNav = (html, target) => html.replace(' href="/fa/blog/" aria-current="page"', ' href="/fa/blog/"').replace(' href="' + target + '"', ' href="' + target + '" aria-current="page"')
