@@ -401,17 +401,25 @@ def check_global_interactions(page, width, expected_urls):
     # A background drag changes the camera, not a node or the document scroll.
     scene = graph.locator('[data-graph-scene]')
     transform = scene.get_attribute('transform')
+    # A dense graph needs a truly empty touch target, not merely a point
+    # outside the exact hit circle. Chromium retargets taps to nearby links.
     background = graph.evaluate("""el=>{
-      const r=el.getBoundingClientRect();
-      for(const fy of [.12,.88,.25,.75])for(const fx of [.12,.88,.25,.75]){
+      const svg=el.querySelector('svg'),r=svg.getBoundingClientRect();
+      const hits=[...svg.querySelectorAll('.graph-node .graph-hit')].map(n=>n.getBoundingClientRect());
+      let best=null;
+      for(let fy=.08;fy<=.90;fy+=.04)for(let fx=.08;fx<=.90;fx+=.04){
         const x=r.left+r.width*fx,y=r.top+r.height*fy,t=document.elementFromPoint(x,y);
-        if(t&&el.contains(t)&&!t.closest('.graph-node'))return {x,y};
+        if(!t||!svg.contains(t)||t.closest('.graph-node')||x+22>=r.right||y+13>=r.bottom)continue;
+        const clearance=Math.min(...hits.map(b=>Math.hypot(Math.max(b.left-x,0,x-b.right),Math.max(b.top-y,0,y-b.bottom))));
+        if(!best||clearance>best.clearance)best={x,y,clearance};
       }
-      return null;
+      return best;
     }""")
-    assert background, (width, 'no usable graph background')
+    assert background and background['clearance'] > 18, (width, 'no usable graph background', background)
+    node_before_pan = dot.evaluate(POSITION)
     pointer_drag(page, touch, background['x'], background['y'], 22, 13)
-    assert scene.get_attribute('transform') != transform, (width, 'background pan failed')
+    page.wait_for_function("old=>document.querySelector('[data-global-graph] [data-graph-scene]').getAttribute('transform')!==old",arg=transform,timeout=2000)
+    assert max(abs(a-b) for a,b in zip(node_before_pan,dot.evaluate(POSITION))) < .003, (width,'background pan moved node')
     assert page.url == before_url
     reset.click()
     if touch:
