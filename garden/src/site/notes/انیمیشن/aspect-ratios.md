@@ -38,6 +38,10 @@ description: "انتخاب نسبت تصویر مناسب و محاسبهٔ کا
 
 تمرین: یک شات گفت‌وگوی دو شخصیت را برای ۱۶:۹، ۹:۱۶ و ۲٫۳۹:۱ قاب‌بندی کن. بدون کشیدن تصویر، نقاط توجه و فضای نگاه را حفظ کن. [[animation-camera-shots|اندازهٔ نما]] و [[animation-framing-blocking|بلاکینگ]] را برای هماهنگی بیشتر مطالعه کن.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/frame-ratios.svg" target="_blank" rel="noopener"><img src="/img/user/animation/frame-ratios.svg" width="960" height="650" loading="lazy" decoding="async" alt="نسبت‌های تصویر؛ مقایسهٔ فرم قاب با نقطهٔ توجه یکسان"></a><figcaption>مقایسهٔ فرم قاب با نقطهٔ توجه یکسان — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

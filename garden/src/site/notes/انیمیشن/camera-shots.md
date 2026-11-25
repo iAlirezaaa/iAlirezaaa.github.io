@@ -41,6 +41,12 @@ Pan چرخش افقی در محل، Tilt چرخش عمودی، Roll چرخش ح�
 
 یک کنش ساده (رسیدن به در و بازکردن آن) را با پنج نمای متفاوت طراحی کن. هر نما باید اطلاعات تازه‌ای بدهد: موقعیت، هدف، جزئیات کلید، واکنش و نتیجه. قبل از انیمیت، در [[animation-storyboards|استوری‌بورد]] و [[animation-framing-blocking|بلاکینگ]] علت انتخاب دوربین را کنار شات بنویس.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/shot-sizes.svg" target="_blank" rel="noopener"><img src="/img/user/animation/shot-sizes.svg" width="960" height="650" loading="lazy" decoding="async" alt="اندازهٔ نما؛ پنج نمونهٔ شماتیک از تغییر محدودهٔ قاب"></a><figcaption>پنج نمونهٔ شماتیک از تغییر محدودهٔ قاب — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
+<figure class="animation-study-figure"><a href="/img/user/animation/camera-angles.svg" target="_blank" rel="noopener"><img src="/img/user/animation/camera-angles.svg" width="960" height="550" loading="lazy" decoding="async" alt="زاویهٔ دوربین؛ تغییر نسبت ارتفاع دوربین به سوژه"></a><figcaption>تغییر نسبت ارتفاع دوربین به سوژه — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

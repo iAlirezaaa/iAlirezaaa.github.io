@@ -39,6 +39,10 @@ description: "درک سرعت ثابت، شتاب، کاهش سرعت، سکون
 
 یک شکل را در ۲۴ فریم به اندازهٔ ۳۰۰ پیکسل حرکت بده. پنج نسخه با منحنی‌های متفاوت بساز. نمودار موقعیت را به فاصلهٔ واقعی پزها تبدیل کن. سپس همان تمرین را برای حرکت دوربین و حرکت دست انجام بده و تفاوت هدف را بررسی کن.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/motion-curves.svg" target="_blank" rel="noopener"><img src="/img/user/animation/motion-curves.svg" width="960" height="650" loading="lazy" decoding="async" alt="پنج نوع تغییر موقعیت؛ محور افقی زمان و محور عمودی مقدار موقعیت است"></a><figcaption>محور افقی زمان و محور عمودی مقدار موقعیت است — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

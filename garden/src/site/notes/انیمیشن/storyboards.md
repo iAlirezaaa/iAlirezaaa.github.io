@@ -35,6 +35,10 @@ description: "روش طراحی پنل‌ها، شمارهٔ شات، راکور
 
 صحنهٔ ورود شخصیت به اتاق، یافتن شیء و واکنش او را در چهار تا شش شات طراحی کن. به هر پنل شماره و هدف روایی بده. سپس دو پنل را حذف کن و ببین آیا داستان همچنان روشن است. نسخهٔ منتخب را به [[animation-animatics|انیماتیک]] منتقل کن.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/storyboard-template-fa.svg" target="_blank" rel="noopener"><img src="/img/user/animation/storyboard-template-fa.svg" width="960" height="635" loading="lazy" decoding="async" alt="قالب استوری‌بورد فارسی؛ سه پنل ۱۶:۹ با فضای قاب، کنش، دوربین و صدا"></a><figcaption>سه پنل ۱۶:۹ با فضای قاب، کنش، دوربین و صدا — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

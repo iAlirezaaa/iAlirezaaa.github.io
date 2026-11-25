@@ -40,6 +40,10 @@ description: "درک Exposure، نرخ نمایش و انتخاب تعداد ط�
 
 تمرین: یک توپ را در یک ثانیه از نقطهٔ A به B حرکت بده. سه نسخهٔ یک، دو و سه بساز، در سرعت واقعی مقایسه کن و بدون تغییر مدت حرکت تشخیص بده کدام حس برای سبک فیلم مناسب‌تر است.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/exposure-sheet.svg" target="_blank" rel="noopener"><img src="/img/user/animation/exposure-sheet.svg" width="960" height="600" loading="lazy" decoding="async" alt="نرخ نمایش و تعداد طراحی؛ ۱۲ فریم از یک تایم‌لاین با خروجی ۲۴ فریم بر ثانیه"></a><figcaption>۱۲ فریم از یک تایم‌لاین با خروجی ۲۴ فریم بر ثانیه — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

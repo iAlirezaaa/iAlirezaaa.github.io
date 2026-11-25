@@ -35,6 +35,14 @@ description: "تمرین بنیادی زمان‌بندی، فاصله‌گذا�
 
 در نمایش آهسته فاصله‌ها را کنترل کن؛ در سرعت واقعی بپرس آیا جنس توپ قابل تشخیص است. از فریم تماس برای رفع نفوذ به زمین استفاده کن. بعد از تکمیل نسخهٔ عمودی، [[animation-ball-2|تمرین حرکت روی قوس]] را انجام بده. برای علت تغییر شکل به [[animation-principles|اصول انیمیشن]] برگرد.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/vertical-spacing.svg" target="_blank" rel="noopener"><img src="/img/user/animation/vertical-spacing.svg" width="960" height="650" loading="lazy" decoding="async" alt="زمان‌بندی سقوط عمودی؛ نمونه‌گیری در فاصله‌های زمانی برابر"></a><figcaption>نمونه‌گیری در فاصله‌های زمانی برابر — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
+<figure class="animation-study-figure"><a href="/img/user/animation/squash-stretch.svg" target="_blank" rel="noopener"><img src="/img/user/animation/squash-stretch.svg" width="960" height="615" loading="lazy" decoding="async" alt="فشردگی و کشیدگی؛ واکنش شکل به جهت حرکت و برخورد"></a><figcaption>واکنش شکل به جهت حرکت و برخورد — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
+<figure class="animation-study-figure"><a href="/img/user/animation/diminishing-bounces.svg" target="_blank" rel="noopener"><img src="/img/user/animation/diminishing-bounces.svg" width="960" height="600" loading="lazy" decoding="async" alt="جهش‌های کاهشی؛ نمودار شماتیک ارتفاع در طول زمان"></a><figcaption>نمودار شماتیک ارتفاع در طول زمان — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

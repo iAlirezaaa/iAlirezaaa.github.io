@@ -29,6 +29,10 @@ Lower Third گرافیک اطلاعاتی است که معمولاً در بخش
 
 تمرین: یک Lower Third برای مصاحبه بساز، نسخهٔ ۱۶:۹ و ۹:۱۶ را جدا طراحی کن. پس از دیدن نتیجه در اندازهٔ گوشی، هر حرکت و عنصر اضافی را که اطلاعات تازه‌ای نمی‌دهد حذف کن.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/lower-third-layout.svg" target="_blank" rel="noopener"><img src="/img/user/animation/lower-third-layout.svg" width="960" height="610" loading="lazy" decoding="async" alt="چیدمان Lower Third؛ اطلاعات در پایین قاب و دور از نقطهٔ تمرکز"></a><figcaption>اطلاعات در پایین قاب و دور از نقطهٔ تمرکز — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

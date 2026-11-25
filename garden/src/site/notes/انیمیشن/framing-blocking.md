@@ -31,6 +31,10 @@ description: "برنامه‌ریزی جای کاراکتر، دوربین، ن�
 
 بلندترین و نزدیک‌ترین شات‌ها را کنار هم در [[animation-animatics|انیماتیک]] ببین. از خود بپرس: آیا مخاطب موقعیت را می‌فهمد؟ آیا مسیر شخصیت امکان‌پذیر است؟ آیا اشیا به‌درستی در دسترس‌اند؟ اگر پاسخ منفی است، تغییر قاب و جایگذاری ارزان‌تر از بازسازی انیمیشن نهایی است.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/blocking-top-view.svg" target="_blank" rel="noopener"><img src="/img/user/animation/blocking-top-view.svg" width="960" height="590" loading="lazy" decoding="async" alt="بلاکینگ از نمای بالا؛ پلان سادهٔ صحنه و جهت دوربین"></a><figcaption>پلان سادهٔ صحنه و جهت دوربین — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]
