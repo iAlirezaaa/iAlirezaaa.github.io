@@ -3,7 +3,7 @@ import path from 'node:path'
 import assert from 'node:assert/strict'
 import crypto from 'node:crypto'
 import { createRequire } from 'node:module'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { entries } from '../public/fa/blog/entries.js'
 
 // Verify built pages, not equality between old Vite input shells and pages now
@@ -163,8 +163,7 @@ for (const item of search) {
 for (const node of nodes.filter(node => !node.private)) assert.ok(searchURLs.has(node.url), 'Public graph node absent from search: ' + node.url)
 
 // Exercise the published Persian search implementation, not a duplicate model.
-const searchCode = read('fa/garden/scripts/hades.js')
-const { normalizeSearchText, searchNotes } = await import('data:text/javascript;base64,' + Buffer.from(searchCode).toString('base64'))
+const { normalizeSearchText, searchNotes } = await import(pathToFileURL(path.join(dist, 'fa/garden/scripts/hades.js')).href)
 assert.equal(normalizeSearchText('يادگيري كَتاب ۱۲۳ ٤٥٦'), normalizeSearchText('یادگیری کتاب 123 456'))
 assert.equal(normalizeSearchText('مدل‌های'), normalizeSearchText('مدل های'))
 const searchFixture = [
