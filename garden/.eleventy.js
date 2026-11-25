@@ -709,7 +709,7 @@ module.exports = function(eleventyConfig) {
     }
 
     for (const t of parsed.querySelectorAll(
-      ".cm-s-obsidian > .block-language-dataview > table"
+      ".cm-s-obsidian .block-language-dataview > table, .cm-s-obsidian .block-language-dataviewjs > table"
     )) {
       t.classList.add("dataview");
       t.classList.add("table-view-table");
