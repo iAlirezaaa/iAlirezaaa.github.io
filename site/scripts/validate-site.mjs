@@ -126,7 +126,7 @@ for (const slug of ['categories','tags']) {
   const directory = parseHTML(path.join(dist,route,'index.html'))
   assert.equal(directory.querySelector('body')?.getAttribute('data-garden-page'),route)
   assert.ok(sitemapURLs.includes(new URL(route,origin).href))
-  assert.ok(blogDocument.querySelector('a[href="' + route + '"]'))
+  assert.ok(directory.querySelector('[data-note-body] a[href^="/fa/blog/"]'), 'Retained directory must link to its public content')
 }
 assert.ok(!sitemapURLs.includes(origin + 'fa/garden/'), 'Legacy landing must not be indexed')
 assert.ok(sitemapURLs.includes(origin + 'fa/blog/notes/noise/'), 'Migrated knowledge note missing from sitemap')
@@ -144,7 +144,7 @@ assert.equal(blogDocument.querySelector('html')?.getAttribute('dir'),'rtl')
 assert.equal(blogDocument.querySelector('link[rel="canonical"]')?.getAttribute('href'),origin + 'fa/blog/')
 assert.ok(sitemapURLs.includes(origin + 'fa/blog/'))
 assert.ok(!fs.existsSync(fileFor('blog','en')))
-for (const key of Object.keys(defaults)) assert.ok(blogDocument.querySelector('[data-setting="' + key + '"]'))
+for (const key of ['theme', 'size']) assert.ok(blogDocument.querySelector('[data-setting="' + key + '"]'))
 assert.deepEqual(normalizeSettings(null),defaults)
 assert.deepEqual(normalizeSettings({theme:'light', size:'oops', measure:'wide', leading:'airy'}),{theme:'light', size:'regular', measure:'wide', leading:'airy'})
 const fixture = {slug:'fixture', title:'یک نوشته', date:'2026-11-24', description:'برای آزمون', sections:[{title:'آزمون', paragraphs:['پشت‌صحنه '+ 'واژه '.repeat(180)]}]}
@@ -259,7 +259,7 @@ for (const entry of blogEntries) {
     const filteredPage = parseHTML(path.join(dist,filter,'index.html'))
     if (!topics[tag].legacy) {
       assert.ok(document.querySelector('a[href="' + filter + '"]'), 'Article topic link missing: ' + tag)
-      assert.ok(blogDocument.querySelector('a[href="' + filter + '"]'), 'Index topic link missing: ' + tag)
+      assert.equal(document.querySelectorAll('.garden-tags a[href="' + filter + '"]').length, 1, 'Article topic must have one contextual entry: ' + tag)
     }
     assert.equal(filteredPage.querySelector('body')?.getAttribute('data-garden-page'),filter)
     assert.ok(filteredPage.querySelector('a[href="' + route + '"]'))

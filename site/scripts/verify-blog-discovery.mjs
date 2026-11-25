@@ -31,8 +31,7 @@ const numbers = new Intl.NumberFormat('fa-IR')
 const load = route => parse(fs.readFileSync(path.join(dist, route.replace(/^\//, ''), 'index.html'), 'utf8'))
 const getCardURL = card => card.querySelector('a[href]')?.getAttribute('href')
 const sorted = values => [...values].sort()
-const cardURLs = (document, kind) => document.querySelectorAll('[data-explorer-item][data-kind="' + kind + '"]').map(getCardURL)
-const tokens = value => (value || '').trim().split(/\s+/u).filter(Boolean)
+const cardURLs = (document, kind) => document.querySelectorAll('[data-content-item][data-kind="' + kind + '"]').map(getCardURL)
 const readJSON = relative => JSON.parse(fs.readFileSync(path.join(dist, relative), 'utf8'))
 
 // Stable route IDs can acquire better labels without breaking old bookmarks.
@@ -62,50 +61,36 @@ for (const [id, topic] of Object.entries(topics)) {
 }
 
 const index = load(root)
-for (const selector of ['[data-search-open]','[data-global-graph-open]','[data-settings-open]','[data-panel-open="navigation"]']) assert.equal(index.querySelectorAll(selector).length,1,'Duplicate primary action: '+selector)
-for (const selector of ['.workspace-ribbon','.workspace-strip','.garden-directory-nav','.garden-search-button','[data-tree-filter]','[data-recent-reading]']) assert.equal(index.querySelectorAll(selector).length,0,'Duplicate navigation remains: '+selector)
-assert.ok(index.querySelector('body.is-directory'), 'Blog index should use the spacious directory layout')
-assert.equal(index.querySelector('h1')?.text.trim(), blogCopy.index.title)
-assert.equal(index.querySelector('#garden-context'), null, 'Directory still renders a competing context sidebar')
-const form = index.querySelector('form[data-blog-explorer]')
-assert.ok(form && form.hasAttribute('hidden'), 'Enhancement controls should stay hidden until the script initializes')
-assert.equal(form.getAttribute('aria-label'), 'فیلتر نوشته‌ها')
-assert.equal(form.querySelector('[name="q"]')?.getAttribute('type'), 'hidden', 'Only the global search should expose a text search field')
-for (const name of ['kind', 'category', 'topic', 'sort']) {
-  const control = form.querySelector('[name="' + name + '"]')
-  assert.ok(control?.getAttribute('id'), 'Unnamed discovery control: ' + name)
-  assert.ok(form.querySelector('label[for="' + control.getAttribute('id') + '"]'), 'Discovery control lacks a label: ' + name)
+for (const selector of ['[data-search-open]', '[data-global-graph-open]', '[data-settings-open]', '[data-panel-open="navigation"]']) {
+  assert.equal(index.querySelectorAll(selector).length, 1, 'Primary action must appear once: ' + selector)
 }
-assert.ok(form.querySelector('[data-explorer-count][role="status"][aria-live="polite"]'), 'Result changes need a live announcement')
-assert.ok(form.querySelector('button[type="reset"]'), 'Filter reset is missing')
-assert.ok(index.querySelector('#blog-results'), 'Search input has no result target')
-assert.ok(index.querySelector('[data-explorer-empty][hidden]'), 'Empty result guidance must initially be hidden')
-// node-html-parser treats noscript as raw text, matching a scripting-enabled
-// parse. Parse its fallback markup separately to inspect the no-script route.
-assert.ok(index.querySelectorAll('noscript').some(element => parse(element.innerHTML).querySelector('a[href="/fa/blog/tags/"]')), 'No-JavaScript subject navigation missing')
-for (const kind of ['articles', 'notes']) assert.ok(index.querySelector('[data-explorer-list="' + kind + '"]'), 'Unified list is missing ' + kind)
+for (const selector of ['.workspace-ribbon', '.workspace-strip', '.garden-directory-nav', '[data-tree-filter]', '[data-recent-reading]', '[data-reading-history]', '[data-workspace-panes]', '[data-blog-explorer]', '[data-explorer-empty]', '[data-atlas-preview]']) {
+  assert.equal(index.querySelectorAll(selector).length, 0, 'Removed interface remains in the DOM: ' + selector)
+}
+assert.ok(index.querySelector('body.is-directory'), 'Blog index should use the directory layout')
+assert.equal(index.querySelector('h1')?.text.trim(), 'از اینجا شروع کن')
+assert.equal(index.querySelectorAll('#garden-context [data-local-graph]').length, 1, 'The landing page needs one sidebar graph')
+assert.equal(index.querySelectorAll('main [data-local-graph], main [data-global-graph], main [data-atlas-preview]').length, 0, 'A graph still competes with the reading column')
+assert.ok(index.querySelector('#articles'), 'Recent writing section missing')
+assert.equal(index.querySelectorAll('.garden-post-cover, main .garden-tags, .blog-index-overview').length, 0, 'Landing page still includes repeated covers, topic panels, or totals')
 
-const items = index.querySelectorAll('[data-explorer-item]')
-assert.equal(items.length, sourceArticles.length + sourceNotes.length, 'Index and publishable source counts disagree')
-assert.deepEqual(sorted(cardURLs(index, 'article')), sorted(sourceArticles.map(articleRoute)), 'Published article missing or duplicated in unified index')
-assert.deepEqual(sorted(cardURLs(index, 'note')), sorted(sourceNotes.map(noteRoute)), 'Published note missing or duplicated in unified index')
+const startLinks = index.querySelectorAll('#notes .start-links a[href]')
+assert.deepEqual(sorted(startLinks.map(link => link.getAttribute('href'))), [root + 'notes/diffusion/', root + 'notes/start/'], 'Start page must provide exactly the two existing study entry points')
+const items = index.querySelectorAll('[data-content-item]')
+assert.equal(items.length, sourceArticles.length, 'Landing page should list each article once')
+assert.deepEqual(sorted(cardURLs(index, 'article')), sorted(sourceArticles.map(articleRoute)), 'Published article missing or duplicated on the start page')
+assert.equal(cardURLs(index, 'note').length, 0, 'Start page repeats the sidebar note directory')
 const allURLs = items.map(getCardURL)
-assert.equal(new Set(allURLs).size, allURLs.length, 'Discovery lists repeat canonical content')
+assert.equal(new Set(allURLs).size, allURLs.length, 'Article list repeats canonical content')
 for (const item of items) {
-  assert.ok(['article', 'note'].includes(item.getAttribute('data-kind')), 'Unknown content type')
-  for (const attribute of ['data-category', 'data-topics', 'data-search', 'data-title', 'data-minutes', 'data-date']) {
-    assert.ok(item.hasAttribute(attribute), 'Missing filter/sort field ' + attribute)
-  }
-  assert.ok(categories[item.getAttribute('data-category')], 'Card has unknown category')
-  assert.ok(tokens(item.getAttribute('data-topics')).every(id => topics[id] && !topics[id].legacy), 'Card exposes unknown or redundant format tags')
-  assert.ok(Number(item.getAttribute('data-minutes')) > 0, 'Estimated reading time must be positive')
-  const title = item.getAttribute('data-title')
-  assert.ok(title?.trim() && item.getAttribute('data-search').includes(title), 'Visible title is not searchable')
-  assert.ok(getCardURL(item)?.startsWith(root), 'Card points outside the unified blog')
-  assert.ok(!item.hasAttribute('hidden'), 'Server-rendered content must remain available without JavaScript')
-}
-for (const slug of ['start', 'diffusion', 'noise', 'seed', 'latent-diffusion', 'ddpm']) {
-  assert.ok(allURLs.includes(root + 'notes/' + slug + '/'), 'Existing concept/study route disappeared: ' + slug)
+  const source = sourceArticles.find(entry => articleRoute(entry) === getCardURL(item))
+  assert.ok(source, 'Article link points outside the published source records')
+  assert.equal(item.querySelector('h3 a')?.text.trim(), source.title, 'Article title changed in the directory')
+  assert.equal(item.querySelector('.post-card-summary')?.text.trim(), source.description, 'Article summary changed in the directory')
+  assert.equal(item.querySelector('time')?.getAttribute('datetime'), source.date, 'Article date changed in the directory')
+  assert.ok(item.querySelector('.post-card-meta')?.text.includes('دقیقه مطالعه'), 'Reading time is missing')
+  assert.equal(item.querySelectorAll('a[href]').length, 1, 'A directory row exposes duplicate destinations')
+  assert.ok(!item.hasAttribute('hidden'), 'Server-rendered article must remain readable without JavaScript')
 }
 for (const link of index.querySelectorAll('a[href]')) {
   assert.ok(!link.getAttribute('href').startsWith('/fa/garden/'), 'Public index still navigates through a legacy Garden content route')
@@ -160,13 +145,25 @@ for (const page of directoryPages) {
 const graph = readJSON('fa/garden/graph.json')
 const search = readJSON('fa/garden/searchIndex.json')
 const tree = parse(fs.readFileSync(path.join(dist, 'fa/garden/filetree.html'), 'utf8'))
+const expectedURLs = sorted([...sourceArticles.map(articleRoute), ...sourceNotes.map(noteRoute)])
+const treeURLs = tree.querySelectorAll('.tree-note a[href]').map(link => link.getAttribute('href'))
+assert.equal(new Set(treeURLs).size, treeURLs.length, 'The file tree duplicates a canonical note')
+assert.deepEqual(sorted(treeURLs), expectedURLs, 'Every published article and note must remain available in the single file tree')
+assert.deepEqual(sorted(Object.keys(graph.nodes)), expectedURLs, 'The graph and published content disagree')
+assert.deepEqual(sorted(search.map(record => record.url)), expectedURLs, 'The shared search and published content disagree')
+// The fallback remains navigable if fetching or scripting is unavailable.
+const fallbackLinks = index.querySelectorAll('noscript').flatMap(element => parse(element.innerHTML).querySelectorAll('a[href]').map(link => link.getAttribute('href')))
+for (const url of expectedURLs) {
+  assert.ok(fallbackLinks.includes(url) || index.querySelector('#workspace-filetree a[href="' + url + '"]'), 'No-script navigation lost a published page: ' + url)
+}
+
 assert.ok(!graph.nodes[root], 'Blog landing page appears as a knowledge node')
 assert.ok(!search.some(record => record.url === root), 'Blog landing page appears as a duplicate search result')
 assert.ok(!tree.querySelector('a[href="/fa/blog/"]'), 'Blog landing page appears in the note tree')
 assert.ok(tree.querySelector('a[href="/fa/blog/notes/start/"]'), 'Study guide does not link directly to its canonical route')
 assert.ok(!tree.querySelector('a[href="/fa/garden/"]'), 'File tree still forces the legacy home route')
 
-console.log('PASS blog discovery: ' + sourceArticles.length + ' articles + ' + sourceNotes.length + ' notes, published once in one index')
+console.log('PASS start page: two study entry points, ' + sourceArticles.length + ' unique article rows; all ' + expectedURLs.length + ' pages accessible in the file tree and shared search')
 console.log('PASS taxonomy: 3 sections, 16 stable/new topic routes (15 prominent), exact memberships/counts and Persian query aliases')
-console.log('PASS progressive enhancement: labelled controls, readable no-JS lists, clean directories, canonical tree/search/graph')
+console.log('PASS simplified navigation: one entry per primary action, sidebar graph, no filter/workspace/history clutter, complete no-JS links')
 console.log('Browser interaction, responsive layout and reduced motion are separate checks; this gate does not claim them.')

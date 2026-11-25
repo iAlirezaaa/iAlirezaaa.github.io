@@ -61,12 +61,13 @@ for (const [route, document] of documents) {
   assert.ok(document.querySelector('main#content [data-note-body]'), 'Readable server-rendered note body missing: ' + route)
   assert.ok(document.querySelector('main h1')?.text.trim(), 'Note title missing: ' + route)
   const directory = Boolean(document.querySelector('main.blog-directory'))
-  const featureSelectors = ['#garden-navigation', '[data-filetree]', '#garden-search', '#garden-search-input', '#garden-search-results', '#garden-settings', '#garden-graph', '[data-copy-link]']
-  if (!directory) featureSelectors.push('#garden-context', '[data-backlinks]', '[data-local-graph]', 'progress#reading-progress')
+  const featureSelectors = ['#garden-navigation', '[data-filetree]', '#garden-search', '#garden-search-input', '#garden-search-results', '#garden-settings', '#garden-graph', '#garden-context', '[data-local-graph]']
+  if (!directory) featureSelectors.push('[data-copy-link]', 'progress#reading-progress')
+  else assert.equal(document.querySelector('[data-copy-link]'), null, 'Directory includes an article-only share action: ' + route)
   for (const selector of featureSelectors) {
     assert.ok(document.querySelector(selector), 'Garden feature missing ' + selector + ': ' + route)
   }
-  for (const setting of ['theme', 'size', 'measure', 'leading']) {
+  for (const setting of ['theme', 'size']) {
     assert.ok(document.querySelector('[data-setting="' + setting + '"]'), 'Reading setting missing: ' + setting)
   }
   for (const dialog of document.querySelectorAll('dialog')) {
@@ -107,30 +108,35 @@ for (const link of graph.links) {
 }
 for (const entry of entries) assert.ok(nodes.some(node => node.url === '/fa/blog/' + entry.slug + '/'), 'Article absent from graph: ' + entry.slug)
 
+// The sidebar lists real public incoming references and stays absent when a
+// page has none; an isolated note must not acquire a placeholder section.
+for (const node of nodes.filter(node => !node.private)) {
+  const document = documents.get(node.url)
+  assert.ok(document, 'Public graph note has no reading page: ' + node.url)
+  const expected = node.backLinks.filter(url => url !== node.url && graph.nodes[url] && !graph.nodes[url].private).sort()
+  const actual = document.querySelectorAll('[data-backlinks] a[href]').map(link => link.getAttribute('href')).sort()
+  assert.deepEqual(actual, expected, 'Incoming reference list differs from the published graph: ' + node.url)
+  assert.equal(document.querySelectorAll('[data-backlinks]').length, expected.length ? 1 : 0, 'Incoming reference section must appear exactly when useful: ' + node.url)
+}
+
 // Editorial index and reader regression: exercise real generated markup.
 const editorialIndex = documents.get('/fa/blog/')
 assert.ok(editorialIndex, 'Blog index missing')
-assert.equal(editorialIndex.querySelector('.topbar-name')?.getAttribute('href'), '/fa/blog/', 'Blog must be the single public entry')
-assert.equal(editorialIndex.querySelectorAll('.garden-wordmark').length, 0, 'Duplicate blog home link in explorer')
-assert.equal(editorialIndex.querySelectorAll('.garden-topbar a[href="/fa/blog/"]').length, 1, 'Only one toolbar home entry')
+assert.equal(editorialIndex.querySelectorAll('.garden-wordmark[href="/fa/blog/"]').length, 1, 'The branded blog entry must appear once')
 assert.ok(!editorialIndex.querySelector('.topbar-links a[href="/fa/garden/"]'), 'Parallel garden landing in top navigation')
 assert.ok(editorialIndex.querySelector('#articles'))
-assert.ok(editorialIndex.querySelector('#notes'))
-const knowledgeLinks = new Set(editorialIndex.querySelectorAll('#notes .blog-knowledge-grid a').map(link => link.getAttribute('href')))
-assert.ok(knowledgeLinks.has('/fa/blog/notes/noise/'), 'Published notes missing from unified index')
-assert.ok(knowledgeLinks.has('/fa/blog/notes/diffusion/'), 'Learning path missing from unified index')
-for (const href of knowledgeLinks) assert.ok(localFile(href), 'Broken knowledge index link: ' + href)
-const editorialCards = editorialIndex.querySelectorAll('.garden-post-list--editorial > li')
-if (editorialCards.length) {
-  assert.equal(editorialIndex.querySelectorAll('.garden-post-list--editorial > .is-featured').length, 1, 'Expected one featured article')
-  assert.ok(editorialCards[0].classList.contains('is-featured'), 'Featured article must be first')
-  for (const [index, card] of editorialCards.entries()) {
-    const cover = card.querySelector('.garden-post-cover')
-    assert.ok(cover?.getAttribute('aria-label')?.trim(), 'Unnamed cover link')
-    const image = cover.querySelector('img')
-    assert.ok(Number(image?.getAttribute('width')) > 0 && Number(image?.getAttribute('height')) > 0, 'Cover needs intrinsic dimensions')
-    assert.equal(image?.getAttribute(index === 0 ? 'fetchpriority' : 'loading'), index === 0 ? 'high' : 'lazy', 'Incorrect cover loading strategy')
-  }
+assert.ok(editorialIndex.querySelector('#notes'), 'Existing study-entry anchor must remain usable')
+const knowledgeLinks = new Set(editorialIndex.querySelectorAll('#notes .start-links a').map(link => link.getAttribute('href')))
+assert.deepEqual([...knowledgeLinks].sort(), ['/fa/blog/notes/diffusion/', '/fa/blog/notes/start/'], 'Start page must expose the guide and learning path')
+for (const href of knowledgeLinks) assert.ok(localFile(href), 'Broken study entry link: ' + href)
+const editorialCards = editorialIndex.querySelectorAll('.garden-post-list > li[data-content-item]')
+assert.equal(editorialCards.length, entries.length, 'Start page lost an approved article')
+for (const card of editorialCards) {
+  assert.equal(card.querySelectorAll('a[href]').length, 1, 'Article row repeats a destination')
+  assert.ok(card.querySelector('h3 a')?.text.trim(), 'Article row needs a named title link')
+  assert.ok(localFile(card.querySelector('h3 a')?.getAttribute('href')), 'Article row points to an unbuilt route')
+  assert.equal(card.querySelector('img'), null, 'Directory image competes with the simplified reading list')
+  assert.match(card.querySelector('time')?.getAttribute('datetime') || '', /^\d{4}-\d{2}-\d{2}$/, 'Article row has no publication date')
 }
 const figureNumbers = new Intl.NumberFormat('fa-IR')
 for (const [route, doc] of documents) {
@@ -226,7 +232,7 @@ for (const [route, document] of documents) {
   }
 }
 const tree = parse(read('fa/garden/filetree.html'))
-assert.ok(tree.querySelectorAll('a[href]').length >= entries.length + 5, 'Filetree lost published notes')
+assert.deepEqual(tree.querySelectorAll('.tree-note a[href]').map(link => link.getAttribute('href')).sort(), nodes.filter(node => !node.private).map(node => node.url).sort(), 'Filetree must contain every public graph page once')
 for (const link of tree.querySelectorAll('a[href]')) assert.ok(localFile(link.getAttribute('href')), 'Broken filetree link')
 
 // Published input to the template must be explicitly allowed, never an entire

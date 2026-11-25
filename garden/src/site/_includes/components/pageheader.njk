@@ -14,7 +14,7 @@
 <link rel="icon" href="/img/hades-site-favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fa/garden/fonts/mikhak.woff2" as="font" type="font/woff2" crossorigin>
 <script>
-(function(){try{var p=JSON.parse(localStorage.getItem('hades-garden-reading')||'{}');var d=document.documentElement;for(var k of ['theme','size','measure','leading'])if(p[k])d.dataset[k]=p[k];if(!d.dataset.theme)d.dataset.theme='system';}catch(e){}})();
+(function(){try{var p=JSON.parse(localStorage.getItem('hades-garden-reading')||'{}');var d=document.documentElement;for(var k of ['theme','size'])if(p[k])d.dataset[k]=p[k];if(!d.dataset.theme)d.dataset.theme='system';}catch(e){}})();
 </script>
 <link rel="stylesheet" href="/styles/user/hades.css">
 {%- for style in plugins.styles -%}<link href="{{style}}" rel="stylesheet">{%- endfor -%}
@@ -24,5 +24,4 @@
 {# Functional content assets only; do not load the upstream site theme. #}
 {% if content and ('obsidian-base' in content or 'canvas-wrapper' in content or 'transclusion' in content or 'mermaid' in content or 'dataview' in content or 'excalidraw' in content) %}<link rel="stylesheet" href="/styles/garden-content-compat.css">{% endif %}
 {% if content and 'mermaid' in content %}<script type="module" src="/scripts/garden-content-compat.js"></script>{% endif %}
-
-{% if blogIndex %}<script type="module" src="/scripts/blog-explorer.js"></script>{% endif %}
+<noscript><style>.garden-topbar,.garden-context,.garden-search-button,.tree-heading button,.navigation-footer button{display:none!important}.garden-layout{display:block}.garden-navigation{position:static;visibility:visible;transform:none;width:100%;height:auto;min-height:0;max-height:none;padding:1.2rem;border-block-end:1px solid var(--line)}.garden-filetree{max-height:none}.garden-content{margin:auto}</style></noscript>
