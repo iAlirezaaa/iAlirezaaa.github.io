@@ -48,6 +48,5 @@ export function installWorkspacePanes({body, storage, onChange = () => {}}) {
   });
   controls.querySelector('[data-workspace-reset]').addEventListener('click',()=>{state={...defaults};focus=false;change(true);});
   apply();controls.hidden=false;
-  const ribbon=body.querySelector('[data-workspace-ribbon]');if(ribbon)ribbon.hidden=false;
-  return {isHidden};
+  return {isHidden,toggle(name){if(!['navigation','context'].includes(name))return;if(focus){focus=false;state[name]=true;}else state[name]=!state[name];change(true);}};
 }

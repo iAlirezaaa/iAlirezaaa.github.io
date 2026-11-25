@@ -1,7 +1,5 @@
 import { installCodeCopy } from './reader-tools.js';
-import { installReadingTrail } from './reading-trail.js';
-import { installWorkspacePanes } from './workspace-panes.js';
-import { graphAtDepth } from './garden-content-compat.js';
+import { installGraphViews } from './graph-view.js';
 /** HADES' Persian reading layer for the upstream Eleventy Digital Garden. */
 export function normalizeSearchText(value = '') {
   return String(value).normalize('NFKC').toLocaleLowerCase('fa-IR')
@@ -33,8 +31,8 @@ export function searchNotes(notes, query, limit = 40) {
 if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); installCodeCopy(); }
 function initializeGarden() {
   const root = document.documentElement;
-  const $ = (selector, within = document) => within.querySelector(selector);
-  const $$ = (selector, within = document) => [...within.querySelectorAll(selector)];
+  const $ = (selector, within = document) => within?.querySelector(selector) ?? null;
+  const $$ = (selector, within = document) => within ? [...within.querySelectorAll(selector)] : [];
   const BASE = '/fa/garden/';
   const trimPath = value => {
     try { return decodeURI(new URL(value, location.origin).pathname).replace(/\/+$/, '') || '/'; }
@@ -57,7 +55,7 @@ function initializeGarden() {
   // Apply a validated preference set. Storage failure never blocks reading.
   const defaults={theme:'system',size:'regular',measure:'regular',leading:'regular'};
   const choices={theme:['system','light','dark'],size:['small','regular','large','extra'],measure:['narrow','regular','wide'],leading:['compact','regular','airy']};
-  let preferences={...defaults,...safeStorage.read('hades-garden-reading',{})};
+  let preferences={...defaults,...safeStorage.read('hades-garden-reading',{}),measure:'regular',leading:'regular'};
   function applyPreferences(save=false) {
     for(const key of Object.keys(defaults)) {
       if(!choices[key].includes(preferences[key]))preferences[key]=defaults[key];
@@ -74,7 +72,9 @@ function initializeGarden() {
   $$('[data-setting]').forEach(control=>control.addEventListener('change',()=>{preferences[control.dataset.setting]=control.value;applyPreferences(true);}));
   $('[data-settings-reset]')?.addEventListener('click',()=>{preferences={...defaults};applyPreferences(true);});
 
-  // Native dialogs provide focus trapping and Escape; restore the opener explicitly.
+  // Native dialogs make the page inert and handle Escape. Keep Tab inside the
+  // visible controls as well: Chrome can otherwise tab into browser chrome
+  // after the last control, even while a modal dialog is open.
   const searchDialog=$('#garden-search'), searchInput=$('#garden-search-input'), settingsDialog=$('#garden-settings'), graphDialog=$('#garden-graph');
   const dialogOpeners=new WeakMap();
   function openDialog(dialog,focusTarget) {
@@ -90,6 +90,18 @@ function initializeGarden() {
     $('[data-dialog-close]',dialog)?.addEventListener('click',()=>dialog.close());
     dialog.addEventListener('close',()=>dialogOpeners.get(dialog)?.focus());
     dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+    dialog.addEventListener('keydown',event=>{
+      if(event.key!=='Tab'||event.altKey||event.ctrlKey||event.metaKey)return;
+      const targets=$$('a[href],button,input,select,textarea,summary,[tabindex]',dialog).filter(element=>{
+        const visibility=getComputedStyle(element).visibility;
+        return element.tabIndex>=0&&!element.matches(':disabled')&&!element.closest('[inert]')&&element.getClientRects().length&&visibility!=='hidden'&&visibility!=='collapse';
+      });
+      const first=targets[0],last=targets.at(-1),active=document.activeElement;
+      if(!first){event.preventDefault();dialog.focus();return;}
+      if(event.shiftKey?(active===first||active===dialog||!dialog.contains(active)):(active===last||active===dialog||!dialog.contains(active))){
+        event.preventDefault();(event.shiftKey?last:first).focus();
+      }
+    });
   });
   $$('[data-settings-open]').forEach(button=>button.addEventListener('click',()=>openDialog(settingsDialog,$('[data-setting]',settingsDialog))));
 
@@ -108,10 +120,6 @@ function initializeGarden() {
     resultIndex=(index+resultNotes.length)%resultNotes.length;
     const links=$$('.search-result-link',resultList);
     links.forEach((link,i)=>{if(i===resultIndex)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});
-    const note=resultNotes[resultIndex];
-    $('#search-preview-heading').textContent=note.title;
-    $('[data-search-preview]').textContent=note.content.slice(0,520)+(note.content.length>520?'…':'');
-    const previewLink=$('[data-search-preview-link]');previewLink.href=note.url;previewLink.hidden=false;
     if(focus)links[resultIndex]?.focus();
     else links[resultIndex]?.scrollIntoView({block:'nearest'});
   }
@@ -130,7 +138,6 @@ function initializeGarden() {
         li.append(link);resultList.append(li);
       }
       if(resultNotes.length)selectResult(0);
-      else {$('#search-preview-heading').textContent='نتیجه‌ای پیدا نشد';$('[data-search-preview]').textContent='می‌توانی با عنوان، موضوع یا بخشی از متن جست‌وجو کنی.';$('[data-search-preview-link]').hidden=true;}
     } catch {
       if(version!==searchVersion)return;
       resultList.replaceChildren();resultNotes=[];searchStatus.textContent='فهرست جست‌وجو دریافت نشد. اتصال را بررسی کن و دوباره بنویس.';
@@ -155,62 +162,43 @@ function initializeGarden() {
 
   // Navigation stays a regular tree of links, including without Alpine/CDNs.
   const tree=$('[data-filetree]');
-  const treeFilter=$('[data-tree-filter]');
-  const treeFilterBox=$('[data-tree-filter-box]');
-  let treeQuery='', treeOpenSnapshot=null;
-  function filterTree() {
-    if(!tree||!treeFilter)return;
-    const query=normalizeSearchText(treeFilter.value);
-    const folders=Array.from(tree.querySelectorAll('details[data-folder]')), items=Array.from(tree.querySelectorAll('.tree-note'));
-    if(query&&!treeQuery)treeOpenSnapshot=new Map(folders.map(d=>[d,d.open]));
-    treeQuery=query;
-    let count=0;
-    for(const item of items){
-      const link=$('a',item);
-      const haystack=normalizeSearchText((link?.textContent||'')+' '+(item.closest('details[data-folder]')?.dataset.folder||''));
-      const show=!query||query.split(' ').every(term=>haystack.includes(term)||haystack.replaceAll(' ','').includes(term));
-      item.hidden=!show;
-      if(show)count++;
-    }
-    for(const details of [...folders].reverse()){
-      const wrapper=details.closest('.tree-folder');
-      if(query){const show=Array.from(details.querySelectorAll('.tree-note')).some(item=>!item.hidden);if(wrapper)wrapper.hidden=!show;if(show)details.open=true;}
-      else{if(wrapper)wrapper.hidden=false;if(treeOpenSnapshot?.has(details))details.open=treeOpenSnapshot.get(details);}
-    }
-    if(!query)treeOpenSnapshot=null;
-    const toggle=$('[data-tree-collapse]');
-    if(toggle)toggle.disabled=Boolean(query);
-    const status=$('[data-tree-filter-status]');
-    if(status)status.textContent=numbers.format(count)+' نوشته'+(query?' مطابق فیلتر':' در فهرست');
+  function syncTreeToggle() {
+    const button=$('[data-tree-collapse]');if(!button)return;
+    const folders=$$('details[data-folder]',tree),anyOpen=folders.some(folder=>folder.open);
+    button.textContent=anyOpen?'جمع کردن':'باز کردن';
+    button.setAttribute('aria-label',anyOpen?'بستن همهٔ بخش‌های فهرست':'باز کردن همهٔ بخش‌های فهرست');
+    button.setAttribute('aria-expanded',String(anyOpen));
+    button.title=button.getAttribute('aria-label');
+    button.disabled=!folders.length;
+    if(tree?.id)button.setAttribute('aria-controls',tree.id);
   }
-  treeFilter?.addEventListener('input',filterTree);
-  treeFilter?.addEventListener('keydown',event=>{
-    if(event.key==='Escape'&&treeFilter.value){event.preventDefault();event.stopPropagation();treeFilter.value='';filterTree();}
-  });
   function markNavigation() {
-    $$('.garden-sections a,.topbar-links a,.tree-note a').forEach(link=>{
+    $$('.garden-wordmark,.tree-note a').forEach(link=>{
       if(trimPath(link.href)===here && !new URL(link.href,document.baseURI).hash)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
     });
+    if(!tree)return;
     const folderState=safeStorage.read('hades-garden-folders',{});
     $$('details[data-folder]',tree).forEach(details=>{
       if(Object.hasOwn(folderState,details.dataset.folder))details.open=folderState[details.dataset.folder];
       if($('a[aria-current=page]',details))details.open=true;
-      details.addEventListener('toggle',()=>{if(treeQuery)return;folderState[details.dataset.folder]=details.open;safeStorage.write('hades-garden-folders',folderState);});
+      details.addEventListener('toggle',()=>{folderState[details.dataset.folder]=details.open;safeStorage.write('hades-garden-folders',folderState);syncTreeToggle();});
     });
+    syncTreeToggle();
   }
-  if(tree)fetch(BASE+'filetree.html').then(response=>{if(!response.ok)throw new Error('Tree unavailable');return response.text();}).then(markup=>{
+  if(tree?.querySelector('.tree-note a')) {
+    markNavigation();tree.dataset.treeReady='true';
+  } else if(tree) fetch(BASE+'filetree.html').then(response=>{if(!response.ok)throw new Error('Tree unavailable');return response.text();}).then(markup=>{
     const parsed=new DOMParser().parseFromString(markup,'text/html');
-    tree.replaceChildren(...parsed.body.childNodes);markNavigation();filterTree();tree.dataset.treeReady='true';if(treeFilterBox)treeFilterBox.hidden=false;
-  }).catch(error=>{tree.dataset.treeReady='false';console.warn('HADES filetree initialization failed',error);if(treeFilterBox)treeFilterBox.hidden=true;if(!tree.querySelector('a[href]'))tree.replaceChildren(textElement('p','فهرست دریافت نشد. از جست‌وجو یا پیوندهای متن استفاده کن.','muted'));});
-  markNavigation();
-  $('[data-tree-collapse]')?.addEventListener('click',()=>{const folders=$$('details',tree);const allClosed=folders.every(d=>!d.open);folders.forEach(d=>{d.open=allClosed;});$('[data-tree-collapse]').textContent=allClosed?'جمع کردن':'باز کردن';});
+    tree.replaceChildren(...parsed.body.childNodes);markNavigation();tree.dataset.treeReady='true';
+  }).catch(error=>{tree.dataset.treeReady='false';console.warn('HADES filetree initialization failed',error);if(!tree.querySelector('a[href]'))tree.replaceChildren(textElement('p','فهرست دریافت نشد. از جست‌وجو یا پیوندهای متن استفاده کن.','muted'));});
+  $('[data-tree-collapse]')?.addEventListener('click',()=>{const folders=$$('details[data-folder]',tree);const allClosed=folders.every(d=>!d.open);folders.forEach(d=>{d.open=allClosed;});syncTreeToggle();});
 
   const panels={navigation:$('#garden-navigation'),context:$('#garden-context')};
-  const navMobile=matchMedia('(max-width: 900px)'),contextMobile=matchMedia('(max-width: 1240px)');
-  let panelOpener=null,activePanel=null,workspace=null;
+  const navMobile=matchMedia('(max-width: 1100px)'),contextMobile=matchMedia('(max-width: 1100px)');
+  let panelOpener=null,activePanel=null;
   const backdrop=$('.garden-backdrop');
   function syncPanelInert() {
-    for(const [name,panel] of Object.entries(panels))if(panel){const mobile=name==='navigation'?navMobile.matches:contextMobile.matches;panel.inert=mobile?activePanel!==name:Boolean(workspace?.isHidden(name));}
+    for(const [name,panel] of Object.entries(panels))if(panel){const mobile=name==='navigation'?navMobile.matches:contextMobile.matches;panel.inert=mobile?activePanel!==name:false;const button=$('[data-panel-open="'+name+'"]');button?.setAttribute('aria-expanded',String(!panel.inert));}
   }
   function closePanel(restore=true) {
     const old=activePanel;activePanel=null;delete document.body.dataset.openPanel;
@@ -218,7 +206,7 @@ function initializeGarden() {
     for(const panel of Object.values(panels))if(panel){panel.removeAttribute('role');panel.removeAttribute('aria-modal');}
     $$('[data-panel-open]').forEach(button=>button.setAttribute('aria-expanded','false'));
     $('.garden-layout main').inert=false;$('.garden-topbar').inert=false;
-    if($('[data-workspace-ribbon]'))$('[data-workspace-ribbon]').inert=false;
+
     syncPanelInert();
     if(old&&restore)panelOpener?.focus();
   }
@@ -228,10 +216,10 @@ function initializeGarden() {
     panels[name].inert=false;panels[name].setAttribute('role','dialog');panels[name].setAttribute('aria-modal','true');
     button.setAttribute('aria-expanded','true');
     $('.garden-layout main').inert=true;$('.garden-topbar').inert=true;
-    if($('[data-workspace-ribbon]'))$('[data-workspace-ribbon]').inert=true;
+
     $('[data-panel-close]',panels[name])?.focus();syncPanelInert();
   }
-  $$('[data-panel-open]').forEach(button=>button.addEventListener('click',()=>openPanel(button.dataset.panelOpen,button)));
+  $$('[data-panel-open]').forEach(button=>button.addEventListener('click',()=>{const name=button.dataset.panelOpen;const mobile=name==='navigation'?navMobile.matches:contextMobile.matches;if(mobile)openPanel(name,button);}));
   $$('[data-panel-close]').forEach(button=>button.addEventListener('click',()=>closePanel()));
   Object.values(panels).forEach(panel=>panel?.addEventListener('click',event=>{if(activePanel&&event.target.closest('a[href]'))closePanel(false);}));
   document.addEventListener('keydown',event=>{
@@ -245,7 +233,6 @@ function initializeGarden() {
     }
   });
   [navMobile,contextMobile].forEach(query=>query.addEventListener('change',()=>{closePanel(false);syncPanelInert();}));
-  workspace=installWorkspacePanes({body:document.body,storage:safeStorage,onChange:syncPanelInert});
   syncPanelInert();
 
   // Dates, reading time, progress and section indicator are all local.
@@ -275,274 +262,7 @@ function initializeGarden() {
     }).catch(error=>{graphPromise=null;throw error;});
     return graphPromise;
   }
-  if ($('[data-reading-history]')) getGraph().then(graph => installReadingTrail({document, graph, here, storage:safeStorage})).catch(()=>{});
-  let localDepth=1;
-  function graphSubset(graph,all=false){
-    if(all)return graph;
-    const current=graph.nodes.find(n=>trimPath(n.url)===here);
-    return graphAtDepth(graph,current?.id,localDepth);
-  }
-  function svgElement(name,attrs={}){const el=document.createElementNS('http://www.w3.org/2000/svg',name);for(const [key,value] of Object.entries(attrs))el.setAttribute(key,String(value));return el;}
-
-  // REVIEW: shared SVG atlas, screen-space label collision and finite motion.
-  const atlasState = new WeakMap();
-  const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
-  const options = {spread:100, labels:'auto', kind:'all', motion:!motionQuery.matches};
-  const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
-  function drawGraph(container,data,all=false){
-    container.dataset.graphReady='false';
-    atlasState.delete(container);
-    delete container.dataset.layoutChanged;
-    const resetButton=container.parentElement?.querySelector('[data-graph-layout-reset]');
-    if(resetButton)resetButton.hidden=true;
-    container.replaceChildren();
-    if(!data.nodes.length){container.append(textElement('p','نوشته‌ای در این نما نیست.','muted'));container.dataset.graphCount='0';container.dataset.graphKind='all';container.dataset.graphReady='true';return;}
-    const interactive=container.matches('[data-global-graph]');
-    let width=Math.max(200,container.clientWidth),height=Math.max(200,container.clientHeight);
-    const svg=svgElement('svg',{viewBox:'0 0 '+width+' '+height,role:'group','aria-label':'نقشهٔ ارتباط نوشته‌ها؛ عنوان کامل با فوکوس روی نود در دسترس است.'});
-    const group=svgElement('g',{'data-graph-scene':''});svg.append(group);
-    const kind=n=>/^\/fa\/blog\/notes(?:\/|$)/.test(trimPath(n.url))?'note':'article';
-    const visible=all&&interactive&&options.kind!=='all'?data.nodes.filter(n=>kind(n)===options.kind):data.nodes;
-    const ids=new Set(visible.map(n=>n.id));
-    const filter=all&&interactive?options.kind:'all';
-    const counts={article:visible.filter(n=>kind(n)==='article').length,note:visible.filter(n=>kind(n)==='note').length};
-    const unique=new Set();
-    const rawEdges=data.links.filter(l=>{if(!ids.has(l.source)||!ids.has(l.target)||l.source===l.target)return false;const key=JSON.stringify([l.source,l.target].sort());if(unique.has(key))return false;unique.add(key);return true;});
-    const degrees=new Map(visible.map(n=>[n.id,0]));
-    for(const l of rawEdges){degrees.set(l.source,degrees.get(l.source)+1);degrees.set(l.target,degrees.get(l.target)+1);}
-    const nodes=visible.map(n=>({...n,kind:kind(n),degree:degrees.get(n.id),current:trimPath(n.url)===here}));
-    let compact=width<460;
-    // Stable two-ring layout makes article/note clusters legible. Expand freely; zoom/pan reveal space.
-    const spread=interactive?options.spread/100:1;
-    const rings=[nodes.filter(n=>n.kind==='note'),nodes.filter(n=>n.kind==='article')];
-    rings.forEach((ring,ri)=>ring.forEach((n,i)=>{
-      const angle=2*Math.PI*i/Math.max(1,ring.length)-Math.PI/2+(ri ? .35 : 0);
-      const fraction=rings.every(a=>a.length)?(ri===0?.56:1):.83;
-      n.x=width/2+Math.cos(angle)*Math.max(56,width*.35)*fraction*spread;
-      n.y=height/2+Math.sin(angle)*Math.max(55,height*.34)*fraction*spread;
-      if(nodes.length===1){n.x=width/2;n.y=height/2;}
-    }));
-    if(container.matches('[data-local-graph]')){
-      const center=nodes.find(n=>n.current);
-      if(center){
-        center.x=width/2;center.y=height/2;
-        const neighbors=nodes.filter(n=>!n.current);
-        neighbors.forEach((n,i)=>{
-          const angle=2*Math.PI*i/Math.max(1,neighbors.length)-Math.PI/2;
-          n.x=width/2+Math.cos(angle)*width*.32;
-          n.y=height/2+Math.sin(angle)*height*.34;
-        });
-      }
-    }
-    const byId=new Map(nodes.map(n=>[n.id,n]));
-    const edges=rawEdges.map(l=>({source:byId.get(l.source),target:byId.get(l.target)}));
-    const edgeEls=edges.map(e=>{const line=svgElement('line',{x1:e.source.x,y1:e.source.y,x2:e.target.x,y2:e.target.y,class:'graph-edge','data-source':e.source.id,'data-target':e.target.id});group.append(line);return{...e,line};});
-    const nodeEls=[];
-    const preview=container.closest('.atlas-preview-section');
-    const local=container.closest('[data-local-graph-section]');
-    const status=interactive?$('[data-graph-detail]'):preview?.querySelector('[data-atlas-detail]')||local?.querySelector('[data-local-detail]');
-    const total=interactive?$('[data-graph-count]'):preview?.querySelector('[data-atlas-count]')||local?.querySelector('[data-local-count]');
-    if(total)total.textContent=numbers.format(counts.article)+' مقاله · '+numbers.format(counts.note)+' یادداشت · '+numbers.format(edges.length)+' ارتباط';
-    if(status)status.textContent='برای دیدن عنوان کامل، روی یک نود مکث کن یا با صفحه‌کلید آن را انتخاب کن.';
-    const defaultId=local?(nodes.find(n=>n.current)?.id??null):null;
-    let active=null;
-    const state={scale:1,dx:0,dy:0,apply:null,reflow:null,reset:null,width,height};
-    function prioritize(id){
-      if(id===null&&local)id=defaultId;
-      active=id;
-      const neighbors=new Set([id]);
-      for(const e of edgeEls){const connected=e.source.id===id||e.target.id===id;e.line.classList.toggle('is-related',id!==null&&connected);e.line.classList.toggle('is-dim',id!==null&&!connected);if(connected){neighbors.add(e.source.id);neighbors.add(e.target.id);}}
-      for(const n of nodeEls){n.a.classList.toggle('is-related',id!==null&&neighbors.has(n.id));n.a.classList.toggle('is-dim',id!==null&&!neighbors.has(n.id));}
-      // Retain the inspected title after leaving a node. Clearing text on blur
-      // moves the graph and its controls during pointerdown, losing clicks.
-      if(status&&id!==null)status.textContent=byId.get(id).title+' · '+numbers.format(byId.get(id).degree)+' ارتباط'+(local?' در این نما':'');
-      placeLabels();
-    }
-    for(const [i,node] of nodes.entries()){
-      const a=svgElement('a',{href:node.url,class:'graph-node',tabindex:0,'data-current':node.current,'data-kind':node.kind,'data-graph-id':node.id,'aria-label':node.title});
-      const title=svgElement('title');title.textContent=node.title;a.append(title);
-      const radius=node.current?7:clamp(4+Math.sqrt(node.degree),5,9);
-      const dot=svgElement('circle',{cx:node.x,cy:node.y,r:radius});
-      const hit=svgElement('circle',{cx:node.x,cy:node.y,r:Math.max(15,radius+5),class:'graph-hit'});
-      a.append(hit,dot);
-      const label=svgElement('text',{x:node.x,y:node.y+radius+16,'aria-hidden':'true'});
-      function updateLabel(){const chars=Array.from(node.title),max=compact?16:28;label.textContent=chars.length>max?chars.slice(0,max-1).join('')+'…':node.title;}
-      updateLabel();
-      a.append(label);group.append(a);
-      // Keep one mutable node record shared by circles, labels and its edges.
-      Object.assign(node,{a,dot,hit,label,radius,homeX:node.x/width,homeY:node.y/height,updateLabel});
-      nodeEls.push(node);
-      installNodeDrag(node);
-      a.addEventListener('pointerenter',()=>prioritize(node.id));
-      a.addEventListener('pointerleave',()=>{if(document.activeElement!==a)prioritize(null);});
-      a.addEventListener('focus',()=>prioritize(node.id));
-      a.addEventListener('blur',()=>prioritize(null));
-      if(options.motion&&!motionQuery.matches&&typeof a.animate==='function')a.animate([{opacity:0},{opacity:1}],{duration:340,delay:Math.min(i,10)*24,easing:'ease-out'});
-    }
-    container.append(svg);
-    let labelFrame=0;
-    function updateGeometry(){
-      for(const n of nodeEls)for(const circle of [n.dot,n.hit]){circle.setAttribute('cx',n.x);circle.setAttribute('cy',n.y);}
-      for(const e of edgeEls){e.line.setAttribute('x1',e.source.x);e.line.setAttribute('y1',e.source.y);e.line.setAttribute('x2',e.target.x);e.line.setAttribute('y2',e.target.y);}
-    }
-    function scheduleLabels(){
-      if(labelFrame)return;
-      labelFrame=requestAnimationFrame(()=>{labelFrame=0;placeLabels();});
-    }
-    function scenePoint(clientX,clientY){
-      const matrix=group.getScreenCTM();
-      return matrix?new DOMPoint(clientX,clientY).matrixTransform(matrix.inverse()):null;
-    }
-    function moveNode(n,x,y){
-      const pad=Math.max(18,n.radius+8);
-      n.x=clamp(x,pad,width-pad);n.y=clamp(y,pad,height-pad);
-      updateGeometry();container.dataset.layoutChanged='true';
-      if(resetButton)resetButton.hidden=false;
-      scheduleLabels();
-    }
-    function installNodeDrag(n){
-      let drag=null,suppressUntil=0;
-      const a=n.a;
-      a.addEventListener('pointerdown',e=>{
-        if(e.button!==0||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||drag)return;
-        const p=scenePoint(e.clientX,e.clientY);if(!p)return;
-        suppressUntil=0;
-        drag={id:e.pointerId,clientX:e.clientX,clientY:e.clientY,dx:n.x-p.x,dy:n.y-p.y,moved:false};
-        a.setPointerCapture(e.pointerId);
-      });
-      a.addEventListener('pointermove',e=>{
-        if(!drag||drag.id!==e.pointerId)return;
-        if(!drag.moved&&Math.hypot(e.clientX-drag.clientX,e.clientY-drag.clientY)<6)return;
-        const p=scenePoint(e.clientX,e.clientY);if(!p)return;
-        if(!drag.moved){drag.moved=true;a.classList.add('is-dragging');prioritize(n.id);}
-        e.preventDefault();moveNode(n,p.x+drag.dx,p.y+drag.dy);
-      });
-      const finish=e=>{
-        if(!drag||drag.id!==e.pointerId)return;
-        if(drag.moved){suppressUntil=performance.now()+600;placeLabels();}
-        drag=null;a.classList.remove('is-dragging');
-      };
-      a.addEventListener('pointerup',finish);a.addEventListener('pointercancel',finish);a.addEventListener('lostpointercapture',finish);
-      a.addEventListener('click',e=>{if(e.detail!==0&&performance.now()<suppressUntil){e.preventDefault();e.stopPropagation();}});
-      a.addEventListener('keydown',e=>{
-        const direction={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
-        if(!direction)return;
-        e.preventDefault();prioritize(n.id);
-        const step=(e.shiftKey?28:12)/state.scale;
-        moveNode(n,n.x+direction[0]*step,n.y+direction[1]*step);
-      });
-    }
-    // Bounding boxes in *screen pixels*, including zoom and actual font metrics.
-    // A suppressed label never removes its node, accessible title, or list entry.
-    function placeLabels(){
-      if(!svg.isConnected)return;
-      const box=svg.getBoundingClientRect(),used=[];
-      const dots=nodeEls.map(n=>({id:n.id,rect:n.dot.getBoundingClientRect()}));
-      const intersects=(a,b,pad=4)=>a.left<b.right+pad&&a.right>b.left-pad&&a.top<b.bottom+pad&&a.bottom>b.top-pad;
-      const mode=interactive?options.labels:'auto';
-      const sorted=[...nodeEls].sort((a,b)=>Number(b.id===active)-Number(a.id===active)||Number(b.current)-Number(a.current)||b.degree-a.degree||String(a.id).localeCompare(String(b.id)));
-      for(const n of sorted){
-        n.label.style.visibility='hidden';
-        if(mode==='off')continue;
-        if(mode==='focus'&&n.id!==active&&!n.current)continue;
-        const offsets=[[0,n.radius+17],[0,-n.radius-8],[n.radius+8,4],[-n.radius-8,4]];
-        for(const [dx,dy] of offsets){
-          n.label.setAttribute('x',n.x+dx);n.label.setAttribute('y',n.y+dy);
-          n.label.style.textAnchor=dx>0?'start':dx<0?'end':'middle';
-          const b=n.label.getBoundingClientRect();
-          if(b.left<box.left+5||b.right>box.right-5||b.top<box.top+5||b.bottom>box.bottom-5||used.some(v=>intersects(b,v))||dots.some(v=>v.id!==n.id&&intersects(b,v.rect,3)))continue;
-          n.label.style.visibility='visible';used.push(b);break;
-        }
-      }
-    }
-    state.apply=()=>{group.setAttribute('transform','translate('+(width/2+state.dx)+' '+(height/2+state.dy)+') scale('+state.scale+') translate('+(-width/2)+' '+(-height/2)+')');container.dataset.scale=String(state.scale);placeLabels();};
-    state.reflow=()=>{
-      if(!container.clientWidth||!container.clientHeight)return;
-      const w=Math.max(200,container.clientWidth),h=Math.max(200,container.clientHeight);
-      if(w!==width||h!==height){
-        const sx=w/width,sy=h/height;
-        for(const n of nodeEls){n.x*=sx;n.y*=sy;}
-        state.dx*=sx;state.dy*=sy;width=w;height=h;state.width=w;state.height=h;compact=w<460;
-        svg.setAttribute('viewBox','0 0 '+w+' '+h);
-        for(const n of nodeEls)n.updateLabel();
-        updateGeometry();
-      }
-      state.apply();
-    };
-    state.reset=()=>{
-      state.reflow();
-      for(const n of nodeEls){n.x=n.homeX*width;n.y=n.homeY*height;}
-      state.scale=1;state.dx=0;state.dy=0;delete container.dataset.layoutChanged;
-      if(resetButton)resetButton.hidden=true;
-      updateGeometry();state.apply();
-    };
-    atlasState.set(container,state);
-    state.apply();if(local&&defaultId!==null)prioritize(defaultId);document.fonts?.ready.then(()=>{if(svg.isConnected)placeLabels();});
-    if(interactive){
-      let drag=null;
-      svg.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('a'))return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,dx:state.dx,dy:state.dy};svg.setPointerCapture(e.pointerId);svg.classList.add('is-panning');});
-      svg.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const rect=svg.getBoundingClientRect();state.dx=drag.dx+(e.clientX-drag.x)*width/rect.width;state.dy=drag.dy+(e.clientY-drag.y)*height/rect.height;state.apply();});
-      const end=()=>{drag=null;svg.classList.remove('is-panning');};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);svg.addEventListener('lostpointercapture',end);
-      svg.addEventListener('wheel',e=>{
-        // Keep normal page scrolling available outside the full graph.
-        e.preventDefault();
-        const p=scenePoint(e.clientX,e.clientY);if(!p)return;
-        const previous=state.scale,next=clamp(previous*Math.exp(-e.deltaY*.0015),.6,3);
-        const factor=previous-next;
-        state.dx+=(p.x-width/2)*factor;state.dy+=(p.y-height/2)*factor;
-        state.scale=next;state.apply();
-      },{passive:false});
-      const list=$('[data-graph-pages]');if(list){list.replaceChildren();for(const n of nodes){const li=document.createElement('li'),a=document.createElement('a');a.href=n.url;a.textContent=n.title;li.append(a);list.append(li);}}
-    }
-    if(!nodes.length){container.replaceChildren(textElement('p','در این دسته نوشته‌ای نیست. نوع نوشته را تغییر بده.','graph-empty'));}
-    container.dataset.graphKind=filter;
-    container.dataset.graphCount=String(nodes.length);
-    container.dataset.graphReady='true';
-  }
-  async function renderLocalGraph(){const c=$('[data-local-graph]');if(!c||!c.clientWidth)return;try{drawGraph(c,graphSubset(await getGraph()));}catch{c.replaceChildren(textElement('p','گراف دریافت نشد.','muted'));}}
-  $('[data-local-depth]')?.addEventListener('change',event=>{
-    localDepth=Math.max(1,Math.min(3,Number(event.target.value)||1));
-    renderLocalGraph();
-  });
-  async function renderAtlasPreview(){const c=$('[data-atlas-preview]');if(!c||!c.clientWidth)return;try{drawGraph(c,await getGraph(),true);}catch{c.replaceChildren(textElement('p','نقشه در دسترس نیست؛ فهرست نوشته‌ها در ادامه قرار دارد.','muted'));}}
-  let globalRenderVersion=0;
-  async function renderGlobal(){const c=$('[data-global-graph]');if(!graphDialog?.open||!c)return;const version=++globalRenderVersion;c.dataset.graphReady='false';try{const data=await getGraph();if(version!==globalRenderVersion||!graphDialog.open)return;drawGraph(c,data,true);}catch{if(version===globalRenderVersion)c.replaceChildren(textElement('p','گراف دریافت نشد. دوباره امتحان کن.','muted'));}}
-  // Resizing the dialog or its text must not replace its SVG or reset the camera.
-  // Reflow the actual SVG viewBox and preserve normalized dragged positions
-  // and camera during resize. A new dataset/filter still gets a new layout.
-  const graphSizes=new WeakMap();
-  const resizeObserver=new ResizeObserver(entries=>{for(const e of entries){
-    const c=e.target, w=Math.round(e.contentRect.width),h=Math.round(e.contentRect.height);
-    if(!w||!h)continue;
-    const size=w+'x'+h;if(graphSizes.get(c)===size)continue;graphSizes.set(c,size);
-    const state=atlasState.get(c);
-    if(c.matches('[data-global-graph]')){state?.reflow();continue;}
-    if(state){state.reflow();continue;}
-    if(c.matches('[data-local-graph]'))renderLocalGraph();else if(c.matches('[data-atlas-preview]'))renderAtlasPreview();
-  }});
-  for(const c of $$('[data-local-graph],[data-atlas-preview],[data-global-graph]'))resizeObserver.observe(c);
-  $$('[data-global-graph-open]').forEach(button=>button.addEventListener('click',()=>{openDialog(graphDialog);const c=$('[data-global-graph]');if(c)c.dataset.graphReady='false';renderGlobal();}));
-  // The page behind a native modal is inert. Once it becomes interactive
-  // again, ensure the inline atlas is still complete and recalculate labels.
-  graphDialog?.addEventListener('close',()=>{
-    requestAnimationFrame(()=>{
-      for(const c of $$('[data-atlas-preview],[data-local-graph]')){
-        if(!c.clientWidth)continue;
-        const state=atlasState.get(c), expected=Number(c.dataset.graphCount);
-        const intact=c.dataset.graphReady==='true'&&Number.isFinite(expected)&&c.querySelectorAll('.graph-node').length===expected;
-        if(intact&&state){state.reflow();continue;}
-        if(c.matches('[data-atlas-preview]'))renderAtlasPreview();else renderLocalGraph();
-      }
-    });
-  });
-  $$('[data-graph-option]').forEach(control=>{
-    if(control.dataset.graphOption==='motion')control.checked=options.motion;
-    control.addEventListener('change',()=>{const key=control.dataset.graphOption;options[key]=key==='motion'?control.checked:key==='spread'?Number(control.value):control.value;renderGlobal();});
-  });
-  motionQuery.addEventListener('change',()=>{if(motionQuery.matches){options.motion=false;const c=$('[data-graph-option="motion"]');if(c)c.checked=false;}if(graphDialog?.open)renderGlobal();});
-  $$('[data-graph-zoom]').forEach(button=>button.addEventListener('click',()=>{const c=$('[data-global-graph]'),state=atlasState.get(c);if(!state)return;const action=button.dataset.graphZoom;if(action==='reset'){state.reset?.();return;}state.scale=clamp(state.scale*(action==='in'?1.25:.8),.6,3);state.apply();}));
-  $$('[data-graph-layout-reset]').forEach(button=>button.addEventListener('click',()=>{const parent=button.closest('.atlas-preview-section,[data-local-graph-section]');const c=parent?.querySelector('[data-atlas-preview],[data-local-graph]');if(c)atlasState.get(c)?.reset?.();}));
-  $$('[data-graph-pan]').forEach(button=>button.addEventListener('click',()=>{const c=$('[data-global-graph]'),state=atlasState.get(c);if(!state)return;const d=button.dataset.graphPan;if(d==='left')state.dx-=40;if(d==='right')state.dx+=40;if(d==='up')state.dy-=40;if(d==='down')state.dy+=40;state.apply();}));
+  installGraphViews({getGraph, here, trimPath, graphDialog, openDialog});
 
   // Hover/focus previews use the local search index, never remote page fetches.
   const tooltip=$('#garden-link-preview');let previewTimer,previewTarget;
