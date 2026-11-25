@@ -101,9 +101,9 @@ export function getBlogGardenNotes() {
   const activeTags = Object.keys(topics).filter(id => approved.some(e => entryTopics(e, {includeLegacy:true}).includes(id)) || notes.some(n => n.topics.includes(id)))
   const publicTopics = activeTags.filter(id => !topics[id].legacy)
   const directories = {group:blogCopy.categories.title,'dg-hide':true,contentClasses:'blog-directory',dgShowLocalGraph:true,dgShowBacklinks:false}
-  const introduction = '<div class="blog-start-intro" id="notes"><p class="start-links">اگر تازه به اینجا آمده‌ای، <a class="internal-link" href="/fa/blog/notes/start/">راهنمای مطالعه</a> مسیرها را نشان می‌دهد. برای شروع از مفهوم‌های ساخت تصویر، <a class="internal-link" href="/fa/blog/notes/diffusion/">دیفیوژن؛ از نویز تا تصویر</a> را دنبال کن. برای یادگیری حرکت و تولید فیلم، از <a class="internal-link" href="/fa/blog/notes/animation/">آموزش انیمیشن</a> شروع کن.</p></div>'
+  const introduction = '<div class="blog-start-intro" id="notes"><section aria-labelledby="wiki-subjects"><h2 class="blog-index-section-title" id="wiki-subjects">دانش‌نامه</h2><p class="start-links">از <a class="internal-link" href="/fa/blog/notes/cinema/">سینما</a> برای فهم زبان فیلم، از <a class="internal-link" href="/fa/blog/notes/animation/">انیمیشن</a> برای یادگیری حرکت و تولید، یا از <a class="internal-link" href="/fa/blog/notes/artificial-intelligence/">هوش مصنوعی</a> برای فهم مدل‌ها و ابزارهای ساخت شروع کن.</p></section></div>'
   const indexContent = introduction + '<section class="blog-latest" aria-labelledby="articles"><h2 class="blog-index-section-title" id="articles">تازه‌ترین نوشته‌ها</h2>' + cards(approved) + '</section>'
-  const records = [note('نوشته‌ها/همهٔ نوشته‌ها.md','از اینجا شروع کن',root,'یادداشت‌های هادس دربارهٔ هوش مصنوعی، تصویر و ساختن.',indexContent,{...directories,blogIndex:true,group:'شروع'})]
+  const records = [note('نوشته‌ها/همهٔ نوشته‌ها.md','از اینجا شروع کن',root,'دانش‌نامهٔ فارسی هادس برای یادگیری سینما، انیمیشن و هوش مصنوعی.',indexContent,{...directories,blogIndex:true,group:'شروع'})]
 
   const categoryCards = '<ul class="garden-category-list">' + Object.entries(categories).map(([id,cat]) => {
     const articleCount = approved.filter(e => e.categoryId === id).length
