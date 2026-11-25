@@ -58,7 +58,7 @@ function articleContent(entry) {
   let figureIndex = 0
   const sections = entry.sections.map((section,i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + (section.blocks ? renderBlocks(section.blocks, section.title) : (section.paragraphs || []).map(p => '<p>' + esc(p) + '</p>').join('\n')) + (entry.figures || []).filter(f => f.afterSection === i + 1).map(f => figure(f, false, ++figureIndex)).join('\n')).join('\n\n')
   const sources = entry.sources?.length ? '<section class="sources" aria-labelledby="sources-title"><h2 id="sources-title">برای بیشتر خوندن</h2><ul>' + entry.sources.map(s => '<li><a href="' + esc(s.url) + '"><bdi>' + esc(s.title) + '</bdi></a></li>').join('') + '</ul></section>' : ''
-  const related = entry.tags?.includes('diffusion') ? '\n\n## پیوندهای این نوشته\n\nبرای دنبال‌کردن مفهوم‌ها، از [[diffusion|دیفیوژن]] به [[noise|نویز]]، [[ddpm|DDPM]]، [[latent-diffusion|فضای نهفته]] و [[seed|بذر تصادفی]] سر بزن.\n\n' : '\n\n[مرور یادداشت‌های مرتبط](/fa/garden/)\n\n'
+  const related = entry.tags?.includes('diffusion') ? '\n\n## پیوندهای این نوشته\n\nبرای دنبال‌کردن مفهوم‌ها، از [[diffusion|دیفیوژن]] به [[noise|نویز]]، [[ddpm|DDPM]]، [[latent-diffusion|فضای نهفته]] و [[seed|بذر تصادفی]] سر بزن.\n\n' : '\n\n[مرور یادداشت‌های مرتبط](/fa/blog/#notes)\n\n'
   const stats = readingStats(entry)
   const schema = {
     '@context':'https://schema.org','@type':'BlogPosting','@id':origin + articlePath(entry) + '#article',mainEntityOfPage:origin + articlePath(entry),
@@ -79,7 +79,7 @@ export function getBlogGardenNotes() {
   const activeTags = Object.keys(topicNames).filter(tag => approved.some(e => e.tags?.includes(tag)))
   const directories = {group:'راهنماها','dg-hide':true,contentClasses:'blog-directory',dgShowLocalGraph:false,dgShowBacklinks:false}
   const records = [note('نوشته‌ها/همهٔ نوشته‌ها.md','نوشته‌ها و مقاله‌ها',root,'از مفاهیم پایهٔ هوش مصنوعی تا مقاله‌های پژوهشی و ابزارهای ساخت تصویر و انیمیشن.',
-    '<p class="article-deck">از پشت‌صحنهٔ انیمیشن گرفته تا قصه‌گویی و ابزارهایی که موقع ساختن به کارم می‌آیند. هر نوشته به مفهوم‌ها و یادداشت‌های مرتبطش وصل است.</p>\n\n<nav class="garden-directory-nav" aria-label="مرور نوشته‌ها"><a href="/fa/blog/categories/">دسته‌بندی‌ها</a><a href="/fa/blog/tags/">برچسب‌ها</a><a href="/fa/garden/">باغ دیجیتال</a></nav>\n\n' + cards(approved, true),{contentClasses:'blog-directory',dgShowLocalGraph:false})]
+    '<p class="article-deck">از پشت‌صحنهٔ انیمیشن گرفته تا قصه‌گویی و ابزارهایی که موقع ساختن به کارم می‌آیند. هر نوشته به مفهوم‌ها و یادداشت‌های مرتبطش وصل است.</p>\n\n<nav class="garden-directory-nav" aria-label="مرور نوشته‌ها"><a href="/fa/blog/categories/">دسته‌بندی‌ها</a><a href="/fa/blog/tags/">برچسب‌ها</a><a href="/fa/blog/#notes">یادداشت‌ها و مفاهیم</a></nav>\n\n' + '<h2 class="blog-index-section-title" id="articles">مقاله‌ها</h2>' + cards(approved, true),{contentClasses:'blog-directory',dgShowLocalGraph:false})]
 
   const categoryCards = '<ul class="garden-category-list">' + Object.entries(categories).map(([id,cat]) => {
     const count = approved.filter(e => e.categoryId === id).length
