@@ -99,6 +99,15 @@ for (const entry of entries) assert.ok(nodes.some(node => node.url === '/fa/blog
 // Editorial index and reader regression: exercise real generated markup.
 const editorialIndex = documents.get('/fa/blog/')
 assert.ok(editorialIndex, 'Blog index missing')
+assert.equal(editorialIndex.querySelector('.topbar-name')?.getAttribute('href'), '/fa/blog/', 'Blog must be the single public entry')
+assert.equal(editorialIndex.querySelector('.garden-wordmark')?.getAttribute('href'), '/fa/blog/')
+assert.ok(!editorialIndex.querySelector('.topbar-links a[href="/fa/garden/"]'), 'Parallel garden landing in top navigation')
+assert.ok(editorialIndex.querySelector('#articles'))
+assert.ok(editorialIndex.querySelector('#notes'))
+const knowledgeLinks = new Set(editorialIndex.querySelectorAll('#notes .blog-knowledge-grid a').map(link => link.getAttribute('href')))
+assert.ok(knowledgeLinks.has('/fa/garden/noise/'), 'Published notes missing from unified index')
+assert.ok(knowledgeLinks.has('/fa/garden/diffusion/'), 'Learning path missing from unified index')
+for (const href of knowledgeLinks) assert.ok(localFile(href), 'Broken knowledge index link: ' + href)
 const editorialCards = editorialIndex.querySelectorAll('.garden-post-list--editorial > li')
 if (editorialCards.length) {
   assert.equal(editorialIndex.querySelectorAll('.garden-post-list--editorial > .is-featured').length, 1, 'Expected one featured article')
