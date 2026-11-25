@@ -199,6 +199,40 @@ try:
                 controls.locator('[data-workspace-reset]').click()
                 controls.locator('summary').click()
                 page.screenshot(path=str(output / 'workspace-article-1440.png'),full_page=False)
+            # Real canonical graph links and local opt-in history (including reload).
+            article_url = next(u for u in expected_urls if '/notes/' not in u)
+            page.goto('http://127.0.0.1:8765' + article_url, wait_until='load')
+            history = page.locator('[data-reading-history]')
+            history.wait_for(state='visible')
+            assert history.locator('[data-reading-toggle]').get_attribute('aria-pressed') == 'false'
+            assert page.evaluate("localStorage.getItem('hades-reading-trail-v1')") is None
+            current = raw_graph['nodes'][article_url]
+            node_by_id = {n['id']:n['url'] for n in raw_graph['nodes'].values() if n['url'] in expected_urls}
+            links = raw_graph.get('links', raw_graph.get('edges', []))
+            related_urls = sorted({node_by_id[e['target'] if e['source']==current['id'] else e['source']] for e in links if (e['source']==current['id'] and e['target'] in node_by_id or e['target']==current['id'] and e['source'] in node_by_id)} - {article_url})
+            related = page.locator('[data-reading-related]')
+            actual = sorted(related.locator('a[href]').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))"))
+            assert actual == related_urls, (width, actual, related_urls)
+            toggle = history.locator('[data-reading-toggle]')
+            toggle.focus()
+            toggle.press('Space')
+            assert toggle.get_attribute('aria-pressed') == 'true'
+            assert history.locator('[data-reading-visits] a').count() == 1
+            page.reload(wait_until='load')
+            history.wait_for(state='visible')
+            assert toggle.get_attribute('aria-pressed') == 'true'
+            assert history.locator('[data-reading-visits] a').count() == 1
+            if related_urls:
+                page.goto('http://127.0.0.1:8765' + related_urls[0], wait_until='load')
+                history.wait_for(state='visible')
+                assert history.locator('[data-reading-visits] a').count() == 2
+            history.scroll_into_view_if_needed()
+            page.screenshot(path=str(output / f"reading-trail-{width}.png"), full_page=False)
+            assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+            history.locator('[data-reading-clear]').click()
+            assert history.locator('[data-reading-visits] a').count() == 0
+            toggle.click()
+            assert page.evaluate("JSON.parse(localStorage.getItem('hades-reading-trail-v1')).enabled === false")
             assert not errors, (width, errors)
             results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "background_while_modal": after, "restored_count": restored["count"], "console_page_errors": errors, "status": "PASS"})
             page.close()
