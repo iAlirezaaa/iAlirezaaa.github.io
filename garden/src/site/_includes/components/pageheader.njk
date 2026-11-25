@@ -21,3 +21,5 @@
 {%- for style in dynamics.styles -%}{%- if '/user/hades.css' not in style -%}<link href="{{style}}" rel="stylesheet">{%- endif -%}{%- endfor -%}
 {%- for script in plugins.scripts -%}<script defer src="{{script}}"></script>{%- endfor -%}
 <script type="module" src="/scripts/hades.js"></script>
+
+{% if blogIndex %}<script type="module" src="/scripts/blog-explorer.js"></script>{% endif %}

@@ -6,29 +6,8 @@ import { readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
 
 const blogRoot = 'https://ialirezaaa.github.io/fa/blog/'
 const ddpmFigure = 'https://arxiv.org/html/2006.11239v2/pgm_diagram_xarrow_small.png'
-export const topicDetails = {
-  'ai-basics': ['مبانی یادگیری ماشین','مفهوم‌هایی که برای فهم مدل‌ها و فرایند آموزش لازم‌اند.','مبانی'],
-  diffusion: ['مدل‌های دیفیوژن','از نویز اولیه تا فرایند بازسازی تصویر.','مدل‌ها و روش‌ها'],
-  'ai-image-making': ['تولید تصویر با هوش مصنوعی','روش‌های کنترل و ساخت تصویر در فرایند تولید.','کاربردها'],
-  'paper-explainer': ['خواندن مقالهٔ علمی','ایده، روش و محدودیت پژوهش‌های منتشرشده.','مطالعه'],
-  comfyui: ['ComfyUI','نودها، مدل‌ها و ساخت گردش‌کار تصویری.','ابزارها'],
-  workflow: ['گردش‌کار تولید','اتصال ابزارها و تصمیم‌های عملی در تولید تصویر و ویدئو.','کاربردها'],
-  python: ['Python','کد، ساختار پروژه و پیاده‌سازی ابزارها.','ابزارها'],
-  dreambooth: ['DreamBooth','شخصی‌سازی مدل با نمونه‌های یک سوژهٔ مشخص.','مدل‌ها و روش‌ها'],
-  'character-continuity': ['راکورد کاراکتر','حفظ نشانه‌های هویتی شخصیت در نماهای مختلف.','کاربردها'],
-  rife: ['RIFE','ساخت فریم میانی و بررسی حرکت میان دو تصویر.','ابزارها'],
-  'frame-interpolation': ['میان‌یابی فریم','افزودن فریم بین تصاویر برای تغییر ریتم حرکت.','کاربردها'],
-  cfg: ['هدایت CFG','تأثیر شدت هدایت متن بر نمونه‌گیری مدل.','مدل‌ها و روش‌ها'],
-  controlnet: ['ControlNet','کنترل ساختار تصویر با ورودی‌های شرطی.','مدل‌ها و روش‌ها'],
-  'depth-map': ['نقشهٔ عمق','استفاده از عمق نسبی برای کنترل ساختار صحنه.','کاربردها'],
-  ddpm: ['DDPM','مدل احتمالاتی حذف تدریجی نویز.','مدل‌ها و روش‌ها'],
-}
-export const topicNames = Object.fromEntries(Object.entries(topicDetails).map(([id,detail])=>[id,detail[0]]))
-export const categories = {
-  papers:{name:'پژوهش و مقالهٔ علمی',description:'از پرسش پژوهش تا روش و نتیجه؛ مقاله‌های علمی را با مثال، شکل و توجه به محدودیت‌هایشان بخوان.'},
-  'repo-analysis':{name:'ابزارها و کد متن‌باز',description:'ساختار مخزن، معماری ابزار، کد و کاربرد آن در خط تولید تصویر و انیمیشن.'},
-  fundamentals:{name:'مبانی و مفاهیم',description:'از سازوکار مدل تا نمونه‌گیری؛ مفاهیم فنی را قدم‌به‌قدم و با مثال‌های تصویری دنبال کن.'},
-}
+import { categories, topicNames, blogCopy } from './blog-taxonomy.mjs'
+export { categories, topicNames }
 const categoryPath = slug => '/fa/blog/categories/' + slug + '/'
 const markNav = (html, target) => html.replace(' href="/fa/blog/" aria-current="page"', ' href="/fa/blog/"').replace(' href="' + target + '"', ' href="' + target + '" aria-current="page"')
 const pageHead = (html, title, description, url, noindex = false) => html
@@ -160,10 +139,10 @@ export function renderBlog(dist) {
     const count = approved.filter(entry => entry.categoryId === id).length
     return '<li><a href="' + categoryPath(id) + '"><strong>' + esc(cat.name) + '</strong><p>' + esc(cat.description) + '</p><span>' + (count ? numbers.format(count) + ' نوشته' : 'هنوز نوشته‌ای ندارد') + '</span></a></li>'
   }).join('')
-  const descriptions = {categories:'نوشته‌ها بر اساس مسیرهای مطالعه: مقالهٔ پژوهشی، تحلیل ریپو یا مفاهیم پایه.',tags:'نوشته‌ها را با برچسب موضوعی پیدا کن، از دیفیوژن تا تصویرسازی با هوش مصنوعی.'}
+  const descriptions = {categories:blogCopy.categories.description,tags:blogCopy.topics.description}
   for (const [slug,title,list] of [
-    ['categories','دسته‌بندی‌ها','<ul class="directory-list">' + categoryList + '</ul>'],
-    ['tags','برچسب‌ها',topics.length ? topicLinks(topics) : empty('هنوز هیچ برچسبی ثبت نشده.')],
+    ['categories',blogCopy.categories.title,'<ul class="directory-list">' + categoryList + '</ul>'],
+    ['tags',blogCopy.topics.title,topics.length ? topicLinks(topics) : empty('هنوز هیچ برچسبی ثبت نشده.')],
   ]) {
     const url = blogRoot + slug + '/'
     const page = markNav(pageHead(top(shell,title,descriptions[slug]),title,descriptions[slug],url),'/fa/blog/' + slug + '/')

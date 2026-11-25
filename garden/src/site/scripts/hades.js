@@ -26,7 +26,7 @@ export function searchNotes(notes, query, limit = 40) {
   }).filter(Boolean).sort((a,b) => b.score-a.score || a.note.title.localeCompare(b.note.title,'fa')).slice(0,limit).map(result => result.note);
 }
 
-if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); installBlogDiscovery(); }
+if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); }
 function initializeGarden() {
   const root = document.documentElement;
   const $ = (selector, within = document) => within.querySelector(selector);
@@ -126,7 +126,7 @@ function initializeGarden() {
         li.append(link);resultList.append(li);
       }
       if(resultNotes.length)selectResult(0);
-      else {$('#search-preview-heading').textContent='نتیجه‌ای پیدا نشد';$('[data-search-preview]').textContent='می‌توانی با عنوان، برچسب یا بخشی از متن جست‌وجو کنی.';$('[data-search-preview-link]').hidden=true;}
+      else {$('#search-preview-heading').textContent='نتیجه‌ای پیدا نشد';$('[data-search-preview]').textContent='می‌توانی با عنوان، موضوع یا بخشی از متن جست‌وجو کنی.';$('[data-search-preview-link]').hidden=true;}
     } catch {
       if(version!==searchVersion)return;
       resultList.replaceChildren();resultNotes=[];searchStatus.textContent='فهرست جست‌وجو دریافت نشد. اتصال را بررسی کن و دوباره بنویس.';
@@ -139,6 +139,9 @@ function initializeGarden() {
   $$('[data-search-open]').forEach(button=>button.addEventListener('click',()=>openSearch()));
   searchInput?.addEventListener('input',runSearch);
   searchDialog?.addEventListener('keydown',event=>{
+    // A search input consumes its first Escape to clear text. Honour the
+    // dialog's visible Esc shortcut immediately, preserving the query.
+    if(event.key==='Escape'){event.preventDefault();searchDialog.close();return;}
     if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();selectResult(resultIndex+(event.key==='ArrowDown'?1:-1),event.target!==searchInput);}
     if(event.key==='Enter'&&event.target===searchInput&&resultNotes[resultIndex]){event.preventDefault();location.assign(resultNotes[resultIndex].url);}
   });
@@ -167,11 +170,12 @@ function initializeGarden() {
   $('[data-tree-collapse]')?.addEventListener('click',()=>{const folders=$$('details',tree);const allClosed=folders.every(d=>!d.open);folders.forEach(d=>{d.open=allClosed;});$('[data-tree-collapse]').textContent=allClosed?'جمع کردن':'باز کردن';});
 
   const panels={navigation:$('#garden-navigation'),context:$('#garden-context')};
+  const directoryPage=document.body.classList.contains('is-directory');
   const navMobile=matchMedia('(max-width: 900px)'),contextMobile=matchMedia('(max-width: 1240px)');
   let panelOpener=null,activePanel=null;
   const backdrop=$('.garden-backdrop');
   function syncPanelInert() {
-    for(const [name,panel] of Object.entries(panels))if(panel)panel.inert=(name==='navigation'?navMobile.matches:contextMobile.matches)&&activePanel!==name;
+    for(const [name,panel] of Object.entries(panels))if(panel)panel.inert=(name==='navigation'?(directoryPage||navMobile.matches):contextMobile.matches)&&activePanel!==name;
   }
   function closePanel(restore=true) {
     const old=activePanel;activePanel=null;delete document.body.dataset.openPanel;
@@ -209,7 +213,7 @@ function initializeGarden() {
   // Dates, reading time, progress and section indicator are all local.
   $$('.persian-date').forEach(time=>{const date=new Date(time.getAttribute('datetime'));if(!Number.isNaN(date.getTime())){time.dateTime=date.toISOString();time.textContent=readableDate.format(date);}});
   const article=$('[data-note-body]');
-  if(article){const prose=article.cloneNode(true);prose.querySelectorAll('script,style,template').forEach(el=>el.remove());const words=prose.textContent.trim().split(/\s+/u).filter(Boolean).length;const label=$('[data-reading-time]');const minutes=Number(label.dataset.readingMinutes)||Math.max(1,Math.ceil(words/190));label.textContent='· '+numbers.format(minutes)+' دقیقه مطالعه';}
+  if(article && $('[data-reading-time]')){const prose=article.cloneNode(true);prose.querySelectorAll('script,style,template').forEach(el=>el.remove());const words=prose.textContent.trim().split(/\s+/u).filter(Boolean).length;const label=$('[data-reading-time]');const minutes=Number(label.dataset.readingMinutes)||Math.max(1,Math.ceil(words/190));label.textContent='· '+numbers.format(minutes)+' دقیقه مطالعه';}
   const tocLinks=$$('[data-toc] a[href^="#"]');
   const headings=tocLinks.map(link=>{let id;try{id=decodeURIComponent(link.hash.slice(1));}catch{id=link.hash.slice(1);}return{link,target:document.getElementById(id)};}).filter(item=>item.target);
   function onScroll(){
@@ -244,7 +248,7 @@ function initializeGarden() {
   function drawGraph(container,data,all=false){
     container.replaceChildren();if(!data.nodes.length){container.append(textElement('p','هنوز ارتباطی برای نمایش ثبت نشده.','muted'));return;}
     const width=Math.max(220,container.clientWidth),height=Math.max(220,container.clientHeight);
-    const svg=svgElement('svg',{viewBox:`0 0 ${width} ${height}`,role:'group','aria-label':all?'گراف همهٔ نوشته‌ها؛ هر عنوان یک پیوند قابل انتخاب است.':'پیوندهای مرتبط با این صفحه'});
+    const svg=svgElement('svg',{viewBox:`0 0 ${width} ${height}`,role:'group','aria-label':all?'نقشهٔ همهٔ نوشته‌ها؛ هر عنوان یک پیوند قابل انتخاب است.':'پیوندهای مرتبط با این صفحه'});
     const group=svgElement('g',{'data-graph-scene':''});svg.append(group);
     const count=data.nodes.length;
     const nodes=data.nodes.map((n,i)=>({...n,x:width/2+Math.cos(i*2.39996)*Math.min(width*.3,80)*Math.sqrt(i/Math.max(count,1)),y:height/2+Math.sin(i*2.39996)*Math.min(height*.32,100)*Math.sqrt(i/Math.max(count,1))}));
@@ -342,32 +346,4 @@ export function installFigureViewer() {
       close.focus();
     });
   }
-}
-
-
-// Progressive enhancement: without JS all articles and native links remain visible.
-export function blogCardMatches(card,query='',category='',topic='') {
-  const terms=normalizeSearchText(query).slice(0,240).split(' ').filter(Boolean);
-  const text=normalizeSearchText(card.search);
-  return (!category || card.category===category) && (!topic || String(card.topics||'').split(' ').includes(topic)) && terms.every(term=>text.includes(term)||text.replaceAll(' ','').includes(term));
-}
-function installBlogDiscovery(){
-  const panel=document.querySelector('[data-blog-discovery]');
-  if(!panel)return;
-  const cards=[...document.querySelectorAll('.garden-post-list--editorial > [data-blog-card]')];
-  const query=panel.querySelector('[data-blog-query]'),category=panel.querySelector('[data-blog-category]'),topic=panel.querySelector('[data-blog-topic]');
-  const count=panel.querySelector('[data-blog-count]'),empty=panel.querySelector('[data-blog-empty]');
-  if(!cards.length||!query||!category||!topic||!count||!empty)return;
-  const format=new Intl.NumberFormat('fa-IR');
-  function apply(){
-    let visible=0;
-    for(const card of cards){card.hidden=!blogCardMatches(card.dataset,query.value,category.value,topic.value);if(!card.hidden)visible++;}
-    count.textContent=format.format(visible)+' از '+format.format(cards.length)+' مقاله';
-    empty.hidden=visible!==0;
-  }
-  query.addEventListener('input',apply);
-  category.addEventListener('change',apply);
-  topic.addEventListener('change',apply);
-  panel.querySelector('[data-blog-reset]').addEventListener('click',()=>{query.value=category.value=topic.value='';apply();query.focus();});
-  panel.hidden=false;apply();
 }

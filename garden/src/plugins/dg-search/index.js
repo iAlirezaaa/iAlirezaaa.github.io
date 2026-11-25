@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { parse } = require("node-html-parser");
 
 // Same tag pattern as the core taggify filter (.eleventy.js).
 const tagRegex = /(^|\s|\>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?!([^<]*>))/g;
@@ -7,8 +8,12 @@ const tagRegex = /(^|\s|\>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?!([^<]*>))/g;
 module.exports = {
   setupEleventy(eleventyConfig, context) {
     eleventyConfig.addFilter("stripForSearch", function (content) {
-      return content
-        .replace(/<[^>]*>/g, "")
+      // Keep paragraph/heading boundaries in excerpts. Removing tags with an
+      // empty string joins words, while navigation and JSON-LD are not prose.
+      // Topics remain independently searchable through the index's tags field.
+      const document = parse(String(content || ""));
+      document.querySelectorAll("nav, script, style, template").forEach(node => node.remove());
+      return document.structuredText
         .replace(/\s+/g, " ")
         .trim();
     });

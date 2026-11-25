@@ -11,7 +11,7 @@ This public repository publishes the **original** React/Vite design from the pri
 - `site/src/i18n.js` — translated Persian UI copy, project summaries and the five official account links.
 - `site/scripts/postbuild.mjs` — builds direct HTML for five English and five Persian routes, unique metadata, reciprocal `hreflang`, canonical links, JSON-LD and the sitemap.
 - `site/scripts/validate-site.mjs` — checks language switching, translation coverage, sitemap, SEO metadata, asset paths and public account links.
-- `garden/` — the original Eleventy Digital Garden template with Persian UI, publication filtering, local font assets and stable `/fa/garden/` routes. See [راهنمای فارسی باغ](garden/README-HADES.md).
+- `garden/` — the original Eleventy Digital Garden template with Persian UI, publication filtering, local font assets and canonical note routes under `/fa/blog/notes/`. The older `/fa/garden/` content addresses redirect into the unified blog; its asset namespace remains compatible. See [راهنمای وبلاگ](garden/README-HADES.md).
 - `site/scripts/garden-blog-content.mjs` — renders the existing approved Persian articles and topic directories through the same Digital Garden reading layout; article URLs and source content remain stable.
 - `.github/workflows/static-publish.yml` — validates and publishes the Vite build to the `main` branch root, compatible with GitHub Pages branch publishing.
 - `.github/workflows/portfolio.yml` — independent CI/build and optional Pages artifact deployment.

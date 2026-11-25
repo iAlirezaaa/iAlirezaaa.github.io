@@ -1,0 +1,539 @@
+{
+  "date": "2026-11-25",
+  "environment": "Chromium actual built-page iframe widths; not physical device emulation",
+  "sourceDigest": "4665c6f9272a954aa2ca207f7a23fb31e442287efde16d019bd3e657ed404305",
+  "note": "final-* records follow the final token and Escape corrections. Earlier records document the same layout during implementation.",
+  "metrics": [
+    {
+      "label": "index-light-1280",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 1280,
+        "height": 844,
+        "scrollWidth": 1265,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "35.2px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 67.1875,
+        "contextVisible": false,
+        "unloadedImages": []
+      }
+    },
+    {
+      "label": "index-light-320",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 320,
+        "height": 844,
+        "scrollWidth": 305,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/comfyui-repo-review.webp",
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "index-light-390",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 390,
+        "height": 844,
+        "scrollWidth": 375,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/comfyui-repo-review.webp",
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "index-light-430",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 430,
+        "height": 844,
+        "scrollWidth": 415,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/comfyui-repo-review.webp",
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "index-dark-430",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 430,
+        "height": 844,
+        "scrollWidth": 415,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "dark",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/comfyui-repo-review.webp",
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "index-dark-390",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 390,
+        "height": 844,
+        "scrollWidth": 375,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "dark",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/comfyui-repo-review.webp",
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "index-dark-320",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 320,
+        "height": 844,
+        "scrollWidth": 305,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "dark",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/comfyui-repo-review.webp",
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "index-dark-1280",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 1280,
+        "height": 844,
+        "scrollWidth": 1265,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "dark",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "35.2px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 67.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "topics-light-320",
+      "observed": {
+        "url": "/fa/blog/tags/",
+        "width": 320,
+        "height": 844,
+        "scrollWidth": 305,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "موضوع‌ها",
+        "h1Size": "26.4px",
+        "visibleItems": 0,
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": []
+      }
+    },
+    {
+      "label": "sections-light-320",
+      "observed": {
+        "url": "/fa/blog/categories/",
+        "width": 320,
+        "height": 844,
+        "scrollWidth": 305,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "بخش‌های وبلاگ",
+        "h1Size": "26.4px",
+        "visibleItems": 0,
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": []
+      }
+    },
+    {
+      "label": "article-light-320",
+      "observed": {
+        "url": "/fa/blog/comfyui-repo-review/",
+        "width": 320,
+        "height": 844,
+        "scrollWidth": 305,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "کالبدشکافی ریپوی ComfyUI: وقتی Queue می‌زنی، پشت صحنه چه می‌گذره؟",
+        "h1Size": "27.2px",
+        "visibleItems": 0,
+        "headerHeight": 59.1875,
+        "contextVisible": true,
+        "unloadedImages": []
+      }
+    },
+    {
+      "label": "note-light-320",
+      "observed": {
+        "url": "/fa/blog/notes/noise/",
+        "width": 320,
+        "height": 844,
+        "scrollWidth": 305,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "نویز",
+        "h1Size": "28.8px",
+        "visibleItems": 0,
+        "headerHeight": 59.1875,
+        "contextVisible": true,
+        "unloadedImages": []
+      }
+    },
+    {
+      "label": "final-index-light-1280",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 1280,
+        "height": 844,
+        "scrollWidth": 1265,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "35.2px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 67.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "final-index-light-390",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 390,
+        "height": 844,
+        "scrollWidth": 375,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "final-index-dark-390",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 390,
+        "height": 844,
+        "scrollWidth": 375,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "dark",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "final-index-light-320",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 320,
+        "height": 844,
+        "scrollWidth": 305,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    },
+    {
+      "label": "final-index-light-430",
+      "observed": {
+        "url": "/fa/blog/",
+        "width": 430,
+        "height": 844,
+        "scrollWidth": 415,
+        "overflow": false,
+        "direction": "rtl",
+        "theme": "light",
+        "reducedMotion": false,
+        "fontFaces": [
+          {
+            "family": "Mikhak",
+            "status": "loaded"
+          }
+        ],
+        "computedFont": "Mikhak, Tahoma, Arial, sans-serif",
+        "h1": "هوش مصنوعی، از مفهوم تا ساخت",
+        "h1Size": "26.4px",
+        "visibleItems": 12,
+        "filterCount": "۶ مقاله · ۶ یادداشت",
+        "headerHeight": 59.1875,
+        "contextVisible": false,
+        "unloadedImages": [
+          "/fa/blog/media/diffusion-from-noise.webp"
+        ]
+      }
+    }
+  ],
+  "colors": {
+    "light": {
+      "brand": "#ef4b32",
+      "focusOutline": "rgb(39, 43, 43)",
+      "ink": "#272b2b",
+      "link": "rgb(39, 43, 43)",
+      "muted": "#676e6e",
+      "paper": "#fafaf8",
+      "surface": "#fff"
+    },
+    "dark": {
+      "brand": "#ef4b32",
+      "ink": "#eceeeb",
+      "link": "rgb(236, 238, 235)",
+      "muted": "#abb5b2",
+      "paper": "#171a1a",
+      "surface": "#202424"
+    }
+  },
+  "escapeCheck": {
+    "dialogClosed": true,
+    "focusReturned": true
+  },
+  "applicationLogs": [],
+  "open": [
+    "runtime reduced-motion emulation blocked by organization DevTools policy",
+    "physical mobile devices",
+    "physical print",
+    "measured CLS/LCP on production"
+  ],
+  "contrast": {
+    "light": {
+      "textOnPaper": 13.7,
+      "mutedOnPaper": 4.98,
+      "textOnSurface": 14.32,
+      "mutedOnSurface": 5.21,
+      "brandIndicatorOnPaper": 3.51
+    },
+    "dark": {
+      "textOnPaper": 15.01,
+      "mutedOnPaper": 8.33,
+      "textOnSurface": 13.44,
+      "mutedOnSurface": 7.45,
+      "brandIndicatorOnPaper": 4.77
+    }
+  }
+}

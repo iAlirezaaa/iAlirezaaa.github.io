@@ -60,7 +60,10 @@ for (const [route, document] of documents) {
   assert.match(document.querySelector('meta[name="generator"]')?.getAttribute('content') || '', /digitalgarden|digital garden/i, 'Original template provenance missing: ' + route)
   assert.ok(document.querySelector('main#content [data-note-body]'), 'Readable server-rendered note body missing: ' + route)
   assert.ok(document.querySelector('main h1')?.text.trim(), 'Note title missing: ' + route)
-  for (const selector of ['#garden-navigation', '[data-filetree]', '#garden-context', '[data-backlinks]', '[data-local-graph]', '#garden-search', '#garden-search-input', '#garden-search-results', '#garden-settings', '#garden-graph', '[data-copy-link]', 'progress#reading-progress']) {
+  const directory = Boolean(document.querySelector('main.blog-directory'))
+  const featureSelectors = ['#garden-navigation', '[data-filetree]', '#garden-search', '#garden-search-input', '#garden-search-results', '#garden-settings', '#garden-graph', '[data-copy-link]']
+  if (!directory) featureSelectors.push('#garden-context', '[data-backlinks]', '[data-local-graph]', 'progress#reading-progress')
+  for (const selector of featureSelectors) {
     assert.ok(document.querySelector(selector), 'Garden feature missing ' + selector + ': ' + route)
   }
   for (const setting of ['theme', 'size', 'measure', 'leading']) {
@@ -116,9 +119,6 @@ const knowledgeLinks = new Set(editorialIndex.querySelectorAll('#notes .blog-kno
 assert.ok(knowledgeLinks.has('/fa/blog/notes/noise/'), 'Published notes missing from unified index')
 assert.ok(knowledgeLinks.has('/fa/blog/notes/diffusion/'), 'Learning path missing from unified index')
 for (const href of knowledgeLinks) assert.ok(localFile(href), 'Broken knowledge index link: ' + href)
-assert.ok(editorialIndex.querySelector('[data-blog-discovery] [data-blog-query]'), 'Article discovery missing')
-assert.ok(editorialIndex.querySelector('[data-blog-category]') && editorialIndex.querySelector('[data-blog-topic]'), 'Combined discovery controls missing')
-assert.ok(documents.get('/fa/blog/tags/')?.querySelector('.blog-topic-grid'), 'Grouped topic directory missing')
 const editorialCards = editorialIndex.querySelectorAll('.garden-post-list--editorial > li')
 if (editorialCards.length) {
   assert.equal(editorialIndex.querySelectorAll('.garden-post-list--editorial > .is-featured').length, 1, 'Expected one featured article')
@@ -164,12 +164,9 @@ for (const node of nodes.filter(node => !node.private)) assert.ok(searchURLs.has
 
 // Exercise the published Persian search implementation, not a duplicate model.
 const searchCode = read('fa/garden/scripts/hades.js')
-const { normalizeSearchText, searchNotes, blogCardMatches } = await import('data:text/javascript;base64,' + Buffer.from(searchCode).toString('base64'))
+const { normalizeSearchText, searchNotes } = await import('data:text/javascript;base64,' + Buffer.from(searchCode).toString('base64'))
 assert.equal(normalizeSearchText('يادگيري كَتاب ۱۲۳ ٤٥٦'), normalizeSearchText('یادگیری کتاب 123 456'))
 assert.equal(normalizeSearchText('مدل‌های'), normalizeSearchText('مدل های'))
-assert.ok(blogCardMatches({search:'مدل‌های ديـفيوژن ControlNet',category:'papers',topics:'diffusion controlnet'},'دیفیوژن controlnet','papers','controlnet'))
-assert.ok(!blogCardMatches({search:'دیفیوژن',category:'papers',topics:'diffusion'},'','repo-analysis','diffusion'))
-assert.ok(!blogCardMatches({search:'دیفیوژن',category:'papers',topics:'diffusion'},'','papers','diff'))
 const searchFixture = [
   {title:'یادگیری مدل‌های تصویری', content:'آموزش شبکه', tags:['هوش مصنوعی'], aliases:['تصویرساز'], url:'/a/'},
   {title:'کتاب', content:'روایت و انیمیشن', tags:[], aliases:[], url:'/b/'},
