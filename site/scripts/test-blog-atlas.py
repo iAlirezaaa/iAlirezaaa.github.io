@@ -366,6 +366,7 @@ def check_global_interactions(page, width, expected_urls):
     before_url = page.url
     pointer_drag(page, touch, x, y, dx, dy)
     page.wait_for_function("document.querySelector('[data-global-graph]')?.dataset.layoutChanged==='true'")
+    page.wait_for_function("""([id,x,y])=>{const n=[...document.querySelectorAll('[data-global-graph] .graph-node')].find(a=>a.dataset.graphId===id);const c=n?.querySelector('circle:not(.graph-hit)');return c&&Math.abs(Number(c.getAttribute('cx'))-x)+Math.abs(Number(c.getAttribute('cy'))-y)>8}""", arg=[node_id,*original], timeout=3000)
     moved = [float(dot.get_attribute(k)) for k in ('cx', 'cy')]
     assert sum(abs(a - b) for a, b in zip(original, moved)) > 8, (width, 'drag did not move node', original, moved)
     assert page.url == before_url, (width, 'drag unexpectedly navigated')
@@ -458,7 +459,8 @@ def check_global_interactions(page, width, expected_urls):
         link.focus()
         link.press('Enter')
     else:
-        link.locator('circle:not(.graph-hit)').first.click()
+        b = link.locator('circle:not(.graph-hit)').first.bounding_box()
+        page.mouse.click(b['x'] + b['width']/2,b['y'] + b['height']/2)
     page.wait_for_url(origin + destination)
     assert page.locator('[data-note-body]').inner_text().strip(), (width, 'graph navigation opened empty page')
     return state
