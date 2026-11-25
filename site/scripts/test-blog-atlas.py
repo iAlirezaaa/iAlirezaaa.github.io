@@ -63,7 +63,9 @@ try:
             modal = graph.evaluate(snapshot)
             after = preview.evaluate(snapshot)
             full_count = len(modal['urls'])
-            assert modal['kind'] == 'all' and modal['urls'] == expected_urls and modal['count'] == full_count and after['urls'] == expected_urls, (width, 'graph parity', before, modal, after, expected_urls)
+            # Native modal makes the background inert. Check the complete URL
+            # sets of each interactive view, before opening and after closing.
+            assert modal['kind'] == 'all' and modal['urls'] == expected_urls and modal['count'] == full_count, (width, 'graph parity', before, modal, after, expected_urls)
             assert graph.evaluate(check_labels)["intersections"] == 0
             assert graph.locator(".graph-node").first.get_attribute("aria-label")
             graph.locator(".graph-node").first.focus()
@@ -106,8 +108,12 @@ try:
             page.locator("#garden-graph").screenshot(path=str(output / f"dialog-{width}.png"))
             page.keyboard.press("Escape")
             assert not page.locator("#garden-graph").is_visible()
+            page.wait_for_function("""urls=>{const c=document.querySelector('[data-atlas-preview]');return c.dataset.graphReady==='true'&&JSON.stringify([...c.querySelectorAll('.graph-node')].map(a=>a.getAttribute('href')).sort())===JSON.stringify(urls)}""",arg=expected_urls)
+            restored=preview.evaluate(snapshot)
+            assert restored['urls']==expected_urls and restored['count']==full_count, (width,'restored inline atlas',restored)
+            assert preview.evaluate(check_labels)['intersections']==0
             assert not errors, (width, errors)
-            results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "console_page_errors": errors, "status": "PASS"})
+            results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "background_while_modal": after, "restored_count": restored["count"], "console_page_errors": errors, "status": "PASS"})
             page.close()
         browser.close()
 finally:

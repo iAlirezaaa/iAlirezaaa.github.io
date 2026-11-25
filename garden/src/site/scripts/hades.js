@@ -378,6 +378,19 @@ function initializeGarden() {
   }});
   for(const c of $$('[data-local-graph],[data-atlas-preview],[data-global-graph]'))resizeObserver.observe(c);
   $$('[data-global-graph-open]').forEach(button=>button.addEventListener('click',()=>{openDialog(graphDialog);const c=$('[data-global-graph]');if(c)c.dataset.graphReady='false';renderGlobal();}));
+  // The page behind a native modal is inert. Once it becomes interactive
+  // again, ensure the inline atlas is still complete and recalculate labels.
+  graphDialog?.addEventListener('close',()=>{
+    requestAnimationFrame(()=>{
+      for(const c of $$('[data-atlas-preview],[data-local-graph]')){
+        if(!c.clientWidth)continue;
+        const state=atlasState.get(c), expected=Number(c.dataset.graphCount);
+        const intact=c.dataset.graphReady==='true'&&Number.isFinite(expected)&&c.querySelectorAll('.graph-node').length===expected;
+        if(intact&&state){state.reflow();continue;}
+        if(c.matches('[data-atlas-preview]'))renderAtlasPreview();else renderLocalGraph();
+      }
+    });
+  });
   $$('[data-graph-option]').forEach(control=>{
     if(control.dataset.graphOption==='motion')control.checked=options.motion;
     control.addEventListener('change',()=>{const key=control.dataset.graphOption;options[key]=key==='motion'?control.checked:key==='spread'?Number(control.value):control.value;renderGlobal();});
