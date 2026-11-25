@@ -1,0 +1,44 @@
+name: Review Persian blog and Digital Garden
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'garden/**'
+      - '.github/workflows/blog-review.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout proposed source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            site/package-lock.json
+            garden/package-lock.json
+      - name: Install dependencies
+        run: |
+          npm ci --prefix site
+          npm ci --prefix garden
+      - name: Build and lint
+        working-directory: site
+        run: |
+          npm run build
+          npm run lint
+          node scripts/postbuild.mjs
+      - name: Validate generated blog and public routes
+        working-directory: site
+        run: |
+          node scripts/verify-blog-garden.mjs
+          node scripts/validate-site.mjs
