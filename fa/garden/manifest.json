@@ -78,13 +78,14 @@
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/controlnet-depth/",
+        "/fa/blog/diffusion-from-noise/",
         "/fa/garden/",
         "/fa/garden/seed/",
         "/fa/garden/latent-diffusion/",
         "/fa/garden/noise/",
-        "/fa/garden/ddpm/",
-        "/fa/blog/comfyui-repo-review/",
-        "/fa/blog/diffusion-from-noise/"
+        "/fa/garden/ddpm/"
       ],
       "headings": [
         {
@@ -132,11 +133,12 @@
         "/fa/garden/noise/"
       ],
       "backlinks": [
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/controlnet-depth/",
+        "/fa/blog/diffusion-from-noise/",
         "/fa/garden/",
         "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/blog/comfyui-repo-review/",
-        "/fa/blog/diffusion-from-noise/"
+        "/fa/garden/noise/"
       ],
       "headings": [
         {
@@ -182,11 +184,12 @@
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/controlnet-depth/",
+        "/fa/blog/diffusion-from-noise/",
         "/fa/garden/",
         "/fa/garden/diffusion/",
-        "/fa/garden/ddpm/",
-        "/fa/blog/comfyui-repo-review/",
-        "/fa/blog/diffusion-from-noise/"
+        "/fa/garden/ddpm/"
       ],
       "headings": [
         {
@@ -231,13 +234,14 @@
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/controlnet-depth/",
+        "/fa/blog/diffusion-from-noise/",
         "/fa/garden/",
         "/fa/garden/diffusion/",
         "/fa/garden/seed/",
         "/fa/garden/latent-diffusion/",
-        "/fa/garden/ddpm/",
-        "/fa/blog/comfyui-repo-review/",
-        "/fa/blog/diffusion-from-noise/"
+        "/fa/garden/ddpm/"
       ],
       "headings": [
         {
@@ -283,12 +287,13 @@
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
+        "/fa/blog/comfyui-repo-review/",
+        "/fa/blog/controlnet-depth/",
+        "/fa/blog/diffusion-from-noise/",
         "/fa/garden/",
         "/fa/garden/diffusion/",
         "/fa/garden/latent-diffusion/",
-        "/fa/garden/noise/",
-        "/fa/blog/comfyui-repo-review/",
-        "/fa/blog/diffusion-from-noise/"
+        "/fa/garden/noise/"
       ],
       "headings": [
         {
@@ -323,6 +328,7 @@
       ],
       "links": [
         "/fa/garden/",
+        "/fa/blog/controlnet-depth/",
         "/fa/blog/comfyui-repo-review/",
         "/fa/blog/diffusion-from-noise/"
       ],
@@ -627,6 +633,48 @@
       "canonical": "https://ialirezaaa.github.io/fa/blog/"
     },
     {
+      "id": "controlnet-depth",
+      "title": "چطور با ControlNet قاب رو نگه داریم، ولی ظاهرش رو عوض کنیم؟",
+      "url": "/fa/blog/controlnet-depth/",
+      "source": "نوشته‌ها/controlnet-depth.md",
+      "text": "وقتی پرامپت ظاهر خوبی می‌ده ولی در و دیوار رو جابه‌جا می‌کنه، یه نقشهٔ عمق به مدل می‌گه کدوم بخش‌های قاب نزدیک‌ترن. با یه مثال راهرو می‌بینیم کجا کمک می‌کنه و کجا نه.",
+      "group": "مقاله‌ها",
+      "tags": [
+        "شرح مقاله",
+        "دیفیوژن",
+        "ComfyUI",
+        "تصویرسازی با هوش مصنوعی"
+      ],
+      "aliases": [
+        "چطور با ControlNet قاب رو نگه داریم، ولی ظاهرش رو عوض کنیم؟",
+        "controlnet-depth",
+        "نوشته‌ها/controlnet-depth"
+      ],
+      "links": [
+        "/fa/garden/diffusion/",
+        "/fa/garden/noise/",
+        "/fa/garden/ddpm/",
+        "/fa/garden/latent-diffusion/",
+        "/fa/garden/seed/"
+      ],
+      "backlinks": [
+        "/fa/blog/"
+      ],
+      "headings": [
+        {
+          "title": "پیوندهای این نوشته",
+          "id": "پیوندهای-این-نوشته"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25",
+      "updated": "2026-11-25",
+      "kind": "article",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/controlnet-depth/"
+    },
+    {
       "id": "comfyui-repo-review",
       "title": "کالبدشکافی ریپوی ComfyUI: وقتی Queue می‌زنی، پشت صحنه چه می‌گذره؟",
       "url": "/fa/blog/comfyui-repo-review/",
@@ -728,36 +776,38 @@
     "/fa/blog/tags/",
     "/fa/blog/categories/papers/",
     "/fa/blog/categories/repo-analysis/",
+    "/fa/blog/controlnet-depth/",
     "/fa/blog/comfyui-repo-review/",
     "/fa/blog/diffusion-from-noise/"
   ],
-  "sourceDigest": "330dc21b237f465262534a6be4da7347e2ee4262c9f9ca2da0203100ef78ed36",
+  "sourceDigest": "f2da48415625da8625ea8c8eb0f3850cb51ef316160b9334691f87b4d17941c4",
   "assets": {
-    "/fa/garden/~random/index.html": "c433c46e296afa6398ec5c56ab525ca9b5d109fed1bdd9e90512c3f7e1908070",
-    "/fa/garden/404/index.html": "ba0d385ed5dfc46108b9ee23ec217d1236359847b31193c25759ff1772a416a8",
-    "/fa/garden/ddpm/index.html": "f43d5fdc77b34113eea2d6460da060b06896fd0200081c88864450b9fe8a01ec",
-    "/fa/garden/diffusion/index.html": "a26bf2e76509f77bd4674a3152fa0f9da4bf34c371fb27f1a188d6c7dcdf634e",
-    "/fa/blog/categories/fundamentals/index.html": "ec682679ed233f45117399c8dfe82276db3d843302955693208dae1a9dae5ec1",
-    "/fa/blog/categories/index.html": "3ec4dffdd54853466fa29f8dee1387c01db01f05e3ad29d93e0e3bda366530f6",
-    "/fa/blog/categories/papers/index.html": "f382acb3a728a3cf68032858430877f5cf3ab555cc4bcc3e2ff6110370140084",
-    "/fa/blog/categories/repo-analysis/index.html": "5c25ec33e7444f27f34594255a58ce3811201bb43359e36d982a0573d3d7653c",
-    "/fa/blog/comfyui-repo-review/index.html": "c896acef91e3501b0aaaa86119836265110106ed68e16a252828b968bac5320f",
-    "/fa/blog/diffusion-from-noise/index.html": "ebeb9499465f36c3db15e4e40e9425202cb768b9f97c50d52ef319f4b77dbebb",
-    "/fa/blog/index.html": "86f832ad95c6d275a00be54407fcfabe6bb57a2f05d0f44e98e232bdd02e71da",
-    "/fa/blog/tags/ai-basics/index.html": "745add4bcf06c0e265c3e9f342889ffe9eb750a2437930042bad2efd98c16395",
-    "/fa/blog/tags/ai-image-making/index.html": "9fe8d448843e968e4d959468438be229464cd2abed0e2eff290be8ea4bef4b11",
-    "/fa/blog/tags/comfyui/index.html": "199f72cc92eb3ed85ca42cb38ccd425c4ef24d6895a80a9952b06e46ca1923ea",
-    "/fa/blog/tags/diffusion/index.html": "859529c27131ade897b24642d58fbb0b7d4940e7f05e04ba7e04271c1b86986c",
-    "/fa/blog/tags/index.html": "283b561d7cd87f96931127d45602682bceee9b8c3230cd1b92ef93d7ef510f44",
-    "/fa/blog/tags/paper-explainer/index.html": "1c97f9ff81d1dda911543e6b6967ef6dcbfb09b0002de4daa81ff360dafb5f6e",
-    "/fa/blog/tags/python/index.html": "89ac5d825481bcac8ade9bb3b51f13be47da29652cd48a06a96ff4865bbea3ec",
-    "/fa/blog/tags/workflow/index.html": "c621f7a9731a5cac56759c14dc35ba7b73708daa01f4326348ea1283f340f674",
-    "/fa/garden/feed.xml": "9adeaf9b8e2bf2b6c1297c4925f05c2d79f0b1f62df027d9ec93a4603645c6f7",
-    "/fa/garden/filetree.html": "441b83289996c38852aeb13bb9893ab6d7d911a1ac3d63384e9bf5ec4d27f000",
+    "/fa/garden/~random/index.html": "1b6f62ff2cb62962f9e03c84319e93ec7a133bed98e65cb42d3a7ac42b1a351c",
+    "/fa/garden/404/index.html": "8fd63f0cf4fdb2784e6d6fd24aa13bb357962c5f0445ac22cd9ab84489fc87ad",
+    "/fa/garden/ddpm/index.html": "96caaef4617ca1cba133f3c35f1b78d4caf42414822a5443b12089aa279b9ab1",
+    "/fa/garden/diffusion/index.html": "e519bc78ee28eaa00678812e49cafdcad2a462332fd4e50a0985ed4395d397b6",
+    "/fa/blog/categories/fundamentals/index.html": "00d5ebddc4f50bb028f6c5db351cb9e35c2522f51546e87b380fc990c630b73e",
+    "/fa/blog/categories/index.html": "ca01b1afc1944b24ef290f2ede322b128d5c2c80dcc6440d475ff6c2209308f8",
+    "/fa/blog/categories/papers/index.html": "b937a2a098f52c8e6e2db6bbb7612d13138c5f59b046f85fa0fe00cea96e2824",
+    "/fa/blog/categories/repo-analysis/index.html": "a24018a2cbe6001c4ec6de3221e9d978e6e40448fa16aff2b61e04b938348d94",
+    "/fa/blog/comfyui-repo-review/index.html": "1e3731c214b0aa240b856c12114e3519f766e328eb4ebd4735f5ced3c1fad190",
+    "/fa/blog/controlnet-depth/index.html": "d1414f85f4aa6a9de38070174910da14bd2eda37797f73185f169c1707b3bb55",
+    "/fa/blog/diffusion-from-noise/index.html": "5b177910de4f03ddefff629ac1f9ad4f070d548d272467a7ae482435d96eab00",
+    "/fa/blog/index.html": "a32ebe9d8ed8bfad5dc7ce707547e7db4072db1a53058b54691c01a19bf3857e",
+    "/fa/blog/tags/ai-basics/index.html": "31cd10aee3486c3ae39e02426847d19a1de865a73a2af5e44d75645d877bf1c7",
+    "/fa/blog/tags/ai-image-making/index.html": "64d079a061dbeaf24526005fbabd8a3433da37d26a0fb2b4f1901e01f2193faf",
+    "/fa/blog/tags/comfyui/index.html": "4991fa4c80c39d5a7ed1f1c2132aea401e5976ca7074a285899807ef3c523e57",
+    "/fa/blog/tags/diffusion/index.html": "04f0c2d7b461dedb7234a0f2524bc4343ff128771ab48a7e9775e0e4638e0ca9",
+    "/fa/blog/tags/index.html": "b04b7c0307bfaa2623c449476d5af80b514855ddef803c788591cfb087f8e76b",
+    "/fa/blog/tags/paper-explainer/index.html": "3d2c66592b9c7c8f236fdd58deeb26a4fbc96d5c35c0457c5c70c1ad2dfa7b05",
+    "/fa/blog/tags/python/index.html": "a287c84a07a802b3520daa4cb68e3d77ceec8876d96023bfaf019a33cf18444c",
+    "/fa/blog/tags/workflow/index.html": "e1a629fef124bdf31c9d7241cd8c7f141ecaf0eb18c25fd1aec651433af57ab9",
+    "/fa/garden/feed.xml": "a003afea37ecee68cf0e621e6d39ace754bd7a0b33239f3de9045967d702c43e",
+    "/fa/garden/filetree.html": "9b5f7553310c8fad159b50f76031d2230e480ef3063866f9601f640b48afe0e7",
     "/fa/garden/fonts/mikhak.woff2": "18e507e1ae85db40fac1ae651655ebdf5b7ec990835328bdede753ce6654007a",
     "/fa/garden/fonts/OFL.txt": "071f566f77f4d56b39c15c9f685bc8806b04a1a9543ad6c5f3806497996d046f",
     "/fa/garden/fonts/SOURCE.md": "8d713ad6f9a79d8aa839839ed00e4eec8739082a70d02fad9045ebadde8d9c27",
-    "/fa/garden/graph.json": "563d547118a05e3800dcc36a731ef07adaf08a86b3233e138c3562131ddcd7ff",
+    "/fa/garden/graph.json": "4d047c5db9a623de3f8691bb80f4daa57f692b047abc49cbd5e1e066c50b057c",
     "/fa/garden/img/default-note-icon.svg": "82297d74920cc15bdf2ab0dc6c00d37db6ec32b4bcf5e43f27ee3b9bf728c4a8",
     "/fa/garden/img/fonts/epilogue-latin-ext-wght-normal.woff2": "8026084714d57bf555eb958d7ec15bd5dc71b75ba79490111711300af524b645",
     "/fa/garden/img/fonts/epilogue-latin-wght-normal.woff2": "943ab208b058dbb0a8b257c02d6d9cfe5932a72c4deea8c77d192111c7c14519",
@@ -770,13 +820,13 @@
     "/fa/garden/img/tree-1.svg": "271d2c6bd0b942cd8cf185610bee3699381f223859c7ff51086244602d612a4a",
     "/fa/garden/img/tree-2.svg": "5347e932d7eca4a221657648e7f8c1fd5af574ef5cd4ae46c6febfba8a6907a7",
     "/fa/garden/img/tree-3.svg": "571626b1fc89f34a1ec71b058c4bd7356fedeea8e3db88055e7611ecf67edf34",
-    "/fa/garden/index.html": "4eb1b5f3e240506695b08722eccd90bfe50f6cdf665d62f2e3d4553e92c27e70",
-    "/fa/garden/latent-diffusion/index.html": "90989c59ed857f70e706ee03ec04d58255f3ec39bfde6701ade0ec83072f5e93",
-    "/fa/garden/noise/index.html": "5743390fb058d44da989e84b8c703c4046fcb72e46f951b410c7764cc17c9e96",
+    "/fa/garden/index.html": "7402ac655b86d413952650764e8ca67de10896e5e010e04aaa13b82a541269ae",
+    "/fa/garden/latent-diffusion/index.html": "4a0fe599fa496390a797f6cbafb2dc955e3c6bea32f6ecfa3bed0b07035bdb23",
+    "/fa/garden/noise/index.html": "ec39ce4b5e1aadaf4dd419288f3f6b7702254fd293e1bb216aa8c40ecd53cf12",
     "/fa/garden/scripts/hades.js": "4c610593a336387c04b1bc17c4ccc24367d89724a05476ef0e1779717e7033a9",
-    "/fa/garden/searchIndex.json": "a4ccc72cdb024fdeed55326b5415ce5d78463e42522bafeccb4d83673c105216",
-    "/fa/garden/seed/index.html": "439ee7409107ac316bbae4db1e92c6f9eadf08c45425a3bbb32d59a27d528e21",
-    "/fa/garden/sitemap.xml": "d92358b0c22a0226d776ab94cf6d6f60bd0597984fe8f10f47de4df3b28746a5",
+    "/fa/garden/searchIndex.json": "653c5bbfa3e540ccda08437e6bafd6ed01ae0ebc62abdf25cd4bb69fcfef9e57",
+    "/fa/garden/seed/index.html": "a6e79bc94af63eff2313a33e76061caba60f8f455fbee354481f6648e9537529",
+    "/fa/garden/sitemap.xml": "ea1278d5969b40a3e64e6481fc73bb375223dd7fb79aa50034ec8a418465fa75",
     "/fa/garden/styles/custom-style.css": "e230d094db3d021ddaa2541c9bc96d31c777052b9cf34b07a3beb7d524e95867",
     "/fa/garden/styles/custom-style.css.map": "96fd2d10919de215cbdd74f73d1267c6072d3b485bd93ce0cc2a12eac994a470",
     "/fa/garden/styles/digital-garden-base.css": "06e0836918a64e96300e3c46d9d8c9bf4656a73ccf2f7b79009cdc3ed9184d92",
