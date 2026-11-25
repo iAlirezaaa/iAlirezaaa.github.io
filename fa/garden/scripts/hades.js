@@ -115,17 +115,18 @@ function initializeGarden() {
   }
   let resultNotes=[],resultIndex=0,searchVersion=0;
   const resultList=$('#garden-search-results'),searchStatus=$('#garden-search-status');
-  function selectResult(index,focus=false) {
+  function selectResult(index,focus=false,scroll=true) {
     if(!resultNotes.length)return;
     resultIndex=(index+resultNotes.length)%resultNotes.length;
     const links=$$('.search-result-link',resultList);
     links.forEach((link,i)=>{if(i===resultIndex)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});
     if(focus)links[resultIndex]?.focus();
-    else links[resultIndex]?.scrollIntoView({block:'nearest'});
+    else if(scroll)links[resultIndex]?.scrollIntoView({block:'nearest'});
   }
   async function runSearch() {
     const version=++searchVersion;
     searchStatus.textContent='در حال جست‌وجو…';
+    resultList.setAttribute('aria-busy','true');
     try {
       const notes=await getSearchIndex();if(version!==searchVersion)return;
       const query=searchInput.value;
@@ -134,13 +135,14 @@ function initializeGarden() {
       for(const [i,note] of resultNotes.entries()) {
         const li=document.createElement('li'),link=document.createElement('a');link.className='search-result-link';link.href=note.url;
         link.append(textElement('strong',note.title),textElement('p',note.content.slice(0,135)+(note.content.length>135?'…':'')));
-        link.addEventListener('pointerenter',()=>selectResult(i));link.addEventListener('focus',()=>selectResult(i));
+        link.addEventListener('pointermove',event=>{if(event.movementX||event.movementY)selectResult(i,false,false);});link.addEventListener('focus',()=>selectResult(i,false,false));
         li.append(link);resultList.append(li);
       }
+      resultList.dataset.query=query;resultList.setAttribute('aria-busy','false');
       if(resultNotes.length)selectResult(0);
     } catch {
       if(version!==searchVersion)return;
-      resultList.replaceChildren();resultNotes=[];searchStatus.textContent='فهرست جست‌وجو دریافت نشد. اتصال را بررسی کن و دوباره بنویس.';
+      resultList.replaceChildren();resultNotes=[];resultList.setAttribute('aria-busy','false');searchStatus.textContent='فهرست جست‌وجو دریافت نشد. اتصال را بررسی کن و دوباره بنویس.';
     }
   }
   function openSearch(query) {
@@ -153,8 +155,8 @@ function initializeGarden() {
     // A search input consumes its first Escape to clear text. Honour the
     // dialog's visible Esc shortcut immediately, preserving the query.
     if(event.key==='Escape'){event.preventDefault();searchDialog.close();return;}
-    if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();selectResult(resultIndex+(event.key==='ArrowDown'?1:-1),event.target!==searchInput);}
-    if(event.key==='Enter'&&event.target===searchInput&&resultNotes[resultIndex]){event.preventDefault();location.assign(resultNotes[resultIndex].url);}
+    if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();if(resultList.getAttribute('aria-busy')==='true')return;selectResult(resultIndex+(event.key==='ArrowDown'?1:-1),event.target!==searchInput);}
+    if(event.key==='Enter'&&event.target===searchInput&&resultList.getAttribute('aria-busy')!=='true'&&resultNotes[resultIndex]){event.preventDefault();location.assign(resultNotes[resultIndex].url);}
   });
   document.addEventListener('keydown',event=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){event.preventDefault();openSearch();}});
   $$('[data-search-query]').forEach(button=>button.addEventListener('click',()=>openSearch(button.dataset.searchQuery)));
