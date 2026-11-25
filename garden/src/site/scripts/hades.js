@@ -210,7 +210,7 @@ function initializeGarden() {
   let panelOpener=null,activePanel=null,workspace=null;
   const backdrop=$('.garden-backdrop');
   function syncPanelInert() {
-    for(const [name,panel] of Object.entries(panels))if(panel){const mobile=name==='navigation'?navMobile.matches:contextMobile.matches;panel.inert=mobile?activePanel!==name:Boolean(workspace?.isHidden(name));}
+    for(const [name,panel] of Object.entries(panels))if(panel){const mobile=name==='navigation'?navMobile.matches:contextMobile.matches;panel.inert=mobile?activePanel!==name:Boolean(workspace?.isHidden(name));const button=$('[data-panel-open="'+name+'"]');button?.setAttribute('aria-expanded',String(!panel.inert));}
   }
   function closePanel(restore=true) {
     const old=activePanel;activePanel=null;delete document.body.dataset.openPanel;
@@ -231,7 +231,7 @@ function initializeGarden() {
     if($('[data-workspace-ribbon]'))$('[data-workspace-ribbon]').inert=true;
     $('[data-panel-close]',panels[name])?.focus();syncPanelInert();
   }
-  $$('[data-panel-open]').forEach(button=>button.addEventListener('click',()=>openPanel(button.dataset.panelOpen,button)));
+  $$('[data-panel-open]').forEach(button=>button.addEventListener('click',()=>{const name=button.dataset.panelOpen;const mobile=name==='navigation'?navMobile.matches:contextMobile.matches;if(mobile)openPanel(name,button);else workspace?.toggle(name);}));
   $$('[data-panel-close]').forEach(button=>button.addEventListener('click',()=>closePanel()));
   Object.values(panels).forEach(panel=>panel?.addEventListener('click',event=>{if(activePanel&&event.target.closest('a[href]'))closePanel(false);}));
   document.addEventListener('keydown',event=>{

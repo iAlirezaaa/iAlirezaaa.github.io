@@ -1,12 +1,8 @@
 <aside class="garden-navigation garden-panel" id="garden-navigation" aria-label="فهرست وبلاگ" data-panel="navigation">
   <div class="panel-mobile-heading"><strong>نوشته‌ها</strong><button type="button" class="icon-button" data-panel-close aria-label="بستن فهرست نوشته‌ها">×</button></div>
-  <a class="garden-wordmark" href="/fa/blog/"><span lang="en" dir="ltr">HADES<span class="wordmark-dot">.</span></span><small>وبلاگ علیرضا عسگرپور</small></a>
-  <button class="garden-search-button" data-search-open type="button"><span>جست‌وجوی نوشته‌ها</span><kbd dir="ltr">⌘ K</kbd></button>
-  <nav class="garden-sections" aria-label="مسیرهای اصلی"><a href="/fa/blog/">همهٔ نوشته‌ها</a><a href="/fa/blog/#notes">یادداشت‌ها و مسیرها</a><a href="/fa/blog/categories/">بخش‌های وبلاگ</a><a href="/fa/blog/tags/">موضوع‌ها</a><button type="button" data-global-graph-open>نقشهٔ ارتباط‌ها</button></nav>
-  <div class="navigation-divider"></div>
+  <nav class="garden-sections" aria-label="موضوع‌ها و دسته‌ها"><a href="/fa/blog/categories/">بخش‌ها</a><a href="/fa/blog/tags/">موضوع‌ها</a></nav><div class="navigation-divider"></div>
   <div class="tree-heading"><h2>کاوشگر نوشته‌ها</h2><button type="button" data-tree-collapse aria-label="باز و بسته کردن بخش‌ها">جمع کردن</button></div>
-  <div class="workspace-tree-filter" data-tree-filter-box hidden><label for="workspace-tree-query" class="sr-only">فیلتر عنوان نوشته‌ها</label><input id="workspace-tree-query" type="search" dir="auto" data-tree-filter placeholder="فیلتر عنوان‌ها…" autocomplete="off" aria-controls="workspace-filetree"><p data-tree-filter-status role="status"></p></div>
   <nav class="garden-filetree" id="workspace-filetree" data-filetree aria-label="فهرست نوشته‌ها">{% include "plugins/dg-filetree/tree.njk" ignore missing %}<p class="filetree-loading">در حال دریافت فهرست…</p></nav>
   <noscript><nav class="no-script-notes" aria-label="فهرست نوشته‌ها">{% for note in collections.note | notHidden %}<a href="{{note.url}}">{{note.data.title or note.fileSlug}}</a>{% endfor %}</nav></noscript>
-  <footer class="navigation-footer"><a href="/fa/">دربارهٔ هادس</a><a href="/fa/work/">آثار</a></footer>
+  <footer class="navigation-footer"><a href="/fa/">سایت هادس</a></footer>
 </aside>

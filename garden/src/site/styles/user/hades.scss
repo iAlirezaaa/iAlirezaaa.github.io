@@ -440,3 +440,40 @@ body.hades-garden.is-directory .explorer-status{min-height:2.4rem}
 .graph-dialog .graph-atlas-meta [data-graph-count]{min-width:0;line-height:1.7}
 .graph-dialog .graph-atlas-meta [data-graph-detail]{min-width:0;block-size:3.6em;line-height:1.8;overflow-y:auto;overflow-wrap:anywhere;overscroll-behavior:contain;scrollbar-gutter:stable}
 @media(min-width:901px){.graph-dialog .graph-atlas-meta{grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:.5rem}}
+
+
+/* REVIEW — one physical toolbar and one home link, no duplicate desktop/mobile menus. */
+body.hades-garden .garden-topbar{gap:.4rem;padding-inline:.75rem}
+body.hades-garden .garden-topbar .topbar-start{min-width:0;gap:.3rem}
+body.hades-garden .garden-topbar .topbar-name{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+body.hades-garden .garden-topbar .topbar-actions{gap:.15rem;flex:none}
+body.hades-garden .garden-topbar .icon-button{display:inline-flex;width:36px;min-width:36px;height:40px;min-height:40px;padding:.35rem}
+body.hades-garden .garden-topbar .icon-button[aria-expanded=true]{background:var(--subtle);color:var(--brand)}
+body.hades-garden.is-directory .garden-topbar .mobile-tree-toggle{display:inline-flex}
+body.hades-garden .garden-navigation .garden-sections{display:flex;flex-wrap:wrap;gap:.2rem .5rem;margin:0 0 .5rem}
+body.hades-garden .garden-navigation .garden-sections a{font-size:.82rem;min-height:34px;padding:.25rem .4rem}
+body.hades-garden .garden-navigation .navigation-divider{margin:.5rem 0}
+body.hades-garden .garden-context .trail-panel{padding-block:.5rem;margin:0}
+body.hades-garden .garden-context .trail-grid{display:block}
+body.hades-garden .garden-context .trail-filter{display:grid;grid-template-columns:minmax(0,1fr);gap:.25rem}
+body.hades-garden .garden-context .trail-filter select{max-width:100%;min-width:0}
+body.hades-garden .garden-context .trail-relation-label{font-size:.68rem}
+#garden-settings [data-reading-history]{margin-block:1rem .2rem;padding-block:.5rem}
+#garden-settings [data-reading-history] summary{font-weight:550;cursor:pointer;padding:.35rem 0}
+body.hades-garden.is-directory .blog-explorer{display:block;padding:.2rem 0;margin:.5rem 0}
+body.hades-garden.is-directory .blog-explorer .explorer-options{margin:0}
+body.hades-garden.is-directory .blog-explorer .explorer-options summary{min-height:36px}
+body.hades-garden.is-directory .blog-explorer .explorer-status{min-height:36px}
+@media screen and (min-width:901px){
+ body.hades-garden .garden-layout,body.hades-garden.is-directory .garden-layout{padding-inline-start:0}
+ #garden-settings .workspace-pane-tools{display:block;margin:1rem 0 .5rem}
+ #garden-settings .workspace-pane-tools summary{display:block;width:100%;padding:.4rem .6rem}
+ #garden-settings .workspace-pane-fields{max-width:100%}
+}
+@media screen and (max-width:430px){
+ body.hades-garden .garden-topbar{padding-inline:.45rem;gap:.15rem}
+ body.hades-garden .garden-topbar .topbar-name{font-size:.83rem}
+ body.hades-garden .garden-topbar .icon-button{width:34px;min-width:34px;height:44px;min-height:44px;padding:.3rem}
+ body.hades-garden .garden-topbar .topbar-actions{gap:0}
+}
+@media print{body.hades-garden .garden-layout{padding-inline:0!important}}

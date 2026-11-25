@@ -2,10 +2,19 @@
 <div class="panel-mobile-heading"><strong>راهنمای خواندن</strong><button type="button" class="icon-button" data-panel-close aria-label="بستن پنل این صفحه">×</button></div>
 {% set tocHtml = content and (content | hideDataview | link | toc) %}
 {% if tocHtml %}<section class="context-section toc-section"><h2>در این صفحه</h2><div class="toc-container" data-toc>{{ tocHtml | safe }}</div></section>{% endif %}
-{% if settings.dgShowLocalGraph !== false %}<section class="context-section" data-local-graph-section><div class="section-heading"><h2>ادامهٔ این موضوع</h2><button type="button" class="small-button" data-global-graph-open aria-label="باز کردن نقشهٔ کامل">نقشهٔ کامل</button></div>{% if settings.dgShowGraphDepthControl %}<label class="context-caption" for="local-graph-depth">عمق ارتباط‌ها <select id="local-graph-depth" data-local-depth><option value="1">۱</option><option value="2">۲</option><option value="3">۳</option></select></label>{% endif %}<div class="local-graph" data-local-graph aria-label="نقشهٔ نوشته‌های مرتبط"><p class="muted">در حال دریافت ارتباط‌ها…</p></div><button type="button" class="graph-layout-reset" data-graph-layout-reset hidden>بازنشانی نودها</button><div class="local-graph-inspector"><p data-local-count></p><p data-local-detail aria-live="polite">عنوان کامل نود پس از انتخاب نمایش داده می‌شود.</p></div><div class="local-graph-legend"><span class="legend-current"></span><span>همین صفحه</span><span class="legend-related"></span><span>پیوندهای مرتبط</span></div></section>{% endif %}
-{% if settings.dgShowBacklinks !== false %}<section class="context-section backlinks-section"><h2>در نوشته‌های دیگر</h2><p class="context-caption">نوشته‌هایی که به این صفحه پیوند داده‌اند.</p><ul class="backlink-list" data-backlinks>
-{%- set currentNode = graph.nodes[page.url] -%}
-{%- if currentNode and currentNode.backLinks.length -%}{%- for backlink in currentNode.backLinks -%}{%- if graph.nodes[backlink] and graph.nodes[backlink].url != page.url and not graph.nodes[backlink].private -%}<li><a class="internal-link" href="{{graph.nodes[backlink].url}}">{{graph.nodes[backlink].title}}</a></li>{%- endif -%}{%- endfor -%}{%- else -%}<li class="muted">هنوز نوشتهٔ دیگری به این صفحه پیوند نداده.</li>{%- endif -%}
-</ul></section>{% endif %}
-<section class="context-section context-about"><p>موضوع را از میان نوشته‌های مرتبط دنبال کن.</p><a href="https://github.com/oleeskild/obsidian-digital-garden" rel="noopener" target="_blank">ساخته‌شده با Digital Garden</a></section>
+{% if settings.dgShowLocalGraph !== false %}<section class="context-section" data-local-graph-section><div class="section-heading"><h2>گراف این نوشته</h2></div>{% if settings.dgShowGraphDepthControl %}<label class="context-caption" for="local-graph-depth">عمق ارتباط‌ها <select id="local-graph-depth" data-local-depth><option value="1">۱</option><option value="2">۲</option><option value="3">۳</option></select></label>{% endif %}<div class="local-graph" data-local-graph aria-label="نقشهٔ نوشته‌های مرتبط"><p class="muted">در حال دریافت ارتباط‌ها…</p></div><button type="button" class="graph-layout-reset" data-graph-layout-reset hidden>بازنشانی نودها</button><div class="local-graph-inspector"><p data-local-count></p><p data-local-detail aria-live="polite">عنوان کامل نود پس از انتخاب نمایش داده می‌شود.</p></div><div class="local-graph-legend"><span class="legend-current"></span><span>همین صفحه</span><span class="legend-related"></span><span>پیوندهای مرتبط</span></div></section>{% endif %}
+{% if settings.dgShowBacklinks !== false %}
+{% set currentNode = graph.nodes[page.url] %}
+<section class="context-section trail-panel" data-reading-related aria-labelledby="reading-related-title">
+<h2 id="reading-related-title">نوشته‌های مرتبط</h2>
+<div class="trail-filter" data-reading-filter hidden><label for="reading-relation">نوع ارتباط</label><select id="reading-relation" data-reading-relation><option value="all">همه</option><option value="mutual">دوسویه</option><option value="outgoing">خروجی</option><option value="incoming">ورودی</option></select><p role="status" data-reading-count></p></div>
+<div class="trail-grid">
+<div data-reading-group><h3>پیوندهای این نوشته</h3><ul data-reading-out>
+{%- if currentNode -%}{%- for url in currentNode.outBound -%}{%- if graph.nodes[url] and url != page.url and not graph.nodes[url].private -%}<li><a class="internal-link" href="{{url}}">{{graph.nodes[url].title}}</a></li>{%- endif -%}{%- endfor -%}{%- endif -%}
+</ul></div>
+<div data-reading-group><h3>پیوندهای ورودی دیگر</h3><ul data-reading-in data-backlinks>
+{%- if currentNode -%}{%- for url in currentNode.backLinks -%}{%- if graph.nodes[url] and url != page.url and not graph.nodes[url].private and url not in currentNode.outBound -%}<li><a class="internal-link" href="{{url}}">{{graph.nodes[url].title}}</a></li>{%- endif -%}{%- endfor -%}{%- endif -%}
+</ul></div>
+</div>
+</section>{% endif %}
 </aside>
