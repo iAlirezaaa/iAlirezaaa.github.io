@@ -74,3 +74,33 @@ test('asset enumeration does not follow symlinks',()=>{
     assert.deepEqual(listPublicAssetCandidates(dir),['public.png'])
   }finally{fs.rmSync(dir,{recursive:true,force:true})}
 })
+
+test('local graph depth includes only public reachable nodes, including numeric ID zero',async()=>{
+  const {graphAtDepth}=await import('../src/site/scripts/garden-content-compat.js')
+  const graph={nodes:[{id:0},{id:1},{id:2},{id:3},{id:4}],links:[{source:0,target:1},{source:2,target:1},{source:2,target:3},{source:3,target:4},{source:0,target:99}]}
+  const ids=d=>graphAtDepth(graph,0,d).nodes.map(n=>n.id)
+  assert.deepEqual(ids(1),[0,1])
+  assert.deepEqual(ids(2),[0,1,2])
+  assert.deepEqual(ids(3),[0,1,2,3])
+  assert.deepEqual(ids(8),[0,1,2,3])
+  assert.equal(graphAtDepth(graph,0,3).links.length,3)
+  assert.deepEqual(graphAtDepth(graph,99,2),{nodes:[],links:[]})
+})
+test('Mermaid is lazy and preserves original source on renderer or network failure',async()=>{
+  const {renderMermaid}=await import('../src/site/scripts/garden-content-compat.js')
+  let loads=0
+  assert.deepEqual(await renderMermaid({querySelectorAll:()=>[]},async()=>{loads++}),{rendered:0,failed:0})
+  assert.equal(loads,0)
+  const valid={textContent:'graph TD; A --> B',dataset:{}},invalid={textContent:'invalid graph',dataset:{}}
+  let config
+  const result=await renderMermaid({querySelectorAll:()=>[valid,invalid]},async()=>({default:{initialize(c){config=c},async render(id,source){if(source==='invalid graph')throw Error('invalid');return {svg:'<svg></svg>'}}}}))
+  assert.equal(config.securityLevel,'strict')
+  assert.equal(valid.dataset.diagramState,'rendered')
+  assert.equal(invalid.textContent,'invalid graph')
+  assert.equal(invalid.dataset.diagramState,'invalid')
+  assert.deepEqual(result,{rendered:1,failed:1})
+  const unavailable={textContent:'graph LR; A --> B',dataset:{}}
+  assert.deepEqual(await renderMermaid({querySelectorAll:()=>[unavailable]},async()=>{throw Error('offline')}),{rendered:0,failed:1})
+  assert.equal(unavailable.textContent,'graph LR; A --> B')
+  assert.equal(unavailable.dataset.diagramState,'unavailable')
+})
