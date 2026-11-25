@@ -1,3 +1,4 @@
+import { installCodeCopy } from './reader-tools.js';
 /** HADES' Persian reading layer for the upstream Eleventy Digital Garden. */
 export function normalizeSearchText(value = '') {
   return String(value).normalize('NFKC').toLocaleLowerCase('fa-IR')
@@ -26,7 +27,7 @@ export function searchNotes(notes, query, limit = 40) {
   }).filter(Boolean).sort((a,b) => b.score-a.score || a.note.title.localeCompare(b.note.title,'fa')).slice(0,limit).map(result => result.note);
 }
 
-if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); }
+if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); installCodeCopy(); }
 function initializeGarden() {
   const root = document.documentElement;
   const $ = (selector, within = document) => within.querySelector(selector);
@@ -220,7 +221,7 @@ function initializeGarden() {
     const progress=$('#reading-progress');
     if(article&&progress){const r=article.getBoundingClientRect();const total=Math.max(1,article.offsetHeight-innerHeight+140);progress.value=Math.max(0,Math.min(100,(140-r.top)/total*100));}
     let current=headings[0];for(const item of headings)if(item.target.getBoundingClientRect().top<=150)current=item;
-    for(const item of headings)if(item===current)item.link.setAttribute('aria-current','true');else item.link.removeAttribute('aria-current');
+    for(const item of headings)if(item.target===current?.target)item.link.setAttribute('aria-current','true');else item.link.removeAttribute('aria-current');
   }
   addEventListener('scroll',onScroll,{passive:true});onScroll();
   $('[data-copy-link]')?.addEventListener('click',async()=>{const status=$('.copy-status');try{await navigator.clipboard.writeText(location.href);status.textContent='پیوند کپی شد.';}catch{status.textContent='برای کپی، نشانی صفحه را از نوار آدرس بردار.';}});
@@ -245,44 +246,158 @@ function initializeGarden() {
     return{nodes:graph.nodes.filter(n=>ids.has(n.id)),links:graph.links.filter(l=>ids.has(l.source)&&ids.has(l.target))};
   }
   function svgElement(name,attrs={}){const el=document.createElementNS('http://www.w3.org/2000/svg',name);for(const [key,value] of Object.entries(attrs))el.setAttribute(key,String(value));return el;}
+
+  // REVIEW: shared SVG atlas, screen-space label collision and finite motion.
+  const atlasState = new WeakMap();
+  const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+  const options = {spread:100, labels:'auto', kind:'all', motion:!motionQuery.matches};
+  const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
   function drawGraph(container,data,all=false){
-    container.replaceChildren();if(!data.nodes.length){container.append(textElement('p','هنوز ارتباطی برای نمایش ثبت نشده.','muted'));return;}
-    const width=Math.max(220,container.clientWidth),height=Math.max(220,container.clientHeight);
-    const svg=svgElement('svg',{viewBox:`0 0 ${width} ${height}`,role:'group','aria-label':all?'نقشهٔ همهٔ نوشته‌ها؛ هر عنوان یک پیوند قابل انتخاب است.':'پیوندهای مرتبط با این صفحه'});
+    container.dataset.graphReady='false';
+    container.replaceChildren();
+    if(!data.nodes.length){container.append(textElement('p','نوشته‌ای در این نما نیست.','muted'));container.dataset.graphCount='0';container.dataset.graphKind='all';container.dataset.graphReady='true';return;}
+    const interactive=container.matches('[data-global-graph]');
+    const width=Math.max(200,container.clientWidth),height=Math.max(200,container.clientHeight);
+    const svg=svgElement('svg',{viewBox:'0 0 '+width+' '+height,role:'group','aria-label':'نقشهٔ ارتباط نوشته‌ها؛ عنوان کامل با فوکوس روی نود در دسترس است.'});
     const group=svgElement('g',{'data-graph-scene':''});svg.append(group);
-    const count=data.nodes.length;
-    const nodes=data.nodes.map((n,i)=>({...n,x:width/2+Math.cos(i*2.39996)*Math.min(width*.3,80)*Math.sqrt(i/Math.max(count,1)),y:height/2+Math.sin(i*2.39996)*Math.min(height*.32,100)*Math.sqrt(i/Math.max(count,1))}));
-    const byId=new Map(nodes.map(n=>[n.id,n]));const edges=data.links.map(l=>({source:byId.get(l.source),target:byId.get(l.target)}));
-    const marginX=all?48:42,marginY=all?38:30;
-    // Bounded deterministic relaxation: no animation loop or motion sensitivity.
-    for(let tick=0;tick<180;tick++){
-      const cooling=(1-tick/200)*.3;
-      for(let i=0;i<count;i++)for(let j=i+1;j<count;j++){
-        const a=nodes[i],b=nodes[j],dx=a.x-b.x||.1,dy=a.y-b.y||.1,dist=Math.max(5,Math.hypot(dx,dy));
-        const force=Math.min(12,(all?1800:950)/(dist*dist))*cooling;a.x+=dx/dist*force;a.y+=dy/dist*force;b.x-=dx/dist*force;b.y-=dy/dist*force;
-      }
-      for(const e of edges){const dx=e.target.x-e.source.x,dy=e.target.y-e.source.y,dist=Math.max(1,Math.hypot(dx,dy)),force=(dist-(all?110:75))*.008*cooling;e.source.x+=dx/dist*force;e.source.y+=dy/dist*force;e.target.x-=dx/dist*force;e.target.y-=dy/dist*force;}
-      for(const n of nodes){n.x=Math.max(marginX,Math.min(width-marginX,n.x+(width/2-n.x)*.001));n.y=Math.max(marginY,Math.min(height-marginY,n.y+(height/2-n.y)*.001));}
+    const kind=n=>/^\/fa\/blog\/notes(?:\/|$)/.test(trimPath(n.url))?'note':'article';
+    const visible=all&&interactive&&options.kind!=='all'?data.nodes.filter(n=>kind(n)===options.kind):data.nodes;
+    const ids=new Set(visible.map(n=>n.id));
+    const filter=all&&interactive?options.kind:'all';
+    const counts={article:visible.filter(n=>kind(n)==='article').length,note:visible.filter(n=>kind(n)==='note').length};
+    const unique=new Set();
+    const rawEdges=data.links.filter(l=>{if(!ids.has(l.source)||!ids.has(l.target)||l.source===l.target)return false;const key=JSON.stringify([l.source,l.target].sort());if(unique.has(key))return false;unique.add(key);return true;});
+    const degrees=new Map(visible.map(n=>[n.id,0]));
+    for(const l of rawEdges){degrees.set(l.source,degrees.get(l.source)+1);degrees.set(l.target,degrees.get(l.target)+1);}
+    const nodes=visible.map(n=>({...n,kind:kind(n),degree:degrees.get(n.id),current:trimPath(n.url)===here}));
+    const compact=width<460;
+    // Stable two-ring layout makes article/note clusters legible. Expand freely; zoom/pan reveal space.
+    const spread=interactive?options.spread/100:1;
+    const rings=[nodes.filter(n=>n.kind==='note'),nodes.filter(n=>n.kind==='article')];
+    rings.forEach((ring,ri)=>ring.forEach((n,i)=>{
+      const angle=2*Math.PI*i/Math.max(1,ring.length)-Math.PI/2+(ri ? .35 : 0);
+      const fraction=rings.every(a=>a.length)?(ri===0?.56:1):.83;
+      n.x=width/2+Math.cos(angle)*Math.max(56,width*.35)*fraction*spread;
+      n.y=height/2+Math.sin(angle)*Math.max(55,height*.34)*fraction*spread;
+      if(nodes.length===1){n.x=width/2;n.y=height/2;}
+    }));
+    const byId=new Map(nodes.map(n=>[n.id,n]));
+    const edges=rawEdges.map(l=>({source:byId.get(l.source),target:byId.get(l.target)}));
+    const edgeEls=edges.map(e=>{const line=svgElement('line',{x1:e.source.x,y1:e.source.y,x2:e.target.x,y2:e.target.y,class:'graph-edge'});group.append(line);return{...e,line};});
+    const nodeEls=[];
+    const preview=container.closest('.atlas-preview-section');
+    const status=interactive?$('[data-graph-detail]'):preview?.querySelector('[data-atlas-detail]');
+    const total=interactive?$('[data-graph-count]'):preview?.querySelector('[data-atlas-count]');
+    if(total)total.textContent=numbers.format(counts.article)+' مقاله · '+numbers.format(counts.note)+' یادداشت · '+numbers.format(edges.length)+' ارتباط';
+    if(status)status.textContent='برای دیدن عنوان کامل، روی یک نود مکث کن یا با صفحه‌کلید آن را انتخاب کن.';
+    let active=null;
+    const state={scale:1,dx:0,dy:0,apply:null,reflow:null,width,height};
+    function prioritize(id){
+      active=id;
+      const neighbors=new Set([id]);
+      for(const e of edgeEls){const connected=e.source.id===id||e.target.id===id;e.line.classList.toggle('is-related',id!==null&&connected);e.line.classList.toggle('is-dim',id!==null&&!connected);if(connected){neighbors.add(e.source.id);neighbors.add(e.target.id);}}
+      for(const n of nodeEls){n.a.classList.toggle('is-related',id!==null&&neighbors.has(n.id));n.a.classList.toggle('is-dim',id!==null&&!neighbors.has(n.id));}
+      if(status)status.textContent=id===null?'یک نود را انتخاب یا با صفحه‌کلید روی آن فوکوس کن.':byId.get(id).title+' · '+numbers.format(byId.get(id).degree)+' ارتباط';
+      placeLabels();
     }
-    for(const edge of edges)group.append(svgElement('line',{x1:edge.source.x,y1:edge.source.y,x2:edge.target.x,y2:edge.target.y,class:'graph-edge'}));
-    for(const node of nodes){
-      const a=svgElement('a',{href:node.url,class:'graph-node',tabindex:0,'data-current':trimPath(node.url)===here,'aria-label':node.title});
+    for(const [i,node] of nodes.entries()){
+      const a=svgElement('a',{href:node.url,class:'graph-node',tabindex:0,'data-current':node.current,'data-kind':node.kind,'aria-label':node.title});
       const title=svgElement('title');title.textContent=node.title;a.append(title);
-      a.append(svgElement('circle',{cx:node.x,cy:node.y,r:trimPath(node.url)===here?5:4}));
-      const label=svgElement('text',{x:node.x,y:node.y+20});
-      const max=all?(width<400?15:23):17;
-      label.textContent=node.title.length>max?node.title.slice(0,max-1)+'…':node.title;
+      const radius=node.current?7:clamp(4+Math.sqrt(node.degree),5,9);
+      const dot=svgElement('circle',{cx:node.x,cy:node.y,r:radius});
+      a.append(svgElement('circle',{cx:node.x,cy:node.y,r:Math.max(12,radius+4),class:'graph-hit'}),dot);
+      const label=svgElement('text',{x:node.x,y:node.y+radius+16,'aria-hidden':'true'});
+      const chars=Array.from(node.title);
+      const max=compact?16:28;
+      label.textContent=chars.length>max?chars.slice(0,max-1).join('')+'…':node.title;
       a.append(label);group.append(a);
-      a.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();location.assign(node.url);}});
+      nodeEls.push({...node,a,dot,label,radius});
+      a.addEventListener('pointerenter',()=>prioritize(node.id));
+      a.addEventListener('pointerleave',()=>{if(document.activeElement!==a)prioritize(null);});
+      a.addEventListener('focus',()=>prioritize(node.id));
+      a.addEventListener('blur',()=>prioritize(null));
+      if(options.motion&&!motionQuery.matches&&typeof a.animate==='function')a.animate([{opacity:0},{opacity:1}],{duration:340,delay:Math.min(i,10)*24,easing:'ease-out'});
     }
     container.append(svg);
-    if(all){container.dataset.scale='1';const list=$('[data-graph-pages]');list.replaceChildren();for(const node of nodes){const li=document.createElement('li'),a=document.createElement('a');a.href=node.url;a.textContent=node.title;li.append(a);list.append(li);}}
+    // Bounding boxes in *screen pixels*, including zoom and actual font metrics.
+    // A suppressed label never removes its node, accessible title, or list entry.
+    function placeLabels(){
+      if(!svg.isConnected)return;
+      const box=svg.getBoundingClientRect(),used=[];
+      const dots=nodeEls.map(n=>({id:n.id,rect:n.dot.getBoundingClientRect()}));
+      const intersects=(a,b,pad=4)=>a.left<b.right+pad&&a.right>b.left-pad&&a.top<b.bottom+pad&&a.bottom>b.top-pad;
+      const mode=interactive?options.labels:'auto';
+      const sorted=[...nodeEls].sort((a,b)=>Number(b.id===active)-Number(a.id===active)||Number(b.current)-Number(a.current)||b.degree-a.degree||String(a.id).localeCompare(String(b.id)));
+      for(const n of sorted){
+        n.label.style.visibility='hidden';
+        if(mode==='off'&&n.id!==active)continue;
+        if(mode==='focus'&&n.id!==active&&!n.current)continue;
+        const offsets=[[0,n.radius+17],[0,-n.radius-8],[n.radius+8,4],[-n.radius-8,4]];
+        for(const [dx,dy] of offsets){
+          n.label.setAttribute('x',n.x+dx);n.label.setAttribute('y',n.y+dy);
+          n.label.style.textAnchor=dx>0?'start':dx<0?'end':'middle';
+          const b=n.label.getBoundingClientRect();
+          if(b.left<box.left+5||b.right>box.right-5||b.top<box.top+5||b.bottom>box.bottom-5||used.some(v=>intersects(b,v))||dots.some(v=>v.id!==n.id&&intersects(b,v.rect,3)))continue;
+          n.label.style.visibility='visible';used.push(b);break;
+        }
+      }
+    }
+    state.apply=()=>{group.setAttribute('transform','translate('+(width/2+state.dx)+' '+(height/2+state.dy)+') scale('+state.scale+') translate('+(-width/2)+' '+(-height/2)+')');container.dataset.scale=String(state.scale);placeLabels();};
+    state.reflow=placeLabels;
+    atlasState.set(container,state);
+    state.apply();document.fonts?.ready.then(()=>{if(svg.isConnected)placeLabels();});
+    if(interactive){
+      let drag=null;
+      svg.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('a'))return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,dx:state.dx,dy:state.dy};svg.setPointerCapture(e.pointerId);svg.classList.add('is-panning');});
+      svg.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const rect=svg.getBoundingClientRect();state.dx=drag.dx+(e.clientX-drag.x)*width/rect.width;state.dy=drag.dy+(e.clientY-drag.y)*height/rect.height;state.apply();});
+      const end=()=>{drag=null;svg.classList.remove('is-panning');};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);svg.addEventListener('lostpointercapture',end);
+      const list=$('[data-graph-pages]');if(list){list.replaceChildren();for(const n of nodes){const li=document.createElement('li'),a=document.createElement('a');a.href=n.url;a.textContent=n.title;li.append(a);list.append(li);}}
+    }
+    if(!nodes.length){container.replaceChildren(textElement('p','در این دسته نوشته‌ای نیست. نوع نوشته را تغییر بده.','graph-empty'));}
+    container.dataset.graphKind=filter;
+    container.dataset.graphCount=String(nodes.length);
+    container.dataset.graphReady='true';
   }
-  async function renderLocalGraph(){const container=$('[data-local-graph]');if(!container||!container.clientWidth)return;try{drawGraph(container,graphSubset(await getGraph()));}catch{container.replaceChildren(textElement('p','گراف دریافت نشد. پیوندهای یادداشت در متن و فهرست در دسترس‌اند.','muted'));}}
-  renderLocalGraph();
-  const resizeObserver=new ResizeObserver(()=>{if(graphCache)renderLocalGraph();});if($('[data-local-graph]'))resizeObserver.observe($('[data-local-graph]'));
-  $$('[data-global-graph-open]').forEach(button=>button.addEventListener('click',async()=>{openDialog(graphDialog);const container=$('[data-global-graph]');container.replaceChildren(textElement('p','در حال دریافت گراف…','muted'));try{drawGraph(container,await getGraph(),true);}catch{container.replaceChildren(textElement('p','گراف دریافت نشد. دوباره امتحان کن.','muted'));}}));
-  $$('[data-graph-zoom]').forEach(button=>button.addEventListener('click',()=>{const container=$('[data-global-graph]'),svg=$('svg',container),scene=$('[data-graph-scene]',container);if(!scene)return;const old=Number(container.dataset.scale||1);const next=button.dataset.graphZoom==='reset'?1:Math.max(.65,Math.min(3,old*(button.dataset.graphZoom==='in'?1.2:1/1.2)));container.dataset.scale=String(next);const box=svg.viewBox.baseVal;scene.setAttribute('transform',`translate(${box.width/2} ${box.height/2}) scale(${next}) translate(${-box.width/2} ${-box.height/2})`);}));
+  async function renderLocalGraph(){const c=$('[data-local-graph]');if(!c||!c.clientWidth)return;try{drawGraph(c,graphSubset(await getGraph()));}catch{c.replaceChildren(textElement('p','گراف دریافت نشد.','muted'));}}
+  async function renderAtlasPreview(){const c=$('[data-atlas-preview]');if(!c||!c.clientWidth)return;try{drawGraph(c,await getGraph(),true);}catch{c.replaceChildren(textElement('p','نقشه در دسترس نیست؛ فهرست نوشته‌ها در ادامه قرار دارد.','muted'));}}
+  let globalRenderVersion=0;
+  async function renderGlobal(){const c=$('[data-global-graph]');if(!graphDialog?.open||!c)return;const version=++globalRenderVersion;c.dataset.graphReady='false';try{const data=await getGraph();if(version!==globalRenderVersion||!graphDialog.open)return;drawGraph(c,data,true);}catch{if(version===globalRenderVersion)c.replaceChildren(textElement('p','گراف دریافت نشد. دوباره امتحان کن.','muted'));}}
+  // Resizing the dialog or its text must not replace its SVG or reset the camera.
+  // Reflow measured labels against the current rendered view; only the first
+  // non-zero layout of an inline atlas (or a real viewport breakpoint change)
+  // needs a new layout. The dialog is rendered exclusively by open/settings.
+  const graphSizes=new WeakMap();
+  const resizeObserver=new ResizeObserver(entries=>{for(const e of entries){
+    const c=e.target, w=Math.round(e.contentRect.width),h=Math.round(e.contentRect.height);
+    if(!w||!h)continue;
+    const size=w+'x'+h;if(graphSizes.get(c)===size)continue;graphSizes.set(c,size);
+    const state=atlasState.get(c);
+    if(c.matches('[data-global-graph]')){state?.reflow();continue;}
+    if(state&&(graphDialog?.open||Math.abs(state.width-w)<90)){state.reflow();continue;}
+    if(c.matches('[data-local-graph]'))renderLocalGraph();else if(c.matches('[data-atlas-preview]'))renderAtlasPreview();
+  }});
+  for(const c of $$('[data-local-graph],[data-atlas-preview],[data-global-graph]'))resizeObserver.observe(c);
+  $$('[data-global-graph-open]').forEach(button=>button.addEventListener('click',()=>{openDialog(graphDialog);const c=$('[data-global-graph]');if(c)c.dataset.graphReady='false';renderGlobal();}));
+  // The page behind a native modal is inert. Once it becomes interactive
+  // again, ensure the inline atlas is still complete and recalculate labels.
+  graphDialog?.addEventListener('close',()=>{
+    requestAnimationFrame(()=>{
+      for(const c of $$('[data-atlas-preview],[data-local-graph]')){
+        if(!c.clientWidth)continue;
+        const state=atlasState.get(c), expected=Number(c.dataset.graphCount);
+        const intact=c.dataset.graphReady==='true'&&Number.isFinite(expected)&&c.querySelectorAll('.graph-node').length===expected;
+        if(intact&&state){state.reflow();continue;}
+        if(c.matches('[data-atlas-preview]'))renderAtlasPreview();else renderLocalGraph();
+      }
+    });
+  });
+  $$('[data-graph-option]').forEach(control=>{
+    if(control.dataset.graphOption==='motion')control.checked=options.motion;
+    control.addEventListener('change',()=>{const key=control.dataset.graphOption;options[key]=key==='motion'?control.checked:key==='spread'?Number(control.value):control.value;renderGlobal();});
+  });
+  motionQuery.addEventListener('change',()=>{if(motionQuery.matches){options.motion=false;const c=$('[data-graph-option="motion"]');if(c)c.checked=false;}if(graphDialog?.open)renderGlobal();});
+  $$('[data-graph-zoom]').forEach(button=>button.addEventListener('click',()=>{const c=$('[data-global-graph]'),state=atlasState.get(c);if(!state)return;const action=button.dataset.graphZoom;if(action==='reset'){state.scale=1;state.dx=0;state.dy=0;}else state.scale=clamp(state.scale*(action==='in'?1.25:.8),.6,3);state.apply();}));
+  $$('[data-graph-pan]').forEach(button=>button.addEventListener('click',()=>{const c=$('[data-global-graph]'),state=atlasState.get(c);if(!state)return;const d=button.dataset.graphPan;if(d==='left')state.dx-=40;if(d==='right')state.dx+=40;if(d==='up')state.dy-=40;if(d==='down')state.dy+=40;state.apply();}));
 
   // Hover/focus previews use the local search index, never remote page fetches.
   const tooltip=$('#garden-link-preview');let previewTimer,previewTarget;

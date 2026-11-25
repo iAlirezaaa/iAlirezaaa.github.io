@@ -47,3 +47,17 @@ jobs:
       - name: Verify canonical note tree routes
         working-directory: garden
         run: npx vitest run src/helpers/filetreeUtils.test.js
+
+      - name: Install Chromium browser for atlas QA
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Check responsive graph in real Chromium
+        run: python site/scripts/test-blog-atlas.py
+      - name: Upload graph screenshots and QA results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-atlas-browser-evidence
+          path: site/atlas-evidence/
+          if-no-files-found: ignore
