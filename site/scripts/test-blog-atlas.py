@@ -508,6 +508,15 @@ def check_content_graph(page, width, page_url, expected_urls, nodes_by_url, link
       return Math.abs(Number(c.getAttribute('cx'))/v.width-.5)<.08&&Math.abs(Number(c.getAttribute('cy'))/v.height-.5)<.08}"""), (width, 'active page not centered in local graph')
     center.focus()
     assert local.evaluate(LABELS)['intersections'] == 0
+    # Sidebar drag exercises a letterboxed viewBox, not only the expanded graph.
+    dot=center.locator('circle:not(.graph-hit)').first
+    before=dot.evaluate(POSITION)
+    b=dot.bounding_box()
+    pointer_drag(page,width<=430,b['x']+b['width']/2,b['y']+b['height']/2,20,12)
+    page.wait_for_function("document.querySelector('[data-local-graph]').dataset.layoutChanged==='true'")
+    after=dot.evaluate(POSITION)
+    assert sum(abs(a-b) for a,b in zip(before,after))>.015,(width,'local graph drag did not move selected node',before,after)
+    assert_edges_follow(local,center.get_attribute('data-graph-id'))
     toggle = page.locator('[data-graph-scope]')
     assert toggle.is_visible() and toggle.get_attribute('aria-pressed') == 'false'
     toggle.click()
@@ -607,6 +616,12 @@ try:
                 page.goto(home, wait_until='load')
                 assert page.locator('[data-blog-comments]').count() == 0
                 assert_shell(page, width, expected_tree_urls)
+                covers=page.locator('.garden-post-cover')
+                assert covers.count()>0 and covers.count()==page.locator('.garden-post-list > li[data-content-item]').count()
+                for img in covers.all():
+                    img.evaluate("img=>{img.loading='eager';return img.decode()}")
+                    assert img.evaluate('img=>img.naturalWidth>0&&img.getBoundingClientRect().width>60&&img.getBoundingClientRect().height>40')
+                assert_no_overflow(page,width)
                 page.screenshot(path=str(output / f'home-{width}.png'), full_page=False)
                 stage = 'search and reading preferences'
                 check_search_and_settings(page, width)
@@ -620,6 +635,19 @@ try:
                 stage = 'article shell'
                 page.goto(origin + article_url, wait_until='load')
                 assert_shell(page, width, expected_tree_urls, content_page=True)
+                progress=page.locator('#reading-progress')
+                assert progress.count()==1 and progress.get_attribute('role')=='progressbar'
+                page.evaluate('window.scrollTo(0,0)')
+                page.wait_for_function("document.querySelector('#reading-progress').getAttribute('aria-valuenow')==='0'")
+                page.evaluate("window.scrollTo(0,document.scrollingElement.scrollHeight*.35)")
+                page.wait_for_function("Number(document.querySelector('#reading-progress').getAttribute('aria-valuenow'))>0")
+                assert progress.locator('.reading-progress-fill').evaluate("el=>getComputedStyle(el).backgroundColor==='rgb(239, 75, 50)'&&el.getBoundingClientRect().width>0")
+                assert abs(progress.bounding_box()['y'])<2 and progress.bounding_box()['height']>=3
+                page.screenshot(path=str(output / f'progress-{width}.png'), full_page=False)
+                page.evaluate('window.scrollTo(0,document.scrollingElement.scrollHeight)')
+                page.wait_for_function("document.querySelector('#reading-progress').getAttribute('aria-valuenow')==='100'")
+                page.evaluate('window.scrollTo(0,0)')
+                page.wait_for_function("document.querySelector('#reading-progress').getAttribute('aria-valuenow')==='0'")
                 page.screenshot(path=str(output / f'article-{width}.png'), full_page=False)
                 stage = 'article local graph and backlinks'
                 local_count = check_content_graph(page, width, article_url, expected_urls, nodes_by_url, links)

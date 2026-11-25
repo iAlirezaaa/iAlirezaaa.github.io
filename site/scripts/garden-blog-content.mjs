@@ -36,7 +36,7 @@ function cards(list) {
   if (!list.length) return '<p class="directory-state">هنوز مقاله‌ای در این بخش منتشر نشده. <a href="/fa/blog/">بازگشت به شروع</a></p>'
   return '<ul class="garden-post-list" data-content-list="articles">' + list.map(entry => {
     const date = dates.format(new Date(entry.date + 'T12:00:00Z'))
-    return '<li data-content-item data-kind="article"><div class="post-card-copy"><h3><a class="internal-link" href="' + articlePath(entry) + '">' + esc(entry.title) + '</a></h3><p class="post-card-summary">' + esc(entry.description) + '</p><p class="post-card-meta"><time datetime="' + entry.date + '">' + date + '</time><span>' + numbers.format(readingStats(entry).minutes) + ' دقیقه مطالعه</span></p></div></li>'
+    return '<li data-content-item data-kind="article"><img class="garden-post-cover" src="' + esc(entry.hero.path) + '" width="' + entry.hero.width + '" height="' + entry.hero.height + '" alt="" loading="lazy" decoding="async"><div class="post-card-copy"><h3><a class="internal-link" href="' + articlePath(entry) + '">' + esc(entry.title) + '</a></h3><p class="post-card-summary">' + esc(entry.description) + '</p><p class="post-card-meta"><time datetime="' + entry.date + '">' + date + '</time><span>' + numbers.format(readingStats(entry).minutes) + ' دقیقه مطالعه</span></p></div></li>'
   }).join('') + '</ul>'
 }
 

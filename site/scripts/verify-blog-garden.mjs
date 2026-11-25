@@ -62,7 +62,7 @@ for (const [route, document] of documents) {
   assert.ok(document.querySelector('main h1')?.text.trim(), 'Note title missing: ' + route)
   const directory = Boolean(document.querySelector('main.blog-directory'))
   const featureSelectors = ['#garden-navigation', '[data-filetree]', '#garden-search', '#garden-search-input', '#garden-search-results', '#garden-settings', '#garden-graph', '#garden-context', '[data-local-graph]']
-  if (!directory) featureSelectors.push('[data-copy-link]', 'progress#reading-progress')
+  if (!directory) featureSelectors.push('[data-copy-link]', '#reading-progress[role="progressbar"]')
   else assert.equal(document.querySelector('[data-copy-link]'), null, 'Directory includes an article-only share action: ' + route)
   for (const selector of featureSelectors) {
     assert.ok(document.querySelector(selector), 'Garden feature missing ' + selector + ': ' + route)
@@ -140,7 +140,8 @@ for (const card of editorialCards) {
   assert.equal(card.querySelectorAll('a[href]').length, 1, 'Article row repeats a destination')
   assert.ok(card.querySelector('h3 a')?.text.trim(), 'Article row needs a named title link')
   assert.ok(localFile(card.querySelector('h3 a')?.getAttribute('href')), 'Article row points to an unbuilt route')
-  assert.equal(card.querySelector('img'), null, 'Directory image competes with the simplified reading list')
+  assert.equal(card.querySelectorAll('img.garden-post-cover').length,1,'Each article has one local thumbnail')
+  assert.ok(localFile(card.querySelector('img.garden-post-cover')?.getAttribute('src')),'Missing article thumbnail')
   assert.match(card.querySelector('time')?.getAttribute('datetime') || '', /^\d{4}-\d{2}-\d{2}$/, 'Article row has no publication date')
 }
 const figureNumbers = new Intl.NumberFormat('fa-IR')

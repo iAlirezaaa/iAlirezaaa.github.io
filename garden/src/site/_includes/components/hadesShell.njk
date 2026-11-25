@@ -9,7 +9,7 @@
 </head>
 <body class="hades-garden markdown-preview-view markdown-rendered{% if isDirectory %} is-directory{% endif %}" data-garden-page="{{ page.url }}">
 <a class="skip-link" href="#content">رفتن به محتوای اصلی</a>
-{% if not isDirectory %}<progress class="reading-progress" id="reading-progress" max="100" value="0" aria-label="پیشرفت مطالعه"></progress>{% endif %}
+{% if not isDirectory %}<div class="reading-progress" id="reading-progress" role="progressbar" aria-label="پیشرفت مطالعه" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="reading-progress-fill" aria-hidden="true"></span></div>{% endif %}
 <header class="garden-topbar">
   <button type="button" class="icon-button mobile-tree-toggle" data-panel-open="navigation" aria-controls="garden-navigation" aria-expanded="false" aria-label="فهرست و جست‌وجو" title="فهرست و جست‌وجو"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
   <span class="topbar-name"><img class="topbar-mark" src="/hades/assets/HADES_Original_Emblem_Transparent_Web_REVIEW.png" width="40" height="40" alt="" decoding="async"><bdi>HADES</bdi></span>
