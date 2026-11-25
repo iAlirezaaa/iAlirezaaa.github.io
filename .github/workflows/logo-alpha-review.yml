@@ -19,7 +19,7 @@ jobs:
           python - <<'PY'
           import os, hashlib, base64
           import numpy as np
-          from scipy.ndimage import gaussian_filter
+          from scipy.ndimage import gaussian_filter, distance_transform_edt
           from PIL import Image, ImageDraw
           source='site/public/hades/assets/B3424A5B-3375-4244-806C-EF9EAA60BDD1.jpeg'
           assert hashlib.sha256(open(source,'rb').read()).hexdigest()=='c2189cba968543ed9e86389660d79cd1f031ad87be00eaa65d3b57f8ac0b6d2d'
@@ -29,22 +29,26 @@ jobs:
           # Native-pixel analysis prevents downscaled SVG filters from erasing
           # the fine, near-black embossed laurel and ring. No RGB processing.
           clean=gaussian_filter(lum,.75)
-          d1=np.abs(clean-gaussian_filter(lum,8))
-          d2=np.abs(clean-gaussian_filter(lum,26))
+          d1=np.maximum(0,clean-gaussian_filter(lum,8))
+          d2=np.maximum(0,clean-gaussian_filter(lum,26))
           diff=np.maximum(d1,d2*.75)
-          bright=np.clip((lum-30)/24,0,1)
+          bright=np.clip((lum-34)/20,0,1)
           chroma=arr.max(axis=2)-arr.min(axis=2)
           gold=np.clip((chroma-6)/13,0,1)*np.clip((lum-18)/24,0,1)
           os.makedirs('logo-evidence',exist_ok=True)
           proof=Image.new('RGB',(1200,780),'#f4f0e8')
           draw=ImageDraw.Draw(proof)
-          for k,(label,cutoff,span) in enumerate([('balanced',2.8,7.0),('detail',1.8,5.5)]):
+          for k,(label,cutoff,span) in enumerate([('clean',1.7,4.0),('detail',1.25,3.6)]):
               detail=np.clip((diff-cutoff)/span,0,1)
               # The outside border is known blank source margin. Fade only
               # outside that margin so a full-size rectangular tile cannot appear.
               yy,xx=np.indices(lum.shape)
               edge=np.minimum.reduce([xx,yy,1253-xx,1253-yy])
               border=np.clip((edge-10)/40,0,1)
+              strong_gold=(lum>60)&(chroma>12)&(arr[:,:,0]>arr[:,:,2]*1.15)
+              distance=distance_transform_edt(~strong_gold)
+              near=np.clip((22-distance)/8,0,1)
+              detail=detail*(1-near)
               alpha=np.maximum.reduce([bright,gold,detail])*border
               rgba=np.dstack([arr.astype(np.uint8),np.rint(alpha*255).astype(np.uint8)])
               native=Image.fromarray(rgba,'RGBA')
