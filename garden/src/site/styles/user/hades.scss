@@ -287,3 +287,14 @@ body.hades-garden .graph-dialog .graph-footer{border-block-start:1px solid var(-
   body.hades-garden .graph-footer [data-graph-detail]{width:100%;min-block-size:3.6em;max-block-size:3.6em}
 }
 @media print{body.hades-garden .note-body .garden-post-list>li{display:block}body.hades-garden .garden-post-cover{max-width:35%;margin-block-end:.5rem}}
+
+/* Force graph — restrained Obsidian-like visual language, HADES accent. */
+.graph-card,.global-graph{background:var(--paper);border-color:var(--line)}
+body.hades-garden .graph-edge{stroke-width:.8;opacity:.64;vector-effect:non-scaling-stroke}
+body.hades-garden .graph-edge.is-related{stroke-width:1.25;opacity:.88}
+body.hades-garden .graph-edge.is-dim{opacity:.16}
+body.hades-garden .graph-node circle:not(.graph-hit){stroke-width:0;vector-effect:non-scaling-stroke}
+body.hades-garden .graph-node[data-current=true] circle:not(.graph-hit){stroke:var(--brand);stroke-width:1.2}
+body.hades-garden .graph-node:focus-visible circle:not(.graph-hit){stroke:var(--brand);stroke-width:2}
+.graph-node text{font-weight:450;fill:var(--ink);opacity:.88}
+.graph-node[data-current=true] text,.graph-node.is-related text{opacity:1}
