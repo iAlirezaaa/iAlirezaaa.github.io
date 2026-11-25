@@ -5,7 +5,7 @@
 <meta name="robots" content="{{ robots or (metatags and metatags.robots) or 'index, follow' }}">
 <meta name="description" content="{{ description or 'یادداشت‌های به‌هم‌پیوستهٔ علیرضا عسگرپور دربارهٔ هوش مصنوعی، انیمیشن و روایت.' }}">
 <meta property="og:locale" content="fa_IR">
-<meta property="og:title" content="{{ title or page.fileSlug }}{% if title != 'باغ دیجیتال هادس' %} | باغ دیجیتال هادس{% endif %}">
+<meta property="og:title" content="{{ title or page.fileSlug }} | وبلاگ هادس">
 <meta property="og:description" content="{{ description or 'ایده‌ها، نوشته‌ها و ارتباط میان آن‌ها.' }}">
 <meta property="og:type" content="{{ (metatags and metatags['og:type']) or ('article' if page.url != '/' else 'website') }}">
 <meta property="og:url" content="{{ canonical or ('https://ialirezaaa.github.io' + (page.url | hadesUrl)) }}">
