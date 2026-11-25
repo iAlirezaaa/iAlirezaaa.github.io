@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<title id="title">HADES Production Slate — PUBLIC REVIEW</title><desc id="desc">Editable production slate, no logo. Proposed neutral colors; only vermilion approved. Replace the sample text before use.</desc>
+<g id="architecture"><rect width="1920" height="1080" fill="#161615"/><path d="M0 0H420L274 1080H0Z" fill="#242321"/><path d="M0 0H167V1080H0Z" fill="#292825"/><path d="M420 0H435L289 1080H274Z" fill="#EF4B32"/><path d="M1630 0H1920V1080H1776Z" fill="#201F1D"/></g>
+<g id="layout" fill="none" stroke="#70685D" stroke-width="2"><path d="M500 250H1680M500 490H1680M500 710H1680M500 920H1680"/><path d="M1090 490V920"/></g>
+<g id="labels" fill="#D0C3B0" font-family="Arial, sans-serif" font-size="27" letter-spacing="3"><text x="500" y="186">PRODUCTION SLATE / REVIEW</text><text x="500" y="303">PROJECT</text><text x="500" y="543">SCENE</text><text x="1140" y="543">SHOT</text><text x="500" y="763">VERSION</text><text x="1140" y="763">FRAME RATE</text></g>
+<g id="editable-values" fill="#E8DCC9" font-family="Arial, sans-serif" font-weight="400"><text id="project" x="500" y="411" font-size="72">PROJECT TITLE</text><text id="scene" x="500" y="650" font-size="58">010</text><text id="shot" x="1140" y="650" font-size="58">020</text><text id="version" x="500" y="869" font-size="58">v001</text><text id="fps" x="1140" y="869" font-size="58">24 fps</text></g>
+<text x="500" y="986" fill="#D0C3B0" font-family="Arial, sans-serif" font-size="23">HADES / WORKING EDITORIAL TEMPLATE · NOT FINAL</text>
+</svg>
