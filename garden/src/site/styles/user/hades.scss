@@ -150,3 +150,10 @@
 .graph-atlas-meta [data-graph-count]{font-variant-numeric:tabular-nums;color:var(--ink)}
 .graph-dialog .graph-page-list a{display:block;padding:.4rem 0;overflow-wrap:anywhere}
 .graph-dialog .graph-page-list a:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+
+/* REVIEW: stable inline atlas inspector; full titles stay outside the drawing. */
+.atlas-preview-inspector{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:.45rem 1rem;padding:.85rem 0 .25rem;border-block-end:1px solid var(--line);align-items:start;font-size:.83rem;line-height:1.85}
+.atlas-preview-inspector p{margin:0;min-width:0;overflow-wrap:anywhere;color:var(--muted)}
+.atlas-preview-inspector [data-atlas-count]{color:var(--ink);font-variant-numeric:tabular-nums}
+.atlas-preview-inspector [data-atlas-detail]{border-inline-start:2px solid var(--brand);padding-inline-start:.65rem}
+@media(max-width:600px){.atlas-preview-inspector{grid-template-columns:1fr;gap:.3rem;padding:.7rem 0}.atlas-preview-inspector [data-atlas-detail]{min-height:3em}}

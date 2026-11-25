@@ -31,6 +31,10 @@ try:
             time.sleep(.25)
     else:
         raise RuntimeError("Built blog server unavailable")
+    # Compare canonical URL sets against the actual built graph, not a hard-coded count.
+    raw_graph = json.loads((root / 'dist/fa/garden/graph.json').read_text(encoding='utf-8'))
+    expected_urls = sorted(n['url'] for n in raw_graph['nodes'].values() if not n.get('hide') and not n.get('private'))
+    snapshot = """el => ({ready:el.dataset.graphReady, kind:el.dataset.graphKind, count:Number(el.dataset.graphCount), urls:[...el.querySelectorAll('.graph-node')].map(a=>a.getAttribute('href')).sort()})"""
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         for width in (320, 390, 430, 1440):
@@ -39,27 +43,35 @@ try:
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url, wait_until="load")
             preview = page.locator("[data-atlas-preview]")
-            preview.locator(".graph-node").first.wait_for()
+            page.wait_for_selector('[data-atlas-preview][data-graph-ready="true"] .graph-node')
             page.evaluate("document.fonts.ready")
             preview.scroll_into_view_if_needed()
             preview_result = preview.evaluate(check_labels)
             assert preview_result["intersections"] == 0, (width, preview_result)
-            assert preview.locator(".graph-node").count() >= 12
+            before = preview.evaluate(snapshot)
+            assert before['urls'] == expected_urls and before['count'] == len(expected_urls), (width, 'preview', before, expected_urls)
+            preview.locator('.graph-node').first.focus()
+            assert 'ارتباط' in page.locator('[data-atlas-detail]').inner_text()
+            assert 'مقاله' in page.locator('[data-atlas-count]').inner_text()
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), (width, "page overflow")
             preview.screenshot(path=str(output / f"preview-{width}.png"))
             page.locator(".atlas-preview-header button").click()
             graph = page.locator("[data-global-graph]")
-            graph.locator(".graph-node").first.wait_for()
+            page.wait_for_selector('[data-global-graph][data-graph-ready="true"] .graph-node')
             page.evaluate("document.fonts.ready")
             assert not page.locator('[data-graph-option="motion"]').is_checked()
-            full_count = graph.locator(".graph-node").count()
-            assert full_count == preview.locator(".graph-node").count()
+            modal = graph.evaluate(snapshot)
+            after = preview.evaluate(snapshot)
+            full_count = len(modal['urls'])
+            assert modal['kind'] == 'all' and modal['urls'] == expected_urls and modal['count'] == full_count and after['urls'] == expected_urls, (width, 'graph parity', before, modal, after, expected_urls)
             assert graph.evaluate(check_labels)["intersections"] == 0
             assert graph.locator(".graph-node").first.get_attribute("aria-label")
             graph.locator(".graph-node").first.focus()
             assert "ارتباط" in page.locator("[data-graph-detail]").inner_text()
             page.locator('[data-graph-zoom="in"]').click()
             assert float(graph.get_attribute("data-scale")) > 1
+            page.wait_for_timeout(300) # allow ResizeObserver to settle; camera must survive
+            assert float(graph.get_attribute('data-scale')) > 1, (width, 'camera reset after resize')
             assert graph.evaluate(check_labels)["intersections"] == 0
             page.locator('[data-graph-pan="right"]').click()
             assert graph.evaluate(check_labels)["intersections"] == 0
@@ -72,7 +84,7 @@ try:
                 page.locator('[data-graph-option="kind"]').select_option(kind)
                 page.wait_for_function("""({kind,count}) => {
                     const el=document.querySelector('[data-global-graph]');
-                    return el.dataset.graphKind===kind && Number(el.dataset.graphCount)===count &&
+                    return el.dataset.graphReady==='true' && el.dataset.graphKind===kind && Number(el.dataset.graphCount)===count &&
                         el.querySelectorAll('.graph-node').length===count &&
                         el.querySelectorAll('.graph-node[data-kind="'+kind+'"]').length===count;
                 }""", arg={"kind":kind,"count":expected})
@@ -81,7 +93,7 @@ try:
             page.locator('[data-graph-option="kind"]').select_option("all")
             page.wait_for_function("""count => {
                 const el=document.querySelector('[data-global-graph]');
-                return el.dataset.graphKind==='all' && el.querySelectorAll('.graph-node').length===count;
+                return el.dataset.graphReady==='true' && el.dataset.graphKind==='all' && el.querySelectorAll('.graph-node').length===count;
             }""", arg=full_count)
             page.locator('[data-graph-option="spread"]').evaluate("(el)=>{el.value='140';el.dispatchEvent(new Event('change',{bubbles:true}))}")
             assert graph.evaluate(check_labels)["intersections"] == 0
