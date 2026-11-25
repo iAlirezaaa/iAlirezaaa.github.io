@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/history/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۱ مبانی/01-history.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["History of animation","early animation","cinema"]
@@ -41,4 +44,4 @@ description: "مرور نقاط عطف از ابزارهای نمایش حرکت
 
 ## منبع و اعتبار
 
-[history of animation — Mister Chad](https://mister-chad.com/animation/history%20of%20animation)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[history of animation — Mister Chad](https://mister-chad.com/animation/history%20of%20animation) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

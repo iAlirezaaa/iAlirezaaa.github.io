@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/sequential-art/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۱ مبانی/04-sequential-art.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Sequential art","comics","visual storytelling"]
@@ -27,13 +30,13 @@ description: "بررسی ترتیب تصاویر، گذر زمان، حرکت ض
 
 ترتیب قاب‌ها باید علت و نتیجه را روشن کند. ابتدا موقعیت، سپس هدف، مانع و نتیجه را می‌توان به‌صورت بصری نشان داد. لازم نیست همهٔ مرحله‌ها نمایش داده شوند؛ حذف حساب‌شده می‌تواند روایت را فشرده کند. جهت خواندن در کمیک فارسی و چیدمان صفحات را متناسب با راست‌به‌چپ در نظر بگیر.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/sequential-panels.svg" target="_blank" rel="noopener"><img src="/img/user/animation/sequential-panels.svg" width="960" height="620" loading="lazy" decoding="async" alt="هنر دنباله‌دار؛ هر قاب یک تغییر روایی را منتقل می‌کند"></a><figcaption>شکل 1 · هر قاب یک تغییر روایی را منتقل می‌کند</figcaption></figure>
+
+
 ## تمرین
 
 در شش قاب بدون متن نشان بده شخصیتی یک نامه را پیدا می‌کند و تصمیم می‌گیرد آن را پنهان کند. از فرد دیگری بخواه ترتیب و علت کنش را توضیح دهد. اگر معنا روشن نیست، قاب بینابینی یا تغییر زاویه را آزمایش کن. سپس همان شش قاب را به [[animation-storyboards|استوری‌بورد]] و [[animation-animatics|انیماتیک]] تبدیل کن.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/sequential-panels.svg" target="_blank" rel="noopener"><img src="/img/user/animation/sequential-panels.svg" width="960" height="620" loading="lazy" decoding="async" alt="هنر دنباله‌دار؛ هر قاب یک تغییر روایی را منتقل می‌کند"></a><figcaption>هر قاب یک تغییر روایی را منتقل می‌کند — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -41,4 +44,4 @@ description: "بررسی ترتیب تصاویر، گذر زمان، حرکت ض
 
 ## منبع و اعتبار
 
-[sequential art — Mister Chad](https://mister-chad.com/animation/sequential%20art)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[sequential art — Mister Chad](https://mister-chad.com/animation/sequential%20art) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

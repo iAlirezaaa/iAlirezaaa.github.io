@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/story/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۳ پیش‌تولید/01-story.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Story","screenplay","story arc"]
@@ -39,4 +42,4 @@ description: "طراحی هدف شخصیت، تعارض، بیت‌های کنش
 
 ## منبع و اعتبار
 
-[story — Mister Chad](https://mister-chad.com/animation/story)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[story — Mister Chad](https://mister-chad.com/animation/story) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

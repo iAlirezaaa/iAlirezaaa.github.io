@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/types/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۱ مبانی/02-types.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["5 types of animation","2D","3D","Stop motion"]
@@ -18,6 +21,9 @@ description: "مقایسهٔ انیمیشن سنتی، دوبعدی دیجیتا
 ## انیمیشن سنتی
 
 در روش سنتی، هنرمند وضعیت‌های متوالی را با طراحی دستی تولید می‌کند. کلیدپز، بریک‌داون، این‌بیتوین، پاک‌سازی خط و رنگ از مراحل رایج‌اند. مزیت اصلی آن آزادی تغییر فرم و کیفیت بیان خط است؛ هزینهٔ زمانی و ثبات حجم از چالش‌هایش هستند. طراحی سنتی می‌تواند به‌صورت دیجیتال هم انجام شود.
+
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/five-methods.svg" target="_blank" rel="noopener"><img src="/img/user/animation/five-methods.svg" width="960" height="650" loading="lazy" decoding="async" alt="پنج روش تولید انیمیشن؛ مقایسهٔ ساختار تولید به‌جای ظاهر فیلم"></a><figcaption>شکل 1 · مقایسهٔ ساختار تولید به‌جای ظاهر فیلم</figcaption></figure>
+
 
 ## انیمیشن دوبعدی دیجیتال
 
@@ -39,9 +45,6 @@ description: "مقایسهٔ انیمیشن سنتی، دوبعدی دیجیتا
 
 برای یک شات سادهٔ بازشدن در، در هر روش مشخص کن کدام اجزا باید ساخته یا طراحی شوند، چه کسی آن را انیمیت می‌کند و تغییر بعدی چه هزینه‌ای دارد. شیوه‌ای را انتخاب کن که هدف بصری را با امکانات پروژه برآورده کند، نه صرفاً تکنیکی که محبوب‌تر است.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/five-methods.svg" target="_blank" rel="noopener"><img src="/img/user/animation/five-methods.svg" width="960" height="650" loading="lazy" decoding="async" alt="پنج روش تولید انیمیشن؛ مقایسهٔ ساختار تولید به‌جای ظاهر فیلم"></a><figcaption>مقایسهٔ ساختار تولید به‌جای ظاهر فیلم — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -49,4 +52,4 @@ description: "مقایسهٔ انیمیشن سنتی، دوبعدی دیجیتا
 
 ## منبع و اعتبار
 
-[5 types of animation — Mister Chad](https://mister-chad.com/animation/5%20types%20of%20animation)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[5 types of animation — Mister Chad](https://mister-chad.com/animation/5%20types%20of%20animation) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

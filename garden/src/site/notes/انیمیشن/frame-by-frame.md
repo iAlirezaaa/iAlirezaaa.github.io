@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/frame-by-frame/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۲ حرکت و تمرین/03-frame-by-frame.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Frame by frame","Keyframing","Tweening"]
@@ -37,4 +40,4 @@ Keyframe مقدار موقعیت، چرخش، مقیاس یا وضعیت ریگ 
 
 ## منبع و اعتبار
 
-[frame-by-frame and keyframing — Mister Chad](https://mister-chad.com/animation/frame-by-frame%20and%20keyframing)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[frame-by-frame and keyframing — Mister Chad](https://mister-chad.com/animation/frame-by-frame%20and%20keyframing) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

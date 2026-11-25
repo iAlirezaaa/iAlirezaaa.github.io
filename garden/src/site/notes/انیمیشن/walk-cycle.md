@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/walk-cycle/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۲ حرکت و تمرین/08-walk-cycle.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Walk cycle","contact down passing up","locomotion"]
@@ -18,6 +21,9 @@ description: "تحلیل پزهای Contact، Down، Passing و Up، تداوم 
 ## پزهای اصلی
 
 Contact: یک پا در جلو به زمین می‌رسد و پای دیگر در عقب آمادهٔ جداشدن است. Down: پس از تماس، وزن روی پای جلو منتقل می‌شود و بدن معمولاً کمی پایین می‌آید. Passing: پای آزاد از کنار پای تکیه‌گاه عبور می‌کند. Up: بدن به وضعیت بالاتر می‌رسد و پای آزاد برای تماس بعدی جلو می‌رود. همین الگو برای سمت مقابل تکرار می‌شود.
+
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/walk-cycle-poses.svg" target="_blank" rel="noopener"><img src="/img/user/animation/walk-cycle-poses.svg" width="960" height="590" loading="lazy" decoding="async" alt="پزهای اصلی چرخهٔ راه‌رفتن؛ نمای جانبی ساده؛ دو سمت بدن با رنگ‌های متفاوت"></a><figcaption>شکل 1 · نمای جانبی ساده؛ دو سمت بدن با رنگ‌های متفاوت</figcaption></figure>
+
 
 ## لگن، شانه و دست‌ها
 
@@ -35,9 +41,6 @@ Contact: یک پا در جلو به زمین می‌رسد و پای دیگر د
 
 راه‌رفتن خسته، مضطرب و بااعتمادبه‌نفس می‌توانند الگوی پایهٔ مشابه و زمان‌بندی، طول قدم، قامت، چرخش و مکث متفاوت داشته باشند. یک چرخهٔ خنثی بساز، سپس نسخهٔ شخصیت‌محور را تغییر بده. از نمای کنار و روبه‌رو بررسی کن، پاها را در تماس ثابت نگه دار و یک لوپ چندبار تکرارشده را برای پرش ناخواسته ببین.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/walk-cycle-poses.svg" target="_blank" rel="noopener"><img src="/img/user/animation/walk-cycle-poses.svg" width="960" height="590" loading="lazy" decoding="async" alt="پزهای اصلی چرخهٔ راه‌رفتن؛ نمای جانبی ساده؛ دو سمت بدن با رنگ‌های متفاوت"></a><figcaption>نمای جانبی ساده؛ دو سمت بدن با رنگ‌های متفاوت — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -45,4 +48,4 @@ Contact: یک پا در جلو به زمین می‌رسد و پای دیگر د
 
 ## منبع و اعتبار
 
-[walk cycle — Mister Chad](https://mister-chad.com/animation/walk%20cycle)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[walk cycle — Mister Chad](https://mister-chad.com/animation/walk%20cycle) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

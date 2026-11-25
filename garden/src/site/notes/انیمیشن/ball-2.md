@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/ball-2/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۲ حرکت و تمرین/06-ball-2.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Bouncing ball arcs","horizontal motion"]
@@ -19,6 +22,9 @@ description: "ترکیب جهش عمودی با جابه‌جایی افقی، �
 
 در مدل سادهٔ بدون مقاومت هوا، سرعت افقی طی پرواز تقریباً ثابت و شتاب عمودی رو به پایین است؛ بنابراین مسیر مرکز جرم یک سهمی است. در پرواز، نقاط نزدیک به اوج در جهت عمودی به هم نزدیک‌اند و پیش از برخورد در جهت عمودی فاصلهٔ بیشتری دارند. مسیر کل از چند سهمی تشکیل می‌شود که در نقاط تماس به هم می‌رسند.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/bouncing-arcs.svg" target="_blank" rel="noopener"><img src="/img/user/animation/bouncing-arcs.svg" width="960" height="600" loading="lazy" decoding="async" alt="قوس توپ جهنده؛ مسیر مرکز جرم و محل تماس‌های متوالی"></a><figcaption>شکل 1 · مسیر مرکز جرم و محل تماس‌های متوالی</figcaption></figure>
+
+
 ## حرکت روی مسیر
 
 نخست ارتفاع اوج و محل تماس هر جهش را تعیین کن. سپس برای هر پرواز زمان و سرعت افقی مشخص کن. اگر اصطکاک و اتلاف وجود دارند، فاصلهٔ افقی جهش‌های بعدی نیز کاهش می‌یابد. هنگام فشردگی، چرخش و کشیدگی توپ را با راستای ضربه و سرعت هماهنگ کن. در شات دوبعدی مسیر مرکز توپ را جداگانه از شکل ظاهری آن رسم کن.
@@ -31,9 +37,6 @@ description: "ترکیب جهش عمودی با جابه‌جایی افقی، �
 
 در یک قاب ثابت، سه تماس با زمین و سه قوس کوچک‌شونده بساز. برای هر قوس نقاط اوج و تماس را روی راهنما مشخص کن. ابتدا فقط حرکت مرکز جرم را انیمیت کن، سپس شکل، چرخش و تغییر شکل را اضافه کن. نتیجه را با نسخه‌ای که به‌اشتباه از منحنی Bezier کاملاً هموار عبور می‌کند مقایسه کن: در نقطهٔ تماس باید اثر ضربه حس شود.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/bouncing-arcs.svg" target="_blank" rel="noopener"><img src="/img/user/animation/bouncing-arcs.svg" width="960" height="600" loading="lazy" decoding="async" alt="قوس توپ جهنده؛ مسیر مرکز جرم و محل تماس‌های متوالی"></a><figcaption>مسیر مرکز جرم و محل تماس‌های متوالی — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -41,4 +44,4 @@ description: "ترکیب جهش عمودی با جابه‌جایی افقی، �
 
 ## منبع و اعتبار
 
-[bouncing ball - part two — Mister Chad](https://mister-chad.com/animation/bouncing%20ball%20-%20part%20two)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[bouncing ball - part two — Mister Chad](https://mister-chad.com/animation/bouncing%20ball%20-%20part%20two) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

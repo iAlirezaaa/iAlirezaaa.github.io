@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/motion-easing/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۲ حرکت و تمرین/01-easing.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Motion easing","acceleration","deceleration","graph editor"]
@@ -35,13 +38,13 @@ description: "درک سرعت ثابت، شتاب، کاهش سرعت، سکون
 
 حرکت ممکن است سرعت و جهت متفاوت، نوسان، ضربه یا مکث داشته باشد. به‌جای نویز تصادفیِ بی‌هدف، علت هر تغییر را پیدا کن. یک حرکت Ease-in-out سرعت ابتدا و انتها را کاهش می‌دهد؛ تابع ۳t²−۲t³ نمونه‌ای با سرعت صفر در دو سر است. در برخورد یا کنش ناگهانی لزوماً استفاده از این منحنی درست نیست.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/motion-curves.svg" target="_blank" rel="noopener"><img src="/img/user/animation/motion-curves.svg" width="960" height="650" loading="lazy" decoding="async" alt="پنج نوع تغییر موقعیت؛ محور افقی زمان و محور عمودی مقدار موقعیت است"></a><figcaption>شکل 1 · محور افقی زمان و محور عمودی مقدار موقعیت است</figcaption></figure>
+
+
 ## تمرین
 
 یک شکل را در ۲۴ فریم به اندازهٔ ۳۰۰ پیکسل حرکت بده. پنج نسخه با منحنی‌های متفاوت بساز. نمودار موقعیت را به فاصلهٔ واقعی پزها تبدیل کن. سپس همان تمرین را برای حرکت دوربین و حرکت دست انجام بده و تفاوت هدف را بررسی کن.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/motion-curves.svg" target="_blank" rel="noopener"><img src="/img/user/animation/motion-curves.svg" width="960" height="650" loading="lazy" decoding="async" alt="پنج نوع تغییر موقعیت؛ محور افقی زمان و محور عمودی مقدار موقعیت است"></a><figcaption>محور افقی زمان و محور عمودی مقدار موقعیت است — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -49,4 +52,4 @@ description: "درک سرعت ثابت، شتاب، کاهش سرعت، سکون
 
 ## منبع و اعتبار
 
-[five types of motion & easing — Mister Chad](https://mister-chad.com/animation/five%20types%20of%20motion%20%26%20easing)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[five types of motion & easing — Mister Chad](https://mister-chad.com/animation/five%20types%20of%20motion%20%26%20easing) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

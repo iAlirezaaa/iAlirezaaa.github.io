@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/ones-twos-threes/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۲ حرکت و تمرین/02-frame-rate.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Ones","Twos","Threes","exposure sheet","animation frame rate"]
@@ -40,9 +43,8 @@ description: "درک Exposure، نرخ نمایش و انتخاب تعداد ط�
 
 تمرین: یک توپ را در یک ثانیه از نقطهٔ A به B حرکت بده. سه نسخهٔ یک، دو و سه بساز، در سرعت واقعی مقایسه کن و بدون تغییر مدت حرکت تشخیص بده کدام حس برای سبک فیلم مناسب‌تر است.
 
-## تصویرهای آموزشی فارسی
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/exposure-sheet.svg" target="_blank" rel="noopener"><img src="/img/user/animation/exposure-sheet.svg" width="960" height="600" loading="lazy" decoding="async" alt="نرخ نمایش و تعداد طراحی؛ ۱۲ فریم از یک تایم‌لاین با خروجی ۲۴ فریم بر ثانیه"></a><figcaption>شکل 1 · ۱۲ فریم از یک تایم‌لاین با خروجی ۲۴ فریم بر ثانیه</figcaption></figure>
 
-<figure class="animation-study-figure"><a href="/img/user/animation/exposure-sheet.svg" target="_blank" rel="noopener"><img src="/img/user/animation/exposure-sheet.svg" width="960" height="600" loading="lazy" decoding="async" alt="نرخ نمایش و تعداد طراحی؛ ۱۲ فریم از یک تایم‌لاین با خروجی ۲۴ فریم بر ثانیه"></a><figcaption>۱۲ فریم از یک تایم‌لاین با خروجی ۲۴ فریم بر ثانیه — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -50,4 +52,4 @@ description: "درک Exposure، نرخ نمایش و انتخاب تعداد ط�
 
 ## منبع و اعتبار
 
-[animating on the ones, two, and threes — Mister Chad](https://mister-chad.com/animation/animating%20on%20the%20ones%2C%20two%2C%20and%20threes)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[animating on the ones, two, and threes — Mister Chad](https://mister-chad.com/animation/animating%20on%20the%20ones%2C%20two%2C%20and%20threes) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

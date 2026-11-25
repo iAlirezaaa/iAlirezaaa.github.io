@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/principles/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۱ مبانی/03-principles.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["12 principles of animation","Squash and stretch","Anticipation"]
@@ -26,6 +29,9 @@ description: "اصول کلاسیک ساخت حرکت خوانا، وزن‌دا
 ## ۳. میزان‌سن و وضوح (Staging)
 
 تماشاگر باید بداند کدام کنش اهمیت دارد. سیلوئت خوانا، کنتراست نور، جهت نگاه، ترکیب‌بندی، موقعیت دوربین و زمان‌بندی همگی برای هدایت توجه‌اند. در یک صحنهٔ دو نفره، اگر دیالوگ شخصیت اول مهم است، حرکت شدید شخصیت دوم نباید آن را بپوشاند. شات را به شکل سایهٔ سیاه بررسی کن. اگر هدف و جهت حرکت فهمیده نمی‌شود، ابتدا پز و قاب را اصلاح کن.
+
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/principles-visual.svg" target="_blank" rel="noopener"><img src="/img/user/animation/principles-visual.svg" width="960" height="650" loading="lazy" decoding="async" alt="اصول حرکت در یک نگاه؛ شش مثال تصویری مکمل شرح دوازده اصل"></a><figcaption>شکل 1 · شش مثال تصویری مکمل شرح دوازده اصل</figcaption></figure>
+
 
 ## ۴. حرکت مستقیم و پز به پز (Straight Ahead / Pose to Pose)
 
@@ -67,9 +73,6 @@ description: "اصول کلاسیک ساخت حرکت خوانا، وزن‌دا
 
 یک شات دوثانیه‌ای از پریدن یک کاراکتر ساده بساز. در مرحلهٔ اول فقط پیش‌حرکت، پز جداشدن، اوج و فرود؛ سپس زمان‌بندی و قوس؛ و در آخر overlap، فشردگی و کنش فرعی را اضافه کن. شات را یک بار در سرعت واقعی، یک بار با توقف روی پزها و یک بار بدون صدا بررسی کن. سؤال اصلی: آیا نیت و وزن بدون توضیح فهمیده می‌شود؟
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/principles-visual.svg" target="_blank" rel="noopener"><img src="/img/user/animation/principles-visual.svg" width="960" height="650" loading="lazy" decoding="async" alt="اصول حرکت در یک نگاه؛ شش مثال تصویری مکمل شرح دوازده اصل"></a><figcaption>شش مثال تصویری مکمل شرح دوازده اصل — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -77,4 +80,4 @@ description: "اصول کلاسیک ساخت حرکت خوانا، وزن‌دا
 
 ## منبع و اعتبار
 
-[12 principles of animation — Mister Chad](https://mister-chad.com/animation/12%20principles%20of%20animation)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[12 principles of animation — Mister Chad](https://mister-chad.com/animation/12%20principles%20of%20animation) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/flour-sack/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۲ حرکت و تمرین/07-flour-sack.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Flour sack animation","acting exercise"]
@@ -18,6 +21,9 @@ description: "بیان وزن، احساس و نیت با یک فرم ساده �
 ## آماده‌سازی شکل
 
 یک فرم نرم با دو حجم تقریبی و گوشه‌های ساده طراحی کن. سطح اتکا، مرکز جرم و جهت بدن را مشخص کن. گوشه‌ها می‌توانند دنبالهٔ حرکت باشند، اما نباید بدون اتصال به جرم اصلی حرکت کنند. در طراحی دوبعدی خط حرکت، در سه‌بعدی تغییر شکل و کنترل حجم اهمیت دارند.
+
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/flour-sack-poses.svg" target="_blank" rel="noopener"><img src="/img/user/animation/flour-sack-poses.svg" width="960" height="580" loading="lazy" decoding="async" alt="بازیگری با فرم ساده؛ نمایش پیش‌حرکت و وزن بدون چهره"></a><figcaption>شکل 1 · نمایش پیش‌حرکت و وزن بدون چهره</figcaption></figure>
+
 
 ## سه تمرین
 
@@ -35,9 +41,6 @@ description: "بیان وزن، احساس و نیت با یک فرم ساده �
 
 شات را بدون صدا به فرد دیگری نشان بده و از او بخواه اتفاق و احساس را توضیح دهد. اگر نیاز به توضیح خودت دارد، پز، جهت یا زمان‌بندی را اصلاح کن. تمرین بعدی می‌تواند [[animation-walk-cycle|چرخهٔ راه‌رفتن]] یا [[animation-principles|اصول انیمیشن]] باشد.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/flour-sack-poses.svg" target="_blank" rel="noopener"><img src="/img/user/animation/flour-sack-poses.svg" width="960" height="580" loading="lazy" decoding="async" alt="بازیگری با فرم ساده؛ نمایش پیش‌حرکت و وزن بدون چهره"></a><figcaption>نمایش پیش‌حرکت و وزن بدون چهره — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -45,4 +48,4 @@ description: "بیان وزن، احساس و نیت با یک فرم ساده �
 
 ## منبع و اعتبار
 
-[flour sack animation — Mister Chad](https://mister-chad.com/animation/flour%20sack%20animation)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[flour sack animation — Mister Chad](https://mister-chad.com/animation/flour%20sack%20animation) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

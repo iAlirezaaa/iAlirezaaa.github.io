@@ -5,6 +5,10 @@ dg-publish: true
 public: true
 permalink: /animation/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/00-شروع.md"
+pinned: true
 kind: learning-path
 categoryId: fundamentals
 aliases: ["Animation","Animation learning path"]
@@ -56,4 +60,4 @@ description: "مسیر یادگیری انیمیشن از تاریخ و اصول
 
 ## منبع و اعتبار
 
-[! animation — Mister Chad](https://mister-chad.com/animation/!%20animation)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[! animation — Mister Chad](https://mister-chad.com/animation/!%20animation) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

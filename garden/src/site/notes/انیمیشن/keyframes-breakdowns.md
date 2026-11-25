@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/keyframes-breakdowns/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۲ حرکت و تمرین/04-keyframes.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Keyframes","breakdowns","inbetween","pose to pose"]
@@ -23,6 +26,9 @@ description: "طراحی پزهای اصلی، حالت عبور و فاصله�
 
 Breakdown یک میانگین ساده بین دو پز نیست. می‌تواند تعیین کند آرنج از جلو عبور می‌کند یا عقب، کدام بخش بدن جلوتر است، حرکت قوس دارد یا مستقیم و وزن چگونه منتقل می‌شود. در تغییر نگاه، ممکن است چشم اول حرکت کند، سر بعد و تنه دیرتر واکنش نشان دهد.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/breakdown-poses.svg" target="_blank" rel="noopener"><img src="/img/user/animation/breakdown-poses.svg" width="960" height="600" loading="lazy" decoding="async" alt="کلیدپز و بریک‌داون؛ چهار وضعیت از یک حرکت دست و ادامهٔ کنش"></a><figcaption>شکل 1 · چهار وضعیت از یک حرکت دست و ادامهٔ کنش</figcaption></figure>
+
+
 ## فاصله‌گذاری و فریم‌های میانی
 
 پس از طراحی مسیر و بریک‌داون، Inbetweenها فاصله‌های حرکت را تکمیل می‌کنند. موقعیت و زمان را جداگانه بررسی کن: پز میانی از نظر زمان لزوماً از نظر فاصلهٔ مکانی وسط نیست. در گراف سه‌بعدی ابتدا منحنی اصلی، سپس offsetها و overlap را اصلاح کن.
@@ -31,9 +37,6 @@ Breakdown یک میانگین ساده بین دو پز نیست. می‌توا�
 
 یک شخصیت دستش را به سوی فنجان می‌برد. سه پز کلیدی طراحی کن و دو نسخهٔ بریک‌داون بساز: یکی دست اول حرکت کند و دیگری شانه ابتدا بچرخد. با یک مدت برابر، تفاوت شخصیت را مشاهده کن. سپس پیش‌حرکت کوتاه و ادامهٔ حرکت را با [[animation-principles|اصول انیمیشن]] هماهنگ کن.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/breakdown-poses.svg" target="_blank" rel="noopener"><img src="/img/user/animation/breakdown-poses.svg" width="960" height="600" loading="lazy" decoding="async" alt="کلیدپز و بریک‌داون؛ چهار وضعیت از یک حرکت دست و ادامهٔ کنش"></a><figcaption>چهار وضعیت از یک حرکت دست و ادامهٔ کنش — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -41,4 +44,4 @@ Breakdown یک میانگین ساده بین دو پز نیست. می‌توا�
 
 ## منبع و اعتبار
 
-[keyframes and breakdowns — Mister Chad](https://mister-chad.com/animation/keyframes%20and%20breakdowns)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[keyframes and breakdowns — Mister Chad](https://mister-chad.com/animation/keyframes%20and%20breakdowns) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.
