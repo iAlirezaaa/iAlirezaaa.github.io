@@ -170,8 +170,11 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
       scene.append(line);
       return {source:byId.get(edge.source), target:byId.get(edge.target), line};
     });
-    const status = expanded ? $('[data-graph-detail]') : $('[data-local-detail]');
-    const count = expanded ? $('[data-graph-count]') : $('[data-local-count]');
+    // Container metadata also includes data-graph-count. Select the actual
+    // status paragraph inside this view, never the other graph's container.
+    const information = expanded ? graphDialog : container.closest('[data-local-graph-section]');
+    const status = $(expanded ? 'p[data-graph-detail]' : 'p[data-local-detail]', information);
+    const count = $(expanded ? 'p[data-graph-count]' : 'p[data-local-count]', information);
     if (count) count.textContent = `${numbers.format(nodes.length)} نوشته · ${numbers.format(edges.length)} ارتباط`;
     if (status) status.textContent = 'هر نقطه یک نوشته است. برای خواندن، آن را انتخاب کن.';
     const camera = {scale:1, dx:0, dy:0};
