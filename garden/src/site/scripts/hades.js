@@ -1,3 +1,4 @@
+import { installCodeCopy } from './reader-tools.js';
 /** HADES' Persian reading layer for the upstream Eleventy Digital Garden. */
 export function normalizeSearchText(value = '') {
   return String(value).normalize('NFKC').toLocaleLowerCase('fa-IR')
@@ -26,7 +27,7 @@ export function searchNotes(notes, query, limit = 40) {
   }).filter(Boolean).sort((a,b) => b.score-a.score || a.note.title.localeCompare(b.note.title,'fa')).slice(0,limit).map(result => result.note);
 }
 
-if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); }
+if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); installCodeCopy(); }
 function initializeGarden() {
   const root = document.documentElement;
   const $ = (selector, within = document) => within.querySelector(selector);
@@ -220,7 +221,7 @@ function initializeGarden() {
     const progress=$('#reading-progress');
     if(article&&progress){const r=article.getBoundingClientRect();const total=Math.max(1,article.offsetHeight-innerHeight+140);progress.value=Math.max(0,Math.min(100,(140-r.top)/total*100));}
     let current=headings[0];for(const item of headings)if(item.target.getBoundingClientRect().top<=150)current=item;
-    for(const item of headings)if(item===current)item.link.setAttribute('aria-current','true');else item.link.removeAttribute('aria-current');
+    for(const item of headings)if(item.target===current?.target)item.link.setAttribute('aria-current','true');else item.link.removeAttribute('aria-current');
   }
   addEventListener('scroll',onScroll,{passive:true});onScroll();
   $('[data-copy-link]')?.addEventListener('click',async()=>{const status=$('.copy-status');try{await navigator.clipboard.writeText(location.href);status.textContent='پیوند کپی شد.';}catch{status.textContent='برای کپی، نشانی صفحه را از نوار آدرس بردار.';}});

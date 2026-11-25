@@ -26,6 +26,10 @@
       {% if tags and settings.dgShowTags !== false %}<div class="note-tags" aria-label="موضوع‌های این یادداشت">{% for tag in tags %}{% if tag != 'gardenEntry' and tag != 'note' %}<button type="button" data-search-query="{{ tag }}">{{ tag }}</button>{% endif %}{% endfor %}</div>{% endif %}
       {% set slotName = "common.header" %}{% include "components/pluginSlot.njk" %}
     </header>
+    {% if not isDirectory %}
+      {% set inlineTocHtml = content and (content | hideDataview | link | toc) %}
+      {% if inlineTocHtml %}<details class="reader-inline-toc"><summary>در این صفحه</summary><div class="toc-container" data-toc>{{ inlineTocHtml | safe }}</div></details>{% endif %}
+    {% endif %}
     <article class="note-body" id="prose" data-note-body>
     {% set slotName = "common.beforeContent" %}{% include "components/pluginSlot.njk" %}
     {{ content | hideDataview | taggify | link | resolveMdLinks | safe }}
