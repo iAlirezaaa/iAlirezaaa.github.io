@@ -109,9 +109,53 @@ def close_panel(page, width, name):
 
 
 def assert_dialog_return(page, width, actual_opener, mobile_panel):
+    active_dialog = page.locator('.garden-dialog[open]')
+    assert active_dialog.count() == 1, (width, 'expected one open dialog before Escape')
+    dialog_id = active_dialog.get_attribute('id')
     page.keyboard.press('Escape')
     target = page.locator(f'[data-panel-open="{mobile_panel}"]') if width <= mobile_breakpoint else actual_opener
+    # Native dialog.close() queues its close event. Wait for that event's
+    # restoration work, while requiring the exact opener and closed state.
+    try:
+        page.wait_for_function("""({id,opener})=>{
+          const dialog=document.getElementById(id);
+          return dialog&&!dialog.open&&document.activeElement===opener;
+        }""", arg={'id': dialog_id, 'opener': target.element_handle()}, timeout=5000)
+    except Exception as error:
+        state = page.evaluate("""id=>{
+          const a=document.activeElement,d=document.getElementById(id);
+          return {dialog:id,open:d?.open,active:{tag:a?.tagName,id:a?.id,
+            label:a?.getAttribute('aria-label'),html:a?.outerHTML?.slice(0,1500)},
+            openPanel:document.body.dataset.openPanel};
+        }""", dialog_id)
+        expected = target.evaluate("el=>({tag:el.tagName,id:el.id,label:el.getAttribute('aria-label'),inert:!!el.closest('[inert]')})")
+        raise AssertionError((width, 'dialog close/focus restoration timed out', expected, state)) from error
+    assert not page.locator('#' + dialog_id).is_visible(), (width, dialog_id, 'dialog remains visible after Escape')
     assert target.evaluate('(el)=>document.activeElement===el'), (width, 'dialog opener focus not restored')
+
+
+def capture_failure(page, width, stage, error, errors, failed_assets):
+    """Retain the failing UI before the browser context closes in CI."""
+    evidence = {'width': width, 'stage': stage, 'status': 'FAIL', 'error': str(error),
+                'page_errors': list(errors), 'failed_assets': list(failed_assets)}
+    try:
+        evidence['browser'] = page.evaluate("""()=>{
+          const a=document.activeElement,visible=el=>!!el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden';
+          return {url:location.href,viewport:{width:innerWidth,height:innerHeight},
+            active:{tag:a?.tagName,id:a?.id,label:a?.getAttribute('aria-label'),html:a?.outerHTML?.slice(0,1500)},
+            openPanel:document.body.dataset.openPanel,
+            dialogs:[...document.querySelectorAll('.garden-dialog')].map(el=>({id:el.id,open:el.open,visible:visible(el)})),
+            panels:[...document.querySelectorAll('[data-panel]')].map(el=>({name:el.dataset.panel,inert:el.inert,visible:visible(el)})),
+            graphs:[...document.querySelectorAll('[data-local-graph],[data-global-graph]')].map(el=>({
+              scope:el.dataset.scope,ready:el.dataset.graphReady,count:el.dataset.graphCount,scale:el.dataset.scale,
+              layoutChanged:el.dataset.layoutChanged,viewBox:el.querySelector('svg')?.getAttribute('viewBox')}))};
+        }""")
+        page.screenshot(path=str(output / f'failure-{width}.png'), full_page=False, timeout=5000)
+        (output / f'failure-{width}.html').write_text(page.content(), encoding='utf-8')
+    except Exception as capture_error:
+        evidence['capture_error'] = str(capture_error)
+    (output / f'failure-{width}.json').write_text(json.dumps(evidence, ensure_ascii=False, indent=2), encoding='utf-8')
+    results.append(evidence)
 
 
 def assert_shell(page, width, expected_tree_urls, content_page=False):
@@ -528,41 +572,55 @@ try:
                 comment_state['requests'].append((route.request.method, route.request.url))
                 route.fulfill(status=comment_state['status'], headers={'Access-Control-Allow-Origin': '*'}, json=comment_state['body'])
             page.route('https://api.github.com/repos/iAlirezaaa/iAlirezaaa.github.io/issues/*/comments*', comment_route)
-            page.goto(home, wait_until='load')
-            assert page.locator('[data-blog-comments]').count() == 0
-            assert_shell(page, width, expected_tree_urls)
-            page.screenshot(path=str(output / f'home-{width}.png'), full_page=False)
-            check_search_and_settings(page, width)
-            open_panel(page, width, 'context')
-            mini = wait_graph(page, '[data-local-graph]')
-            assert_graph_urls(mini, expected_urls, 'all')
-            mini.screenshot(path=str(output / f'miniature-{width}.png'))
-            global_state = check_global_interactions(page, width, expected_urls)
-            page.goto(origin + article_url, wait_until='load')
-            assert_shell(page, width, expected_tree_urls, content_page=True)
-            page.screenshot(path=str(output / f'article-{width}.png'), full_page=False)
-            local_count = check_content_graph(page, width, article_url, expected_urls, nodes_by_url, links)
-            check_comments(page, width, comment_state)
-            # A native note and a directory use the same shell; a directory's
-            # miniature is the global graph rather than an empty current-node graph.
-            for path, content_page in ((note_url, True), ('/fa/blog/categories/', False)):
-                page.goto(origin + path, wait_until='load')
-                assert_shell(page, width, expected_tree_urls, content_page=content_page)
+            stage = 'home shell'
+            try:
+                page.goto(home, wait_until='load')
+                assert page.locator('[data-blog-comments]').count() == 0
+                assert_shell(page, width, expected_tree_urls)
+                page.screenshot(path=str(output / f'home-{width}.png'), full_page=False)
+                stage = 'search and reading preferences'
+                check_search_and_settings(page, width)
+                stage = 'index miniature'
                 open_panel(page, width, 'context')
-                graph = wait_graph(page, '[data-local-graph]')
-                if content_page:
-                    assert graph.get_attribute('data-scope') == 'local'
-                    assert graph.locator('.graph-node[data-current="true"]').get_attribute('href') == path
-                else:
-                    assert_graph_urls(graph, expected_urls, 'all')
-                    assert page.locator('[data-blog-comments]').count() == 0
-                close_panel(page, width, 'context')
-            assert not errors, (width, 'uncaught browser errors', errors)
-            assert not failed_assets, (width, 'failed built resources', failed_assets)
-            results.append({'width': width, 'status': 'PASS', 'global_nodes': len(global_state['urls']),
-                            'article_local_nodes': local_count, 'canonical_tree_links': len(expected_tree_urls),
-                            'touch_drag_and_pinch': width <= 430, 'page_errors': errors, 'failed_assets': failed_assets})
-            context.close()
+                mini = wait_graph(page, '[data-local-graph]')
+                assert_graph_urls(mini, expected_urls, 'all')
+                mini.screenshot(path=str(output / f'miniature-{width}.png'))
+                stage = 'full graph interaction and navigation'
+                global_state = check_global_interactions(page, width, expected_urls)
+                stage = 'article shell'
+                page.goto(origin + article_url, wait_until='load')
+                assert_shell(page, width, expected_tree_urls, content_page=True)
+                page.screenshot(path=str(output / f'article-{width}.png'), full_page=False)
+                stage = 'article local graph and backlinks'
+                local_count = check_content_graph(page, width, article_url, expected_urls, nodes_by_url, links)
+                stage = 'opt-in comment safety'
+                check_comments(page, width, comment_state)
+                # A native note and a directory use the same shell; a directory's
+                # miniature is the global graph rather than an empty current-node graph.
+                for path, content_page in ((note_url, True), ('/fa/blog/categories/', False)):
+                    stage = 'native note shell' if content_page else 'category directory shell'
+                    page.goto(origin + path, wait_until='load')
+                    assert_shell(page, width, expected_tree_urls, content_page=content_page)
+                    open_panel(page, width, 'context')
+                    graph = wait_graph(page, '[data-local-graph]')
+                    if content_page:
+                        assert graph.get_attribute('data-scope') == 'local'
+                        assert graph.locator('.graph-node[data-current="true"]').get_attribute('href') == path
+                    else:
+                        assert_graph_urls(graph, expected_urls, 'all')
+                        assert page.locator('[data-blog-comments]').count() == 0
+                    close_panel(page, width, 'context')
+                stage = 'browser and resource errors'
+                assert not errors, (width, 'uncaught browser errors', errors)
+                assert not failed_assets, (width, 'failed built resources', failed_assets)
+                results.append({'width': width, 'status': 'PASS', 'global_nodes': len(global_state['urls']),
+                                'article_local_nodes': local_count, 'canonical_tree_links': len(expected_tree_urls),
+                                'touch_drag_and_pinch': width <= 430, 'page_errors': errors, 'failed_assets': failed_assets})
+            except Exception as error:
+                capture_failure(page, width, stage, error, errors, failed_assets)
+                raise
+            finally:
+                context.close()
         browser.close()
 finally:
     (output / 'results.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
