@@ -60,7 +60,10 @@ for (const [route, document] of documents) {
   assert.match(document.querySelector('meta[name="generator"]')?.getAttribute('content') || '', /digitalgarden|digital garden/i, 'Original template provenance missing: ' + route)
   assert.ok(document.querySelector('main#content [data-note-body]'), 'Readable server-rendered note body missing: ' + route)
   assert.ok(document.querySelector('main h1')?.text.trim(), 'Note title missing: ' + route)
-  for (const selector of ['#garden-navigation', '[data-filetree]', '#garden-context', '[data-backlinks]', '[data-local-graph]', '#garden-search', '#garden-search-input', '#garden-search-results', '#garden-settings', '#garden-graph', '[data-copy-link]', 'progress#reading-progress']) {
+  const directory = Boolean(document.querySelector('main.blog-directory'))
+  const featureSelectors = ['#garden-navigation', '[data-filetree]', '#garden-search', '#garden-search-input', '#garden-search-results', '#garden-settings', '#garden-graph', '[data-copy-link]']
+  if (!directory) featureSelectors.push('#garden-context', '[data-backlinks]', '[data-local-graph]', 'progress#reading-progress')
+  for (const selector of featureSelectors) {
     assert.ok(document.querySelector(selector), 'Garden feature missing ' + selector + ': ' + route)
   }
   for (const setting of ['theme', 'size', 'measure', 'leading']) {

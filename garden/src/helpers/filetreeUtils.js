@@ -103,7 +103,9 @@ function getPermalinkMeta(note, key) {
       permalink = note.data.permalink;
     }
     if (note.data.tags && note.data.tags.indexOf("gardenEntry") != -1) {
-      permalink = "/";
+      // A migrated home note can live inside the blog. Keep its canonical
+      // permalink instead of sending the navigation through a legacy redirect.
+      permalink = note.data.permalink || "/";
     }    
     if (note.data.title) {
       name = note.data.title;

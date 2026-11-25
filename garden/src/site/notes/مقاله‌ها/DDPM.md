@@ -5,8 +5,11 @@ dg-publish: true
 public: true
 permalink: /ddpm/
 group: مقاله و روش
+kind: method
+categoryId: papers
+topics: [diffusion, ddpm]
 aliases: [ddpm, DDPM, Denoising Diffusion Probabilistic Models]
-tags: [مقاله, دیفیوژن]
+tags: [مدل‌های دیفیوژن, DDPM]
 created: 2026-11-25
 updated: 2026-11-25
 description: یادداشتی برای وصل کردن روش DDPM به ایدهٔ حذف نویز و مدل‌های دیفیوژن.

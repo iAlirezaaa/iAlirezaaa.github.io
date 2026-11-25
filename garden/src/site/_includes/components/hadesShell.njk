@@ -1,3 +1,4 @@
+{% set isDirectory = contentClasses == 'blog-directory' %}
 <!doctype html>
 <html lang="fa" dir="rtl" data-theme="system" data-size="regular" data-measure="regular" data-leading="regular">
 <head>
@@ -6,13 +7,13 @@
 {% set slotName = "common.head" %}{% include "components/pluginSlot.njk" %}
 {% for imp in dynamics.common.head %}{% include imp %}{% endfor %}
 </head>
-<body class="hades-garden markdown-preview-view markdown-rendered" data-garden-page="{{ page.url }}">
+<body class="hades-garden markdown-preview-view markdown-rendered{% if isDirectory %} is-directory{% endif %}" data-garden-page="{{ page.url }}">
 <a class="skip-link" href="#content">رفتن به محتوای اصلی</a>
-<progress class="reading-progress" id="reading-progress" max="100" value="0" aria-label="پیشرفت مطالعه"></progress>
+{% if not isDirectory %}<progress class="reading-progress" id="reading-progress" max="100" value="0" aria-label="پیشرفت مطالعه"></progress>{% endif %}
 <header class="garden-topbar">
-  <div class="topbar-start"><button type="button" class="icon-button mobile-tree-toggle" data-panel-open="navigation" aria-controls="garden-navigation" aria-expanded="false" aria-label="باز کردن فهرست یادداشت‌ها"><span aria-hidden="true">☰</span></button><a class="topbar-name" href="/fa/blog/">وبلاگ <bdi>هادس</bdi></a></div>
-  <nav class="topbar-links" aria-label="بخش‌های سایت"><a href="/fa/blog/">همهٔ نوشته‌ها</a><a href="/fa/blog/categories/">موضوعات</a><a href="/fa/work/">آثار</a></nav>
-  <div class="topbar-actions"><button type="button" class="icon-button" data-search-open aria-label="جست‌وجو در نوشته‌ها و یادداشت‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><button type="button" class="icon-button" data-settings-open aria-label="تنظیمات مطالعه"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M9 3v6M15 9v6M9 15v6"/></svg></button><button type="button" class="icon-button mobile-context-toggle" data-panel-open="context" aria-controls="garden-context" aria-expanded="false" aria-label="فهرست مطالب و پیوندهای این صفحه"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></button></div>
+  <div class="topbar-start"><button type="button" class="icon-button mobile-tree-toggle" data-panel-open="navigation" aria-controls="garden-navigation" aria-expanded="false" aria-label="باز کردن فهرست وبلاگ"><span aria-hidden="true">☰</span></button><a class="topbar-name" href="/fa/blog/">وبلاگ <bdi>هادس</bdi></a></div>
+  <nav class="topbar-links" aria-label="بخش‌های سایت"><a href="/fa/blog/">همهٔ نوشته‌ها</a><a href="/fa/blog/categories/">بخش‌های وبلاگ</a><a href="/fa/blog/tags/">موضوع‌ها</a><a href="/fa/work/">آثار</a></nav>
+  <div class="topbar-actions"><button type="button" class="icon-button" data-search-open aria-label="جست‌وجو در نوشته‌ها و یادداشت‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><button type="button" class="icon-button" data-settings-open aria-label="تنظیمات خواندن"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M9 3v6M15 9v6M9 15v6"/></svg></button>{% if not isDirectory %}<button type="button" class="icon-button mobile-context-toggle" data-panel-open="context" aria-controls="garden-context" aria-expanded="false" aria-label="فهرست مطالب و پیوندهای این صفحه"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></button>{% endif %}</div>
 </header>
 <div class="garden-layout">
   {% include "components/hadesNavigation.njk" %}
@@ -21,35 +22,19 @@
       <nav class="note-breadcrumb" aria-label="مسیر صفحه"><a href="/fa/blog/">وبلاگ هادس</a><span aria-hidden="true">/</span>{% if categoryURL %}<a href="{{ categoryURL }}">{{ categoryLabel or group }}</a>{% else %}<span>{{ group or 'یادداشت‌ها' }}</span>{% endif %}</nav>
       <h1>{{ title or page.fileSlug }}</h1>
       {% if description %}<p class="note-description">{{ description }}</p>{% endif %}
-      <div class="note-meta"><span class="article-byline">علیرضا عسگرپور</span>{% if updated or date %}<span aria-hidden="true">·</span><time class="persian-date" datetime="{{ (updated or date) | hadesISODate }}">{{ (updated or date) | hadesDate }}</time>{% endif %}<span class="reading-time" data-reading-time{% if readingMinutes %} data-reading-minutes="{{ readingMinutes }}"{% endif %}>{% if readingMinutes %}· {{ readingMinutes | hadesNumber }} دقیقه مطالعه{% endif %}</span></div>
-      {% if tags and settings.dgShowTags !== false %}<div class="note-tags" aria-label="برچسب‌های یادداشت">{% for tag in tags %}{% if tag != 'gardenEntry' and tag != 'note' %}<button type="button" data-search-query="{{ tag }}">#{{ tag }}</button>{% endif %}{% endfor %}</div>{% endif %}
+      {% if not isDirectory %}<div class="note-meta"><span class="article-byline">علیرضا عسگرپور</span>{% if updated or date %}<span aria-hidden="true">·</span><time class="persian-date" datetime="{{ (updated or date) | hadesISODate }}">{{ (updated or date) | hadesDate }}</time>{% endif %}<span class="reading-time" data-reading-time{% if readingMinutes %} data-reading-minutes="{{ readingMinutes }}"{% endif %}>{% if readingMinutes %}· {{ readingMinutes | hadesNumber }} دقیقه مطالعه{% endif %}</span></div>{% endif %}
+      {% if tags and settings.dgShowTags !== false %}<div class="note-tags" aria-label="موضوع‌های این یادداشت">{% for tag in tags %}{% if tag != 'gardenEntry' and tag != 'note' %}<button type="button" data-search-query="{{ tag }}">{{ tag }}</button>{% endif %}{% endfor %}</div>{% endif %}
       {% set slotName = "common.header" %}{% include "components/pluginSlot.njk" %}
     </header>
     <article class="note-body" id="prose" data-note-body>
     {% set slotName = "common.beforeContent" %}{% include "components/pluginSlot.njk" %}
     {{ content | hideDataview | taggify | link | resolveMdLinks | safe }}
 
-    {% if page.url == '/fa/blog/' %}
-    <section class="blog-knowledge-index" id="notes" aria-labelledby="blog-knowledge-title">
-      <header class="blog-knowledge-heading">
-        <div><p class="editorial-kicker">دانش به‌هم‌پیوسته</p><h2 id="blog-knowledge-title">یادداشت‌ها و مفاهیم</h2></div>
-        <button type="button" data-global-graph-open>گراف دانش</button>
-      </header>
-      <p>برای فهم عمیق‌تر مقاله‌ها، مفهوم‌ها را دنبال کن. هر یادداشت بخشی از همین بلاگ است.</p>
-      <ul class="blog-knowledge-grid">
-      {% for item in collections.note | notHidden %}
-        {% if item.url != page.url and item.data.kind != 'article' and item.data.contentClasses != 'blog-directory' %}
-        <li><a class="internal-link" href="{{ item.url }}"><span>{{ item.data.title or item.fileSlug }}</span>{% if item.data.description %}<small>{{ item.data.description }}</small>{% endif %}<span class="knowledge-card-arrow" aria-hidden="true">←</span></a></li>
-        {% endif %}
-      {% endfor %}
-      </ul>
-    </section>
-    {% endif %}
     {% set slotName = "common.afterContent" %}{% include "components/pluginSlot.njk" %}
     </article>
-    <footer class="note-footer"><p>ایده‌ها با ارتباط پیدا کردن رشد می‌کنند.</p><div><button type="button" data-copy-link>کپی پیوند</button><a href="#content">بازگشت به ابتدای نوشته</a><span class="copy-status" role="status" aria-live="polite"></span></div></footer>
+    <footer class="note-footer"><p>پژوهش، مفهوم، ساخت.</p><div><button type="button" data-copy-link>کپی پیوند</button><a href="#content">بازگشت به ابتدا</a><span class="copy-status" role="status" aria-live="polite"></span></div>{% if isDirectory %}<span class="review-caption">طراحی رابط · REVIEW</span>{% endif %}</footer>
   </main>
-  {% include "components/sidebar.njk" %}
+  {% if not isDirectory %}{% include "components/sidebar.njk" %}{% endif %}
 </div>
 <div class="garden-backdrop" data-panel-close hidden></div>
 {% include "components/hadesDialogs.njk" %}

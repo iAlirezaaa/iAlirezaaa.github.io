@@ -31,7 +31,8 @@ const generateComponentPaths = async (namespace, slots) => {
 const generateStylesPaths = async () => {
   try {
     const tree = await fsFileTree(`${STYLE_PATH}`);
-    let comps = Object.keys(tree).map((p) =>
+    // Sass partials are compiled into their parent stylesheet, not served files.
+    let comps = Object.keys(tree).filter((p) => /\.(?:scss|css)$/.test(p) && !p.split(/[\\/]/).some(part => part.startsWith('_'))).map((p) =>
       `/styles/user/${p}`.replace(".scss", ".css")
     );
     comps.sort();

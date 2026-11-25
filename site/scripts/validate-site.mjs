@@ -7,6 +7,7 @@ import { graphNodes, projects, routes } from '../src/data.js'
 import { alternateLocaleUrl, isPersianPath, officialLinks, pathnameFor, translate } from '../src/i18n.js'
 
 import { entries as blogEntries } from '../public/fa/blog/entries.js'
+import { topics, entryTopics } from './blog-taxonomy.mjs'
 import { defaults, normalizeSettings, readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
 
 const dist = fileURLToPath(new URL('../dist/', import.meta.url))
@@ -253,11 +254,13 @@ for (const entry of blogEntries) {
   assert.equal(posting?.inLanguage,'fa')
   assert.equal(posting?.image.url,new URL(entry.hero.path,origin).href)
   assert.deepEqual(schemas.find(schema => schema['@type'] === 'BreadcrumbList')?.itemListElement.map(item => item.position),[1,2,3])
-  for (const tag of entry.tags ?? []) {
+  for (const tag of entryTopics(entry, {includeLegacy:true})) {
     const filter = '/fa/blog/tags/' + tag + '/'
     const filteredPage = parseHTML(path.join(dist,filter,'index.html'))
-    assert.ok(document.querySelector('a[href="' + filter + '"]'))
-    assert.ok(blogDocument.querySelector('a[href="' + filter + '"]'))
+    if (!topics[tag].legacy) {
+      assert.ok(document.querySelector('a[href="' + filter + '"]'), 'Article topic link missing: ' + tag)
+      assert.ok(blogDocument.querySelector('a[href="' + filter + '"]'), 'Index topic link missing: ' + tag)
+    }
     assert.equal(filteredPage.querySelector('body')?.getAttribute('data-garden-page'),filter)
     assert.ok(filteredPage.querySelector('a[href="' + route + '"]'))
     assert.equal(filteredPage.querySelector('link[rel="canonical"]')?.getAttribute('href'),origin + 'fa/blog/')

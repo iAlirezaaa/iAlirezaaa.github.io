@@ -6,12 +6,8 @@ import { readingStats, visibleEntries } from '../public/fa/blog/reader-model.js'
 
 const blogRoot = 'https://ialirezaaa.github.io/fa/blog/'
 const ddpmFigure = 'https://arxiv.org/html/2006.11239v2/pgm_diagram_xarrow_small.png'
-export const topicNames = {'ai-basics':'پایه‌های هوش مصنوعی',diffusion:'دیفیوژن','ai-image-making':'تصویرسازی با هوش مصنوعی','paper-explainer':'شرح مقاله',comfyui:'ComfyUI',workflow:'گردش‌کار',python:'پایتون'}
-export const categories = {
-  papers:{name:'شرح مقاله‌های هوش مصنوعی',description:'ایدهٔ اصلی پژوهش‌ها، به زبان ساده و همراه با شکل‌ها و مثال‌های کاربردی.'},
-  'repo-analysis':{name:'تحلیل ریپوها',description:'سر زدن به کد و مستندات ابزارهای متن‌باز، برای اینکه ببینیم چطور کار می‌کنند و کجا به درد می‌خورند.'},
-  fundamentals:{name:'پایه‌های هوش مصنوعی',description:'مفهوم‌های پایه با مثال‌هایی که از دل کارِ ساخت تصویر و انیمیشن می‌آیند.'},
-}
+import { categories, topicNames, blogCopy } from './blog-taxonomy.mjs'
+export { categories, topicNames }
 const categoryPath = slug => '/fa/blog/categories/' + slug + '/'
 const markNav = (html, target) => html.replace(' href="/fa/blog/" aria-current="page"', ' href="/fa/blog/"').replace(' href="' + target + '"', ' href="' + target + '" aria-current="page"')
 const pageHead = (html, title, description, url, noindex = false) => html
@@ -143,10 +139,10 @@ export function renderBlog(dist) {
     const count = approved.filter(entry => entry.categoryId === id).length
     return '<li><a href="' + categoryPath(id) + '"><strong>' + esc(cat.name) + '</strong><p>' + esc(cat.description) + '</p><span>' + (count ? numbers.format(count) + ' نوشته' : 'هنوز نوشته‌ای ندارد') + '</span></a></li>'
   }).join('')
-  const descriptions = {categories:'نوشته‌ها بر اساس مسیرهای مطالعه: مقالهٔ پژوهشی، تحلیل ریپو یا مفاهیم پایه.',tags:'نوشته‌ها را با برچسب موضوعی پیدا کن، از دیفیوژن تا تصویرسازی با هوش مصنوعی.'}
+  const descriptions = {categories:blogCopy.categories.description,tags:blogCopy.topics.description}
   for (const [slug,title,list] of [
-    ['categories','دسته‌بندی‌ها','<ul class="directory-list">' + categoryList + '</ul>'],
-    ['tags','برچسب‌ها',topics.length ? topicLinks(topics) : empty('هنوز هیچ برچسبی ثبت نشده.')],
+    ['categories',blogCopy.categories.title,'<ul class="directory-list">' + categoryList + '</ul>'],
+    ['tags',blogCopy.topics.title,topics.length ? topicLinks(topics) : empty('هنوز هیچ برچسبی ثبت نشده.')],
   ]) {
     const url = blogRoot + slug + '/'
     const page = markNav(pageHead(top(shell,title,descriptions[slug]),title,descriptions[slug],url),'/fa/blog/' + slug + '/')

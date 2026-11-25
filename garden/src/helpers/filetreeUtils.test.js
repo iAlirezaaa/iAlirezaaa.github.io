@@ -13,6 +13,29 @@ function makeNote(filePathStem, data = {}) {
 }
 
 describe("filetreeUtils", () => {
+  describe("migrated home links", () => {
+    it("links directly to the blog guide instead of the legacy Garden root", () => {
+      const tree = getFileTree({
+        collections: {
+          note: [makeNote("/home", {
+            tags: ["note", "gardenEntry"],
+            permalink: "/fa/blog/notes/start/",
+          })],
+        },
+      });
+      expect(tree["home.md"].permalink).toBe("/fa/blog/notes/start/");
+    });
+
+    it("retains the upstream root fallback when no home permalink is supplied", () => {
+      const tree = getFileTree({
+        collections: {
+          note: [makeNote("/home", { tags: ["gardenEntry"], permalink: undefined })],
+        },
+      });
+      expect(tree["home.md"].permalink).toBe("/");
+    });
+  });
+
   describe("getFileTree without navigation ordering", () => {
     it("sorts folders before files, then alphabetically", () => {
       const data = {
@@ -239,12 +262,12 @@ describe("filetreeUtils", () => {
       expect(tree["normal.md"].hide).toBeFalsy();
     });
 
-    it("hides a note with hide:true (dg-hide)", () => {
+    it("excludes a note with hide:true (dg-hide) from public navigation data", () => {
       const data = {
         collections: { note: [makeNote("/secret", { hide: true })] },
       };
       const tree = getFileTree(data);
-      expect(tree["secret.md"].hide).toBe(true);
+      expect(tree["secret.md"]).toBeUndefined();
     });
 
     it("hides a note with hideInFiletree:true (dg-hide-in-filetree)", () => {
