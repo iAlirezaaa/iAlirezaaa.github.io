@@ -37,13 +37,13 @@ test('native Markdown and compiled Obsidian content in the HADES shell',()=>{
   ]
   try{
     buildDigitalGarden(dest,fixture)
-    const page=route=>parse(fs.readFileSync(path.join(dest,route.slice(1),'index.html'),'utf8'))
+    const page=route=>parse(fs.readFileSync(path.join(dest,route.slice(1),'index.html'),'utf8'),{blockTextElements:{script:true,noscript:true,style:true,pre:false}})
     const rendered=page(fixtureRoute), prose=rendered.querySelector('[data-note-body]')
     assert.ok(prose.querySelector('mark'),'highlight missing')
     assert.ok(prose.querySelector('.footnotes'),'footnotes missing')
     assert.ok(prose.querySelector('mjx-container, .MathJax, svg[data-mml-node]'),'MathJax output missing')
     assert.ok(prose.querySelector('.callout'),'callout missing')
-    assert.ok(prose.querySelector('code.language-js'),'code missing')
+    assert.ok(prose.querySelector('pre code.language-js')?.text.includes('const value = 42;'),'code missing: '+prose.querySelectorAll('pre').map(el=>el.outerHTML).join(' | ').slice(0,800))
     assert.ok(prose.querySelector('pre.mermaid')?.text.includes('x < y'),'Mermaid source not preserved')
     assert.ok(prose.querySelector('img[src*="plantuml"]'),'PlantUML image URL missing')
     assert.ok(prose.querySelector('.transclusion'),'transclusion missing')
@@ -56,7 +56,7 @@ test('native Markdown and compiled Obsidian content in the HADES shell',()=>{
     const canvas=page(canvasRoute)
     assert.ok(canvas.querySelector('.canvas-wrapper .canvas-node'),'compiled Canvas markup missing')
     assert.ok(canvas.querySelector('link[href$="garden-content-compat.css"]'),'Canvas CSS missing')
-    assert.ok(canvas.querySelectorAll('script').some(s=>s.text.includes('initCanvas')),'Canvas runtime missing')
+    assert.ok(canvas.querySelectorAll('script').some(s=>s.text.includes('canvas-wrapper')&&s.text.includes('canvas-node')),'Canvas runtime missing')
     const plain=page(targetRoute)
     assert.ok(!plain.querySelector('link[href$="garden-content-compat.css"]'),'specialized content CSS loaded on plain note')
   }finally{fs.rmSync(dest,{recursive:true,force:true})}
