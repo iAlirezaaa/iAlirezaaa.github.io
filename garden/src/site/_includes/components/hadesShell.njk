@@ -12,15 +12,12 @@
 {% if not isDirectory %}<progress class="reading-progress" id="reading-progress" max="100" value="0" aria-label="پیشرفت مطالعه"></progress>{% endif %}
 <header class="garden-topbar">
   <div class="topbar-start"><button type="button" class="icon-button mobile-tree-toggle" data-panel-open="navigation" aria-controls="garden-navigation" aria-expanded="false" aria-label="باز کردن فهرست وبلاگ"><span aria-hidden="true">☰</span></button><a class="topbar-name" href="/fa/blog/">وبلاگ <bdi>هادس</bdi></a></div>
-  <nav class="topbar-links" aria-label="بخش‌های سایت"><a href="/fa/blog/">همهٔ نوشته‌ها</a><a href="/fa/blog/categories/">بخش‌های وبلاگ</a><a href="/fa/blog/tags/">موضوع‌ها</a><a href="/fa/work/">آثار</a></nav>
   <div class="topbar-actions"><button type="button" class="icon-button" data-search-open aria-label="جست‌وجو در نوشته‌ها و یادداشت‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><button type="button" class="icon-button" data-settings-open aria-label="تنظیمات خواندن"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M9 3v6M15 9v6M9 15v6"/></svg></button>{% if not isDirectory %}<button type="button" class="icon-button mobile-context-toggle" data-panel-open="context" aria-controls="garden-context" aria-expanded="false" aria-label="فهرست مطالب و پیوندهای این صفحه"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></button>{% endif %}</div>
 </header>
 <nav class="workspace-ribbon" data-workspace-ribbon hidden aria-label="ابزارهای فضای کار">
   <button type="button" data-workspace-toggle="navigation" aria-controls="garden-navigation" aria-pressed="true" aria-label="نمایش کاوشگر" title="کاوشگر"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM8 5v14M11 9h6M11 13h6"/></svg></button>
   <button type="button" data-search-open aria-label="جست‌وجو در دانش" title="جست‌وجو"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
   <button type="button" data-global-graph-open aria-haspopup="dialog" aria-label="نمای کامل گراف" title="گراف دانش"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 7 6 5 6-7M12 12l6 7M12 12l-6 6"/><circle cx="6" cy="7" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="19" r="2"/><circle cx="6" cy="18" r="2"/></svg></button>
-  <a href="/fa/blog/tags/" aria-label="موضوع‌ها" title="موضوع‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 5 21M17 3l-3 18M3 9h18M2 15h18"/></svg></a>
-  <a href="/fa/blog/categories/" aria-label="بخش‌ها" title="بخش‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="6" rx="1"/><rect x="14" y="14" width="7" height="6" rx="1"/></svg></a>
   {% if not isDirectory %}<button type="button" class="ribbon-context" data-workspace-toggle="context" aria-controls="garden-context" aria-pressed="true" aria-label="نمایش پنل ارتباط‌ها" title="پنل ارتباط‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M16 5v14M6 9h7M6 13h7"/></svg></button>{% endif %}
   <a class="ribbon-home" href="/fa/" aria-label="سایت هادس" title="سایت هادس"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3zM9 20v-6h6v6"/></svg></a>
 </nav>
@@ -29,14 +26,13 @@
   <main class="content garden-content cm-s-obsidian {{ contentClasses }}" id="content" tabindex="-1">
     <nav class="workspace-strip" aria-label="فضای مطالعه">
       <a href="/fa/blog/"{% if blogIndex %} aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 9h16M9 9v10"/></svg><span>همهٔ نوشته‌ها</span></a>
-      <a href="/fa/blog/#notes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 12h7M9 16h7"/></svg><span>یادداشت‌ها</span></a>
       <button type="button" data-global-graph-open aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 7 6 5 6-7M12 12l6 7M12 12l-6 6"/><circle cx="6" cy="7" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="19" r="2"/><circle cx="6" cy="18" r="2"/></svg><span>نقشهٔ دانش</span></button>
       {% if not blogIndex %}<span class="workspace-current" aria-current="page" title="{{ title or page.fileSlug }}">{{ title or page.fileSlug }}</span>{% endif %}
     </nav>
     <section class="workspace-pane-tools" data-workspace-panes hidden aria-label="تنظیم فضای مطالعه">
-      <button type="button" data-workspace-focus aria-pressed="false">حالت تمرکز</button>
-      <details><summary>تنظیم پنل‌ها</summary>
+      <details><summary>تنظیم فضای کار</summary>
         <div class="workspace-pane-fields">
+          <button type="button" data-workspace-focus aria-pressed="false">حالت تمرکز</button>
           <button type="button" data-workspace-toggle="navigation" aria-controls="garden-navigation" aria-pressed="true">کاوشگر نوشته‌ها</button>
           <label for="workspace-explorer-width">عرض کاوشگر <output data-workspace-value="navigation"></output></label>
           <input type="range" id="workspace-explorer-width" data-workspace-width="navigation" min="180" max="300" step="10" value="230">
@@ -62,7 +58,7 @@
       {% if inlineTocHtml %}<details class="reader-inline-toc"><summary>در این صفحه</summary><div class="toc-container" data-toc>{{ inlineTocHtml | safe }}</div></details>{% endif %}
     {% endif %}
     {% if blogIndex %}<section class="recent-reading" data-recent-reading hidden aria-labelledby="recent-reading-title"><header><div><h2 id="recent-reading-title">بازگشت به مطالعه</h2><p data-recent-status></p></div><a href="#reading-history-title" data-recent-manage>تنظیم تاریخچه</a></header><ol data-recent-visits></ol></section>{% endif %}
-    {% if blogIndex %}<section class="atlas-preview-section" aria-labelledby="atlas-preview-title"><header class="atlas-preview-header"><div><span class="atlas-kicker" lang="en" dir="ltr">KNOWLEDGE ATLAS</span><h2 id="atlas-preview-title">نقشهٔ دانش</h2><p>ارتباط واقعی میان مقاله‌ها و یادداشت‌های وبلاگ.</p></div><button type="button" data-global-graph-open>کاوش در نقشه ↗</button></header><div class="atlas-preview" data-atlas-preview aria-label="پیش‌نمایش نقشهٔ دانش"><p class="muted">در حال دریافت ارتباط‌ها…</p></div><div class="atlas-preview-inspector"><p data-atlas-count role="status"></p><p data-atlas-detail aria-live="polite">برای دیدن عنوان کامل، یک نود را انتخاب کن.</p></div><p class="atlas-legend"><span><i class="atlas-article" aria-hidden="true"></i>مقاله</span><span><i aria-hidden="true"></i>یادداشت</span><span>عنوان‌های متراکم هوشمندانه پنهان می‌شوند.</span></p><noscript><p>نقشه به جاوااسکریپت نیاز دارد؛ نوشته‌ها در فهرست زیر قابل دسترسی هستند.</p></noscript></section>{% endif %}
+    {% if blogIndex %}<section class="atlas-preview-section" aria-labelledby="atlas-preview-title"><header class="atlas-preview-header"><div><h2 id="atlas-preview-title">نقشهٔ دانش</h2><p>نودها را بکش یا روی آن‌ها بزن.</p></div><button type="button" data-global-graph-open>کاوش در نقشه ↗</button></header><div class="atlas-preview" data-atlas-preview aria-label="پیش‌نمایش نقشهٔ دانش"><p class="muted">در حال دریافت ارتباط‌ها…</p></div><div class="atlas-preview-inspector"><p data-atlas-count role="status"></p><p data-atlas-detail aria-live="polite">برای دیدن عنوان کامل، یک نود را انتخاب کن.</p></div><button type="button" class="graph-layout-reset" data-graph-layout-reset hidden>بازنشانی نودها</button><p class="atlas-legend"><span><i class="atlas-article" aria-hidden="true"></i>مقاله</span><span><i aria-hidden="true"></i>یادداشت</span><span>عنوان‌های متراکم هوشمندانه پنهان می‌شوند.</span></p><noscript><p>نقشه به جاوااسکریپت نیاز دارد؛ نوشته‌ها در فهرست زیر قابل دسترسی هستند.</p></noscript></section>{% endif %}
     <article class="note-body" id="prose" data-note-body>
     {% set slotName = "common.beforeContent" %}{% include "components/pluginSlot.njk" %}
     {{ content | hideDataview | taggify | link | resolveMdLinks(page.inputPath) | safe }}

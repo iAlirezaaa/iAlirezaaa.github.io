@@ -8,5 +8,5 @@
   <div class="workspace-tree-filter" data-tree-filter-box hidden><label for="workspace-tree-query" class="sr-only">فیلتر عنوان نوشته‌ها</label><input id="workspace-tree-query" type="search" dir="auto" data-tree-filter placeholder="فیلتر عنوان‌ها…" autocomplete="off" aria-controls="workspace-filetree"><p data-tree-filter-status role="status"></p></div>
   <nav class="garden-filetree" id="workspace-filetree" data-filetree aria-label="فهرست نوشته‌ها">{% include "plugins/dg-filetree/tree.njk" ignore missing %}<p class="filetree-loading">در حال دریافت فهرست…</p></nav>
   <noscript><nav class="no-script-notes" aria-label="فهرست نوشته‌ها">{% for note in collections.note | notHidden %}<a href="{{note.url}}">{{note.data.title or note.fileSlug}}</a>{% endfor %}</nav></noscript>
-  <footer class="navigation-footer"><a href="/fa/">دربارهٔ هادس</a><span>پژوهش، مفهوم، ساخت</span></footer>
+  <footer class="navigation-footer"><a href="/fa/">دربارهٔ هادس</a><a href="/fa/work/">آثار</a></footer>
 </aside>

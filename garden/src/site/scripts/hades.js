@@ -291,10 +291,13 @@ function initializeGarden() {
   const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
   function drawGraph(container,data,all=false){
     container.dataset.graphReady='false';
+    atlasState.delete(container);
+    const resetButton=container.parentElement?.querySelector('[data-graph-layout-reset]');
+    if(resetButton)resetButton.hidden=true;
     container.replaceChildren();
     if(!data.nodes.length){container.append(textElement('p','نوشته‌ای در این نما نیست.','muted'));container.dataset.graphCount='0';container.dataset.graphKind='all';container.dataset.graphReady='true';return;}
     const interactive=container.matches('[data-global-graph]');
-    const width=Math.max(200,container.clientWidth),height=Math.max(200,container.clientHeight);
+    let width=Math.max(200,container.clientWidth),height=Math.max(200,container.clientHeight);
     const svg=svgElement('svg',{viewBox:'0 0 '+width+' '+height,role:'group','aria-label':'نقشهٔ ارتباط نوشته‌ها؛ عنوان کامل با فوکوس روی نود در دسترس است.'});
     const group=svgElement('g',{'data-graph-scene':''});svg.append(group);
     const kind=n=>/^\/fa\/blog\/notes(?:\/|$)/.test(trimPath(n.url))?'note':'article';
@@ -307,7 +310,7 @@ function initializeGarden() {
     const degrees=new Map(visible.map(n=>[n.id,0]));
     for(const l of rawEdges){degrees.set(l.source,degrees.get(l.source)+1);degrees.set(l.target,degrees.get(l.target)+1);}
     const nodes=visible.map(n=>({...n,kind:kind(n),degree:degrees.get(n.id),current:trimPath(n.url)===here}));
-    const compact=width<460;
+    let compact=width<460;
     // Stable two-ring layout makes article/note clusters legible. Expand freely; zoom/pan reveal space.
     const spread=interactive?options.spread/100:1;
     const rings=[nodes.filter(n=>n.kind==='note'),nodes.filter(n=>n.kind==='article')];
@@ -332,7 +335,7 @@ function initializeGarden() {
     }
     const byId=new Map(nodes.map(n=>[n.id,n]));
     const edges=rawEdges.map(l=>({source:byId.get(l.source),target:byId.get(l.target)}));
-    const edgeEls=edges.map(e=>{const line=svgElement('line',{x1:e.source.x,y1:e.source.y,x2:e.target.x,y2:e.target.y,class:'graph-edge'});group.append(line);return{...e,line};});
+    const edgeEls=edges.map(e=>{const line=svgElement('line',{x1:e.source.x,y1:e.source.y,x2:e.target.x,y2:e.target.y,class:'graph-edge','data-source':e.source.id,'data-target':e.target.id});group.append(line);return{...e,line};});
     const nodeEls=[];
     const preview=container.closest('.atlas-preview-section');
     const local=container.closest('[data-local-graph-section]');
@@ -342,7 +345,7 @@ function initializeGarden() {
     if(status)status.textContent='برای دیدن عنوان کامل، روی یک نود مکث کن یا با صفحه‌کلید آن را انتخاب کن.';
     const defaultId=local?(nodes.find(n=>n.current)?.id??null):null;
     let active=null;
-    const state={scale:1,dx:0,dy:0,apply:null,reflow:null,width,height};
+    const state={scale:1,dx:0,dy:0,apply:null,reflow:null,reset:null,width,height};
     function prioritize(id){
       if(id===null&&local)id=defaultId;
       active=id;
@@ -353,17 +356,20 @@ function initializeGarden() {
       placeLabels();
     }
     for(const [i,node] of nodes.entries()){
-      const a=svgElement('a',{href:node.url,class:'graph-node',tabindex:0,'data-current':node.current,'data-kind':node.kind,'aria-label':node.title});
+      const a=svgElement('a',{href:node.url,class:'graph-node',tabindex:0,'data-current':node.current,'data-kind':node.kind,'data-graph-id':node.id,'aria-label':node.title});
       const title=svgElement('title');title.textContent=node.title;a.append(title);
       const radius=node.current?7:clamp(4+Math.sqrt(node.degree),5,9);
       const dot=svgElement('circle',{cx:node.x,cy:node.y,r:radius});
-      a.append(svgElement('circle',{cx:node.x,cy:node.y,r:Math.max(12,radius+4),class:'graph-hit'}),dot);
+      const hit=svgElement('circle',{cx:node.x,cy:node.y,r:Math.max(15,radius+5),class:'graph-hit'});
+      a.append(hit,dot);
       const label=svgElement('text',{x:node.x,y:node.y+radius+16,'aria-hidden':'true'});
-      const chars=Array.from(node.title);
-      const max=compact?16:28;
-      label.textContent=chars.length>max?chars.slice(0,max-1).join('')+'…':node.title;
+      function updateLabel(){const chars=Array.from(node.title),max=compact?16:28;label.textContent=chars.length>max?chars.slice(0,max-1).join('')+'…':node.title;}
+      updateLabel();
       a.append(label);group.append(a);
-      nodeEls.push({...node,a,dot,label,radius});
+      // Keep one mutable node record shared by circles, labels and its edges.
+      Object.assign(node,{a,dot,hit,label,radius,homeX:node.x,homeY:node.y,updateLabel});
+      nodeEls.push(node);
+      installNodeDrag(node);
       a.addEventListener('pointerenter',()=>prioritize(node.id));
       a.addEventListener('pointerleave',()=>{if(document.activeElement!==a)prioritize(null);});
       a.addEventListener('focus',()=>prioritize(node.id));
@@ -371,6 +377,58 @@ function initializeGarden() {
       if(options.motion&&!motionQuery.matches&&typeof a.animate==='function')a.animate([{opacity:0},{opacity:1}],{duration:340,delay:Math.min(i,10)*24,easing:'ease-out'});
     }
     container.append(svg);
+    let labelFrame=0;
+    function updateGeometry(){
+      for(const n of nodeEls)for(const circle of [n.dot,n.hit]){circle.setAttribute('cx',n.x);circle.setAttribute('cy',n.y);}
+      for(const e of edgeEls){e.line.setAttribute('x1',e.source.x);e.line.setAttribute('y1',e.source.y);e.line.setAttribute('x2',e.target.x);e.line.setAttribute('y2',e.target.y);}
+    }
+    function scheduleLabels(){
+      if(labelFrame)return;
+      labelFrame=requestAnimationFrame(()=>{labelFrame=0;placeLabels();});
+    }
+    function scenePoint(clientX,clientY){
+      const matrix=group.getScreenCTM();
+      return matrix?new DOMPoint(clientX,clientY).matrixTransform(matrix.inverse()):null;
+    }
+    function moveNode(n,x,y){
+      const pad=Math.max(18,n.radius+8);
+      n.x=clamp(x,pad,width-pad);n.y=clamp(y,pad,height-pad);
+      updateGeometry();container.dataset.layoutChanged='true';
+      if(resetButton)resetButton.hidden=false;
+      scheduleLabels();
+    }
+    function installNodeDrag(n){
+      let drag=null,suppressUntil=0;
+      const a=n.a;
+      a.addEventListener('pointerdown',e=>{
+        if(e.button!==0||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||drag)return;
+        const p=scenePoint(e.clientX,e.clientY);if(!p)return;
+        suppressUntil=0;
+        drag={id:e.pointerId,clientX:e.clientX,clientY:e.clientY,dx:n.x-p.x,dy:n.y-p.y,moved:false};
+        a.setPointerCapture(e.pointerId);
+      });
+      a.addEventListener('pointermove',e=>{
+        if(!drag||drag.id!==e.pointerId)return;
+        if(!drag.moved&&Math.hypot(e.clientX-drag.clientX,e.clientY-drag.clientY)<6)return;
+        const p=scenePoint(e.clientX,e.clientY);if(!p)return;
+        if(!drag.moved){drag.moved=true;a.classList.add('is-dragging');prioritize(n.id);}
+        e.preventDefault();moveNode(n,p.x+drag.dx,p.y+drag.dy);
+      });
+      const finish=e=>{
+        if(!drag||drag.id!==e.pointerId)return;
+        if(drag.moved){suppressUntil=performance.now()+600;placeLabels();}
+        drag=null;a.classList.remove('is-dragging');
+      };
+      a.addEventListener('pointerup',finish);a.addEventListener('pointercancel',finish);a.addEventListener('lostpointercapture',finish);
+      a.addEventListener('click',e=>{if(e.detail!==0&&performance.now()<suppressUntil){e.preventDefault();e.stopPropagation();}});
+      a.addEventListener('keydown',e=>{
+        const direction={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
+        if(!direction)return;
+        e.preventDefault();prioritize(n.id);
+        const step=(e.shiftKey?28:12)/state.scale;
+        moveNode(n,n.x+direction[0]*step,n.y+direction[1]*step);
+      });
+    }
     // Bounding boxes in *screen pixels*, including zoom and actual font metrics.
     // A suppressed label never removes its node, accessible title, or list entry.
     function placeLabels(){
@@ -395,7 +453,25 @@ function initializeGarden() {
       }
     }
     state.apply=()=>{group.setAttribute('transform','translate('+(width/2+state.dx)+' '+(height/2+state.dy)+') scale('+state.scale+') translate('+(-width/2)+' '+(-height/2)+')');container.dataset.scale=String(state.scale);placeLabels();};
-    state.reflow=placeLabels;
+    state.reflow=()=>{
+      if(!container.clientWidth||!container.clientHeight)return;
+      const w=Math.max(200,container.clientWidth),h=Math.max(200,container.clientHeight);
+      if(w!==width||h!==height){
+        const sx=w/width,sy=h/height;
+        for(const n of nodeEls){n.x*=sx;n.y*=sy;n.homeX*=sx;n.homeY*=sy;}
+        state.dx*=sx;state.dy*=sy;width=w;height=h;state.width=w;state.height=h;compact=w<460;
+        svg.setAttribute('viewBox','0 0 '+w+' '+h);
+        for(const n of nodeEls)n.updateLabel();
+        updateGeometry();
+      }
+      state.apply();
+    };
+    state.reset=()=>{
+      for(const n of nodeEls){n.x=n.homeX;n.y=n.homeY;}
+      state.scale=1;state.dx=0;state.dy=0;delete container.dataset.layoutChanged;
+      if(resetButton)resetButton.hidden=true;
+      updateGeometry();state.apply();
+    };
     atlasState.set(container,state);
     state.apply();if(local&&defaultId!==null)prioritize(defaultId);document.fonts?.ready.then(()=>{if(svg.isConnected)placeLabels();});
     if(interactive){
@@ -403,6 +479,15 @@ function initializeGarden() {
       svg.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('a'))return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,dx:state.dx,dy:state.dy};svg.setPointerCapture(e.pointerId);svg.classList.add('is-panning');});
       svg.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const rect=svg.getBoundingClientRect();state.dx=drag.dx+(e.clientX-drag.x)*width/rect.width;state.dy=drag.dy+(e.clientY-drag.y)*height/rect.height;state.apply();});
       const end=()=>{drag=null;svg.classList.remove('is-panning');};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);svg.addEventListener('lostpointercapture',end);
+      svg.addEventListener('wheel',e=>{
+        // Keep normal page scrolling available outside the full graph.
+        e.preventDefault();
+        const p=scenePoint(e.clientX,e.clientY);if(!p)return;
+        const previous=state.scale,next=clamp(previous*Math.exp(-e.deltaY*.0015),.6,3);
+        const factor=previous-next;
+        state.dx+=(p.x-width/2)*factor;state.dy+=(p.y-height/2)*factor;
+        state.scale=next;state.apply();
+      },{passive:false});
       const list=$('[data-graph-pages]');if(list){list.replaceChildren();for(const n of nodes){const li=document.createElement('li'),a=document.createElement('a');a.href=n.url;a.textContent=n.title;li.append(a);list.append(li);}}
     }
     if(!nodes.length){container.replaceChildren(textElement('p','در این دسته نوشته‌ای نیست. نوع نوشته را تغییر بده.','graph-empty'));}
@@ -419,9 +504,8 @@ function initializeGarden() {
   let globalRenderVersion=0;
   async function renderGlobal(){const c=$('[data-global-graph]');if(!graphDialog?.open||!c)return;const version=++globalRenderVersion;c.dataset.graphReady='false';try{const data=await getGraph();if(version!==globalRenderVersion||!graphDialog.open)return;drawGraph(c,data,true);}catch{if(version===globalRenderVersion)c.replaceChildren(textElement('p','گراف دریافت نشد. دوباره امتحان کن.','muted'));}}
   // Resizing the dialog or its text must not replace its SVG or reset the camera.
-  // Reflow measured labels against the current rendered view; only the first
-  // non-zero layout of an inline atlas (or a real viewport breakpoint change)
-  // needs a new layout. The dialog is rendered exclusively by open/settings.
+  // Reflow the actual SVG viewBox and preserve normalized dragged positions
+  // and camera during resize. A new dataset/filter still gets a new layout.
   const graphSizes=new WeakMap();
   const resizeObserver=new ResizeObserver(entries=>{for(const e of entries){
     const c=e.target, w=Math.round(e.contentRect.width),h=Math.round(e.contentRect.height);
@@ -429,7 +513,7 @@ function initializeGarden() {
     const size=w+'x'+h;if(graphSizes.get(c)===size)continue;graphSizes.set(c,size);
     const state=atlasState.get(c);
     if(c.matches('[data-global-graph]')){state?.reflow();continue;}
-    if(state&&(graphDialog?.open||Math.abs(state.width-w)<90)){state.reflow();continue;}
+    if(state){state.reflow();continue;}
     if(c.matches('[data-local-graph]'))renderLocalGraph();else if(c.matches('[data-atlas-preview]'))renderAtlasPreview();
   }});
   for(const c of $$('[data-local-graph],[data-atlas-preview],[data-global-graph]'))resizeObserver.observe(c);
@@ -452,7 +536,8 @@ function initializeGarden() {
     control.addEventListener('change',()=>{const key=control.dataset.graphOption;options[key]=key==='motion'?control.checked:key==='spread'?Number(control.value):control.value;renderGlobal();});
   });
   motionQuery.addEventListener('change',()=>{if(motionQuery.matches){options.motion=false;const c=$('[data-graph-option="motion"]');if(c)c.checked=false;}if(graphDialog?.open)renderGlobal();});
-  $$('[data-graph-zoom]').forEach(button=>button.addEventListener('click',()=>{const c=$('[data-global-graph]'),state=atlasState.get(c);if(!state)return;const action=button.dataset.graphZoom;if(action==='reset'){state.scale=1;state.dx=0;state.dy=0;}else state.scale=clamp(state.scale*(action==='in'?1.25:.8),.6,3);state.apply();}));
+  $$('[data-graph-zoom]').forEach(button=>button.addEventListener('click',()=>{const c=$('[data-global-graph]'),state=atlasState.get(c);if(!state)return;const action=button.dataset.graphZoom;if(action==='reset'){state.reset?.();return;}state.scale=clamp(state.scale*(action==='in'?1.25:.8),.6,3);state.apply();}));
+  $$('[data-graph-layout-reset]').forEach(button=>button.addEventListener('click',()=>{const parent=button.closest('.atlas-preview-section,[data-local-graph-section]');const c=parent?.querySelector('[data-atlas-preview],[data-local-graph]');if(c)atlasState.get(c)?.reset?.();}));
   $$('[data-graph-pan]').forEach(button=>button.addEventListener('click',()=>{const c=$('[data-global-graph]'),state=atlasState.get(c);if(!state)return;const d=button.dataset.graphPan;if(d==='left')state.dx-=40;if(d==='right')state.dx+=40;if(d==='up')state.dy-=40;if(d==='down')state.dy+=40;state.apply();}));
 
   // Hover/focus previews use the local search index, never remote page fetches.

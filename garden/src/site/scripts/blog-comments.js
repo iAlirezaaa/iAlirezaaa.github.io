@@ -1,8 +1,8 @@
 // Public, canonical per-page GitHub issue threads. No secret, no write token,
 // no tracking, no external request until the visitor chooses to load comments.
-const REPO='iAlirezaaa/iAlirezaaa.github.io';
-const GH='https://github.com/'+REPO+'/issues/';
-const API='https://api.github.com/repos/'+REPO+'/issues/';
+// Full URLs avoid the Garden build's root-path prefix adapter.
+const GH='https://github.com/iAlirezaaa/iAlirezaaa.github.io/issues/';
+const API='https://api.github.com/repos/iAlirezaaa/iAlirezaaa.github.io/issues/';
 export function installBlogComments(root=document,request=globalThis.fetch.bind(globalThis)){
   const panel=root.querySelector('[data-blog-comments]');
   if(!panel)return;
@@ -19,7 +19,9 @@ export function installBlogComments(root=document,request=globalThis.fetch.bind(
     const controller=new AbortController();
     const timeout=setTimeout(()=>controller.abort(),12000);
     try{
-      const response=await request(API+issue+'/comments?per_page=100',{signal:controller.signal,credentials:'omit',headers:{Accept:'application/vnd.github+json'}});
+      const requestUrl=new URL([issue,'comments'].join('/'),API);
+      requestUrl.searchParams.set('per_page','100');
+      const response=await request(requestUrl.href,{signal:controller.signal,credentials:'omit',headers:{Accept:'application/vnd.github+json'}});
       if(!response.ok)throw Error('GitHub response '+response.status);
       const data=await response.json();
       if(!Array.isArray(data))throw Error('Invalid comments response');
