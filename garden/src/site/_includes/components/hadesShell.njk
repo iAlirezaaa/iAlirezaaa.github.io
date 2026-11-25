@@ -18,6 +18,12 @@
 <div class="garden-layout">
   {% include "components/hadesNavigation.njk" %}
   <main class="content garden-content cm-s-obsidian {{ contentClasses }}" id="content" tabindex="-1">
+    <nav class="workspace-strip" aria-label="فضای مطالعه">
+      <a href="/fa/blog/"{% if blogIndex %} aria-current="page"{% endif %}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 9h16M9 9v10"/></svg><span>همهٔ نوشته‌ها</span></a>
+      <a href="/fa/blog/#notes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 12h7M9 16h7"/></svg><span>یادداشت‌ها</span></a>
+      <button type="button" data-global-graph-open aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 7 6 5 6-7M12 12l6 7M12 12l-6 6"/><circle cx="6" cy="7" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="19" r="2"/><circle cx="6" cy="18" r="2"/></svg><span>نقشهٔ دانش</span></button>
+      {% if not blogIndex %}<span class="workspace-current" aria-current="page" title="{{ title or page.fileSlug }}">{{ title or page.fileSlug }}</span>{% endif %}
+    </nav>
     <header class="note-header">
       <nav class="note-breadcrumb" aria-label="مسیر صفحه"><a href="/fa/blog/">وبلاگ هادس</a><span aria-hidden="true">/</span>{% if categoryURL %}<a href="{{ categoryURL }}">{{ categoryLabel or group }}</a>{% else %}<span>{{ group or 'یادداشت‌ها' }}</span>{% endif %}</nav>
       <h1>{{ title or page.fileSlug }}</h1>

@@ -152,6 +152,38 @@ function initializeGarden() {
 
   // Navigation stays a regular tree of links, including without Alpine/CDNs.
   const tree=$('[data-filetree]');
+  const treeFilter=$('[data-tree-filter]');
+  const treeFilterBox=$('[data-tree-filter-box]');
+  let treeQuery='', treeOpenSnapshot=null;
+  function filterTree() {
+    if(!tree||!treeFilter)return;
+    const query=normalizeSearchText(treeFilter.value);
+    const folders=$('details[data-folder]',tree), items=$('.tree-note',tree);
+    if(query&&!treeQuery)treeOpenSnapshot=new Map(folders.map(d=>[d,d.open]));
+    treeQuery=query;
+    let count=0;
+    for(const item of items){
+      const link=$('a',item);
+      const haystack=normalizeSearchText((link?.textContent||'')+' '+(item.closest('details[data-folder]')?.dataset.folder||''));
+      const show=!query||query.split(' ').every(term=>haystack.includes(term)||haystack.replaceAll(' ','').includes(term));
+      item.hidden=!show;
+      if(show)count++;
+    }
+    for(const details of [...folders].reverse()){
+      const wrapper=details.closest('.tree-folder');
+      if(query){const show=$('.tree-note',details).some(item=>!item.hidden);wrapper.hidden=!show;if(show)details.open=true;}
+      else{wrapper.hidden=false;if(treeOpenSnapshot?.has(details))details.open=treeOpenSnapshot.get(details);}
+    }
+    if(!query)treeOpenSnapshot=null;
+    const toggle=$('[data-tree-collapse]');
+    if(toggle)toggle.disabled=Boolean(query);
+    const status=$('[data-tree-filter-status]');
+    if(status)status.textContent=numbers.format(count)+' نوشته'+(query?' مطابق فیلتر':' در فهرست');
+  }
+  treeFilter?.addEventListener('input',filterTree);
+  treeFilter?.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&treeFilter.value){event.preventDefault();event.stopPropagation();treeFilter.value='';filterTree();}
+  });
   function markNavigation() {
     $$('.garden-sections a,.topbar-links a,.tree-note a').forEach(link=>{
       if(trimPath(link.href)===here && !new URL(link.href,document.baseURI).hash)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
@@ -160,23 +192,22 @@ function initializeGarden() {
     $$('details[data-folder]',tree).forEach(details=>{
       if(Object.hasOwn(folderState,details.dataset.folder))details.open=folderState[details.dataset.folder];
       if($('a[aria-current=page]',details))details.open=true;
-      details.addEventListener('toggle',()=>{folderState[details.dataset.folder]=details.open;safeStorage.write('hades-garden-folders',folderState);});
+      details.addEventListener('toggle',()=>{if(treeQuery)return;folderState[details.dataset.folder]=details.open;safeStorage.write('hades-garden-folders',folderState);});
     });
   }
   if(tree)fetch(BASE+'filetree.html').then(response=>{if(!response.ok)throw new Error('Tree unavailable');return response.text();}).then(markup=>{
     const parsed=new DOMParser().parseFromString(markup,'text/html');
-    tree.replaceChildren(...parsed.body.childNodes);markNavigation();
+    tree.replaceChildren(...parsed.body.childNodes);markNavigation();if(treeFilterBox)treeFilterBox.hidden=false;filterTree();
   }).catch(()=>{tree.replaceChildren(textElement('p','فهرست دریافت نشد. از جست‌وجو یا پیوندهای متن استفاده کن.','muted'));});
   markNavigation();
   $('[data-tree-collapse]')?.addEventListener('click',()=>{const folders=$$('details',tree);const allClosed=folders.every(d=>!d.open);folders.forEach(d=>{d.open=allClosed;});$('[data-tree-collapse]').textContent=allClosed?'جمع کردن':'باز کردن';});
 
   const panels={navigation:$('#garden-navigation'),context:$('#garden-context')};
-  const directoryPage=document.body.classList.contains('is-directory');
   const navMobile=matchMedia('(max-width: 900px)'),contextMobile=matchMedia('(max-width: 1240px)');
   let panelOpener=null,activePanel=null;
   const backdrop=$('.garden-backdrop');
   function syncPanelInert() {
-    for(const [name,panel] of Object.entries(panels))if(panel)panel.inert=(name==='navigation'?(directoryPage||navMobile.matches):contextMobile.matches)&&activePanel!==name;
+    for(const [name,panel] of Object.entries(panels))if(panel)panel.inert=(name==='navigation'?navMobile.matches:contextMobile.matches)&&activePanel!==name;
   }
   function closePanel(restore=true) {
     const old=activePanel;activePanel=null;delete document.body.dataset.openPanel;

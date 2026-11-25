@@ -42,6 +42,30 @@ try:
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url, wait_until="load")
+            # Workspace explorer stays docked on desktop and uses the existing accessible drawer on phones.
+            nav = page.locator('#garden-navigation')
+            query = page.locator('[data-tree-filter]')
+            page.wait_for_selector('[data-tree-filter-box]:not([hidden])', state='attached')
+            if width <= 900:
+                assert nav.evaluate('(el)=>el.inert')
+                page.locator('.mobile-tree-toggle').click()
+            assert nav.is_visible() and not nav.evaluate('(el)=>el.inert'), (width,'explorer unavailable')
+            assert page.locator('.workspace-strip').count() == 1
+            all_titles = page.locator('#workspace-filetree .tree-note').count()
+            assert all_titles >= len(expected_urls)
+            query.fill('DDPM')
+            visible_titles = page.locator('#workspace-filetree .tree-note:not([hidden]) a')
+            assert visible_titles.count() >= 1 and visible_titles.count() < all_titles
+            assert any('DDPM' in title for title in visible_titles.all_text_contents())
+            query.fill('zz-no-such-title-zz')
+            assert page.locator('#workspace-filetree .tree-note:not([hidden])').count() == 0
+            query.press('Escape')
+            assert query.input_value() == '' and page.locator('#workspace-filetree .tree-note:not([hidden])').count() == all_titles
+            if width <= 900:
+                page.keyboard.press('Escape')
+                assert nav.evaluate('(el)=>el.inert')
+                assert page.locator('.mobile-tree-toggle').evaluate('(el)=>document.activeElement===el')
+            page.screenshot(path=str(output / f"workspace-{width}.png"), full_page=False)
             preview = page.locator("[data-atlas-preview]")
             page.wait_for_selector('[data-atlas-preview][data-graph-ready="true"] .graph-node')
             page.evaluate("document.fonts.ready")
