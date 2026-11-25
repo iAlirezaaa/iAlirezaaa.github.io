@@ -244,9 +244,10 @@ try:
             history.scroll_into_view_if_needed()
             page.screenshot(path=str(output / f"reading-trail-{width}.png"), full_page=False)
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
-            history.locator('[data-reading-clear]').click()
+            assert history.locator('[data-reading-clear]').is_disabled()
             assert history.locator('[data-reading-visits] a').count() == 0
             toggle.click()
+            assert recent.locator('ol a').count() == 0
             assert page.evaluate("JSON.parse(localStorage.getItem('hades-reading-trail-v1')).enabled === false")
             assert not errors, (width, errors)
             results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "background_while_modal": after, "restored_count": restored["count"], "console_page_errors": errors, "status": "PASS"})
