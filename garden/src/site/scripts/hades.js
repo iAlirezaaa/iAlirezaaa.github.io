@@ -150,7 +150,7 @@ function initializeGarden() {
   const tree=$('[data-filetree]');
   function markNavigation() {
     $$('.garden-sections a,.topbar-links a,.tree-note a').forEach(link=>{
-      if(trimPath(link.href)===here)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
+      if(trimPath(link.href)===here && !new URL(link.href,document.baseURI).hash)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
     });
     const folderState=safeStorage.read('hades-garden-folders',{});
     $$('details[data-folder]',tree).forEach(details=>{
