@@ -31,7 +31,17 @@ export function installReadingTrail({document, graph, here, storage}) {
   if (!history) return;
   const toggle = history.querySelector('[data-reading-toggle]'), clear = history.querySelector('[data-reading-clear]');
   const status = history.querySelector('[data-reading-status]'), list = history.querySelector('[data-reading-visits]');
+  const recent = document.querySelector('[data-recent-reading]');
+  function renderRecent() {
+    if (!recent) return;
+    const items = enabled ? visits.slice(0, 3).map(url => byUrl.get(url)) : [];
+    fill(recent.querySelector('[data-recent-visits]'), items);
+    recent.querySelector('[data-recent-status]').textContent = !enabled ? 'تاریخچه خاموش است؛ چیزی ثبت نمی‌شود.' : items.length ? 'آخرین نوشته‌های بازشده در این مرورگر' : 'هنوز نوشته‌ای ثبت نشده است.';
+    recent.querySelector('[data-recent-manage]').textContent = enabled ? 'مدیریت تاریخچه' : 'فعال کردن تاریخچه';
+    recent.hidden = false;
+  }
   function render(message) {
+    renderRecent();
     toggle.setAttribute('aria-pressed', String(enabled));
     toggle.textContent = enabled ? 'توقف و پاک کردن تاریخچه' : 'فعال کردن تاریخچه';
     clear.disabled = !visits.length;

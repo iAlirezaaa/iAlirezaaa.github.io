@@ -55,6 +55,11 @@ try:
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url, wait_until="load")
+            recent = page.locator('[data-recent-reading]')
+            recent.wait_for(state='visible')
+            assert recent.locator('ol a').count() == 0
+            assert page.evaluate("localStorage.getItem('hades-reading-trail-v1')") is None
+            assert recent.locator('[data-recent-manage]').get_attribute('href') == '#reading-history-title'
             # Workspace explorer stays docked on desktop and uses the existing accessible drawer on phones.
             nav = page.locator('#garden-navigation')
             query = page.locator('[data-tree-filter]')
@@ -226,12 +231,23 @@ try:
                 page.goto('http://127.0.0.1:8765' + related_urls[0], wait_until='load')
                 history.wait_for(state='visible')
                 assert history.locator('[data-reading-visits] a').count() == 2
+            page.goto(url, wait_until='load')
+            recent.wait_for(state='visible')
+            expected_recent = [related_urls[0], article_url] if related_urls else [article_url]
+            assert recent.locator('ol a').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))") == expected_recent
+            recent.screenshot(path=str(output / f"recent-reading-{width}.png"))
+            recent.locator('[data-recent-manage]').press('Enter')
+            assert page.evaluate("location.hash") == '#reading-history-title'
+            assert history.is_visible()
+            history.locator('[data-reading-clear]').click()
+            assert recent.locator('ol a').count() == 0
             history.scroll_into_view_if_needed()
             page.screenshot(path=str(output / f"reading-trail-{width}.png"), full_page=False)
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
-            history.locator('[data-reading-clear]').click()
+            assert history.locator('[data-reading-clear]').is_disabled()
             assert history.locator('[data-reading-visits] a').count() == 0
             toggle.click()
+            assert recent.locator('ol a').count() == 0
             assert page.evaluate("JSON.parse(localStorage.getItem('hades-reading-trail-v1')).enabled === false")
             assert not errors, (width, errors)
             results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "background_while_modal": after, "restored_count": restored["count"], "console_page_errors": errors, "status": "PASS"})
