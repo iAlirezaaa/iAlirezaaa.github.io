@@ -143,3 +143,10 @@
 @media(max-width:480px){.atlas-preview-section{padding:.8rem;border-radius:12px}.atlas-preview-header button{width:100%}.atlas-preview{height:18rem}.graph-dialog .global-graph{height:42dvh;min-height:16rem}.graph-node text{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.graph-node,.graph-edge{transition:none!important}}
 @media print{.atlas-preview-section{display:none!important}}
+
+/* Atlas filter state: use the same visual vocabulary in preview and dialog. */
+.graph-dialog .atlas-legend{margin:.65rem 0 .35rem;padding:.55rem .7rem;border-block-start:1px solid var(--line)}
+.graph-dialog .graph-empty{display:grid;place-content:center;min-height:100%;padding:1rem;text-align:center;color:var(--muted);font-size:.9rem}
+.graph-atlas-meta [data-graph-count]{font-variant-numeric:tabular-nums;color:var(--ink)}
+.graph-dialog .graph-page-list a{display:block;padding:.4rem 0;overflow-wrap:anywhere}
+.graph-dialog .graph-page-list a:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
