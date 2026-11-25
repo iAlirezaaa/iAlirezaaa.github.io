@@ -243,13 +243,24 @@ function initializeGarden() {
   if(article && $('[data-reading-time]')){const prose=article.cloneNode(true);prose.querySelectorAll('script,style,template').forEach(el=>el.remove());const words=prose.textContent.trim().split(/\s+/u).filter(Boolean).length;const label=$('[data-reading-time]');const minutes=Number(label.dataset.readingMinutes)||Math.max(1,Math.ceil(words/190));label.textContent='· '+numbers.format(minutes)+' دقیقه مطالعه';}
   const tocLinks=$$('[data-toc] a[href^="#"]');
   const headings=tocLinks.map(link=>{let id;try{id=decodeURIComponent(link.hash.slice(1));}catch{id=link.hash.slice(1);}return{link,target:document.getElementById(id)};}).filter(item=>item.target);
+  const progress=$('#reading-progress'), progressFill=progress?.querySelector('.reading-progress-fill');
   function onScroll(){
-    const progress=$('#reading-progress');
-    if(article&&progress){const r=article.getBoundingClientRect();const total=Math.max(1,article.offsetHeight-innerHeight+140);progress.value=Math.max(0,Math.min(100,(140-r.top)/total*100));}
+    if(article&&progress&&progressFill){
+      const root=document.scrollingElement||document.documentElement;
+      const top=root.scrollTop,maxScroll=Math.max(0,root.scrollHeight-root.clientHeight);
+      const articleEnd=article.getBoundingClientRect().bottom+top-root.clientHeight+24;
+      const finish=Math.max(1,Math.min(maxScroll,articleEnd));
+      const fraction=maxScroll===0?1:Math.min(1,Math.max(0,top/finish));
+      progressFill.style.transform='scaleX('+fraction+')';
+      progress.setAttribute('aria-valuenow',String(Math.round(fraction*100)));
+    }
     let current=headings[0];for(const item of headings)if(item.target.getBoundingClientRect().top<=150)current=item;
     for(const item of headings)if(item.target===current?.target)item.link.setAttribute('aria-current','true');else item.link.removeAttribute('aria-current');
   }
-  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  let scrollFrame=0;function scheduleReading(){if(!scrollFrame)scrollFrame=requestAnimationFrame(()=>{scrollFrame=0;onScroll();});}
+  addEventListener('scroll',scheduleReading,{passive:true});addEventListener('resize',scheduleReading,{passive:true});
+  if(article&&typeof ResizeObserver!=='undefined')new ResizeObserver(scheduleReading).observe(article);
+  document.fonts?.ready.then(scheduleReading);onScroll();
   $('[data-copy-link]')?.addEventListener('click',async()=>{const status=$('.copy-status');try{await navigator.clipboard.writeText(location.href);status.textContent='پیوند کپی شد.';}catch{status.textContent='برای کپی، نشانی صفحه را از نوار آدرس بردار.';}});
   $$('.callout.is-collapsible .callout-title').forEach(title=>{title.tabIndex=0;title.setAttribute('role','button');title.setAttribute('aria-expanded',String(!title.parentElement.classList.contains('is-collapsed')));const toggle=()=>{title.parentElement.classList.toggle('is-collapsed');title.setAttribute('aria-expanded',String(!title.parentElement.classList.contains('is-collapsed')));};title.addEventListener('click',toggle);title.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggle();}});});
 
