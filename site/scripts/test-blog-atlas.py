@@ -66,14 +66,27 @@ try:
             page.locator('[data-graph-zoom="reset"]').click()
             assert graph.get_attribute("data-scale") == "1"
             page.locator(".graph-atlas-settings summary").click()
-            page.locator('[data-graph-option="kind"]').select_option("article")
-            page.wait_for_function("document.querySelectorAll('[data-global-graph] .graph-node[data-kind=note]').length === 0")
-            assert 0 < graph.locator(".graph-node").count() < full_count
+            initial_counts = {kind: graph.locator(f'.graph-node[data-kind="{kind}"]').count() for kind in ("article", "note")}
+            assert all(initial_counts.values()) and sum(initial_counts.values()) == full_count, (width, initial_counts, graph.inner_html()[:500])
+            for kind, expected in initial_counts.items():
+                page.locator('[data-graph-option="kind"]').select_option(kind)
+                page.wait_for_function("""({kind,count}) => {
+                    const el=document.querySelector('[data-global-graph]');
+                    return el.dataset.graphKind===kind && Number(el.dataset.graphCount)===count &&
+                        el.querySelectorAll('.graph-node').length===count &&
+                        el.querySelectorAll('.graph-node[data-kind="'+kind+'"]').length===count;
+                }""", arg={"kind":kind,"count":expected})
+                assert page.locator('[data-graph-pages] a').count() == expected
+                assert graph.evaluate(check_labels)["intersections"] == 0
             page.locator('[data-graph-option="kind"]').select_option("all")
-            page.wait_for_function(f"document.querySelectorAll('[data-global-graph] .graph-node').length === {full_count}")
+            page.wait_for_function("""count => {
+                const el=document.querySelector('[data-global-graph]');
+                return el.dataset.graphKind==='all' && el.querySelectorAll('.graph-node').length===count;
+            }""", arg=full_count)
             page.locator('[data-graph-option="spread"]').evaluate("(el)=>{el.value='140';el.dispatchEvent(new Event('change',{bubbles:true}))}")
             assert graph.evaluate(check_labels)["intersections"] == 0
             page.locator('[data-graph-option="labels"]').select_option("off")
+            page.wait_for_function("Array.from(document.querySelectorAll('[data-global-graph] .graph-node text')).every(el=>getComputedStyle(el).visibility==='hidden')")
             assert graph.evaluate(check_labels)["visible"] == 0
             page.locator('[data-graph-option="labels"]').select_option("auto")
             page.locator('[data-graph-option="spread"]').evaluate("(el)=>{el.value='100';el.dispatchEvent(new Event('change',{bubbles:true}))}")
@@ -82,7 +95,7 @@ try:
             page.keyboard.press("Escape")
             assert not page.locator("#garden-graph").is_visible()
             assert not errors, (width, errors)
-            results.append({"width": width, "nodes": full_count, "preview": preview_result, "console_page_errors": errors, "status": "PASS"})
+            results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "console_page_errors": errors, "status": "PASS"})
             page.close()
         browser.close()
 finally:
