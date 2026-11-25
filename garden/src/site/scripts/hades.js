@@ -1,4 +1,5 @@
 import { installCodeCopy } from './reader-tools.js';
+import { installReadingTrail } from './reading-trail.js';
 import { installWorkspacePanes } from './workspace-panes.js';
 /** HADES' Persian reading layer for the upstream Eleventy Digital Garden. */
 export function normalizeSearchText(value = '') {
@@ -271,6 +272,7 @@ function initializeGarden() {
     }).catch(error=>{graphPromise=null;throw error;});
     return graphPromise;
   }
+  if ($('[data-reading-history]')) getGraph().then(graph => installReadingTrail({document, graph, here, storage:safeStorage})).catch(()=>{});
   function graphSubset(graph,all=false){
     if(all)return graph;
     const current=graph.nodes.find(n=>trimPath(n.url)===here);
