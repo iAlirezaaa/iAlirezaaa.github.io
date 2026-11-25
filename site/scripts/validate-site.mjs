@@ -268,7 +268,15 @@ for (const entry of blogEntries) {
     assert.ok(document.querySelector('figure.article-figure figcaption'))
     if (figure.path.startsWith('https:')) {
       assert.equal(new URL(figure.path).origin,'https://arxiv.org')
-      assert.ok(!document.querySelector('a[href="' + figure.path + '"]'))
+      // The original diagram must remain embedded. Only its own accessible enlargement
+      // fallback may link to the image; do not substitute a link or a paper-page URL.
+      const embedded = prose.querySelector('figure.article-figure img[src="' + figure.path + '"]')
+      assert.ok(embedded, 'Original diagram must be embedded in article prose')
+      const figureElement = embedded.closest('figure.article-figure')
+      const matchingLinks = document.querySelectorAll('a[href="' + figure.path + '"]')
+      assert.equal(matchingLinks.length, 1, 'Expected one image fallback, not repeated image links')
+      assert.equal(figureElement.querySelector('figcaption a.figure-open')?.getAttribute('href'), figure.path)
+      assert.ok(figureElement.querySelector('figcaption a.figure-open')?.getAttribute('aria-label'))
       assert.ok(!article.includes('#page=2'))
     } else assert.ok(fs.existsSync(path.join(dist,figure.path)))
   }
