@@ -10,7 +10,7 @@ export function installWorkspacePanes({body, storage, onChange = () => {}}) {
     navigationWidth:limit(saved.navigationWidth,180,300,230), contextWidth:limit(saved.contextWidth,180,280,240)};
   let focus = false;
   const isHidden = name => focus || !state[name];
-  const toggles = Array.from(controls.querySelectorAll('[data-workspace-toggle]'));
+  const toggles = Array.from(body.querySelectorAll('[data-workspace-toggle]'));
   const ranges = Array.from(controls.querySelectorAll('[data-workspace-width]'));
   const focusButton = controls.querySelector('[data-workspace-focus]');
   const numbers = new Intl.NumberFormat('fa-IR');
@@ -48,5 +48,6 @@ export function installWorkspacePanes({body, storage, onChange = () => {}}) {
   });
   controls.querySelector('[data-workspace-reset]').addEventListener('click',()=>{state={...defaults};focus=false;change(true);});
   apply();controls.hidden=false;
+  const ribbon=body.querySelector('[data-workspace-ribbon]');if(ribbon)ribbon.hidden=false;
   return {isHidden};
 }

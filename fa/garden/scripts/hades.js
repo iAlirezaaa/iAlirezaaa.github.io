@@ -218,6 +218,7 @@ function initializeGarden() {
     for(const panel of Object.values(panels))if(panel){panel.removeAttribute('role');panel.removeAttribute('aria-modal');}
     $$('[data-panel-open]').forEach(button=>button.setAttribute('aria-expanded','false'));
     $('.garden-layout main').inert=false;$('.garden-topbar').inert=false;
+    if($('[data-workspace-ribbon]'))$('[data-workspace-ribbon]').inert=false;
     syncPanelInert();
     if(old&&restore)panelOpener?.focus();
   }
@@ -227,6 +228,7 @@ function initializeGarden() {
     panels[name].inert=false;panels[name].setAttribute('role','dialog');panels[name].setAttribute('aria-modal','true');
     button.setAttribute('aria-expanded','true');
     $('.garden-layout main').inert=true;$('.garden-topbar').inert=true;
+    if($('[data-workspace-ribbon]'))$('[data-workspace-ribbon]').inert=true;
     $('[data-panel-close]',panels[name])?.focus();syncPanelInert();
   }
   $$('[data-panel-open]').forEach(button=>button.addEventListener('click',()=>openPanel(button.dataset.panelOpen,button)));
