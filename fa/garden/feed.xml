@@ -3,8 +3,26 @@
   <title>وبلاگ هادس</title>
   <link href="https://ialirezaaa.github.io/fa/garden/feed.xml" rel="self"/>
   <link href="https://ialirezaaa.github.io/fa/garden/"/>
-  <updated>2026-11-25T22:45:48Z</updated>
+  <updated>2026-11-25T22:48:32Z</updated>
   <id>https://ialirezaaa.github.io/fa/garden/</id><entry>
+    <title>هوش مصنوعی</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/</id>
+    <content type="html">&lt;p&gt;اینجا هوش مصنوعی را به چشم یک ابزار می‌بینیم: برای اینکه بفهمیم کدام بخش کار را ساده می‌کند، کجا کنترل بیشتری می‌دهد و چه تصمیمی هنوز با خودمان است.&lt;/p&gt;
+&lt;h2 id=&quot;مبانی-و-پژوهش&quot; tabindex=&quot;-1&quot;&gt;مبانی و پژوهش&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/diffusion/&quot;&gt;دیفیوژن؛ از نویز تا تصویر&lt;/a&gt; مسیر شروع است. اگر می‌خواهی یک مفهوم را جداگانه بفهمی، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/noise/&quot;&gt;نویز&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/seed/&quot;&gt;بذر تصادفی&lt;/a&gt; را کنار هم بخوان.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/categories/papers/&quot; class=&quot;internal-link&quot;&gt;خوانش پژوهش&lt;/a&gt; را ببین اگر می‌خواهی بفهمی یک روش چه مسئله‌ای را حل می‌کند، از کجا آمده و کجا محدود می‌شود.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;ابزار-و-تولید-تصویر&quot; tabindex=&quot;-1&quot;&gt;ابزار و تولید تصویر&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/comfyui-repo-review/&quot; class=&quot;internal-link&quot;&gt;بررسی ComfyUI&lt;/a&gt; نشان می‌دهد چرا دانستن اینکه خروجی هر نود به کجا می‌رسد، از حفظ کردن یک گردش‌کار آماده به‌دردبخورتر است.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/controlnet-depth/&quot; class=&quot;internal-link&quot;&gt;ControlNet و نقشهٔ عمق&lt;/a&gt; نقطهٔ شروع خوبی است اگر می‌خواهی ظاهر تصویر عوض شود، ولی چیدمان دور و نزدیکِ صحنه حفظ شود.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;از اینجا شروع کن:&lt;/strong&gt; اگر مسئله‌ات این است که کاراکتر بین چند تصویر عوض نشود، &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/dreambooth-character-continuity/&quot; class=&quot;internal-link&quot;&gt;خوانش DreamBooth&lt;/a&gt; را ببین. برای اینکه همین مسئله را از سمت ژست، بازی و حرکت نگاه کنی، برگرد به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;انیمیشن&lt;/a&gt;.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/"/>
+  </entry><entry>
     <title>DDPM</title>
     <updated>2026-11-25T00:00:00.000Z</updated>
     <id>https://ialirezaaa.github.io/fa/blog/notes/ddpm/</id>
@@ -71,21 +89,36 @@
 </content>
     <link href="https://ialirezaaa.github.io/fa/blog/notes/diffusion/"/>
   </entry><entry>
+    <title>سینما</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/cinema/</id>
+    <content type="html">&lt;p&gt;اگر می‌خواهی بفهمی یک صحنه چرا کار می‌کند، اول ببین فیلم چه چیزی را به تو نشان می‌دهد، چه چیزی را ازت پنهان می‌کند و چه زمانی اطلاعات تازه را رو می‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;قصه-و-کارگردانی&quot; tabindex=&quot;-1&quot;&gt;قصه و کارگردانی&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;قصه و فیلمنامه:&lt;/strong&gt; ببین شخصیت چه می‌خواهد، چه چیزی جلوش را گرفته و تا آخر صحنه چه چیزی عوض می‌شود.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;میزانسن و دکوپاژ:&lt;/strong&gt; میزانسن تعیین می‌کند بازیگرها، اشیا و نور داخل قاب چطور کنار هم قرار بگیرند. دکوپاژ تصمیم می‌گیرد همان صحنه را از چه زاویه‌هایی و در چند نما ببینیم.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;تصویر-تدوین-و-صدا&quot; tabindex=&quot;-1&quot;&gt;تصویر، تدوین و صدا&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;تصویر و دوربین:&lt;/strong&gt; اول بپرس نگاه مخاطب باید کجا برود؛ بعد برای اندازهٔ نما، زاویه، حرکت دوربین و نور تصمیم بگیر.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;تدوین و صدا:&lt;/strong&gt; برش فقط برای عوض کردن زاویه نیست. اگر صدای قدم‌ها را قبل از برش بشنویم، می‌توانیم قبل از دیدن راهرو بفهمیم کسی دارد نزدیک می‌شود.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;از اینجا شروع کن:&lt;/strong&gt; یک صحنهٔ کوتاه را یک‌بار عادی و یک‌بار بی‌صدا ببین. یادداشت کن کدام اطلاعات را تصویر داد و کدام را صدا. برای اینکه ببینی همین تصمیم‌ها در یک فیلم متحرک چطور اجرا می‌شوند، برو به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;انیمیشن&lt;/a&gt;. برای تمرین عملی، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;زاویه، اندازه و حرکت دوربین&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/&quot;&gt;قاب‌بندی و بلاکینگ&lt;/a&gt; را ببین.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/cinema/"/>
+  </entry><entry>
     <title>خانه</title>
     <updated>2026-11-25T00:00:00.000Z</updated>
     <id>https://ialirezaaa.github.io/fa/blog/notes/start/</id>
     <content type="html">&lt;p&gt;اینجا یادداشت‌ها از راه پیوندهایشان به هم می‌رسند. می‌توانی از یک نوشتهٔ مفصل شروع کنی، سراغ مفهوم‌هایش بروی و مسیر خودت را میانشان پیدا کنی.&lt;/p&gt;
 &lt;h2 id=&quot;از-کجا-شروع-کنیم&quot; tabindex=&quot;-1&quot;&gt;از کجا شروع کنیم؟&lt;/h2&gt;
-&lt;p&gt;برای شروعِ مسیر تصویرسازی با هوش مصنوعی، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/diffusion/&quot;&gt;دیفیوژن؛ از نویز تا تصویر&lt;/a&gt; را باز کن. این یادداشت به نوشتهٔ اصلی و مفهوم‌های لازم برای خواندنش وصل است.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/noise/&quot;&gt;نویز&lt;/a&gt;: نقطهٔ شروع یک تصویر چگونه ساخته می‌شود؟&lt;/li&gt;
-&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/seed/&quot;&gt;بذر تصادفی&lt;/a&gt;: چرا با یک دستور یکسان، نتیجه‌ها فرق می‌کنند؟&lt;/li&gt;
-&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/ddpm/&quot;&gt;روش DDPM&lt;/a&gt;: فرایند حذف نویز چطور یاد گرفته می‌شود؟&lt;/li&gt;
-&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/latent-diffusion/&quot;&gt;دیفیوژن نهفته&lt;/a&gt;: ساخت تصویر در فضایی کوچک‌تر چه معنایی دارد؟&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/&quot;&gt;سینما&lt;/a&gt;: قصه، دکوپاژ، دوربین، تدوین و صدا.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;انیمیشن&lt;/a&gt;: از اصول حرکت و استوری‌بورد تا ساخت و ارائهٔ اثر.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/&quot;&gt;هوش مصنوعی&lt;/a&gt;: مبانی، خواندن پژوهش و ابزارهای تولید. برای اولین مسیر، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/diffusion/&quot;&gt;دیفیوژن؛ از نویز تا تصویر&lt;/a&gt; را باز کن.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;برای مطالعهٔ حرکت، طراحی شخصیت، روایت و مراحل تولید، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;آموزش انیمیشن&lt;/a&gt; را دنبال کن.&lt;/p&gt;
 &lt;h2 id=&quot;نوشته-بعدی-را-پیدا-کن&quot; tabindex=&quot;-1&quot;&gt;نوشتهٔ بعدی را پیدا کن&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/&quot; class=&quot;internal-link&quot;&gt;همهٔ مقاله‌ها و یادداشت‌ها&lt;/a&gt; در یک فهرست گرد آمده‌اند. با جست‌وجو و فیلتر نوع نوشته، بخش و موضوع، نوشتهٔ بعدی را پیدا کن. &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/categories/&quot; class=&quot;internal-link&quot;&gt;بخش‌های وبلاگ&lt;/a&gt; شیوهٔ خواندن را مشخص می‌کنند؛ &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/tags/&quot; class=&quot;internal-link&quot;&gt;موضوع‌ها&lt;/a&gt; نوشته‌های مرتبط را کنار هم می‌آورند.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/&quot; class=&quot;internal-link&quot;&gt;همهٔ مقاله‌ها و یادداشت‌ها&lt;/a&gt; در یک فهرست گرد آمده‌اند. از جست‌وجوی مشترک، فهرست کنار صفحه یا پیوندهای هر یادداشت برای پیدا کردن مطلب بعدی استفاده کن. &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/categories/&quot; class=&quot;internal-link&quot;&gt;بخش‌های وبلاگ&lt;/a&gt; شیوهٔ خواندن را مشخص می‌کنند؛ &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/tags/&quot; class=&quot;internal-link&quot;&gt;موضوع‌ها&lt;/a&gt; نوشته‌های مرتبط را کنار هم می‌آورند.&lt;/p&gt;
 &lt;h2 id=&quot;مسیر-مطالعه-خودت-را-بساز&quot; tabindex=&quot;-1&quot;&gt;مسیر مطالعهٔ خودت را بساز&lt;/h2&gt;
 &lt;p&gt;فهرست نوشته‌ها و نقشهٔ ارتباط‌ها راه‌های ورود به موضوع‌ها هستند. فهرست بخش‌های هر صفحه کمک می‌کند به قسمت دلخواه بروی؛ بخش «در نوشته‌های دیگر» هم نوشته‌هایی را نشان می‌دهند که به همان ایده اشاره کرده‌اند. برای پیدا کردن یک عبارت در کل وبلاگ، جست‌وجو را باز کن.&lt;/p&gt;
 </content>
