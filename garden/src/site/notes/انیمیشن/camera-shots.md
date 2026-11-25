@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/camera-shots/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۴ کارگردانی و دوربین/02-camera.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Camera shots","shot sizes","camera movement"]
@@ -25,9 +28,15 @@ description: "راهنمای تصمیم‌گیری دربارهٔ نوع نما�
 
 اندازهٔ نما را با موقعیت فیزیکی دوربین و لنز اشتباه نگیر. دو قاب مشابه می‌توانند پرسپکتیو متفاوتی داشته باشند.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/shot-sizes.svg" target="_blank" rel="noopener"><img src="/img/user/animation/shot-sizes.svg" width="960" height="650" loading="lazy" decoding="async" alt="اندازهٔ نما؛ پنج نمونهٔ شماتیک از تغییر محدودهٔ قاب"></a><figcaption>شکل 1 · پنج نمونهٔ شماتیک از تغییر محدودهٔ قاب</figcaption></figure>
+
+
 ## زاویهٔ دوربین
 
 Eye Level معمولاً مشاهده‌ای نزدیک به ارتفاع چشم می‌دهد. High Angle از بالا می‌تواند رابطهٔ فضایی یا آسیب‌پذیری را تأکید کند؛ Low Angle ممکن است قدرت، ارتفاع یا تهدید را برجسته کند. نمای Top-down عمود بر زمین برای میزان‌سن و الگوهای حرکت مفید است. Dutch Angle افق را کج می‌کند و حس بی‌ثباتی می‌دهد، اما کاربرد مکرر آن ارزش تأکید را از بین می‌برد. اثر زاویه همیشه به زمینهٔ داستان بستگی دارد.
+
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 2" href="/img/user/animation/camera-angles.svg" target="_blank" rel="noopener"><img src="/img/user/animation/camera-angles.svg" width="960" height="550" loading="lazy" decoding="async" alt="زاویهٔ دوربین؛ تغییر نسبت ارتفاع دوربین به سوژه"></a><figcaption>شکل 2 · تغییر نسبت ارتفاع دوربین به سوژه</figcaption></figure>
+
 
 ## حرکت دوربین
 
@@ -41,11 +50,6 @@ Pan چرخش افقی در محل، Tilt چرخش عمودی، Roll چرخش ح�
 
 یک کنش ساده (رسیدن به در و بازکردن آن) را با پنج نمای متفاوت طراحی کن. هر نما باید اطلاعات تازه‌ای بدهد: موقعیت، هدف، جزئیات کلید، واکنش و نتیجه. قبل از انیمیت، در [[animation-storyboards|استوری‌بورد]] و [[animation-framing-blocking|بلاکینگ]] علت انتخاب دوربین را کنار شات بنویس.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/shot-sizes.svg" target="_blank" rel="noopener"><img src="/img/user/animation/shot-sizes.svg" width="960" height="650" loading="lazy" decoding="async" alt="اندازهٔ نما؛ پنج نمونهٔ شماتیک از تغییر محدودهٔ قاب"></a><figcaption>پنج نمونهٔ شماتیک از تغییر محدودهٔ قاب — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
-
-<figure class="animation-study-figure"><a href="/img/user/animation/camera-angles.svg" target="_blank" rel="noopener"><img src="/img/user/animation/camera-angles.svg" width="960" height="550" loading="lazy" decoding="async" alt="زاویهٔ دوربین؛ تغییر نسبت ارتفاع دوربین به سوژه"></a><figcaption>تغییر نسبت ارتفاع دوربین به سوژه — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -53,4 +57,4 @@ Pan چرخش افقی در محل، Tilt چرخش عمودی، Roll چرخش ح�
 
 ## منبع و اعتبار
 
-[camera shots — Mister Chad](https://mister-chad.com/animation/camera%20shots)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[camera shots — Mister Chad](https://mister-chad.com/animation/camera%20shots) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

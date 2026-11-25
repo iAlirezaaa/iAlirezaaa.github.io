@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/storyboarding-book/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۳ پیش‌تولید/03-storyboarding.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Storyboarding Essentials","storyboard book"]
@@ -45,4 +48,4 @@ description: "مرور آموزشی مستقل از محورهای کتاب اس
 
 ## منبع و اعتبار
 
-[storyboarding essentials book — Mister Chad](https://mister-chad.com/animation/storyboarding%20essentials%20book)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[storyboarding essentials book — Mister Chad](https://mister-chad.com/animation/storyboarding%20essentials%20book) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

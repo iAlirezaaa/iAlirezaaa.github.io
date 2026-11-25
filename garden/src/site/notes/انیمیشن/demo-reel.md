@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/demo-reel/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۵ نرم‌افزار و ارائه/05-demo-reel.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Demo reel","showreel","portfolio"]
@@ -37,4 +40,4 @@ description: "انتخاب نمونه‌کار، تدوین، ذکر نقش فر
 
 ## منبع و اعتبار
 
-[demo reel — Mister Chad](https://mister-chad.com/animation/demo%20reel)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[demo reel — Mister Chad](https://mister-chad.com/animation/demo%20reel) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

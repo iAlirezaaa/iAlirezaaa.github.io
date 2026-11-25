@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/aspect-ratios/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۴ کارگردانی و دوربین/03-aspect-ratios.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Aspect ratio","16:9","2.39:1","9:16"]
@@ -28,6 +31,9 @@ description: "انتخاب نسبت تصویر مناسب و محاسبهٔ کا
 
 نسبت تقریبی ۲۱:۹ را نباید بی‌دقت معادل ۲٫۳۹:۱ فرض کرد. نسبت ۲۱÷۹ حدود ۲٫۳۳ است. برای تحویل سینمایی، مشخصات پروژه و استاندارد خروجی را دقیق بگیر.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/frame-ratios.svg" target="_blank" rel="noopener"><img src="/img/user/animation/frame-ratios.svg" width="960" height="650" loading="lazy" decoding="async" alt="نسبت‌های تصویر؛ مقایسهٔ فرم قاب با نقطهٔ توجه یکسان"></a><figcaption>شکل 1 · مقایسهٔ فرم قاب با نقطهٔ توجه یکسان</figcaption></figure>
+
+
 ## انتخاب قاب با هدف روایت
 
 قاب عریض برای ارتباط چند شخصیت، چشم‌انداز و حرکت افقی مناسب است؛ قاب نزدیک به مربع می‌تواند تمرکز را روی یک شخصیت حفظ کند. قاب عمودی از فضای بالا و پایین استفاده می‌کند و برای نمایش دو نفر کنار هم محدودتر است. نسبت عریض به‌تنهایی حس سینمایی ایجاد نمی‌کند؛ چیدمان، نور و حرکت تعیین‌کننده‌اند.
@@ -38,9 +44,6 @@ description: "انتخاب نسبت تصویر مناسب و محاسبهٔ کا
 
 تمرین: یک شات گفت‌وگوی دو شخصیت را برای ۱۶:۹، ۹:۱۶ و ۲٫۳۹:۱ قاب‌بندی کن. بدون کشیدن تصویر، نقاط توجه و فضای نگاه را حفظ کن. [[animation-camera-shots|اندازهٔ نما]] و [[animation-framing-blocking|بلاکینگ]] را برای هماهنگی بیشتر مطالعه کن.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/frame-ratios.svg" target="_blank" rel="noopener"><img src="/img/user/animation/frame-ratios.svg" width="960" height="650" loading="lazy" decoding="async" alt="نسبت‌های تصویر؛ مقایسهٔ فرم قاب با نقطهٔ توجه یکسان"></a><figcaption>مقایسهٔ فرم قاب با نقطهٔ توجه یکسان — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -48,4 +51,4 @@ description: "انتخاب نسبت تصویر مناسب و محاسبهٔ کا
 
 ## منبع و اعتبار
 
-[aspect ratios — Mister Chad](https://mister-chad.com/animation/aspect%20ratios)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[aspect ratios — Mister Chad](https://mister-chad.com/animation/aspect%20ratios) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/lower-thirds/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۵ نرم‌افزار و ارائه/04-lower-thirds.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Lower thirds","title graphics","broadcast motion"]
@@ -19,6 +22,9 @@ Lower Third گرافیک اطلاعاتی است که معمولاً در بخش
 
 نام یا پیام اصلی باید پیش از توضیح فرعی خوانده شود. دو سطح اندازه و وزن تایپ کافی است. اطلاعات را در محدودهٔ امن نسبت تصویر قرار بده تا هنگام پخش و Crop بریده نشود. در خروجی عمودی محل زیرنویس و کنترل‌های اپلیکیشن را هم بررسی کن. پشت متن روشن روی تصویر متغیر، از پلاک ساده یا کنتراست سنجیده استفاده کن.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/lower-third-layout.svg" target="_blank" rel="noopener"><img src="/img/user/animation/lower-third-layout.svg" width="960" height="610" loading="lazy" decoding="async" alt="چیدمان Lower Third؛ اطلاعات در پایین قاب و دور از نقطهٔ تمرکز"></a><figcaption>شکل 1 · اطلاعات در پایین قاب و دور از نقطهٔ تمرکز</figcaption></figure>
+
+
 ## حرکت و مدت نمایش
 
 ورود، حالت ثابت و خروج سه بخش اصلی‌اند. ورود سریع و خوانا باشد، متن به اندازهٔ کافی ثابت بماند و خروج مزاحم گفتار نشود. جهت حرکت را با چیدمان فارسی هماهنگ کن. در RTL، اتصال حروف و اعداد/نام‌های لاتین را در هر وضعیت بررسی کن. اگر انیمیشن خطی یا ماسک‌دار می‌سازی، متن نباید در طول فاز اصلی خواندن ناقص بماند.
@@ -29,9 +35,6 @@ Lower Third گرافیک اطلاعاتی است که معمولاً در بخش
 
 تمرین: یک Lower Third برای مصاحبه بساز، نسخهٔ ۱۶:۹ و ۹:۱۶ را جدا طراحی کن. پس از دیدن نتیجه در اندازهٔ گوشی، هر حرکت و عنصر اضافی را که اطلاعات تازه‌ای نمی‌دهد حذف کن.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/lower-third-layout.svg" target="_blank" rel="noopener"><img src="/img/user/animation/lower-third-layout.svg" width="960" height="610" loading="lazy" decoding="async" alt="چیدمان Lower Third؛ اطلاعات در پایین قاب و دور از نقطهٔ تمرکز"></a><figcaption>اطلاعات در پایین قاب و دور از نقطهٔ تمرکز — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -39,4 +42,4 @@ Lower Third گرافیک اطلاعاتی است که معمولاً در بخش
 
 ## منبع و اعتبار
 
-[lower thirds — Mister Chad](https://mister-chad.com/animation/lower%20thirds)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[lower thirds — Mister Chad](https://mister-chad.com/animation/lower%20thirds) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

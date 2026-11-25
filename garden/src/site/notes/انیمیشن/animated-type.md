@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/animated-type/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۵ نرم‌افزار و ارائه/03-animated-type.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Animated type","Kinetic typography"]
@@ -37,4 +40,4 @@ Reveal با ماسک، ورود از خارج قاب، تغییر شفافیت،
 
 ## منبع و اعتبار
 
-[animated type — Mister Chad](https://mister-chad.com/animation/animated%20type)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[animated type — Mister Chad](https://mister-chad.com/animation/animated%20type) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

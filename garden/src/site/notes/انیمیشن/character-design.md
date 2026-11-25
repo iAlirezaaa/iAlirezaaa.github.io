@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/character-design/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۳ پیش‌تولید/04-character.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Character design","model sheet","turnaround"]
@@ -27,6 +30,9 @@ description: "فرایند طراحی شخصیت از داستان و سیلوئ
 
 مدل‌شیت نماهای جلو، نیم‌رخ، سه‌رخ و پشت را با خطوط راهنمای ارتفاع اعضا نشان می‌دهد. شیت حالت چهره، مجموعهٔ پزهای نمونه، اندازهٔ دست و پا، اشیای همراه، نمونهٔ رنگ و نشانه‌های تغییرناپذیر را هم در صورت نیاز اضافه کن. Turnaround باید حجم یکسان داشته باشد؛ نسبت‌ها بین نماها نباید تغییر تصادفی کنند. برای تولید سه‌بعدی، محدودیت حرکت مفصل، شکل دهان و لباس را در مراحل ریگ و تست پز بررسی کن.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/character-sheet.svg" target="_blank" rel="noopener"><img src="/img/user/animation/character-sheet.svg" width="960" height="560" loading="lazy" decoding="async" alt="شیت طراحی شخصیت؛ کنترل سیلوئت و ارتفاع در طراحی نمونه"></a><figcaption>شکل 1 · کنترل سیلوئت و ارتفاع در طراحی نمونه</figcaption></figure>
+
+
 ## ارتباط با محیط
 
 شخصیت تنها نیست؛ اندازه، رنگ و زبان شکل آن باید در کنار [[animation-environment-design|محیط]] و شخصیت‌های دیگر کار کند. اگر جهان داستانی سرد و معماری سخت دارد، تفاوت شکل یا رنگ شخصیت می‌تواند به تم روایت کمک کند.
@@ -35,9 +41,6 @@ description: "فرایند طراحی شخصیت از داستان و سیلوئ
 
 برای یک شخصیت که می‌خواهد دیده نشود ولی وظیفه‌ای جسورانه دارد، ۱۰ سیلوئت طراحی کن. سه گزینه را با پزهای راه‌رفتن و نشستن آزمایش کن، یکی را با نماهای هماهنگ کامل کن. پیش از جزئیات رندر، از نمای کوچک و سیلوئت بخواه نیت و فرم شخصیت را نشان بدهند.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/character-sheet.svg" target="_blank" rel="noopener"><img src="/img/user/animation/character-sheet.svg" width="960" height="560" loading="lazy" decoding="async" alt="شیت طراحی شخصیت؛ کنترل سیلوئت و ارتفاع در طراحی نمونه"></a><figcaption>کنترل سیلوئت و ارتفاع در طراحی نمونه — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -45,4 +48,4 @@ description: "فرایند طراحی شخصیت از داستان و سیلوئ
 
 ## منبع و اعتبار
 
-[character design — Mister Chad](https://mister-chad.com/animation/character%20design)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[character design — Mister Chad](https://mister-chad.com/animation/character%20design) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

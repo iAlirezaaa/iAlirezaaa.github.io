@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/adobe-animate/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۵ نرم‌افزار و ارائه/01-adobe-animate.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Adobe Animate","timeline","symbol","tween"]
@@ -18,6 +21,9 @@ Adobe Animate برای انیمیشن دوبعدی برداری، طراحی ف�
 ## آماده‌سازی سند و رابط
 
 سند را با اندازهٔ خروجی، نرخ فریم و نوع خروجی مناسب بساز. Stage محدودهٔ قابل‌دیدن، Timeline زمان و Layers ترتیب عناصر را مشخص می‌کنند. Properties تنظیمات انتخاب فعلی را نشان می‌دهد؛ با انتخاب یک شیء، لایه یا سند، محتوای آن تغییر می‌کند. مسیر بالای Stage مشخص می‌کند داخل Scene هستی یا در حال ویرایش یک Symbol تو‌در‌تو. همیشه قبل از تغییر اجزا محل ویرایش را بررسی کن.
+
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/animate-interface.svg" target="_blank" rel="noopener"><img src="/img/user/animation/animate-interface.svg" width="960" height="660" loading="lazy" decoding="async" alt="ساختار رابط Animate؛ شمای آموزشی Stage، Properties، Library و Timeline"></a><figcaption>شکل 1 · شمای آموزشی Stage، Properties، Library و Timeline</figcaption></figure>
+
 
 ## طراحی شکل‌ها
 
@@ -35,9 +41,6 @@ Frame معمولی وضعیت موجود را ادامه می‌دهد، Keyfram
 
 در یک سند ۲۴fps، یک مربع را به Symbol تبدیل کن. در فریم ۱ سمت راست، در فریم ۲۵ سمت چپ قرار بده تا یک ثانیه فاصلهٔ زمانی داشته باشی. یک نسخه با سرعت ثابت و نسخه‌ای با شروع و پایان نرم بساز. خروجی ویدئویی یا HTML5 را مطابق نوع سند بررسی کن و فایل FLA را به‌عنوان نسخهٔ قابل‌ویرایش نگه دار. از [[animation-motion-easing|منحنی‌های حرکت]] و [[animation-frame-by-frame|کی‌فریم‌گذاری]] برای درک تفاوت خروجی‌ها استفاده کن.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/animate-interface.svg" target="_blank" rel="noopener"><img src="/img/user/animation/animate-interface.svg" width="960" height="660" loading="lazy" decoding="async" alt="ساختار رابط Animate؛ شمای آموزشی Stage، Properties، Library و Timeline"></a><figcaption>شمای آموزشی Stage، Properties، Library و Timeline — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -45,4 +48,4 @@ Frame معمولی وضعیت موجود را ادامه می‌دهد، Keyfram
 
 ## منبع و اعتبار
 
-[adobe animate basics — Mister Chad](https://mister-chad.com/animation/adobe%20animate%20basics)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[adobe animate basics — Mister Chad](https://mister-chad.com/animation/adobe%20animate%20basics) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

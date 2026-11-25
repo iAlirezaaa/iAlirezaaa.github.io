@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/photoshop/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۵ نرم‌افزار و ارائه/02-photoshop.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Photoshop timeline","frame animation","video timeline"]
@@ -18,6 +21,9 @@ Photoshop برای حرکت سادهٔ تصاویر، ساخت GIF، آزمای�
 ## پنل Timeline
 
 از Window > Timeline پنل را باز کن. Frame Animation مجموعه‌ای از قاب‌ها با مدت‌های مشخص است؛ Video Timeline محور زمانی پیوسته برای لایه‌ها، کلیپ و کی‌فریم دارد. نرخ فریم را با هدف خروجی تنظیم کن و مدت لایه‌ها را قبل از ساخت حرکت مشخص کن.
+
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/photoshop-timeline.svg" target="_blank" rel="noopener"><img src="/img/user/animation/photoshop-timeline.svg" width="960" height="610" loading="lazy" decoding="async" alt="لایه‌ها و خط زمان در Photoshop؛ شمای کلیپ لایه، نشانگر زمان و کی‌فریم"></a><figcaption>شکل 1 · شمای کلیپ لایه، نشانگر زمان و کی‌فریم</figcaption></figure>
+
 
 ## Onion Skin و طراحی فریم‌ها
 
@@ -35,9 +41,6 @@ Photoshop برای حرکت سادهٔ تصاویر، ساخت GIF، آزمای�
 
 یک تصویر با سه لایهٔ پیش‌زمینه، سوژه و پس‌زمینه بساز. در دو ثانیه فاصلهٔ حرکت هر لایه را متفاوت تنظیم کن تا عمق ساده حس شود. سپس یک GIF کوچک حلقه‌ای بساز و ابتدا و انتهای حلقه را برای پرش ناخواسته بررسی کن.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/photoshop-timeline.svg" target="_blank" rel="noopener"><img src="/img/user/animation/photoshop-timeline.svg" width="960" height="610" loading="lazy" decoding="async" alt="لایه‌ها و خط زمان در Photoshop؛ شمای کلیپ لایه، نشانگر زمان و کی‌فریم"></a><figcaption>شمای کلیپ لایه، نشانگر زمان و کی‌فریم — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -45,4 +48,4 @@ Photoshop برای حرکت سادهٔ تصاویر، ساخت GIF، آزمای�
 
 ## منبع و اعتبار
 
-[photoshop timeline animation — Mister Chad](https://mister-chad.com/animation/photoshop%20timeline%20animation)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[photoshop timeline animation — Mister Chad](https://mister-chad.com/animation/photoshop%20timeline%20animation) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

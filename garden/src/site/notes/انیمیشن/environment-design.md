@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/environment-design/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۳ پیش‌تولید/05-environment.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Environment design","worldbuilding","concept art"]
@@ -23,6 +26,9 @@ description: "ساخت جهان بصری با توجه به داستان، مع�
 
 با Thumbnail کوچک، شکل‌های بزرگ، فضای منفی و نقطهٔ توجه را تعیین کن. پلان سادهٔ Top View برای اندازهٔ راه‌ها، جای درها، ارتفاع سطوح و جهت حرکت لازم است. لایه‌های foreground، midground و background عمق و پارالاکس ایجاد می‌کنند. مقیاس در، پله، مبلمان و اشیا را با قد شخصیت هماهنگ کن؛ مقیاس ناپایدار بعداً در Layout مشکل ایجاد می‌کند.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/environment-plan.svg" target="_blank" rel="noopener"><img src="/img/user/animation/environment-plan.svg" width="960" height="590" loading="lazy" decoding="async" alt="پلان و لایه‌های محیط؛ مسیر کنش، مقیاس و عمق باید پیش از تولید مشخص باشند"></a><figcaption>شکل 1 · مسیر کنش، مقیاس و عمق باید پیش از تولید مشخص باشند</figcaption></figure>
+
+
 ## زبان شکل، ماده و نور
 
 تصمیم بگیر جهان از فرم‌های گرد، زاویه‌دار، ارگانیک یا معماری منظم ساخته شده است. مواد و رنگ را بر اساس اقلیم و کارکرد تعریف کن. نور باید اطلاعات صحنه را خوانا کند. جزئیات نزدیک دوربین با جزئیات دور تفاوت دارند؛ بافت و اشیای زیاد بدون هدف، خوانایی را کم می‌کند.
@@ -33,9 +39,6 @@ description: "ساخت جهان بصری با توجه به داستان، مع�
 
 تمرین: محیط یک ایستگاه کوچک را برای ورود شتاب‌زده و خروج آرام شخصیت طراحی کن. در هر نسخه نقطهٔ توجه، مسیر، نور و فضای انتظار را به‌طور آگاهانه تغییر بده.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/environment-plan.svg" target="_blank" rel="noopener"><img src="/img/user/animation/environment-plan.svg" width="960" height="590" loading="lazy" decoding="async" alt="پلان و لایه‌های محیط؛ مسیر کنش، مقیاس و عمق باید پیش از تولید مشخص باشند"></a><figcaption>مسیر کنش، مقیاس و عمق باید پیش از تولید مشخص باشند — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -43,4 +46,4 @@ description: "ساخت جهان بصری با توجه به داستان، مع�
 
 ## منبع و اعتبار
 
-[environment design — Mister Chad](https://mister-chad.com/animation/environment%20design)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[environment design — Mister Chad](https://mister-chad.com/animation/environment%20design) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/storyboards/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۳ پیش‌تولید/02-storyboards.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Storyboard","storyboards","shot list"]
@@ -31,13 +34,13 @@ description: "روش طراحی پنل‌ها، شمارهٔ شات، راکور
 
 یک قالب قابل استفاده باید فضای کافی برای قاب و توضیحات داشته باشد. نسبت تصویر را پیش از چاپ یا طراحی انتخاب کن. نرم‌افزارهای طراحی، Storyboarder و ابزارهای تخصصی استوری‌بورد می‌توانند کاربرد داشته باشند؛ امکانات و دسترسی نسخهٔ روز را قبل از انتخاب بررسی کن. برای فیلم سه‌بعدی، تست سادهٔ Layout نیز می‌تواند به بررسی نسبت‌ها و زاویهٔ دوربین کمک کند.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/storyboard-template-fa.svg" target="_blank" rel="noopener"><img src="/img/user/animation/storyboard-template-fa.svg" width="960" height="635" loading="lazy" decoding="async" alt="قالب استوری‌بورد فارسی؛ سه پنل ۱۶:۹ با فضای قاب، کنش، دوربین و صدا"></a><figcaption>شکل 1 · سه پنل ۱۶:۹ با فضای قاب، کنش، دوربین و صدا</figcaption></figure>
+
+
 ## تمرین
 
 صحنهٔ ورود شخصیت به اتاق، یافتن شیء و واکنش او را در چهار تا شش شات طراحی کن. به هر پنل شماره و هدف روایی بده. سپس دو پنل را حذف کن و ببین آیا داستان همچنان روشن است. نسخهٔ منتخب را به [[animation-animatics|انیماتیک]] منتقل کن.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/storyboard-template-fa.svg" target="_blank" rel="noopener"><img src="/img/user/animation/storyboard-template-fa.svg" width="960" height="635" loading="lazy" decoding="async" alt="قالب استوری‌بورد فارسی؛ سه پنل ۱۶:۹ با فضای قاب، کنش، دوربین و صدا"></a><figcaption>سه پنل ۱۶:۹ با فضای قاب، کنش، دوربین و صدا — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -45,4 +48,4 @@ description: "روش طراحی پنل‌ها، شمارهٔ شات، راکور
 
 ## منبع و اعتبار
 
-[storyboards — Mister Chad](https://mister-chad.com/animation/storyboards)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[storyboards — Mister Chad](https://mister-chad.com/animation/storyboards) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/framing-blocking/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۴ کارگردانی و دوربین/01-blocking.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Framing","Blocking","Staging","Layout"]
@@ -19,6 +22,9 @@ description: "برنامه‌ریزی جای کاراکتر، دوربین، ن�
 
 فیلمنامه را به بیت‌های کنش تقسیم کن: چه کسی هدف دارد، چه مانعی پیش می‌آید و وضعیت چگونه تغییر می‌کند؟ یک پلان Top View بکش. جای درها، موانع، اشیای مهم، شخصیت‌ها و دوربین را با مقیاس نسبی مشخص کن. مسیر حرکت و محور کنش را روی پلان نشان بده.
 
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/blocking-top-view.svg" target="_blank" rel="noopener"><img src="/img/user/animation/blocking-top-view.svg" width="960" height="590" loading="lazy" decoding="async" alt="بلاکینگ از نمای بالا؛ پلان سادهٔ صحنه و جهت دوربین"></a><figcaption>شکل 1 · پلان سادهٔ صحنه و جهت دوربین</figcaption></figure>
+
+
 ## قاب و میزان‌سن
 
 نقطهٔ توجه و اندازهٔ نما را بر اساس اطلاعات هر بیت انتخاب کن. فضای نگاه و جهت حرکت در قاب را رعایت کن. در صحنهٔ دو نفره، شخصیت مهم را با سیلوئت، فاصله، نور یا جهت نگاه برجسته کن. همهٔ کاراکترها نباید هم‌زمان کنش مهم انجام دهند. از [[animation-camera-shots|زبان دوربین]] استفاده کن.
@@ -31,9 +37,6 @@ description: "برنامه‌ریزی جای کاراکتر، دوربین، ن�
 
 بلندترین و نزدیک‌ترین شات‌ها را کنار هم در [[animation-animatics|انیماتیک]] ببین. از خود بپرس: آیا مخاطب موقعیت را می‌فهمد؟ آیا مسیر شخصیت امکان‌پذیر است؟ آیا اشیا به‌درستی در دسترس‌اند؟ اگر پاسخ منفی است، تغییر قاب و جایگذاری ارزان‌تر از بازسازی انیمیشن نهایی است.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/blocking-top-view.svg" target="_blank" rel="noopener"><img src="/img/user/animation/blocking-top-view.svg" width="960" height="590" loading="lazy" decoding="async" alt="بلاکینگ از نمای بالا؛ پلان سادهٔ صحنه و جهت دوربین"></a><figcaption>پلان سادهٔ صحنه و جهت دوربین — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -41,4 +44,4 @@ description: "برنامه‌ریزی جای کاراکتر، دوربین، ن�
 
 ## منبع و اعتبار
 
-[framing and blocking — Mister Chad](https://mister-chad.com/animation/framing%20and%20blocking)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[framing and blocking — Mister Chad](https://mister-chad.com/animation/framing%20and%20blocking) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.

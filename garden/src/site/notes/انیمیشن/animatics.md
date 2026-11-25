@@ -5,6 +5,9 @@ dg-publish: true
 public: true
 permalink: /animation/animatics/
 group: انیمیشن
+contentClasses: animation-lesson
+dgShowTags: false
+dg-path: "انیمیشن/۰۴ کارگردانی و دوربین/04-animatics.md"
 kind: guide
 categoryId: fundamentals
 aliases: ["Animatic","Story reel","previs"]
@@ -18,6 +21,9 @@ description: "تبدیل استوری‌بورد به تدوین زمان‌دا
 ## فرایند ساخت
 
 تصاویر تأییدشدهٔ [[animation-storyboards|استوری‌بورد]] را با نسبت تصویر نهایی وارد تایم‌لاین کن. برای هر شات شناسهٔ ثابت، طول اولیه و نوع Cut تعیین کن. دیالوگ موقت، سکوت‌ها، افکت صوتی و در صورت نیاز حرکت سادهٔ دوربین را قرار بده. لازم نیست حرکت اندام‌ها را کامل انیمیت کنی؛ تغییر تصویر یا پز ساده می‌تواند کنش را منتقل کند.
+
+<figure class="animation-study-figure"><a class="figure-open" aria-label="بزرگ‌نمایی شکل 1" href="/img/user/animation/animatic-workflow.svg" target="_blank" rel="noopener"><img src="/img/user/animation/animatic-workflow.svg" width="960" height="500" loading="lazy" decoding="async" alt="از استوری‌بورد تا انیماتیک؛ قاب خام، زمان، صدا و بازبینی تدوین"></a><figcaption>شکل 1 · قاب خام، زمان، صدا و بازبینی تدوین</figcaption></figure>
+
 
 ## چه چیز را بسنجیم؟
 
@@ -33,9 +39,6 @@ description: "تبدیل استوری‌بورد به تدوین زمان‌دا
 
 [نمونهٔ انیماتیک Dmytro Korolov](https://vimeo.com/86179034) — نمونهٔ ویدئویی معرفی‌شده در منبع؛ ویدئو متعلق به سازندهٔ آن است.
 
-## تصویرهای آموزشی فارسی
-
-<figure class="animation-study-figure"><a href="/img/user/animation/animatic-workflow.svg" target="_blank" rel="noopener"><img src="/img/user/animation/animatic-workflow.svg" width="960" height="500" loading="lazy" decoding="async" alt="از استوری‌بورد تا انیماتیک؛ قاب خام، زمان، صدا و بازبینی تدوین"></a><figcaption>قاب خام، زمان، صدا و بازبینی تدوین — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
 
 ## ادامهٔ مطالعه
 
@@ -43,4 +46,4 @@ description: "تبدیل استوری‌بورد به تدوین زمان‌دا
 
 ## منبع و اعتبار
 
-[animatics — Mister Chad](https://mister-chad.com/animation/animatics)، مجموعهٔ آموزش Animation از Chad Bennett. این نوشته تدوین آموزشی فارسی و توضیحات مستقل تکمیلی است؛ نقل کامل متن یا ادعای تألیف منبع نیست. تصویرهای تألیفی و تصویرهای بازنشرشده در صورت وجود با اعتبار جداگانه معرفی می‌شوند.
+[animatics — Mister Chad](https://mister-chad.com/animation/animatics) — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.
