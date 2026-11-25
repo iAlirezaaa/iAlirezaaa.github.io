@@ -55,6 +55,7 @@ try:
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url, wait_until="load")
+            assert page.locator('[data-blog-comments]').count() == 0
             recent = page.locator('[data-recent-reading]')
             recent.wait_for(state='visible')
             assert recent.locator('ol a').count() == 0
@@ -231,6 +232,29 @@ try:
             # Real canonical graph links and local opt-in history (including reload).
             article_url = next(u for u in expected_urls if '/notes/' not in u)
             page.goto('http://127.0.0.1:8765' + article_url, wait_until='load')
+            comments = page.locator('[data-blog-comments]')
+            assert comments.count() == 1
+            issue = comments.get_attribute('data-issue')
+            assert issue and issue.isdigit()
+            write = comments.locator('.comment-write')
+            assert write.get_attribute('href') == 'https://github.com/iAlirezaaa/iAlirezaaa.github.io/issues/' + issue + '#new_comment_field'
+            api = 'https://api.github.com/repos/iAlirezaaa/iAlirezaaa.github.io/issues/' + issue + '/comments?per_page=100'
+            # Synthetic read-only response; never post a test comment publicly.
+            unsafe = '<img src=x onerror=alert(1)> TEST_COMMENT'
+            response = [{"id":123456,"body":unsafe,"user":{"login":"fixture-user"},"created_at":"2026-11-25T10:00:00Z"}]
+            page.route(api, lambda route: route.fulfill(status=200, headers={"Access-Control-Allow-Origin":"*"}, json=response))
+            comments.locator('[data-comments-load]').press('Enter')
+            page.wait_for_function("document.querySelector('[data-comments-list]')?.textContent.includes('TEST_COMMENT')")
+            assert comments.locator('.blog-comment-body').inner_text() == unsafe
+            assert comments.locator('[data-comments-list] img').count() == 0
+            assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+            comments.screenshot(path=str(output / f"comments-{width}.png"))
+            page.unroute(api)
+            page.route(api, lambda route: route.fulfill(status=403, headers={"Access-Control-Allow-Origin":"*"}, json={"message":"rate limit"}))
+            comments.locator('[data-comments-load]').click()
+            page.wait_for_function("document.querySelector('[data-comments-status]')?.textContent.includes('ممکن نشد')")
+            assert write.is_visible()
+            page.unroute(api)
             history = page.locator('[data-reading-history]')
             history.wait_for(state='visible')
             assert history.locator('[data-reading-toggle]').get_attribute('aria-pressed') == 'false'
