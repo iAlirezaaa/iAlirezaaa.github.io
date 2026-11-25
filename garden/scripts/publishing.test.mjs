@@ -16,6 +16,8 @@ test('publication is explicit and supports native plugin JSON frontmatter',()=>{
     const notes=readNotes(dir)
     assert.equal(notes.length,1)
     assert.equal(notes[0].title,'عمومی')
+    assert.equal(notes[0].frontmatter.permalink,'/fa/blog/notes/عام/')
+    assert.equal(notes[0].legacyUrl,'/fa/garden/عام/')
     assert.doesNotMatch(JSON.stringify(manifestFor(notes)),/SECRET_UNMARKED_SENTINEL|PRIVATE_/)
     assert.deepEqual(manifestFor(notes).notes[0].links,[])
   }finally{fs.rmSync(dir,{recursive:true,force:true})}
