@@ -158,7 +158,7 @@ function initializeGarden() {
   function filterTree() {
     if(!tree||!treeFilter)return;
     const query=normalizeSearchText(treeFilter.value);
-    const folders=$('details[data-folder]',tree), items=$('.tree-note',tree);
+    const folders=Array.from(tree.querySelectorAll('details[data-folder]')), items=Array.from(tree.querySelectorAll('.tree-note'));
     if(query&&!treeQuery)treeOpenSnapshot=new Map(folders.map(d=>[d,d.open]));
     treeQuery=query;
     let count=0;
@@ -171,7 +171,7 @@ function initializeGarden() {
     }
     for(const details of [...folders].reverse()){
       const wrapper=details.closest('.tree-folder');
-      if(query){const show=$('.tree-note',details).some(item=>!item.hidden);if(wrapper)wrapper.hidden=!show;if(show)details.open=true;}
+      if(query){const show=Array.from(details.querySelectorAll('.tree-note')).some(item=>!item.hidden);if(wrapper)wrapper.hidden=!show;if(show)details.open=true;}
       else{if(wrapper)wrapper.hidden=false;if(treeOpenSnapshot?.has(details))details.open=treeOpenSnapshot.get(details);}
     }
     if(!query)treeOpenSnapshot=null;
