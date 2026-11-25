@@ -127,7 +127,8 @@ for (const slug of ['categories','tags']) {
   assert.ok(sitemapURLs.includes(new URL(route,origin).href))
   assert.ok(blogDocument.querySelector('a[href="' + route + '"]'))
 }
-assert.ok(sitemapURLs.includes(origin + 'fa/garden/'))
+assert.ok(!sitemapURLs.includes(origin + 'fa/garden/'), 'Legacy landing must not be indexed')
+assert.ok(sitemapURLs.includes(origin + 'fa/blog/notes/noise/'), 'Migrated knowledge note missing from sitemap')
 for (const slug of ['papers','repo-analysis','fundamentals']) {
   const route = '/fa/blog/categories/' + slug + '/'
   const category = parseHTML(path.join(dist,route,'index.html'))
