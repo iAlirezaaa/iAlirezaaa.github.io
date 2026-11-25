@@ -75,7 +75,7 @@ assert.ok(index.querySelector('#articles'), 'Recent writing section missing')
 assert.equal(index.querySelectorAll('.garden-post-cover, main .garden-tags, .blog-index-overview').length, 0, 'Landing page still includes repeated covers, topic panels, or totals')
 
 const startLinks = index.querySelectorAll('#notes .start-links a[href]')
-assert.deepEqual(sorted(startLinks.map(link => link.getAttribute('href'))), [root + 'notes/diffusion/', root + 'notes/start/'], 'Start page must provide exactly the two existing study entry points')
+assert.deepEqual(sorted(startLinks.map(link => link.getAttribute('href'))), [root + 'notes/animation/', root + 'notes/diffusion/', root + 'notes/start/'], 'Start page must provide exactly three study entry points')
 const items = index.querySelectorAll('[data-content-item]')
 assert.equal(items.length, sourceArticles.length, 'Landing page should list each article once')
 assert.deepEqual(sorted(cardURLs(index, 'article')), sorted(sourceArticles.map(articleRoute)), 'Published article missing or duplicated on the start page')
@@ -113,9 +113,9 @@ for (const [id, category] of Object.entries(categories)) {
 }
 
 const legacyTopicIDs = ['ai-basics', 'diffusion', 'ai-image-making', 'paper-explainer', 'comfyui', 'workflow', 'python', 'dreambooth', 'character-continuity', 'rife', 'frame-interpolation', 'cfg', 'controlnet', 'depth-map', 'ddpm']
-const newTopicIDs = ['image-control']
+const newTopicIDs = ['image-control', 'animation']
 assert.deepEqual(sorted(Object.keys(topics)), sorted([...legacyTopicIDs, ...newTopicIDs]), 'Existing topic IDs must remain available after vocabulary changes')
-assert.equal(Object.values(topics).filter(topic => !topic.legacy).length, 15)
+assert.equal(Object.values(topics).filter(topic => !topic.legacy).length, 16)
 const topicIndex = directoryPages[2]
 assert.equal(topicIndex.querySelector('h1')?.text.trim(), blogCopy.topics.title)
 for (const id of [...legacyTopicIDs, ...newTopicIDs]) {
@@ -163,7 +163,7 @@ assert.ok(!tree.querySelector('a[href="/fa/blog/"]'), 'Blog landing page appears
 assert.ok(tree.querySelector('a[href="/fa/blog/notes/start/"]'), 'Study guide does not link directly to its canonical route')
 assert.ok(!tree.querySelector('a[href="/fa/garden/"]'), 'File tree still forces the legacy home route')
 
-console.log('PASS start page: two study entry points, ' + sourceArticles.length + ' unique article rows; all ' + expectedURLs.length + ' pages accessible in the file tree and shared search')
-console.log('PASS taxonomy: 3 sections, 16 stable/new topic routes (15 prominent), exact memberships/counts and Persian query aliases')
+console.log('PASS start page: three study entry points, ' + sourceArticles.length + ' unique article rows; all ' + expectedURLs.length + ' pages accessible in the file tree and shared search')
+console.log('PASS taxonomy: 3 sections, 17 stable/new topic routes (16 prominent), exact memberships/counts and Persian query aliases')
 console.log('PASS simplified navigation: one entry per primary action, sidebar graph, no filter/workspace/history clutter, complete no-JS links')
 console.log('Browser interaction, responsive layout and reduced motion are separate checks; this gate does not claim them.')

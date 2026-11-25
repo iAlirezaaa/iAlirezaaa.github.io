@@ -127,7 +127,7 @@ assert.ok(!editorialIndex.querySelector('.topbar-links a[href="/fa/garden/"]'), 
 assert.ok(editorialIndex.querySelector('#articles'))
 assert.ok(editorialIndex.querySelector('#notes'), 'Existing study-entry anchor must remain usable')
 const knowledgeLinks = new Set(editorialIndex.querySelectorAll('#notes .start-links a').map(link => link.getAttribute('href')))
-assert.deepEqual([...knowledgeLinks].sort(), ['/fa/blog/notes/diffusion/', '/fa/blog/notes/start/'], 'Start page must expose the guide and learning path')
+assert.deepEqual([...knowledgeLinks].sort(), ['/fa/blog/notes/animation/', '/fa/blog/notes/diffusion/', '/fa/blog/notes/start/'], 'Start page must expose the guide and learning paths')
 for (const href of knowledgeLinks) assert.ok(localFile(href), 'Broken study entry link: ' + href)
 const editorialCards = editorialIndex.querySelectorAll('.garden-post-list > li[data-content-item]')
 assert.equal(editorialCards.length, entries.length, 'Start page lost an approved article')
