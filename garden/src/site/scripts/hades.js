@@ -259,9 +259,11 @@ function initializeGarden() {
     const width=Math.max(200,container.clientWidth),height=Math.max(200,container.clientHeight);
     const svg=svgElement('svg',{viewBox:'0 0 '+width+' '+height,role:'group','aria-label':'نقشهٔ ارتباط نوشته‌ها؛ عنوان کامل با فوکوس روی نود در دسترس است.'});
     const group=svgElement('g',{'data-graph-scene':''});svg.append(group);
-    const kind=n=>n.url.includes('/notes/')?'note':'article';
+    const kind=n=>/^\/fa\/blog\/notes(?:\/|$)/.test(trimPath(n.url))?'note':'article';
     const visible=all&&interactive&&options.kind!=='all'?data.nodes.filter(n=>kind(n)===options.kind):data.nodes;
     const ids=new Set(visible.map(n=>n.id));
+    const filter=all&&interactive?options.kind:'all';
+    const counts={article:visible.filter(n=>kind(n)==='article').length,note:visible.filter(n=>kind(n)==='note').length};
     const unique=new Set();
     const rawEdges=data.links.filter(l=>{if(!ids.has(l.source)||!ids.has(l.target)||l.source===l.target)return false;const key=JSON.stringify([l.source,l.target].sort());if(unique.has(key))return false;unique.add(key);return true;});
     const degrees=new Map(visible.map(n=>[n.id,0]));
@@ -284,7 +286,7 @@ function initializeGarden() {
     const nodeEls=[];
     const status=interactive?$('[data-graph-detail]'):null;
     const total=interactive?$('[data-graph-count]'):null;
-    if(total)total.textContent=numbers.format(nodes.length)+' نوشته · '+numbers.format(edges.length)+' ارتباط';
+    if(total)total.textContent=numbers.format(counts.article)+' مقاله · '+numbers.format(counts.note)+' یادداشت · '+numbers.format(edges.length)+' ارتباط';
     let active=null;
     const state={scale:1,dx:0,dy:0,apply:null};
     function prioritize(id){
@@ -347,11 +349,16 @@ function initializeGarden() {
       const end=()=>{drag=null;svg.classList.remove('is-panning');};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);svg.addEventListener('lostpointercapture',end);
       const list=$('[data-graph-pages]');if(list){list.replaceChildren();for(const n of nodes){const li=document.createElement('li'),a=document.createElement('a');a.href=n.url;a.textContent=n.title;li.append(a);list.append(li);}}
     }
+    if(!nodes.length){container.replaceChildren(textElement('p','در این دسته نوشته‌ای نیست. نوع نوشته را تغییر بده.','graph-empty'));}
+    container.dataset.graphKind=filter;
+    container.dataset.graphCount=String(nodes.length);
   }
   async function renderLocalGraph(){const c=$('[data-local-graph]');if(!c||!c.clientWidth)return;try{drawGraph(c,graphSubset(await getGraph()));}catch{c.replaceChildren(textElement('p','گراف دریافت نشد.','muted'));}}
   async function renderAtlasPreview(){const c=$('[data-atlas-preview]');if(!c||!c.clientWidth)return;try{drawGraph(c,await getGraph(),true);}catch{c.replaceChildren(textElement('p','نقشه در دسترس نیست؛ فهرست نوشته‌ها در ادامه قرار دارد.','muted'));}}
-  async function renderGlobal(){const c=$('[data-global-graph]');if(!graphDialog?.open||!c)return;try{drawGraph(c,await getGraph(),true);}catch{c.replaceChildren(textElement('p','گراف دریافت نشد. دوباره امتحان کن.','muted'));}}
-  const resizeObserver=new ResizeObserver(entries=>{for(const e of entries){if(e.target.matches('[data-local-graph]'))renderLocalGraph();else if(e.target.matches('[data-atlas-preview]'))renderAtlasPreview();else if(graphDialog?.open)renderGlobal();}});
+  let globalRenderVersion=0;
+  async function renderGlobal(){const c=$('[data-global-graph]');if(!graphDialog?.open||!c)return;const version=++globalRenderVersion;try{const data=await getGraph();if(version!==globalRenderVersion||!graphDialog.open)return;drawGraph(c,data,true);}catch{if(version===globalRenderVersion)c.replaceChildren(textElement('p','گراف دریافت نشد. دوباره امتحان کن.','muted'));}}
+  const graphSizes=new WeakMap();
+  const resizeObserver=new ResizeObserver(entries=>{for(const e of entries){const size=Math.round(e.contentRect.width)+'x'+Math.round(e.contentRect.height);if(graphSizes.get(e.target)===size)continue;graphSizes.set(e.target,size);if(e.target.matches('[data-local-graph]'))renderLocalGraph();else if(e.target.matches('[data-atlas-preview]'))renderAtlasPreview();else if(graphDialog?.open)renderGlobal();}});
   for(const c of $$('[data-local-graph],[data-atlas-preview],[data-global-graph]'))resizeObserver.observe(c);
   $$('[data-global-graph-open]').forEach(button=>button.addEventListener('click',()=>{openDialog(graphDialog);renderGlobal();}));
   $$('[data-graph-option]').forEach(control=>{
