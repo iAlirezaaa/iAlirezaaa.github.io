@@ -96,6 +96,38 @@ for (const link of graph.links) {
 }
 for (const entry of entries) assert.ok(nodes.some(node => node.url === '/fa/blog/' + entry.slug + '/'), 'Article absent from graph: ' + entry.slug)
 
+// Editorial index and reader regression: exercise real generated markup.
+const editorialIndex = documents.get('/fa/blog/')
+assert.ok(editorialIndex, 'Blog index missing')
+const editorialCards = editorialIndex.querySelectorAll('.garden-post-list--editorial > li')
+if (editorialCards.length) {
+  assert.equal(editorialIndex.querySelectorAll('.garden-post-list--editorial > .is-featured').length, 1, 'Expected one featured article')
+  assert.ok(editorialCards[0].classList.contains('is-featured'), 'Featured article must be first')
+  for (const [index, card] of editorialCards.entries()) {
+    const cover = card.querySelector('.garden-post-cover')
+    assert.ok(cover?.getAttribute('aria-label')?.trim(), 'Unnamed cover link')
+    const image = cover.querySelector('img')
+    assert.ok(Number(image?.getAttribute('width')) > 0 && Number(image?.getAttribute('height')) > 0, 'Cover needs intrinsic dimensions')
+    assert.equal(image?.getAttribute(index === 0 ? 'fetchpriority' : 'loading'), index === 0 ? 'high' : 'lazy', 'Incorrect cover loading strategy')
+  }
+}
+const figureNumbers = new Intl.NumberFormat('fa-IR')
+for (const [route, doc] of documents) {
+  if (!doc.querySelector('main.blog-article')) continue
+  const figures = doc.querySelectorAll('.article-prose .article-figure')
+  for (const [index, figure] of figures.entries()) {
+    const caption = figure.querySelector('figcaption')
+    assert.ok(caption, 'Missing accessible figure caption: ' + route)
+    assert.equal(caption.querySelector('.figure-index')?.text.trim(), 'تصویر در این نوشته · ' + figureNumbers.format(index + 1), 'Figure order mismatch: ' + route)
+    const src = figure.querySelector('img')?.getAttribute('src') || ''
+    const open = caption.querySelector('.figure-open')
+    if (src.startsWith('/fa/blog/media/') || src.startsWith('https://arxiv.org/')) {
+      assert.equal(open?.getAttribute('href'), src, 'Original-image destination mismatch: ' + route)
+      assert.ok(open?.getAttribute('aria-label')?.includes(figureNumbers.format(index + 1)), 'Missing named image link: ' + route)
+    }
+  }
+}
+
 const search = JSON.parse(read('fa/garden/searchIndex.json'))
 assert.ok(Array.isArray(search) && search.length >= entries.length + 5, 'Search corpus missing published notes')
 assert.ok(search.some(item => /[\u0600-\u06ff]/.test(item.title) && /[\u0600-\u06ff]/.test(item.content)), 'Search corpus lost Persian Unicode')
