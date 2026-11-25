@@ -58,3 +58,19 @@ test('hidden topic directories cannot shadow published concepts with the same sl
   assert.equal(resolveNote('دیفیوژن',noteIndex([concept,conflicting])),null)
   assert.equal(resolveNote('diffusion',noteIndex([concept,conflicting])),concept)
 })
+
+import {publishedAssetPaths,listPublicAssetCandidates} from './public-assets.mjs'
+test('published asset body and properties preserve PDF/cover without leaking unrelated files',()=>{
+  const candidates=['images/cover.png','docs/example file.pdf','a/ambiguous.png','b/ambiguous.png','private.png','images/other.webp']
+  const note={content:'<iframe src="/img/user/docs/example%20file.pdf#page=2"></iframe> /img/user/../private.png',frontmatter:{cover:'[[cover.png]]','dg-note-properties':{other:'[[ambiguous.png]]',explicit:'/img/user/images/other.webp'}}}
+  assert.deepEqual(publishedAssetPaths(note,candidates),['docs/example file.pdf','images/cover.png','images/other.webp'])
+  assert.deepEqual(publishedAssetPaths({content:'',frontmatter:{cover:'[[ambiguous.png]]'}},candidates),[])
+})
+test('asset enumeration does not follow symlinks',()=>{
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'hades-assets-'))
+  try{
+    fs.writeFileSync(path.join(dir,'public.png'),'x')
+    fs.symlinkSync(path.join(dir,'public.png'),path.join(dir,'link.png'))
+    assert.deepEqual(listPublicAssetCandidates(dir),['public.png'])
+  }finally{fs.rmSync(dir,{recursive:true,force:true})}
+})

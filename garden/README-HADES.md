@@ -63,3 +63,17 @@ node site/scripts/validate-site.mjs
 پوستهٔ فارسی در فایل‌های `src/site/_includes/components/hades*`، استایل اختصاصی و `src/site/scripts/hades.js` نگهداری می‌شود. هنگام به‌روزرسانی قالب اصلی، تغییرات را در pull request بررسی و همین آزمون‌ها را اجرا کن.
 
 این راهنما مقصد انتشار را آماده می‌کند. اتصال Obsidian روی دستگاه مالک باید در خود افزونه انجام شود؛ این مخزن حاوی هیچ توکن اتصال نیست.
+
+## سازگاری قابلیت‌های اصلی Digital Garden — بدون بازطراحی
+
+مبنای تطبیق: [فهرست رسمی قابلیت‌های افزونه](https://github.com/oleeskild/obsidian-digital-garden#features) و [قالب Eleventy](https://github.com/oleeskild/digitalgarden). پوستهٔ HADES، امکانات فعلی مطالعه و مسیرهای canonical تغییر نمی‌کنند. کامنت، لایک، دیسلایک، امتیازدهی و سرویس‌های اجتماعی اضافه نمی‌شوند.
+
+- Markdown، لینک‌های ویکی/نسبی، callout، footnote، highlight، code، MathJax و PlantUML در موتور اصلی موجودند؛ قالب سفارشی مسیر ورودی را صریحاً به resolver می‌دهد.
+- Mermaid: بارگذاری نسخهٔ ثابت فقط در صفحات دارای نمودار، strict mode و نمایش متن در صورت خطای شبکه یا نمودار. PlantUML همچنان به مسیر رندر upstream وابسته است. Mermaid و PlantUML با شبکهٔ قطع‌شده تضمین نشده‌اند.
+- Bases: CSS مخصوص کامپوننت upstream، موتور query و view-switcher موجود؛ فایل‌های تصویرِ صریحاً ارجاع‌شده در property یادداشت مجاز به مرحلهٔ ساخت منتقل می‌شوند. تصویر مبهم و symlink منتقل نمی‌شوند. PDF/image/HTML asset با مسیر صریح /img/user/ از یادداشت مجاز منتقل می‌شود.
+- Canvas و Excalidraw: فایل‌های کامپایل‌شدهٔ افزونه و runtimeهای موجود حفظ می‌شوند؛ CSS فقط داخل Canvas و دیگر کامپوننت‌های محتوایی لازم بارگذاری می‌شود، نه تم اصلی. Canvas خام JSON مستقیماً قابل انتشار نیست؛ افزونه Obsidian آن را کامپایل می‌کند.
+- Dataview / DataviewJS، ترنسکلود یادداشت و بخش/بلوک، SVG، Excalidraw، فایل‌های PDF و فیلترهای regex سفارشی در زمان انتشار در خود افزونهٔ Obsidian کامپایل می‌شوند؛ نیاز به نصب/اجرای واقعی افزونه روی دستگاه مالک دارند. اجرای JavaScript دلخواه Dataview در مرورگر عمومی فعال نمی‌شود. یادداشت‌های خصوصی/پیش‌نویس هرگز خودکار به stage وارد نمی‌شوند؛ مالک نباید محتوای خصوصی را داخل یادداشت عمومی transclude کند.
+- جست‌وجو، پیش‌نمایش پیوند، filetree، backlinks، گراف کلی و محلی موجود؛ عمق ۱ تا ۳ گراف محلی با تنظیم موجود dgShowGraphDepthControl فعال می‌شود. هیچ مسیر عمومی موازی Garden اضافه نشده است.
+- تنظیمات تم Obsidian/Style Settings و تغییر آیکون‌ها/پوسته عمداً اعمال نشده‌اند (درخواست مالک: طراحی ثابت). از Vercel/Netlify/Forestry هم استفاده نمی‌شود؛ GitHub Pages فعلی حفظ شده است.
+
+آزمون اتصال واقعی افزونهٔ Obsidian و نمونه‌های محتوایی کامل از vault مالک، رندر زندهٔ Mermaid/PlantUML با شبکه، Canvas/Bases/Excalidraw روی دستگاه واقعی، و HTTP پس از deploy تا ثبت شواهد جداگانه OPEN هستند.

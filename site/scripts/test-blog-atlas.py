@@ -238,6 +238,18 @@ try:
                 center.focus()
                 assert center.get_attribute('aria-label') in detail.inner_text()
             assert local.evaluate(check_labels)['intersections'] == 0
+            depth_control = page.locator('[data-local-depth]')
+            if depth_control.count():
+                assert depth_control.is_visible()
+                valid_ids = set(node_by_id)
+                for depth in (2,3,1):
+                    found = {current['id']}
+                    for _ in range(depth):
+                        found |= {e['target'] for e in links if e['source'] in found and e['target'] in valid_ids} | {e['source'] for e in links if e['target'] in found and e['source'] in valid_ids}
+                    depth_control.select_option(str(depth))
+                    expected_depth_urls = sorted(node_by_id[i] for i in found)
+                    page.wait_for_function("""urls=>{const c=document.querySelector('[data-local-graph]');return c.dataset.graphReady==='true'&&JSON.stringify([...c.querySelectorAll('.graph-node')].map(a=>a.getAttribute('href')).sort())===JSON.stringify(urls)}""",arg=expected_depth_urls)
+                    assert local.evaluate(check_labels)['intersections'] == 0
             page.locator('[data-local-graph-section]').screenshot(path=str(output / f"local-inspector-{width}.png"))
             if width < 1241:
                 page.keyboard.press('Escape')

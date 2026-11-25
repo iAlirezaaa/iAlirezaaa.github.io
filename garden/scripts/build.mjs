@@ -5,6 +5,7 @@ import {execFileSync} from 'node:child_process'
 import {createRequire} from 'node:module'
 import {createHash} from 'node:crypto'
 import {readNotes,walk,canonicalizeWikiLinks,manifestFor,prefixText,ORIGIN,BLOG_PATH,GARDEN_PATH} from './publishing.mjs'
+import {publishedAssetPaths,listPublicAssetCandidates} from './public-assets.mjs'
 const require=createRequire(import.meta.url)
 const yaml=require('yaml')
 const dotenv=require('dotenv')
@@ -35,11 +36,14 @@ export function buildDigitalGarden(destination,extraNotes=[]) {
   // Only references in explicitly published notes authorize user-media output.
   const userAssets=path.join(stage,'src/site/img/user')
   fs.rmSync(userAssets,{recursive:true,force:true})
-  for(const note of notes)for(const match of note.content.matchAll(/\/img\/user\/([^\s"'<>\)\]]+)/g)){
-    let rel;try{rel=decodeURIComponent(match[1].split(/[?#]/)[0])}catch{continue}
-    if(rel.split('/').includes('..')||rel.includes('\\'))continue
-    const source=path.join(root,'src/site/img/user',rel)
-    if(fs.existsSync(source)&&fs.statSync(source).isFile()){const dest=path.join(userAssets,rel);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(source,dest)}
+  const sourceAssets=path.join(root,'src/site/img/user')
+  const candidates=listPublicAssetCandidates(sourceAssets)
+  const selected=new Set(notes.flatMap(note=>publishedAssetPaths(note,candidates)))
+  for(const rel of selected){
+    const source=path.join(sourceAssets,rel), dest=path.join(userAssets,rel)
+    if(!fs.lstatSync(source).isFile())continue
+    fs.mkdirSync(path.dirname(dest),{recursive:true})
+    fs.copyFileSync(source,dest)
   }
   const defaults=JSON.parse(fs.readFileSync(path.join(root,'garden.config.json'),'utf8'))
   const settings=fs.existsSync(path.join(root,'.env'))?dotenv.parse(fs.readFileSync(path.join(root,'.env'))):{}
