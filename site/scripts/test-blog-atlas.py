@@ -56,87 +56,59 @@ try:
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url, wait_until="load")
             assert page.locator('[data-blog-comments]').count() == 0
-            recent = page.locator('[data-recent-reading]')
-            recent.wait_for(state='attached')
-            assert not recent.is_visible()
-            assert recent.locator('ol a').count() == 0
+            assert page.locator('[data-recent-reading]').count() == 0
             assert page.evaluate("localStorage.getItem('hades-reading-trail-v1')") is None
-            assert recent.locator('[data-recent-manage]').get_attribute('href') == '#reading-history-title'
-            # Workspace explorer stays docked on desktop and uses the existing accessible drawer on phones.
+            # Exactly one actual primary action, shared across all viewports.
+            for selector in ('[data-panel-open="navigation"]','[data-search-open]','[data-global-graph-open]','[data-settings-open]'):
+                assert page.locator(selector).count() == 1, (width, 'duplicate control',selector)
+                assert page.locator(selector).is_visible(), (width, 'missing visible control',selector)
+            for selector in ('.workspace-strip','.workspace-ribbon','.topbar-links','.garden-search-button','[data-tree-filter]','.garden-directory-nav'):
+                assert page.locator(selector).count() == 0, (width, 'duplicate menu remains',selector)
             nav = page.locator('#garden-navigation')
-            query = page.locator('[data-tree-filter]')
-            page.wait_for_selector('[data-filetree][data-tree-ready]', state='attached')
-            assert nav.locator('[data-filetree]').get_attribute('data-tree-ready') == 'true', (width, 'tree initialization failed', errors, nav.locator('[data-filetree]').inner_html()[:500])
+            nav_button = page.locator('[data-panel-open="navigation"]')
+            page.wait_for_selector('[data-filetree][data-tree-ready="true"]',state='attached')
             if width <= 900:
                 assert nav.evaluate('(el)=>el.inert')
-                page.locator('.mobile-tree-toggle').click()
-            assert nav.is_visible() and not nav.evaluate('(el)=>el.inert'), (width,'explorer unavailable')
-            assert page.locator('.workspace-strip').count() == 1
-            assert page.locator('.topbar-links').count() == 0
-            assert page.locator('.workspace-strip').is_visible() == (width <= 900)
-            tree = nav.locator('[data-filetree]')
-            urls = tree.evaluate("el=>[...el.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).sort()")
-            assert urls == expected_tree_urls, (width, 'rendered tree URL parity', urls, expected_tree_urls, tree.inner_html()[:1000])
-            all_titles = len(urls)
-            query.fill('DDPM')
-            visible_titles = page.locator('[data-filetree] .tree-note:not([hidden]) a')
-            assert visible_titles.count() >= 1 and visible_titles.count() < all_titles
-            assert any('DDPM' in title for title in visible_titles.all_text_contents())
-            query.fill('zz-no-such-title-zz')
-            assert page.locator('[data-filetree] .tree-note:not([hidden])').count() == 0
-            query.press('Escape')
-            assert query.input_value() == '' and page.locator('[data-filetree] .tree-note:not([hidden])').count() == all_titles
+                nav_button.click()
+            assert nav.is_visible() and not nav.evaluate('(el)=>el.inert')
+            assert nav_button.get_attribute('aria-expanded') == 'true'
+            tree=nav.locator('[data-filetree]')
+            urls=tree.evaluate("el=>[...el.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).sort()")
+            assert urls == expected_tree_urls, (width,'rendered tree URL parity',urls,expected_tree_urls)
             if width <= 900:
                 page.keyboard.press('Escape')
                 assert nav.evaluate('(el)=>el.inert')
-                assert page.locator('.mobile-tree-toggle').evaluate('(el)=>document.activeElement===el')
+                assert nav_button.evaluate('(el)=>document.activeElement===el')
+            else:
+                nav_button.press('Space')
+                assert not nav.is_visible() and nav_button.get_attribute('aria-expanded') == 'false'
+                nav_button.press('Space')
+                assert nav.is_visible() and nav_button.get_attribute('aria-expanded') == 'true'
+            search = page.locator('[data-search-open]')
+            search.click()
+            assert page.locator('#garden-search').is_visible()
+            page.locator('#garden-search-input').fill('DDPM')
+            page.wait_for_function("document.querySelector('#garden-search-results')?.textContent.includes('DDPM')")
+            page.keyboard.press('Escape')
+            assert not page.locator('#garden-search').is_visible()
+            assert search.evaluate('(el)=>document.activeElement===el')
             if width > 900:
-                controls = page.locator('[data-workspace-panes]')
-                assert controls.is_visible()
+                page.locator('[data-settings-open]').click()
+                controls=page.locator('[data-workspace-panes]')
                 controls.locator('summary').click()
-                slider = controls.locator('[data-workspace-width="navigation"]')
+                slider=controls.locator('[data-workspace-width="navigation"]')
                 slider.press('End')
                 assert slider.input_value() == '300'
-                assert abs(nav.bounding_box()['width'] - 300) <= 2
-                toggle = controls.locator('[data-workspace-toggle="navigation"]')
-                toggle.click()
-                assert not nav.is_visible() and nav.evaluate('(el)=>el.inert')
-                toggle.click()
-                assert nav.is_visible() and not nav.evaluate('(el)=>el.inert')
-                focus = controls.locator('[data-workspace-focus]')
+                assert abs(nav.bounding_box()['width']-300) <= 2
+                focus=controls.locator('[data-workspace-focus]')
                 focus.click()
-                assert focus.get_attribute('aria-pressed') == 'true' and not nav.is_visible()
+                assert not nav.is_visible()
                 focus.click()
-                assert nav.is_visible() and focus.get_attribute('aria-pressed') == 'false'
+                assert nav.is_visible()
                 assert slider.input_value() == '300'
                 controls.locator('[data-workspace-reset]').click()
                 assert slider.input_value() == '230'
-                controls.locator('summary').click()
-            else:
-                assert not page.locator('[data-workspace-panes]').is_visible()
-            ribbon = page.locator('[data-workspace-ribbon]')
-            if width > 900:
-                assert ribbon.is_visible()
-                assert ribbon.bounding_box()['width'] == 44
-                assert abs(nav.bounding_box()['y'] - page.locator('.garden-topbar').bounding_box()['height']) <= 2
-                rail_toggle = ribbon.locator('[data-workspace-toggle="navigation"]')
-                rail_toggle.focus()
-                rail_toggle.press('Space')
-                assert not nav.is_visible() and rail_toggle.get_attribute('aria-pressed') == 'false'
-                rail_toggle.press('Space')
-                assert nav.is_visible() and rail_toggle.get_attribute('aria-pressed') == 'true'
-                search = ribbon.locator('[data-search-open]')
-                search.click()
-                assert page.locator('#garden-search').is_visible()
                 page.keyboard.press('Escape')
-                assert not page.locator('#garden-search').is_visible()
-                assert search.evaluate('(el)=>document.activeElement===el')
-                ribbon.locator('[data-global-graph-open]').click()
-                assert page.locator('#garden-graph').is_visible()
-                page.keyboard.press('Escape')
-                assert not page.locator('#garden-graph').is_visible()
-            else:
-                assert not ribbon.is_visible()
             page.evaluate('document.fonts.ready')
             page.screenshot(path=str(output / f"workspace-{width}.png"), full_page=False)
             preview = page.locator("[data-atlas-preview]")
@@ -152,7 +124,7 @@ try:
             assert 'مقاله' in page.locator('[data-atlas-count]').inner_text()
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), (width, "page overflow")
             preview.screenshot(path=str(output / f"preview-{width}.png"))
-            page.locator(".atlas-preview-header button").click()
+            page.locator("[data-global-graph-open]").click()
             graph = page.locator("[data-global-graph]")
             page.wait_for_selector('[data-global-graph][data-graph-ready="true"] .graph-node')
             page.evaluate("document.fonts.ready")
@@ -272,25 +244,23 @@ try:
             if width == 1440:
                 article = next(u for u in expected_urls if '/notes/' not in u)
                 page.goto('http://127.0.0.1:8765' + article, wait_until='load')
-                controls = page.locator('[data-workspace-panes]')
-                controls.locator('summary').click()
                 context = page.locator('#garden-context')
-                toggle = controls.locator('[data-workspace-toggle="context"]')
+                toggle=page.locator('[data-panel-open="context"]')
                 assert context.is_visible()
                 toggle.click()
                 assert not context.is_visible() and context.evaluate('(el)=>el.inert')
                 toggle.click()
-                slider = controls.locator('[data-workspace-width="context"]')
+                page.locator('[data-settings-open]').click()
+                controls=page.locator('[data-workspace-panes]')
+                controls.locator('summary').click()
+                slider=controls.locator('[data-workspace-width="context"]')
                 slider.press('End')
                 assert slider.input_value() == '280'
                 assert abs(context.bounding_box()['width'] - 280) <= 2
-                controls.locator('[data-workspace-focus]').click()
-                assert not context.is_visible() and not page.locator('#garden-navigation').is_visible()
-                controls.locator('[data-workspace-focus]').click()
-                assert context.is_visible() and slider.input_value() == '280'
-                assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
                 controls.locator('[data-workspace-reset]').click()
-                controls.locator('summary').click()
+                page.keyboard.press('Escape')
+                assert context.is_visible()
+                assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
                 page.screenshot(path=str(output / 'workspace-article-1440.png'),full_page=False)
             # Real canonical graph links and local opt-in history (including reload).
             article_url = next(u for u in expected_urls if '/notes/' not in u)
@@ -319,14 +289,19 @@ try:
             assert write.is_visible()
             page.unroute(api)
             history = page.locator('[data-reading-history]')
-            history.wait_for(state='visible')
+            page.wait_for_selector('[data-reading-history]:not([hidden])',state='attached')
             assert history.locator('[data-reading-toggle]').get_attribute('aria-pressed') == 'false'
+            assert page.locator('.reader-inline-toc').count() == 0
+            assert page.locator('[data-global-graph-open]').count() == 1
+            assert page.locator('[data-search-open]').count() == 1
+            assert page.locator('[data-settings-open]').count() == 1
             assert page.evaluate("localStorage.getItem('hades-reading-trail-v1')") is None
             current = raw_graph['nodes'][article_url]
             node_by_id = {n['id']:n['url'] for n in raw_graph['nodes'].values() if n['url'] in expected_urls}
             links = raw_graph.get('links', raw_graph.get('edges', []))
             related_urls = sorted({node_by_id[e['target'] if e['source']==current['id'] else e['source']] for e in links if (e['source']==current['id'] and e['target'] in node_by_id or e['target']==current['id'] and e['source'] in node_by_id)} - {article_url})
             related = page.locator('[data-reading-related]')
+            page.wait_for_selector('[data-reading-related][data-related-ready="true"]',state='attached')
             actual = sorted(related.locator('a[href]').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))"))
             assert actual == related_urls, (width, actual, related_urls)
             local = page.locator('[data-local-graph]')
@@ -362,9 +337,6 @@ try:
                     page.wait_for_function("""urls=>{const c=document.querySelector('[data-local-graph]');return c.dataset.graphReady==='true'&&JSON.stringify([...c.querySelectorAll('.graph-node')].map(a=>a.getAttribute('href')).sort())===JSON.stringify(urls)}""",arg=expected_depth_urls)
                     assert local.evaluate(check_labels)['intersections'] == 0
             page.locator('[data-local-graph-section]').screenshot(path=str(output / f"local-inspector-{width}.png"))
-            if width < 1241:
-                page.keyboard.press('Escape')
-                assert not page.locator('#garden-context').is_visible()
             relation_filter = related.locator('[data-reading-relation]')
             if related_urls:
                 assert relation_filter.is_visible()
@@ -386,37 +358,42 @@ try:
                     actual_visible = sorted(related.locator('li[data-relation]:visible a').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))"))
                     assert actual_visible == expected_visible, (width,relation,actual_visible,expected_visible)
                 related.screenshot(path=str(output / f"reading-relations-{width}.png"))
+            if width < 1241:
+                page.keyboard.press('Escape')
+                assert not page.locator('#garden-context').is_visible()
+            page.locator('[data-settings-open]').click()
+            history.locator('summary').click()
             toggle = history.locator('[data-reading-toggle]')
             toggle.focus()
             toggle.press('Space')
             assert toggle.get_attribute('aria-pressed') == 'true'
             assert history.locator('[data-reading-visits] a').count() == 1
             page.reload(wait_until='load')
+            page.locator('[data-settings-open]').click()
             history.wait_for(state='visible')
+            history.locator('summary').click()
             assert toggle.get_attribute('aria-pressed') == 'true'
             assert history.locator('[data-reading-visits] a').count() == 1
             if related_urls:
                 page.goto('http://127.0.0.1:8765' + related_urls[0], wait_until='load')
+                page.locator('[data-settings-open]').click()
                 history.wait_for(state='visible')
+                history.locator('summary').click()
                 assert history.locator('[data-reading-visits] a').count() == 2
             page.goto(url, wait_until='load')
-            recent.wait_for(state='visible')
-            expected_recent = [related_urls[0], article_url] if related_urls else [article_url]
-            assert recent.locator('ol a').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))") == expected_recent
-            recent.screenshot(path=str(output / f"recent-reading-{width}.png"))
-            recent.locator('[data-recent-manage]').press('Enter')
-            assert page.evaluate("location.hash") == '#reading-history-title'
-            assert history.is_visible()
+            assert page.locator('[data-recent-reading]').count() == 0
+            page.locator('[data-settings-open]').click()
+            history.wait_for(state='visible')
+            history.locator('summary').click()
+            expected_recent = [related_urls[0],article_url] if related_urls else [article_url]
+            assert history.locator('[data-reading-visits] a').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))") == expected_recent
             history.locator('[data-reading-clear]').click()
-            assert recent.locator('ol a').count() == 0
-            history.scroll_into_view_if_needed()
-            page.screenshot(path=str(output / f"reading-trail-{width}.png"), full_page=False)
-            assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
-            assert history.locator('[data-reading-clear]').is_disabled()
             assert history.locator('[data-reading-visits] a').count() == 0
+            assert history.locator('[data-reading-clear]').is_disabled()
             toggle.click()
-            assert recent.locator('ol a').count() == 0
             assert page.evaluate("JSON.parse(localStorage.getItem('hades-reading-trail-v1')).enabled === false")
+            page.keyboard.press('Escape')
+            assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
             assert not errors, (width, errors)
             results.append({"width": width, "nodes": full_count, "counts": initial_counts, "preview": preview_result, "background_while_modal": after, "restored_count": restored["count"], "console_page_errors": errors, "status": "PASS"})
             page.close()

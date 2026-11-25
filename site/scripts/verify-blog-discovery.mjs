@@ -62,13 +62,16 @@ for (const [id, topic] of Object.entries(topics)) {
 }
 
 const index = load(root)
+for (const selector of ['[data-search-open]','[data-global-graph-open]','[data-settings-open]','[data-panel-open="navigation"]']) assert.equal(index.querySelectorAll(selector).length,1,'Duplicate primary action: '+selector)
+for (const selector of ['.workspace-ribbon','.workspace-strip','.garden-directory-nav','.garden-search-button','[data-tree-filter]','[data-recent-reading]']) assert.equal(index.querySelectorAll(selector).length,0,'Duplicate navigation remains: '+selector)
 assert.ok(index.querySelector('body.is-directory'), 'Blog index should use the spacious directory layout')
 assert.equal(index.querySelector('h1')?.text.trim(), blogCopy.index.title)
 assert.equal(index.querySelector('#garden-context'), null, 'Directory still renders a competing context sidebar')
 const form = index.querySelector('form[data-blog-explorer]')
 assert.ok(form && form.hasAttribute('hidden'), 'Enhancement controls should stay hidden until the script initializes')
-assert.equal(form.getAttribute('role'), 'search')
-for (const name of ['q', 'kind', 'category', 'topic', 'sort']) {
+assert.equal(form.getAttribute('aria-label'), 'فیلتر نوشته‌ها')
+assert.equal(form.querySelector('[name="q"]')?.getAttribute('type'), 'hidden', 'Only the global search should expose a text search field')
+for (const name of ['kind', 'category', 'topic', 'sort']) {
   const control = form.querySelector('[name="' + name + '"]')
   assert.ok(control?.getAttribute('id'), 'Unnamed discovery control: ' + name)
   assert.ok(form.querySelector('label[for="' + control.getAttribute('id') + '"]'), 'Discovery control lacks a label: ' + name)
