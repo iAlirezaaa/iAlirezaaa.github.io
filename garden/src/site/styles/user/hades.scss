@@ -37,3 +37,31 @@
 .note-body :is(li,td,th) :not(pre)>code{max-inline-size:100%;overflow-wrap:anywhere;white-space:normal}
 @media(max-width:600px){.note-body .article-table th,.note-body .article-table td{padding:.6rem .7rem}.note-body pre.article-code{padding:.8rem .85rem;font-size:.875rem}}
 @media print{.note-body .article-table{overflow:visible;border-radius:0}.note-body .article-table table{min-inline-size:0;max-inline-size:100%;font-size:.8em}.note-body .article-table :is(th,td){min-inline-size:0;padding:.35rem .5rem}.note-body pre.article-code,.note-body .article-code>code{min-inline-size:0;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}}
+
+/* Editorial index / REVIEW. Scoped to the blog landing page, not the graph or article reader. */
+body[data-garden-page="/fa/blog/"] .garden-content{max-width:57rem}
+body[data-garden-page="/fa/blog/"] .note-header{margin-block-end:1.25rem;padding-block-end:1.35rem}
+body[data-garden-page="/fa/blog/"] .note-header h1{font-size:clamp(1.85rem,3.3vw,3rem);font-weight:550;line-height:1.55}
+body[data-garden-page="/fa/blog/"] .article-deck{font-size:1rem;color:var(--muted);line-height:2}
+body[data-garden-page="/fa/blog/"] .garden-directory-nav{margin-block:1rem 2rem;gap:.5rem}
+body[data-garden-page="/fa/blog/"] .garden-directory-nav a{border-radius:2px;background:transparent;min-height:44px}
+.note-body .garden-post-list--editorial{display:grid;gap:1.5rem;margin-block:1.4rem 2.5rem!important}
+.note-body .garden-post-list--editorial>li{min-width:0;margin:0!important;padding:0;border:1px solid var(--line);background:var(--surface);display:grid;grid-template-columns:minmax(0,1fr);overflow:visible}
+.note-body .garden-post-list--editorial>li>.garden-post-cover{display:block;min-width:0;aspect-ratio:16/9;overflow:hidden;background:var(--subtle);border:0;padding:0}
+.note-body .garden-post-list--editorial .garden-post-cover img{width:100%;height:100%;object-fit:cover;margin:0;border-radius:0;transition:transform .24s ease}
+.note-body .garden-post-list--editorial>li>div{min-width:0;padding:clamp(1rem,3vw,1.8rem)}
+.note-body .garden-post-list--editorial .is-featured{border-block-start:3px solid var(--brand)}
+.note-body .garden-post-list--editorial .editorial-kicker{display:block;color:var(--accent);font-size:.8rem;line-height:1.8;margin-block-end:.5rem;font-weight:500}
+.note-body .garden-post-list--editorial h2{font-size:clamp(1.25rem,2.2vw,1.7rem);font-weight:550;line-height:1.7;margin-block:.5rem .65rem;overflow-wrap:anywhere}
+.note-body .garden-post-list--editorial .is-featured h2{font-size:clamp(1.45rem,2.9vw,2.05rem)}
+.note-body .garden-post-list--editorial .garden-post-category{font-size:.85rem}
+.note-body .garden-post-list--editorial p{font-size:1rem;line-height:1.95;margin-block-end:.65rem}
+.note-body .garden-post-list--editorial .article-meta{font-size:.79rem;line-height:1.9}
+.note-body .garden-post-list--editorial .garden-tags{margin-block:.8rem 0;gap:.4rem}
+.note-body .garden-post-list--editorial .garden-tags a{font-size:.78rem;min-height:44px;border-radius:2px;padding:.3rem .6rem}
+.note-body .garden-post-list--editorial .garden-post-cover:focus-visible{outline-offset:-5px}
+@media screen and (min-width:1241px){body[data-garden-page="/fa/blog/"] .garden-layout{grid-template-columns:12.5rem minmax(0,1fr) 13rem;gap:clamp(1.5rem,2.2vw,2.5rem)}}
+@media screen and (min-width:1050px){.note-body .garden-post-list--editorial>li:not(.is-featured){grid-template-columns:minmax(0, .9fr) minmax(0,1.1fr);align-items:start}.note-body .garden-post-list--editorial>li:not(.is-featured)>.garden-post-cover{margin:1rem;margin-inline-end:0}}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){.note-body .garden-post-list--editorial .garden-post-cover:hover img{transform:scale(1.025)}}
+@media(prefers-reduced-motion:reduce){.note-body .garden-post-list--editorial .garden-post-cover img{transition:none}}
+@media print{.note-body .garden-post-list--editorial{display:block}.note-body .garden-post-list--editorial>li{display:block;break-inside:avoid;border-color:#888;background:#fff;color:#111;margin-block-end:1rem!important}.note-body .garden-post-list--editorial :is(h2,a,p,.editorial-kicker){color:#111!important}.note-body .garden-post-list--editorial .garden-post-cover{display:none}}
