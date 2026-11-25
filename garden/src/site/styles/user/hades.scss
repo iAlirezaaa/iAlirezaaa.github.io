@@ -287,3 +287,8 @@
 .trail-relation-label{display:block;padding:0 .4rem .4rem;color:var(--muted);font-size:.75rem}
 .trail-panel [data-relation=mutual] .trail-relation-label{border-inline-start:2px solid var(--brand);margin-inline-start:.4rem;padding-inline-start:.4rem}
 @media print{.trail-filter{display:none!important}.trail-panel [data-relation][hidden],.trail-panel [data-reading-group][hidden]{display:block!important}}
+
+/* REVIEW: local knowledge map inspector, full titles without clipped SVG labels. */
+.local-graph-inspector{border-inline-start:2px solid var(--brand);padding:.4rem .6rem;margin-block:.5rem .75rem;min-width:0}
+.local-graph-inspector p{margin:0;font-size:.78rem;line-height:1.85;color:var(--muted);overflow-wrap:anywhere}
+.local-graph-inspector [data-local-detail]{color:var(--ink);min-block-size:3.7em}
