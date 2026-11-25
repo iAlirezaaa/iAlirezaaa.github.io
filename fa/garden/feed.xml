@@ -3,12 +3,16 @@
   <title>وبلاگ هادس</title>
   <link href="https://ialirezaaa.github.io/fa/garden/feed.xml" rel="self"/>
   <link href="https://ialirezaaa.github.io/fa/garden/"/>
-  <updated>2026-11-25T22:48:32Z</updated>
+  <updated>2026-11-25T23:02:28Z</updated>
   <id>https://ialirezaaa.github.io/fa/garden/</id><entry>
     <title>هوش مصنوعی</title>
     <updated>2026-11-26T00:00:00.000Z</updated>
     <id>https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/</id>
     <content type="html">&lt;p&gt;اینجا هوش مصنوعی را به چشم یک ابزار می‌بینیم: برای اینکه بفهمیم کدام بخش کار را ساده می‌کند، کجا کنترل بیشتری می‌دهد و چه تصمیمی هنوز با خودمان است.&lt;/p&gt;
+&lt;h2 id=&quot;درس-تصویری&quot; tabindex=&quot;-1&quot;&gt;درس تصویری&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/depth-map-fog/&quot;&gt;کنترل مه با نقشهٔ عمق&lt;/a&gt;: با یک نمای ایستگاه بارانی می‌بینیم چطور نقشهٔ عمق مه را با فاصله تنظیم می‌کند و ماسک، صورت و لبهٔ مو را حفظ می‌کند.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&quot;مبانی-و-پژوهش&quot; tabindex=&quot;-1&quot;&gt;مبانی و پژوهش&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/diffusion/&quot;&gt;دیفیوژن؛ از نویز تا تصویر&lt;/a&gt; مسیر شروع است. اگر می‌خواهی یک مفهوم را جداگانه بفهمی، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/noise/&quot;&gt;نویز&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/seed/&quot;&gt;بذر تصادفی&lt;/a&gt; را کنار هم بخوان.&lt;/li&gt;
@@ -22,6 +26,49 @@
 &lt;p&gt;&lt;strong&gt;از اینجا شروع کن:&lt;/strong&gt; اگر مسئله‌ات این است که کاراکتر بین چند تصویر عوض نشود، &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/dreambooth-character-continuity/&quot; class=&quot;internal-link&quot;&gt;خوانش DreamBooth&lt;/a&gt; را ببین. برای اینکه همین مسئله را از سمت ژست، بازی و حرکت نگاه کنی، برگرد به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;انیمیشن&lt;/a&gt;.&lt;/p&gt;
 </content>
     <link href="https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/"/>
+  </entry><entry>
+    <title>depth-map-fog</title>
+    <updated>2026-11-25T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/depth-map-fog/</id>
+    <content type="html">&lt;figure class=&quot;hero article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/ai-cover.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;مسافری با پالتوی قرمز و جعبه در جلوی کادر؛ ریل‌ها تا کوه‌های مه‌گرفته ادامه دارند.&quot; decoding=&quot;async&quot; loading=&quot;eager&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;در ایستگاه بارانی، می‌خواهیم تپه‌های پشت ریل توی مه بروند، اما قرمزیِ پالتوی کاراکتر و لبه‌های صندوقِ کنار دستش باقی بمانند. اگر یک لایهٔ مه را روی کل قاب بیندازیم، رنگ و کنتراست صورت هم می‌خوابد. اگر فقط دور کاراکتر را ماسک کنیم، ممکن است مه از کنار پالتو ناگهان شروع شود و کل سکو و تپه یک اندازه مه بگیرند. برای این نما، یکی از این ابزارها جای دیگری را نمی‌گیرد: &lt;strong&gt;نقشهٔ عمق میزان مه را با فاصله تنظیم می‌کند؛ ماسک از جزئیاتی محافظت می‌کند که نقشه خوب نفهمیده است.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;ماسک-چه-می-پرسد-نقشه-عمق-چه-می-پرسد&quot; tabindex=&quot;-1&quot;&gt;ماسک چه می‌پرسد؟ نقشهٔ عمق چه می‌پرسد؟&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;ماسک&lt;/strong&gt; می‌پرسد: «این افکت کجای تصویر دیده شود؟» مشکی می‌تواند افکت را ببندد، سفید آن را کامل باز کند و خاکستری چیزی بین این دو باشد. مثلاً ماسک صورت کمک می‌کند هیجانی که قرار است از چشم‌ها بخوانیم، زیر یک لایهٔ مه گم نشود.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;نقشهٔ عمق&lt;/strong&gt; می‌پرسد: «هر قسمتِ قابل‌دیدن نسبت به دوربین کجاست؟» به جای اینکه کل سکو را یک‌دست انتخاب کنیم، می‌توانیم از ابتدای سکو تا انتهای ریل، میزان افکت را آرام تغییر بدهیم. نقشهٔ حاصل از یک مدل تک‌تصویری معمولاً برای &lt;em&gt;ترتیب نسبی&lt;/em&gt; به کار می‌آید. روشناییِ یک پیکسل لزوماً عددی نیست که بتوانیم آن را به متر تبدیل کنیم. مدل‌هایی با خروجی متریک جداگانه وجود دارند، اما لازم نیست برای این تمرین فاصلهٔ تپه را به متر بدانیم.&lt;/p&gt;
+&lt;p&gt;در این مطلب &lt;strong&gt;قراردادِ نمایش نقشه&lt;/strong&gt; را این‌طور می‌گذاریم: سفید یعنی نزدیک، سیاه یعنی دور. این قرارداد همگانی نیست. جهتِ فایل را اول روی صورت و تپه چک کن و اگر برعکس بود، همان یک بار آن را وارونه کن. نقشهٔ عمق را هم با &lt;strong&gt;ماسک مه&lt;/strong&gt; اشتباه نگیر: در ماسک نهاییِ ما، سفید یعنی &lt;em&gt;مه بیشتر&lt;/em&gt;. پس اگر نقشهٔ نمایشمان نزدیک‌ها را سفید نشان می‌دهد، باید برای ساخت ماسک مه جهت را برعکس کنیم.&lt;/p&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/ai-1.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;سه قاب آموزشی از ایستگاه: تصویر رنگی، نمای خاکستری عمق و نتیجهٔ مورد انتظار با مه دوردست.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۱. از چپ به راست: نمای رنگی، نمونهٔ آموزشیِ نقشهٔ عمق، و نمای هدف. در قاب وسط، روشن‌تر یعنی نزدیک‌تر؛ در قاب آخر مه باید بیشتر روی دوردست بنشیند، نه روی صورت و جعبه.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/ai-1.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: سه قاب آموزشی از ایستگاه: تصویر رنگی، نمای خاکستری عمق و نتیجهٔ مورد انتظار با مه دوردست.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;مه-را-روی-سه-عمق-تنظیم-کن&quot; tabindex=&quot;-1&quot;&gt;مه را روی سه عمق تنظیم کن&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;۱. تصویر اصلی و نقشه را هم‌راستا کن.&lt;/strong&gt; از همان فریم یا همان ویدیو، با همان اندازه و برش، یک نقشه بگیر. برای صحنهٔ سه‌بعدی که هنوز فایلش را داری، اول از پاس رندر مثل Mist استفاده کن، چون همان صحنه و دوربین را می‌شناسد. برای نمایی که فقط تصویر تخت آن باقی مانده، مدل تخمین عمق می‌تواند نقطهٔ شروع باشد. خروجی را در تدوینگر یا کامپوزیتور به‌عنوان دادهٔ کنترل به کار ببر، نه لایه‌ای که قرار است به شکل خاکستری روی فیلم دیده شود. اگر نرم‌افزار بین تصویر رنگی و دادهٔ خام فرق می‌گذارد، نقشه را مثل داده وارد کن تا تغییر گاما ناخواسته پاسخ مه را عوض نکند.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;۲. اول پیش‌زمینه و پس‌زمینه را بخوان.&lt;/strong&gt; کاراکتر و صندوق نزدیک‌اند، سکو و ریل فاصلهٔ میانی را پر می‌کنند و تپه‌ها دورند. اگر مدل انعکاسِ کف خیس را ته یک حفره نشان داده یا تکه‌ای از شیشه را با تپه هم‌عمق کرده، همان ناحیه را اصلاح کن. قرار نیست نقشه از نظر بصری زیبا باشد؛ کافی است برای تصمیمی که می‌گیری، عمق‌های مهم را درست از هم جدا کند.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;۳. با یک منحنی، عمق را به شدت مه تبدیل کن.&lt;/strong&gt; یک لایهٔ رنگ مه، مثلاً خاکستری مایل به رنگ آسمان، روی تصویر بگذار. نقشهٔ تبدیل‌شده را به ورودیِ شدت ترکیب بده، سپس سه نقطه را روی منحنی تنظیم کن. برای شروع، مه روی صورت و پالتو تقریباً صفر، روی انتهای سکو ملایم، و روی تپه‌ها بیشتر باشد؛ این‌ها مقدار ثابت نیستند. اگر ریل وسط راه ناگهان سفید شد، به جای کم کردن شفافیت کل افکت، زانوی منحنی را نرم‌تر کن تا مه تدریجی وارد شود. در نمای بارانی، مه را با کاهش کنتراستِ دوردست بخوان، نه با سفید کردن کل قاب: تپه می‌تواند کم‌رنگ‌تر شود و هنوز شکلش خوانا بماند.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;۴. اگر خود مه شکل و مسیر دارد، آن را جدا بساز.&lt;/strong&gt; نقشهٔ عمق به‌تنهایی نمی‌گوید ابر مه کجای سکو در حرکت است یا چراغ ایستگاه چطور ذرات را روشن می‌کند. برای یک تودهٔ کم‌ارتفاع، یک لایهٔ جدا با ماسک نرم بساز که فقط روی ارتفاعِ مدنظر فعال باشد؛ بعد از عمق برای تنظیم شدت و از ماسک کاراکتر برای پوشاندن اشتباهات لبه استفاده کن. این کنترل دوبعدی جای شبیه‌سازی کامل حجم و نور را نمی‌گیرد.&lt;/p&gt;
+&lt;h2 id=&quot;وقتی-لبه-پالتو-و-مو-خراب-می-شود&quot; tabindex=&quot;-1&quot;&gt;وقتی لبهٔ پالتو و مو خراب می‌شود&lt;/h2&gt;
+&lt;p&gt;قبل و بعد را کنار هم ببین. اگر یک خط روشن دور شانه درآمد، مه به پیکسل‌هایی رسیده که باید متعلق به پالتو باشند. نقشهٔ کل نما را محو نکن؛ این کار معمولاً فاصلهٔ درستِ پس‌زمینه را هم به لبهٔ کاراکتر می‌کشد. یک ماسک کوچک برای شانه بساز و داخل آن عمق را به مقدار نزدیکِ خود پالتو برگردان، یا همان‌جا شدت مه را کم کن. جایی که سایه یا مرز نرم است، به ماسک مقدار نرم بده؛ لبهٔ تیزِ صندوق و موی نیمه‌شفاف نباید یک جور برش بخورند.&lt;/p&gt;
+&lt;p&gt;برای یک تار مو، راه ساده این است: از همان تصویر اصلی یک ماسک لبهٔ نرم بساز، در چند فریم مسیرش را با حرکت سر هماهنگ کن و نتیجه را بزرگ نگاه کن. مهِ پشت مو باید از لابه‌لای تارها دیده شود، اما نباید رنگ روشن را روی همهٔ مو بکشد. اگر بخشی از مو واقعاً نیمه‌شفاف است، ماسکِ صفر و یکی شکلش را مثل مقوا می‌بُرد. روی بخش کاملاً مات، می‌توانی پوشش افکت را کامل ببندی؛ روی تارها با ماسک نرم، جزئیات و پس‌زمینه را متناسب با پوشانندگی ترکیب کن.&lt;/p&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/ai-2.webp&quot; width=&quot;1320&quot; height=&quot;660&quot; alt=&quot;مقایسهٔ لبهٔ مو با پوشش مه و هالهٔ روشن، کنار لبه‌ای طبیعی‌تر و جدا از مه.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۲. قاب چپ نشان می‌دهد مه چطور می‌تواند به مرز مو بچسبد. در قاب راست، مه باید پشت مو بماند و تارهای آزاد از پس‌زمینه جدا خوانده شوند.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/ai-2.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: مقایسهٔ لبهٔ مو با پوشش مه و هالهٔ روشن، کنار لبه‌ای طبیعی‌تر و جدا از مه.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;اگر-عکس-درست-است-ولی-ویدیو-می-لرزد&quot; tabindex=&quot;-1&quot;&gt;اگر عکس درست است ولی ویدیو می‌لرزد&lt;/h2&gt;
+&lt;p&gt;نقشه‌ای که فریم‌به‌فریم مستقل تولید شود ممکن است هر بار عمقِ یک لبه یا حتی خاکستریِ کل قاب را کمی جابه‌جا کند. توی پخش، این خطا به شکل تپش مه یا برق زدن دور سر دیده می‌شود. اگر مشکل در کل تصویر است، اول مطمئن شو سیاهی و سفیدی را برای هر فریم جداگانه کش نداده‌ای؛ منحنی و دامنهٔ تبدیل را برای کل پلان ثابت بگذار. اگر فقط دور کاراکتر می‌پرد، اول همان ماسک یا ناحیه را دنبال و اصلاح کن. ابزارهایی که عمق را با توجه به فریم‌های همسایه تخمین می‌زنند، نقطهٔ شروع بهتری برای تداوم‌اند؛ اما هماهنگی لبه با حرکت هنوز باید چک شود. میانگین سادهٔ چند فریم هم ممکن است پشت کاراکترِ در حال حرکت شبح درست کند. قبل از هموارسازی زمانی، حرکت را در نظر بگیر و ترتیب لایه‌ها را در چند فریم پیاپی بررسی کن.&lt;/p&gt;
+&lt;h3 id=&quot;یک-تمرین-پنج-دقیقه-ای&quot; tabindex=&quot;-1&quot;&gt;یک تمرین پنج‌دقیقه‌ای&lt;/h3&gt;
+&lt;p&gt;از یک فریمِ دارای پیش‌زمینه و پس‌زمینه سه نسخه بساز: اول مه یکنواخت، بعد مه با نقشهٔ عمق، و در آخر همان مهِ عمقی با یک اصلاح کوچک روی لبهٔ سوژه. هر سه را با رنگ مه یکسان کنار هم بگذار. به این ترتیب معلوم می‌شود تفاوت از تغییر عمق آمده یا فقط از عوض کردن رنگ و شدت. حالا ویدیو را یک بار در اندازهٔ معمولی پخش کن تا نفس کشیدن ناخواستهٔ مه را ببینی، و یک بار روی لبهٔ مو و پالتو زوم کن تا هاله را پیدا کنی.&lt;/p&gt;
+&lt;h3 id=&quot;چک-لیست-خروجی&quot; tabindex=&quot;-1&quot;&gt;چک‌لیست خروجی&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;قبل از ترکیب بررسی کردی که نقشه صورت را نزدیک‌تر از تپه نشان بدهد؟&lt;/li&gt;
+&lt;li&gt;مه در طول سکو تدریجی زیاد می‌شود یا جایی ناگهان دیوار سفید ساخته؟&lt;/li&gt;
+&lt;li&gt;لبهٔ صندوق خواناست و صورت و قرمزی پالتو هنوز از پس‌زمینه جدا می‌شوند؟&lt;/li&gt;
+&lt;li&gt;روی موی در حرکت، شیشه و زمین خیس هاله یا تپش نمی‌بینی؟&lt;/li&gt;
+&lt;li&gt;اگر مه را خاموش کنی، چیدمان قاب کاملاً همان قاب اولیه است؟&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;اگر بخواهی &lt;em&gt;ساختار تصویر تازه‌ای&lt;/em&gt; را با نقشهٔ عمق هدایت کنی، آن مسئله فرق دارد؛ راهنمای &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/controlnet-depth/&quot; class=&quot;internal-link&quot;&gt;نقشهٔ عمق و کنترل ترکیب‌بندی در ControlNet&lt;/a&gt; همان کاربرد را توضیح می‌دهد.&lt;/p&gt;
+&lt;h2 id=&quot;منابع-و-مطالعه-بیشتر&quot; tabindex=&quot;-1&quot;&gt;منابع و مطالعهٔ بیشتر&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.blender.org/manual/en/latest/render/cycles/world_settings.html#mist-pass&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;راهنمای Blender: تنظیم‌های Mist Pass&lt;/a&gt;، برای آستانهٔ شروع، دامنهٔ فاصله و شکل تغییر تدریجی مه.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://depth-anything-v2.github.io/&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;صفحهٔ رسمی Depth Anything V2&lt;/a&gt; و &lt;a href=&quot;https://github.com/DepthAnything/Depth-Anything-V2&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;مخزن سازندگان&lt;/a&gt;، برای فرق خروجی نسبی با مدل‌های متریک و مرز کاربرد مدل تک‌تصویری.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://openaccess.thecvf.com/content/CVPR2025/papers/Chen_Video_Depth_Anything_Consistent_Depth_Estimation_for_Super-Long_Videos_CVPR_2025_paper.pdf&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;مقالهٔ Video Depth Anything در CVPR&lt;/a&gt;، برای اینکه چرا ثبات نقشه در طول ویدیو در کنار دقتِ یک فریم سنجیده می‌شود.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;درس-های-مرتبط-از-همین-ایستگاه&quot; tabindex=&quot;-1&quot;&gt;درس‌های مرتبط از همین ایستگاه&lt;/h2&gt;
+&lt;p&gt;برای فرقِ «هدایت ساخت تصویر» و «اضافه‌کردن افکت روی نمای آماده»، &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/controlnet-depth/&quot; class=&quot;internal-link&quot;&gt;درس ControlNet و نقشهٔ عمق&lt;/a&gt; را کنار این مطلب بخوان. برای جای دوربین در همین ایستگاه، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/180-degree-rule/&quot;&gt;قانون ۱۸۰ درجه&lt;/a&gt; را ببین.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/depth-map-fog/"/>
   </entry><entry>
     <title>DDPM</title>
     <updated>2026-11-25T00:00:00.000Z</updated>
@@ -93,6 +140,11 @@
     <updated>2026-11-26T00:00:00.000Z</updated>
     <id>https://ialirezaaa.github.io/fa/blog/notes/cinema/</id>
     <content type="html">&lt;p&gt;اگر می‌خواهی بفهمی یک صحنه چرا کار می‌کند، اول ببین فیلم چه چیزی را به تو نشان می‌دهد، چه چیزی را ازت پنهان می‌کند و چه زمانی اطلاعات تازه را رو می‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;درس-های-تصویری&quot; tabindex=&quot;-1&quot;&gt;درس‌های تصویری&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/camera-movements/&quot;&gt;انواع حرکت دوربین&lt;/a&gt;: پن، تیلت، رول، دالی، تراک، بالا و پایین رفتن، اوربیت و زوم را با مثال قاب‌های ایستگاه از هم تشخیص بده و برای هر حرکت دلیل روایی پیدا کن.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/180-degree-rule/&quot;&gt;قانون ۱۸۰ درجه و جهت نگاه&lt;/a&gt;: با یک گفت‌وگوی دونفره در ایستگاه یاد می‌گیری محور کنش را پیدا کنی، جهت نگاه را درست نگه داری و وقتی لازم است، آگاهانه از خط رد شوی.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&quot;قصه-و-کارگردانی&quot; tabindex=&quot;-1&quot;&gt;قصه و کارگردانی&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;قصه و فیلمنامه:&lt;/strong&gt; ببین شخصیت چه می‌خواهد، چه چیزی جلوش را گرفته و تا آخر صحنه چه چیزی عوض می‌شود.&lt;/li&gt;
@@ -106,6 +158,147 @@
 &lt;p&gt;&lt;strong&gt;از اینجا شروع کن:&lt;/strong&gt; یک صحنهٔ کوتاه را یک‌بار عادی و یک‌بار بی‌صدا ببین. یادداشت کن کدام اطلاعات را تصویر داد و کدام را صدا. برای اینکه ببینی همین تصمیم‌ها در یک فیلم متحرک چطور اجرا می‌شوند، برو به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;انیمیشن&lt;/a&gt;. برای تمرین عملی، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;زاویه، اندازه و حرکت دوربین&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/&quot;&gt;قاب‌بندی و بلاکینگ&lt;/a&gt; را ببین.&lt;/p&gt;
 </content>
     <link href="https://ialirezaaa.github.io/fa/blog/notes/cinema/"/>
+  </entry><entry>
+    <title>camera-movements</title>
+    <updated>2026-11-25T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/cinema/camera-movements/</id>
+    <content type="html">&lt;figure class=&quot;hero article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-cover.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;دوربین سینمایی روی ریلِ دالی در ایستگاه، روبه‌روی سوژه‌ای با پالتوی قرمز.&quot; decoding=&quot;async&quot; loading=&quot;eager&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;تصور کن توی ایستگاه، یک نفر کنار ستون ایستاده و پشت سرش قطار پیدا می‌شود. اگر دوربین از سر جایش به طرف قطار بچرخد، انگار نگاهش را دنبال کرده‌ایم. اگر دوربین از کنار ستون رد شود، قطار کم‌کم از پشت ستون بیرون می‌آید و عمق ایستگاه را حس می‌کنیم. هر دو نما قطار را نشان می‌دهند، ولی اطلاعات را به دو شکل متفاوت به بیننده می‌رسانند. همین فرق، نقطهٔ شروع انتخاب حرکت دوربین است.&lt;/p&gt;
+&lt;h2 id=&quot;برای-تشخیص-حرکت-این-سه-سؤال-را-بپرس&quot; tabindex=&quot;-1&quot;&gt;برای تشخیص حرکت، این سه سؤال را بپرس&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;جهت نگاه دوربین عوض شد؟&lt;/strong&gt; دوربین می‌تواند تقریباً سر جایش بماند و به چپ، بالا یا دور محور خودش بچرخد.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;جای خودِ دوربین عوض شد؟&lt;/strong&gt; دوربین می‌تواند جلو برود، سر بخورد، بالا برود یا دور سوژه بچرخد. حالا نقطه‌ای که صحنه را از آن می‌بینیم عوض شده است.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;زاویهٔ دید لنز عوض شد؟&lt;/strong&gt; در زوم اپتیکی، فاصلهٔ کانونی تغییر می‌کند. ممکن است دوربین از جایش تکان نخورد، اما بخش کوچک‌تر یا بزرگ‌تری از همان صحنه را ببینیم.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;یک نما می‌تواند جواب «بله» برای هر سه سؤال داشته باشد. برای همین بهتر است قبل از اینکه اسم حرکت را انتخاب کنی، جداگانه بگویی &lt;strong&gt;دوربین کجا می‌رود، به کجا نگاه می‌کند و لنز در طول نما چه تغییری می‌کند&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;دالی-و-زوم-هر-دو-نزدیک-می-کنند-ولی-یک-جور-نه&quot; tabindex=&quot;-1&quot;&gt;دالی و زوم؛ هر دو نزدیک می‌کنند، ولی یک جور نه&lt;/h2&gt;
+&lt;p&gt;یک نفر را کنار علامتی روی همان ایستگاه بگذار. یک ستون نزدیک دوربین و یک ساعت دورتر از سوژه هم در قاب داشته باش. حالا دو نما بگیر که اندازهٔ سوژه در فریم‌های آخر تقریباً یکی باشد:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;دالی به جلو (Dolly in، گاهی «دولی»):&lt;/strong&gt; فاصلهٔ کانونی را ثابت نگه دار و خود دوربین را به سوژه نزدیک کن. چون نقطهٔ دید عوض می‌شود، نسبت اندازهٔ سوژه و ساعت در پس‌زمینه تغییر می‌کند. اگر ستون کمی کنار مسیر باشد، جایش نسبت به سوژه هم عوض می‌شود و چه‌بسا بخشی از صحنه را که پشت آن پنهان بوده ببینی.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;زوم به داخل (Zoom in):&lt;/strong&gt; دوربین را ثابت نگه دار و فاصلهٔ کانونی را بیشتر کن تا زاویهٔ دید تنگ‌تر شود. ساعت و سوژه هر دو در همان تصویری که از آن نقطه دیده می‌شود بزرگ‌تر می‌شوند؛ زوم به‌تنهایی چیزی را که پشت ستون پنهان است آشکار نمی‌کند. در مدل سادهٔ دوربین، نسبت‌های پرسپکتیو از جای دوربین می‌آیند. در عمل، بعضی لنزها هنگام زوم اعوجاج یا ظاهر تصویر را هم کمی عوض می‌کنند؛ این با جابه‌جایی نقطهٔ دید یکی نیست.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-1.webp&quot; width=&quot;1320&quot; height=&quot;660&quot; alt=&quot;دو قاب با اندازهٔ نزدیک به هم از بازیگر و اندازهٔ متفاوت کوه‌های دوردست.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۱. اندازهٔ صورت در دو قاب نزدیک به هم است، ولی کوه‌های دوردست در قاب چپ کوچک‌تر و در قاب راست بزرگ‌تر دیده می‌شوند. اگر دوربین برای رسیدن به قاب اول جلو بیاید، پرسپکتیو عوض می‌شود؛ اگر از جای دور با زوم قاب را ببندی، جای دوربین عوض نشده. این دو قاب برای مقایسهٔ نتیجهٔ بصری‌اند، نه اندازه‌گیری لنز.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-1.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: دو قاب با اندازهٔ نزدیک به هم از بازیگر و اندازهٔ متفاوت کوه‌های دوردست.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;برای مقایسه فقط به اندازهٔ صورت نگاه نکن. ببین ساعت نسبت به صورت چقدر بزرگ به نظر می‌رسد و لبهٔ ستون روی کدام بخش پس‌زمینه می‌افتد. تغییر موقعیتِ تصویرِ اجسامی که در عمق‌های مختلف‌اند، به خاطر تغییر جای دوربین، &lt;strong&gt;اختلاف منظر&lt;/strong&gt; یا &lt;strong&gt;پارالاکس&lt;/strong&gt; است. حرکت جانبی معمولاً آن را واضح‌تر از یک حرکت مستقیم و کاملاً هم‌محور نشان می‌دهد. بزرگ‌کردن بخشی از تصویر در تدوین، مثل زوم دیجیتال، جای دوربین را تغییر نمی‌دهد و جزئیاتی را که ضبط نشده‌اند اضافه نمی‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;چرخش-درجا-پن-تیلت-و-رول&quot; tabindex=&quot;-1&quot;&gt;چرخش درجا: پن، تیلت و رول&lt;/h2&gt;
+&lt;h3 id=&quot;پن-pan-نگاه-به-چپ-یا-راست&quot; tabindex=&quot;-1&quot;&gt;پن (Pan): نگاه به چپ یا راست&lt;/h3&gt;
+&lt;p&gt;دوربین روی پایه می‌ماند و جهت نگاه افقی‌اش عوض می‌شود. مثلاً از صورت مسافر شروع می‌کنی و وقتی نگاهش به سکو می‌افتد، به طرف قطار می‌چرخی. پن برای دنبال‌کردن حرکت یا نشان‌دادن چیزی که بیرون قاب است مفید است. اگر چرخش را خیلی سریع بگیری، به آن &lt;strong&gt;ویپ‌پن&lt;/strong&gt; می‌گویند؛ می‌توانی از تاری حرکت برای وصل‌کردن دو نما استفاده کنی، به شرطی که جهت، سرعت و نقطهٔ توقف دو نما به هم بخورند.&lt;/p&gt;
+&lt;h3 id=&quot;تیلت-tilt-نگاه-به-بالا-یا-پایین&quot; tabindex=&quot;-1&quot;&gt;تیلت (Tilt): نگاه به بالا یا پایین&lt;/h3&gt;
+&lt;p&gt;دوربین از همان ارتفاع به بالا یا پایین نگاه می‌کند. می‌توانی از چمدانی روی زمین شروع کنی و تا دست و بعد صورتِ صاحبش بالا بروی. فرقش با بالا بردن دوربین این است که با تیلت هنوز از همان ارتفاع به صحنه نگاه می‌کنی. اگر می‌خواهی پشت لبهٔ یک دیوار کوتاه را ببینی، شاید لازم باشد خود دوربین را بالا ببری، نه اینکه فقط سرش را بلند کنی.&lt;/p&gt;
+&lt;h3 id=&quot;رول-roll-چرخش-دور-محور-نگاه&quot; tabindex=&quot;-1&quot;&gt;رول (Roll): چرخش دور محور نگاه&lt;/h3&gt;
+&lt;p&gt;دوربین حول امتداد لنز می‌چرخد؛ طوری که انگار داری خود قاب را مثل یک فرمان می‌چرخانی. جهتِ بالا و پایینِ تصویر کج می‌شود و خط افق می‌چرخد. &lt;strong&gt;قاب کج&lt;/strong&gt; می‌تواند از اول کج و کاملاً ثابت باشد؛ رول وقتی اتفاق می‌افتد که این کجی &lt;em&gt;در طول نما&lt;/em&gt; عوض شود. اگر فقط می‌خواهی واکنش شخصیت را نزدیک‌تر ببینی، احتمالاً دلیلی برای رول نداری. اگر تماشاگر باید در همان لحظه حس کند تعادل فضایی شخصیت به هم خورده، رول ممکن است انتخاب مناسبی باشد.&lt;/p&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-2.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;چهار قاب از ایستگاه: کاراکتر و نیمکت در ردیف بالا، چکمه‌ها و ساعت در ردیف پایین.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۲. ردیف بالا: با پن، نگاه از مسافر به نیمکت می‌رود. ردیف پایین: با تیلت، نگاه از کف و کفش‌ها به ساعت می‌رسد. در هر دو حرکت، محل استقرار دوربین ثابت است؛ فرق در جهت چرخش است.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-2.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: چهار قاب از ایستگاه: کاراکتر و نیمکت در ردیف بالا، چکمه‌ها و ساعت در ردیف پایین.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;جابه-جایی-دالی-تراک-پدستال-و-حرکت-قوسی&quot; tabindex=&quot;-1&quot;&gt;جابه‌جایی: دالی، تراک، پدستال و حرکت قوسی&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;حرکت&lt;/th&gt;
+&lt;th&gt;دوربین چه می‌کند؟&lt;/th&gt;
+&lt;th&gt;نمونه در ایستگاه&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;دالی جلو یا عقب (Dolly in / out)&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;دوربین به‌صورت فیزیکی یا مجازی به سوژه نزدیک یا از او دور می‌شود. واژهٔ «دالی» گاهی به تجهیزات چرخ‌دار هم اشاره دارد که فقط برای جلو و عقب نیست.&lt;/td&gt;
+&lt;td&gt;برای نزدیک‌شدن به لحظهٔ تردید مسافر جلو برو. برای اینکه بعد از رفتن قطار اندازهٔ سکو و تنهایی او را ببینیم، عقب برو.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;تراک چپ یا راست (Truck)&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;جای دوربین به طرفین تغییر می‌کند. اگر جهت نگاه را هم تغییر بدهی، تراک را با پن ترکیب کرده‌ای.&lt;/td&gt;
+&lt;td&gt;پهلو به پهلوی لبهٔ سکو حرکت کن تا ستون‌های نزدیک با سرعت بیشتری از درهای دور عبور کنند.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;پدستال بالا یا پایین (Pedestal)&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;ارتفاع خود دوربین عوض می‌شود. می‌توانی در تمام مسیر نگاهش را افقی نگه داری.&lt;/td&gt;
+&lt;td&gt;از پشت دیوار کوتاه بالا بیا تا آنچه پشتش بود دیده شود. با تیلتِ خالی ممکن است فقط بالای همان دیوار را ببینی.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;قوس / اوربیت (Arc / Orbit)&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;دوربین روی مسیر خمیده‌ای دور سوژه حرکت می‌کند و معمولاً نگاهش را هم طوری می‌چرخاند که سوژه در قاب بماند. لازم نیست دور کامل بزنی.&lt;/td&gt;
+&lt;td&gt;از کنار صورت مسافر شروع کن و تا پشت شانه‌اش برو تا قطار را از سمت نگاه او ببینیم.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-3.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;چهار قاب از حرکت جانبی در ایستگاه و تغییر زاویهٔ دید دور شخصیت.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۳. بالا: در حرکت جانبی، ستون نزدیک نسبت به سکو و ریل‌های دور بیشتر جابه‌جا دیده می‌شود. پایین: در حرکت قوسی، دوربین دور شخصیت می‌گردد تا چهره را از زاویهٔ دیگری ببینیم.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-3.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: چهار قاب از حرکت جانبی در ایستگاه و تغییر زاویهٔ دید دور شخصیت.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;کرین یا جیب&lt;/strong&gt; اسم یک شیوهٔ اجرا با بازوی دوربین است، نه اسمِ یک محور هندسی. بسته به بازو و مسیر، دوربین می‌تواند هم بالا برود و هم جلو یا کنار برود. در سه‌بعدی هم می‌توانی مسیر مشابهی بسازی، ولی اگر از یک حرکت ساده نتیجهٔ دلخواه را می‌گیری، لازم نیست تمام آزادی‌های دوربین مجازی را هم‌زمان به کار ببری.&lt;/p&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-4.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;چهار قاب از کج شدن افق و جابه‌جایی ارتفاع دوربین.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۴. بالا: در رول، خود قاب دور محور نگاه می‌چرخد و خط‌های معماری کج می‌شوند. پایین: وقتی جای دوربین بالا می‌رود، از ارتفاع بالاتری سکو را می‌بینیم. اگر دوربین از آنجا به پایین هم نگاه کند، مثل قاب آخر، حرکت عمودی با تیلت ترکیب شده است.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/movement-4.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: چهار قاب از کج شدن افق و جابه‌جایی ارتفاع دوربین.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;دنبال-کردن-و-روی-دست-گرفتن-مسیر-حرکت-نیستند&quot; tabindex=&quot;-1&quot;&gt;دنبال‌کردن و روی دست گرفتن، مسیرِ حرکت نیستند&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;تراکینگ یا نمای تعقیبی (Tracking shot)&lt;/strong&gt; می‌گوید دوربین همراهِ کنش یا سوژه جابه‌جا می‌شود. می‌توانی جلوی مسافری که به تو نزدیک می‌شود عقب‌عقب بروی، از پهلو با او حرکت کنی، یا پشتش بمانی. جهتِ این سه یکی نیست، ولی هر سه می‌توانند نمای تعقیبی باشند. اگر دوربین سر جایش باشد و فقط به سمت مسافر بچرخد، در این دسته‌بندی آن را &lt;strong&gt;پنِ دنبال‌کننده&lt;/strong&gt; می‌نامیم. واژه‌ها بین گروه‌های فیلم‌سازی گاهی فرق دارند؛ برای هماهنگی، مسیر و نقطهٔ نگاه را روی برگهٔ نما مشخص کن.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;روی دست (Handheld)&lt;/strong&gt; می‌گوید دوربین چطور حمل می‌شود، نه اینکه از کدام طرف می‌رود. نمای تقریباً ثابت هم می‌تواند روی دست باشد. همین‌طور نمای تعقیبی می‌تواند روی دست، با گیمبال یا با دالی اجرا شود. لرزش زیاد الزاماً حسِ واقعی‌تری نمی‌دهد؛ شاید فقط خواندن چهره و دنبال‌کردن مسیر را سخت کند. اگر قصدت این است که تماشاگر وارد فضای پراضطراب شخصیت شود، اول زمانی را که باید لرزش محسوس شود تعیین کن و بعد شدت را تنظیم کن.&lt;/p&gt;
+&lt;h2 id=&quot;ترکیب-ها-اول-هدف-بعد-مسیر&quot; tabindex=&quot;-1&quot;&gt;ترکیب‌ها: اول هدف، بعد مسیر&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;تراک + پن:&lt;/strong&gt; از کنار ستون حرکت کن و کمی به سمت مسافر بچرخ تا او در یک بخش از قاب بماند. تراک کمک می‌کند ستون و پس‌زمینه نسبت به هم حرکت کنند؛ پن کمک می‌کند مسافر از قاب نرود.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;بالا رفتن + تیلت رو به پایین:&lt;/strong&gt; دوربین را بالا ببر و هم‌زمان آرام به پایین نگاه کن تا از صورت مسافر به چمدان و ریل‌ها برسی. اگر مرحلهٔ پایانی شلوغ شد، قبل از اینکه حرکت دیگری اضافه کنی، محل توقف تیلت را تغییر بده.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;دالی‌زوم (Dolly zoom):&lt;/strong&gt; به سوژه نزدیک شو و هم‌زمان زوم را باز کن، یا عقب برو و زوم را ببند. اگر درست هماهنگ باشند، اندازهٔ سوژه تقریباً ثابت می‌ماند، ولی چون جای دوربین عوض می‌شود، رابطهٔ اندازهٔ سوژه و پس‌زمینه تغییر می‌کند. این حرکت می‌تواند توجه را روی لحظه‌ای بگذارد که تصور شخصیت از فضا یا اتفاق عوض می‌شود.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;پیش از اجرا، سه فریم بکش: &lt;strong&gt;شروع، لحظهٔ کشف، پایان&lt;/strong&gt;. کنارشان بنویس بیننده دقیقاً کِی باید قطار را ببیند. شروع و توقف نرم، که در ابزار سه‌بعدی ممکن است با منحنی سرعت تنظیم شوند، برای بعضی نماها خوانایی را بهتر می‌کنند؛ اما یک توقف ناگهانی هم می‌تواند واکنش شخصیت را بازتاب دهد. سرعتِ درست لزوماً سرعتِ نرم‌تر نیست؛ سرعتی است که لحظهٔ مهم را خوانا می‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین-ده-دقیقه-ای-یک-قاب-چهار-برداشت&quot; tabindex=&quot;-1&quot;&gt;تمرین ده‌دقیقه‌ای: یک قاب، چهار برداشت&lt;/h2&gt;
+&lt;p&gt;یک کتاب روی میز بگذار، یک لیوان نزدیک گوشی و یک شیء دیگر دورتر از کتاب. اگر با گوشی کار می‌کنی، برای برداشت‌های حرکتی تا جایی که می‌شود از یک لنز ثابت استفاده کن تا سوییچ خودکار بین دوربین‌ها نتیجه را قاطی نکند. چهار برداشت سه تا پنج ثانیه‌ای بگیر:&lt;/p&gt;
+&lt;p&gt;۱. &lt;strong&gt;پن:&lt;/strong&gt; گوشی را سر جایش نگه دار و فقط نگاه را از لیوان به کتاب بچرخان.&lt;/p&gt;
+&lt;p&gt;۲. &lt;strong&gt;تراک:&lt;/strong&gt; گوشی را به چپ یا راست ببر، اما آن را هم‌زمان نچرخان. لبهٔ لیوان را نسبت به شیء دورتر نگاه کن.&lt;/p&gt;
+&lt;p&gt;۳. &lt;strong&gt;دالی:&lt;/strong&gt; گوشی را به کتاب نزدیک کن و در فریم آخر، اندازهٔ کتاب را به خاطر بسپار.&lt;/p&gt;
+&lt;p&gt;۴. &lt;strong&gt;زوم:&lt;/strong&gt; به جای اول برگرد. این بار گوشی را تکان نده و تا همان اندازهٔ تقریبی کتاب زوم کن. اگر زوم اپتیکی نداری، یک برش دیجیتال از قاب ثابت هم برای مقایسهٔ هندسی کافی است.&lt;/p&gt;
+&lt;p&gt;فریم آخرِ دالی و زوم را کنار هم بگذار. اگر کتاب تقریباً هم‌اندازه است، لیوان و شیء دور نسبت به آن چه فرقی کرده‌اند؟ همین اختلاف، راه سریعی است برای اینکه بفهمی یک نما با &lt;em&gt;نزدیک‌شدن دوربین&lt;/em&gt; ساخته شده یا با &lt;em&gt;تنگ‌تر شدن قاب&lt;/em&gt;. اگر فعلاً دوربین نداری، از لینک شروع در &lt;a href=&quot;https://github.com/iAlirezaaa/Director_Assisstant&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;راهنمای استودیوی دوربین&lt;/a&gt; استودیو را باز کن و «دالی به جلو» را با «زوم به داخل» مقایسه کن. در هر دو، به اندازهٔ سوژه و تغییر جای لبه‌های پس‌زمینه نگاه کن.&lt;/p&gt;
+&lt;h2 id=&quot;برای-ادامه&quot; tabindex=&quot;-1&quot;&gt;برای ادامه&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/&quot;&gt;مسیر سینما&lt;/a&gt;، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;زاویه، اندازه و حرکت دوربین&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/motion-easing/&quot;&gt;منحنی سرعت در انیمیشن&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.adobe.com/creativecloud/video/production/cinematography/camera-shots-and-angles/pan-shot.html&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;پن و تفاوتش با تیلت، راهنمای ادوبی&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.adobe.com/uk/creativecloud/video/production/cinematography/camera-shots-and-angles/tracking-shot.html&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;راهنمای نماهای تعقیبی، با توضیح فیلم‌بردارها&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.adobe.com/creativecloud/video/production/cinematography/camera-shots-and-angles/dolly-zoom-shot.html&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;نحوهٔ ترکیب زوم و دالی&lt;/a&gt; و &lt;a href=&quot;https://docs.blender.org/manual/en/latest/render/cameras.html&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;تنظیمات زاویهٔ دید و فاصلهٔ کانونی دوربین در مستندات بلندر&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;درس-های-مرتبط-از-همین-ایستگاه&quot; tabindex=&quot;-1&quot;&gt;درس‌های مرتبط از همین ایستگاه&lt;/h2&gt;
+&lt;p&gt;برای انتخاب اندازهٔ قاب و زاویه، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;درس اندازه و زاویهٔ نما&lt;/a&gt; را بخوان. برای کنترل جهت نگاه وقتی از این حرکت‌ها داخل گفت‌وگو استفاده می‌کنی، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/180-degree-rule/&quot;&gt;قانون ۱۸۰ درجه&lt;/a&gt; را ببین.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/cinema/camera-movements/"/>
+  </entry><entry>
+    <title>180-degree-rule</title>
+    <updated>2026-11-25T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/cinema/180-degree-rule/</id>
+    <content type="html">&lt;figure class=&quot;hero article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/cinema-cover.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;دو مسافر با پالتوهای قرمز و سبزآبی روبه‌روی هم در ایستگاه بارانی نشسته‌اند.&quot; decoding=&quot;async&quot; loading=&quot;eager&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;توی ایستگاه، باران به شیشه می‌خورد. یکی از دو نفر که پالتوی قرمز پوشیده، کلید امانتی را روی میز می‌گذارد و از نفر روبه‌رویش می‌پرسد: «تو دادی دستش؟» در نمای اول، قرمز به سمت راست قاب نگاه می‌کند. برش می‌زنی به نفر دوم، با پالتوی سبزآبی، و او هم به سمت راست نگاه می‌کند. بازیگرها جابه‌جا نشده‌اند، ولی ممکن است بیننده حس کند هر دو به نفر سومی نگاه می‌کنند. مشکل از جایی شروع شده که دوربین برای نمای دوم، از آن طرف میز سر درآورده است.&lt;/p&gt;
+&lt;h2 id=&quot;محور-۱۸۰-درجه-دقیقا-کجاست&quot; tabindex=&quot;-1&quot;&gt;محور ۱۸۰ درجه دقیقاً کجاست؟&lt;/h2&gt;
+&lt;p&gt;در یک گفت‌وگوی دونفره، از بالای صحنه نگاه کن و یک خط فرضی بین دو نفر بکش. این خط را &lt;strong&gt;محور کنش&lt;/strong&gt; یا &lt;strong&gt;خط فرضی&lt;/strong&gt; می‌گوییم. خط، فضا را به دو نیمه تقسیم می‌کند. اگر برای نماهایی که قرار است پشت‌سرهم برش بخورند، دوربین را در یک نیمه نگه داری، جهت‌های چپ و راستِ تصویر معمولاً ثابت می‌مانند. برای همین، اگر در نمای بازِ سمت اول قرمز چپ قاب و سبزآبی راست قاب باشد، در نماهای تکیِ همان سمت هم قرمز به راست و سبزآبی به چپ نگاه می‌کند.&lt;/p&gt;
+&lt;p&gt;اسم «۱۸۰ درجه» از همان نیم‌دایرهٔ فرضی می‌آید. قرار نیست لنز ۱۸۰ درجه باشد یا دوربین ۱۸۰ درجه بچرخد. می‌توانی دوربین را جلوتر، عقب‌تر، بالاتر یا پایین‌تر ببری و اندازهٔ نما را عوض کنی. چیزی که می‌خواهی ثابت بماند، &lt;strong&gt;طرف خطی است که دوربین از آن به رابطهٔ دو نفر نگاه می‌کند&lt;/strong&gt;. هر دو طرف خط برای شروع قابل استفاده‌اند؛ انتخابت به نور، چیدمان و حسی بستگی دارد که می‌خواهی بسازی.&lt;/p&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/cinema-1.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;نمای عمودی از میز ایستگاه و جای دو شخصیت در دو سر میز.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۱. از روی میز نگاه کن: خط فرضی را از شخص قرمز در یک سر میز تا شخص سبزآبی در سر دیگر بکش. برای پوشش معمول، جای دوربین‌ها را در یک طرف همین خط نگه دار.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/cinema-1.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: نمای عمودی از میز ایستگاه و جای دو شخصیت در دو سر میز.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;صحنه-ایستگاه-را-چطور-بگیریم&quot; tabindex=&quot;-1&quot;&gt;صحنهٔ ایستگاه را چطور بگیریم؟&lt;/h2&gt;
+&lt;p&gt;۱. &lt;strong&gt;یک نمای دونفره بگیر.&lt;/strong&gt; بهتر است اول یا دست‌کم برای پوشش تدوین، نمایی داشته باشی که میز، جای هر دو نفر و جهت نگاهشان معلوم باشد. این نما برای بیننده نقشهٔ صحنه می‌سازد. لازم نیست حتماً اول فیلم از آن استفاده کنی؛ گاهی نماهای تکی با نگاه‌های درست، خودشان رابطه را به‌قدر کافی روشن می‌کنند.&lt;/p&gt;
+&lt;p&gt;۲. &lt;strong&gt;نمای قرمز را از نزدیکِ شانهٔ سبزآبی بگیر.&lt;/strong&gt; قرمز که به مخاطبش نگاه می‌کند، در تصویر به سمت راست می‌بیند. اگر بخشی از شانهٔ سبزآبی را در گوشهٔ راست قاب نگه داری، جای طرف مقابل هم یادآوری می‌شود.&lt;/p&gt;
+&lt;p&gt;۳. &lt;strong&gt;نمای معکوس را از نزدیکِ شانهٔ قرمز بگیر، اما همان سمت خط بمان.&lt;/strong&gt; حالا سبزآبی به سمت چپ قاب نگاه می‌کند. این رفت‌وبرگشت را «نما و نمای معکوس» می‌گویند. هر دو نما می‌توانند بدون شانه باشند و هنوز درست به هم وصل شوند، به شرطی که مسیر نگاه‌ها خوانا باشد.&lt;/p&gt;
+&lt;p&gt;۴. &lt;strong&gt;جای نگاه را هم مشخص کن.&lt;/strong&gt; اگر بازیگر مقابل دوربین حضور ندارد، برای نگاهِ بازیگر یک نشانه نزدیک لنز، سمتِ درست و در ارتفاع تقریبی چشمِ مخاطبش بگذار. اگر یکی ایستاده و دیگری نشسته، بالاوپایینِ نگاه هم مهم است. دو نگاه ممکن است جهت چپ و راستِ درستی داشته باشند، ولی اگر هر دو جایی بالای سر یکدیگر را ببینند، حس گفت‌وگو شکل نمی‌گیرد.&lt;/p&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/cinema-2.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;سه نمای نزدیک از دو مسافر برای مقایسهٔ جهت نگاه روی پرده.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۲. از چپ به راست: قرمز به راست نگاه می‌کند، سبزآبی به چپ، بعد همان سبزآبی به راست. برش از قاب اول به دوم حس روبه‌رویی می‌دهد؛ برش از اول به سوم، جای طرف مقابل را مبهم می‌کند.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/cinema-2.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: سه نمای نزدیک از دو مسافر برای مقایسهٔ جهت نگاه روی پرده.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;تفاوت-جهت-نگاه-با-وصل-نگاه&quot; tabindex=&quot;-1&quot;&gt;تفاوت «جهت نگاه» با «وصل نگاه»&lt;/h3&gt;
+&lt;p&gt;جهت نگاه می‌گوید چشم به کدام سمت قاب است؛ &lt;strong&gt;وصل نگاه&lt;/strong&gt; کمک می‌کند بفهمیم سوژه &lt;em&gt;به چه چیزی&lt;/em&gt; نگاه می‌کند. توی همان ایستگاه، اگر قرمز اول به پایین و راست نگاه کند و بعد کلید روی میز را ببینیم، تدوین به ما می‌گوید آن نگاه احتمالاً برای کلید بوده. اگر نمای بعدی دستگیرهٔ دری باشد که بالای قاب است، اتصال دیگر به همان راحتی خوانده نمی‌شود. این تفاوت مهم است، چون رعایت محور به‌تنهایی نمی‌گوید بازیگر به چشمِ طرف مقابل نگاه کرده، به دستش یا به ساعت پشت سرش.&lt;/p&gt;
+&lt;p&gt;یک نکتهٔ ساده برای تدوین: فقط چون قرمز حرف می‌زند، لازم نیست تمام جمله را روی صورت او نگه داری. می‌توانی درست روی کلمهٔ «دادی» برش بزنی به مکث سبزآبی تا واکنشش را ببینیم. اگر نقشهٔ صحنه از قبل جا افتاده باشد، اینجا حواس بیننده به مکث می‌ماند، نه به اینکه دو نفر کجا نشسته‌اند.&lt;/p&gt;
+&lt;h2 id=&quot;چه-وقت-می-شود-از-خط-رد-شد&quot; tabindex=&quot;-1&quot;&gt;چه وقت می‌شود از خط رد شد؟&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;با حرکتِ قابل‌دیدنِ دوربین.&lt;/strong&gt; دوربین می‌تواند در همان برداشت از اطراف میز بگذرد و به نیمهٔ دیگر برسد. چون بیننده جابه‌جایی را دیده، فرصت دارد جای آدم‌ها را دوباره بفهمد. نماهای بعدی را با جهت‌های سمتِ جدید بگیر.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;با جابه‌جاییِ قابل‌دیدنِ آدم‌ها.&lt;/strong&gt; اگر سبزآبی بلند شود و کنار پنجره بایستد، خط قبلی لزوماً خط اصلی نیست. با نمایی که حرکت او و رابطهٔ تازه را نشان می‌دهد، از موقعیت جدید برای نماهای بعدی استفاده کن. برای سه نفر هم یک خط را به کل صحنه تحمیل نکن؛ ببین در هر بخش چه کسی با چه کسی روبه‌روست و اگر مخاطبِ حرف عوض شد، آن تغییر را نشان بده.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;با نمایی که موقعیتِ تازه را جا می‌اندازد.&lt;/strong&gt; یک نمای باز از سمت تازه می‌تواند به بازسازی نقشهٔ صحنه کمک کند، به‌خصوص اگر نشانه‌ای آشنا مثل پنجره و میز هر دو دیده شوند. نمای نزدیکِ کلید یا یک نمای روی خودِ محور هم گاهی ضربهٔ تغییر جهت را کمتر می‌کند، اما هیچ‌کدام خودکار به بیننده نمی‌گوید آدم‌ها حالا کجای قاب‌اند.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;با برش ناگهانی و به‌عمد.&lt;/strong&gt; اگر می‌خواهی لحظهٔ اعتراف کمی نامطمئن حس شود، پریدن به سمت دیگر می‌تواند به آن حس کمک کند. یک بار نسخهٔ پیوسته را ببین و یک بار نسخهٔ عبور را؛ جایی از این تغییر استفاده کن که اختلالِ کوتاه در جهت‌یابی به همان لحظه خدمت کند.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;سه-جا-که-معمولا-اشتباه-می-کنیم&quot; tabindex=&quot;-1&quot;&gt;سه جا که معمولاً اشتباه می‌کنیم&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;محور را نسبت به دوربین رسم می‌کنیم، نه کنش.&lt;/strong&gt; برای گفت‌وگو، خط بین افراد است. اگر بعدش سبزآبی تنها به طرف خروجی می‌رود، مسیر حرکتش می‌تواند محور آن بخش شود. اگر از چپ به راست بیرون می‌رود و در نمای بعدی هنوز همان مسیر را ادامه می‌دهد، ورود از چپ معمولاً این پیوستگی را نگه می‌دارد.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;برای نشان‌دادن طرف مقابل، دورِ میز می‌چرخیم.&lt;/strong&gt; «نمای معکوس» یعنی رو به طرف دیگر گفت‌وگو کنی، نه اینکه حتماً به نیمهٔ مقابل خط بروی. جای دوربین را روی نقشهٔ صحنه نگاه کن، حتی اگر توی یک نمای خیلی بسته فقط چشم و گونه دیده شوند.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;در تدوین، نما را آینه می‌کنیم و بقیهٔ جزئیات را فراموش می‌کنیم.&lt;/strong&gt; آینه‌کردن شاید جهت چشم را برگرداند، ولی نوشتهٔ تابلوی ایستگاه، دستِ نگه‌دارندهٔ کلید یا دکمه‌های پالتو هم عوض می‌شوند. اول سراغ نمای جایگزین یا بازیابیِ واضحِ موقعیت برو. اگر برای اصلاح از آینه استفاده می‌کنی، تمام قاب را با نماهای قبل و بعد مقایسه کن.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;تمرین-ده-دقیقه-ای-یک-گفت-وگو-دو-تدوین&quot; tabindex=&quot;-1&quot;&gt;تمرین ده‌دقیقه‌ای: یک گفت‌وگو، دو تدوین&lt;/h2&gt;
+&lt;p&gt;دو صندلی و یک شیء کوچک کافی است. با چسب کاغذی، خط بین صندلی‌ها را روی زمین مشخص کن و یک گوشی را جای دوربین بگذار. اول یک نمای باز از هر دو بگیر. بعد، از همان سمتِ چسب، یک نمای تکی از هر نفر بگیر. در آخر، فقط نمای نفر دوم را از آن طرف خط هم ضبط کن. چهار نما داری و می‌توانی دو نسخه بسازی:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;نسخهٔ اول:&lt;/strong&gt; نمای باز، نمای تکی نفر اول، نمای تکی نفر دوم از همان سمت.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;نسخهٔ دوم:&lt;/strong&gt; همان دو نمای اول و این بار نمای تکی نفر دوم از سمت مقابل.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;هر دو نسخه را بدون صدا به کسی نشان بده که پشت دوربین نبوده. فقط بپرس «هر نفر به کجا نگاه می‌کرد؟» و «اگه نفر دوم دستش رو به سمت کلید دراز کنه، کلید رو کدوم طرفِ قاب انتظار داری؟» اگر جهت در نسخهٔ دوم عوض شد، آن را یک بار با نمای باز از سمت تازه امتحان کن و ببین آیا بیننده دوباره موقعیت را پیدا می‌کند. در انیمیشن هم همین تمرین را می‌توانی با سه قاب ساده در استوری‌بورد انجام بدهی؛ لازم نیست اول صحنه را مدل کنی.&lt;/p&gt;
+&lt;h2 id=&quot;برای-ادامه&quot; tabindex=&quot;-1&quot;&gt;برای ادامه&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/&quot;&gt;برگرد به مسیر سینما&lt;/a&gt; و اگر دنبال تمرین قاب‌بندی هستی، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/&quot;&gt;قاب‌بندی و بلاکینگ&lt;/a&gt; را ببین.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://open.library.okstate.edu/introfilmtv/part/editing/&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;فصل «تدوین»، دانشگاه ایالتی اکلاهما&lt;/a&gt;، برای فرق محور کنش، وصل نگاه و وصل حرکت.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.adobe.com/creativecloud/video/production/cinematography/camera-shots-and-angles/reverse-shot.html&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;راهنمای «نما و نمای معکوس» ادوبی&lt;/a&gt;، با توضیح فیلم‌سازها دربارهٔ جای دوربین، جهت نگاه و انتخاب زمان برش.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;درس-های-مرتبط-از-همین-ایستگاه&quot; tabindex=&quot;-1&quot;&gt;درس‌های مرتبط از همین ایستگاه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;اندازه و زاویهٔ نما&lt;/a&gt; به انتخاب جای دوربین کمک می‌کند. از آنجا می‌توانی سراغ &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/lifting-weight/&quot;&gt;طراحی وزن در حرکت&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/depth-map-fog/&quot;&gt;ایجاد مه با نقشهٔ عمق&lt;/a&gt; در همین ایستگاه بروی.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/cinema/180-degree-rule/"/>
   </entry><entry>
     <title>خانه</title>
     <updated>2026-11-25T00:00:00.000Z</updated>
@@ -410,6 +603,91 @@
 </content>
     <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/lower-thirds/"/>
   </entry><entry>
+    <title>lifting-weight</title>
+    <updated>2026-11-25T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/lifting-weight/</id>
+    <content type="html">&lt;figure class=&quot;hero article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/animation-cover.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;کاراکتری با پالتوی قرمز در ایستگاه بارانی جعبه‌ای را با هر دو دست از نزدیک کف بلند می‌کند.&quot; decoding=&quot;async&quot; loading=&quot;eager&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;بارون می‌باره و توی ایستگاه، کاراکتری با پالتوی قرمز می‌خواد یه جعبهٔ چوبی رو از زمین برداره. دست‌هاش به جعبه می‌رسن، بدن صاف می‌شه و جعبه بالا میاد. همه‌چیز از نظر «مسیر حرکت» درسته، ولی جعبه انگار خالیه. چرا؟ چون هنوز ندیدیم که &lt;strong&gt;جعبه چه تغییری به حرکت بدن تحمیل کرده&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;برای اینکه وزن دیده بشه، لازم نیست جعبه رو بزرگ‌تر کنی یا کل نما رو آهسته‌تر کنی. اول نگاه کن کاراکتر چطور خودش رو آماده می‌کنه، چه زمانی بار واقعاً از زمین جدا می‌شه و بدن بعد از جدا شدن بار چطور تعادلش رو نگه می‌داره.&lt;/p&gt;
+&lt;h2 id=&quot;وزن-قبل-از-اینکه-جعبه-تکون-بخوره&quot; tabindex=&quot;-1&quot;&gt;وزن قبل از اینکه جعبه تکون بخوره&lt;/h2&gt;
+&lt;p&gt;بین «دستم به جعبه رسید» و «جعبه راه افتاد» فاصله بذار. توی این فاصله، انگشت‌ها دسته‌ها رو می‌گیرن، پاها جا می‌افتن و لگن کمی جابه‌جا می‌شه. زمین هنوز بخشی از بار جعبه رو تحمل می‌کنه، اما کاراکتر داره خودش رو برای بلند کردنش آماده می‌کنه. همین چند فریم، به بیننده فرصت می‌ده تا رابطهٔ علت و معلولی رو ببینه: &lt;strong&gt;اول تلاش، بعد حرکت جعبه&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;برای پالتوی قرمز، اولین تصمیم بازیگری اینه: کاراکتر از قبل می‌دونه جعبه سنگینه یا تازه موقع بلند کردن می‌فهمه؟ اگر می‌دونه، قبل از کشیدن جاپاش رو تنظیم می‌کنه. اگر نمی‌دونه، می‌تونه یک بار کوتاه دست به کار بشه، جعبه تکون نخوره و بعد دوباره خودش رو تنظیم کنه. این دو نسخه حس متفاوتی دارن، حتی اگر مسیر نهایی جعبه تقریباً یکی باشه.&lt;/p&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/animation-1.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;چهار لحظه از بلند کردن جعبه توسط کاراکتر با پالتوی قرمز.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۱. از چپ به راست: نزدیک شدن، آماده شدن و گرفتن بار، آغاز بلند کردن، و نگه داشتن جعبه نزدیک بدن. اول تغییر وضعیت بدن را دنبال کن، بعد حرکت خود جعبه را.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/animation-1.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: چهار لحظه از بلند کردن جعبه توسط کاراکتر با پالتوی قرمز.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;تعادل-رو-از-پاها-بخون-نه-فقط-از-کمر&quot; tabindex=&quot;-1&quot;&gt;تعادل رو از پاها بخون، نه فقط از کمر&lt;/h2&gt;
+&lt;p&gt;وقتی هر دو پا روی زمینن، محدودهٔ تماس کفش‌ها با زمین و فاصلهٔ بینشون یه راهنمای بصری خوبه. به این محدوده می‌گن «سطح اتکا». وقتی جعبه کاملاً از زمین جدا می‌شه و کاراکتر باهاش تقریباً بی‌حرکت می‌ایسته، دیگه باید &lt;strong&gt;بدن و جعبه رو با هم&lt;/strong&gt; ببینی. توی نمای بغل، تصور کن یه خط عمودی از مرکز جرم تقریبی این مجموعه پایین میاد. اگر توی حالت مکث این خط به‌وضوح بیرون جای پاها بیفته، ولی نه پایی برداشته بشه و نه تکیه‌گاه دیگه‌ای وجود داشته باشه، ژست ممکنه معلق به نظر برسه.&lt;/p&gt;
+&lt;p&gt;این خط برای بررسی پزهای آرامه، نه قانون تک‌تک فریم‌ها. آدم می‌تونه هنگام حرکت موقتاً از چنین وضعی بگذره و بعد با قدم یا جابه‌جایی بدن تعادلش رو پس بگیره. ضمن اینکه مرکز جرم یک آدم همیشه دقیقاً روی لگن نیست؛ جای دست‌ها، حالت بدن و خود بار نتیجه رو تغییر می‌دن. برای طراحی، این راهنما از دقیق اندازه گرفتن مفیدتره: &lt;strong&gt;در این فریم چه چیزی داره بدن و بار رو نگه می‌داره و آیا از روی تصویر می‌فهمیمش؟&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;یک بار پز نهایی رو با جعبه جلوی بدن طراحی کن و بار دوم همون جعبه رو نزدیک تنه بیار. خود وزن جعبه تغییر نکرده، ولی وقتی دورتره، فاصلهٔ افقی بار از مفصل‌هایی که باید جلو افتادن بدن رو مهار کنن بیشتره. در تصویر می‌شه تفاوت رو از تغییر زاویهٔ تنه، وضعیت آرنج و تلاش برای پس گرفتن تعادل خوند. نزدیک کردن جعبه معمولاً پز «جمع‌وجور شدن زیر بار» رو خواناتر می‌کنه.&lt;/p&gt;
+&lt;figure class=&quot;article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/animation-2.webp&quot; width=&quot;1320&quot; height=&quot;743&quot; alt=&quot;یک کاراکتر همان جعبه را در دو حالت دور از تنه و نزدیک تنه نگه داشته است.&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot; /&gt;&lt;figcaption&gt;&lt;span&gt;شکل ۲. شکل و جرم جعبه را عوض نکرده‌ایم؛ فاصله‌اش از تنه فرق کرده. به باز شدن یا جمع شدن آرنج‌ها و جای شانه‌ها نسبت به پاها نگاه کن.&lt;/span&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/wiki-station/animation-2.webp&quot; class=&quot;figure-open&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; aria-label=&quot;بزرگ‌نمایی: یک کاراکتر همان جعبه را در دو حالت دور از تنه و نزدیک تنه نگه داشته است.&quot;&gt;نمایش در اندازهٔ اصلی&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;یک-پلان-سه-ثانیه-ای-با-شماره-فریم&quot; tabindex=&quot;-1&quot;&gt;یک پلان سه‌ثانیه‌ای، با شمارهٔ فریم&lt;/h2&gt;
+&lt;p&gt;دوربین رو ثابت و کمی سه‌رخ بگیر، طوری که کف جعبه، دست‌ها و هر دو کفش توی قاب باشن. نما ۷۲ فریمه، با ۲۴ فریم بر ثانیه. اعداد زیر نسخهٔ پیشنهادی برای همین بازی هستن، نه دستور ثابت برای همهٔ بدن‌ها یا همهٔ جعبه‌ها.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;فریم&lt;/th&gt;
+&lt;th&gt;اتفاق&lt;/th&gt;
+&lt;th&gt;چیزی که باید خوانا باشه&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;۱ تا ۱۰&lt;/td&gt;
+&lt;td&gt;نگاه به جعبه، نیم‌قدم نزدیک‌تر و پایین رفتن&lt;/td&gt;
+&lt;td&gt;تصمیم از نگاه شروع می‌شه و بدن دنبالش میاد.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۱۱ تا ۲۰&lt;/td&gt;
+&lt;td&gt;گرفتن دو لبه و جا افتادن پاشنه‌ها&lt;/td&gt;
+&lt;td&gt;دست‌ها به جعبه می‌رسن، ولی جعبه هنوز روی زمینه.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۲۱ تا ۲۸&lt;/td&gt;
+&lt;td&gt;آماده‌سازی زیر بار: لگن کمی تنظیم می‌شه، تنه سفت‌تر می‌شه&lt;/td&gt;
+&lt;td&gt;بدن حرکت داره، جعبه فعلاً سر جاشه.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۲۹ تا ۳۳&lt;/td&gt;
+&lt;td&gt;اولین جدایی از زمین&lt;/td&gt;
+&lt;td&gt;اول شکاف باریکه؛ جعبه ناگهان چند سانت نمی‌پره.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۳۴ تا ۴۹&lt;/td&gt;
+&lt;td&gt;ادامهٔ بلند کردن و نزدیک شدن جعبه به تنه&lt;/td&gt;
+&lt;td&gt;بعد از شروع سخت، حرکت می‌تونه بازتر بشه؛ کفش‌ها سر نمی‌خورن و دست‌ها روی جعبه ثابت می‌مونن.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۵۰ تا ۶۰&lt;/td&gt;
+&lt;td&gt;کم شدن سرعت و جا افتادن بار جلوی بدن&lt;/td&gt;
+&lt;td&gt;جعبه به جای توقف یک‌باره، با یک اصلاح کوچک می‌ایسته.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۶۱ تا ۷۲&lt;/td&gt;
+&lt;td&gt;تثبیت پز؛ حرکت جزئی شانه یا دنبالهٔ پالتو&lt;/td&gt;
+&lt;td&gt;بدن هنوز بار رو نگه داشته. فقط حرکت اضافی فروکش می‌کنه.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;اول فقط فریم‌های &lt;strong&gt;۱۰، ۲۰، ۲۸، ۳۳، ۴۹ و ۶۰&lt;/strong&gt; رو به‌عنوان پزهای کلیدی ببند. بعد نما رو با پزهای پله‌ای ببین تا لحظهٔ گرفتن، جدا شدن و جا افتادن درست باشه. وقتی این سه لحظه خوانا شدن، فریم‌های بینشون رو بساز. فاصلهٔ جعبه از زمین رو در چند فریم اولِ بلند شدن دنبال کن. اگر جابه‌جایی اول از حرکت چند فریم بعد بیشتره، احتمالاً جعبه پیش از اینکه تلاش دیده بشه از جا کنده شده.&lt;/p&gt;
+&lt;p&gt;اگر ادامهٔ نما رو هم می‌سازی، &lt;strong&gt;زمین گذاشتن&lt;/strong&gt; رو صرفاً با برعکس کردن بلند کردن نساز. اول جعبه به زمین می‌رسه و بار دوباره به زمین منتقل می‌شه. بعد دست‌ها رها می‌شن و بدن می‌تونه کمی آزادتر بالا بیاد. در نسخهٔ آرام، همین ترتیب از شدت صدا یا لرزش دوربین برای نشان دادن وزن مهم‌تره.&lt;/p&gt;
+&lt;h2 id=&quot;سه-ایرادی-که-با-آهسته-کردن-کل-نما-حل-نمی-شن&quot; tabindex=&quot;-1&quot;&gt;سه ایرادی که با آهسته کردن کل نما حل نمی‌شن&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;جعبه هنوز سبک به نظر می‌رسه؟&lt;/strong&gt; چند فریم قبل از جدایی رو ببین. اگر جعبه هم‌زمان با اولین تماس بالا اومده، آماده‌سازی رو خواناتر کن. لازم نیست کل حرکت رو بکشی.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;بدن انگار روی زمین سر می‌خوره؟&lt;/strong&gt; یک نقطه روی پاشنه و یکی زیر پنجه بگذار و فریم‌به‌فریم چک کن. در سه‌بعدی، اول قفل پا و رابطهٔ دست با خود جعبه رو بررسی کن؛ توی دوبعدی، برای کفش روی زمین خط راهنما بکش.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;کل بدن زیادی چوبی شده؟&lt;/strong&gt; جعبه، دست و پایی که تکیه‌گاهه باید رابطهٔ مشخصی داشته باشن؛ ولی گوشهٔ پالتو، نگاه و بالا آمدن سر لازم نیست همه یک فریم شروع یا تموم بشن. حرکت اضافه رو برای نشان دادن واکنش نگه دار، نه برای اینکه روی همه‌چیز لرزش بندازی.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;تمرین-دو-جعبه-یک-شکل-بدون-صدا&quot; tabindex=&quot;-1&quot;&gt;تمرین: دو جعبهٔ یک‌شکل، بدون صدا&lt;/h2&gt;
+&lt;p&gt;از یک مدل جعبه و یک قاب استفاده کن و دو نسخه بساز: یکی جعبهٔ خالی و یکی انگار پر از کتابه. رنگ، اندازه و طول کلی نما رو تغییر نده. فقط زمان گرفتن تا جدا شدن، وضعیت بدن، مسیر شتاب گرفتن بار و طرز جا افتادن پز رو عوض کن. بعد هر دو رو بی‌صدا به یک نفر نشون بده، بدون اینکه بگی کدوم سنگینه. بپرس: &lt;strong&gt;«از کجای حرکت فهمیدی؟»&lt;/strong&gt; اگر فقط می‌گه «اونی که کندتر بود»، یک بار دیگه تفاوت پز، تکیه‌گاه و واکنش بدن رو بیشتر کن تا جوابش از خودِ حرکت بیاد، نه از سرعت کلی.&lt;/p&gt;
+&lt;p&gt;برای مرجع هم می‌تونی از یک جعبهٔ خالی و بازی خودت فیلم بگیری؛ قرار نیست برای این تمرین بار سنگین بلند کنی. اول فیلم رو از نمای بغل ببین و زمان تماس دست، جا افتادن پا و جدا شدن جعبه رو علامت بزن. حتی توی یک برداشت اغراق‌شده هم این ترتیب، به تشخیص بخش‌هایی که باید در انیمیشن خواناتر بشن کمک می‌کنه.&lt;/p&gt;
+&lt;h2 id=&quot;برای-ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;برای ادامهٔ مطالعه&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://graphics.cs.cmu.edu/nsp/course/15-464/Fall05/papers/lasseter.pdf&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;پژوهش جان لستر در SIGGRAPH دربارهٔ اصول انیمیشن سنتی و کاربردشان در سه‌بعدی&lt;/a&gt;، بخش‌های زمان‌بندی و پیش‌حرکت. جدول فریم بالا مثال طراحی همین درس است، نه عددی از مقاله.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://openstax.org/books/college-physics/pages/9-3-stability&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;فصل پایداری در کتاب فیزیک OpenStax&lt;/a&gt;، دربارهٔ رابطهٔ تکیه‌گاه و مرکز ثقل در حالت‌های نزدیک به تعادل.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://openstax.org/books/university-physics-volume-1/pages/9-6-center-of-mass&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;فصل مرکز جرم در University Physics&lt;/a&gt;، برای فهم اینکه بدن و بار رو چطور به‌عنوان یک مجموعه در نظر بگیریم.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;درس-های-مرتبط-از-همین-ایستگاه&quot; tabindex=&quot;-1&quot;&gt;درس‌های مرتبط از همین ایستگاه&lt;/h2&gt;
+&lt;p&gt;برای درک زمان‌بندی و فاصله‌گذاری از &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/ball-1/&quot;&gt;تمرین توپ جهنده&lt;/a&gt; کمک بگیر. برای پوشش همین حرکت از چند زاویه، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/180-degree-rule/&quot;&gt;قانون ۱۸۰ درجه&lt;/a&gt; را ببین.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/lifting-weight/"/>
+  </entry><entry>
     <title>keyframes-breakdowns</title>
     <updated>2026-11-26T00:00:00.000Z</updated>
     <id>https://ialirezaaa.github.io/fa/blog/notes/animation/keyframes-breakdowns/</id>
@@ -434,6 +712,10 @@
     <updated>2026-11-26T00:00:00.000Z</updated>
     <id>https://ialirezaaa.github.io/fa/blog/notes/animation/</id>
     <content type="html">&lt;p&gt;انیمیشن هنر طراحی تغییر در طول زمان است. یک تصویر می‌تواند شکل و ترکیب‌بندی داشته باشد، اما زمانی که چند تصویر یا وضعیت را با نظم زمانی کنار هم قرار می‌دهیم، حرکت، وزن، قصد و احساس پدید می‌آید. این مجموعه برای هنرجو، انیماتور و کسی است که می‌خواهد فرایند ساخت یک اثر را از ابتدا تا ارائه درک کند.&lt;/p&gt;
+&lt;h2 id=&quot;درس-تصویری&quot; tabindex=&quot;-1&quot;&gt;درس تصویری&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/lifting-weight/&quot;&gt;طراحی وزن در حرکت کاراکتر&lt;/a&gt;: در یک شات سه‌ثانیه‌ای یاد می‌گیریم چطور با جا افتادن پاها، مکث پیش از جدا شدن بار و واکنش بدن، وزن یک جعبه را بدون صدا حس‌کردنی کنیم.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&quot;۱-زبان-و-تاریخچه-انیمیشن&quot; tabindex=&quot;-1&quot;&gt;۱. زبان و تاریخچهٔ انیمیشن&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/history/&quot;&gt;تاریخچهٔ انیمیشن&lt;/a&gt;&lt;/li&gt;
@@ -636,6 +918,7 @@
 &lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 2&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/camera-angles.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/camera-angles.svg&quot; width=&quot;960&quot; height=&quot;550&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;زاویهٔ دوربین؛ تغییر نسبت ارتفاع دوربین به سوژه&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 2 · تغییر نسبت ارتفاع دوربین به سوژه&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;h2 id=&quot;حرکت-دوربین&quot; tabindex=&quot;-1&quot;&gt;حرکت دوربین&lt;/h2&gt;
 &lt;p&gt;Pan چرخش افقی در محل، Tilt چرخش عمودی، Roll چرخش حول محور دید، Dolly حرکت جلو یا عقب، Truck حرکت جانبی، Pedestal حرکت عمودی و Orbit گردش دور سوژه است. Zoom تغییر فاصلهٔ کانونی است، نه حرکت فیزیکی دوربین؛ در Dolly نسبت فضایی foreground و background تغییر می‌کند. Tracking یعنی همراهی با سوژه و می‌تواند از چند حرکت ترکیب شود. دوربین دستی یا لرزش هم اگر هدفمند باشد حس حضور می‌سازد.&lt;/p&gt;
+&lt;p&gt;برای مقایسهٔ قاب‌ها و یک تمرین کوتاه، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/camera-movements/&quot;&gt;درس تصویری انواع حرکت دوربین&lt;/a&gt; را ببین.&lt;/p&gt;
 &lt;h2 id=&quot;پیوستگی-و-راکورد&quot; tabindex=&quot;-1&quot;&gt;پیوستگی و راکورد&lt;/h2&gt;
 &lt;p&gt;محور کنش و جهت حرکت در قاب را مشخص کن. در گفت‌وگو، عبور بی‌دلیل از خط ۱۸۰ درجه می‌تواند جای دو شخصیت را وارونه کند. نمای جدید می‌تواند محور تازه‌ای معرفی کند؛ حرکت دوربین یا نمای خنثی انتقال را روشن می‌کند. همچنین فضای نگاه، eyeline match، ورود و خروج سوژه و تطابق حرکت هنگام برش را بررسی کن.&lt;/p&gt;
 &lt;h2 id=&quot;تمرین-کارگردانی&quot; tabindex=&quot;-1&quot;&gt;تمرین کارگردانی&lt;/h2&gt;

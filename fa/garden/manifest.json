@@ -278,7 +278,8 @@
       ],
       "backlinks": [
         "/fa/blog/notes/animation/ball-2/",
-        "/fa/blog/notes/animation/"
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/lifting-weight/"
       ],
       "headings": [
         {
@@ -398,6 +399,7 @@
         "camera movement"
       ],
       "links": [
+        "/fa/blog/notes/cinema/camera-movements/",
         "/fa/blog/notes/animation/storyboards/",
         "/fa/blog/notes/animation/framing-blocking/",
         "/fa/blog/notes/animation/"
@@ -407,6 +409,8 @@
         "/fa/blog/notes/animation/framing-blocking/",
         "/fa/blog/notes/animation/",
         "/fa/blog/notes/animation/storyboarding-book/",
+        "/fa/blog/notes/cinema/180-degree-rule/",
+        "/fa/blog/notes/cinema/camera-movements/",
         "/fa/blog/notes/cinema/"
       ],
       "headings": [
@@ -784,6 +788,7 @@
         "/fa/blog/notes/animation/camera-shots/",
         "/fa/blog/notes/animation/environment-design/",
         "/fa/blog/notes/animation/",
+        "/fa/blog/notes/cinema/180-degree-rule/",
         "/fa/blog/notes/cinema/"
       ],
       "headings": [
@@ -903,6 +908,7 @@
         "Animation learning path"
       ],
       "links": [
+        "/fa/blog/notes/animation/lifting-weight/",
         "/fa/blog/notes/animation/history/",
         "/fa/blog/notes/animation/types/",
         "/fa/blog/notes/animation/sequential-art/",
@@ -962,6 +968,10 @@
         "/fa/blog/notes/artificial-intelligence/"
       ],
       "headings": [
+        {
+          "title": "درس تصویری",
+          "id": "درس-تصویری"
+        },
         {
           "title": "۱. زبان و تاریخچهٔ انیمیشن",
           "id": "۱-زبان-و-تاریخچه-انیمیشن"
@@ -1062,6 +1072,70 @@
       "canonical": null
     },
     {
+      "id": "station-lifting-weight",
+      "title": "چرا این جعبه سنگین به نظر می‌رسه؟ طراحی وزن در حرکت کاراکتر",
+      "url": "/fa/blog/notes/animation/lifting-weight/",
+      "source": "انیمیشن/lifting-weight.md",
+      "legacyUrl": "/fa/garden/animation/lifting-weight/",
+      "text": "در یک شات سه‌ثانیه‌ای یاد می‌گیریم چطور با جا افتادن پاها، مکث پیش از جدا شدن بار و واکنش بدن، وزن یک جعبه را بدون صدا حس‌کردنی کنیم.",
+      "group": "انیمیشن",
+      "tags": [],
+      "aliases": [
+        "چرا این جعبه سنگین به نظر می‌رسه؟ طراحی وزن در حرکت کاراکتر",
+        "lifting-weight",
+        "انیمیشن/lifting-weight",
+        "پویانمایی",
+        "حس وزن",
+        "Animation weight",
+        "Lifting"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/ball-1/",
+        "/fa/blog/notes/cinema/180-degree-rule/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/cinema/180-degree-rule/"
+      ],
+      "headings": [
+        {
+          "title": "وزن قبل از اینکه جعبه تکون بخوره",
+          "id": "وزن-قبل-از-اینکه-جعبه-تکون-بخوره"
+        },
+        {
+          "title": "تعادل رو از پاها بخون، نه فقط از کمر",
+          "id": "تعادل-رو-از-پاها-بخون-نه-فقط-از-کمر"
+        },
+        {
+          "title": "یک پلان سه‌ثانیه‌ای، با شمارهٔ فریم",
+          "id": "یک-پلان-سه-ثانیه-ای-با-شماره-فریم"
+        },
+        {
+          "title": "سه ایرادی که با آهسته کردن کل نما حل نمی‌شن",
+          "id": "سه-ایرادی-که-با-آهسته-کردن-کل-نما-حل-نمی-شن"
+        },
+        {
+          "title": "تمرین: دو جعبهٔ یک‌شکل، بدون صدا",
+          "id": "تمرین-دو-جعبه-یک-شکل-بدون-صدا"
+        },
+        {
+          "title": "برای ادامهٔ مطالعه",
+          "id": "برای-ادامه-مطالعه"
+        },
+        {
+          "title": "درس‌های مرتبط از همین ایستگاه",
+          "id": "درس-های-مرتبط-از-همین-ایستگاه"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25",
+      "updated": "2026-11-25",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
       "id": "animation-lower-thirds",
       "title": "طراحی و انیمیت Lower Third",
       "url": "/fa/blog/notes/animation/lower-thirds/",
@@ -1144,7 +1218,8 @@
       "backlinks": [
         "/fa/blog/notes/animation/adobe-animate/",
         "/fa/blog/notes/animation/",
-        "/fa/blog/notes/animation/principles/"
+        "/fa/blog/notes/animation/principles/",
+        "/fa/blog/notes/cinema/camera-movements/"
       ],
       "headings": [
         {
@@ -1855,6 +1930,166 @@
       "canonical": null
     },
     {
+      "id": "station-180-degree-rule",
+      "title": "قانون ۱۸۰ درجه؛ چرا بعد از برش انگار هر دو نفر یک طرف را نگاه می‌کنند؟",
+      "url": "/fa/blog/notes/cinema/180-degree-rule/",
+      "source": "سینما/180-degree-rule.md",
+      "legacyUrl": "/fa/garden/cinema/180-degree-rule/",
+      "text": "با یک گفت‌وگوی دونفره در ایستگاه یاد می‌گیری محور کنش را پیدا کنی، جهت نگاه را درست نگه داری و وقتی لازم است، آگاهانه از خط رد شوی.",
+      "group": "سینما",
+      "tags": [],
+      "aliases": [
+        "قانون ۱۸۰ درجه؛ چرا بعد از برش انگار هر دو نفر یک طرف را نگاه می‌کنند؟",
+        "180-degree-rule",
+        "سینما/180-degree-rule",
+        "محور کنش",
+        "180-degree rule",
+        "خط فرضی",
+        "Eyeline"
+      ],
+      "links": [
+        "/fa/blog/notes/cinema/",
+        "/fa/blog/notes/animation/framing-blocking/",
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/lifting-weight/",
+        "/fa/blog/notes/artificial-intelligence/depth-map-fog/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/lifting-weight/",
+        "/fa/blog/notes/cinema/camera-movements/",
+        "/fa/blog/notes/cinema/",
+        "/fa/blog/notes/artificial-intelligence/depth-map-fog/"
+      ],
+      "headings": [
+        {
+          "title": "محور ۱۸۰ درجه دقیقاً کجاست؟",
+          "id": "محور-۱۸۰-درجه-دقیقا-کجاست"
+        },
+        {
+          "title": "صحنهٔ ایستگاه را چطور بگیریم؟",
+          "id": "صحنه-ایستگاه-را-چطور-بگیریم"
+        },
+        {
+          "title": "تفاوت «جهت نگاه» با «وصل نگاه»",
+          "id": "تفاوت-جهت-نگاه-با-وصل-نگاه"
+        },
+        {
+          "title": "چه وقت می‌شود از خط رد شد؟",
+          "id": "چه-وقت-می-شود-از-خط-رد-شد"
+        },
+        {
+          "title": "سه جا که معمولاً اشتباه می‌کنیم",
+          "id": "سه-جا-که-معمولا-اشتباه-می-کنیم"
+        },
+        {
+          "title": "تمرین ده‌دقیقه‌ای: یک گفت‌وگو، دو تدوین",
+          "id": "تمرین-ده-دقیقه-ای-یک-گفت-وگو-دو-تدوین"
+        },
+        {
+          "title": "برای ادامه",
+          "id": "برای-ادامه"
+        },
+        {
+          "title": "درس‌های مرتبط از همین ایستگاه",
+          "id": "درس-های-مرتبط-از-همین-ایستگاه"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25",
+      "updated": "2026-11-25",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "station-camera-movements",
+      "title": "حرکت دوربین؛ کی پن کنیم، کی دالی برویم و کی زوم کنیم؟",
+      "url": "/fa/blog/notes/cinema/camera-movements/",
+      "source": "سینما/camera-movements.md",
+      "legacyUrl": "/fa/garden/cinema/camera-movements/",
+      "text": "پن، تیلت، رول، دالی، تراک، بالا و پایین رفتن، اوربیت و زوم را با مثال قاب‌های ایستگاه از هم تشخیص بده و برای هر حرکت دلیل روایی پیدا کن.",
+      "group": "سینما",
+      "tags": [],
+      "aliases": [
+        "حرکت دوربین؛ کی پن کنیم، کی دالی برویم و کی زوم کنیم؟",
+        "camera-movements",
+        "سینما/camera-movements",
+        "حرکات دوربین",
+        "دالی و زوم",
+        "دولی و زوم",
+        "Camera movement",
+        "Pan and tilt"
+      ],
+      "links": [
+        "/fa/blog/notes/cinema/",
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/motion-easing/",
+        "/fa/blog/notes/cinema/180-degree-rule/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/cinema/"
+      ],
+      "headings": [
+        {
+          "title": "برای تشخیص حرکت، این سه سؤال را بپرس",
+          "id": "برای-تشخیص-حرکت-این-سه-سؤال-را-بپرس"
+        },
+        {
+          "title": "دالی و زوم؛ هر دو نزدیک می‌کنند، ولی یک جور نه",
+          "id": "دالی-و-زوم-هر-دو-نزدیک-می-کنند-ولی-یک-جور-نه"
+        },
+        {
+          "title": "چرخش درجا: پن، تیلت و رول",
+          "id": "چرخش-درجا-پن-تیلت-و-رول"
+        },
+        {
+          "title": "پن (Pan): نگاه به چپ یا راست",
+          "id": "پن-pan-نگاه-به-چپ-یا-راست"
+        },
+        {
+          "title": "تیلت (Tilt): نگاه به بالا یا پایین",
+          "id": "تیلت-tilt-نگاه-به-بالا-یا-پایین"
+        },
+        {
+          "title": "رول (Roll): چرخش دور محور نگاه",
+          "id": "رول-roll-چرخش-دور-محور-نگاه"
+        },
+        {
+          "title": "جابه‌جایی: دالی، تراک، پدستال و حرکت قوسی",
+          "id": "جابه-جایی-دالی-تراک-پدستال-و-حرکت-قوسی"
+        },
+        {
+          "title": "دنبال‌کردن و روی دست گرفتن، مسیرِ حرکت نیستند",
+          "id": "دنبال-کردن-و-روی-دست-گرفتن-مسیر-حرکت-نیستند"
+        },
+        {
+          "title": "ترکیب‌ها: اول هدف، بعد مسیر",
+          "id": "ترکیب-ها-اول-هدف-بعد-مسیر"
+        },
+        {
+          "title": "تمرین ده‌دقیقه‌ای: یک قاب، چهار برداشت",
+          "id": "تمرین-ده-دقیقه-ای-یک-قاب-چهار-برداشت"
+        },
+        {
+          "title": "برای ادامه",
+          "id": "برای-ادامه"
+        },
+        {
+          "title": "درس‌های مرتبط از همین ایستگاه",
+          "id": "درس-های-مرتبط-از-همین-ایستگاه"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25",
+      "updated": "2026-11-25",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
       "id": "cinema",
       "title": "سینما",
       "url": "/fa/blog/notes/cinema/",
@@ -1873,14 +2108,22 @@
         "Filmmaking"
       ],
       "links": [
+        "/fa/blog/notes/cinema/camera-movements/",
+        "/fa/blog/notes/cinema/180-degree-rule/",
         "/fa/blog/notes/animation/",
         "/fa/blog/notes/animation/camera-shots/",
         "/fa/blog/notes/animation/framing-blocking/"
       ],
       "backlinks": [
-        "/fa/blog/notes/start/"
+        "/fa/blog/notes/start/",
+        "/fa/blog/notes/cinema/180-degree-rule/",
+        "/fa/blog/notes/cinema/camera-movements/"
       ],
       "headings": [
+        {
+          "title": "درس‌های تصویری",
+          "id": "درس-های-تصویری"
+        },
         {
           "title": "قصه و کارگردانی",
           "id": "قصه-و-کارگردانی"
@@ -2173,6 +2416,74 @@
       "canonical": null
     },
     {
+      "id": "station-depth-map-fog",
+      "title": "چطور با نقشهٔ عمق، مه را پشت کاراکتر نگه داریم؟",
+      "url": "/fa/blog/notes/artificial-intelligence/depth-map-fog/",
+      "source": "هوش مصنوعی/depth-map-fog.md",
+      "legacyUrl": "/fa/garden/artificial-intelligence/depth-map-fog/",
+      "text": "با یک نمای ایستگاه بارانی می‌بینیم چطور نقشهٔ عمق مه را با فاصله تنظیم می‌کند و ماسک، صورت و لبهٔ مو را حفظ می‌کند.",
+      "group": "هوش مصنوعی",
+      "tags": [],
+      "aliases": [
+        "چطور با نقشهٔ عمق، مه را پشت کاراکتر نگه داریم؟",
+        "depth-map-fog",
+        "هوش مصنوعی/depth-map-fog",
+        "نقشه عمق",
+        "ماسک مه",
+        "Depth map",
+        "Depth compositing"
+      ],
+      "links": [
+        "/fa/blog/notes/cinema/180-degree-rule/",
+        "/fa/blog/controlnet-depth/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/cinema/180-degree-rule/",
+        "/fa/blog/notes/artificial-intelligence/"
+      ],
+      "headings": [
+        {
+          "title": "ماسک چه می‌پرسد؟ نقشهٔ عمق چه می‌پرسد؟",
+          "id": "ماسک-چه-می-پرسد-نقشه-عمق-چه-می-پرسد"
+        },
+        {
+          "title": "مه را روی سه عمق تنظیم کن",
+          "id": "مه-را-روی-سه-عمق-تنظیم-کن"
+        },
+        {
+          "title": "وقتی لبهٔ پالتو و مو خراب می‌شود",
+          "id": "وقتی-لبه-پالتو-و-مو-خراب-می-شود"
+        },
+        {
+          "title": "اگر عکس درست است ولی ویدیو می‌لرزد",
+          "id": "اگر-عکس-درست-است-ولی-ویدیو-می-لرزد"
+        },
+        {
+          "title": "یک تمرین پنج‌دقیقه‌ای",
+          "id": "یک-تمرین-پنج-دقیقه-ای"
+        },
+        {
+          "title": "چک‌لیست خروجی",
+          "id": "چک-لیست-خروجی"
+        },
+        {
+          "title": "منابع و مطالعهٔ بیشتر",
+          "id": "منابع-و-مطالعه-بیشتر"
+        },
+        {
+          "title": "درس‌های مرتبط از همین ایستگاه",
+          "id": "درس-های-مرتبط-از-همین-ایستگاه"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-25",
+      "updated": "2026-11-25",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
       "id": "artificial-intelligence",
       "title": "هوش مصنوعی",
       "url": "/fa/blog/notes/artificial-intelligence/",
@@ -2190,6 +2501,7 @@
         "Artificial Intelligence"
       ],
       "links": [
+        "/fa/blog/notes/artificial-intelligence/depth-map-fog/",
         "/fa/blog/notes/diffusion/",
         "/fa/blog/notes/noise/",
         "/fa/blog/notes/seed/",
@@ -2202,6 +2514,10 @@
         "/fa/blog/notes/start/"
       ],
       "headings": [
+        {
+          "title": "درس تصویری",
+          "id": "درس-تصویری"
+        },
         {
           "title": "مبانی و پژوهش",
           "id": "مبانی-و-پژوهش"
@@ -2938,6 +3254,7 @@
         "/fa/blog/notes/seed/"
       ],
       "backlinks": [
+        "/fa/blog/notes/artificial-intelligence/depth-map-fog/",
         "/fa/blog/notes/artificial-intelligence/"
       ],
       "headings": [
@@ -3062,6 +3379,7 @@
     "/fa/blog/notes/animation/history/",
     "/fa/blog/notes/animation/",
     "/fa/blog/notes/animation/keyframes-breakdowns/",
+    "/fa/blog/notes/animation/lifting-weight/",
     "/fa/blog/notes/animation/lower-thirds/",
     "/fa/blog/notes/animation/motion-easing/",
     "/fa/blog/notes/animation/ones-twos-threes/",
@@ -3074,12 +3392,15 @@
     "/fa/blog/notes/animation/types/",
     "/fa/blog/notes/animation/walk-cycle/",
     "/fa/blog/notes/start/",
+    "/fa/blog/notes/cinema/180-degree-rule/",
+    "/fa/blog/notes/cinema/camera-movements/",
     "/fa/blog/notes/cinema/",
     "/fa/blog/notes/diffusion/",
     "/fa/blog/notes/seed/",
     "/fa/blog/notes/latent-diffusion/",
     "/fa/blog/notes/noise/",
     "/fa/blog/notes/ddpm/",
+    "/fa/blog/notes/artificial-intelligence/depth-map-fog/",
     "/fa/blog/notes/artificial-intelligence/",
     "/fa/blog/",
     "/fa/blog/categories/",
@@ -3094,7 +3415,7 @@
     "/fa/blog/comfyui-repo-review/",
     "/fa/blog/diffusion-from-noise/"
   ],
-  "sourceDigest": "87c6da7ef21e4c27ef6073d5340782462d20e4c93321ec8f43ec51edf1a22323",
+  "sourceDigest": "6ee0df07d87b305d7805bc28ab83b859c91cb7b5ea55a54632a1429699d31d36",
   "redirects": {
     "/fa/garden/animation/adobe-animate/": "/fa/blog/notes/animation/adobe-animate/",
     "/fa/garden/animation/animated-type/": "/fa/blog/notes/animation/animated-type/",
@@ -3112,6 +3433,7 @@
     "/fa/garden/animation/history/": "/fa/blog/notes/animation/history/",
     "/fa/garden/animation/": "/fa/blog/notes/animation/",
     "/fa/garden/animation/keyframes-breakdowns/": "/fa/blog/notes/animation/keyframes-breakdowns/",
+    "/fa/garden/animation/lifting-weight/": "/fa/blog/notes/animation/lifting-weight/",
     "/fa/garden/animation/lower-thirds/": "/fa/blog/notes/animation/lower-thirds/",
     "/fa/garden/animation/motion-easing/": "/fa/blog/notes/animation/motion-easing/",
     "/fa/garden/animation/ones-twos-threes/": "/fa/blog/notes/animation/ones-twos-threes/",
@@ -3124,87 +3446,94 @@
     "/fa/garden/animation/types/": "/fa/blog/notes/animation/types/",
     "/fa/garden/animation/walk-cycle/": "/fa/blog/notes/animation/walk-cycle/",
     "/fa/garden/": "/fa/blog/",
+    "/fa/garden/cinema/180-degree-rule/": "/fa/blog/notes/cinema/180-degree-rule/",
+    "/fa/garden/cinema/camera-movements/": "/fa/blog/notes/cinema/camera-movements/",
     "/fa/garden/cinema/": "/fa/blog/notes/cinema/",
     "/fa/garden/diffusion/": "/fa/blog/notes/diffusion/",
     "/fa/garden/seed/": "/fa/blog/notes/seed/",
     "/fa/garden/latent-diffusion/": "/fa/blog/notes/latent-diffusion/",
     "/fa/garden/noise/": "/fa/blog/notes/noise/",
     "/fa/garden/ddpm/": "/fa/blog/notes/ddpm/",
+    "/fa/garden/artificial-intelligence/depth-map-fog/": "/fa/blog/notes/artificial-intelligence/depth-map-fog/",
     "/fa/garden/artificial-intelligence/": "/fa/blog/notes/artificial-intelligence/"
   },
   "assets": {
-    "/fa/garden/~random/index.html": "3b441b40a4ab5b1191a4702146d5ca620cd886ae80486752965e28162933363b",
-    "/fa/garden/404/index.html": "6ad4257e935b006702689afd4d2535ec9c70860b5d7a2742a597ef3d7892be28",
-    "/fa/blog/categories/fundamentals/index.html": "a9dfce2c22a467713027b17165724dbf6d5647d3c556c2b04a7f23a54d78f57b",
-    "/fa/blog/categories/index.html": "642412c8d9c293e62d882aea2c56a4477d5cdc4c680c32bceec61e44addd6988",
-    "/fa/blog/categories/papers/index.html": "807a02f0e8c4ffa991c02f3de88fe145132bbe0cc660855c705ceb4657cfd2b4",
-    "/fa/blog/categories/repo-analysis/index.html": "229236c9a249772927d81454295898236cfc316e7249fdcde3ee5205409da818",
-    "/fa/blog/cfg-diffusion-guidance/index.html": "5307e90e99ca8bc1056d5f3a2d4566bed4f06e91c0a3affa11dc3af02aea6086",
-    "/fa/blog/comfyui-repo-review/index.html": "932dff0370de92e6eec75e6538c267fbc37050b34663639d255a22bae7d378c3",
-    "/fa/blog/controlnet-depth/index.html": "a0b4196fb0a21562ff22b29ef39a5d59f6d8e1ed90c3162c5e63b2d4f6cb39e0",
-    "/fa/blog/diffusion-from-noise/index.html": "78ad9627fbf5b033323a1a324cbdb2f27504a5144c13a6396cde55f480001289",
-    "/fa/blog/dreambooth-character-continuity/index.html": "661db9bcc39fa35544cff6b26d325650c330f38d765eb43db2dd573da564fd27",
-    "/fa/blog/index.html": "9bfe7a14c041112a202f25962527a42dbebd9364448a1ea180c8dc5d0b51fc5e",
-    "/fa/blog/notes/animation/adobe-animate/index.html": "e20ae5cb7302eb1ee9a755fc1930f0f659508b3a321e4eac4da0cc3c4ebe398b",
-    "/fa/blog/notes/animation/animated-type/index.html": "a88df4e56663ac6d42f8c1a19548bce44c7025961cc2ab9e7d3db25d87090a70",
-    "/fa/blog/notes/animation/animatics/index.html": "2c6dd581c0ec9c54da253a52c2b7ed10ddfbbe843ca4da565e1ac68db1e68c9f",
-    "/fa/blog/notes/animation/aspect-ratios/index.html": "0d89e489f9c168e349112a6a9f781f51984fbc0c8c3cc8f11d65ba6baf61bdbd",
-    "/fa/blog/notes/animation/ball-1/index.html": "0a8ee7ca9b1003ca56547dc2d0b3619fce0073ffd03cb65f0dc96741bf219ca3",
-    "/fa/blog/notes/animation/ball-2/index.html": "4a031443cec48464f6c84207a6942881ab08373068ee5be8354f5e373e5c2c80",
-    "/fa/blog/notes/animation/camera-shots/index.html": "b571a0627cd4bf8da0922e047b1e18bd41d03923453a281abcc6cee4e27f227b",
-    "/fa/blog/notes/animation/character-design/index.html": "433bdf7479c8c0a7a496a18360ad193847a7b00fdf3f5b71dd0a379afa8e62a5",
-    "/fa/blog/notes/animation/demo-reel/index.html": "d88cfacaefddf1eb1838b37224dd26535438267bc517af997dc69e5a961f7f34",
-    "/fa/blog/notes/animation/environment-design/index.html": "fbecbeaf7d777228402a149697dff507c1b9ac8c50478160032a719d847afbcf",
-    "/fa/blog/notes/animation/flour-sack/index.html": "3e7420a173a92a55913467b867e31a425ef8381c37b4b594bcdb177b39085bee",
-    "/fa/blog/notes/animation/frame-by-frame/index.html": "4d8e18bf5818e2341c88578ff2ce5e4d46d21287df5a5f5fee41951aac20669d",
-    "/fa/blog/notes/animation/framing-blocking/index.html": "46002cda0b6e0993f4dd520acdf39c0cbff15dc65799be7ae531a18a3dfe254e",
-    "/fa/blog/notes/animation/history/index.html": "3dc1049c8b3a831047dc48eab8a05df2148e314843e20c2da9f897a7efc73a01",
-    "/fa/blog/notes/animation/index.html": "74a266509997f85e8ad4049a145bd9367c65ac84a6b76fe90810d5ad8da42ecc",
-    "/fa/blog/notes/animation/keyframes-breakdowns/index.html": "bbe1773441ecae2c269d65e9b1d6908973e4c75b31ad56024a3240b1bd8ab3c8",
-    "/fa/blog/notes/animation/lower-thirds/index.html": "50f4d1b5f218474258289d5b996bd11f7bcfae8ea13cee65e538b67fa3e03e8d",
-    "/fa/blog/notes/animation/motion-easing/index.html": "8c94163d27dcded317adc307abca3187122e036a5049134bc41c71fe76ba8581",
-    "/fa/blog/notes/animation/ones-twos-threes/index.html": "46fdd6c39e8a995c0ef699cf5d59441156441bfc2ea3924b1df6c26af9184418",
-    "/fa/blog/notes/animation/photoshop/index.html": "e0988461e63d7e9204e96ac8e4423dc95c6ecf9d87a4b62ada61fbb139d4dd6a",
-    "/fa/blog/notes/animation/principles/index.html": "e5fe6afa1a2d9ac61d3946481d7a0e508fd10edaafc7aae81b6b0b6a0d7bfaf0",
-    "/fa/blog/notes/animation/sequential-art/index.html": "3967eaff57581393d12dcf19977631b776ec5e0e68a3b132e5c96ba3f430d71e",
-    "/fa/blog/notes/animation/story/index.html": "dcb955dab2d9e2a00e1f97dc7af146a466fc929bcc445988003ed458c318dd12",
-    "/fa/blog/notes/animation/storyboarding-book/index.html": "3357ab7464cbe0bc1d8dd7b392ef80386e521044c24d58e98e1a1c3f5b2dfb93",
-    "/fa/blog/notes/animation/storyboards/index.html": "f390a56130a36686867d5acaf74715ec15ace69755531dd437335585633c336e",
-    "/fa/blog/notes/animation/types/index.html": "6dfe50f8569ed1e0bdbd09d19398cbd4bab3d54ca821bf34bef4b6288679bd11",
-    "/fa/blog/notes/animation/walk-cycle/index.html": "234816b3e2b7a60923f3828c510c2e6f6fd0cdeecd1cc7df5d2c0192581de1df",
-    "/fa/blog/notes/artificial-intelligence/index.html": "62706b08a085ec39f3355c1d66c024674551621ad90b67198c2048165d34ac30",
-    "/fa/blog/notes/cinema/index.html": "1f3baa0761fa51a6bd94febd3ace141e0152346155cfe770755ad3012cbee5f5",
-    "/fa/blog/notes/ddpm/index.html": "68ea0f03f61c25750bb90497ee73b46da37294bd8b4c975063aea416f137f152",
-    "/fa/blog/notes/diffusion/index.html": "ff3ba4dabf00c0ec05c03a1fc6c984027f12b55ba23c7eeb6e60bf73db49dea6",
-    "/fa/blog/notes/latent-diffusion/index.html": "22ff07b99f68283b0d74f285eed6f7629addf9807371ee8a9fbf15e0dd90b85a",
-    "/fa/blog/notes/noise/index.html": "d7d198da051a8a83d1f3ccd112bfca803f3f73a80cd038f66e7e007f819e8b83",
-    "/fa/blog/notes/seed/index.html": "36c3981a7feb23db95336e13163464a8c4c3d7f2dbbd4b20543a6f52b4ed969a",
-    "/fa/blog/notes/start/index.html": "8a5f46784f2702fdf92685270faa4b5186935a114b66ff2d2cc52e16114b93ee",
-    "/fa/blog/rife-frame-interpolation/index.html": "90213cc36bc3ce337760b6e3b44b61ddaf3cd4a2b81b0a97c909e7e63c6225d7",
-    "/fa/blog/tags/ai-basics/index.html": "620bf6d45d4fde6b16908ef4807a123a9bd79ed680cf7cecf6cd4ee99311db70",
-    "/fa/blog/tags/ai-image-making/index.html": "a45005b11bf5c70b46f3719ba063c8f32848fa1b961ed8be36b297de67af46db",
-    "/fa/blog/tags/animation/index.html": "995a2bfecaf4803f773b3aa31c2e3b4ce2ee79de9f31884221328bf75b3b250b",
-    "/fa/blog/tags/cfg/index.html": "6d0681a0c3a9f2f67e7d08d3295b3005b1f9dcff1068913773f621b7313638bb",
-    "/fa/blog/tags/character-continuity/index.html": "833ab0db4481e14973070b811794c1cc70d5ca6dcc93f7a79902c932db3a0bcb",
-    "/fa/blog/tags/comfyui/index.html": "35724033db10b54409a9ca39789d2e8d9c93d2089444db549f0b390b4b7ed0f5",
-    "/fa/blog/tags/controlnet/index.html": "d4132c0bf650a9a064ec62cfe286f61840db2b588d6179c2e87371f3f6c75ea2",
-    "/fa/blog/tags/ddpm/index.html": "cf5565065808017fa4749f7d5fe0da925fdb530e7c197aab4195f09d4efa55c7",
-    "/fa/blog/tags/depth-map/index.html": "919be65b70f506f36f99648404d22df16a3d13d33249fdf2b5c5e4c03b80529a",
-    "/fa/blog/tags/diffusion/index.html": "6bf16e8926a859d3df2114aa3f4beacfea813895254b46129e2759e6c30520c3",
-    "/fa/blog/tags/dreambooth/index.html": "fea9b64a6ff2338bc31ff62fc0685c336fe9aeb0303aecbd9fa5ca08b4ae72e9",
-    "/fa/blog/tags/frame-interpolation/index.html": "bea0a8231acd812b2882af63390011f17f7b7eb8dafde4393ea67775de2f3323",
-    "/fa/blog/tags/image-control/index.html": "a8066829b14d538662cbccf60095ada8b78a91c0cb60591175a91bde7a960e91",
-    "/fa/blog/tags/index.html": "85a1544bfbe53f396be14afa96958320a2cad2df9ef8ce854c0353f07c54ad7d",
-    "/fa/blog/tags/paper-explainer/index.html": "a9c59b668352387b51818876db1f9e656c0b65c79493378db4e8a5c63f393e57",
-    "/fa/blog/tags/python/index.html": "cc3ebfc372d6e80cbeeb1b0b31cea807ad7c7d5c14c9fab4f9ced65e4d5cd31b",
-    "/fa/blog/tags/rife/index.html": "b35a1bb0ca9f4cbd5cd80748bfb4e0cf0b1abed7d09a2a1522e844843325ded7",
-    "/fa/blog/tags/workflow/index.html": "3c80c5ac0ba94a156c855b0c91d283d307dbe128dca583cfdbfc482457cafd04",
-    "/fa/garden/feed.xml": "47c8eb0c2e3b0124590393b2b8e5ff7f917412640df20c8e838d4b0da9febecb",
-    "/fa/garden/filetree.html": "fcf411fa35865a8911b55d24e5b6bf7ec6a6ecf7cd35491f7451bf2cfa185642",
+    "/fa/garden/~random/index.html": "d94a8d0185772c74f8458746859e1850e23781d90dd57f37d22d0e6265661c13",
+    "/fa/garden/404/index.html": "c70492eb7133f8b4b0f21903615ae86d546a0f4a90e986dffbbe0faa5140360b",
+    "/fa/blog/categories/fundamentals/index.html": "3d49d4132b3322eb922c4c0054df774fe63d79584064f9f407048a5e6e332b38",
+    "/fa/blog/categories/index.html": "fb7de868af520ff7b0fdc76f3f1c465d3474f1f9721c152f1dbcd2f72ff68f0b",
+    "/fa/blog/categories/papers/index.html": "2f0aa85d52f7a0f0178ab48fe6b443b1d3fa434024fd052a2d1bc347821088d9",
+    "/fa/blog/categories/repo-analysis/index.html": "8370c5d0b26767ea7110f8bb30d2a4cf95f946d4ab891b6b9dcde7445b83edc7",
+    "/fa/blog/cfg-diffusion-guidance/index.html": "7fdd2e3416603f3adf316342554eaf8dd07dfbff3f67ce7b60b9e6adf5415bc1",
+    "/fa/blog/comfyui-repo-review/index.html": "cfd8a2a827996049ae0f31fb217b56d399078ad5da85cb05c27c8440ed307005",
+    "/fa/blog/controlnet-depth/index.html": "ffb5925b2d3ae676e354997aa1fe6ecd731557dc2e5c078b8751eefd96bbf442",
+    "/fa/blog/diffusion-from-noise/index.html": "d7e8463cd83d05ba6b2c8451d48571268830df4732ec6c5ad38a9eb028422b3b",
+    "/fa/blog/dreambooth-character-continuity/index.html": "4e8eeda37f007f1d562bff6db9569fd40136f70a8ed4586bf686211182cf484b",
+    "/fa/blog/index.html": "b5b0e48fd4291e547a96b2ff6778909bd9815e6c5f877eb9c8c13dd3351aceae",
+    "/fa/blog/notes/animation/adobe-animate/index.html": "caeb6ade48f43a8fa00556e4db3b783172528b00c5ed270e0e64659ad7d4fa19",
+    "/fa/blog/notes/animation/animated-type/index.html": "2feda3f9d1dfb1a81a9df9638c71f09d4bb54c8371960e2518da68e4665a0e46",
+    "/fa/blog/notes/animation/animatics/index.html": "3b050a9a142282532a01bcb8cbcdb2cad20bb7464c3f43cbf88d12062694a8b3",
+    "/fa/blog/notes/animation/aspect-ratios/index.html": "b7e1ec4f1142ce98f81a2aa30e130daa86847432c1991c7039b3dd14679b8a50",
+    "/fa/blog/notes/animation/ball-1/index.html": "b68b2269b18a21666216f61450697a6ddc6b1b8b1eeef580eb782302623f8585",
+    "/fa/blog/notes/animation/ball-2/index.html": "0602da642229ce20f1611a175062348c364aeb09729462fd83c8e6d8bf3ebbd7",
+    "/fa/blog/notes/animation/camera-shots/index.html": "ba4003fc3c7611d235d5255eac9c4bb29e496b0d1649e1451daa88c04bb22d77",
+    "/fa/blog/notes/animation/character-design/index.html": "94787a2e09e7b15997a706ab75ad5d93cd519b5eac53291d5cf591be069af3cc",
+    "/fa/blog/notes/animation/demo-reel/index.html": "ac3b1b019a0ea63adbf8a67f1932777d0dd93dcea3b10033a3d89867e110800b",
+    "/fa/blog/notes/animation/environment-design/index.html": "1aa3afe0e7a62ba59891b87382acaf09f768a7b21ac309533c42c078405832f2",
+    "/fa/blog/notes/animation/flour-sack/index.html": "a0f2447b30922397d23150cd5a49f95416338d0926f161afd28b10e3cc99dfea",
+    "/fa/blog/notes/animation/frame-by-frame/index.html": "5b61c481cf4e5d7aad771a7ee5b77ae79e6fca01e9b1a05f75ed1c498dfda001",
+    "/fa/blog/notes/animation/framing-blocking/index.html": "2dd797872353ae49e2f9f60d00b56672c106210b093988f8896117ab87b97aa0",
+    "/fa/blog/notes/animation/history/index.html": "ba4e64c0f0cafb77b7a9c9e1f4d7a44d656b4884650d07ff18fb2b872bf9a977",
+    "/fa/blog/notes/animation/index.html": "790d3e5f0dc85818daca34347f6db1bc535eae4c16f42b6bf150e5049e65ccb4",
+    "/fa/blog/notes/animation/keyframes-breakdowns/index.html": "167bbe5661a077c574fb8bf21eea3a4aeec2e347882b7f8506c2681527160669",
+    "/fa/blog/notes/animation/lifting-weight/index.html": "20fecdf0d626a562f31691bac18a658075ffa8809bbe4bdcddf4841af6caed25",
+    "/fa/blog/notes/animation/lower-thirds/index.html": "2572f022cb60b7e6001dd4c36a2749750ecad925622047c80b60ff1a1ef52153",
+    "/fa/blog/notes/animation/motion-easing/index.html": "c3799d3000afb8317e7c4bd258ea32f2d35147d61cc55207d60fdadd03b80ec1",
+    "/fa/blog/notes/animation/ones-twos-threes/index.html": "5969587a54949622420c31db7265e8d60810f6ab242cbcab8f20244d9be78e7d",
+    "/fa/blog/notes/animation/photoshop/index.html": "7a1bf75a84b03eca67182ad0af3fcc4baa49b24599b46dd157d9a22694192174",
+    "/fa/blog/notes/animation/principles/index.html": "bddcfa631f21ca2b76bfe16c264cd8afe781d6ee749a7e59f9ba648b14eb3735",
+    "/fa/blog/notes/animation/sequential-art/index.html": "dd494a42c49f3ee81b903cb36f5f60400451910b1a46ffb40689c8f453c335d9",
+    "/fa/blog/notes/animation/story/index.html": "e177232000a7cd56a8209d44d0a930ddbb8b4042adfe74f95601e257737e4297",
+    "/fa/blog/notes/animation/storyboarding-book/index.html": "702ac8843a4c564c6cedef4c1fb6e1f5ce3778297e4752f90e4e3c836e5f4f2d",
+    "/fa/blog/notes/animation/storyboards/index.html": "06f38d97726954ab3e019a8bf15bb51ed51197e11174e85eba8bf7db67d29e5b",
+    "/fa/blog/notes/animation/types/index.html": "5ee1b234c9c2281630a25823ddb7c4dab73ec6094e62269e0a09507b25044a1d",
+    "/fa/blog/notes/animation/walk-cycle/index.html": "719cfb103d06293e583c6581a4721febafd56445bd7fb400e809102fb390d169",
+    "/fa/blog/notes/artificial-intelligence/depth-map-fog/index.html": "ef011689034e19e449eff7569fe81a9a009475f90f8f490938e71d2b60b8eea7",
+    "/fa/blog/notes/artificial-intelligence/index.html": "54e14ab52732fc2becd4419f4e058a84755e64fab1c2af63890e62cc46f7fa12",
+    "/fa/blog/notes/cinema/180-degree-rule/index.html": "eb5a3bfbab19ac563e8680dec16df62d48f48630155cdf62b3823c1dfeda1a9f",
+    "/fa/blog/notes/cinema/camera-movements/index.html": "ca5c11cd1baf86ab1ef8a70e187a351ece98410119f978883b8632c43fa03a78",
+    "/fa/blog/notes/cinema/index.html": "3cb9f321fb2e9640a282ad840af1e098b47e09b96920ec1e8744cad64cce67c2",
+    "/fa/blog/notes/ddpm/index.html": "b0739067aacfd38cada79c36a6398eac925a99f3004a9507f03e8ce0f6755481",
+    "/fa/blog/notes/diffusion/index.html": "00ec2af9b89262966ca3e27840e6b83fd609597263bc2eaa260198ffc072d33d",
+    "/fa/blog/notes/latent-diffusion/index.html": "fd69ab1570eff4ce817549c562272c46ff72365b4f755e9b5b991c30f155aa26",
+    "/fa/blog/notes/noise/index.html": "a1fdedf8326c6ef6d5c8f6de504cb7028b1b8722e3894bb9dc331e427ec6a24a",
+    "/fa/blog/notes/seed/index.html": "82ddfd9d8730446768b447e7f7c141421672b0503a294e59951461786c771a15",
+    "/fa/blog/notes/start/index.html": "4c783e2b6c5e73f31361f7daa3d38df92c2b437d8bbf37f42f78006aac817ac1",
+    "/fa/blog/rife-frame-interpolation/index.html": "a6e84707196764d25e28c8b9fed97ff4cdd21be4d527dc4af289b1cfc304ca6d",
+    "/fa/blog/tags/ai-basics/index.html": "1dd6caf5440b4e99ef753b4737a3d7b97f9a271547ce8426d0e54d8fcde15d92",
+    "/fa/blog/tags/ai-image-making/index.html": "39244596fc044e2dcdc58e712ecd31b4cf1e9d3e908fe57b1940acb9061a8203",
+    "/fa/blog/tags/animation/index.html": "9f9a8648b73af9ce7b4cf5483d5918909ace741bd696f3ca51e349f0c364d9fc",
+    "/fa/blog/tags/cfg/index.html": "d6fc15a0478939accbb4972535aa83ab2730f4c09eabdec60d9ca0e4b352c045",
+    "/fa/blog/tags/character-continuity/index.html": "3e1dd597483aba2a93acc275f1c38a789604f16a77721b8a24e8688ab63f0310",
+    "/fa/blog/tags/comfyui/index.html": "25e471e3f9530ec6a2b253e264cab0f4d892a64464bbceda55c9950f271f7a70",
+    "/fa/blog/tags/controlnet/index.html": "fc5ddaa5e81c68865b1943a9f495f47f519c1037ecbc4ec536e9bb281185c4a5",
+    "/fa/blog/tags/ddpm/index.html": "0919a04f6af8bdfc937e89171ae134ccfa83903c0993e2a9e14f7bb5cdea26e5",
+    "/fa/blog/tags/depth-map/index.html": "b1abf3d69ce1fbf6621c5402c5f3fadd21bc40d6681689a911b16c0b039fc495",
+    "/fa/blog/tags/diffusion/index.html": "ec91e9485cc19e1309491aa15a608901ea0b2b0f2f377ab3689357da911629c0",
+    "/fa/blog/tags/dreambooth/index.html": "0014be946db6eea7e1a2777d3bdda04456e97f0891675a3b738b5de8e009bfb4",
+    "/fa/blog/tags/frame-interpolation/index.html": "89edb361ac7f549caf8f232a102afeb6aa0eac6c4278caaf88a96412304814e5",
+    "/fa/blog/tags/image-control/index.html": "6dc3cd8f06fde01a4fac231f98a3e2f41bf8fd83249ae76c37c9a35c0bd42278",
+    "/fa/blog/tags/index.html": "dd39cd01429bce2a9ceee9ff4d23579ffe7a9a7f37e45d6c71b59436e4cfe64e",
+    "/fa/blog/tags/paper-explainer/index.html": "8d17d45147110cbdb0a652dc6005cfc2984742dbc1f5bdd1051c7d28d5065a2c",
+    "/fa/blog/tags/python/index.html": "79423ad0670b80a03e5175b6bf01cb625278bbf6da4f576fd69d6a5bb0eadd36",
+    "/fa/blog/tags/rife/index.html": "74d19558d2a6d1832d42892c0fb106e11a86259d67cda31e2b4d6acf8300cec1",
+    "/fa/blog/tags/workflow/index.html": "bd70dfe3dc64264d880012dcf460a26c8221314f51d3e0ddeaaf0aa091a8dc8b",
+    "/fa/garden/feed.xml": "0543374c2f17b8d2b0a43370de92f0627d7546ef5f387af7b6cf0e2a330261a1",
+    "/fa/garden/filetree.html": "b44325f1533157becf82742b3f38694eeeee190152bb825836df7c705499fb81",
     "/fa/garden/fonts/mikhak.woff2": "18e507e1ae85db40fac1ae651655ebdf5b7ec990835328bdede753ce6654007a",
     "/fa/garden/fonts/OFL.txt": "071f566f77f4d56b39c15c9f685bc8806b04a1a9543ad6c5f3806497996d046f",
     "/fa/garden/fonts/SOURCE.md": "8d713ad6f9a79d8aa839839ed00e4eec8739082a70d02fad9045ebadde8d9c27",
-    "/fa/garden/graph.json": "a24b5194ee305fcd59c899b7511d3ae445cfa86e16b0e3e29e8c9c7ad1eab75d",
+    "/fa/garden/graph.json": "a8e0b7d0c2de4a51447ac1d0f0b1ce996b3f16bc7e7a99dd5aac0f044587c0a0",
     "/fa/garden/img/default-note-icon.svg": "82297d74920cc15bdf2ab0dc6c00d37db6ec32b4bcf5e43f27ee3b9bf728c4a8",
     "/fa/garden/img/fonts/epilogue-latin-ext-wght-normal.woff2": "8026084714d57bf555eb958d7ec15bd5dc71b75ba79490111711300af524b645",
     "/fa/garden/img/fonts/epilogue-latin-wght-normal.woff2": "943ab208b058dbb0a8b257c02d6d9cfe5932a72c4deea8c77d192111c7c14519",
@@ -3240,6 +3569,20 @@
     "/fa/garden/img/user/animation/storyboard-template-fa.svg": "5f96d0ae8cd01cf885702999f4023954a1b43a50d84479f30961c64880ff9d71",
     "/fa/garden/img/user/animation/vertical-spacing.svg": "6e2b7b43ca4011165e80c769483dc75a0692be86a869cc5ceeb4c4e4511ff87e",
     "/fa/garden/img/user/animation/walk-cycle-poses.svg": "37cee4e21305a8347a9d826b317ae8cda7bb02ebb4470d45d9feb63fd4abcad4",
+    "/fa/garden/img/user/wiki-station/ai-1.webp": "2eb1595a70c15245d529d15623ddc4b9d403b49c3f9a03e4c0174bdec36b3277",
+    "/fa/garden/img/user/wiki-station/ai-2.webp": "337d52d2102c1b1097f1a3e1e4681bda9440f91cf448846275ac7963209c9996",
+    "/fa/garden/img/user/wiki-station/ai-cover.webp": "ed1fa94b3cb57cac554c2a54f4ab9eb90af2d573b7d2bac3490c70b8431191cc",
+    "/fa/garden/img/user/wiki-station/animation-1.webp": "467a8c318432b585547d64a54a5481ce51fd02454dfb871c2aff3831d6afdc4c",
+    "/fa/garden/img/user/wiki-station/animation-2.webp": "65edf1806458be20d26fac5c3d1b35200ce31f086b60416d6e0e073e0a232b52",
+    "/fa/garden/img/user/wiki-station/animation-cover.webp": "1f0e6871e3dd99eac9fc9a320b4b83f4381814537fdb70e8adcb7131ee80dfef",
+    "/fa/garden/img/user/wiki-station/cinema-1.webp": "7fb253538e09c739593a62955b53773f53bfdb740a079808696aece565959e40",
+    "/fa/garden/img/user/wiki-station/cinema-2.webp": "87f70a093c3a19d88f0957ed6fee8cada1a3fe342ed2ab51ad3cd4f2c9b896da",
+    "/fa/garden/img/user/wiki-station/cinema-cover.webp": "4c264de1f2e8565529b72dd90e78388e6782b49c83b0e3a7fed84596263e397d",
+    "/fa/garden/img/user/wiki-station/movement-1.webp": "6514adb729e1d4085b820374a6b4fcfc238f865d4b0724cafc873a58027944cc",
+    "/fa/garden/img/user/wiki-station/movement-2.webp": "7ec0bc96953ced3f3558bbcd4c7d5e9b1ea420dfabf7ab554cdd77723c5025a5",
+    "/fa/garden/img/user/wiki-station/movement-3.webp": "f5346427557d5b7601ac695741442bba5d338d22e908531dc36adccef42f0049",
+    "/fa/garden/img/user/wiki-station/movement-4.webp": "fe13bbd011ed82ca44c08efa991407a270df5931cc1a47b6a7cd11b90014b63e",
+    "/fa/garden/img/user/wiki-station/movement-cover.webp": "34daabd6c3a13f1e36a56950c61a0e6794bb89d9ec47c63fd33f9a548406f2d8",
     "/fa/garden/scripts/blog-comments.js": "9b5d3c9aeddaec074cd4862f38f85ec987eba0cabc07a605bfa16fa1269ded5b",
     "/fa/garden/scripts/blog-explorer.js": "6103900a956f6e6bc634e0250708fe75a5a73dcc222ac7c8fd78f5d3644cd3bc",
     "/fa/garden/scripts/garden-content-compat.js": "804d065fac18164a9ade9135be34b3f6ce10e1b7d0b348c4d01554260bb02f00",
@@ -3248,8 +3591,8 @@
     "/fa/garden/scripts/reader-tools.js": "ce941cf8b83b556bfdfe4d0b33a41078d92f8d6e8a93baea2c67b4e1d144db6e",
     "/fa/garden/scripts/reading-trail.js": "3758fa922dc0482756a06971b13eb04c98f25a50af5b7bb2a510b0f39e3e8630",
     "/fa/garden/scripts/workspace-panes.js": "9ee7449ed9f04d9758c6f89c854782cce538afb6b74147c6ddd4cbfc66751268",
-    "/fa/garden/searchIndex.json": "06ed337c0932b11a8682e45624688a7aada5d6f8f00d7f9e6622a05b940a3013",
-    "/fa/garden/sitemap.xml": "776b6e5f42afb8bc81bd42c8fdf271aaf4827e68831a4476124499f67f03572c",
+    "/fa/garden/searchIndex.json": "421ef7c69f716ba09f9a4300df51cb41adbf7ec3f2752deeac86ca50abd95e4a",
+    "/fa/garden/sitemap.xml": "96c7a6dadb81fe685fa69cf43acabd1da3532efc2b3ab8fb59514702a86ae561",
     "/fa/garden/styles/custom-style.css": "e230d094db3d021ddaa2541c9bc96d31c777052b9cf34b07a3beb7d524e95867",
     "/fa/garden/styles/custom-style.css.map": "96fd2d10919de215cbdd74f73d1267c6072d3b485bd93ce0cc2a12eac994a470",
     "/fa/garden/styles/digital-garden-base.css": "06e0836918a64e96300e3c46d9d8c9bf4656a73ccf2f7b79009cdc3ed9184d92",
@@ -3280,6 +3623,7 @@
     "/fa/garden/animation/history/index.html": "4c60410b87e8d3762cc2983eec2310e897a25a721d22131c2fad5747b9fe4c66",
     "/fa/garden/animation/index.html": "1e44c85fe1370275b0a47212780cc3c19d3718474ced3b823e73132ebb2d62d6",
     "/fa/garden/animation/keyframes-breakdowns/index.html": "e43b0d3e44c715ec017c4b49eea8d86077a739d8eb7c542517b2d8605ce30e26",
+    "/fa/garden/animation/lifting-weight/index.html": "f0efa8542700bb3896c95e70e90017d0e395f13728b9a18f26196984622ab3dd",
     "/fa/garden/animation/lower-thirds/index.html": "4122ae468110676221c74f73517380b83e9a915a3063bac1307e875bb375c765",
     "/fa/garden/animation/motion-easing/index.html": "3a5027c979a89f47ab5db87e6ed05a0aa671824f5af86aa08e39079616e095c3",
     "/fa/garden/animation/ones-twos-threes/index.html": "063fd472b5fb05baaee87d45e520613b81fb43543bc107e32605d64373d47345",
@@ -3292,12 +3636,15 @@
     "/fa/garden/animation/types/index.html": "81ef4d919c348dcc9b3ca78e1a6a6e29af2e7ce1a0fd4a334a834ed897af7eef",
     "/fa/garden/animation/walk-cycle/index.html": "f924de60246a32cb55f64c2219b6e31ac20b242ec555efe3c06fae78260fe3ad",
     "/fa/garden/index.html": "f0b980c88812844840d0107546e5393c9df7188e01c41b8a6859e7afc1ea1a67",
+    "/fa/garden/cinema/180-degree-rule/index.html": "fd4846f79e0727955d9ffba248849a8f811706046694567a3f4d8b6074adb308",
+    "/fa/garden/cinema/camera-movements/index.html": "85e9dd8909f3811e857a8f2fb56968f7fbf77deb3b0b558b1ee0507c5bb2accd",
     "/fa/garden/cinema/index.html": "9bc0115ca742c6b89c301b794b8c9494eb823731b52d1e933eca850dcfe68fa9",
     "/fa/garden/diffusion/index.html": "506527227f19c329aaaac368353efff6a1462fb40a89146a28ec68b9296cfda0",
     "/fa/garden/seed/index.html": "17c091743efac0faff70dc7a9bd875c216afd4af8a26a1b1fb91af7ae47f15ed",
     "/fa/garden/latent-diffusion/index.html": "5a64082d05894181af9b11b780675710fcbade6a6b50befabbadd5278d22ab95",
     "/fa/garden/noise/index.html": "a665046177029257427b378a3690f8c5ccfd70da3b88686631502799faa6cbb2",
     "/fa/garden/ddpm/index.html": "4e8525dd3cea394787ab14d5fb3ca7cd151df0ad0b936b885234a5f659c52432",
+    "/fa/garden/artificial-intelligence/depth-map-fog/index.html": "7ec59cc7ed742bef004811c24b9ce21feb74710b0cf9ca77477c8cf01e59a85e",
     "/fa/garden/artificial-intelligence/index.html": "c7cff009e71aba744bd76a7e92bcc312fd682c1630cc5328b261a56338a21ced"
   }
 }
