@@ -31,6 +31,10 @@ Breakdown یک میانگین ساده بین دو پز نیست. می‌توا�
 
 یک شخصیت دستش را به سوی فنجان می‌برد. سه پز کلیدی طراحی کن و دو نسخهٔ بریک‌داون بساز: یکی دست اول حرکت کند و دیگری شانه ابتدا بچرخد. با یک مدت برابر، تفاوت شخصیت را مشاهده کن. سپس پیش‌حرکت کوتاه و ادامهٔ حرکت را با [[animation-principles|اصول انیمیشن]] هماهنگ کن.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/breakdown-poses.svg" target="_blank" rel="noopener"><img src="/img/user/animation/breakdown-poses.svg" width="960" height="600" loading="lazy" decoding="async" alt="کلیدپز و بریک‌داون؛ چهار وضعیت از یک حرکت دست و ادامهٔ کنش"></a><figcaption>چهار وضعیت از یک حرکت دست و ادامهٔ کنش — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

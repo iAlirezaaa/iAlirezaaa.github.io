@@ -33,6 +33,10 @@ description: "تبدیل استوری‌بورد به تدوین زمان‌دا
 
 [نمونهٔ انیماتیک Dmytro Korolov](https://vimeo.com/86179034) — نمونهٔ ویدئویی معرفی‌شده در منبع؛ ویدئو متعلق به سازندهٔ آن است.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/animatic-workflow.svg" target="_blank" rel="noopener"><img src="/img/user/animation/animatic-workflow.svg" width="960" height="500" loading="lazy" decoding="async" alt="از استوری‌بورد تا انیماتیک؛ قاب خام، زمان، صدا و بازبینی تدوین"></a><figcaption>قاب خام، زمان، صدا و بازبینی تدوین — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

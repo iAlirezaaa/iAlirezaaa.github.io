@@ -31,6 +31,10 @@ description: "بررسی ترتیب تصاویر، گذر زمان، حرکت ض
 
 در شش قاب بدون متن نشان بده شخصیتی یک نامه را پیدا می‌کند و تصمیم می‌گیرد آن را پنهان کند. از فرد دیگری بخواه ترتیب و علت کنش را توضیح دهد. اگر معنا روشن نیست، قاب بینابینی یا تغییر زاویه را آزمایش کن. سپس همان شش قاب را به [[animation-storyboards|استوری‌بورد]] و [[animation-animatics|انیماتیک]] تبدیل کن.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/sequential-panels.svg" target="_blank" rel="noopener"><img src="/img/user/animation/sequential-panels.svg" width="960" height="620" loading="lazy" decoding="async" alt="هنر دنباله‌دار؛ هر قاب یک تغییر روایی را منتقل می‌کند"></a><figcaption>هر قاب یک تغییر روایی را منتقل می‌کند — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

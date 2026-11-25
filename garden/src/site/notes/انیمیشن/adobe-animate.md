@@ -35,6 +35,10 @@ Frame معمولی وضعیت موجود را ادامه می‌دهد، Keyfram
 
 در یک سند ۲۴fps، یک مربع را به Symbol تبدیل کن. در فریم ۱ سمت راست، در فریم ۲۵ سمت چپ قرار بده تا یک ثانیه فاصلهٔ زمانی داشته باشی. یک نسخه با سرعت ثابت و نسخه‌ای با شروع و پایان نرم بساز. خروجی ویدئویی یا HTML5 را مطابق نوع سند بررسی کن و فایل FLA را به‌عنوان نسخهٔ قابل‌ویرایش نگه دار. از [[animation-motion-easing|منحنی‌های حرکت]] و [[animation-frame-by-frame|کی‌فریم‌گذاری]] برای درک تفاوت خروجی‌ها استفاده کن.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/animate-interface.svg" target="_blank" rel="noopener"><img src="/img/user/animation/animate-interface.svg" width="960" height="660" loading="lazy" decoding="async" alt="ساختار رابط Animate؛ شمای آموزشی Stage، Properties، Library و Timeline"></a><figcaption>شمای آموزشی Stage، Properties، Library و Timeline — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

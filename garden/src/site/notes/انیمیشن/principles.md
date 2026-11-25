@@ -67,6 +67,10 @@ description: "اصول کلاسیک ساخت حرکت خوانا، وزن‌دا
 
 یک شات دوثانیه‌ای از پریدن یک کاراکتر ساده بساز. در مرحلهٔ اول فقط پیش‌حرکت، پز جداشدن، اوج و فرود؛ سپس زمان‌بندی و قوس؛ و در آخر overlap، فشردگی و کنش فرعی را اضافه کن. شات را یک بار در سرعت واقعی، یک بار با توقف روی پزها و یک بار بدون صدا بررسی کن. سؤال اصلی: آیا نیت و وزن بدون توضیح فهمیده می‌شود؟
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/principles-visual.svg" target="_blank" rel="noopener"><img src="/img/user/animation/principles-visual.svg" width="960" height="650" loading="lazy" decoding="async" alt="اصول حرکت در یک نگاه؛ شش مثال تصویری مکمل شرح دوازده اصل"></a><figcaption>شش مثال تصویری مکمل شرح دوازده اصل — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

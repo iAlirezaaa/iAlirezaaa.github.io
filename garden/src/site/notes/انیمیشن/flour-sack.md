@@ -35,6 +35,10 @@ description: "بیان وزن، احساس و نیت با یک فرم ساده �
 
 شات را بدون صدا به فرد دیگری نشان بده و از او بخواه اتفاق و احساس را توضیح دهد. اگر نیاز به توضیح خودت دارد، پز، جهت یا زمان‌بندی را اصلاح کن. تمرین بعدی می‌تواند [[animation-walk-cycle|چرخهٔ راه‌رفتن]] یا [[animation-principles|اصول انیمیشن]] باشد.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/flour-sack-poses.svg" target="_blank" rel="noopener"><img src="/img/user/animation/flour-sack-poses.svg" width="960" height="580" loading="lazy" decoding="async" alt="بازیگری با فرم ساده؛ نمایش پیش‌حرکت و وزن بدون چهره"></a><figcaption>نمایش پیش‌حرکت و وزن بدون چهره — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

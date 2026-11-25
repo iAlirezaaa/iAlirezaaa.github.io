@@ -35,6 +35,10 @@ description: "فرایند طراحی شخصیت از داستان و سیلوئ
 
 برای یک شخصیت که می‌خواهد دیده نشود ولی وظیفه‌ای جسورانه دارد، ۱۰ سیلوئت طراحی کن. سه گزینه را با پزهای راه‌رفتن و نشستن آزمایش کن، یکی را با نماهای هماهنگ کامل کن. پیش از جزئیات رندر، از نمای کوچک و سیلوئت بخواه نیت و فرم شخصیت را نشان بدهند.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/character-sheet.svg" target="_blank" rel="noopener"><img src="/img/user/animation/character-sheet.svg" width="960" height="560" loading="lazy" decoding="async" alt="شیت طراحی شخصیت؛ کنترل سیلوئت و ارتفاع در طراحی نمونه"></a><figcaption>کنترل سیلوئت و ارتفاع در طراحی نمونه — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

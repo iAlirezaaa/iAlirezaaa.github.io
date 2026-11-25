@@ -35,6 +35,10 @@ Photoshop برای حرکت سادهٔ تصاویر، ساخت GIF، آزمای�
 
 یک تصویر با سه لایهٔ پیش‌زمینه، سوژه و پس‌زمینه بساز. در دو ثانیه فاصلهٔ حرکت هر لایه را متفاوت تنظیم کن تا عمق ساده حس شود. سپس یک GIF کوچک حلقه‌ای بساز و ابتدا و انتهای حلقه را برای پرش ناخواسته بررسی کن.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/photoshop-timeline.svg" target="_blank" rel="noopener"><img src="/img/user/animation/photoshop-timeline.svg" width="960" height="610" loading="lazy" decoding="async" alt="لایه‌ها و خط زمان در Photoshop؛ شمای کلیپ لایه، نشانگر زمان و کی‌فریم"></a><figcaption>شمای کلیپ لایه، نشانگر زمان و کی‌فریم — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]

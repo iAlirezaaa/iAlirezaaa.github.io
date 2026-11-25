@@ -33,6 +33,10 @@ description: "ساخت جهان بصری با توجه به داستان، مع�
 
 تمرین: محیط یک ایستگاه کوچک را برای ورود شتاب‌زده و خروج آرام شخصیت طراحی کن. در هر نسخه نقطهٔ توجه، مسیر، نور و فضای انتظار را به‌طور آگاهانه تغییر بده.
 
+## تصویرهای آموزشی فارسی
+
+<figure class="animation-study-figure"><a href="/img/user/animation/environment-plan.svg" target="_blank" rel="noopener"><img src="/img/user/animation/environment-plan.svg" width="960" height="590" loading="lazy" decoding="async" alt="پلان و لایه‌های محیط؛ مسیر کنش، مقیاس و عمق باید پیش از تولید مشخص باشند"></a><figcaption>مسیر کنش، مقیاس و عمق باید پیش از تولید مشخص باشند — نمودار آموزشی مستقل هادس (نه تصویر اصلی منبع).</figcaption></figure>
+
 ## ادامهٔ مطالعه
 
 [[animation-index|بازگشت به مسیر آموزش انیمیشن]]
