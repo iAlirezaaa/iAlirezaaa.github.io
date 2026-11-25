@@ -398,6 +398,12 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     }
   });
   for (const container of [miniature, full]) if (container) resizeObserver.observe(container);
+  const panelObserver=new MutationObserver(()=>{
+    if(!miniature)return;
+    if(getComputedStyle(miniature).visibility!=='visible')states.get(miniature)?.stop();
+    else if(!states.has(miniature))renderMini();
+  });
+  panelObserver.observe(document.body,{attributes:true,attributeFilter:['data-open-panel']});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){states.get(full)?.stop();states.get(miniature)?.stop();}});
   reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches){states.get(full)?.stop();states.get(miniature)?.stop();}});
   renderMini();
