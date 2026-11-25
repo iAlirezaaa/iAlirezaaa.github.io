@@ -35,8 +35,9 @@ assert.ok(htmlFiles.length > entries.length + 5, 'Knowledge pages were not gener
 const documents = new Map(htmlFiles.map(file => [routeForFile(file), parse(fs.readFileSync(file, 'utf8'))]))
 const manifest = JSON.parse(read('fa/garden/manifest.json'))
 const publishedRoutes = new Set(manifest.notes.map(note => note.url))
-const garden = documents.get('/fa/garden/')
-assert.ok(garden, 'Missing Digital Garden home')
+const garden = documents.get('/fa/blog/')
+assert.ok(garden, 'Missing unified blog home')
+assert.equal(manifest.redirects['/fa/garden/'], '/fa/blog/')
 
 for (const [route, document] of documents) {
   const identifiers = document.querySelectorAll('[id]').map(element => element.getAttribute('id'))
@@ -44,6 +45,13 @@ for (const [route, document] of documents) {
   const html = document.querySelector('html')
   assert.equal(html?.getAttribute('lang'), 'fa', 'Persian language missing: ' + route)
   assert.equal(html?.getAttribute('dir'), 'rtl', 'RTL document missing: ' + route)
+  if (Object.hasOwn(manifest.redirects,route)) {
+    assert.match(document.querySelector('meta[name="robots"]')?.getAttribute('content')||'', /noindex/)
+    assert.equal(document.querySelector('link[rel="canonical"]')?.getAttribute('href'),origin+manifest.redirects[route])
+    assert.ok(document.querySelector('a[href="'+manifest.redirects[route]+'"]'), 'Legacy redirect needs fallback link')
+    assert.ok(localFile(manifest.redirects[route]), 'Legacy redirect target missing')
+    continue
+  }
   if (!publishedRoutes.has(route)) {
     assert.ok(['/fa/garden/404/','/fa/garden/~random/'].includes(route), 'Unexpected stale or unlisted page: ' + route)
     assert.match(document.querySelector('meta[name="robots"]')?.getAttribute('content') || '', /noindex/, 'Auxiliary page must not be indexed: ' + route)
@@ -81,7 +89,7 @@ assert.ok(graph.links.length >= 6, 'Note relationships are missing')
 for (const [key, node] of Object.entries(graph.nodes)) {
   assert.equal(key, node.url, 'Graph key and URL differ')
   assert.ok(localFile(node.url), 'Graph target missing: ' + node.url)
-  assert.ok(node.url.startsWith('/fa/garden/') || node.url.startsWith('/fa/blog/'), 'Unprefixed graph URL: ' + node.url)
+  assert.ok(node.url.startsWith('/fa/blog/'), 'Unprefixed graph URL: ' + node.url)
   for (const backlink of node.backLinks) {
     assert.ok(graph.nodes[backlink], 'Dangling backlink: ' + backlink)
     assert.ok(graph.nodes[backlink].outBound.includes(node.url), 'Backlink has no source link: ' + backlink)
@@ -95,6 +103,47 @@ for (const link of graph.links) {
   assert.ok(target.backLinks.includes(source.url), 'Graph edge missing backlink')
 }
 for (const entry of entries) assert.ok(nodes.some(node => node.url === '/fa/blog/' + entry.slug + '/'), 'Article absent from graph: ' + entry.slug)
+
+// Editorial index and reader regression: exercise real generated markup.
+const editorialIndex = documents.get('/fa/blog/')
+assert.ok(editorialIndex, 'Blog index missing')
+assert.equal(editorialIndex.querySelector('.topbar-name')?.getAttribute('href'), '/fa/blog/', 'Blog must be the single public entry')
+assert.equal(editorialIndex.querySelector('.garden-wordmark')?.getAttribute('href'), '/fa/blog/')
+assert.ok(!editorialIndex.querySelector('.topbar-links a[href="/fa/garden/"]'), 'Parallel garden landing in top navigation')
+assert.ok(editorialIndex.querySelector('#articles'))
+assert.ok(editorialIndex.querySelector('#notes'))
+const knowledgeLinks = new Set(editorialIndex.querySelectorAll('#notes .blog-knowledge-grid a').map(link => link.getAttribute('href')))
+assert.ok(knowledgeLinks.has('/fa/blog/notes/noise/'), 'Published notes missing from unified index')
+assert.ok(knowledgeLinks.has('/fa/blog/notes/diffusion/'), 'Learning path missing from unified index')
+for (const href of knowledgeLinks) assert.ok(localFile(href), 'Broken knowledge index link: ' + href)
+const editorialCards = editorialIndex.querySelectorAll('.garden-post-list--editorial > li')
+if (editorialCards.length) {
+  assert.equal(editorialIndex.querySelectorAll('.garden-post-list--editorial > .is-featured').length, 1, 'Expected one featured article')
+  assert.ok(editorialCards[0].classList.contains('is-featured'), 'Featured article must be first')
+  for (const [index, card] of editorialCards.entries()) {
+    const cover = card.querySelector('.garden-post-cover')
+    assert.ok(cover?.getAttribute('aria-label')?.trim(), 'Unnamed cover link')
+    const image = cover.querySelector('img')
+    assert.ok(Number(image?.getAttribute('width')) > 0 && Number(image?.getAttribute('height')) > 0, 'Cover needs intrinsic dimensions')
+    assert.equal(image?.getAttribute(index === 0 ? 'fetchpriority' : 'loading'), index === 0 ? 'high' : 'lazy', 'Incorrect cover loading strategy')
+  }
+}
+const figureNumbers = new Intl.NumberFormat('fa-IR')
+for (const [route, doc] of documents) {
+  if (!doc.querySelector('main.blog-article')) continue
+  const figures = doc.querySelectorAll('.article-prose .article-figure')
+  for (const [index, figure] of figures.entries()) {
+    const caption = figure.querySelector('figcaption')
+    assert.ok(caption, 'Missing accessible figure caption: ' + route)
+    assert.equal(caption.querySelector('.figure-index')?.text.trim(), 'تصویر در این نوشته · ' + figureNumbers.format(index + 1), 'Figure order mismatch: ' + route)
+    const src = figure.querySelector('img')?.getAttribute('src') || ''
+    const open = caption.querySelector('.figure-open')
+    if (src.startsWith('/fa/blog/media/') || src.startsWith('https://arxiv.org/')) {
+      assert.equal(open?.getAttribute('href'), src, 'Original-image destination mismatch: ' + route)
+      assert.ok(open?.getAttribute('aria-label')?.includes(figureNumbers.format(index + 1)), 'Missing named image link: ' + route)
+    }
+  }
+}
 
 const search = JSON.parse(read('fa/garden/searchIndex.json'))
 assert.ok(Array.isArray(search) && search.length >= entries.length + 5, 'Search corpus missing published notes')
@@ -123,7 +172,7 @@ for (const query of ['يادگيري','مدلهای','مدل های','تصوير
   assert.equal(searchNotes(searchFixture,query)[0]?.url,'/a/','Persian search variant failed: ' + query)
 }
 assert.equal(searchNotes(searchFixture,'شبکه کتاب').length,0,'Multiword search must match one record')
-assert.ok(searchNotes(search,'نویز').some(note => note.url === '/fa/garden/noise/'),'Published Persian note is not findable')
+assert.ok(searchNotes(search,'نویز').some(note => note.url === '/fa/blog/notes/noise/'),'Published Persian note is not findable')
 
 
 assert.equal(manifest.version, 2)
@@ -136,6 +185,8 @@ assert.ok(manifest.notes.length >= entries.length + 5)
 const manifestURLs = new Set(manifest.notes.map(note => note.url))
 for (const node of nodes) assert.ok(manifestURLs.has(node.url), 'Graph node absent from publication manifest')
 for (const note of manifest.notes) {
+  assert.ok(note.url.startsWith('/fa/blog/'), 'Separate public knowledge route: '+note.url)
+  if (note.legacyUrl) assert.ok(Object.hasOwn(manifest.redirects,note.legacyUrl), 'Missing compatibility redirect: '+note.legacyUrl)
   assert.ok(localFile(note.url), 'Published manifest note has no built page: ' + note.url)
   if (note.hidden) assert.ok(!graph.nodes[note.url], 'Hidden directory appears in discovery graph: ' + note.url)
   else assert.ok(graph.nodes[note.url], 'Manifest note is missing from native graph: ' + note.url)

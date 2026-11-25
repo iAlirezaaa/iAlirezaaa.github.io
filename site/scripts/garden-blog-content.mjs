@@ -15,9 +15,15 @@ const tagPath = id => root + 'tags/' + id + '/'
 const articlePath = entry => root + entry.slug + '/'
 const tagLinks = tags => '<nav class="garden-tags" aria-label="برچسب‌های نوشته">' + (tags || []).map(id => '<a class="tag internal-link" href="' + tagPath(id) + '">' + esc(topicNames[id] || id) + '</a>').join('') + '</nav>'
 
-function figure(asset, hero = false) {
+function figure(asset, hero = false, index = 0) {
   const remotePaper = asset.path.startsWith('https://arxiv.org/')
-  const caption = asset.caption ? '<figcaption>' + esc(asset.caption) + (asset.credit ? '<small>' + (asset.sourceUrl ? '<a href="' + esc(asset.sourceUrl) + '">' + esc(asset.credit) + '</a>' : esc(asset.credit)) + '</small>' : '') + '</figcaption>' : ''
+  const label = 'تصویر در این نوشته · ' + numbers.format(index)
+  const number = hero ? '' : '<span class="figure-index">' + label + '</span>'
+  const text = asset.caption ? '<span>' + esc(asset.caption) + '</span>' : ''
+  const credit = asset.credit ? '<small>' + (asset.sourceUrl ? '<a href="' + esc(asset.sourceUrl) + '">' + esc(asset.credit) + '</a>' : esc(asset.credit)) + '</small>' : ''
+  const canOpen = !hero && (asset.path.startsWith('/fa/blog/media/') || remotePaper)
+  const open = canOpen ? '<a class="figure-open" href="' + esc(asset.path) + '" aria-label="نمایش ' + label + ' در اندازهٔ اصلی">نمایش در اندازهٔ اصلی</a>' : ''
+  const caption = number || text || credit || open ? '<figcaption>' + number + text + credit + open + '</figcaption>' : ''
   return '<figure class="' + (hero ? 'hero ' : '') + 'article-figure' + (remotePaper ? ' paper-original' : '') + '"><img src="' + esc(asset.path) + '" alt="' + esc(asset.alt) + '" width="' + asset.width + '" height="' + asset.height + '" decoding="async" ' + (hero ? 'fetchpriority="high"' : 'loading="lazy"') + '>' + caption + '</figure>'
 }
 
@@ -27,9 +33,9 @@ function meta(entry) {
   return '<p class="article-meta"><span class="article-byline">علیرضا عسگرپور</span><span aria-hidden="true"> · </span><time datetime="' + entry.date + '">' + date + '</time><span aria-hidden="true"> · </span><span>' + numbers.format(stats.minutes) + ' دقیقه مطالعه</span><span aria-hidden="true"> · </span><span>' + numbers.format(stats.words) + ' واژه</span></p>'
 }
 
-function cards(list) {
+function cards(list, editorial = false) {
   if (!list.length) return '<p class="directory-state">هنوز نوشته‌ای در این بخش منتشر نشده. <a href="/fa/blog/">دیدن همهٔ نوشته‌ها</a></p>'
-  return '<ul class="garden-post-list">' + list.map(entry => '<li><a class="garden-post-cover internal-link" href="' + articlePath(entry) + '"><img src="' + esc(entry.hero.path) + '" alt="" width="' + entry.hero.width + '" height="' + entry.hero.height + '" loading="lazy"></a><div>' + (entry.categoryId ? '<a class="garden-post-category internal-link" href="' + categoryPath(entry.categoryId) + '">' + esc(categories[entry.categoryId]?.name || entry.category) + '</a>' : '') + '<h2><a class="internal-link" href="' + articlePath(entry) + '">' + esc(entry.title) + '</a></h2><p>' + esc(entry.description) + '</p>' + meta(entry) + tagLinks(entry.tags) + '</div></li>').join('') + '</ul>'
+  return '<ul class="garden-post-list' + (editorial ? ' garden-post-list--editorial' : '') + '">' + list.map((entry, index) => '<li' + (editorial && index === 0 ? ' class="is-featured"' : '') + '><a class="garden-post-cover internal-link" aria-label="خواندن: ' + esc(entry.title) + '" href="' + articlePath(entry) + '"><img src="' + esc(entry.hero.path) + '" alt="" width="' + entry.hero.width + '" height="' + entry.hero.height + '" decoding="async" ' + (editorial && index === 0 ? 'fetchpriority="high"' : 'loading="lazy"') + '></a><div>' + (editorial && index === 0 ? '<span class="editorial-kicker">تازه‌ترین نوشته</span>' : '') + (entry.categoryId ? '<a class="garden-post-category internal-link" href="' + categoryPath(entry.categoryId) + '">' + esc(categories[entry.categoryId]?.name || entry.category) + '</a>' : '') + '<h2><a class="internal-link" href="' + articlePath(entry) + '">' + esc(entry.title) + '</a></h2><p>' + esc(entry.description) + '</p>' + meta(entry) + tagLinks(entry.tags) + '</div></li>').join('') + '</ul>'
 }
 
 function note(fileName, title, permalink, description, content, extra = {}) {
@@ -49,9 +55,10 @@ function note(fileName, title, permalink, description, content, extra = {}) {
 }
 
 function articleContent(entry) {
-  const sections = entry.sections.map((section,i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + (section.blocks ? renderBlocks(section.blocks, section.title) : (section.paragraphs || []).map(p => '<p>' + esc(p) + '</p>').join('\n')) + (entry.figures || []).filter(f => f.afterSection === i + 1).map(f => figure(f)).join('\n')).join('\n\n')
+  let figureIndex = 0
+  const sections = entry.sections.map((section,i) => (section.title ? '<h2 id="section-' + (i + 1) + '" tabindex="-1">' + esc(section.title) + '</h2>' : '') + (section.blocks ? renderBlocks(section.blocks, section.title) : (section.paragraphs || []).map(p => '<p>' + esc(p) + '</p>').join('\n')) + (entry.figures || []).filter(f => f.afterSection === i + 1).map(f => figure(f, false, ++figureIndex)).join('\n')).join('\n\n')
   const sources = entry.sources?.length ? '<section class="sources" aria-labelledby="sources-title"><h2 id="sources-title">برای بیشتر خوندن</h2><ul>' + entry.sources.map(s => '<li><a href="' + esc(s.url) + '"><bdi>' + esc(s.title) + '</bdi></a></li>').join('') + '</ul></section>' : ''
-  const related = entry.tags?.includes('diffusion') ? '\n\n## پیوندهای این نوشته\n\nبرای دنبال‌کردن مفهوم‌ها، از [[diffusion|دیفیوژن]] به [[noise|نویز]]، [[ddpm|DDPM]]، [[latent-diffusion|فضای نهفته]] و [[seed|بذر تصادفی]] سر بزن.\n\n' : '\n\n[مرور یادداشت‌های مرتبط](/fa/garden/)\n\n'
+  const related = entry.tags?.includes('diffusion') ? '\n\n## پیوندهای این نوشته\n\nبرای دنبال‌کردن مفهوم‌ها، از [[diffusion|دیفیوژن]] به [[noise|نویز]]، [[ddpm|DDPM]]، [[latent-diffusion|فضای نهفته]] و [[seed|بذر تصادفی]] سر بزن.\n\n' : '\n\n[مرور یادداشت‌های مرتبط](/fa/blog/#notes)\n\n'
   const stats = readingStats(entry)
   const schema = {
     '@context':'https://schema.org','@type':'BlogPosting','@id':origin + articlePath(entry) + '#article',mainEntityOfPage:origin + articlePath(entry),
@@ -72,7 +79,7 @@ export function getBlogGardenNotes() {
   const activeTags = Object.keys(topicNames).filter(tag => approved.some(e => e.tags?.includes(tag)))
   const directories = {group:'راهنماها','dg-hide':true,contentClasses:'blog-directory',dgShowLocalGraph:false,dgShowBacklinks:false}
   const records = [note('نوشته‌ها/همهٔ نوشته‌ها.md','نوشته‌ها و مقاله‌ها',root,'از مفاهیم پایهٔ هوش مصنوعی تا مقاله‌های پژوهشی و ابزارهای ساخت تصویر و انیمیشن.',
-    '<p class="article-deck">از پشت‌صحنهٔ انیمیشن گرفته تا قصه‌گویی و ابزارهایی که موقع ساختن به کارم می‌آیند. هر نوشته به مفهوم‌ها و یادداشت‌های مرتبطش وصل است.</p>\n\n<nav class="garden-directory-nav" aria-label="مرور نوشته‌ها"><a href="/fa/blog/categories/">دسته‌بندی‌ها</a><a href="/fa/blog/tags/">برچسب‌ها</a><a href="/fa/garden/">باغ دیجیتال</a></nav>\n\n' + cards(approved),{contentClasses:'blog-directory',dgShowLocalGraph:false})]
+    '<p class="article-deck">از پشت‌صحنهٔ انیمیشن گرفته تا قصه‌گویی و ابزارهایی که موقع ساختن به کارم می‌آیند. هر نوشته به مفهوم‌ها و یادداشت‌های مرتبطش وصل است.</p>\n\n<nav class="garden-directory-nav" aria-label="مرور نوشته‌ها"><a href="/fa/blog/categories/">دسته‌بندی‌ها</a><a href="/fa/blog/tags/">برچسب‌ها</a><a href="/fa/blog/#notes">یادداشت‌ها و مفاهیم</a></nav>\n\n' + '<h2 class="blog-index-section-title" id="articles">مقاله‌ها</h2>' + cards(approved, true),{contentClasses:'blog-directory',dgShowLocalGraph:false})]
 
   const categoryCards = '<ul class="garden-category-list">' + Object.entries(categories).map(([id,cat]) => {
     const count = approved.filter(e => e.categoryId === id).length

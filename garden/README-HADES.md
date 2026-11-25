@@ -1,9 +1,11 @@
-# باغ دیجیتال هادس
+# وبلاگ یکپارچهٔ هادس
 
 ساختار بخش فارسیِ نوشته‌ها و یادداشت‌های سایت بر پایهٔ قالب اصلی [Digital Garden](https://github.com/oleeskild/digitalgarden) است؛ افزونهٔ [Obsidian Digital Garden](https://github.com/oleeskild/obsidian-digital-garden) می‌تواند یادداشت‌ها را در همین مخزن منتشر کند.
 
-- [ورود به باغ](https://ialirezaaa.github.io/fa/garden/)
-- [نوشته‌ها و مقاله‌ها](https://ialirezaaa.github.io/fa/blog/)
+- [وبلاگ، مقاله‌ها و یادداشت‌ها](https://ialirezaaa.github.io/fa/blog/)
+- [یادداشت‌ها و مفاهیم](https://ialirezaaa.github.io/fa/blog/#notes)
+
+تمام یادداشت‌های منتشرشده در `/fa/blog/notes/` قرار می‌گیرند. آدرس‌های محتوایی قدیمی `/fa/garden/` به بلاگ یا یادداشت متناظر هدایت می‌شوند؛ مسیر فایل‌های زیرساختی و تنظیمات اتصال Obsidian تغییر نمی‌کند.
 - [منبع یادداشت‌ها](src/site/notes/)
 
 ## انتشار از Obsidian

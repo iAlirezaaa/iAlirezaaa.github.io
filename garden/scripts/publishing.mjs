@@ -5,7 +5,9 @@ const require = createRequire(import.meta.url)
 const matter = require('gray-matter')
 const matterOptions = require('../src/helpers/matterOptions.js')
 
-export const GARDEN_PATH = '/fa/garden/'
+export const GARDEN_PATH = '/fa/garden/' // legacy asset namespace, not a second content site
+export const BLOG_PATH = '/fa/blog/'
+export const NOTES_PATH = BLOG_PATH + 'notes/'
 export const ORIGIN = 'https://ialirezaaa.github.io'
 export const normalizePersian = value => String(value).normalize('NFKC').replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[\u200C\u200D]/g,' ').replace(/\s+/g,' ').trim().toLocaleLowerCase('fa')
 export const headingId = value => normalizePersian(String(value).replace(/<[^>]*>/g,'')).replace(/[^\p{L}\p{N}\s_-]/gu,'').replace(/[\s_]+/g,'-').replace(/^-+|-+$/g,'')
@@ -26,6 +28,7 @@ function safePermalink(value, fallback, virtual) {
   let url = typeof value === 'string' ? value.trim() : fallback
   if (url.startsWith(ORIGIN)) url = url.slice(ORIGIN.length)
   if (url.startsWith(GARDEN_PATH)) url = '/'+url.slice(GARDEN_PATH.length)
+  else if (!virtual && url.startsWith(NOTES_PATH)) url = '/'+url.slice(NOTES_PATH.length)
   if (!url.startsWith('/') || url.startsWith('//') || /[\\?#<>"']/.test(url) || url.split('/').includes('..')) throw new Error('Invalid public note permalink: '+url)
   if (url.startsWith('/fa/') && !(virtual && url.startsWith('/fa/blog/'))) throw new Error('Note route escapes garden: '+url)
   return url.endsWith('/') || /\.[a-z0-9]+$/i.test(url) ? url : url+'/'
@@ -46,10 +49,12 @@ export function readNotes(notesRoot, extraNotes = []) {
     data.tags=tags
     data.title=title
     if(data['dg-hide']===true && data.hide === undefined)data.hide=true
-    data.permalink=tags.includes('gardenEntry') ? '/' : safePermalink(data.permalink,'/'+stem.split('/').map(headingId).join('/')+'/',note.virtual)
+    const legacyPermalink=tags.includes('gardenEntry') ? '/' : safePermalink(data.permalink,'/'+stem.split('/').map(headingId).join('/')+'/',note.virtual)
+    const legacyUrl=note.virtual ? null : GARDEN_PATH+legacyPermalink.slice(1)
+    data.permalink=note.virtual ? legacyPermalink : NOTES_PATH+(legacyPermalink==='/'?'start/':legacyPermalink.slice(1))
     data.description=String(data.description || note.content.replace(/%%[\s\S]*?%%/g,'').replace(/<[^>]*>/g,'').replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(_,target,label)=>label||target).replace(/[#*_`]/g,'').trim().slice(0,170))
     const aliases=[title,path.posix.basename(stem),stem,...(Array.isArray(data.aliases)?data.aliases:typeof data.aliases==='string'?[data.aliases]:[])]
-    return {...note,fileName,stem,frontmatter:data,title,aliases,content:note.content.replace(/%%[\s\S]*?%%/g,'')}
+    return {...note,fileName,stem,frontmatter:data,title,aliases,legacyUrl,content:note.content.replace(/%%[\s\S]*?%%/g,'')}
   })
   const unique=new Set()
   for(const note of notes){if(unique.has(note.frontmatter.permalink))throw new Error('Duplicate public permalink '+note.frontmatter.permalink);unique.add(note.frontmatter.permalink)}
@@ -114,7 +119,7 @@ export function manifestFor(notes) {
   const items=notes.map(note=>{
     const links=[...note.content.matchAll(/(?<!!)\[\[([^\]\n]+)\]\]/g)].map(m=>m[1].split('|')[0].split('#')[0]).map(target=>resolveNote(target,index,note.stem)).filter(Boolean).map(n=>prefixedUrl(n.frontmatter.permalink))
     const headings=[...note.content.matchAll(/^#{1,6}\s+(.+)$/gm)].map(m=>({title:m[1],id:headingId(m[1])}))
-    return {id:note.frontmatter.id||path.posix.basename(note.stem),title:note.title,url:prefixedUrl(note.frontmatter.permalink),source:note.fileName,text:note.frontmatter.description,group:note.frontmatter.group||note.frontmatter.category||'یادداشت',tags:note.frontmatter.tags.filter(t=>!['note','gardenEntry'].includes(t)),aliases:note.aliases,links:[...new Set(links)],backlinks:[],headings,articleUrl:note.frontmatter.articleUrl||note.frontmatter.url||null,created:note.frontmatter.created||null,updated:note.frontmatter.updated||null,kind:note.frontmatter.kind||'note',hidden:note.frontmatter.hide===true,robots:note.frontmatter.metatags?.robots||'index, follow',canonical:note.frontmatter.canonical||null}
+    return {id:note.frontmatter.id||path.posix.basename(note.stem),title:note.title,url:prefixedUrl(note.frontmatter.permalink),source:note.fileName,legacyUrl:note.legacyUrl,text:note.frontmatter.description,group:note.frontmatter.group||note.frontmatter.category||'یادداشت',tags:note.frontmatter.tags.filter(t=>!['note','gardenEntry'].includes(t)),aliases:note.aliases,links:[...new Set(links)],backlinks:[],headings,articleUrl:note.frontmatter.articleUrl||note.frontmatter.url||null,created:note.frontmatter.created||null,updated:note.frontmatter.updated||null,kind:note.frontmatter.kind||'note',hidden:note.frontmatter.hide===true,robots:note.frontmatter.metatags?.robots||'index, follow',canonical:note.frontmatter.canonical||null}
   })
   for(const item of items)item.backlinks=items.filter(n=>n.links.includes(item.url)).map(n=>n.url)
   return {version:2,generator:'oleeskild/digitalgarden',language:'fa',direction:'rtl',basePath:GARDEN_PATH,notes:items,urls:items.filter(n=>!n.robots.includes('noindex')&&(!n.canonical||n.canonical===ORIGIN+n.url||n.canonical===n.url)).map(n=>n.url)}
