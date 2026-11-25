@@ -45,9 +45,9 @@ small{font-size:.85em}hr{border:0;border-block-start:1px solid var(--line);margi
 .garden-layout{display:grid;grid-template-columns:258px minmax(0,1fr) 258px;align-items:start;min-height:100dvh;max-width:1680px;margin:auto}
 .garden-navigation,.garden-context{position:sticky;top:0;min-width:0;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .garden-navigation{background:var(--panel);border-inline-end:1px solid var(--line);min-height:100dvh;padding:1.75rem 1.15rem 1rem;display:flex;flex-direction:column}
-.garden-wordmark{display:flex;gap:.75rem;align-items:center;text-decoration:none;margin:0 0 1.55rem;color:var(--ink)}
-.garden-wordmark:hover{text-decoration:none}.brand-original{display:block;flex:none;width:48px;height:48px;object-fit:contain;border-radius:2px;background:#151515}
-.brand-name{min-width:0;display:grid;gap:.12rem}.brand-name>bdi{font:500 1.13rem/1.6 Arial,sans-serif;letter-spacing:.12em}.brand-name>small{font-size:.76rem;color:var(--muted);white-space:normal;line-height:1.8}
+.garden-wordmark{display:flex;flex-direction:column;gap:.3rem;align-items:center;justify-content:center;text-align:center;text-decoration:none;margin:0 0 1.3rem;color:var(--ink)}
+.garden-wordmark:hover{text-decoration:none}.brand-original{display:block;flex:none;width:76px;height:76px;object-fit:contain;background:transparent;border:0;border-radius:0;box-shadow:none}
+.brand-name{min-width:0;display:grid;justify-items:center;text-align:center;gap:.05rem}.brand-name>bdi{font:500 1.04rem/1.5 Arial,sans-serif;letter-spacing:.18em}.brand-name>small{font-size:.76rem;color:var(--muted);white-space:normal;line-height:1.8}.topbar-mark{display:block;width:34px;height:34px;object-fit:contain;background:transparent;border:0;box-shadow:none;flex:none}
 .garden-search-button{display:flex;align-items:center;gap:.55rem;flex:none;width:100%;min-height:42px;text-align:start;padding:.4rem .55rem;font-size:.875rem;background:var(--surface);color:var(--muted);margin-block-end:1.5rem}
 .garden-search-button kbd{margin-inline-start:auto;font-size:11px;color:var(--faint);border:0;background:none;padding:0;white-space:nowrap}
 kbd{font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;border:1px solid var(--line);border-radius:3px;background:var(--subtle);padding:.1em .35em;white-space:nowrap}
@@ -218,8 +218,8 @@ kbd{font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;border:1px soli
 @media(min-width:1500px){.garden-layout{grid-template-columns:280px minmax(0,1fr) 280px}.garden-navigation{padding-inline:1.5rem}.garden-context{padding-inline:1.25rem}.garden-content{padding-inline:3rem}}
 @media(max-width:1100px){
   html{scroll-padding-top:5rem}h1,h2,h3,h4,[id]{scroll-margin-top:5rem}
-  .garden-topbar{display:flex;align-items:center;justify-content:space-between;gap:.5rem;position:sticky;top:0;z-index:40;min-height:var(--topbar-height);padding:.25rem .75rem;border-block-end:1px solid var(--line);background:var(--paper)}
-  .garden-topbar .icon-button{width:44px;min-width:44px;height:44px;min-height:44px}.topbar-name{font-size:.9375rem}.topbar-name bdi{font-weight:650}
+  .garden-topbar{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;justify-items:center;gap:.5rem;position:sticky;top:0;z-index:40;min-height:var(--topbar-height);padding:.25rem .75rem;border-block-end:1px solid var(--line);background:var(--paper)}
+  .garden-topbar .icon-button{width:44px;min-width:44px;height:44px;min-height:44px}.topbar-name{display:flex;align-items:center;justify-content:center;gap:.45rem;min-width:0;direction:ltr;text-align:center}.topbar-name bdi{font:500 .9rem/1.5 Arial,sans-serif;letter-spacing:.18em}
   .garden-layout{display:block;min-height:calc(100dvh - var(--topbar-height))}.garden-content{padding:2.1rem 2rem 3rem;max-width:48rem}
   .garden-panel{position:fixed;inset-block:0;z-index:100;width:min(340px,calc(100vw - 2rem));max-height:none;height:100dvh;padding:1rem 1.15rem;visibility:hidden;background:var(--surface);transition:transform .18s ease,visibility .18s;overflow:auto}
   .garden-navigation{inset-inline-start:0;inset-inline-end:auto;transform:translateX(105%);border-inline-end:1px solid var(--line)}

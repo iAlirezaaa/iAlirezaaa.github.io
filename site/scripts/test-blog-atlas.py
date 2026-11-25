@@ -175,6 +175,15 @@ def assert_shell(page, width, expected_tree_urls, content_page=False):
     assert page.locator('#garden-navigation [data-settings-open]').count() == 1
     assert page.locator('#garden-context [data-global-graph-open]').count() == 1
     assert page.locator('.garden-wordmark').get_attribute('href') == '/fa/blog/'
+    brand = page.locator('.garden-wordmark')
+    mark = brand.locator('.brand-original')
+    assert mark.get_attribute('src').endswith('/HADES_Original_Emblem_Transparent_Web_REVIEW.svg')
+    assert mark.evaluate("(img)=>img.decode().then(()=>img.naturalWidth>0&&getComputedStyle(img).backgroundColor==='rgba(0, 0, 0, 0)')"), (width,'transparent original emblem failed')
+    assert brand.evaluate("""el=>{const r=el.getBoundingClientRect(),m=el.querySelector('img').getBoundingClientRect(),w=el.querySelector('.brand-name').getBoundingClientRect();return Math.abs((r.left+r.right-m.left-m.right)/2)<2&&Math.abs((r.left+r.right-w.left-w.right)/2)<2}"""), (width,'desktop/drawer HADES not centered')
+    if width<=1100:
+        assert page.locator('.topbar-name').evaluate("""el=>{const r=el.getBoundingClientRect(),p=el.parentElement.getBoundingClientRect();return Math.abs((r.left+r.right-p.left-p.right)/2)<2}"""), (width,'mobile HADES not centered')
+        assert page.locator('.topbar-mark').evaluate("(img)=>img.decode().then(()=>img.naturalWidth>0)")
+
     assert page.locator('.garden-topbar a').count() == 0, (width, 'duplicate home link in mobile header')
     for selector in REMOVED:
         assert page.locator(selector).count() == 0, (width, page.url, 'removed UI remains', selector)
