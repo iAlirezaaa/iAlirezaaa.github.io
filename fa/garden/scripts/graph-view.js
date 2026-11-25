@@ -160,7 +160,6 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     const currentId = data.nodes.find(node => trimPath(node.url) === here)?.id ?? null;
     const nodes = layoutGraphNodes(data.nodes, edges, width, height, !expanded && data.scope === 'local' ? currentId : null);
     const byId = new Map(nodes.map(node => [node.id, node]));
-    const byDomId = new Map(nodes.map(node => [String(node.id), node]));
     const svg = svgElement('svg', {viewBox:`0 0 ${width} ${height}`, role:'group',
       tabindex:0, 'aria-label':'گراف نوشته‌ها؛ انتخاب نود برای خواندن، کشیدن برای جابه‌جایی، کلیدهای جهت برای حرکت و مثبت و منفی برای بزرگ‌نمایی.'});
     const scene = svgElement('g', {'data-graph-scene':''});
@@ -239,7 +238,7 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
       const used = [], dots = nodes.map(node => ({id:node.id, rect:node.dot.getBoundingClientRect()}));
       const intersects = (a, b, pad = 4) => a.left < b.right + pad && a.right > b.left - pad && a.top < b.bottom + pad && a.bottom > b.top - pad;
       const ordered = [...nodes].sort((a, b) => Number(b.id === active) - Number(a.id === active) || Number(b.current) - Number(a.current) || b.degree - a.degree || String(a.id).localeCompare(String(b.id)));
-      const maxVisible = expanded ? nodes.length : 4;
+      const maxVisible = expanded ? (width < 460 ? 6 : 12) : 4;
       for (const node of ordered) {
         node.label.style.visibility = 'hidden';
         if (used.length >= maxVisible && node.id !== active) continue;
@@ -287,13 +286,20 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     // One pointer moves a node or pans the canvas. A second pointer always
     // switches to pinch zoom, even when the gesture began on a node.
     const pointers = new Map();
-    let pinch = null, suppressUntil = 0;
+    let pinch = null, suppressUntil = 0, tapped = null;
     svg.addEventListener('pointerdown', event => {
       if (event.button !== 0 || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
-      if (!pointers.size) suppressUntil = 0;
-      const link = event.target.closest('.graph-node');
-      const node = link ? byDomId.get(link.dataset.graphId) : null;
+      if (!pointers.size) { suppressUntil = 0; tapped = null; }
       const point = scenePoint(event.clientX, event.clientY);
+      // Hit areas can overlap when the corpus grows. Resolve to the closest
+      // actual dot, not whichever transparent SVG circle was painted last.
+      let node = null, distance = Infinity;
+      for (const candidate of nodes) {
+        const d = Math.hypot(candidate.x - point.x, candidate.y - point.y);
+        if (d <= Math.max(13, candidate.radius + 6) && d < distance) {
+          node = candidate; distance = d;
+        }
+      }
       const record = {id:event.pointerId, x:event.clientX, y:event.clientY, startX:event.clientX, startY:event.clientY,
         dx:camera.dx, dy:camera.dy, node, offsetX:node ? node.x - point.x : 0, offsetY:node ? node.y - point.y : 0, moved:false};
       pointers.set(event.pointerId, record);
@@ -332,7 +338,8 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     });
     function finish(event) {
       const pointer = pointers.get(event.pointerId); if (!pointer) return;
-      if (pointer.moved || pinch) suppressUntil = performance.now() + 650;
+      if (pointer.moved || pinch) { suppressUntil = performance.now() + 650; tapped = null; }
+      else if (event.type === 'pointerup' && pointer.node) tapped = {node:pointer.node, until:performance.now()+650};
       pointer.node?.a.classList.remove('is-dragging'); pointers.delete(event.pointerId);
       if (pinch) {
         pinch = null;
@@ -343,7 +350,13 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     }
     for (const event of ['pointerup', 'pointercancel', 'lostpointercapture']) svg.addEventListener(event, finish);
     svg.addEventListener('click', event => {
-      if (event.detail !== 0 && performance.now() < suppressUntil) { event.preventDefault(); event.stopPropagation(); }
+      if (event.detail === 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      if (performance.now() < suppressUntil) { event.preventDefault(); event.stopPropagation(); return; }
+      const chosen = tapped && performance.now() < tapped.until ? tapped.node : null;
+      tapped = null;
+      if (chosen && event.target.closest('.graph-node') !== chosen.a) {
+        event.preventDefault(); event.stopPropagation(); location.assign(chosen.url);
+      }
     }, true);
     if (expanded) svg.addEventListener('wheel', event => {
       event.preventDefault(); zoom(Math.exp(-event.deltaY * .0015), event.clientX, event.clientY);

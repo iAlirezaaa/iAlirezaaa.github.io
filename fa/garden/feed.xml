@@ -3,7 +3,7 @@
   <title>وبلاگ هادس</title>
   <link href="https://ialirezaaa.github.io/fa/garden/feed.xml" rel="self"/>
   <link href="https://ialirezaaa.github.io/fa/garden/"/>
-  <updated>2026-11-25T22:27:49Z</updated>
+  <updated>2026-11-25T22:45:48Z</updated>
   <id>https://ialirezaaa.github.io/fa/garden/</id><entry>
     <title>DDPM</title>
     <updated>2026-11-25T00:00:00.000Z</updated>
@@ -83,12 +83,702 @@
 &lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/ddpm/&quot;&gt;روش DDPM&lt;/a&gt;: فرایند حذف نویز چطور یاد گرفته می‌شود؟&lt;/li&gt;
 &lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/latent-diffusion/&quot;&gt;دیفیوژن نهفته&lt;/a&gt;: ساخت تصویر در فضایی کوچک‌تر چه معنایی دارد؟&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;برای مطالعهٔ حرکت، طراحی شخصیت، روایت و مراحل تولید، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;آموزش انیمیشن&lt;/a&gt; را دنبال کن.&lt;/p&gt;
 &lt;h2 id=&quot;نوشته-بعدی-را-پیدا-کن&quot; tabindex=&quot;-1&quot;&gt;نوشتهٔ بعدی را پیدا کن&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/&quot; class=&quot;internal-link&quot;&gt;همهٔ مقاله‌ها و یادداشت‌ها&lt;/a&gt; در یک فهرست گرد آمده‌اند. با جست‌وجو و فیلتر نوع نوشته، بخش و موضوع، نوشتهٔ بعدی را پیدا کن. &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/categories/&quot; class=&quot;internal-link&quot;&gt;بخش‌های وبلاگ&lt;/a&gt; شیوهٔ خواندن را مشخص می‌کنند؛ &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/tags/&quot; class=&quot;internal-link&quot;&gt;موضوع‌ها&lt;/a&gt; نوشته‌های مرتبط را کنار هم می‌آورند.&lt;/p&gt;
 &lt;h2 id=&quot;مسیر-مطالعه-خودت-را-بساز&quot; tabindex=&quot;-1&quot;&gt;مسیر مطالعهٔ خودت را بساز&lt;/h2&gt;
 &lt;p&gt;فهرست نوشته‌ها و نقشهٔ ارتباط‌ها راه‌های ورود به موضوع‌ها هستند. فهرست بخش‌های هر صفحه کمک می‌کند به قسمت دلخواه بروی؛ بخش «در نوشته‌های دیگر» هم نوشته‌هایی را نشان می‌دهند که به همان ایده اشاره کرده‌اند. برای پیدا کردن یک عبارت در کل وبلاگ، جست‌وجو را باز کن.&lt;/p&gt;
 </content>
     <link href="https://ialirezaaa.github.io/fa/blog/notes/start/"/>
+  </entry><entry>
+    <title>walk-cycle</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/walk-cycle/</id>
+    <content type="html">&lt;p&gt;چرخهٔ راه‌رفتن تکرار وضعیت بدن در یک الگوی کامل گام است. هدف صرفاً حرکت دست و پا نیست؛ انتقال وزن، تعادل، حرکت لگن و تماس با زمین باید هماهنگ باشند. مطالعات متوالی حرکت انسان از جمله تصاویر Muybridge و آثار انیمیشن کلاسیک منابع مفیدی برای تحلیل این الگو هستند.&lt;/p&gt;
+&lt;h2 id=&quot;پزهای-اصلی&quot; tabindex=&quot;-1&quot;&gt;پزهای اصلی&lt;/h2&gt;
+&lt;p&gt;Contact: یک پا در جلو به زمین می‌رسد و پای دیگر در عقب آمادهٔ جداشدن است. Down: پس از تماس، وزن روی پای جلو منتقل می‌شود و بدن معمولاً کمی پایین می‌آید. Passing: پای آزاد از کنار پای تکیه‌گاه عبور می‌کند. Up: بدن به وضعیت بالاتر می‌رسد و پای آزاد برای تماس بعدی جلو می‌رود. همین الگو برای سمت مقابل تکرار می‌شود.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/walk-cycle-poses.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/walk-cycle-poses.svg&quot; width=&quot;960&quot; height=&quot;590&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;پزهای اصلی چرخهٔ راه‌رفتن؛ نمای جانبی ساده؛ دو سمت بدن با رنگ‌های متفاوت&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · نمای جانبی ساده؛ دو سمت بدن با رنگ‌های متفاوت&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;لگن-شانه-و-دست-ها&quot; tabindex=&quot;-1&quot;&gt;لگن، شانه و دست‌ها&lt;/h2&gt;
+&lt;p&gt;در راه‌رفتن عادی لگن در چند محور چرخش و جابه‌جایی ظریف دارد. شانه‌ها معمولاً تا حدی خلاف جهت چرخش لگن واکنش نشان می‌دهند. حرکت دست‌ها ریتم گام را پشتیبانی می‌کند، ولی مقدار آن به سرعت، شخصیت و هدف بستگی دارد. سر می‌تواند نسبت به حرکت تنه پایدارتر بماند.&lt;/p&gt;
+&lt;h2 id=&quot;تماس-با-زمین&quot; tabindex=&quot;-1&quot;&gt;تماس با زمین&lt;/h2&gt;
+&lt;p&gt;در چرخهٔ In Place، حرکت ریشهٔ شخصیت با سرعت انتقالی محیط یا ابزار حرکت هماهنگ می‌شود. در چرخهٔ رو به جلو، پای تکیه‌گاه در مدت تماس باید در جهان ثابت بماند؛ لغزش پا یکی از خطاهای رایج است. در سه‌بعدی IK، مسیر Heel/Toe Roll، knee pole و وضعیت ریشه را بررسی کن. در دوبعدی نقاط تماس را روی خط زمین علامت بزن.&lt;/p&gt;
+&lt;h2 id=&quot;الگوی-زمانی-نمونه&quot; tabindex=&quot;-1&quot;&gt;الگوی زمانی نمونه&lt;/h2&gt;
+&lt;p&gt;برای تمرین در ۲۴fps می‌توان یک چرخهٔ کامل را ۲۴ فریم در نظر گرفت: تماس راست فریم ۱، Down فریم ۴، Passing فریم ۷، Up فریم ۱۰، تماس چپ فریم ۱۳ و ادامهٔ سمت دیگر تا تماس راست در فریم ۲۵. فریم ۲۵ معادل آغاز چرخه است؛ هنگام خروجی لوپ معمولاً فریم تکراری انتهایی را دوباره وارد نمی‌کنیم. این اعداد فقط شروع تمرین‌اند و با سرعت و سبک تغییر می‌کنند.&lt;/p&gt;
+&lt;h2 id=&quot;شخصیت-و-ارزیابی&quot; tabindex=&quot;-1&quot;&gt;شخصیت و ارزیابی&lt;/h2&gt;
+&lt;p&gt;راه‌رفتن خسته، مضطرب و بااعتمادبه‌نفس می‌توانند الگوی پایهٔ مشابه و زمان‌بندی، طول قدم، قامت، چرخش و مکث متفاوت داشته باشند. یک چرخهٔ خنثی بساز، سپس نسخهٔ شخصیت‌محور را تغییر بده. از نمای کنار و روبه‌رو بررسی کن، پاها را در تماس ثابت نگه دار و یک لوپ چندبار تکرارشده را برای پرش ناخواسته ببین.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/walk%20cycle&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;walk cycle — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/walk-cycle/"/>
+  </entry><entry>
+    <title>types</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/types/</id>
+    <content type="html">&lt;p&gt;نوع انیمیشن را فقط ظاهر نهایی تعیین نمی‌کند. روش تولید، نوع تغییراتی که در طول زمان طراحی می‌شوند و میزان کنترل هنرمند در هر فریم اهمیت دارند. مرز میان این شیوه‌ها در تولید امروز همیشه قطعی نیست؛ یک فیلم ممکن است ترکیبی از چند روش باشد.&lt;/p&gt;
+&lt;h2 id=&quot;انیمیشن-سنتی&quot; tabindex=&quot;-1&quot;&gt;انیمیشن سنتی&lt;/h2&gt;
+&lt;p&gt;در روش سنتی، هنرمند وضعیت‌های متوالی را با طراحی دستی تولید می‌کند. کلیدپز، بریک‌داون، این‌بیتوین، پاک‌سازی خط و رنگ از مراحل رایج‌اند. مزیت اصلی آن آزادی تغییر فرم و کیفیت بیان خط است؛ هزینهٔ زمانی و ثبات حجم از چالش‌هایش هستند. طراحی سنتی می‌تواند به‌صورت دیجیتال هم انجام شود.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/five-methods.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/five-methods.svg&quot; width=&quot;960&quot; height=&quot;650&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;پنج روش تولید انیمیشن؛ مقایسهٔ ساختار تولید به‌جای ظاهر فیلم&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · مقایسهٔ ساختار تولید به‌جای ظاهر فیلم&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;انیمیشن-دوبعدی-دیجیتال&quot; tabindex=&quot;-1&quot;&gt;انیمیشن دوبعدی دیجیتال&lt;/h2&gt;
+&lt;p&gt;در محیط دوبعدی، فریم‌های نقاشی‌شده، قطعات ریگ‌شده یا ترکیب آن‌ها به کار می‌روند. در Cut-out اجزای بدن جداگانه حرکت می‌کنند؛ برای جلوگیری از حس عروسکی باید سیلوئت، چرخش ظاهری و طراحی جایگزین را کنترل کرد. برای سریال، تبلیغ و آثار کوتاه، انتخاب روش به بودجه، طراحی و نیاز به بازیگری بستگی دارد.&lt;/p&gt;
+&lt;h2 id=&quot;انیمیشن-سه-بعدی&quot; tabindex=&quot;-1&quot;&gt;انیمیشن سه‌بعدی&lt;/h2&gt;
+&lt;p&gt;مدل و ریگ در فضای سه‌بعدی ساخته می‌شوند؛ انیماتور با پز، منحنی‌های حرکت، تماس‌ها و انتقال وزن رفتار شخصیت را طراحی می‌کند. مدل، نور، شیدر و رندر ظاهر نهایی را شکل می‌دهند. بازیگری هنوز باید با اصول انیمیشن ارزیابی شود. مسیر دوربین و امکان بازبینی از زوایای گوناگون مزیت مهم است، اما پیچیدگی پایپ‌لاین بیشتر می‌شود.&lt;/p&gt;
+&lt;h2 id=&quot;موشن-گرافیک&quot; tabindex=&quot;-1&quot;&gt;موشن‌گرافیک&lt;/h2&gt;
+&lt;p&gt;تغییر شکل، موقعیت، مقیاس، شفافیت و ریتم عناصر گرافیکی برای انتقال اطلاعات یا هویت بصری. تمرکز معمولاً روی تایپوگرافی، لوگو، نمودار، تدوین و هم‌زمانی با صداست. خوانایی بر پیچیدگی افکت اولویت دارد. &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/animated-type/&quot;&gt;تایپوگرافی متحرک&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/lower-thirds/&quot;&gt;Lower Third&lt;/a&gt; نمونه‌های کاربردی‌اند.&lt;/p&gt;
+&lt;h2 id=&quot;استاپ-موشن&quot; tabindex=&quot;-1&quot;&gt;استاپ‌موشن&lt;/h2&gt;
+&lt;p&gt;از اشیای واقعی، عروسک، کاغذ یا مواد دیگر در وضعیت‌های کوچک عکس گرفته می‌شود. کنترل نور ثابت، ثبات دوربین، اتصالات و تداوم موقعیت ضروری‌اند. بافت واقعی مواد جذابیت ویژه دارد، ولی اصلاح فریم‌های قبلی دشوار است؛ تست نور و پز قبل از تصویربرداری اهمیت بیشتری دارد.&lt;/p&gt;
+&lt;h2 id=&quot;انتخاب-شیوه&quot; tabindex=&quot;-1&quot;&gt;انتخاب شیوه&lt;/h2&gt;
+&lt;p&gt;برای یک شات سادهٔ بازشدن در، در هر روش مشخص کن کدام اجزا باید ساخته یا طراحی شوند، چه کسی آن را انیمیت می‌کند و تغییر بعدی چه هزینه‌ای دارد. شیوه‌ای را انتخاب کن که هدف بصری را با امکانات پروژه برآورده کند، نه صرفاً تکنیکی که محبوب‌تر است.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/5%20types%20of%20animation&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;5 types of animation — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/types/"/>
+  </entry><entry>
+    <title>storyboards</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/storyboards/</id>
+    <content type="html">&lt;p&gt;استوری‌بورد مجموعه‌ای از قاب‌های ثابت است که شات‌های یک صحنه را پیش از تولید نشان می‌دهد. هدف آن حل مسائل روایت و دکوپاژ است؛ کیفیت نقاشی به‌تنهایی ملاک موفقیت نیست. حتی طراحی چوب‌خطی با جهت، پز و قاب خوانا می‌تواند تصمیم درست را منتقل کند.&lt;/p&gt;
+&lt;h2 id=&quot;شروع-از-فیلمنامه&quot; tabindex=&quot;-1&quot;&gt;شروع از فیلمنامه&lt;/h2&gt;
+&lt;p&gt;داستان را به بیت‌های کنش تقسیم کن. مشخص کن مخاطب در هر لحظه چه اطلاعاتی لازم دارد. سپس اندازهٔ نما و زاویه را انتخاب کن تا توجه را هدایت کند. ابتدا Thumbnailهای کوچک طراحی کن؛ چند گزینه را کنار هم ببین و بعد به اندازهٔ بزرگ‌تر منتقل کن.&lt;/p&gt;
+&lt;h2 id=&quot;اطلاعات-ضروری-پنل&quot; tabindex=&quot;-1&quot;&gt;اطلاعات ضروری پنل&lt;/h2&gt;
+&lt;p&gt;هر پنل باید شناسهٔ صحنه و شات، قاب تصویر با نسبت صحیح، توضیح کنش و در صورت نیاز دیالوگ و افکت صوتی داشته باشد. نوع حرکت دوربین، جهت حرکت شخصیت، فریم ابتدا/انتها و تخمین مدت را هم می‌توان افزود. شمارهٔ پنل و شمارهٔ شات الزاماً یکی نیست؛ یک شات متحرک ممکن است چند پنل داشته باشد.&lt;/p&gt;
+&lt;h2 id=&quot;راکورد-و-خوانایی&quot; tabindex=&quot;-1&quot;&gt;راکورد و خوانایی&lt;/h2&gt;
+&lt;p&gt;در یک شات حرکت، نقطهٔ ورود و خروج و فضای جلوی سوژه را نشان بده. در نمای گفت‌وگو جهت نگاه و خط ۱۸۰ درجه را مشخص کن. موقعیت دست‌ها، اشیای مهم و جای شخصیت‌ها را با شات‌های قبل و بعد تطبیق بده. اگر در یک پنل چند اتفاق رخ می‌دهد، از چند پز یا فلش شماره‌دار استفاده کن.&lt;/p&gt;
+&lt;h2 id=&quot;قالب-و-ابزار&quot; tabindex=&quot;-1&quot;&gt;قالب و ابزار&lt;/h2&gt;
+&lt;p&gt;یک قالب قابل استفاده باید فضای کافی برای قاب و توضیحات داشته باشد. نسبت تصویر را پیش از چاپ یا طراحی انتخاب کن. نرم‌افزارهای طراحی، Storyboarder و ابزارهای تخصصی استوری‌بورد می‌توانند کاربرد داشته باشند؛ امکانات و دسترسی نسخهٔ روز را قبل از انتخاب بررسی کن. برای فیلم سه‌بعدی، تست سادهٔ Layout نیز می‌تواند به بررسی نسبت‌ها و زاویهٔ دوربین کمک کند.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/storyboard-template-fa.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/storyboard-template-fa.svg&quot; width=&quot;960&quot; height=&quot;635&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;قالب استوری‌بورد فارسی؛ سه پنل ۱۶:۹ با فضای قاب، کنش، دوربین و صدا&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · سه پنل ۱۶:۹ با فضای قاب، کنش، دوربین و صدا&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;صحنهٔ ورود شخصیت به اتاق، یافتن شیء و واکنش او را در چهار تا شش شات طراحی کن. به هر پنل شماره و هدف روایی بده. سپس دو پنل را حذف کن و ببین آیا داستان همچنان روشن است. نسخهٔ منتخب را به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/animatics/&quot;&gt;انیماتیک&lt;/a&gt; منتقل کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/storyboards&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;storyboards — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/storyboards/"/>
+  </entry><entry>
+    <title>storyboarding-book</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/storyboarding-book/</id>
+    <content type="html">&lt;p&gt;صفحهٔ مبدأ یادداشت‌هایی دربارهٔ کتاب Storyboarding Essentials ارائه می‌دهد. این صفحه ترجمهٔ متن کتاب یا جایگزین خرید و مطالعهٔ آن نیست؛ یک مسیر آموزشی مستقل است که موضوع‌های اصلی معرفی‌شده را به تمرین‌های قابل اجرا تبدیل می‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;استوری-بورد-و-ترجمه-متن-به-تصویر&quot; tabindex=&quot;-1&quot;&gt;استوری‌بورد و ترجمهٔ متن به تصویر&lt;/h2&gt;
+&lt;p&gt;وظیفهٔ استوری‌بورد تبدیل کنش و اطلاعات فیلمنامه به تصمیم بصری است. فعل‌های مهم، موقعیت، زمان و واکنش را از متن استخراج کن. هر قاب باید دلیل حضور داشته باشد. اطلاعاتی که مخاطب باید بداند و اطلاعاتی که می‌توان پنهان کرد را جدا کن.&lt;/p&gt;
+&lt;h2 id=&quot;طراحی-و-رندر-خوانا&quot; tabindex=&quot;-1&quot;&gt;طراحی و رندر خوانا&lt;/h2&gt;
+&lt;p&gt;ابتدا شکل‌های بزرگ، خط حرکت و ارزش نوری را مشخص کن. طراحی خام با سیلوئت قوی از تصویر زیبا ولی مبهم مفیدتر است. جزئیات معماری یا صورت را فقط تا جایی اضافه کن که تصمیم دوربین و کنش روشن شود.&lt;/p&gt;
+&lt;h2 id=&quot;عناصر-و-قراردادها&quot; tabindex=&quot;-1&quot;&gt;عناصر و قراردادها&lt;/h2&gt;
+&lt;p&gt;شناسهٔ شات، قاب، فلش حرکت، توضیح دوربین، دیالوگ و صدا باید از هم قابل تشخیص باشند. قرارداد فلش‌ها را برای کل پروژه ثابت نگه دار؛ فلش حرکت شخصیت را با فلش Pan یا Dolly دوربین اشتباه نکن.&lt;/p&gt;
+&lt;h2 id=&quot;پیوستگی&quot; tabindex=&quot;-1&quot;&gt;پیوستگی&lt;/h2&gt;
+&lt;p&gt;در گفت‌وگو، محور کنش، فضای نگاه و تغییر اندازهٔ نما را کنترل کن. در کنش، موقعیت دست و اشیای همراه و جهت ورود و خروج در قاب را ثبت کن. راکورد صرفاً برابری ظاهر نیست؛ تداوم معنای کنش هم اهمیت دارد.&lt;/p&gt;
+&lt;h2 id=&quot;دوربین-و-حرکت&quot; tabindex=&quot;-1&quot;&gt;دوربین و حرکت&lt;/h2&gt;
+&lt;p&gt;انتخاب اندازهٔ نما را با نیاز داستان توجیه کن. حرکت دوربین باید اطلاعات تازه، تغییر رابطهٔ فضایی یا تغییر احساس ایجاد کند. اگر یک شات ثابت همان هدف را بهتر انجام می‌دهد، حرکت اضافه لازم نیست. برای دوربین در حال حرکت، فریم آغاز و پایان را جدا طراحی کن.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین-مرور&quot; tabindex=&quot;-1&quot;&gt;تمرین مرور&lt;/h2&gt;
+&lt;p&gt;یک صحنهٔ کوتاه از فیلمنامه‌ای متعلق به خودت را انتخاب کن. دو راه‌حل استوری‌بورد با ریتم و اندازهٔ نما متفاوت بساز. از هر نسخه انیماتیک تهیه کن، سپس علت برتری انتخاب نهایی را با شمارهٔ شات و نمونهٔ واضح ثبت کن. برای اجرا به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/storyboards/&quot;&gt;استوری‌بورد&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;زبان دوربین&lt;/a&gt; برگرد.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/storyboarding%20essentials%20book&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;storyboarding essentials book — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/storyboarding-book/"/>
+  </entry><entry>
+    <title>story</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/story/</id>
+    <content type="html">&lt;p&gt;داستان چارچوبی است که تصمیم‌های تصویری را به هدف مشترک پیوند می‌دهد. در انیمیشن شخصیت، داستان معمولاً دربارهٔ خواسته، انتخاب و پیامد است؛ در یک موشن‌گرافیک می‌تواند ترتیب انتقال اطلاعات و تغییر وضعیت بصری باشد.&lt;/p&gt;
+&lt;h2 id=&quot;هسته-روایت&quot; tabindex=&quot;-1&quot;&gt;هستهٔ روایت&lt;/h2&gt;
+&lt;p&gt;در یک جمله مشخص کن شخصیت چه می‌خواهد، چه چیزی مانع اوست و اگر شکست بخورد چه چیزی تغییر می‌کند. Logline می‌تواند ایده را روشن کند، اما جای تحلیل شخصیت و موقعیت را نمی‌گیرد. هدف بیرونی را از نیاز درونی جدا کن: شخصیتی ممکن است بخواهد مسابقه را ببرد، ولی نیاز داشته باشد همکاری را یاد بگیرد.&lt;/p&gt;
+&lt;h2 id=&quot;ساخت-بیت-ها&quot; tabindex=&quot;-1&quot;&gt;ساخت بیت‌ها&lt;/h2&gt;
+&lt;p&gt;صحنه را به کنش‌های دارای تغییر تقسیم کن. هر بیت باید وضعیت را نسبت به قبل تغییر دهد: کشف، تصمیم، اقدام، مانع، واکنش یا نتیجه. اطلاعات را از طریق رفتار و تصویر منتقل کن، نه فقط دیالوگ توضیحی. در موشن‌گرافیک نیز ترتیب ورود عناصر باید مسئله یا پیام را مرحله‌به‌مرحله روشن کند.&lt;/p&gt;
+&lt;h2 id=&quot;ساختار-و-بازبینی&quot; tabindex=&quot;-1&quot;&gt;ساختار و بازبینی&lt;/h2&gt;
+&lt;p&gt;ابتدا وضعیت اولیه، محرک، تشدید مسئله، نقطهٔ تصمیم و پایان را مشخص کن. این ساختار یک ابزار تشخیص است، نه الزام به قالب ثابت. در بازبینی، پرسش‌های بدون پاسخ، تغییر ناگهانی انگیزه و صحنه‌هایی را که تأثیر روایی ندارند بررسی کن. برای هر تغییر مهم علت قابل مشاهده داشته باش.&lt;/p&gt;
+&lt;h2 id=&quot;مثال-عملی&quot; tabindex=&quot;-1&quot;&gt;مثال عملی&lt;/h2&gt;
+&lt;p&gt;یک شخصیت کوچک می‌خواهد نامه‌ای را پیش از بسته‌شدن دروازه برساند. در سه بیت، ابتدا هدف را نشان بده، سپس مانع راه و در پایان انتخاب او را. اگر کنش بدون توضیح خوانده نشود، نشانه‌های تصویری و زمان واکنش را اصلاح کن. طرح را به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/storyboards/&quot;&gt;استوری‌بورد&lt;/a&gt; تبدیل کن و در &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/animatics/&quot;&gt;انیماتیک&lt;/a&gt; زمان واقعی را بسنج.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.khanacademy.org/computing/pixar/storytelling&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;Pixar in a Box: Storytelling&lt;/a&gt; برای مطالعهٔ تکمیلی.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/story&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;story — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/story/"/>
+  </entry><entry>
+    <title>sequential-art</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/sequential-art/</id>
+    <content type="html">&lt;p&gt;هنر دنباله‌دار زمانی شکل می‌گیرد که تصویرها در کنار هم معنا و توالی بسازند. مخاطب بین تصویرها ارتباط برقرار می‌کند و زمان یا کنشی را که مستقیماً نشان داده نشده در ذهن کامل می‌کند. این منطق در کمیک، کتاب تصویری، استوری‌بورد و انیمیشن مشترک است.&lt;/p&gt;
+&lt;h2 id=&quot;حرکت-در-یک-تصویر&quot; tabindex=&quot;-1&quot;&gt;حرکت در یک تصویر&lt;/h2&gt;
+&lt;p&gt;خط حرکت، پز، تکرار فرم، جهت نگاه و مسیر اشیا می‌توانند تغییر زمانی را در یک تصویر ثابت القا کنند. این نشانه‌ها حرکت واقعی نیستند؛ به مخاطب کمک می‌کنند وضعیت قبل یا بعد را تصور کند.&lt;/p&gt;
+&lt;h2 id=&quot;زمان-بین-قاب-ها&quot; tabindex=&quot;-1&quot;&gt;زمان بین قاب‌ها&lt;/h2&gt;
+&lt;p&gt;دو قاب می‌توانند لحظات بسیار نزدیک یا فاصلهٔ زمانی زیاد داشته باشند. انتخاب لحظه‌ها و فضای میانشان سرعت ادراک را تغییر می‌دهد. در کمیک، مخاطب کنترل سرعت خواندن را دارد؛ در انیمیشن و انیماتیک، سازنده زمان را دقیق‌تر تعیین می‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;جریان-روایی&quot; tabindex=&quot;-1&quot;&gt;جریان روایی&lt;/h2&gt;
+&lt;p&gt;ترتیب قاب‌ها باید علت و نتیجه را روشن کند. ابتدا موقعیت، سپس هدف، مانع و نتیجه را می‌توان به‌صورت بصری نشان داد. لازم نیست همهٔ مرحله‌ها نمایش داده شوند؛ حذف حساب‌شده می‌تواند روایت را فشرده کند. جهت خواندن در کمیک فارسی و چیدمان صفحات را متناسب با راست‌به‌چپ در نظر بگیر.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/sequential-panels.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/sequential-panels.svg&quot; width=&quot;960&quot; height=&quot;620&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;هنر دنباله‌دار؛ هر قاب یک تغییر روایی را منتقل می‌کند&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · هر قاب یک تغییر روایی را منتقل می‌کند&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;در شش قاب بدون متن نشان بده شخصیتی یک نامه را پیدا می‌کند و تصمیم می‌گیرد آن را پنهان کند. از فرد دیگری بخواه ترتیب و علت کنش را توضیح دهد. اگر معنا روشن نیست، قاب بینابینی یا تغییر زاویه را آزمایش کن. سپس همان شش قاب را به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/storyboards/&quot;&gt;استوری‌بورد&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/animatics/&quot;&gt;انیماتیک&lt;/a&gt; تبدیل کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/sequential%20art&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;sequential art — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/sequential-art/"/>
+  </entry><entry>
+    <title>principles</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/principles/</id>
+    <content type="html">&lt;p&gt;این اصول از تجربهٔ انیمیشن شخصیت شکل گرفته‌اند و در انیمیشن دوبعدی، سه‌بعدی، استاپ‌موشن و حتی موشن‌گرافیک به کار می‌آیند. آن‌ها قانون فیزیک نیستند؛ ابزار تصمیم‌گیری دربارهٔ چیزی هستند که تماشاگر از حرکت دریافت می‌کند. مقدار استفاده از هر اصل به جنس، وزن، شخصیت و سبک اثر بستگی دارد.&lt;/p&gt;
+&lt;h2 id=&quot;۱-فشردگی-و-کشیدگی-squash-and-stretch&quot; tabindex=&quot;-1&quot;&gt;۱. فشردگی و کشیدگی (Squash and Stretch)&lt;/h2&gt;
+&lt;p&gt;وقتی جسم انعطاف‌پذیر به سطح برخورد می‌کند، در محور فشار کوتاه و در جهت دیگر پهن می‌شود. کشیدگی در حرکت سریع، جهت و انرژی را آشکار می‌کند. در تغییر شکل معمولاً حجم ادراک‌شده ثابت می‌ماند: توپ نرم هنگام برخورد پهن می‌شود، نه اینکه ناگهان کوچک شود. برای جسم سخت، مانند سنگ، تغییر شکل بدن را به حرکت کلی، واکنش محیط و زمان تماس منتقل کن. تمرین: یک توپ لاستیکی و یک توپ فلزی با مسیر مشابه بساز و فقط جنس و واکنش برخورد را عوض کن.&lt;/p&gt;
+&lt;h2 id=&quot;۲-پیش-حرکت-anticipation&quot; tabindex=&quot;-1&quot;&gt;۲. پیش‌حرکت (Anticipation)&lt;/h2&gt;
+&lt;p&gt;پیش از یک حرکت اصلی، نشانه‌ای از تصمیم یا جمع‌شدن انرژی نمایش بده. خم‌کردن زانو قبل از پرش، عقب‌بردن دست قبل از پرتاب و نگاه‌کردن قبل از چرخیدن نمونه‌اند. جهت پیش‌حرکت همیشه خلاف حرکت نیست؛ حتی یک مکث یا تغییر نگاه کافی است. پیش‌حرکت زیاد می‌تواند غافلگیری را از بین ببرد؛ در موقعیت کمدی گاهی حذف عمدی آن مؤثر است.&lt;/p&gt;
+&lt;h2 id=&quot;۳-میزان-سن-و-وضوح-staging&quot; tabindex=&quot;-1&quot;&gt;۳. میزان‌سن و وضوح (Staging)&lt;/h2&gt;
+&lt;p&gt;تماشاگر باید بداند کدام کنش اهمیت دارد. سیلوئت خوانا، کنتراست نور، جهت نگاه، ترکیب‌بندی، موقعیت دوربین و زمان‌بندی همگی برای هدایت توجه‌اند. در یک صحنهٔ دو نفره، اگر دیالوگ شخصیت اول مهم است، حرکت شدید شخصیت دوم نباید آن را بپوشاند. شات را به شکل سایهٔ سیاه بررسی کن. اگر هدف و جهت حرکت فهمیده نمی‌شود، ابتدا پز و قاب را اصلاح کن.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/principles-visual.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/principles-visual.svg&quot; width=&quot;960&quot; height=&quot;650&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;اصول حرکت در یک نگاه؛ شش مثال تصویری مکمل شرح دوازده اصل&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · شش مثال تصویری مکمل شرح دوازده اصل&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;۴-حرکت-مستقیم-و-پز-به-پز-straight-ahead-pose-to-pose&quot; tabindex=&quot;-1&quot;&gt;۴. حرکت مستقیم و پز به پز (Straight Ahead / Pose to Pose)&lt;/h2&gt;
+&lt;p&gt;در روش مستقیم، فریم‌ها را به ترتیب می‌سازی؛ برای دود، آتش، حرکت سیال و بداهه مفید است. در پز به پز، وضعیت‌های اصلی را انتخاب می‌کنی، سپس بریک‌داون و فریم‌های میانی را می‌سازی؛ برای کنترل بازی، تداوم و زمان‌بندی شات مفیدتر است. ترکیب دو روش متداول است: بدن را با پزهای اصلی طراحی کن، سپس دنبالهٔ پارچه یا مو را با رویکرد آزادتر اصلاح کن. &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/frame-by-frame/&quot;&gt;جزئیات روش‌ها&lt;/a&gt; را بخوان.&lt;/p&gt;
+&lt;h2 id=&quot;۵-ادامه-حرکت-و-هم-پوشانی-follow-through-overlap&quot; tabindex=&quot;-1&quot;&gt;۵. ادامهٔ حرکت و هم‌پوشانی (Follow Through / Overlap)&lt;/h2&gt;
+&lt;p&gt;پس از توقف بخش اصلی بدن، اجزای وابسته ممکن است به حرکت ادامه دهند. هنگام دویدن و توقف، تنه، سر، دست‌ها و لباس هم‌زمان به سکون نمی‌رسند. برای ایجاد هم‌پوشانی، زمان اوج حرکت زنجیرهٔ بدن را کمی متفاوت انتخاب کن. تأخیر نباید صرفاً افکت خودکار باشد؛ اتصال، وزن و سختی ماده تعیین می‌کنند هر جزء چگونه واکنش نشان دهد.&lt;/p&gt;
+&lt;h2 id=&quot;۶-ورود-و-خروج-تدریجی-slow-in-slow-out&quot; tabindex=&quot;-1&quot;&gt;۶. ورود و خروج تدریجی (Slow In / Slow Out)&lt;/h2&gt;
+&lt;p&gt;در نزدیکی وضعیت آغاز یا پایان، فاصلهٔ جابه‌جایی فریم‌ها کوچک‌تر می‌شود. زیادشدن فاصلهٔ فریم‌ها یعنی افزایش سرعت، نه افزایش تعداد فریم. اگر توقف ناگهانی ناشی از برخورد است، لزوماً نرم‌کردن هر دو طرف درست نیست. منحنی موقعیت را همراه تصویر بررسی کن؛ &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/motion-easing/&quot;&gt;حرکت و Easing&lt;/a&gt; توضیح دقیق‌تری دارد.&lt;/p&gt;
+&lt;h2 id=&quot;۷-قوس-arc&quot; tabindex=&quot;-1&quot;&gt;۷. قوس (Arc)&lt;/h2&gt;
+&lt;p&gt;حرکت بسیاری از اجزای بدن به‌سبب چرخش مفصل‌ها مسیر منحنی دارد. مسیر مچ، سر یا مرکز جرم را رسم کن؛ شکست‌های بی‌دلیل در قوس باعث لرزش و حرکت مکانیکی می‌شوند. حرکت ماشین، سقوط تحت محدودیت یا حرکت عمداً گرافیکی می‌تواند مستقیم باشد. قوس زیبا جایگزین وزن و تماس درست با زمین نیست.&lt;/p&gt;
+&lt;h2 id=&quot;۸-کنش-فرعی-secondary-action&quot; tabindex=&quot;-1&quot;&gt;۸. کنش فرعی (Secondary Action)&lt;/h2&gt;
+&lt;p&gt;عملی که کنش اصلی را پشتیبانی می‌کند: کسی در حال گفتن خبر بد است و هم‌زمان آستینش را مرتب می‌کند. حرکت فرعی باید احساس یا وضعیت را روشن کند، نه اینکه توجه را برباید. ابتدا کنش اصلی را بدون حرکت فرعی بساز؛ سپس فقط حرکتی را اضافه کن که معنای تازه دارد.&lt;/p&gt;
+&lt;h2 id=&quot;۹-زمان-بندی-timing&quot; tabindex=&quot;-1&quot;&gt;۹. زمان‌بندی (Timing)&lt;/h2&gt;
+&lt;p&gt;تعداد فریم میان رخدادها، طول مکث‌ها و زمان تغییر پز بر شخصیت و وزن اثر می‌گذارند. در خروجی ۲۴ فریم‌برثانیه، حرکت ۱۲ فریمی نیم ثانیه طول می‌کشد. دو توپ با مسیر یکسان می‌توانند با زمان تماس و شتاب متفاوت سنگین یا سبک به نظر برسند. Timing با spacing فرق دارد: اولی زمان وقوع، دومی فاصلهٔ مکانی فریم‌های متوالی است.&lt;/p&gt;
+&lt;h2 id=&quot;۱۰-اغراق-exaggeration&quot; tabindex=&quot;-1&quot;&gt;۱۰. اغراق (Exaggeration)&lt;/h2&gt;
+&lt;p&gt;ویژگی یا نیت اصلی حرکت را از واقعیت کمی برجسته‌تر کن تا بهتر خوانده شود. اغراق فقط بزرگ‌کردن ژست نیست؛ مکث طولانی، تغییر ناگهانی ریتم یا تضاد شدید نیز ابزارند. در سبک واقع‌گرایانه اغراق ظریف و در کار کمدی اغراق بیشتر است. هویت شخصیت و منطق صحنه را از دست نده.&lt;/p&gt;
+&lt;h2 id=&quot;۱۱-طراحی-حجمی-solid-drawing&quot; tabindex=&quot;-1&quot;&gt;۱۱. طراحی حجمی (Solid Drawing)&lt;/h2&gt;
+&lt;p&gt;پز باید حجم، تعادل، آناتومی و جهت فضایی را حفظ کند. در سه‌بعدی هم این اصل برقرار است: وزن روی پای تکیه‌گاه، چرخش لگن و شانه، خط حرکت و سیلوئت را بررسی کن. مدل خوب به‌خودی‌خود پز خوب نمی‌سازد. از چند زاویه پز را بازبینی کن تا برخورد ناخواستهٔ اعضا و تخت‌شدن حجم دیده شود.&lt;/p&gt;
+&lt;h2 id=&quot;۱۲-جذابیت-appeal&quot; tabindex=&quot;-1&quot;&gt;۱۲. جذابیت (Appeal)&lt;/h2&gt;
+&lt;p&gt;جذابیت الزاماً زیبا یا دوست‌داشتنی بودن نیست. یک شرور هم باید طراحی منسجم و خوانایی بصری داشته باشد. شکل‌های اصلی روشن، نسبت‌های هدفمند، تنوع در ریتم خطوط و رفتار سازگار با شخصیت به جذابیت کمک می‌کنند. اگر همهٔ فرم‌ها، پزها یا زمان‌بندی‌ها یکسان باشند، جذابیت کم می‌شود.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین-و-ارزیابی&quot; tabindex=&quot;-1&quot;&gt;تمرین و ارزیابی&lt;/h2&gt;
+&lt;p&gt;یک شات دوثانیه‌ای از پریدن یک کاراکتر ساده بساز. در مرحلهٔ اول فقط پیش‌حرکت، پز جداشدن، اوج و فرود؛ سپس زمان‌بندی و قوس؛ و در آخر overlap، فشردگی و کنش فرعی را اضافه کن. شات را یک بار در سرعت واقعی، یک بار با توقف روی پزها و یک بار بدون صدا بررسی کن. سؤال اصلی: آیا نیت و وزن بدون توضیح فهمیده می‌شود؟&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/12%20principles%20of%20animation&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;12 principles of animation — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/principles/"/>
+  </entry><entry>
+    <title>photoshop</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/photoshop/</id>
+    <content type="html">&lt;p&gt;Photoshop برای حرکت سادهٔ تصاویر، ساخت GIF، آزمایش فریم‌های نقاشی و حرکت برخی ویژگی‌های لایه‌ها مفید است. برای ریگ پیچیده و انیمیشن طولانی، ابزار تخصصی‌تر انتخاب مناسب‌تری است. رفتار منوها و گزینه‌های خروجی می‌تواند به نسخهٔ نرم‌افزار وابسته باشد.&lt;/p&gt;
+&lt;h2 id=&quot;پنل-timeline&quot; tabindex=&quot;-1&quot;&gt;پنل Timeline&lt;/h2&gt;
+&lt;p&gt;از Window &amp;gt; Timeline پنل را باز کن. Frame Animation مجموعه‌ای از قاب‌ها با مدت‌های مشخص است؛ Video Timeline محور زمانی پیوسته برای لایه‌ها، کلیپ و کی‌فریم دارد. نرخ فریم را با هدف خروجی تنظیم کن و مدت لایه‌ها را قبل از ساخت حرکت مشخص کن.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/photoshop-timeline.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/photoshop-timeline.svg&quot; width=&quot;960&quot; height=&quot;610&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;لایه‌ها و خط زمان در Photoshop؛ شمای کلیپ لایه، نشانگر زمان و کی‌فریم&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · شمای کلیپ لایه، نشانگر زمان و کی‌فریم&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;onion-skin-و-طراحی-فریم-ها&quot; tabindex=&quot;-1&quot;&gt;Onion Skin و طراحی فریم‌ها&lt;/h2&gt;
+&lt;p&gt;در Video Timeline، در صورت وجود قابلیت Onion Skin، نمایش کم‌رنگ فریم‌های مجاور را فعال کن. این ابزار به کنترل حرکت و ثبات شکل کمک می‌کند. اگر فریم‌به‌فریم کار می‌کنی، لایه‌ها و نام‌گذاری را منظم نگه دار. مقدار Opacity راهنما را طوری انتخاب کن که خط فریم فعلی واضح باشد.&lt;/p&gt;
+&lt;h2 id=&quot;کی-فریم-گذاری&quot; tabindex=&quot;-1&quot;&gt;کی‌فریم‌گذاری&lt;/h2&gt;
+&lt;p&gt;ویژگی‌های قابل انیمیت را در لایه باز کن. بسته به نوع لایه، Position، Opacity، Style و بعضی Transformها قابل تغییر هستند. در زمان شروع Keyframe ثبت کن، نشانگر زمان را به موقعیت بعدی ببر و مقدار را تغییر بده. کی‌فریم‌های موجود را می‌توان در زمان جابه‌جا کرد. طول کلیپ و مدت حرکت را با نرخ نمایش هماهنگ کن.&lt;/p&gt;
+&lt;h2 id=&quot;خروجی&quot; tabindex=&quot;-1&quot;&gt;خروجی&lt;/h2&gt;
+&lt;p&gt;برای ویدئو، در نسخه‌هایی که Render Video موجود است، رزولوشن، نرخ فریم و محدودهٔ رندر را انتخاب کن. GIF را می‌توان با ابزارهای Export سازگار مانند Save for Web (Legacy) در نسخه‌های پشتیبان ساخت؛ Palette، Dither، Loop و حجم فایل را بررسی کن. GIF صدا ندارد و محدودیت رنگ دارد؛ برای ویدئوی باکیفیت‌تر MP4 یا دنبالهٔ تصویر مناسب است. فایل PSD را برای بازبینی لایه‌ها نگه دار.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;یک تصویر با سه لایهٔ پیش‌زمینه، سوژه و پس‌زمینه بساز. در دو ثانیه فاصلهٔ حرکت هر لایه را متفاوت تنظیم کن تا عمق ساده حس شود. سپس یک GIF کوچک حلقه‌ای بساز و ابتدا و انتهای حلقه را برای پرش ناخواسته بررسی کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/photoshop%20timeline%20animation&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;photoshop timeline animation — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/photoshop/"/>
+  </entry><entry>
+    <title>ones-twos-threes</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/ones-twos-threes/</id>
+    <content type="html">&lt;p&gt;نرخ نمایش فیلم و تعداد وضعیت‌های منحصربه‌فرد الزاماً برابر نیستند. یک فیلم ۲۴fps همیشه ۲۴ فریم در هر ثانیه نمایش می‌دهد، اما می‌توان همان طراحی را در چند فریم نگه داشت. این انتخاب بر ریتم، هزینهٔ تولید و حس حرکت اثر دارد.&lt;/p&gt;
+&lt;h2 id=&quot;روی-یک-on-ones&quot; tabindex=&quot;-1&quot;&gt;روی یک (On Ones)&lt;/h2&gt;
+&lt;p&gt;هر فریم یک وضعیت تازه دارد: در یک ثانیه با ۲۴fps، حداکثر ۲۴ طراحی یا پز تازه. برای حرکت سریع، دوربین متحرک، بازیگری ظریف یا حرکت پیوسته مفید است. در سه‌بعدی، ارزیابی انیمیشن در هر فریم می‌تواند حرکت نرم بدهد، ولی صرفاً نمونه‌گیری بیشتر لزوماً پزهای قوی‌تری نمی‌سازد.&lt;/p&gt;
+&lt;h2 id=&quot;روی-دو-on-twos&quot; tabindex=&quot;-1&quot;&gt;روی دو (On Twos)&lt;/h2&gt;
+&lt;p&gt;هر طراحی دو فریم نمایش داده می‌شود؛ در یک ثانیه ۱۲ وضعیت تازه وجود دارد. فاصلهٔ مکانی میان وضعیت‌های جدید بیشتر است و با طراحی قوی می‌تواند ریتم مطلوبی بسازد. اگر دوربین و شخصیت هم‌زمان حرکت می‌کنند، ناهماهنگی cadence می‌تواند لرزش ایجاد کند؛ حرکت دوربین و ریگ را با هم بررسی کن.&lt;/p&gt;
+&lt;h2 id=&quot;روی-سه-on-threes-و-بیشتر&quot; tabindex=&quot;-1&quot;&gt;روی سه (On Threes) و بیشتر&lt;/h2&gt;
+&lt;p&gt;هر طراحی سه فریم باقی می‌ماند و در ۲۴fps هشت وضعیت تازه داریم. برای مکث، سبک گرافیکی یا حرکت کم‌سرعت مناسب است. نگه‌داشتن چهار یا پنج فریم هم می‌تواند عمدی باشد. در حرکت سریع، فاصلهٔ زیاد پزها ممکن است جهت را مبهم کند؛ از smear، فرم خوانا یا تغییر تعداد فریم نگه‌داری کمک بگیر.&lt;/p&gt;
+&lt;h2 id=&quot;ترکیب-روش-ها&quot; tabindex=&quot;-1&quot;&gt;ترکیب روش‌ها&lt;/h2&gt;
+&lt;p&gt;در یک بازیگری، مکث را چند فریم نگه دار، حرکت دست سریع را روی یک اجرا کن و حرکت آهستهٔ بدن را روی دو. تغییرات باید در خدمت حس صحنه باشند، نه صرفاً صرفه‌جویی. در تایم‌لاین، به‌جای تغییر نرخ خروجی، طول نگه‌داری پز را تنظیم کن.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;خروجی ۲۴fps&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;مدت نمایش هر پز&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;وضعیت تازه در ثانیه&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;روی یک&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;۱ فریم&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;۲۴&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;روی دو&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;۲ فریم&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;۱۲&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;روی سه&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;۳ فریم&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;۸&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;روی چهار&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;۴ فریم&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;۶&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;تمرین: یک توپ را در یک ثانیه از نقطهٔ A به B حرکت بده. سه نسخهٔ یک، دو و سه بساز، در سرعت واقعی مقایسه کن و بدون تغییر مدت حرکت تشخیص بده کدام حس برای سبک فیلم مناسب‌تر است.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/exposure-sheet.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/exposure-sheet.svg&quot; width=&quot;960&quot; height=&quot;600&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;نرخ نمایش و تعداد طراحی؛ ۱۲ فریم از یک تایم‌لاین با خروجی ۲۴ فریم بر ثانیه&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · ۱۲ فریم از یک تایم‌لاین با خروجی ۲۴ فریم بر ثانیه&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/animating%20on%20the%20ones%2C%20two%2C%20and%20threes&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;animating on the ones, two, and threes — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/ones-twos-threes/"/>
+  </entry><entry>
+    <title>motion-easing</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/motion-easing/</id>
+    <content type="html">&lt;p&gt;در انیمیشن، فاصلهٔ مکانی پزها نسبت به زمان، سرعت و تغییر سرعت را می‌سازد. در Graph Editor باید بدانیم محور عمودی چه چیزی را نمایش می‌دهد: در منحنی موقعیت، شیب برابر سرعت است؛ در منحنی سرعت، شیب نشان‌دهندهٔ شتاب است. تفسیر این دو یکی نیست.&lt;/p&gt;
+&lt;h2 id=&quot;۱-سکون&quot; tabindex=&quot;-1&quot;&gt;۱. سکون&lt;/h2&gt;
+&lt;p&gt;موقعیت ثابت می‌ماند؛ خط منحنی موقعیت افقی است. سکون می‌تواند مکث برای فکر، آماده‌شدن یا ایجاد تأکید باشد. در انیمیشن شخصیت، حرکت‌های بسیار ظریف ممکن است در طول مکث حفظ شوند؛ لزوماً بدن کاملاً یخ نمی‌زند.&lt;/p&gt;
+&lt;h2 id=&quot;۲-سرعت-ثابت&quot; tabindex=&quot;-1&quot;&gt;۲. سرعت ثابت&lt;/h2&gt;
+&lt;p&gt;در بازه‌های زمانی مساوی، جابه‌جایی مساوی است. منحنی موقعیت خط مستقیم با شیب ثابت است. برای حرکت مکانیکی یا حرکت کنترل‌شده کاربرد دارد. اگر از سکون ناگهان به سرعت ثابت برسیم، تغییر سرعت تیز خواهد بود؛ علت آن باید در صحنه خوانده شود.&lt;/p&gt;
+&lt;h2 id=&quot;۳-شتاب-گیری&quot; tabindex=&quot;-1&quot;&gt;۳. شتاب‌گیری&lt;/h2&gt;
+&lt;p&gt;فاصلهٔ فریم‌ها به‌مرور افزایش می‌یابد. منحنی موقعیت از شیب کم به شیب زیاد می‌رسد. اگر مقدار نرمال‌شدهٔ زمان t از صفر تا یک باشد، t² نمونهٔ ساده‌ای برای شروع نرم و افزایش سرعت است.&lt;/p&gt;
+&lt;h2 id=&quot;۴-کاهش-سرعت&quot; tabindex=&quot;-1&quot;&gt;۴. کاهش سرعت&lt;/h2&gt;
+&lt;p&gt;فاصله‌ها به‌مرور کمتر می‌شوند. حرکت به مقصد نزدیک می‌شود و سرعت کاهش می‌یابد. تابع ۱−(۱−t)² نمونهٔ ساده‌ای از کاهش سرعت است. در توقف یک خودروی سنگین، سرعت کاهش می‌یابد ولی رفتار بدنه، چرخ و وزن نیز باید متناسب باشد.&lt;/p&gt;
+&lt;h2 id=&quot;۵-حرکت-متغیر&quot; tabindex=&quot;-1&quot;&gt;۵. حرکت متغیر&lt;/h2&gt;
+&lt;p&gt;حرکت ممکن است سرعت و جهت متفاوت، نوسان، ضربه یا مکث داشته باشد. به‌جای نویز تصادفیِ بی‌هدف، علت هر تغییر را پیدا کن. یک حرکت Ease-in-out سرعت ابتدا و انتها را کاهش می‌دهد؛ تابع ۳t²−۲t³ نمونه‌ای با سرعت صفر در دو سر است. در برخورد یا کنش ناگهانی لزوماً استفاده از این منحنی درست نیست.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/motion-curves.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/motion-curves.svg&quot; width=&quot;960&quot; height=&quot;650&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;پنج نوع تغییر موقعیت؛ محور افقی زمان و محور عمودی مقدار موقعیت است&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · محور افقی زمان و محور عمودی مقدار موقعیت است&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;یک شکل را در ۲۴ فریم به اندازهٔ ۳۰۰ پیکسل حرکت بده. پنج نسخه با منحنی‌های متفاوت بساز. نمودار موقعیت را به فاصلهٔ واقعی پزها تبدیل کن. سپس همان تمرین را برای حرکت دوربین و حرکت دست انجام بده و تفاوت هدف را بررسی کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/five%20types%20of%20motion%20%26%20easing&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;five types of motion &amp;amp; easing — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/motion-easing/"/>
+  </entry><entry>
+    <title>lower-thirds</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/lower-thirds/</id>
+    <content type="html">&lt;p&gt;Lower Third گرافیک اطلاعاتی است که معمولاً در بخش پایین قاب قرار می‌گیرد و نام، سمت، مکان یا اطلاعات تکمیلی را نمایش می‌دهد. نامش الزام نمی‌کند دقیقاً یک‌سوم صفحه را پر کند. وظیفهٔ آن اطلاع‌رسانی است، نه رقابت با سوژه.&lt;/p&gt;
+&lt;h2 id=&quot;سلسله-مراتب-و-محدوده-امن&quot; tabindex=&quot;-1&quot;&gt;سلسله‌مراتب و محدودهٔ امن&lt;/h2&gt;
+&lt;p&gt;نام یا پیام اصلی باید پیش از توضیح فرعی خوانده شود. دو سطح اندازه و وزن تایپ کافی است. اطلاعات را در محدودهٔ امن نسبت تصویر قرار بده تا هنگام پخش و Crop بریده نشود. در خروجی عمودی محل زیرنویس و کنترل‌های اپلیکیشن را هم بررسی کن. پشت متن روشن روی تصویر متغیر، از پلاک ساده یا کنتراست سنجیده استفاده کن.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/lower-third-layout.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/lower-third-layout.svg&quot; width=&quot;960&quot; height=&quot;610&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;چیدمان Lower Third؛ اطلاعات در پایین قاب و دور از نقطهٔ تمرکز&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · اطلاعات در پایین قاب و دور از نقطهٔ تمرکز&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;حرکت-و-مدت-نمایش&quot; tabindex=&quot;-1&quot;&gt;حرکت و مدت نمایش&lt;/h2&gt;
+&lt;p&gt;ورود، حالت ثابت و خروج سه بخش اصلی‌اند. ورود سریع و خوانا باشد، متن به اندازهٔ کافی ثابت بماند و خروج مزاحم گفتار نشود. جهت حرکت را با چیدمان فارسی هماهنگ کن. در RTL، اتصال حروف و اعداد/نام‌های لاتین را در هر وضعیت بررسی کن. اگر انیمیشن خطی یا ماسک‌دار می‌سازی، متن نباید در طول فاز اصلی خواندن ناقص بماند.&lt;/p&gt;
+&lt;h2 id=&quot;ساخت-قالب-قابل-ویرایش&quot; tabindex=&quot;-1&quot;&gt;ساخت قالب قابل‌ویرایش&lt;/h2&gt;
+&lt;p&gt;دو لایهٔ نام و سمت، رنگ و شکل زمینه، Safe Margin و زمان‌های ورود/خروج را قابل تنظیم کن. نام طولانی فارسی و عنوان انگلیسی را تست کن. برای نسخهٔ broadcast با Alpha، قالب خروجی را بر اساس نرم‌افزار مقصد انتخاب کن و در کنار ویدئو روی تصویر روشن و تیره بررسی کن.&lt;/p&gt;
+&lt;p&gt;تمرین: یک Lower Third برای مصاحبه بساز، نسخهٔ ۱۶:۹ و ۹:۱۶ را جدا طراحی کن. پس از دیدن نتیجه در اندازهٔ گوشی، هر حرکت و عنصر اضافی را که اطلاعات تازه‌ای نمی‌دهد حذف کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/lower%20thirds&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;lower thirds — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/lower-thirds/"/>
+  </entry><entry>
+    <title>keyframes-breakdowns</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/keyframes-breakdowns/</id>
+    <content type="html">&lt;p&gt;کی‌فریم وضعیت مهم کنش را تعریف می‌کند، اما بریک‌داون تعیین می‌کند شخصیت چگونه از آن وضعیت به وضعیت بعدی می‌رسد. دو انیمیشن با کلیدپزهای یکسان می‌توانند به‌دلیل بریک‌داون‌های متفاوت، حس کاملاً متفاوتی داشته باشند.&lt;/p&gt;
+&lt;h2 id=&quot;نقش-کلیدپز&quot; tabindex=&quot;-1&quot;&gt;نقش کلیدپز&lt;/h2&gt;
+&lt;p&gt;کلیدپز می‌تواند وضعیت آغاز، پیش‌حرکت، اوج کنش، تماس یا نتیجه باشد. در طراحی پرش، پز خم‌شدن، جداشدن از زمین، اوج، تماس و بازیابی تعادل مهم‌اند. پزها را ابتدا بدون فریم‌های میانی ببین تا سیلوئت، مرکز جرم و هدف حرکت خوانده شوند.&lt;/p&gt;
+&lt;h2 id=&quot;نقش-بریک-داون&quot; tabindex=&quot;-1&quot;&gt;نقش بریک‌داون&lt;/h2&gt;
+&lt;p&gt;Breakdown یک میانگین ساده بین دو پز نیست. می‌تواند تعیین کند آرنج از جلو عبور می‌کند یا عقب، کدام بخش بدن جلوتر است، حرکت قوس دارد یا مستقیم و وزن چگونه منتقل می‌شود. در تغییر نگاه، ممکن است چشم اول حرکت کند، سر بعد و تنه دیرتر واکنش نشان دهد.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/breakdown-poses.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/breakdown-poses.svg&quot; width=&quot;960&quot; height=&quot;600&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;کلیدپز و بریک‌داون؛ چهار وضعیت از یک حرکت دست و ادامهٔ کنش&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · چهار وضعیت از یک حرکت دست و ادامهٔ کنش&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;فاصله-گذاری-و-فریم-های-میانی&quot; tabindex=&quot;-1&quot;&gt;فاصله‌گذاری و فریم‌های میانی&lt;/h2&gt;
+&lt;p&gt;پس از طراحی مسیر و بریک‌داون، Inbetweenها فاصله‌های حرکت را تکمیل می‌کنند. موقعیت و زمان را جداگانه بررسی کن: پز میانی از نظر زمان لزوماً از نظر فاصلهٔ مکانی وسط نیست. در گراف سه‌بعدی ابتدا منحنی اصلی، سپس offsetها و overlap را اصلاح کن.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;یک شخصیت دستش را به سوی فنجان می‌برد. سه پز کلیدی طراحی کن و دو نسخهٔ بریک‌داون بساز: یکی دست اول حرکت کند و دیگری شانه ابتدا بچرخد. با یک مدت برابر، تفاوت شخصیت را مشاهده کن. سپس پیش‌حرکت کوتاه و ادامهٔ حرکت را با &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/principles/&quot;&gt;اصول انیمیشن&lt;/a&gt; هماهنگ کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/keyframes%20and%20breakdowns&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;keyframes and breakdowns — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/keyframes-breakdowns/"/>
+  </entry><entry>
+    <title>انیمیشن</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/</id>
+    <content type="html">&lt;p&gt;انیمیشن هنر طراحی تغییر در طول زمان است. یک تصویر می‌تواند شکل و ترکیب‌بندی داشته باشد، اما زمانی که چند تصویر یا وضعیت را با نظم زمانی کنار هم قرار می‌دهیم، حرکت، وزن، قصد و احساس پدید می‌آید. این مجموعه برای هنرجو، انیماتور و کسی است که می‌خواهد فرایند ساخت یک اثر را از ابتدا تا ارائه درک کند.&lt;/p&gt;
+&lt;h2 id=&quot;۱-زبان-و-تاریخچه-انیمیشن&quot; tabindex=&quot;-1&quot;&gt;۱. زبان و تاریخچهٔ انیمیشن&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/history/&quot;&gt;تاریخچهٔ انیمیشن&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/types/&quot;&gt;پنج شیوهٔ ساخت انیمیشن&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/sequential-art/&quot;&gt;هنر دنباله‌دار و روایت تصویری&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/principles/&quot;&gt;دوازده اصل انیمیشن&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/motion-easing/&quot;&gt;پنج نوع حرکت و منحنی سرعت&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/ones-twos-threes/&quot;&gt;انیمیت روی یک، دو و سه فریم&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/aspect-ratios/&quot;&gt;نسبت تصویر&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;زاویه، اندازه و حرکت دوربین&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;۲-از-ایده-تا-شات&quot; tabindex=&quot;-1&quot;&gt;۲. از ایده تا شات&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/story/&quot;&gt;داستان&lt;/a&gt;، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/storyboards/&quot;&gt;استوری‌بورد&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/storyboarding-book/&quot;&gt;راهنمای مطالعهٔ Storyboarding Essentials&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/character-design/&quot;&gt;طراحی شخصیت&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/environment-design/&quot;&gt;طراحی محیط&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/&quot;&gt;قاب‌بندی و بلاکینگ&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/animatics/&quot;&gt;انیماتیک&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;۳-تمرین-و-اجرا&quot; tabindex=&quot;-1&quot;&gt;۳. تمرین و اجرا&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/frame-by-frame/&quot;&gt;فریم‌به‌فریم و کی‌فریم&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/keyframes-breakdowns/&quot;&gt;کی‌فریم و بریک‌داون&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/ball-1/&quot;&gt;توپ جهنده: سقوط عمودی&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/ball-2/&quot;&gt;توپ جهنده: حرکت افقی&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/flour-sack/&quot;&gt;تمرین کیسهٔ آرد&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/walk-cycle/&quot;&gt;چرخهٔ راه‌رفتن&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/adobe-animate/&quot;&gt;مبانی Adobe Animate&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/photoshop/&quot;&gt;تایم‌لاین Photoshop&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;۴-موشن-گرافیک-و-ارائه&quot; tabindex=&quot;-1&quot;&gt;۴. موشن‌گرافیک و ارائه&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/animated-type/&quot;&gt;تایپوگرافی متحرک&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/lower-thirds/&quot;&gt;زیرنویس معرفی و Lower Third&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/demo-reel/&quot;&gt;ساخت دمو ریل&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;روش-استفاده&quot; tabindex=&quot;-1&quot;&gt;روش استفاده&lt;/h2&gt;
+&lt;p&gt;از تمرین توپ شروع کن تا زمان‌بندی و وزن را بفهمی؛ سپس کیسهٔ آرد و چرخهٔ راه‌رفتن را انجام بده. در یک پروژهٔ کوتاه، پیش از جزئیات انیمیشن، داستان، استوری‌بورد و انیماتیک را قطعی کن. این مسیر الزامی نیست: فهرست و گراف وبلاگ اجازه می‌دهند بر اساس نیاز خودت حرکت کنی.&lt;/p&gt;
+&lt;p&gt;صفحه‌های این مجموعه بر پایهٔ فهرست ۲۷ صفحهٔ عمومی بخش Animation از Mister Chad سامان داده شده‌اند و متن آموزشی فارسی و تمرین‌های تکمیلی مستقلاً تدوین شده‌اند. نام و مسیر منبع در انتهای هر صفحه باقی مانده است.&lt;/p&gt;
+&lt;h2 id=&quot;اعتبار-تصاویر&quot; tabindex=&quot;-1&quot;&gt;اعتبار تصاویر&lt;/h2&gt;
+&lt;p&gt;تصاویر این مجموعه، نمودارهای آموزشی مستقل با برچسب فارسی هستند که به‌صورت فایل محلی در خود وبلاگ ذخیره شده‌اند. تصویرهای سایت منبع بازنشر نشده‌اند؛ سیاست &lt;a href=&quot;https://mister-chad.com/random%20stuff/uncopyright&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;حقوق و مجوز منبع&lt;/a&gt; آثار هنری و طراحی بصری را از مجوز عمومی متن‌ها مستثنا می‌کند. تصاویر شخص ثالث نیز به بررسی مجوز جداگانه نیاز دارند. فهرست منشأ تصاویر در مخزن مجموعه ثبت شده است.&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/!%20animation&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;! animation — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/"/>
+  </entry><entry>
+    <title>history</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/history/</id>
+    <content type="html">&lt;p&gt;تاریخچهٔ انیمیشن یک خط مستقیم از ابزار ساده به فناوری پیچیده نیست. روش‌های گوناگون هم‌زمان شکل گرفته‌اند و حتی با پیشرفت فناوری، طراحی دستی و استاپ‌موشن از بین نرفته‌اند.&lt;/p&gt;
+&lt;h2 id=&quot;پیش-از-سینما&quot; tabindex=&quot;-1&quot;&gt;پیش از سینما&lt;/h2&gt;
+&lt;p&gt;ابزارهای نوری قرن نوزدهم مانند Phenakistiscope و Zoetrope با نمایش پیاپی تصویرها حس حرکت می‌ساختند. مجموعه‌عکس‌های حرکت از جمله مطالعات Eadweard Muybridge در دههٔ ۱۸۷۰ امکان بررسی دقیق وضعیت بدن حیوان و انسان را فراهم کردند. این ابزارها به درک نمونه‌برداری زمانی کمک کردند، ولی روایت سینمایی هنوز در حال شکل‌گیری بود.&lt;/p&gt;
+&lt;h2 id=&quot;پیدایش-انیمیشن-سینمایی&quot; tabindex=&quot;-1&quot;&gt;پیدایش انیمیشن سینمایی&lt;/h2&gt;
+&lt;p&gt;با توسعهٔ فیلم، حرکت‌دادن نقاشی‌ها و اشیای واقعی ممکن شد. آثار اولیهٔ J. Stuart Blackton و Émile Cohl نمونه‌هایی از تجربه‌های آغاز قرن بیستم‌اند. انیمیشن سلولوئیدی و سازمان‌دهی طراحی‌های تکرارپذیر به تولید طولانی‌تر کمک کرد. فیلم Snow White and the Seven Dwarfs در ۱۹۳۷ نقطهٔ عطف مهمی برای انیمیشن بلند آمریکایی بود، نه نخستین انیمیشن بلند جهان.&lt;/p&gt;
+&lt;h2 id=&quot;استودیوها-تلویزیون-و-روش-های-دیگر&quot; tabindex=&quot;-1&quot;&gt;استودیوها، تلویزیون و روش‌های دیگر&lt;/h2&gt;
+&lt;p&gt;در میانهٔ قرن بیستم، نیاز به تولید تلویزیونی با بودجه و زمان محدود باعث گسترش روش‌های Limited Animation شد. هم‌زمان استاپ‌موشن، انیمیشن تجربی و سنت‌های گوناگون ملی مسیرهای خود را ادامه دادند. تأثیر سبک و فرهنگ را باید جدا از پیشرفت ابزار دید.&lt;/p&gt;
+&lt;h2 id=&quot;رایانه-و-تولید-دیجیتال&quot; tabindex=&quot;-1&quot;&gt;رایانه و تولید دیجیتال&lt;/h2&gt;
+&lt;p&gt;تصویرسازی و کامپیوتر از دهه‌های پیش وارد آثار شده بودند. Toy Story در ۱۹۹۵ اولین فیلم بلند کاملاً انیمیشن رایانه‌ای شناخته می‌شود. امروزه ترکیب ۲D، ۳D، طراحی دست‌ساز و ابزارهای دیجیتال عادی است. تغییر ابزار، اصول وزن، وضوح و بازیگری را بی‌اهمیت نکرده است.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین-مطالعه&quot; tabindex=&quot;-1&quot;&gt;تمرین مطالعه&lt;/h2&gt;
+&lt;p&gt;یک نمونه از دورهٔ ابزار نوری، یک فیلم کلاسیک، یک اثر Limited و یک فیلم سه‌بعدی را انتخاب کن و نحوهٔ طراحی پز و زمان‌بندی آن‌ها را مقایسه کن. برای پیوند تاریخ با روش‌های تولید، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/types/&quot;&gt;پنج شیوهٔ انیمیشن&lt;/a&gt; را بخوان.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/history%20of%20animation&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;history of animation — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/history/"/>
+  </entry><entry>
+    <title>framing-blocking</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/</id>
+    <content type="html">&lt;p&gt;قاب‌بندی تعیین می‌کند چه چیزی در تصویر دیده شود؛ بلاکینگ جای شخصیت‌ها، مسیر کنش، تماس‌ها و پزهای اصلی را در زمان و فضا مشخص می‌کند. این مرحله باید قبل از پرداخت جزئیات انیمیشن و نور نهایی انجام شود.&lt;/p&gt;
+&lt;h2 id=&quot;از-داستان-به-پلان&quot; tabindex=&quot;-1&quot;&gt;از داستان به پلان&lt;/h2&gt;
+&lt;p&gt;فیلمنامه را به بیت‌های کنش تقسیم کن: چه کسی هدف دارد، چه مانعی پیش می‌آید و وضعیت چگونه تغییر می‌کند؟ یک پلان Top View بکش. جای درها، موانع، اشیای مهم، شخصیت‌ها و دوربین را با مقیاس نسبی مشخص کن. مسیر حرکت و محور کنش را روی پلان نشان بده.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/blocking-top-view.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/blocking-top-view.svg&quot; width=&quot;960&quot; height=&quot;590&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;بلاکینگ از نمای بالا؛ پلان سادهٔ صحنه و جهت دوربین&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · پلان سادهٔ صحنه و جهت دوربین&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;قاب-و-میزان-سن&quot; tabindex=&quot;-1&quot;&gt;قاب و میزان‌سن&lt;/h2&gt;
+&lt;p&gt;نقطهٔ توجه و اندازهٔ نما را بر اساس اطلاعات هر بیت انتخاب کن. فضای نگاه و جهت حرکت در قاب را رعایت کن. در صحنهٔ دو نفره، شخصیت مهم را با سیلوئت، فاصله، نور یا جهت نگاه برجسته کن. همهٔ کاراکترها نباید هم‌زمان کنش مهم انجام دهند. از &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;زبان دوربین&lt;/a&gt; استفاده کن.&lt;/p&gt;
+&lt;h2 id=&quot;بلاکینگ-زمانی&quot; tabindex=&quot;-1&quot;&gt;بلاکینگ زمانی&lt;/h2&gt;
+&lt;p&gt;در نرم‌افزار سه‌بعدی با اشکال ساده و ریگ اولیه، ابتدا پزهای اصلی و جای پاها را ایجاد کن. در دوبعدی با طراحی‌های خام همین کار انجام می‌شود. دوربین را قبل از پرداخت بازیگری برای فهم کنش بررسی کن. ابتدا چند راه‌حل متفاوت امتحان کن؛ سپس گزینه‌ای را انتخاب کن که خوانایی و منطق فضا را بهتر حفظ می‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;آزمون&quot; tabindex=&quot;-1&quot;&gt;آزمون&lt;/h2&gt;
+&lt;p&gt;بلندترین و نزدیک‌ترین شات‌ها را کنار هم در &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/animatics/&quot;&gt;انیماتیک&lt;/a&gt; ببین. از خود بپرس: آیا مخاطب موقعیت را می‌فهمد؟ آیا مسیر شخصیت امکان‌پذیر است؟ آیا اشیا به‌درستی در دسترس‌اند؟ اگر پاسخ منفی است، تغییر قاب و جایگذاری ارزان‌تر از بازسازی انیمیشن نهایی است.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/framing%20and%20blocking&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;framing and blocking — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/"/>
+  </entry><entry>
+    <title>frame-by-frame</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/frame-by-frame/</id>
+    <content type="html">&lt;p&gt;در روش فریم‌به‌فریم، هنرمند وضعیت‌های متوالی را مستقیماً می‌سازد. در کی‌فریم‌گذاری، وضعیت یک یا چند ویژگی را در زمان‌های مشخص تعیین می‌کند و وضعیت‌های میانی را با ابزار یا طراحی دستی می‌سازد. این دو رویکرد می‌توانند در یک شات کنار هم باشند.&lt;/p&gt;
+&lt;h2 id=&quot;فریم-به-فریم&quot; tabindex=&quot;-1&quot;&gt;فریم‌به‌فریم&lt;/h2&gt;
+&lt;p&gt;برای تغییرات فرم پیچیده، اثرهای دستی و حرکت‌های غیرقابل پیش‌بینی مناسب است. طراحی هر وضعیت آزادی زیادی ایجاد می‌کند ولی حفظ حجم، تداوم جزئیات و زمان‌بندی نیازمند کنترل است. Onion Skin به دیدن وضعیت‌های قبل و بعد کمک می‌کند؛ نباید باعث شود صرفاً به‌صورت مکانیکی بین دو خط طراحی کنی.&lt;/p&gt;
+&lt;h2 id=&quot;کی-فریم-و-میان-گذاری&quot; tabindex=&quot;-1&quot;&gt;کی‌فریم و میان‌گذاری&lt;/h2&gt;
+&lt;p&gt;Keyframe مقدار موقعیت، چرخش، مقیاس یا وضعیت ریگ را در یک زمان مشخص ثبت می‌کند. بین دو کی‌فریم، نرم‌افزار می‌تواند مقدارهای میانی را با interpolation حساب کند. Linear سرعت ثابت در مقدار، Stepped نگه‌داری وضعیت و Spline تغییر پیوسته با منحنی است. میان‌گذاری خودکار تنها مقدار را تغییر می‌دهد، اما قصد، وزن، قوس و برخورد را خودش طراحی نمی‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;ترکیب-در-تولید&quot; tabindex=&quot;-1&quot;&gt;ترکیب در تولید&lt;/h2&gt;
+&lt;p&gt;در کار شخصیت، ابتدا پزهای اصلی و بریک‌داون‌ها را در حالت stepped بررسی کن. پس از تأیید نیت و ریتم، منحنی‌ها را spline کن و فاصله‌گذاری را اصلاح کن. برای مو و پارچه یا تغییر شکل‌های خاص ممکن است کنترل دستی فریم‌ها لازم باشد. در موشن‌گرافیک، keyframing برای Transformها کارآمد است؛ در دست‌نویس متحرک طراحی فریم‌به‌فریم می‌تواند بهتر باشد.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;یک پرش کوچک طراحی کن. نسخهٔ اول پزهای کلیدی را بدون میان‌گذاری بساز؛ نسخهٔ دوم را با بریک‌داون دستی و نسخهٔ سوم با میان‌گذاری خودکار مقایسه کن. به قوس مچ، تغییر وزن و زمان توقف نگاه کن. &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/keyframes-breakdowns/&quot;&gt;کی‌فریم و بریک‌داون&lt;/a&gt; ادامهٔ این مسیر است.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/frame-by-frame%20and%20keyframing&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;frame-by-frame and keyframing — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/frame-by-frame/"/>
+  </entry><entry>
+    <title>flour-sack</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/flour-sack/</id>
+    <content type="html">&lt;p&gt;صفحهٔ منبع برای این تمرین بسیار کوتاه است؛ راهنمای زیر توسعهٔ آموزشی مستقل است. تمرین کیسهٔ آرد یکی از راه‌های مفید برای بررسی بازیگری با حداقل فرم است. چون چشم، دهان و انگشت نداریم، ناچاریم وزن و احساس را با وضعیت بدن و زمان بیان کنیم.&lt;/p&gt;
+&lt;h2 id=&quot;آماده-سازی-شکل&quot; tabindex=&quot;-1&quot;&gt;آماده‌سازی شکل&lt;/h2&gt;
+&lt;p&gt;یک فرم نرم با دو حجم تقریبی و گوشه‌های ساده طراحی کن. سطح اتکا، مرکز جرم و جهت بدن را مشخص کن. گوشه‌ها می‌توانند دنبالهٔ حرکت باشند، اما نباید بدون اتصال به جرم اصلی حرکت کنند. در طراحی دوبعدی خط حرکت، در سه‌بعدی تغییر شکل و کنترل حجم اهمیت دارند.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/flour-sack-poses.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/flour-sack-poses.svg&quot; width=&quot;960&quot; height=&quot;580&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;بازیگری با فرم ساده؛ نمایش پیش‌حرکت و وزن بدون چهره&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · نمایش پیش‌حرکت و وزن بدون چهره&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;سه-تمرین&quot; tabindex=&quot;-1&quot;&gt;سه تمرین&lt;/h2&gt;
+&lt;p&gt;۱. کیسه‌ای که با زحمت از زمین بلند می‌شود: انتقال وزن، پیش‌حرکت، فشار و مکث را طراحی کن.&lt;/p&gt;
+&lt;p&gt;۲. کیسه‌ای که چیزی ترسناک دیده است: ابتدا تغییر توجه و فشردگی، سپس عقب‌کشیدن و مکث. بدون چهره باید ترس خوانده شود.&lt;/p&gt;
+&lt;p&gt;۳. کیسه‌ای که از موفقیت خوشحال می‌شود: فرم بازتر، حرکت رو به بالا و فرود سبک‌تر، سپس بازگشت به تعادل.&lt;/p&gt;
+&lt;h2 id=&quot;روش-اجرا&quot; tabindex=&quot;-1&quot;&gt;روش اجرا&lt;/h2&gt;
+&lt;p&gt;برای هر تمرین چهار پز کلیدی روی یک صفحه بکش: وضعیت اولیه، پیش‌حرکت، اوج کنش و نتیجه. مدت را حدود دو تا چهار ثانیه انتخاب کن. در مرحلهٔ Blocking از تغییرات بزرگ شروع کن و پیش از صاف‌کردن منحنی‌ها سیلوئت‌ها را بسنج. تغییر شکل و overlap را پس از تأیید پزها اضافه کن.&lt;/p&gt;
+&lt;h2 id=&quot;ارزیابی&quot; tabindex=&quot;-1&quot;&gt;ارزیابی&lt;/h2&gt;
+&lt;p&gt;شات را بدون صدا به فرد دیگری نشان بده و از او بخواه اتفاق و احساس را توضیح دهد. اگر نیاز به توضیح خودت دارد، پز، جهت یا زمان‌بندی را اصلاح کن. تمرین بعدی می‌تواند &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/walk-cycle/&quot;&gt;چرخهٔ راه‌رفتن&lt;/a&gt; یا &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/principles/&quot;&gt;اصول انیمیشن&lt;/a&gt; باشد.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/flour%20sack%20animation&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;flour sack animation — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/flour-sack/"/>
+  </entry><entry>
+    <title>environment-design</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/environment-design/</id>
+    <content type="html">&lt;p&gt;محیط در انیمیشن پس‌زمینهٔ خنثی نیست؛ اطلاعاتی دربارهٔ جهان، فرهنگ، زمان، وضعیت شخصیت و مسیر کنش منتقل می‌کند. طراحی خوب باید هم از نظر روایت و هم برای Layout، مدل‌سازی، نور و انیمیت قابل استفاده باشد.&lt;/p&gt;
+&lt;h2 id=&quot;نیازهای-داستانی-و-رفرنس&quot; tabindex=&quot;-1&quot;&gt;نیازهای داستانی و رفرنس&lt;/h2&gt;
+&lt;p&gt;شرح صحنه را به سؤال‌های طراحی تبدیل کن: شخصیت از کجا وارد می‌شود؟ چه چیزی را می‌بیند؟ مسیر حرکت کدام است؟ کدام اشیا برای کنش مهم‌اند؟ برای معماری، ماده، نور و پوشش گیاهی رفرنس جمع کن؛ به‌جای ترکیب سطحی تصاویر، منطق ساخت و کارکردشان را بفهم.&lt;/p&gt;
+&lt;h2 id=&quot;ترکیب-و-مقیاس&quot; tabindex=&quot;-1&quot;&gt;ترکیب و مقیاس&lt;/h2&gt;
+&lt;p&gt;با Thumbnail کوچک، شکل‌های بزرگ، فضای منفی و نقطهٔ توجه را تعیین کن. پلان سادهٔ Top View برای اندازهٔ راه‌ها، جای درها، ارتفاع سطوح و جهت حرکت لازم است. لایه‌های foreground، midground و background عمق و پارالاکس ایجاد می‌کنند. مقیاس در، پله، مبلمان و اشیا را با قد شخصیت هماهنگ کن؛ مقیاس ناپایدار بعداً در Layout مشکل ایجاد می‌کند.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/environment-plan.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/environment-plan.svg&quot; width=&quot;960&quot; height=&quot;590&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;پلان و لایه‌های محیط؛ مسیر کنش، مقیاس و عمق باید پیش از تولید مشخص باشند&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · مسیر کنش، مقیاس و عمق باید پیش از تولید مشخص باشند&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;زبان-شکل-ماده-و-نور&quot; tabindex=&quot;-1&quot;&gt;زبان شکل، ماده و نور&lt;/h2&gt;
+&lt;p&gt;تصمیم بگیر جهان از فرم‌های گرد، زاویه‌دار، ارگانیک یا معماری منظم ساخته شده است. مواد و رنگ را بر اساس اقلیم و کارکرد تعریف کن. نور باید اطلاعات صحنه را خوانا کند. جزئیات نزدیک دوربین با جزئیات دور تفاوت دارند؛ بافت و اشیای زیاد بدون هدف، خوانایی را کم می‌کند.&lt;/p&gt;
+&lt;h2 id=&quot;تحویل-به-تولید&quot; tabindex=&quot;-1&quot;&gt;تحویل به تولید&lt;/h2&gt;
+&lt;p&gt;نمای کلی، پلان، اندازه‌های مرجع، نماهای ضروری معماری، نمونهٔ مواد، وضعیت نور و فهرست دارایی‌های تعاملی را آماده کن. بخش‌هایی که دوربین می‌بیند را جدا از بخش‌هایی که فقط در راکورد اهمیت دارند مشخص کن. در تست &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/&quot;&gt;بلاکینگ&lt;/a&gt; مطمئن شو شخصیت می‌تواند مسیرش را طی کند.&lt;/p&gt;
+&lt;p&gt;تمرین: محیط یک ایستگاه کوچک را برای ورود شتاب‌زده و خروج آرام شخصیت طراحی کن. در هر نسخه نقطهٔ توجه، مسیر، نور و فضای انتظار را به‌طور آگاهانه تغییر بده.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/environment%20design&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;environment design — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/environment-design/"/>
+  </entry><entry>
+    <title>demo-reel</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/demo-reel/</id>
+    <content type="html">&lt;p&gt;دمو ریل مجموعهٔ گزینش‌شدهٔ شات‌ها برای نشان دادن توانایی مشخص است. هدف آن نمایش همهٔ کارها نیست؛ باید در زمان محدود نشان دهد برای چه نوع مسئولیتی مناسب هستی.&lt;/p&gt;
+&lt;h2 id=&quot;انتخاب-شات-ها&quot; tabindex=&quot;-1&quot;&gt;انتخاب شات‌ها&lt;/h2&gt;
+&lt;p&gt;ابتدا موقعیت هدف را تعیین کن: انیماتور شخصیت، کارگردان، Layout Artist، Motion Designer یا متخصص نور و کامپوزیت. نمونه‌ها را بر اساس کیفیت و تناسب با همان نقش انتخاب کن. یک ریل بازیگری می‌تواند تضاد احساس، حرکت بدن و دیالوگ داشته باشد؛ ریل دوربین باید انتخاب قاب، میزان‌سن و تداوم را نشان دهد.&lt;/p&gt;
+&lt;h2 id=&quot;تدوین-و-ترتیب&quot; tabindex=&quot;-1&quot;&gt;تدوین و ترتیب&lt;/h2&gt;
+&lt;p&gt;شات قدرتمند و مرتبط را ابتدای ریل قرار بده. مقدمهٔ طولانی یا لوگوموشن پیچیده معمولاً زمان ارزشمند را می‌گیرد. ریتم تدوین نباید باعث شود یک بازی یا حرکت مهم پیش از خوانده‌شدن قطع شود. مدت ریل تابع کیفیت و کاربرد است؛ ریل کوتاه و متمرکز از نسخهٔ طولانیِ تکراری مؤثرتر است.&lt;/p&gt;
+&lt;h2 id=&quot;اعتبار-و-توضیح-نقش&quot; tabindex=&quot;-1&quot;&gt;اعتبار و توضیح نقش&lt;/h2&gt;
+&lt;p&gt;در کار گروهی، نقش خودت را دقیق ثبت کن: مثلاً Animation only، Layout &amp;amp; camera، یا Lighting. پروژه و مالک اثر را ذکر کن و محتوای محرمانه یا منتشرنشده را بدون اجازه نمایش نده. برای شات‌های فنی، breakdown کوچک و واضح می‌تواند مفید باشد. از &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/lower-thirds/&quot;&gt;Lower Third&lt;/a&gt; ظریف برای معرفی نقش استفاده کن.&lt;/p&gt;
+&lt;h2 id=&quot;چک-نهایی&quot; tabindex=&quot;-1&quot;&gt;چک نهایی&lt;/h2&gt;
+&lt;p&gt;تماشاگر باید بدون صدا نیز مهارت را بفهمد. نسخهٔ ویدئویی سازگار، نام و راه تماس روشن و در صورت نیاز صفحهٔ breakdown جدا فراهم کن. قبل از انتشار، حقوق استفاده از تصویر و موسیقی را بررسی کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/demo%20reel&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;demo reel — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/demo-reel/"/>
+  </entry><entry>
+    <title>character-design</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/character-design/</id>
+    <content type="html">&lt;p&gt;طراحی شخصیت برای انیمیشن تنها ساخت تصویر زیبا نیست؛ باید شخصیتی بسازد که در حرکت، بازیگری، نماهای مختلف و تکرار در صدها شات قابل تشخیص باشد. رفتار، نقش داستانی، محیط زندگی و محدودیت‌های تولید بر ظاهر اثر می‌گذارند.&lt;/p&gt;
+&lt;h2 id=&quot;فرایند-طراحی&quot; tabindex=&quot;-1&quot;&gt;فرایند طراحی&lt;/h2&gt;
+&lt;p&gt;از شرح شخصیت شروع کن: سن تقریبی، هدف، عادت، ترس، شغل و نوع حرکت. بعد چند شکل کلی مستقل طراحی کن؛ دایره، مربع و مثلث می‌توانند نقطهٔ آغاز برای ترکیب فرم باشند، ولی ویژگی شخصیتی را به فرمول ساده تقلیل نده. با سیلوئت‌های سیاه بررسی کن آیا شخصیت از فاصلهٔ دور تشخیص‌پذیر است. فرم منتخب را با چند تغییر نسبت و خط حرکت پالایش کن.&lt;/p&gt;
+&lt;h2 id=&quot;حجم-رنگ-و-متریال&quot; tabindex=&quot;-1&quot;&gt;حجم، رنگ و متریال&lt;/h2&gt;
+&lt;p&gt;نسبت سر به بدن، طول اندام، فرم تنه، مرکز جرم و نقاط اصلی مفصل را تثبیت کن. رنگ‌ها باید با محیط، نور و سایر شخصیت‌ها هماهنگ باشند. یک رنگ یا متریال اصلی همراه با تأکید محدود معمولاً طراحی را خواناتر می‌کند. جزئیات بسیار ریز ممکن است در نمای دور ناپدید شوند یا هزینهٔ انیمیت را بالا ببرند.&lt;/p&gt;
+&lt;h2 id=&quot;character-sheet&quot; tabindex=&quot;-1&quot;&gt;Character Sheet&lt;/h2&gt;
+&lt;p&gt;مدل‌شیت نماهای جلو، نیم‌رخ، سه‌رخ و پشت را با خطوط راهنمای ارتفاع اعضا نشان می‌دهد. شیت حالت چهره، مجموعهٔ پزهای نمونه، اندازهٔ دست و پا، اشیای همراه، نمونهٔ رنگ و نشانه‌های تغییرناپذیر را هم در صورت نیاز اضافه کن. Turnaround باید حجم یکسان داشته باشد؛ نسبت‌ها بین نماها نباید تغییر تصادفی کنند. برای تولید سه‌بعدی، محدودیت حرکت مفصل، شکل دهان و لباس را در مراحل ریگ و تست پز بررسی کن.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/character-sheet.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/character-sheet.svg&quot; width=&quot;960&quot; height=&quot;560&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;شیت طراحی شخصیت؛ کنترل سیلوئت و ارتفاع در طراحی نمونه&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · کنترل سیلوئت و ارتفاع در طراحی نمونه&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;ارتباط-با-محیط&quot; tabindex=&quot;-1&quot;&gt;ارتباط با محیط&lt;/h2&gt;
+&lt;p&gt;شخصیت تنها نیست؛ اندازه، رنگ و زبان شکل آن باید در کنار &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/environment-design/&quot;&gt;محیط&lt;/a&gt; و شخصیت‌های دیگر کار کند. اگر جهان داستانی سرد و معماری سخت دارد، تفاوت شکل یا رنگ شخصیت می‌تواند به تم روایت کمک کند.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;برای یک شخصیت که می‌خواهد دیده نشود ولی وظیفه‌ای جسورانه دارد، ۱۰ سیلوئت طراحی کن. سه گزینه را با پزهای راه‌رفتن و نشستن آزمایش کن، یکی را با نماهای هماهنگ کامل کن. پیش از جزئیات رندر، از نمای کوچک و سیلوئت بخواه نیت و فرم شخصیت را نشان بدهند.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/character%20design&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;character design — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/character-design/"/>
+  </entry><entry>
+    <title>camera-shots</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/</id>
+    <content type="html">&lt;p&gt;سه تصمیم متفاوت در طراحی شات وجود دارند: چه مقدار از سوژه دیده شود، دوربین از چه زاویه‌ای نگاه کند و در طول شات چه تغییری داشته باشد. آن‌ها را بر اساس هدف روایی انتخاب کن، نه صرفاً برای متنوع‌کردن نماها.&lt;/p&gt;
+&lt;h2 id=&quot;اندازه-نما-shot-size&quot; tabindex=&quot;-1&quot;&gt;اندازهٔ نما (Shot Size)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;نمای بسیار دور (Extreme Long Shot): موقعیت جغرافیایی، مقیاس و تنهایی را نشان می‌دهد.&lt;/li&gt;
+&lt;li&gt;نمای دور یا کامل (Long / Full Shot): تمام بدن، جای پا و رابطهٔ شخصیت با محیط خوانده می‌شود.&lt;/li&gt;
+&lt;li&gt;نمای متوسط (Medium Shot): بدن از حدود کمر به بالا؛ مناسب گفت‌وگو و بازیگری دست‌ها.&lt;/li&gt;
+&lt;li&gt;نمای نزدیک (Close-up): چهره یا عنصر مهم؛ واکنش یا تصمیم شخصیت را برجسته می‌کند.&lt;/li&gt;
+&lt;li&gt;نمای بسیار نزدیک (Extreme Close-up): چشم، دست یا جزئیات مهم؛ باید دلیل روایی داشته باشد.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;اندازهٔ نما را با موقعیت فیزیکی دوربین و لنز اشتباه نگیر. دو قاب مشابه می‌توانند پرسپکتیو متفاوتی داشته باشند.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/shot-sizes.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/shot-sizes.svg&quot; width=&quot;960&quot; height=&quot;650&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;اندازهٔ نما؛ پنج نمونهٔ شماتیک از تغییر محدودهٔ قاب&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · پنج نمونهٔ شماتیک از تغییر محدودهٔ قاب&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;زاویه-دوربین&quot; tabindex=&quot;-1&quot;&gt;زاویهٔ دوربین&lt;/h2&gt;
+&lt;p&gt;Eye Level معمولاً مشاهده‌ای نزدیک به ارتفاع چشم می‌دهد. High Angle از بالا می‌تواند رابطهٔ فضایی یا آسیب‌پذیری را تأکید کند؛ Low Angle ممکن است قدرت، ارتفاع یا تهدید را برجسته کند. نمای Top-down عمود بر زمین برای میزان‌سن و الگوهای حرکت مفید است. Dutch Angle افق را کج می‌کند و حس بی‌ثباتی می‌دهد، اما کاربرد مکرر آن ارزش تأکید را از بین می‌برد. اثر زاویه همیشه به زمینهٔ داستان بستگی دارد.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 2&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/camera-angles.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/camera-angles.svg&quot; width=&quot;960&quot; height=&quot;550&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;زاویهٔ دوربین؛ تغییر نسبت ارتفاع دوربین به سوژه&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 2 · تغییر نسبت ارتفاع دوربین به سوژه&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;حرکت-دوربین&quot; tabindex=&quot;-1&quot;&gt;حرکت دوربین&lt;/h2&gt;
+&lt;p&gt;Pan چرخش افقی در محل، Tilt چرخش عمودی، Roll چرخش حول محور دید، Dolly حرکت جلو یا عقب، Truck حرکت جانبی، Pedestal حرکت عمودی و Orbit گردش دور سوژه است. Zoom تغییر فاصلهٔ کانونی است، نه حرکت فیزیکی دوربین؛ در Dolly نسبت فضایی foreground و background تغییر می‌کند. Tracking یعنی همراهی با سوژه و می‌تواند از چند حرکت ترکیب شود. دوربین دستی یا لرزش هم اگر هدفمند باشد حس حضور می‌سازد.&lt;/p&gt;
+&lt;h2 id=&quot;پیوستگی-و-راکورد&quot; tabindex=&quot;-1&quot;&gt;پیوستگی و راکورد&lt;/h2&gt;
+&lt;p&gt;محور کنش و جهت حرکت در قاب را مشخص کن. در گفت‌وگو، عبور بی‌دلیل از خط ۱۸۰ درجه می‌تواند جای دو شخصیت را وارونه کند. نمای جدید می‌تواند محور تازه‌ای معرفی کند؛ حرکت دوربین یا نمای خنثی انتقال را روشن می‌کند. همچنین فضای نگاه، eyeline match، ورود و خروج سوژه و تطابق حرکت هنگام برش را بررسی کن.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین-کارگردانی&quot; tabindex=&quot;-1&quot;&gt;تمرین کارگردانی&lt;/h2&gt;
+&lt;p&gt;یک کنش ساده (رسیدن به در و بازکردن آن) را با پنج نمای متفاوت طراحی کن. هر نما باید اطلاعات تازه‌ای بدهد: موقعیت، هدف، جزئیات کلید، واکنش و نتیجه. قبل از انیمیت، در &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/storyboards/&quot;&gt;استوری‌بورد&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/&quot;&gt;بلاکینگ&lt;/a&gt; علت انتخاب دوربین را کنار شات بنویس.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/camera%20shots&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;camera shots — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/"/>
+  </entry><entry>
+    <title>ball-2</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/ball-2/</id>
+    <content type="html">&lt;p&gt;پس از ساخت &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/ball-1/&quot;&gt;توپ جهندهٔ عمودی&lt;/a&gt;، تمرین را با یک مسیر افقی ترکیب کن. در این مرحله هم ارتفاع و زمان پرواز و هم فاصلهٔ افقی جهش‌ها اهمیت دارند. هدف، ساخت مسیر قابل‌باور است، نه انتقال مکانیکی توپ در طول صفحه.&lt;/p&gt;
+&lt;h2 id=&quot;شکل-قوس&quot; tabindex=&quot;-1&quot;&gt;شکل قوس&lt;/h2&gt;
+&lt;p&gt;در مدل سادهٔ بدون مقاومت هوا، سرعت افقی طی پرواز تقریباً ثابت و شتاب عمودی رو به پایین است؛ بنابراین مسیر مرکز جرم یک سهمی است. در پرواز، نقاط نزدیک به اوج در جهت عمودی به هم نزدیک‌اند و پیش از برخورد در جهت عمودی فاصلهٔ بیشتری دارند. مسیر کل از چند سهمی تشکیل می‌شود که در نقاط تماس به هم می‌رسند.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/bouncing-arcs.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/bouncing-arcs.svg&quot; width=&quot;960&quot; height=&quot;600&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;قوس توپ جهنده؛ مسیر مرکز جرم و محل تماس‌های متوالی&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · مسیر مرکز جرم و محل تماس‌های متوالی&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;حرکت-روی-مسیر&quot; tabindex=&quot;-1&quot;&gt;حرکت روی مسیر&lt;/h2&gt;
+&lt;p&gt;نخست ارتفاع اوج و محل تماس هر جهش را تعیین کن. سپس برای هر پرواز زمان و سرعت افقی مشخص کن. اگر اصطکاک و اتلاف وجود دارند، فاصلهٔ افقی جهش‌های بعدی نیز کاهش می‌یابد. هنگام فشردگی، چرخش و کشیدگی توپ را با راستای ضربه و سرعت هماهنگ کن. در شات دوبعدی مسیر مرکز توپ را جداگانه از شکل ظاهری آن رسم کن.&lt;/p&gt;
+&lt;h2 id=&quot;چرخش-و-برخورد&quot; tabindex=&quot;-1&quot;&gt;چرخش و برخورد&lt;/h2&gt;
+&lt;p&gt;توپی که حرکت افقی دارد می‌تواند دوران داشته باشد. در پرواز، اگر گشتاور خارجی ناچیز باشد سرعت زاویه‌ای تقریباً ثابت می‌ماند؛ در تماس اصطکاک آن را تغییر می‌دهد. چرخش نباید به‌طور تصادفی در هر برخورد عوض شود. برای تمرین، یک نشانه روی توپ بگذار تا لغزش یا چرخش نامنظم دیده شود.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;در یک قاب ثابت، سه تماس با زمین و سه قوس کوچک‌شونده بساز. برای هر قوس نقاط اوج و تماس را روی راهنما مشخص کن. ابتدا فقط حرکت مرکز جرم را انیمیت کن، سپس شکل، چرخش و تغییر شکل را اضافه کن. نتیجه را با نسخه‌ای که به‌اشتباه از منحنی Bezier کاملاً هموار عبور می‌کند مقایسه کن: در نقطهٔ تماس باید اثر ضربه حس شود.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/bouncing%20ball%20-%20part%20two&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;bouncing ball - part two — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/ball-2/"/>
+  </entry><entry>
+    <title>ball-1</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/ball-1/</id>
+    <content type="html">&lt;p&gt;تمرین توپ جهنده ساده به نظر می‌رسد، اما برای فهم وزن و تغییر سرعت بسیار مهم است. هدف این نیست که توپ را از A به B منتقل کنی؛ باید نیروی گرانش، برخورد با زمین و از دست رفتن انرژی خوانده شود.&lt;/p&gt;
+&lt;h2 id=&quot;مرحله-اول-زمان-بندی-سقوط&quot; tabindex=&quot;-1&quot;&gt;مرحلهٔ اول: زمان‌بندی سقوط&lt;/h2&gt;
+&lt;p&gt;نقطهٔ شروع، تماس با زمین و اوج جهش بعدی را طراحی کن. اگر توپ از حالت سکون رها شود و شتاب تقریباً ثابت باشد، فاصله‌های مکانی با گذر زمان بزرگ‌تر می‌شوند. برای مدل سادهٔ فیزیکی، فاصلهٔ سقوط از حالت سکون برابر نصف شتاب گرانش ضربدر مربع زمان است. در یک انیمیشن ۲۴fps می‌توان فریم‌های نزدیک به اوج را متراکم‌تر و نزدیک برخورد را دورتر قرار داد.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/vertical-spacing.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/vertical-spacing.svg&quot; width=&quot;960&quot; height=&quot;650&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;زمان‌بندی سقوط عمودی؛ نمونه‌گیری در فاصله‌های زمانی برابر&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · نمونه‌گیری در فاصله‌های زمانی برابر&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;مرحله-دوم-فشردگی-و-کشیدگی&quot; tabindex=&quot;-1&quot;&gt;مرحلهٔ دوم: فشردگی و کشیدگی&lt;/h2&gt;
+&lt;p&gt;در مسیر سریع رو به پایین، کشیدگی را در راستای حرکت به‌صورت کنترل‌شده استفاده کن. در لحظهٔ برخورد با زمین، توپ نرم پهن می‌شود و بلافاصله برای بازگشت کشیده می‌شود. نقطهٔ تماس با زمین نباید داخل سطح نفوذ کند. حجم ظاهری را تا حد امکان ثابت نگه دار. برای توپ سنگی، تغییر شکل بسیار کمتر و واکنش برخورد متفاوت است.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 2&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/squash-stretch.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/squash-stretch.svg&quot; width=&quot;960&quot; height=&quot;615&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;فشردگی و کشیدگی؛ واکنش شکل به جهت حرکت و برخورد&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 2 · واکنش شکل به جهت حرکت و برخورد&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;مرحله-سوم-جهش-های-کاهشی&quot; tabindex=&quot;-1&quot;&gt;مرحلهٔ سوم: جهش‌های کاهشی&lt;/h2&gt;
+&lt;p&gt;هر بار برخورد بخشی از انرژی مکانیکی به صدا، گرما و تغییر شکل منتقل می‌شود. ارتفاع اوج جهش‌های بعدی کم‌تر و مدت پرواز کوتاه‌تر می‌شود. در مدل ایده‌آل ضریب بازگشت e سرعت بعد از برخورد را نسبت به سرعت پیش از برخورد تعیین می‌کند؛ نسبت ارتفاع دو جهش پیاپی تقریباً e² است. برای مثال اگر e برابر ۰٫۷ باشد، ارتفاع بعدی حدود ۴۹٪ ارتفاع قبلی است. این مدل ساده مقاومت هوا و جزئیات برخورد را در نظر نمی‌گیرد.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 3&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/diminishing-bounces.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/diminishing-bounces.svg&quot; width=&quot;960&quot; height=&quot;600&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;جهش‌های کاهشی؛ نمودار شماتیک ارتفاع در طول زمان&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 3 · نمودار شماتیک ارتفاع در طول زمان&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;زمان-بندی-پیشنهادی-برای-یک-تمرین&quot; tabindex=&quot;-1&quot;&gt;زمان‌بندی پیشنهادی برای یک تمرین&lt;/h2&gt;
+&lt;p&gt;فریم ۱: اوج اولیه؛ فریم ۱۳: تماس اول؛ فریم ۲۲: اوج دوم؛ فریم ۳۱: تماس دوم؛ فریم ۳۷: اوج سوم؛ فریم ۴۳: تماس سوم. این فقط الگوی تمرینی است؛ با توجه به جنس و ارتفاع تغییرش بده. وضعیت نهایی باید بدون لرزش غیرمنطقی به سکون برسد.&lt;/p&gt;
+&lt;h2 id=&quot;معیار-بازبینی&quot; tabindex=&quot;-1&quot;&gt;معیار بازبینی&lt;/h2&gt;
+&lt;p&gt;در نمایش آهسته فاصله‌ها را کنترل کن؛ در سرعت واقعی بپرس آیا جنس توپ قابل تشخیص است. از فریم تماس برای رفع نفوذ به زمین استفاده کن. بعد از تکمیل نسخهٔ عمودی، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/ball-2/&quot;&gt;تمرین حرکت روی قوس&lt;/a&gt; را انجام بده. برای علت تغییر شکل به &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/principles/&quot;&gt;اصول انیمیشن&lt;/a&gt; برگرد.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/bouncing%20ball%20-%20part%20one&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;bouncing ball - part one — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/ball-1/"/>
+  </entry><entry>
+    <title>aspect-ratios</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/aspect-ratios/</id>
+    <content type="html">&lt;p&gt;نسبت تصویر رابطهٔ عرض به ارتفاع قاب است. رزولوشن تعداد پیکسل‌هاست؛ دو تصویر ۱۹۲۰×۱۰۸۰ و ۳۸۴۰×۲۱۶۰ نسبت یکسان ۱۶:۹ دارند، ولی جزئیات پیکسلی متفاوت است. نسبت را پیش از استوری‌بورد و Layout تعیین کن، چون جای عناصر و حرکت دوربین به آن وابسته‌اند.&lt;/p&gt;
+&lt;h2 id=&quot;نسبت-های-متداول&quot; tabindex=&quot;-1&quot;&gt;نسبت‌های متداول&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;نسبت&lt;/th&gt;
+&lt;th&gt;کاربرد رایج&lt;/th&gt;
+&lt;th&gt;نمونهٔ ابعاد&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;۴:۳&lt;/td&gt;
+&lt;td&gt;قالب کلاسیک تلویزیون و بعضی آثار هنری&lt;/td&gt;
+&lt;td&gt;۱۴۴۰×۱۰۸۰&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۱:۱&lt;/td&gt;
+&lt;td&gt;تصویر مربع و برخی قالب‌های شبکهٔ اجتماعی&lt;/td&gt;
+&lt;td&gt;۱۰۸۰×۱۰۸۰&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۱۶:۹&lt;/td&gt;
+&lt;td&gt;تلویزیون، ویدئوی آنلاین و بسیاری از نمایشگرها&lt;/td&gt;
+&lt;td&gt;۱۹۲۰×۱۰۸۰&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۹:۱۶&lt;/td&gt;
+&lt;td&gt;ویدئوی عمودی موبایل&lt;/td&gt;
+&lt;td&gt;۱۰۸۰×۱۹۲۰&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۱٫۸۵:۱&lt;/td&gt;
+&lt;td&gt;یکی از نسبت‌های رایج سینمایی&lt;/td&gt;
+&lt;td&gt;۱۹۹۸×۱۰۸۰&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;۲٫۳۹:۱&lt;/td&gt;
+&lt;td&gt;قاب سینمایی Scope&lt;/td&gt;
+&lt;td&gt;۲۵۸۲×۱۰۸۰ تقریبی&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;نسبت تقریبی ۲۱:۹ را نباید بی‌دقت معادل ۲٫۳۹:۱ فرض کرد. نسبت ۲۱÷۹ حدود ۲٫۳۳ است. برای تحویل سینمایی، مشخصات پروژه و استاندارد خروجی را دقیق بگیر.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/frame-ratios.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/frame-ratios.svg&quot; width=&quot;960&quot; height=&quot;650&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;نسبت‌های تصویر؛ مقایسهٔ فرم قاب با نقطهٔ توجه یکسان&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · مقایسهٔ فرم قاب با نقطهٔ توجه یکسان&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;انتخاب-قاب-با-هدف-روایت&quot; tabindex=&quot;-1&quot;&gt;انتخاب قاب با هدف روایت&lt;/h2&gt;
+&lt;p&gt;قاب عریض برای ارتباط چند شخصیت، چشم‌انداز و حرکت افقی مناسب است؛ قاب نزدیک به مربع می‌تواند تمرکز را روی یک شخصیت حفظ کند. قاب عمودی از فضای بالا و پایین استفاده می‌کند و برای نمایش دو نفر کنار هم محدودتر است. نسبت عریض به‌تنهایی حس سینمایی ایجاد نمی‌کند؛ چیدمان، نور و حرکت تعیین‌کننده‌اند.&lt;/p&gt;
+&lt;h2 id=&quot;راکورد-در-چند-نسبت&quot; tabindex=&quot;-1&quot;&gt;راکورد در چند نسبت&lt;/h2&gt;
+&lt;p&gt;اگر پروژه چند خروجی دارد، فقط Crop خودکار نکن. محدودهٔ امن نوشته و صورت را در پیش‌تولید مشخص کن. در سه‌بعدی می‌توان با تغییر Frame Gate یا دوربین دوم، قاب مناسب ساخت، ولی تغییر فاصلهٔ دوربین ممکن است پرسپکتیو را تغییر دهد. در تدوین، قرارگیری زیرنویس و گرافیک را در هر نسبت مستقل بررسی کن.&lt;/p&gt;
+&lt;p&gt;تمرین: یک شات گفت‌وگوی دو شخصیت را برای ۱۶:۹، ۹:۱۶ و ۲٫۳۹:۱ قاب‌بندی کن. بدون کشیدن تصویر، نقاط توجه و فضای نگاه را حفظ کن. &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/camera-shots/&quot;&gt;اندازهٔ نما&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/framing-blocking/&quot;&gt;بلاکینگ&lt;/a&gt; را برای هماهنگی بیشتر مطالعه کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/aspect%20ratios&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;aspect ratios — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/aspect-ratios/"/>
+  </entry><entry>
+    <title>animatics</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/animatics/</id>
+    <content type="html">&lt;p&gt;انیماتیک نسخهٔ زمان‌دار استوری‌بورد است؛ پیش از صرف زمان برای انیمیشن نهایی به کارگردان و تیم نشان می‌دهد که آیا روایت در زمان واقعی کار می‌کند یا نه. تصاویر می‌توانند خام باشند، اما ترتیب شات، زمان نگه‌داشتن تصویر، حرکت مهم و اطلاعات صوتی باید برای تصمیم‌گیری کافی باشند.&lt;/p&gt;
+&lt;h2 id=&quot;فرایند-ساخت&quot; tabindex=&quot;-1&quot;&gt;فرایند ساخت&lt;/h2&gt;
+&lt;p&gt;تصاویر تأییدشدهٔ &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/storyboards/&quot;&gt;استوری‌بورد&lt;/a&gt; را با نسبت تصویر نهایی وارد تایم‌لاین کن. برای هر شات شناسهٔ ثابت، طول اولیه و نوع Cut تعیین کن. دیالوگ موقت، سکوت‌ها، افکت صوتی و در صورت نیاز حرکت سادهٔ دوربین را قرار بده. لازم نیست حرکت اندام‌ها را کامل انیمیت کنی؛ تغییر تصویر یا پز ساده می‌تواند کنش را منتقل کند.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/animatic-workflow.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/animatic-workflow.svg&quot; width=&quot;960&quot; height=&quot;500&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;از استوری‌بورد تا انیماتیک؛ قاب خام، زمان، صدا و بازبینی تدوین&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · قاب خام، زمان، صدا و بازبینی تدوین&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;چه-چیز-را-بسنجیم&quot; tabindex=&quot;-1&quot;&gt;چه چیز را بسنجیم؟&lt;/h2&gt;
+&lt;p&gt;بررسی کن آیا مخاطب مکان و هدف شخصیت را می‌فهمد، ورود و خروج‌ها پیوسته‌اند، شات واکنش زمان کافی دارد و تغییر زاویه به درک عمل کمک می‌کند. ریتم را با طول کل فیلم و نقاط عطف داستان هماهنگ کن. یک مکث طولانی در موقعیت تعلیق می‌تواند خوب باشد، ولی مکث ناخواسته پیش از اطلاعات مهم انرژی صحنه را از بین می‌برد.&lt;/p&gt;
+&lt;h2 id=&quot;گردش-بازبینی&quot; tabindex=&quot;-1&quot;&gt;گردش بازبینی&lt;/h2&gt;
+&lt;p&gt;برای هر یادداشت اصلاحی به جای «ریتم خوب نیست» شمارهٔ شات، زمان و مسئله را ثبت کن: مثلاً «شات ۰۷، قبل از باز شدن در، واکنش شخصیت خوانده نمی‌شود.» پس از هر بازبینی نسخه را افزایش بده و تأثیر تغییر مدت یک شات را بر شات‌های دیگر کنترل کن. قفل تدوین پیش از تولید سنگین هزینهٔ بازکاری را کاهش می‌دهد.&lt;/p&gt;
+&lt;h2 id=&quot;مثال&quot; tabindex=&quot;-1&quot;&gt;مثال&lt;/h2&gt;
+&lt;p&gt;در یک صحنهٔ ۸ ثانیه‌ای، ۲ ثانیه معرفی فضا، ۲ ثانیه کشف شیء، ۱ ثانیه واکنش و ۳ ثانیه تصمیم و حرکت می‌تواند نقطهٔ شروع باشد، نه فرمول. همان صحنه را با حذف یک شات یا طولانی‌کردن مکث آزمایش کن و با مخاطبی که داستان را از قبل نمی‌داند ببین آیا نیت روشن مانده است.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://vimeo.com/86179034&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;نمونهٔ انیماتیک Dmytro Korolov&lt;/a&gt; — نمونهٔ ویدئویی معرفی‌شده در منبع؛ ویدئو متعلق به سازندهٔ آن است.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/animatics&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;animatics — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/animatics/"/>
+  </entry><entry>
+    <title>animated-type</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/animated-type/</id>
+    <content type="html">&lt;p&gt;تایپوگرافی متحرک ترکیب طراحی حروف و طراحی زمان است. متن تنها چیزی نیست که از نقطه‌ای به نقطهٔ دیگر می‌رود؛ سرعت، جهت، ترتیب ورود و مکث روی واژه‌ها می‌تواند لحن و معنای گفتار را تقویت کند.&lt;/p&gt;
+&lt;h2 id=&quot;از-متن-تا-حرکت&quot; tabindex=&quot;-1&quot;&gt;از متن تا حرکت&lt;/h2&gt;
+&lt;p&gt;اول پیام را بخوان و واژه‌های مهم را تعیین کن. برای هر واحد معنایی یک نقش در نظر بگیر: عنوان، تأکید، اطلاعات فرعی یا گذار. سپس قواعد ثابت تایپ، فاصله‌گذاری و هم‌راستایی را مشخص کن. حرکت نباید جبران ضعف چیدمان ثابت باشد. کلمهٔ مهم می‌تواند با تغییر اندازه یا مکث برجسته شود، اما اگر همهٔ کلمات بزرگ و پرتحرک باشند سلسله‌مراتب از بین می‌رود.&lt;/p&gt;
+&lt;h2 id=&quot;تکنیک-های-پرکاربرد&quot; tabindex=&quot;-1&quot;&gt;تکنیک‌های پرکاربرد&lt;/h2&gt;
+&lt;p&gt;Reveal با ماسک، ورود از خارج قاب، تغییر شفافیت، حرکت در امتداد خط مبنا، Scale، چرخش و Parallax در لایه‌های دوبعدی یا ۲٫۵بعدی ابزارهای رایج‌اند. هر کدام را با دلیل روایی انتخاب کن. برای متن فارسی، ترتیب حروف و اتصال آن‌ها را بررسی کن؛ شکستن متن به کاراکترهای جدا ممکن است شکل حروف متصل را خراب کند. انیمیشن کلمه یا سطر اغلب انتخاب مطمئن‌تری است.&lt;/p&gt;
+&lt;h2 id=&quot;طراحی-ریتم&quot; tabindex=&quot;-1&quot;&gt;طراحی ریتم&lt;/h2&gt;
+&lt;p&gt;نسخهٔ صدا را روی تایم‌لاین مشخص کن؛ شروع کلمه، تأکید و مکث را علامت بزن. ورود متن می‌تواند اندکی پیش از واژه رخ دهد تا زمان خواندن فراهم شود. پس از پایان ورود، متن باید برای زمان کافی ثابت بماند. از ضرب‌آهنگ، اندازهٔ قاب و محل توجه به‌صورت هماهنگ استفاده کن.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;یک عبارت فارسی پنج تا هفت کلمه‌ای انتخاب کن. نسخهٔ اول فقط با حرکت و توقف، نسخهٔ دوم با ماسک و نسخهٔ سوم با تغییر تأکید تایپوگرافیک ساخته شود. هر نسخه را بدون صدا در اندازهٔ نمایش موبایل ببین. اگر خواننده پیام را متوجه نمی‌شود، مدت نمایش یا پیچیدگی حرکت را اصلاح کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/animated%20type&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;animated type — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/animated-type/"/>
+  </entry><entry>
+    <title>adobe-animate</title>
+    <updated>2026-11-26T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/animation/adobe-animate/</id>
+    <content type="html">&lt;p&gt;Adobe Animate برای انیمیشن دوبعدی برداری، طراحی فریم‌به‌فریم و حرکت عناصر گرافیکی کاربرد دارد. در پروژه‌ای که خروجی تعاملی یا انیمیشن دوبعدی نیاز دارد، امکاناتش مناسب‌اند؛ برای نقاشی سه‌بعدی یا ریگ پیچیدهٔ فضایی ابزار دیگری لازم است. نام گزینه‌ها ممکن است با نسخه و نوع سند فرق کند.&lt;/p&gt;
+&lt;h2 id=&quot;آماده-سازی-سند-و-رابط&quot; tabindex=&quot;-1&quot;&gt;آماده‌سازی سند و رابط&lt;/h2&gt;
+&lt;p&gt;سند را با اندازهٔ خروجی، نرخ فریم و نوع خروجی مناسب بساز. Stage محدودهٔ قابل‌دیدن، Timeline زمان و Layers ترتیب عناصر را مشخص می‌کنند. Properties تنظیمات انتخاب فعلی را نشان می‌دهد؛ با انتخاب یک شیء، لایه یا سند، محتوای آن تغییر می‌کند. مسیر بالای Stage مشخص می‌کند داخل Scene هستی یا در حال ویرایش یک Symbol تو‌در‌تو. همیشه قبل از تغییر اجزا محل ویرایش را بررسی کن.&lt;/p&gt;
+&lt;figure class=&quot;animation-study-figure&quot;&gt;&lt;a class=&quot;figure-open&quot; aria-label=&quot;بزرگ‌نمایی شکل 1&quot; href=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/animate-interface.svg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/animation/animate-interface.svg&quot; width=&quot;960&quot; height=&quot;660&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; alt=&quot;ساختار رابط Animate؛ شمای آموزشی Stage، Properties، Library و Timeline&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;شکل 1 · شمای آموزشی Stage، Properties، Library و Timeline&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;طراحی-شکل-ها&quot; tabindex=&quot;-1&quot;&gt;طراحی شکل‌ها&lt;/h2&gt;
+&lt;p&gt;حالت Merge Drawing می‌تواند شکل‌های هم‌پوشان را با هم ادغام کند؛ Object Drawing شکل را به صورت شیء مستقل نگه می‌دارد. قبل از نقاشی تصمیم بگیر اجزای حرکت باید جدا بمانند یا یکی شوند. با Brush برای خطوط آزاد و Shape tools برای فرم‌های هندسی شروع کن. ابتدا فرم اصلی و سیلوئت، سپس جزئیات را بساز.&lt;/p&gt;
+&lt;h2 id=&quot;library-و-symbol&quot; tabindex=&quot;-1&quot;&gt;Library و Symbol&lt;/h2&gt;
+&lt;p&gt;Library محل نگهداری دارایی‌های تکرارپذیر است. Symbol یک تعریف مشترک دارد و Instance نمونه‌ای از آن روی Stage است. تغییر تعریف روی نمونه‌ها اثر می‌گذارد، اما تغییر Transform نمونه فقط همان نمونه را تغییر می‌دهد. Graphic Symbol و Movie Clip رفتار زمانی متفاوت دارند؛ برای سنجش هماهنگی با تایم‌لاین و خروجی، نوع مناسب را انتخاب کن. نقطهٔ ثبت و نقطهٔ چرخش را قبل از انیمیت تنظیم کن.&lt;/p&gt;
+&lt;h2 id=&quot;timeline-و-tween&quot; tabindex=&quot;-1&quot;&gt;Timeline و Tween&lt;/h2&gt;
+&lt;p&gt;Frame معمولی وضعیت موجود را ادامه می‌دهد، Keyframe نقطه‌ای برای تغییر و Blank Keyframe قاب خالی مستقل می‌سازد. برای حرکت سادهٔ یک Symbol، در بازهٔ زمانی ابتدا و انتها را مشخص و Motion Tween یا Classic Tween را متناسب با پروژه اعمال کن. Shape Tween برای تغییر شکل‌های قابل سازگاری است و با Symbol معمولی یکسان نیست. میان‌گذاری خودکار جای طراحی بریک‌داون را نمی‌گیرد؛ در صورت نیاز پز میانی و easing را دستی تعیین کن.&lt;/p&gt;
+&lt;h2 id=&quot;تمرین&quot; tabindex=&quot;-1&quot;&gt;تمرین&lt;/h2&gt;
+&lt;p&gt;در یک سند ۲۴fps، یک مربع را به Symbol تبدیل کن. در فریم ۱ سمت راست، در فریم ۲۵ سمت چپ قرار بده تا یک ثانیه فاصلهٔ زمانی داشته باشی. یک نسخه با سرعت ثابت و نسخه‌ای با شروع و پایان نرم بساز. خروجی ویدئویی یا HTML5 را مطابق نوع سند بررسی کن و فایل FLA را به‌عنوان نسخهٔ قابل‌ویرایش نگه دار. از &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/motion-easing/&quot;&gt;منحنی‌های حرکت&lt;/a&gt; و &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/frame-by-frame/&quot;&gt;کی‌فریم‌گذاری&lt;/a&gt; برای درک تفاوت خروجی‌ها استفاده کن.&lt;/p&gt;
+&lt;h2 id=&quot;ادامه-مطالعه&quot; tabindex=&quot;-1&quot;&gt;ادامهٔ مطالعه&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/animation/&quot;&gt;بازگشت به مسیر آموزش انیمیشن&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;منبع-و-اعتبار&quot; tabindex=&quot;-1&quot;&gt;منبع و اعتبار&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mister-chad.com/animation/adobe%20animate%20basics&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;adobe animate basics — Mister Chad&lt;/a&gt; — مرجع موضوعی: Chad Bennett. متن و نمودارهای آموزشی این درس مستقل تدوین شده‌اند.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/animation/adobe-animate/"/>
   </entry><entry>
     <title>rife-frame-interpolation</title>
     <updated>2026-11-25T00:00:00.000Z</updated>

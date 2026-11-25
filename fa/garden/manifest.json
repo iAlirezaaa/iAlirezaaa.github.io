@@ -6,6 +6,1803 @@
   "basePath": "/fa/garden/",
   "notes": [
     {
+      "id": "animation-adobe-animate",
+      "title": "مبانی انیمیشن با Adobe Animate",
+      "url": "/fa/blog/notes/animation/adobe-animate/",
+      "source": "انیمیشن/adobe-animate.md",
+      "legacyUrl": "/fa/garden/animation/adobe-animate/",
+      "text": "آشنایی عملی با سند، Stage، Timeline، ابزار طراحی، Symbol، Library و Tween در Animate.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "مبانی انیمیشن با Adobe Animate",
+        "adobe-animate",
+        "انیمیشن/adobe-animate",
+        "Adobe Animate",
+        "timeline",
+        "symbol",
+        "tween"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/motion-easing/",
+        "/fa/blog/notes/animation/frame-by-frame/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "آماده‌سازی سند و رابط",
+          "id": "آماده-سازی-سند-و-رابط"
+        },
+        {
+          "title": "طراحی شکل‌ها",
+          "id": "طراحی-شکل-ها"
+        },
+        {
+          "title": "Library و Symbol",
+          "id": "library-و-symbol"
+        },
+        {
+          "title": "Timeline و Tween",
+          "id": "timeline-و-tween"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-animated-type",
+      "title": "تایپوگرافی متحرک (Kinetic Typography)",
+      "url": "/fa/blog/notes/animation/animated-type/",
+      "source": "انیمیشن/animated-type.md",
+      "legacyUrl": "/fa/garden/animation/animated-type/",
+      "text": "حرکت‌دادن متن برای هدایت توجه، تقویت معنا و حفظ خوانایی در تصویر و صدا.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "تایپوگرافی متحرک (Kinetic Typography)",
+        "animated-type",
+        "انیمیشن/animated-type",
+        "Animated type",
+        "Kinetic typography"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/types/"
+      ],
+      "headings": [
+        {
+          "title": "از متن تا حرکت",
+          "id": "از-متن-تا-حرکت"
+        },
+        {
+          "title": "تکنیک‌های پرکاربرد",
+          "id": "تکنیک-های-پرکاربرد"
+        },
+        {
+          "title": "طراحی ریتم",
+          "id": "طراحی-ریتم"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-animatics",
+      "title": "انیماتیک؛ آزمون فیلم پیش از ساخت",
+      "url": "/fa/blog/notes/animation/animatics/",
+      "source": "انیمیشن/animatics.md",
+      "legacyUrl": "/fa/garden/animation/animatics/",
+      "text": "تبدیل استوری‌بورد به تدوین زمان‌دار برای ارزیابی روایت، مکث، حرکت دوربین و ریتم.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "انیماتیک؛ آزمون فیلم پیش از ساخت",
+        "animatics",
+        "انیمیشن/animatics",
+        "Animatic",
+        "Story reel",
+        "previs"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/storyboards/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/framing-blocking/",
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/sequential-art/",
+        "/fa/blog/notes/animation/story/",
+        "/fa/blog/notes/animation/storyboards/"
+      ],
+      "headings": [
+        {
+          "title": "فرایند ساخت",
+          "id": "فرایند-ساخت"
+        },
+        {
+          "title": "چه چیز را بسنجیم؟",
+          "id": "چه-چیز-را-بسنجیم"
+        },
+        {
+          "title": "گردش بازبینی",
+          "id": "گردش-بازبینی"
+        },
+        {
+          "title": "مثال",
+          "id": "مثال"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-aspect-ratios",
+      "title": "نسبت تصویر و طراحی قاب",
+      "url": "/fa/blog/notes/animation/aspect-ratios/",
+      "source": "انیمیشن/aspect-ratios.md",
+      "legacyUrl": "/fa/garden/animation/aspect-ratios/",
+      "text": "انتخاب نسبت تصویر مناسب و محاسبهٔ کادر برای انیمیشن، سینما و موبایل.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "نسبت تصویر و طراحی قاب",
+        "aspect-ratios",
+        "انیمیشن/aspect-ratios",
+        "Aspect ratio",
+        "16:9",
+        "2.39:1",
+        "9:16"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/framing-blocking/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "نسبت‌های متداول",
+          "id": "نسبت-های-متداول"
+        },
+        {
+          "title": "انتخاب قاب با هدف روایت",
+          "id": "انتخاب-قاب-با-هدف-روایت"
+        },
+        {
+          "title": "راکورد در چند نسبت",
+          "id": "راکورد-در-چند-نسبت"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-ball-1",
+      "title": "توپ جهنده؛ بخش اول: سقوط عمودی",
+      "url": "/fa/blog/notes/animation/ball-1/",
+      "source": "انیمیشن/ball-1.md",
+      "legacyUrl": "/fa/garden/animation/ball-1/",
+      "text": "تمرین بنیادی زمان‌بندی، فاصله‌گذاری، فشردگی و کاهش ارتفاع جهش.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "توپ جهنده؛ بخش اول: سقوط عمودی",
+        "ball-1",
+        "انیمیشن/ball-1",
+        "Bouncing ball",
+        "vertical drop",
+        "squash stretch"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/ball-2/",
+        "/fa/blog/notes/animation/principles/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/ball-2/",
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "مرحلهٔ اول: زمان‌بندی سقوط",
+          "id": "مرحله-اول-زمان-بندی-سقوط"
+        },
+        {
+          "title": "مرحلهٔ دوم: فشردگی و کشیدگی",
+          "id": "مرحله-دوم-فشردگی-و-کشیدگی"
+        },
+        {
+          "title": "مرحلهٔ سوم: جهش‌های کاهشی",
+          "id": "مرحله-سوم-جهش-های-کاهشی"
+        },
+        {
+          "title": "زمان‌بندی پیشنهادی برای یک تمرین",
+          "id": "زمان-بندی-پیشنهادی-برای-یک-تمرین"
+        },
+        {
+          "title": "معیار بازبینی",
+          "id": "معیار-بازبینی"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-ball-2",
+      "title": "توپ جهنده؛ بخش دوم: قوس و حرکت افقی",
+      "url": "/fa/blog/notes/animation/ball-2/",
+      "source": "انیمیشن/ball-2.md",
+      "legacyUrl": "/fa/garden/animation/ball-2/",
+      "text": "ترکیب جهش عمودی با جابه‌جایی افقی، تماس‌ها و قوس‌های طبیعی.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "توپ جهنده؛ بخش دوم: قوس و حرکت افقی",
+        "ball-2",
+        "انیمیشن/ball-2",
+        "Bouncing ball arcs",
+        "horizontal motion"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/ball-1/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/ball-1/",
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "شکل قوس",
+          "id": "شکل-قوس"
+        },
+        {
+          "title": "حرکت روی مسیر",
+          "id": "حرکت-روی-مسیر"
+        },
+        {
+          "title": "چرخش و برخورد",
+          "id": "چرخش-و-برخورد"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-camera-shots",
+      "title": "زاویه‌ها، اندازهٔ نما و حرکت دوربین",
+      "url": "/fa/blog/notes/animation/camera-shots/",
+      "source": "انیمیشن/camera-shots.md",
+      "legacyUrl": "/fa/garden/animation/camera-shots/",
+      "text": "راهنمای تصمیم‌گیری دربارهٔ نوع نما، زاویه، حرکت و پرسپکتیو در انیمیشن.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "زاویه‌ها، اندازهٔ نما و حرکت دوربین",
+        "camera-shots",
+        "انیمیشن/camera-shots",
+        "Camera shots",
+        "shot sizes",
+        "camera movement"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/storyboards/",
+        "/fa/blog/notes/animation/framing-blocking/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/aspect-ratios/",
+        "/fa/blog/notes/animation/framing-blocking/",
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/storyboarding-book/"
+      ],
+      "headings": [
+        {
+          "title": "اندازهٔ نما (Shot Size)",
+          "id": "اندازه-نما-shot-size"
+        },
+        {
+          "title": "زاویهٔ دوربین",
+          "id": "زاویه-دوربین"
+        },
+        {
+          "title": "حرکت دوربین",
+          "id": "حرکت-دوربین"
+        },
+        {
+          "title": "پیوستگی و راکورد",
+          "id": "پیوستگی-و-راکورد"
+        },
+        {
+          "title": "تمرین کارگردانی",
+          "id": "تمرین-کارگردانی"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-character-design",
+      "title": "طراحی شخصیت برای انیمیشن",
+      "url": "/fa/blog/notes/animation/character-design/",
+      "source": "انیمیشن/character-design.md",
+      "legacyUrl": "/fa/garden/animation/character-design/",
+      "text": "فرایند طراحی شخصیت از داستان و سیلوئت تا Model Sheet و آماده‌سازی برای تولید.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "طراحی شخصیت برای انیمیشن",
+        "character-design",
+        "انیمیشن/character-design",
+        "Character design",
+        "model sheet",
+        "turnaround"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/environment-design/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "فرایند طراحی",
+          "id": "فرایند-طراحی"
+        },
+        {
+          "title": "حجم، رنگ و متریال",
+          "id": "حجم-رنگ-و-متریال"
+        },
+        {
+          "title": "Character Sheet",
+          "id": "character-sheet"
+        },
+        {
+          "title": "ارتباط با محیط",
+          "id": "ارتباط-با-محیط"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-demo-reel",
+      "title": "دمو ریل؛ ارائهٔ مهارت انیمیشن",
+      "url": "/fa/blog/notes/animation/demo-reel/",
+      "source": "انیمیشن/demo-reel.md",
+      "legacyUrl": "/fa/garden/animation/demo-reel/",
+      "text": "انتخاب نمونه‌کار، تدوین، ذکر نقش فردی و ارائهٔ واضح مهارت برای استودیو.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "دمو ریل؛ ارائهٔ مهارت انیمیشن",
+        "demo-reel",
+        "انیمیشن/demo-reel",
+        "Demo reel",
+        "showreel",
+        "portfolio"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/lower-thirds/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "انتخاب شات‌ها",
+          "id": "انتخاب-شات-ها"
+        },
+        {
+          "title": "تدوین و ترتیب",
+          "id": "تدوین-و-ترتیب"
+        },
+        {
+          "title": "اعتبار و توضیح نقش",
+          "id": "اعتبار-و-توضیح-نقش"
+        },
+        {
+          "title": "چک نهایی",
+          "id": "چک-نهایی"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-environment-design",
+      "title": "طراحی محیط برای انیمیشن",
+      "url": "/fa/blog/notes/animation/environment-design/",
+      "source": "انیمیشن/environment-design.md",
+      "legacyUrl": "/fa/garden/animation/environment-design/",
+      "text": "ساخت جهان بصری با توجه به داستان، معماری، مقیاس، نور و مسیر حرکت شخصیت.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "طراحی محیط برای انیمیشن",
+        "environment-design",
+        "انیمیشن/environment-design",
+        "Environment design",
+        "worldbuilding",
+        "concept art"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/framing-blocking/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/character-design/",
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "نیازهای داستانی و رفرنس",
+          "id": "نیازهای-داستانی-و-رفرنس"
+        },
+        {
+          "title": "ترکیب و مقیاس",
+          "id": "ترکیب-و-مقیاس"
+        },
+        {
+          "title": "زبان شکل، ماده و نور",
+          "id": "زبان-شکل-ماده-و-نور"
+        },
+        {
+          "title": "تحویل به تولید",
+          "id": "تحویل-به-تولید"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-flour-sack",
+      "title": "تمرین بازیگری با کیسهٔ آرد",
+      "url": "/fa/blog/notes/animation/flour-sack/",
+      "source": "انیمیشن/flour-sack.md",
+      "legacyUrl": "/fa/garden/animation/flour-sack/",
+      "text": "بیان وزن، احساس و نیت با یک فرم ساده و بدون چهره یا گفت‌وگو.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "تمرین بازیگری با کیسهٔ آرد",
+        "flour-sack",
+        "انیمیشن/flour-sack",
+        "Flour sack animation",
+        "acting exercise"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/walk-cycle/",
+        "/fa/blog/notes/animation/principles/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "آماده‌سازی شکل",
+          "id": "آماده-سازی-شکل"
+        },
+        {
+          "title": "سه تمرین",
+          "id": "سه-تمرین"
+        },
+        {
+          "title": "روش اجرا",
+          "id": "روش-اجرا"
+        },
+        {
+          "title": "ارزیابی",
+          "id": "ارزیابی"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-frame-by-frame",
+      "title": "فریم‌به‌فریم و کی‌فریم‌گذاری",
+      "url": "/fa/blog/notes/animation/frame-by-frame/",
+      "source": "انیمیشن/frame-by-frame.md",
+      "legacyUrl": "/fa/garden/animation/frame-by-frame/",
+      "text": "تفاوت طراحی متوالی، پزهای کلیدی و میان‌گذاری در انیمیشن دوبعدی و سه‌بعدی.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "فریم‌به‌فریم و کی‌فریم‌گذاری",
+        "frame-by-frame",
+        "انیمیشن/frame-by-frame",
+        "Frame by frame",
+        "Keyframing",
+        "Tweening"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/keyframes-breakdowns/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/adobe-animate/",
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/principles/"
+      ],
+      "headings": [
+        {
+          "title": "فریم‌به‌فریم",
+          "id": "فریم-به-فریم"
+        },
+        {
+          "title": "کی‌فریم و میان‌گذاری",
+          "id": "کی-فریم-و-میان-گذاری"
+        },
+        {
+          "title": "ترکیب در تولید",
+          "id": "ترکیب-در-تولید"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-framing-blocking",
+      "title": "قاب‌بندی و بلاکینگ در انیمیشن",
+      "url": "/fa/blog/notes/animation/framing-blocking/",
+      "source": "انیمیشن/framing-blocking.md",
+      "legacyUrl": "/fa/garden/animation/framing-blocking/",
+      "text": "برنامه‌ریزی جای کاراکتر، دوربین، نقاط توجه و کنش پیش از انیمیشن نهایی.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "قاب‌بندی و بلاکینگ در انیمیشن",
+        "framing-blocking",
+        "انیمیشن/framing-blocking",
+        "Framing",
+        "Blocking",
+        "Staging",
+        "Layout"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/animatics/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/aspect-ratios/",
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/environment-design/",
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "از داستان به پلان",
+          "id": "از-داستان-به-پلان"
+        },
+        {
+          "title": "قاب و میزان‌سن",
+          "id": "قاب-و-میزان-سن"
+        },
+        {
+          "title": "بلاکینگ زمانی",
+          "id": "بلاکینگ-زمانی"
+        },
+        {
+          "title": "آزمون",
+          "id": "آزمون"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-history",
+      "title": "تاریخچهٔ انیمیشن؛ تحول تصویر به حرکت",
+      "url": "/fa/blog/notes/animation/history/",
+      "source": "انیمیشن/history.md",
+      "legacyUrl": "/fa/garden/animation/history/",
+      "text": "مرور نقاط عطف از ابزارهای نمایش حرکت تا انیمیشن سنتی، رایانه‌ای و تولید ترکیبی.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "تاریخچهٔ انیمیشن؛ تحول تصویر به حرکت",
+        "history",
+        "انیمیشن/history",
+        "History of animation",
+        "early animation",
+        "cinema"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/types/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "پیش از سینما",
+          "id": "پیش-از-سینما"
+        },
+        {
+          "title": "پیدایش انیمیشن سینمایی",
+          "id": "پیدایش-انیمیشن-سینمایی"
+        },
+        {
+          "title": "استودیوها، تلویزیون و روش‌های دیگر",
+          "id": "استودیوها-تلویزیون-و-روش-های-دیگر"
+        },
+        {
+          "title": "رایانه و تولید دیجیتال",
+          "id": "رایانه-و-تولید-دیجیتال"
+        },
+        {
+          "title": "تمرین مطالعه",
+          "id": "تمرین-مطالعه"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-index",
+      "title": "آموزش انیمیشن؛ از اینجا شروع کن",
+      "url": "/fa/blog/notes/animation/",
+      "source": "انیمیشن/index.md",
+      "legacyUrl": "/fa/garden/animation/",
+      "text": "مسیر یادگیری انیمیشن از تاریخ و اصول حرکت تا روایت، پیش‌تولید، اجرا و ارائهٔ اثر.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "آموزش انیمیشن؛ از اینجا شروع کن",
+        "index",
+        "انیمیشن/index",
+        "Animation",
+        "Animation learning path"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/history/",
+        "/fa/blog/notes/animation/types/",
+        "/fa/blog/notes/animation/sequential-art/",
+        "/fa/blog/notes/animation/principles/",
+        "/fa/blog/notes/animation/motion-easing/",
+        "/fa/blog/notes/animation/ones-twos-threes/",
+        "/fa/blog/notes/animation/aspect-ratios/",
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/story/",
+        "/fa/blog/notes/animation/storyboards/",
+        "/fa/blog/notes/animation/storyboarding-book/",
+        "/fa/blog/notes/animation/character-design/",
+        "/fa/blog/notes/animation/environment-design/",
+        "/fa/blog/notes/animation/framing-blocking/",
+        "/fa/blog/notes/animation/animatics/",
+        "/fa/blog/notes/animation/frame-by-frame/",
+        "/fa/blog/notes/animation/keyframes-breakdowns/",
+        "/fa/blog/notes/animation/ball-1/",
+        "/fa/blog/notes/animation/ball-2/",
+        "/fa/blog/notes/animation/flour-sack/",
+        "/fa/blog/notes/animation/walk-cycle/",
+        "/fa/blog/notes/animation/adobe-animate/",
+        "/fa/blog/notes/animation/photoshop/",
+        "/fa/blog/notes/animation/animated-type/",
+        "/fa/blog/notes/animation/lower-thirds/",
+        "/fa/blog/notes/animation/demo-reel/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/adobe-animate/",
+        "/fa/blog/notes/animation/animated-type/",
+        "/fa/blog/notes/animation/animatics/",
+        "/fa/blog/notes/animation/aspect-ratios/",
+        "/fa/blog/notes/animation/ball-1/",
+        "/fa/blog/notes/animation/ball-2/",
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/character-design/",
+        "/fa/blog/notes/animation/demo-reel/",
+        "/fa/blog/notes/animation/environment-design/",
+        "/fa/blog/notes/animation/flour-sack/",
+        "/fa/blog/notes/animation/frame-by-frame/",
+        "/fa/blog/notes/animation/framing-blocking/",
+        "/fa/blog/notes/animation/history/",
+        "/fa/blog/notes/animation/keyframes-breakdowns/",
+        "/fa/blog/notes/animation/lower-thirds/",
+        "/fa/blog/notes/animation/motion-easing/",
+        "/fa/blog/notes/animation/ones-twos-threes/",
+        "/fa/blog/notes/animation/photoshop/",
+        "/fa/blog/notes/animation/principles/",
+        "/fa/blog/notes/animation/sequential-art/",
+        "/fa/blog/notes/animation/story/",
+        "/fa/blog/notes/animation/storyboarding-book/",
+        "/fa/blog/notes/animation/storyboards/",
+        "/fa/blog/notes/animation/types/",
+        "/fa/blog/notes/animation/walk-cycle/",
+        "/fa/blog/notes/start/"
+      ],
+      "headings": [
+        {
+          "title": "۱. زبان و تاریخچهٔ انیمیشن",
+          "id": "۱-زبان-و-تاریخچه-انیمیشن"
+        },
+        {
+          "title": "۲. از ایده تا شات",
+          "id": "۲-از-ایده-تا-شات"
+        },
+        {
+          "title": "۳. تمرین و اجرا",
+          "id": "۳-تمرین-و-اجرا"
+        },
+        {
+          "title": "۴. موشن‌گرافیک و ارائه",
+          "id": "۴-موشن-گرافیک-و-ارائه"
+        },
+        {
+          "title": "روش استفاده",
+          "id": "روش-استفاده"
+        },
+        {
+          "title": "اعتبار تصاویر",
+          "id": "اعتبار-تصاویر"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "learning-path",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-keyframes-breakdowns",
+      "title": "کی‌فریم، بریک‌داون و طراحی پزهای میانی",
+      "url": "/fa/blog/notes/animation/keyframes-breakdowns/",
+      "source": "انیمیشن/keyframes-breakdowns.md",
+      "legacyUrl": "/fa/garden/animation/keyframes-breakdowns/",
+      "text": "طراحی پزهای اصلی، حالت عبور و فاصله‌گذاری برای کنترل بازیگری و وزن.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "کی‌فریم، بریک‌داون و طراحی پزهای میانی",
+        "keyframes-breakdowns",
+        "انیمیشن/keyframes-breakdowns",
+        "Keyframes",
+        "breakdowns",
+        "inbetween",
+        "pose to pose"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/principles/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/frame-by-frame/",
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "نقش کلیدپز",
+          "id": "نقش-کلیدپز"
+        },
+        {
+          "title": "نقش بریک‌داون",
+          "id": "نقش-بریک-داون"
+        },
+        {
+          "title": "فاصله‌گذاری و فریم‌های میانی",
+          "id": "فاصله-گذاری-و-فریم-های-میانی"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-lower-thirds",
+      "title": "طراحی و انیمیت Lower Third",
+      "url": "/fa/blog/notes/animation/lower-thirds/",
+      "source": "انیمیشن/lower-thirds.md",
+      "legacyUrl": "/fa/garden/animation/lower-thirds/",
+      "text": "ساخت معرفی نام، عنوان و اطلاعات مکمل در پایین قاب با خوانایی و زمان‌بندی درست.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "طراحی و انیمیت Lower Third",
+        "lower-thirds",
+        "انیمیشن/lower-thirds",
+        "Lower thirds",
+        "title graphics",
+        "broadcast motion"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/demo-reel/",
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/types/"
+      ],
+      "headings": [
+        {
+          "title": "سلسله‌مراتب و محدودهٔ امن",
+          "id": "سلسله-مراتب-و-محدوده-امن"
+        },
+        {
+          "title": "حرکت و مدت نمایش",
+          "id": "حرکت-و-مدت-نمایش"
+        },
+        {
+          "title": "ساخت قالب قابل‌ویرایش",
+          "id": "ساخت-قالب-قابل-ویرایش"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-motion-easing",
+      "title": "پنج نوع حرکت و منحنی‌های Easing",
+      "url": "/fa/blog/notes/animation/motion-easing/",
+      "source": "انیمیشن/motion-easing.md",
+      "legacyUrl": "/fa/garden/animation/motion-easing/",
+      "text": "درک سرعت ثابت، شتاب، کاهش سرعت، سکون و حرکت متغیر از روی موقعیت و زمان.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "پنج نوع حرکت و منحنی‌های Easing",
+        "motion-easing",
+        "انیمیشن/motion-easing",
+        "Motion easing",
+        "acceleration",
+        "deceleration",
+        "graph editor"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/adobe-animate/",
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/principles/"
+      ],
+      "headings": [
+        {
+          "title": "۱. سکون",
+          "id": "۱-سکون"
+        },
+        {
+          "title": "۲. سرعت ثابت",
+          "id": "۲-سرعت-ثابت"
+        },
+        {
+          "title": "۳. شتاب‌گیری",
+          "id": "۳-شتاب-گیری"
+        },
+        {
+          "title": "۴. کاهش سرعت",
+          "id": "۴-کاهش-سرعت"
+        },
+        {
+          "title": "۵. حرکت متغیر",
+          "id": "۵-حرکت-متغیر"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-ones-twos-threes",
+      "title": "انیمیت روی یک، دو و سه فریم",
+      "url": "/fa/blog/notes/animation/ones-twos-threes/",
+      "source": "انیمیشن/ones-twos-threes.md",
+      "legacyUrl": "/fa/garden/animation/ones-twos-threes/",
+      "text": "درک Exposure، نرخ نمایش و انتخاب تعداد طراحی در ثانیه برای سبک و حرکت.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "انیمیت روی یک، دو و سه فریم",
+        "ones-twos-threes",
+        "انیمیشن/ones-twos-threes",
+        "Ones",
+        "Twos",
+        "Threes",
+        "exposure sheet",
+        "animation frame rate"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "روی یک (On Ones)",
+          "id": "روی-یک-on-ones"
+        },
+        {
+          "title": "روی دو (On Twos)",
+          "id": "روی-دو-on-twos"
+        },
+        {
+          "title": "روی سه (On Threes) و بیشتر",
+          "id": "روی-سه-on-threes-و-بیشتر"
+        },
+        {
+          "title": "ترکیب روش‌ها",
+          "id": "ترکیب-روش-ها"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-photoshop",
+      "title": "انیمیشن در Photoshop با Timeline",
+      "url": "/fa/blog/notes/animation/photoshop/",
+      "source": "انیمیشن/photoshop.md",
+      "legacyUrl": "/fa/garden/animation/photoshop/",
+      "text": "طراحی حرکت لایه‌ها، انیمیشن فریم‌به‌فریم و خروجی GIF یا ویدئو.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "انیمیشن در Photoshop با Timeline",
+        "photoshop",
+        "انیمیشن/photoshop",
+        "Photoshop timeline",
+        "frame animation",
+        "video timeline"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "پنل Timeline",
+          "id": "پنل-timeline"
+        },
+        {
+          "title": "Onion Skin و طراحی فریم‌ها",
+          "id": "onion-skin-و-طراحی-فریم-ها"
+        },
+        {
+          "title": "کی‌فریم‌گذاری",
+          "id": "کی-فریم-گذاری"
+        },
+        {
+          "title": "خروجی",
+          "id": "خروجی"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-principles",
+      "title": "دوازده اصل انیمیشن",
+      "url": "/fa/blog/notes/animation/principles/",
+      "source": "انیمیشن/principles.md",
+      "legacyUrl": "/fa/garden/animation/principles/",
+      "text": "اصول کلاسیک ساخت حرکت خوانا، وزن‌دار، هدفمند و باورپذیر با تمرین‌های عملی.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "دوازده اصل انیمیشن",
+        "principles",
+        "انیمیشن/principles",
+        "12 principles of animation",
+        "Squash and stretch",
+        "Anticipation"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/frame-by-frame/",
+        "/fa/blog/notes/animation/motion-easing/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/ball-1/",
+        "/fa/blog/notes/animation/flour-sack/",
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/keyframes-breakdowns/"
+      ],
+      "headings": [
+        {
+          "title": "۱. فشردگی و کشیدگی (Squash and Stretch)",
+          "id": "۱-فشردگی-و-کشیدگی-squash-and-stretch"
+        },
+        {
+          "title": "۲. پیش‌حرکت (Anticipation)",
+          "id": "۲-پیش-حرکت-anticipation"
+        },
+        {
+          "title": "۳. میزان‌سن و وضوح (Staging)",
+          "id": "۳-میزان-سن-و-وضوح-staging"
+        },
+        {
+          "title": "۴. حرکت مستقیم و پز به پز (Straight Ahead / Pose to Pose)",
+          "id": "۴-حرکت-مستقیم-و-پز-به-پز-straight-ahead-pose-to-pose"
+        },
+        {
+          "title": "۵. ادامهٔ حرکت و هم‌پوشانی (Follow Through / Overlap)",
+          "id": "۵-ادامه-حرکت-و-هم-پوشانی-follow-through-overlap"
+        },
+        {
+          "title": "۶. ورود و خروج تدریجی (Slow In / Slow Out)",
+          "id": "۶-ورود-و-خروج-تدریجی-slow-in-slow-out"
+        },
+        {
+          "title": "۷. قوس (Arc)",
+          "id": "۷-قوس-arc"
+        },
+        {
+          "title": "۸. کنش فرعی (Secondary Action)",
+          "id": "۸-کنش-فرعی-secondary-action"
+        },
+        {
+          "title": "۹. زمان‌بندی (Timing)",
+          "id": "۹-زمان-بندی-timing"
+        },
+        {
+          "title": "۱۰. اغراق (Exaggeration)",
+          "id": "۱۰-اغراق-exaggeration"
+        },
+        {
+          "title": "۱۱. طراحی حجمی (Solid Drawing)",
+          "id": "۱۱-طراحی-حجمی-solid-drawing"
+        },
+        {
+          "title": "۱۲. جذابیت (Appeal)",
+          "id": "۱۲-جذابیت-appeal"
+        },
+        {
+          "title": "تمرین و ارزیابی",
+          "id": "تمرین-و-ارزیابی"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-sequential-art",
+      "title": "هنر دنباله‌دار؛ از تصویر ثابت تا روایت",
+      "url": "/fa/blog/notes/animation/sequential-art/",
+      "source": "انیمیشن/sequential-art.md",
+      "legacyUrl": "/fa/garden/animation/sequential-art/",
+      "text": "بررسی ترتیب تصاویر، گذر زمان، حرکت ضمنی و زبان کمیک و استوری‌بورد.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "هنر دنباله‌دار؛ از تصویر ثابت تا روایت",
+        "sequential-art",
+        "انیمیشن/sequential-art",
+        "Sequential art",
+        "comics",
+        "visual storytelling"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/storyboards/",
+        "/fa/blog/notes/animation/animatics/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "حرکت در یک تصویر",
+          "id": "حرکت-در-یک-تصویر"
+        },
+        {
+          "title": "زمان بین قاب‌ها",
+          "id": "زمان-بین-قاب-ها"
+        },
+        {
+          "title": "جریان روایی",
+          "id": "جریان-روایی"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-story",
+      "title": "داستان‌نویسی برای انیمیشن",
+      "url": "/fa/blog/notes/animation/story/",
+      "source": "انیمیشن/story.md",
+      "legacyUrl": "/fa/garden/animation/story/",
+      "text": "طراحی هدف شخصیت، تعارض، بیت‌های کنش و تحول در قالب فیلمنامه یا طرح موشن.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "داستان‌نویسی برای انیمیشن",
+        "story",
+        "انیمیشن/story",
+        "Story",
+        "screenplay",
+        "story arc"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/storyboards/",
+        "/fa/blog/notes/animation/animatics/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "هستهٔ روایت",
+          "id": "هسته-روایت"
+        },
+        {
+          "title": "ساخت بیت‌ها",
+          "id": "ساخت-بیت-ها"
+        },
+        {
+          "title": "ساختار و بازبینی",
+          "id": "ساختار-و-بازبینی"
+        },
+        {
+          "title": "مثال عملی",
+          "id": "مثال-عملی"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-storyboarding-book",
+      "title": "راهنمای مطالعهٔ Storyboarding Essentials",
+      "url": "/fa/blog/notes/animation/storyboarding-book/",
+      "source": "انیمیشن/storyboarding-book.md",
+      "legacyUrl": "/fa/garden/animation/storyboarding-book/",
+      "text": "مرور آموزشی مستقل از محورهای کتاب استوری‌بورد؛ تفسیر متن، ترکیب، راکورد و طراحی دوربین.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "راهنمای مطالعهٔ Storyboarding Essentials",
+        "storyboarding-book",
+        "انیمیشن/storyboarding-book",
+        "Storyboarding Essentials",
+        "storyboard book"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/storyboards/",
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "استوری‌بورد و ترجمهٔ متن به تصویر",
+          "id": "استوری-بورد-و-ترجمه-متن-به-تصویر"
+        },
+        {
+          "title": "طراحی و رندر خوانا",
+          "id": "طراحی-و-رندر-خوانا"
+        },
+        {
+          "title": "عناصر و قراردادها",
+          "id": "عناصر-و-قراردادها"
+        },
+        {
+          "title": "پیوستگی",
+          "id": "پیوستگی"
+        },
+        {
+          "title": "دوربین و حرکت",
+          "id": "دوربین-و-حرکت"
+        },
+        {
+          "title": "تمرین مرور",
+          "id": "تمرین-مرور"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-storyboards",
+      "title": "استوری‌بورد؛ طراحی روایت به زبان تصویر",
+      "url": "/fa/blog/notes/animation/storyboards/",
+      "source": "انیمیشن/storyboards.md",
+      "legacyUrl": "/fa/garden/animation/storyboards/",
+      "text": "روش طراحی پنل‌ها، شمارهٔ شات، راکورد، دوربین، کنش و قالب استاندارد استوری‌بورد.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "استوری‌بورد؛ طراحی روایت به زبان تصویر",
+        "storyboards",
+        "انیمیشن/storyboards",
+        "Storyboard",
+        "storyboards",
+        "shot list"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/animatics/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/animatics/",
+        "/fa/blog/notes/animation/camera-shots/",
+        "/fa/blog/notes/animation/",
+        "/fa/blog/notes/animation/sequential-art/",
+        "/fa/blog/notes/animation/story/",
+        "/fa/blog/notes/animation/storyboarding-book/"
+      ],
+      "headings": [
+        {
+          "title": "شروع از فیلمنامه",
+          "id": "شروع-از-فیلمنامه"
+        },
+        {
+          "title": "اطلاعات ضروری پنل",
+          "id": "اطلاعات-ضروری-پنل"
+        },
+        {
+          "title": "راکورد و خوانایی",
+          "id": "راکورد-و-خوانایی"
+        },
+        {
+          "title": "قالب و ابزار",
+          "id": "قالب-و-ابزار"
+        },
+        {
+          "title": "تمرین",
+          "id": "تمرین"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-types",
+      "title": "پنج شیوهٔ اصلی انیمیشن",
+      "url": "/fa/blog/notes/animation/types/",
+      "source": "انیمیشن/types.md",
+      "legacyUrl": "/fa/garden/animation/types/",
+      "text": "مقایسهٔ انیمیشن سنتی، دوبعدی دیجیتال، سه‌بعدی، موشن‌گرافیک و استاپ‌موشن از نظر فرایند و کاربرد.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "پنج شیوهٔ اصلی انیمیشن",
+        "types",
+        "انیمیشن/types",
+        "5 types of animation",
+        "2D",
+        "3D",
+        "Stop motion"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/animated-type/",
+        "/fa/blog/notes/animation/lower-thirds/",
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/history/",
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "انیمیشن سنتی",
+          "id": "انیمیشن-سنتی"
+        },
+        {
+          "title": "انیمیشن دوبعدی دیجیتال",
+          "id": "انیمیشن-دوبعدی-دیجیتال"
+        },
+        {
+          "title": "انیمیشن سه‌بعدی",
+          "id": "انیمیشن-سه-بعدی"
+        },
+        {
+          "title": "موشن‌گرافیک",
+          "id": "موشن-گرافیک"
+        },
+        {
+          "title": "استاپ‌موشن",
+          "id": "استاپ-موشن"
+        },
+        {
+          "title": "انتخاب شیوه",
+          "id": "انتخاب-شیوه"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
+      "id": "animation-walk-cycle",
+      "title": "چرخهٔ راه‌رفتن؛ وزن، تماس و ریتم",
+      "url": "/fa/blog/notes/animation/walk-cycle/",
+      "source": "انیمیشن/walk-cycle.md",
+      "legacyUrl": "/fa/garden/animation/walk-cycle/",
+      "text": "تحلیل پزهای Contact، Down، Passing و Up، تداوم پا و ساخت لوپ راه‌رفتن.",
+      "group": "انیمیشن",
+      "tags": [
+        "انیمیشن"
+      ],
+      "aliases": [
+        "چرخهٔ راه‌رفتن؛ وزن، تماس و ریتم",
+        "walk-cycle",
+        "انیمیشن/walk-cycle",
+        "Walk cycle",
+        "contact down passing up",
+        "locomotion"
+      ],
+      "links": [
+        "/fa/blog/notes/animation/"
+      ],
+      "backlinks": [
+        "/fa/blog/notes/animation/flour-sack/",
+        "/fa/blog/notes/animation/"
+      ],
+      "headings": [
+        {
+          "title": "پزهای اصلی",
+          "id": "پزهای-اصلی"
+        },
+        {
+          "title": "لگن، شانه و دست‌ها",
+          "id": "لگن-شانه-و-دست-ها"
+        },
+        {
+          "title": "تماس با زمین",
+          "id": "تماس-با-زمین"
+        },
+        {
+          "title": "الگوی زمانی نمونه",
+          "id": "الگوی-زمانی-نمونه"
+        },
+        {
+          "title": "شخصیت و ارزیابی",
+          "id": "شخصیت-و-ارزیابی"
+        },
+        {
+          "title": "ادامهٔ مطالعه",
+          "id": "ادامه-مطالعه"
+        },
+        {
+          "title": "منبع و اعتبار",
+          "id": "منبع-و-اعتبار"
+        }
+      ],
+      "articleUrl": null,
+      "created": "2026-11-26T00:00:00.000Z",
+      "updated": "2026-11-26T00:00:00.000Z",
+      "kind": "guide",
+      "hidden": false,
+      "robots": "index, follow",
+      "canonical": null
+    },
+    {
       "id": "home",
       "title": "راهنمای مطالعهٔ وبلاگ هادس",
       "url": "/fa/blog/notes/start/",
@@ -29,7 +1826,8 @@
         "/fa/blog/notes/noise/",
         "/fa/blog/notes/seed/",
         "/fa/blog/notes/ddpm/",
-        "/fa/blog/notes/latent-diffusion/"
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/animation/"
       ],
       "backlinks": [],
       "headings": [
@@ -567,6 +2365,31 @@
         "ثبات شخصیت",
         "character-continuity",
         "راهنماها/برچسب‌ها/character-continuity"
+      ],
+      "links": [],
+      "backlinks": [],
+      "headings": [],
+      "articleUrl": null,
+      "created": null,
+      "updated": null,
+      "kind": "note",
+      "hidden": true,
+      "robots": "noindex, follow",
+      "canonical": "https://ialirezaaa.github.io/fa/blog/"
+    },
+    {
+      "id": "animation",
+      "title": "انیمیشن",
+      "url": "/fa/blog/tags/animation/",
+      "source": "راهنماها/برچسب‌ها/animation.md",
+      "legacyUrl": null,
+      "text": "اصول حرکت، روایت، طراحی، دوربین، پیش‌تولید و اجرای انیمیشن.",
+      "group": "بخش‌های وبلاگ",
+      "tags": [],
+      "aliases": [
+        "انیمیشن",
+        "animation",
+        "راهنماها/برچسب‌ها/animation"
       ],
       "links": [],
       "backlinks": [],
@@ -1125,6 +2948,33 @@
     }
   ],
   "urls": [
+    "/fa/blog/notes/animation/adobe-animate/",
+    "/fa/blog/notes/animation/animated-type/",
+    "/fa/blog/notes/animation/animatics/",
+    "/fa/blog/notes/animation/aspect-ratios/",
+    "/fa/blog/notes/animation/ball-1/",
+    "/fa/blog/notes/animation/ball-2/",
+    "/fa/blog/notes/animation/camera-shots/",
+    "/fa/blog/notes/animation/character-design/",
+    "/fa/blog/notes/animation/demo-reel/",
+    "/fa/blog/notes/animation/environment-design/",
+    "/fa/blog/notes/animation/flour-sack/",
+    "/fa/blog/notes/animation/frame-by-frame/",
+    "/fa/blog/notes/animation/framing-blocking/",
+    "/fa/blog/notes/animation/history/",
+    "/fa/blog/notes/animation/",
+    "/fa/blog/notes/animation/keyframes-breakdowns/",
+    "/fa/blog/notes/animation/lower-thirds/",
+    "/fa/blog/notes/animation/motion-easing/",
+    "/fa/blog/notes/animation/ones-twos-threes/",
+    "/fa/blog/notes/animation/photoshop/",
+    "/fa/blog/notes/animation/principles/",
+    "/fa/blog/notes/animation/sequential-art/",
+    "/fa/blog/notes/animation/story/",
+    "/fa/blog/notes/animation/storyboarding-book/",
+    "/fa/blog/notes/animation/storyboards/",
+    "/fa/blog/notes/animation/types/",
+    "/fa/blog/notes/animation/walk-cycle/",
     "/fa/blog/notes/start/",
     "/fa/blog/notes/diffusion/",
     "/fa/blog/notes/seed/",
@@ -1144,8 +2994,35 @@
     "/fa/blog/comfyui-repo-review/",
     "/fa/blog/diffusion-from-noise/"
   ],
-  "sourceDigest": "8f0a9b3cb6c4a183e3f8cb00bb07ff1f7c48bed5d79ccfe755469e7db3c27a56",
+  "sourceDigest": "00c9dc7cc5267be81e11e735eb76069222cf794068e6fb3a65f722737dc18056",
   "redirects": {
+    "/fa/garden/animation/adobe-animate/": "/fa/blog/notes/animation/adobe-animate/",
+    "/fa/garden/animation/animated-type/": "/fa/blog/notes/animation/animated-type/",
+    "/fa/garden/animation/animatics/": "/fa/blog/notes/animation/animatics/",
+    "/fa/garden/animation/aspect-ratios/": "/fa/blog/notes/animation/aspect-ratios/",
+    "/fa/garden/animation/ball-1/": "/fa/blog/notes/animation/ball-1/",
+    "/fa/garden/animation/ball-2/": "/fa/blog/notes/animation/ball-2/",
+    "/fa/garden/animation/camera-shots/": "/fa/blog/notes/animation/camera-shots/",
+    "/fa/garden/animation/character-design/": "/fa/blog/notes/animation/character-design/",
+    "/fa/garden/animation/demo-reel/": "/fa/blog/notes/animation/demo-reel/",
+    "/fa/garden/animation/environment-design/": "/fa/blog/notes/animation/environment-design/",
+    "/fa/garden/animation/flour-sack/": "/fa/blog/notes/animation/flour-sack/",
+    "/fa/garden/animation/frame-by-frame/": "/fa/blog/notes/animation/frame-by-frame/",
+    "/fa/garden/animation/framing-blocking/": "/fa/blog/notes/animation/framing-blocking/",
+    "/fa/garden/animation/history/": "/fa/blog/notes/animation/history/",
+    "/fa/garden/animation/": "/fa/blog/notes/animation/",
+    "/fa/garden/animation/keyframes-breakdowns/": "/fa/blog/notes/animation/keyframes-breakdowns/",
+    "/fa/garden/animation/lower-thirds/": "/fa/blog/notes/animation/lower-thirds/",
+    "/fa/garden/animation/motion-easing/": "/fa/blog/notes/animation/motion-easing/",
+    "/fa/garden/animation/ones-twos-threes/": "/fa/blog/notes/animation/ones-twos-threes/",
+    "/fa/garden/animation/photoshop/": "/fa/blog/notes/animation/photoshop/",
+    "/fa/garden/animation/principles/": "/fa/blog/notes/animation/principles/",
+    "/fa/garden/animation/sequential-art/": "/fa/blog/notes/animation/sequential-art/",
+    "/fa/garden/animation/story/": "/fa/blog/notes/animation/story/",
+    "/fa/garden/animation/storyboarding-book/": "/fa/blog/notes/animation/storyboarding-book/",
+    "/fa/garden/animation/storyboards/": "/fa/blog/notes/animation/storyboards/",
+    "/fa/garden/animation/types/": "/fa/blog/notes/animation/types/",
+    "/fa/garden/animation/walk-cycle/": "/fa/blog/notes/animation/walk-cycle/",
     "/fa/garden/": "/fa/blog/",
     "/fa/garden/diffusion/": "/fa/blog/notes/diffusion/",
     "/fa/garden/seed/": "/fa/blog/notes/seed/",
@@ -1154,48 +3031,76 @@
     "/fa/garden/ddpm/": "/fa/blog/notes/ddpm/"
   },
   "assets": {
-    "/fa/garden/~random/index.html": "ea3cd67915858311e3e87466c4f5c54eaf3238d249234031a885cf9f903070dc",
-    "/fa/garden/404/index.html": "ba97d8b2f0f48151698a29bf317021c9c336f71ee40d8a5c409818caef8052d3",
-    "/fa/blog/categories/fundamentals/index.html": "73874eef7c9e098bdedbc065098fe6f6ec6f050e7736b768fefdf95144cc1e38",
-    "/fa/blog/categories/index.html": "8cc7c26be19d03b4758e1f0097d5af6a860faf9f21f011ccf1dd2fb02e4436a0",
-    "/fa/blog/categories/papers/index.html": "3d0d340cdcc1bb3b99df3f0c26fbbf58512506be75aa6e0761ae31979d887a63",
-    "/fa/blog/categories/repo-analysis/index.html": "4c87854c4fff4af6c74070da435db4917934adce184fe9454e7de9f5af2730de",
-    "/fa/blog/cfg-diffusion-guidance/index.html": "f864885d6c66576499d313d8b69a2b3e11c094b961e89830cb65daa412b7cfb8",
-    "/fa/blog/comfyui-repo-review/index.html": "92887dd3ef1ec59c24c6617eb8c59fe45124f8479fbbf7477355a7bc97165b29",
-    "/fa/blog/controlnet-depth/index.html": "8c2442cdce0110238007b06e7cd51b765420952d8bb2fbc4299dc5c91d460ee5",
-    "/fa/blog/diffusion-from-noise/index.html": "1cf984e3a0f3db19dde5238294d329b3d9e5c7c8f07ee4f7532d57b1dc635937",
-    "/fa/blog/dreambooth-character-continuity/index.html": "e7fdd958550802bdda10c1c1f6a94def513904cef51e3afaa8ba057811cc3b32",
-    "/fa/blog/index.html": "be8f7d0d9f34317f2a421f9239bae334c19d78a6aab6bd76333247dd9c18b5ab",
-    "/fa/blog/notes/ddpm/index.html": "eea85e12d4e66695ec3f9b77183d90095cc7addcbe0598590951d96b9826c50c",
-    "/fa/blog/notes/diffusion/index.html": "cc741cae98abd61e02040dce71b8a152ada9d7fbd89c0a3ea14af3db5ad91941",
-    "/fa/blog/notes/latent-diffusion/index.html": "9205266137633caa6a2b7c490ebac341c0aef825386e31d4cffdc6deb2d84d55",
-    "/fa/blog/notes/noise/index.html": "98678c1852fa98106d82fe091bde3c5648b3e5a550fe610b65fb8bd090ece59d",
-    "/fa/blog/notes/seed/index.html": "2f207a28c1b098405d2760f98581713d299e55e83814c75294daf8ef5aa4001c",
-    "/fa/blog/notes/start/index.html": "859b932faaa35f130bc69c546b886bfa7b0acabecebd62c8e9f02d218bbfeb55",
-    "/fa/blog/rife-frame-interpolation/index.html": "d83c2a39dfc25fd3c0a49754d224e3e69cc129e51b70da55d0537f5e05af2f3d",
-    "/fa/blog/tags/ai-basics/index.html": "8c0fd51884e27c60883b1bb8bd9a8e2c4a0cf8d2672f0966c0e58d7705f8ee52",
-    "/fa/blog/tags/ai-image-making/index.html": "f3c742436dfc313db01f738847475db9ab93097d0a217bd0cff483772d811edb",
-    "/fa/blog/tags/cfg/index.html": "10cb9036635ca4fdd61b8949256c2c6630aa83f192a838e662527de35a16cb5b",
-    "/fa/blog/tags/character-continuity/index.html": "b53d18ae52e66cf28a275d8bc538a4faabfaee0627bb46716d79a0c3dd48d908",
-    "/fa/blog/tags/comfyui/index.html": "32c9d1b7ee7860820ce3b3fb26511122cb0874523a36e9e64398937238bd4e8c",
-    "/fa/blog/tags/controlnet/index.html": "804039576ab4d0ba83b1bf73ba7a2131ccab57f4836d1673690c5dc46b212686",
-    "/fa/blog/tags/ddpm/index.html": "ba15fc7e9960d8b49949af396c6a8ef9747fd40a366aa92e0ce8fda19aeed13f",
-    "/fa/blog/tags/depth-map/index.html": "efcd3aa7ffa2556b3efe6527593e5271c5f9895d047ff92b217205e5fcedbef6",
-    "/fa/blog/tags/diffusion/index.html": "17b1d263c693a2e0e7bd4b78b6edbc06c802619f0f05db2dffd0527bb47db9d5",
-    "/fa/blog/tags/dreambooth/index.html": "c88fdd3a77949e615772818c0de63219065acfe14177db4032478be6728df615",
-    "/fa/blog/tags/frame-interpolation/index.html": "680b3180c2de4833d871c684f01a3fad503a20813cb3a6b70f7e873fd8bd2980",
-    "/fa/blog/tags/image-control/index.html": "5ffce11e57fb81a60dc1b74547395abb8596ab8ce0d103037e2955d44833875c",
-    "/fa/blog/tags/index.html": "205f8aeaa5482e22c4530ee5eb04bf06382d43ce4daf0c291c546ab8872434bd",
-    "/fa/blog/tags/paper-explainer/index.html": "994c3135f8304cb3945557325442e86a14688de4f9aaff09675c801c27472723",
-    "/fa/blog/tags/python/index.html": "ecaf5d7b1b2ad4b471015681575c58fc223f4d593f027b62096b69b717d9839b",
-    "/fa/blog/tags/rife/index.html": "69d538f7b6bba7bd225030716de6f9c838ae6e4410362d5abd069064e20dbed2",
-    "/fa/blog/tags/workflow/index.html": "ca4ef38c1f7acf2442b758984d234e3df06cf218c409ac2e2a77f15323ca0c88",
-    "/fa/garden/feed.xml": "1f86962a42f113c68f4f8e3fabc8efe42b9ab941d8fe9643d46418fe13b351b4",
-    "/fa/garden/filetree.html": "06d7cc78e83105f6b4ba1156cdf3ff3f3c313e71f5a24081046e1dc5861cc73e",
+    "/fa/garden/~random/index.html": "0b2a402f7428d5cef0e5e70588ead7de7ead97a52e43da4ca79fdaa173f5d00d",
+    "/fa/garden/404/index.html": "dda86c7c9f20b66cbffae614a9ee33bb5a39bcecb8891c91147c19847fe5aa87",
+    "/fa/blog/categories/fundamentals/index.html": "6663064d67ece24a26ad6b8cedf62ad52674515e0b2a1b2402484dea7732b7d4",
+    "/fa/blog/categories/index.html": "eca5bb5417104c1fabec9fbefb8ee88e3cb4496f8050cf679b7a88c2c505d4a2",
+    "/fa/blog/categories/papers/index.html": "b06aa200d60fbb511eabd90f2a15774b127267a27b76224148d92c77df91532a",
+    "/fa/blog/categories/repo-analysis/index.html": "a5916274e1226077c68510f8ce987a9191ca55be30e1132d282c22922a55768d",
+    "/fa/blog/cfg-diffusion-guidance/index.html": "e2f439bed6f23b28776a7019fd1566c0ecaaa25951b9e7c3e25de981af251c3f",
+    "/fa/blog/comfyui-repo-review/index.html": "2f952fca9f01381928095011ca30863a4b3c305ccffa5696f6abfd8e6c3a61d3",
+    "/fa/blog/controlnet-depth/index.html": "e1ee52f2eaf6eb2ab64093003f36e72355907cd93f37d41257484c0d5b487540",
+    "/fa/blog/diffusion-from-noise/index.html": "cae08ecc64a537e33f74e3d6ac11325fa74a1e4561130f26953a6e00c9fe5124",
+    "/fa/blog/dreambooth-character-continuity/index.html": "dc5e9340775c7eecefc6ef0a823dec1186e09f26b740e258c91f5eea20c31bd4",
+    "/fa/blog/index.html": "ebb6a2ac4d51437d107e5a6f77c4736f94e6a2293071f87e39756c502fedf7e0",
+    "/fa/blog/notes/animation/adobe-animate/index.html": "e9be0d451bc9c234c8a8e738c055b51321542df2d9028c3e04dc3f2ce57b3a1b",
+    "/fa/blog/notes/animation/animated-type/index.html": "2225bffc08a55fa8004804e6239419dc3d24c17f58db4544fed282a31f06464d",
+    "/fa/blog/notes/animation/animatics/index.html": "0d99dfc9a34a60097abb94daa4c67a2e90395978c8d6ef26c1bbc33950abbb3a",
+    "/fa/blog/notes/animation/aspect-ratios/index.html": "360d24e36c6eb064bb42cd17c426f201f67a275a94e64e25ceabd988bb49564e",
+    "/fa/blog/notes/animation/ball-1/index.html": "4379f650f2b83dd4ab2b1bdaa8ecfb58d2fcfc509fcdc22e9bc1bb55a9791558",
+    "/fa/blog/notes/animation/ball-2/index.html": "2009585052f0492d815460480a2d6df021a36149cac37f6743df861c99561776",
+    "/fa/blog/notes/animation/camera-shots/index.html": "6823b416f5f6925db4254f4dc8de02662ddfde310ba1209fbd7a1668d46a61cf",
+    "/fa/blog/notes/animation/character-design/index.html": "e1b0839326ebb3b42035816953ba384498acee50439f8161796cd88fe29d7805",
+    "/fa/blog/notes/animation/demo-reel/index.html": "f00ac9be250d5ff9ec814b1ac4f4b46d3049eedfe6323459a1cd201e90fbe9c0",
+    "/fa/blog/notes/animation/environment-design/index.html": "33f48724f3ed4deed1f22f3a00b60c8a2b897993fc3f5a1fb1dac6c52d372384",
+    "/fa/blog/notes/animation/flour-sack/index.html": "41db133cc567c534f361ff7be01eae359ee9c6655c06a7e97620e7df790567dd",
+    "/fa/blog/notes/animation/frame-by-frame/index.html": "684933aadf91ca9a57ef3d1733b4a7583566b46aec4ffbbcad4c3f738e7b2583",
+    "/fa/blog/notes/animation/framing-blocking/index.html": "e9906d7876cc323901aa1ee94b9d573b3ef0d4acdfbad5b8e93d94d3cca0a99e",
+    "/fa/blog/notes/animation/history/index.html": "cd0ef48b91481244c374e0a4aa558314e92733e3594316c9ee7cca98189df82e",
+    "/fa/blog/notes/animation/index.html": "c542d32cca1b46504de4f030df71342550227275c451415751cf76f3ec43576b",
+    "/fa/blog/notes/animation/keyframes-breakdowns/index.html": "e288926b90876d414fe5bdc8c037d43d8e1847111741f444de9c5f5ccbb93480",
+    "/fa/blog/notes/animation/lower-thirds/index.html": "4858ba7b53310b4063b0677c6238e8316e54de0cbd0c2db5e8097d5ceb19a54b",
+    "/fa/blog/notes/animation/motion-easing/index.html": "de6c10889119f1f1e4769e6ba79cff014fe0fd4980f00cbc6f0b9bf1e2be8f57",
+    "/fa/blog/notes/animation/ones-twos-threes/index.html": "5fdcff17298611b9bf648e6c3eabfe65950ee3f8db75a1dcb4e83aab75930f25",
+    "/fa/blog/notes/animation/photoshop/index.html": "82d370212f11794dd47bdff8b5ea2f1fbe1b0b39431988ae9faf98f8dfe0db70",
+    "/fa/blog/notes/animation/principles/index.html": "464dcde5bb1dfee0599d2afb7e34e172e3e6dabae62a8d678e2644f377ec4d05",
+    "/fa/blog/notes/animation/sequential-art/index.html": "093d770979d27e0c3bd671d313154eee25f3e32b7da6cf2d9548a292b5fa326b",
+    "/fa/blog/notes/animation/story/index.html": "662e73499050ae2be43c0f4d21391abe41fb261d822a2b05a7bdd756d2b6af79",
+    "/fa/blog/notes/animation/storyboarding-book/index.html": "1fb2542171ce3d52e8b3fa26456287b303662f779bb4035cf9e80337ae9150e0",
+    "/fa/blog/notes/animation/storyboards/index.html": "3e771d52f742cb0907ce5e24f583d2076288b8d3c58e362493530fe7bf620c05",
+    "/fa/blog/notes/animation/types/index.html": "e9e80f2a5b2fb991496ac98905b042cdfd0b870b58aded85ec1e437e849dd6b1",
+    "/fa/blog/notes/animation/walk-cycle/index.html": "686254c959e5598b2b6fb71e9ac745cb87cdd678bebf6881cc86efa91ee04429",
+    "/fa/blog/notes/ddpm/index.html": "a839d901418adbd267dd01a634ad5a5852dbf5dd6764ad07b66be54f6bf68855",
+    "/fa/blog/notes/diffusion/index.html": "8ac8f658da443e72f9c79f8f2c952dcdc7bc87ebf1d6bc1c43ca6446b741ada0",
+    "/fa/blog/notes/latent-diffusion/index.html": "b8e4c0d6f65e19bc9537865d704f0196447f909dd5e1f2d991358a1cd9dfc385",
+    "/fa/blog/notes/noise/index.html": "d701d6e50f568484f866e828f75cb994437e1cfff822b68a67ef4e190d8a16d9",
+    "/fa/blog/notes/seed/index.html": "812ca292f067b943f7565d558227e1e144286ab90314551fc5636f2e32622d10",
+    "/fa/blog/notes/start/index.html": "9f954c8cde8713acb2ce5e2e46da3f698aa98fd0b04c5d9c6e4d7a48687cb17a",
+    "/fa/blog/rife-frame-interpolation/index.html": "906bd8d9ebb57d748b68fa472248f27f4742fc5dcefc7aafecd3a32e1ad9bdea",
+    "/fa/blog/tags/ai-basics/index.html": "8d2ad2c098cf4db1902319bedbafafb68a6d91db4318e0b90b4b7bf54b5c1e63",
+    "/fa/blog/tags/ai-image-making/index.html": "2121b861ddc4fe8501f47dc0d2051804d1a5e2cb9bb2d968d1c3b3cb98ac9d0c",
+    "/fa/blog/tags/animation/index.html": "a03222b6c970792f1b4a3fb479453619a7efba3766417db58ce9265ca047849b",
+    "/fa/blog/tags/cfg/index.html": "6afa62749d57eed93183b00aabe99029f63cb8526ab00927edafa18ca0bd938b",
+    "/fa/blog/tags/character-continuity/index.html": "3625730bbe4afb8bef97dfda4f161bb40380b564c6ed73e838e3fddadb74dd70",
+    "/fa/blog/tags/comfyui/index.html": "1a7a12e43cb77ada50dc3ce83df429d321b7252c1d1885dc1f833636122b9d2d",
+    "/fa/blog/tags/controlnet/index.html": "ef48cbe74bb9152aa6b3a17a31f62353a4022af469d2f164d75dab31b53d9718",
+    "/fa/blog/tags/ddpm/index.html": "362cf34f58c8704904b9960ea65d02b63cf6b02ea313be670a1146c85162c074",
+    "/fa/blog/tags/depth-map/index.html": "1131badf1ba51f6303e3806451a87a0775dd325db5488fe25656ea2b158485d5",
+    "/fa/blog/tags/diffusion/index.html": "76a0c01953f1e9eee28af8c738f6abc59c40ccaa3d5472f399ea519620c3cbc0",
+    "/fa/blog/tags/dreambooth/index.html": "0b401e09513dcbacf2d28ce8d9783d6cfbb5a01a44e2e1a3b91c7d4f57b81de5",
+    "/fa/blog/tags/frame-interpolation/index.html": "4841841b5e2dc08e31a6bbcb3fa64fc0c0326b3d438c4824d5b7200aa3d4dc2e",
+    "/fa/blog/tags/image-control/index.html": "4d7f6c442b6c0b2fa4b29a46fb0bffedbcda0fddcf472cef3c03fd70f4f34cea",
+    "/fa/blog/tags/index.html": "91e14960c3746db8bef073d7947b8a9df032b5158c8389fd041842938ffe3243",
+    "/fa/blog/tags/paper-explainer/index.html": "8415d2d53891ecdb9ae3d117095564da00ece66912c81a682d386dc2c9d0003e",
+    "/fa/blog/tags/python/index.html": "508e62b80e5e7f8427bda6473f45a9b4f7ee7fbdd3325ad21e0a50287da3b9ff",
+    "/fa/blog/tags/rife/index.html": "d43fb85c0c98e2951a0b312fe98bb4c97c05dede5d02f925f6f30ed1359f0b04",
+    "/fa/blog/tags/workflow/index.html": "8636e068726f3935b5ec8563e23c6598824cdc268bb18de22162250556c21a63",
+    "/fa/garden/feed.xml": "3c1c8538b67a0d7298ec3c1795f928be8ab79aa9913743c21b502023b69ed4a0",
+    "/fa/garden/filetree.html": "7252878275aff11f557dc505f67d3549be3fbcc7f36ab28df6bd225a30b81739",
     "/fa/garden/fonts/mikhak.woff2": "18e507e1ae85db40fac1ae651655ebdf5b7ec990835328bdede753ce6654007a",
     "/fa/garden/fonts/OFL.txt": "071f566f77f4d56b39c15c9f685bc8806b04a1a9543ad6c5f3806497996d046f",
     "/fa/garden/fonts/SOURCE.md": "8d713ad6f9a79d8aa839839ed00e4eec8739082a70d02fad9045ebadde8d9c27",
-    "/fa/garden/graph.json": "92bed4542b6adfbedb27a68cf6c3d2b4859886084fecc9545d8ee9089f6497bd",
+    "/fa/garden/graph.json": "11e2172b6eb99a66fd7d6eaddc3333bed8b0d0cd68b1581c2255f633d08995ad",
     "/fa/garden/img/default-note-icon.svg": "82297d74920cc15bdf2ab0dc6c00d37db6ec32b4bcf5e43f27ee3b9bf728c4a8",
     "/fa/garden/img/fonts/epilogue-latin-ext-wght-normal.woff2": "8026084714d57bf555eb958d7ec15bd5dc71b75ba79490111711300af524b645",
     "/fa/garden/img/fonts/epilogue-latin-wght-normal.woff2": "943ab208b058dbb0a8b257c02d6d9cfe5932a72c4deea8c77d192111c7c14519",
@@ -1208,16 +3113,39 @@
     "/fa/garden/img/tree-1.svg": "271d2c6bd0b942cd8cf185610bee3699381f223859c7ff51086244602d612a4a",
     "/fa/garden/img/tree-2.svg": "5347e932d7eca4a221657648e7f8c1fd5af574ef5cd4ae46c6febfba8a6907a7",
     "/fa/garden/img/tree-3.svg": "571626b1fc89f34a1ec71b058c4bd7356fedeea8e3db88055e7611ecf67edf34",
+    "/fa/garden/img/user/animation/animate-interface.svg": "5da402a07b386a7cfed7fccfea3584f83c0f078ff2aa2d2b2bb0bd3be877018f",
+    "/fa/garden/img/user/animation/animatic-workflow.svg": "ecd32ba00889ef5295bef3011d3ce69693bf34d7334378e9600cd974d8147a9d",
+    "/fa/garden/img/user/animation/blocking-top-view.svg": "bb989beae7ed6e37abac751ff95f77243964630611de1db800f30bb260ba9c74",
+    "/fa/garden/img/user/animation/bouncing-arcs.svg": "f5b4fa3fdefa05a5c493c50168e82f40f0e6fc25e4151251d93c1e9decc5cd44",
+    "/fa/garden/img/user/animation/breakdown-poses.svg": "b359c836a1b1add9394df4065f40063b8f5334aea6facd402433f971373eaa57",
+    "/fa/garden/img/user/animation/camera-angles.svg": "38a34f0da6f704105137faa63613ec64e3da8c7d245787e195ae376621147d98",
+    "/fa/garden/img/user/animation/character-sheet.svg": "446dfb6fe4d0d305350ecd613501323562afa586d61d5df76a6bff7a72af4e42",
+    "/fa/garden/img/user/animation/diminishing-bounces.svg": "517ad1f67be4e611bc1daf86166bf71c6f9d0f8883e2839015d8e6785c16ae3c",
+    "/fa/garden/img/user/animation/environment-plan.svg": "10860790efac13c1ee1f42e53652bd8946a9818d79c718ded1304c3fc70a3d54",
+    "/fa/garden/img/user/animation/exposure-sheet.svg": "aba5f003bb9a8f92e2301cfbe24efd6206490cb65cd1dfb732e9f4bde45e98b9",
+    "/fa/garden/img/user/animation/five-methods.svg": "cc7fd95c093466c45cec29a3b6ffadd14c678e933b77d870d7971488c47444e6",
+    "/fa/garden/img/user/animation/flour-sack-poses.svg": "e7d3c9533d4768ac62ca4a313e68d2c4b99a4b03e284c6bc76eecc2bcc6c0073",
+    "/fa/garden/img/user/animation/frame-ratios.svg": "e99f2a57e3537b5a0bc39e30da0f0351745d6e35207811d0613dd4ddb47b5bce",
+    "/fa/garden/img/user/animation/lower-third-layout.svg": "e5447380c4cf0bf50be0c229fbdae54bd1d3cb0c29d1ff9702cdca8c6d53435f",
+    "/fa/garden/img/user/animation/motion-curves.svg": "cd36754bc89bb915bab6ed467a8c8534118cfd67d31b961a088c61902bab51b6",
+    "/fa/garden/img/user/animation/photoshop-timeline.svg": "cd0154659d7611991b9a046fbca82e77814f93e5eb006f194e1cefba6fdeb0ce",
+    "/fa/garden/img/user/animation/principles-visual.svg": "c0bc14bdd813933ce268d992c8320cf8115b36c88e2a39111aff62d9dc0879bb",
+    "/fa/garden/img/user/animation/sequential-panels.svg": "78fda594080ad03da0d2e22a6e43f98ba6a4113788c907e1315893f778166e4c",
+    "/fa/garden/img/user/animation/shot-sizes.svg": "f9220f58588c1f87b51d05f707d2247bbd887cb3c2dae83538b6794bcd50bc61",
+    "/fa/garden/img/user/animation/squash-stretch.svg": "38230570f4a388b8d8a511dd7501fb398d05c34e2e1a53fc062261594194da8a",
+    "/fa/garden/img/user/animation/storyboard-template-fa.svg": "5f96d0ae8cd01cf885702999f4023954a1b43a50d84479f30961c64880ff9d71",
+    "/fa/garden/img/user/animation/vertical-spacing.svg": "6e2b7b43ca4011165e80c769483dc75a0692be86a869cc5ceeb4c4e4511ff87e",
+    "/fa/garden/img/user/animation/walk-cycle-poses.svg": "37cee4e21305a8347a9d826b317ae8cda7bb02ebb4470d45d9feb63fd4abcad4",
     "/fa/garden/scripts/blog-comments.js": "9b5d3c9aeddaec074cd4862f38f85ec987eba0cabc07a605bfa16fa1269ded5b",
     "/fa/garden/scripts/blog-explorer.js": "6103900a956f6e6bc634e0250708fe75a5a73dcc222ac7c8fd78f5d3644cd3bc",
     "/fa/garden/scripts/garden-content-compat.js": "804d065fac18164a9ade9135be34b3f6ce10e1b7d0b348c4d01554260bb02f00",
-    "/fa/garden/scripts/graph-view.js": "d8b82a6616a55c2833f9f3a320b15eb44a6260eea05859c1b81e31d97062f9db",
-    "/fa/garden/scripts/hades.js": "43e32b57ec2f87be9064104104aea3bae07f4ce4930604d4877b274af2467716",
+    "/fa/garden/scripts/graph-view.js": "23ebd24a3bbd044fcb0ea652c1a08d03598f3fc6cece20d60c915eff721dbca3",
+    "/fa/garden/scripts/hades.js": "8265755db40afe8a66bf8c180a104d25e19fc466cb7b77326d888ef748431725",
     "/fa/garden/scripts/reader-tools.js": "ce941cf8b83b556bfdfe4d0b33a41078d92f8d6e8a93baea2c67b4e1d144db6e",
     "/fa/garden/scripts/reading-trail.js": "3758fa922dc0482756a06971b13eb04c98f25a50af5b7bb2a510b0f39e3e8630",
     "/fa/garden/scripts/workspace-panes.js": "9ee7449ed9f04d9758c6f89c854782cce538afb6b74147c6ddd4cbfc66751268",
-    "/fa/garden/searchIndex.json": "fb64d2f9b7c5c8bccbc12f0c726f8be50ea41cb2545ee74558fa10fe6175919b",
-    "/fa/garden/sitemap.xml": "ebf168b0f5ab446e6afcd4bd808f7546bb33db43ddf44bfcd20a10b748294d82",
+    "/fa/garden/searchIndex.json": "03456eac4a62b021a9bbe7dc2761a6e9cb809e22e9d6f39a0c24a0ed7fefb8ec",
+    "/fa/garden/sitemap.xml": "18aad69ee369c8f23abe55b9bda79c84c1322cd8d6b39a54cf4b69867c6d8a1d",
     "/fa/garden/styles/custom-style.css": "e230d094db3d021ddaa2541c9bc96d31c777052b9cf34b07a3beb7d524e95867",
     "/fa/garden/styles/custom-style.css.map": "96fd2d10919de215cbdd74f73d1267c6072d3b485bd93ce0cc2a12eac994a470",
     "/fa/garden/styles/digital-garden-base.css": "06e0836918a64e96300e3c46d9d8c9bf4656a73ccf2f7b79009cdc3ed9184d92",
@@ -1230,8 +3158,35 @@
     "/fa/garden/styles/obsidian-bases.css.map": "113fe730c9b88784f7364b94f9123c68ef3c969e13487f28a20fb79a74ce5f39",
     "/fa/garden/styles/style.css": "ea92cdca997ae35733db741329c0ba8316ab151c0ca86d7c69758eacc3436752",
     "/fa/garden/styles/style.css.map": "2db90eb0fefdf32bdbab4a2274106f1d8f156fbb6c827dc19b6e7f243c6543da",
-    "/fa/garden/styles/user/hades.css": "de51dec3750792b20f379401f53545dc98630eb2825d2e9c5b178b2016a60416",
-    "/fa/garden/styles/user/hades.css.map": "abeebb8b3e27ec22133bdc4c3484aee8397ad520076cf924472ce1e3cb75ea28",
+    "/fa/garden/styles/user/hades.css": "1fac1dae4010725425094b339ba230121d1d3b83a3020e09360213da5913dc14",
+    "/fa/garden/styles/user/hades.css.map": "cc5af5a3c6c5a07255520f4a82fce091ca7110f56a2ed7433fd6fcaf29ddf2af",
+    "/fa/garden/animation/adobe-animate/index.html": "0982915357e2634c5ac8fc7a2f9fe492a40b9e45672e420f39bcd88f5aee70b0",
+    "/fa/garden/animation/animated-type/index.html": "65b216f375953caf662276bfe7cdaed04be4adb7ff94bf645949a4e7d0a37b8b",
+    "/fa/garden/animation/animatics/index.html": "fba500fe82088ba2880e5e3cd7422f0367397b244a2bb4089895ca498ddd02ed",
+    "/fa/garden/animation/aspect-ratios/index.html": "6411d5f056e336decb0e4c271e3ecc5592c98825acfc7cc6f45b7aeea4bda83d",
+    "/fa/garden/animation/ball-1/index.html": "748c356a0014b7f7d0319b319df0819b34a107c090daf70a1da30aa484139058",
+    "/fa/garden/animation/ball-2/index.html": "1243173bb08d688e965ea83917182d07564fd4b5fd095ec6df634e5ac15ec49a",
+    "/fa/garden/animation/camera-shots/index.html": "3f36ada3a5190611526450f10417cbffa36ce8355a6f825fac41ef2af5d36c82",
+    "/fa/garden/animation/character-design/index.html": "43a732e7f26ee944033442867db4464bb01600571d1555cc9fe35d397d1ee914",
+    "/fa/garden/animation/demo-reel/index.html": "365493cc1d91178f040c4032084ae2eb033bded40373c2c58c46662e47080720",
+    "/fa/garden/animation/environment-design/index.html": "163d62c80882309684db0c0ea8b739e18d39f12ef03444f37e4b9c6e479e3a06",
+    "/fa/garden/animation/flour-sack/index.html": "4b225c54184ba7745c1a1d847a88ff96431f84b5c36af6cd137d6f78f8df90b2",
+    "/fa/garden/animation/frame-by-frame/index.html": "02d73a17ef1f27456f2775cace1410cd5b258201dc16cc38375749953c63b3bf",
+    "/fa/garden/animation/framing-blocking/index.html": "97890e010f5d533032bf685647436f1a9de081c4e48b0ab07b46f5d422e3005b",
+    "/fa/garden/animation/history/index.html": "4c60410b87e8d3762cc2983eec2310e897a25a721d22131c2fad5747b9fe4c66",
+    "/fa/garden/animation/index.html": "1e44c85fe1370275b0a47212780cc3c19d3718474ced3b823e73132ebb2d62d6",
+    "/fa/garden/animation/keyframes-breakdowns/index.html": "e43b0d3e44c715ec017c4b49eea8d86077a739d8eb7c542517b2d8605ce30e26",
+    "/fa/garden/animation/lower-thirds/index.html": "4122ae468110676221c74f73517380b83e9a915a3063bac1307e875bb375c765",
+    "/fa/garden/animation/motion-easing/index.html": "3a5027c979a89f47ab5db87e6ed05a0aa671824f5af86aa08e39079616e095c3",
+    "/fa/garden/animation/ones-twos-threes/index.html": "063fd472b5fb05baaee87d45e520613b81fb43543bc107e32605d64373d47345",
+    "/fa/garden/animation/photoshop/index.html": "27a9ab769f2b492eaf43e387cee983748d0753df46e4199f76f9f54a5ce82cb6",
+    "/fa/garden/animation/principles/index.html": "fe1f5c42d3e3b20f7de36f65aa35a1cf666e8d533443efe88c1f2648808b4f22",
+    "/fa/garden/animation/sequential-art/index.html": "97037e8d5902a5f2aa02379fbced48d420b3be80a5e5a0d1bab7a5faeae6a078",
+    "/fa/garden/animation/story/index.html": "1a964eba54902b9e836c71b362b022e4b8ab859b043d40cecf0f22b6b8884ef1",
+    "/fa/garden/animation/storyboarding-book/index.html": "a4efa4b0ba02c48bc56a2e000bdf09ca7e3be2dfb27a391becec5fbf4008f086",
+    "/fa/garden/animation/storyboards/index.html": "55ab963b40fdc0e56d6583758c95657dd53a5ccce603c1967e0b017bb7d3c242",
+    "/fa/garden/animation/types/index.html": "81ef4d919c348dcc9b3ca78e1a6a6e29af2e7ce1a0fd4a334a834ed897af7eef",
+    "/fa/garden/animation/walk-cycle/index.html": "f924de60246a32cb55f64c2219b6e31ac20b242ec555efe3c06fae78260fe3ad",
     "/fa/garden/index.html": "f0b980c88812844840d0107546e5393c9df7188e01c41b8a6859e7afc1ea1a67",
     "/fa/garden/diffusion/index.html": "506527227f19c329aaaac368353efff6a1462fb40a89146a28ec68b9296cfda0",
     "/fa/garden/seed/index.html": "17c091743efac0faff70dc7a9bd875c216afd4af8a26a1b1fb91af7ae47f15ed",
