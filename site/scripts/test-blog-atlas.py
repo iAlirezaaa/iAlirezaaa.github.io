@@ -110,6 +110,30 @@ try:
                 controls.locator('summary').click()
             else:
                 assert not page.locator('[data-workspace-panes]').is_visible()
+            ribbon = page.locator('[data-workspace-ribbon]')
+            if width > 900:
+                assert ribbon.is_visible()
+                assert ribbon.bounding_box()['width'] == 44
+                assert abs(nav.bounding_box()['y'] - page.locator('.garden-topbar').bounding_box()['height']) <= 2
+                rail_toggle = ribbon.locator('[data-workspace-toggle="navigation"]')
+                rail_toggle.focus()
+                rail_toggle.press('Space')
+                assert not nav.is_visible() and rail_toggle.get_attribute('aria-pressed') == 'false'
+                rail_toggle.press('Space')
+                assert nav.is_visible() and rail_toggle.get_attribute('aria-pressed') == 'true'
+                search = ribbon.locator('[data-search-open]')
+                search.click()
+                assert page.locator('#garden-search').is_visible()
+                page.keyboard.press('Escape')
+                assert not page.locator('#garden-search').is_visible()
+                assert search.evaluate('(el)=>document.activeElement===el')
+                ribbon.locator('[data-global-graph-open]').click()
+                assert page.locator('#garden-graph').is_visible()
+                page.keyboard.press('Escape')
+                assert not page.locator('#garden-graph').is_visible()
+            else:
+                assert not ribbon.is_visible()
+            page.evaluate('document.fonts.ready')
             page.screenshot(path=str(output / f"workspace-{width}.png"), full_page=False)
             preview = page.locator("[data-atlas-preview]")
             page.wait_for_selector('[data-atlas-preview][data-graph-ready="true"] .graph-node')

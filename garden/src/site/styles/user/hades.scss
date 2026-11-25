@@ -292,3 +292,63 @@
 .local-graph-inspector{border-inline-start:2px solid var(--brand);padding:.4rem .6rem;margin-block:.5rem .75rem;min-width:0}
 .local-graph-inspector p{margin:0;font-size:.78rem;line-height:1.85;color:var(--muted);overflow-wrap:anywhere}
 .local-graph-inspector [data-local-detail]{color:var(--ink);min-block-size:3.7em}
+
+
+/* REVIEW: docked Obsidian-inspired workspace. Native HADES accent; no third-party theme or reading features. */
+.workspace-ribbon{display:none}
+body.hades-garden .garden-navigation .tree-heading h2{font-size:.82rem;letter-spacing:0;font-weight:550}
+body.hades-garden .garden-filetree .tree-note a{line-height:1.7;padding-block:.34rem;margin-block:0}
+body.hades-garden .garden-filetree .tree-folder summary{min-height:2rem;padding-block:.3rem}
+body.hades-garden .garden-filetree .tree-folder>details>ul{margin-inline-start:.35rem;padding-inline-start:.55rem}
+body.hades-garden .garden-filetree .tree-note a[aria-current=page]{box-shadow:inset -2px 0 var(--brand);background:var(--subtle)}
+body.hades-garden .garden-sections{gap:2px}
+body.hades-garden .garden-sections :is(a,button){min-height:2.15rem;padding-block:.3rem}
+body.hades-garden .workspace-strip{border-radius:0;align-items:stretch}
+body.hades-garden .workspace-strip [aria-current=page]{font-weight:500}
+body.hades-garden .atlas-preview-section{box-shadow:none;border-radius:5px}
+body.hades-garden .atlas-preview{background-size:18px 18px}
+body.hades-garden .local-graph,body.hades-garden .global-graph{border-radius:4px}
+body.hades-garden .garden-context .context-section{padding-block-end:.75rem;margin-block-end:.85rem}
+body.hades-garden .garden-context .section-heading h2{font-size:.92rem;font-weight:550}
+@media screen and (min-width:901px){
+  :root{--topbar-height:3.25rem;--workspace-ribbon-width:44px}
+  body.hades-garden .garden-topbar{height:var(--topbar-height);padding-inline:1rem;background:var(--surface)}
+  body.hades-garden .topbar-links{gap:1.2rem}
+  body.hades-garden .topbar-links a{font-size:.8rem}
+  body.hades-garden .workspace-ribbon{position:fixed;inset-block-start:var(--topbar-height);inset-block-end:0;inset-inline-start:0;z-index:35;display:flex;flex-direction:column;align-items:center;gap:3px;width:var(--workspace-ribbon-width);padding:8px 3px;background:var(--subtle);border-inline-end:1px solid var(--line)}
+  .workspace-ribbon :is(a,button){display:flex;align-items:center;justify-content:center;flex:none;width:36px;height:36px;min-height:36px;padding:7px;border:1px solid transparent;border-radius:5px;color:var(--muted);text-decoration:none;background:transparent}
+  .workspace-ribbon :is(a,button):hover,.workspace-ribbon button[aria-pressed=true]{color:var(--ink);background:var(--surface);border-color:var(--line)}
+  .workspace-ribbon button[aria-pressed=true]{box-shadow:inset -2px 0 var(--brand)}
+  .workspace-ribbon :is(a,button):focus-visible{outline-offset:-2px}
+  .workspace-ribbon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}
+  .workspace-ribbon .ribbon-home{margin-block-start:auto}
+  .workspace-ribbon .ribbon-context{display:none}
+  body.hades-garden .garden-layout,body.hades-garden.is-directory .garden-layout{max-width:none;gap:0;padding:0;padding-inline-start:var(--workspace-ribbon-width);min-height:calc(100dvh - var(--topbar-height));align-items:start}
+  /* Do not reserve ribbon space in no-JS fallback. */
+  body.hades-garden:has(.workspace-ribbon[hidden]) .garden-layout{padding-inline-start:0}
+  body.hades-garden .garden-navigation,body.hades-garden.is-directory .garden-navigation{position:sticky;top:var(--topbar-height);max-height:calc(100dvh - var(--topbar-height));min-height:calc(100dvh - var(--topbar-height));padding:.85rem .65rem;background:var(--surface);border-radius:0;box-shadow:none}
+  body.hades-garden .garden-navigation .garden-wordmark{margin-block-end:.65rem;padding-inline:.25rem}
+  body.hades-garden .garden-navigation .garden-wordmark>span{font-size:1rem}
+  body.hades-garden .garden-navigation .garden-wordmark small{font-size:.74rem}
+  body.hades-garden .garden-navigation .garden-search-button{min-height:36px;padding:.4rem .55rem;font-size:.78rem}
+  body.hades-garden .garden-navigation .workspace-tree-filter input{min-height:34px}
+  body.hades-garden .garden-content{padding:1rem clamp(1rem,2.1vw,2rem) 3rem}
+  body.hades-garden.is-directory .garden-content{max-width:78rem;padding:1rem clamp(1rem,2.4vw,2.4rem) 3rem}
+  body.hades-garden .workspace-strip{margin-block-end:1rem;padding:.15rem .25rem 0;min-height:38px}
+  body.hades-garden .workspace-strip :is(a,button,.workspace-current){min-height:36px;padding-block:.3rem}
+  body.hades-garden .workspace-pane-tools{margin-block:-.35rem .8rem}
+  body.hades-garden .note-header{padding-block-end:1.15rem;margin-block-end:1.25rem}
+  body.hades-garden .atlas-preview-section{padding:1rem;margin-block:1rem 1.75rem}
+  body.hades-garden .atlas-preview-header{margin-block-end:.6rem}
+  body.hades-garden .atlas-preview{height:clamp(19rem,38vh,28rem)}
+  body.hades-garden.is-directory .note-body .garden-post-list--editorial{gap:1.25rem}
+  body.hades-garden.is-directory .note-body .garden-post-list--editorial>.is-featured{gap:1.25rem}
+}
+@media screen and (min-width:1241px){
+  .workspace-ribbon .ribbon-context{display:flex}
+  body.hades-garden .garden-context{position:sticky;top:var(--topbar-height);min-height:calc(100dvh - var(--topbar-height));max-height:calc(100dvh - var(--topbar-height));padding:.85rem .75rem;background:var(--surface);border-radius:0;box-shadow:none}
+}
+@media(prefers-reduced-motion:no-preference){
+  .workspace-ribbon :is(a,button){transition:background-color .15s,color .15s,border-color .15s}
+}
+@media print{.workspace-ribbon{display:none!important}}
