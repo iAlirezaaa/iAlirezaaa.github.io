@@ -433,3 +433,10 @@ body.hades-garden.is-directory .explorer-status{min-height:2.4rem}
   body.hades-garden.is-directory .note-body .garden-post-list--editorial .post-card-summary{display:block;overflow:visible}
   .graph-layout-reset{display:none!important}
 }
+
+/* The inspector must not move the graph or reset/zoom controls as focus changes. */
+.garden-dialog.graph-dialog{scrollbar-gutter:stable}
+.graph-dialog .graph-atlas-meta{display:grid;grid-template-columns:minmax(0,1fr);gap:.15rem;min-width:0;align-items:start}
+.graph-dialog .graph-atlas-meta [data-graph-count]{min-width:0;line-height:1.7}
+.graph-dialog .graph-atlas-meta [data-graph-detail]{min-width:0;block-size:3.6em;line-height:1.8;overflow-y:auto;overflow-wrap:anywhere;overscroll-behavior:contain;scrollbar-gutter:stable}
+@media(min-width:901px){.graph-dialog .graph-atlas-meta{grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:.5rem}}

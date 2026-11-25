@@ -175,6 +175,7 @@ try:
             # Responsive reflow can change the coordinate system when inspector text wraps.
             # Compare actual relative positions to the original home position, not stale pixels.
             position = """el=>{const v=el.ownerSVGElement.viewBox.baseVal;return [Number(el.getAttribute('cx'))/v.width,Number(el.getAttribute('cy'))/v.height]}"""
+            page.wait_for_function("""()=>{const c=document.querySelector('[data-global-graph]'),v=c.querySelector('svg').viewBox.baseVal;return v.width===Math.max(200,c.clientWidth)&&v.height===Math.max(200,c.clientHeight)}""")
             original_normalized = dot.evaluate(position)
             original = (float(dot.get_attribute('cx')), float(dot.get_attribute('cy')))
             box = dot.bounding_box()
@@ -204,7 +205,10 @@ try:
             node.press('ArrowRight')
             assert float(dot.get_attribute('cx')) > moved[0]
             assert graph.evaluate(check_labels)['intersections'] == 0
-            page.locator('[data-graph-zoom="reset"]').click()
+            reset_button = page.locator('[data-graph-zoom="reset"]')
+            reset_button.scroll_into_view_if_needed()
+            reset_button.click()
+            assert graph.get_attribute('data-layout-changed') is None, (width, 'reset click did not fire')
             reset_normalized = dot.evaluate(position)
             assert max(abs(a-b) for a,b in zip(original_normalized, reset_normalized)) < .003, (width, 'reset relative position', original_normalized, reset_normalized)
             assert graph.get_attribute('data-layout-changed') is None

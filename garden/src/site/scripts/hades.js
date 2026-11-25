@@ -353,7 +353,9 @@ function initializeGarden() {
       const neighbors=new Set([id]);
       for(const e of edgeEls){const connected=e.source.id===id||e.target.id===id;e.line.classList.toggle('is-related',id!==null&&connected);e.line.classList.toggle('is-dim',id!==null&&!connected);if(connected){neighbors.add(e.source.id);neighbors.add(e.target.id);}}
       for(const n of nodeEls){n.a.classList.toggle('is-related',id!==null&&neighbors.has(n.id));n.a.classList.toggle('is-dim',id!==null&&!neighbors.has(n.id));}
-      if(status)status.textContent=id===null?'یک نود را انتخاب یا با صفحه‌کلید روی آن فوکوس کن.':byId.get(id).title+' · '+numbers.format(byId.get(id).degree)+' ارتباط'+(local?' در این نما':'');
+      // Retain the inspected title after leaving a node. Clearing text on blur
+      // moves the graph and its controls during pointerdown, losing clicks.
+      if(status&&id!==null)status.textContent=byId.get(id).title+' · '+numbers.format(byId.get(id).degree)+' ارتباط'+(local?' در این نما':'');
       placeLabels();
     }
     for(const [i,node] of nodes.entries()){
@@ -368,7 +370,7 @@ function initializeGarden() {
       updateLabel();
       a.append(label);group.append(a);
       // Keep one mutable node record shared by circles, labels and its edges.
-      Object.assign(node,{a,dot,hit,label,radius,homeX:node.x,homeY:node.y,updateLabel});
+      Object.assign(node,{a,dot,hit,label,radius,homeX:node.x/width,homeY:node.y/height,updateLabel});
       nodeEls.push(node);
       installNodeDrag(node);
       a.addEventListener('pointerenter',()=>prioritize(node.id));
@@ -441,7 +443,7 @@ function initializeGarden() {
       const sorted=[...nodeEls].sort((a,b)=>Number(b.id===active)-Number(a.id===active)||Number(b.current)-Number(a.current)||b.degree-a.degree||String(a.id).localeCompare(String(b.id)));
       for(const n of sorted){
         n.label.style.visibility='hidden';
-        if(mode==='off'&&n.id!==active)continue;
+        if(mode==='off')continue;
         if(mode==='focus'&&n.id!==active&&!n.current)continue;
         const offsets=[[0,n.radius+17],[0,-n.radius-8],[n.radius+8,4],[-n.radius-8,4]];
         for(const [dx,dy] of offsets){
@@ -459,7 +461,7 @@ function initializeGarden() {
       const w=Math.max(200,container.clientWidth),h=Math.max(200,container.clientHeight);
       if(w!==width||h!==height){
         const sx=w/width,sy=h/height;
-        for(const n of nodeEls){n.x*=sx;n.y*=sy;n.homeX*=sx;n.homeY*=sy;}
+        for(const n of nodeEls){n.x*=sx;n.y*=sy;}
         state.dx*=sx;state.dy*=sy;width=w;height=h;state.width=w;state.height=h;compact=w<460;
         svg.setAttribute('viewBox','0 0 '+w+' '+h);
         for(const n of nodeEls)n.updateLabel();
@@ -469,7 +471,7 @@ function initializeGarden() {
     };
     state.reset=()=>{
       state.reflow();
-      for(const n of nodeEls){n.x=n.homeX;n.y=n.homeY;}
+      for(const n of nodeEls){n.x=n.homeX*width;n.y=n.homeY*height;}
       state.scale=1;state.dx=0;state.dy=0;delete container.dataset.layoutChanged;
       if(resetButton)resetButton.hidden=true;
       updateGeometry();state.apply();
