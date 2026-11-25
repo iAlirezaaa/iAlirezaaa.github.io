@@ -1,5 +1,6 @@
 """Chromium smoke test for built blog knowledge atlas; no production claims."""
 import json
+from html.parser import HTMLParser
 import pathlib
 import subprocess
 import sys
@@ -34,6 +35,18 @@ try:
     # Compare canonical URL sets against the actual built graph, not a hard-coded count.
     raw_graph = json.loads((root / 'dist/fa/garden/graph.json').read_text(encoding='utf-8'))
     expected_urls = sorted(n['url'] for n in raw_graph['nodes'].values() if not n.get('hide') and not n.get('private'))
+    class TreeLinks(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.urls = []
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == 'a' and attrs.get('href'):
+                self.urls.append(attrs['href'])
+    tree_parser = TreeLinks()
+    tree_parser.feed((root / 'dist/fa/garden/filetree.html').read_text(encoding='utf-8'))
+    expected_tree_urls = sorted(tree_parser.urls)
+    assert set(expected_urls) <= set(expected_tree_urls), ('built tree misses public nodes', expected_urls, expected_tree_urls)
     snapshot = """el => ({ready:el.dataset.graphReady, kind:el.dataset.graphKind, count:Number(el.dataset.graphCount), urls:[...el.querySelectorAll('.graph-node')].map(a=>a.getAttribute('href')).sort()})"""
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
@@ -45,22 +58,24 @@ try:
             # Workspace explorer stays docked on desktop and uses the existing accessible drawer on phones.
             nav = page.locator('#garden-navigation')
             query = page.locator('[data-tree-filter]')
-            page.wait_for_selector('[data-tree-filter-box]:not([hidden])', state='attached')
+            page.wait_for_selector('[data-filetree][data-tree-ready="true"] .tree-note a', state='attached')
             if width <= 900:
                 assert nav.evaluate('(el)=>el.inert')
                 page.locator('.mobile-tree-toggle').click()
             assert nav.is_visible() and not nav.evaluate('(el)=>el.inert'), (width,'explorer unavailable')
             assert page.locator('.workspace-strip').count() == 1
-            all_titles = page.locator('#workspace-filetree .tree-note').count()
-            assert all_titles >= len(expected_urls)
+            tree = nav.locator('[data-filetree]')
+            urls = tree.evaluate("el=>[...el.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).sort()")
+            assert urls == expected_tree_urls, (width, 'rendered tree URL parity', urls, expected_tree_urls, tree.inner_html()[:1000])
+            all_titles = len(urls)
             query.fill('DDPM')
-            visible_titles = page.locator('#workspace-filetree .tree-note:not([hidden]) a')
+            visible_titles = page.locator('[data-filetree] .tree-note:not([hidden]) a')
             assert visible_titles.count() >= 1 and visible_titles.count() < all_titles
             assert any('DDPM' in title for title in visible_titles.all_text_contents())
             query.fill('zz-no-such-title-zz')
-            assert page.locator('#workspace-filetree .tree-note:not([hidden])').count() == 0
+            assert page.locator('[data-filetree] .tree-note:not([hidden])').count() == 0
             query.press('Escape')
-            assert query.input_value() == '' and page.locator('#workspace-filetree .tree-note:not([hidden])').count() == all_titles
+            assert query.input_value() == '' and page.locator('[data-filetree] .tree-note:not([hidden])').count() == all_titles
             if width <= 900:
                 page.keyboard.press('Escape')
                 assert nav.evaluate('(el)=>el.inert')

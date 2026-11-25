@@ -197,7 +197,7 @@ function initializeGarden() {
   }
   if(tree)fetch(BASE+'filetree.html').then(response=>{if(!response.ok)throw new Error('Tree unavailable');return response.text();}).then(markup=>{
     const parsed=new DOMParser().parseFromString(markup,'text/html');
-    tree.replaceChildren(...parsed.body.childNodes);markNavigation();if(treeFilterBox)treeFilterBox.hidden=false;filterTree();
+    tree.replaceChildren(...parsed.body.childNodes);markNavigation();filterTree();tree.dataset.treeReady='true';if(treeFilterBox)treeFilterBox.hidden=false;
   }).catch(()=>{tree.replaceChildren(textElement('p','فهرست دریافت نشد. از جست‌وجو یا پیوندهای متن استفاده کن.','muted'));});
   markNavigation();
   $('[data-tree-collapse]')?.addEventListener('click',()=>{const folders=$$('details',tree);const allClosed=folders.every(d=>!d.open);folders.forEach(d=>{d.open=allClosed;});$('[data-tree-collapse]').textContent=allClosed?'جمع کردن':'باز کردن';});
