@@ -218,6 +218,30 @@ try:
             related = page.locator('[data-reading-related]')
             actual = sorted(related.locator('a[href]').evaluate_all("(els)=>els.map(a=>a.getAttribute('href'))"))
             assert actual == related_urls, (width, actual, related_urls)
+            local = page.locator('[data-local-graph]')
+            if width < 1241:
+                page.locator('.mobile-context-toggle').click()
+            local.wait_for(state='visible')
+            page.wait_for_selector('[data-local-graph][data-graph-ready="true"] .graph-node')
+            page.evaluate("document.fonts.ready")
+            center = local.locator('.graph-node[data-current="true"]')
+            assert center.count() == 1
+            assert center.evaluate("""el=>{const s=el.closest('svg').viewBox.baseVal; const c=el.querySelector('circle:not(.graph-hit)');return Math.abs(Number(c.getAttribute('cx'))-s.width/2)<1&&Math.abs(Number(c.getAttribute('cy'))-s.height/2)<1}""")
+            detail = page.locator('[data-local-detail]')
+            assert center.get_attribute('aria-label') in detail.inner_text()
+            assert 'ارتباط' in page.locator('[data-local-count]').inner_text()
+            other = local.locator('.graph-node[data-current="false"]').first
+            if other.count():
+                other.focus()
+                assert other.get_attribute('aria-label') in detail.inner_text()
+                assert local.locator('.graph-edge.is-related').count() > 0
+                center.focus()
+                assert center.get_attribute('aria-label') in detail.inner_text()
+            assert local.evaluate(check_labels)['intersections'] == 0
+            page.locator('[data-local-graph-section]').screenshot(path=str(output / f"local-inspector-{width}.png"))
+            if width < 1241:
+                page.keyboard.press('Escape')
+                assert not page.locator('#garden-context').is_visible()
             relation_filter = related.locator('[data-reading-relation]')
             if related_urls:
                 assert relation_filter.is_visible()
