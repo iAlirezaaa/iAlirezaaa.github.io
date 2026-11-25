@@ -105,3 +105,20 @@ body[data-garden-page="/fa/blog/"] .garden-directory-nav a{border-radius:2px;bac
 .hades-figure-viewer [hidden]{display:none!important}
 @media(max-width:600px){.hades-figure-viewer{width:calc(100% - 1rem);max-height:calc(100dvh - 1rem)}.figure-viewer-stage img{max-height:52dvh}}
 @media print{.hades-figure-viewer{display:none!important}}
+
+/* Unified editorial index: articles and published knowledge notes share one entrance. */
+.blog-directory .blog-index-section-title,.blog-directory .blog-knowledge-heading h2{font-weight:550;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.65;margin-block:.25rem .65rem}
+.blog-knowledge-index{margin-block:3rem 1.5rem;padding-block-start:1.5rem;border-block-start:1px solid var(--line);scroll-margin-top:6rem}
+.blog-knowledge-heading{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap}
+.blog-knowledge-heading .editorial-kicker{font-size:.82rem;color:var(--accent);margin:0}
+.blog-knowledge-heading button{min-height:44px;border-radius:2px}
+.blog-knowledge-index>p{color:var(--muted);font-size:.95rem}
+.note-body .blog-knowledge-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;list-style:none;padding:0;margin-block:1.2rem 0}
+.note-body .blog-knowledge-grid>li{margin:0;min-width:0}
+.note-body .blog-knowledge-grid>li>a{height:100%;min-height:44px;display:flex;flex-direction:column;gap:.45rem;padding:1rem 1.15rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;overflow-wrap:anywhere;transition:border-color .18s}
+.note-body .blog-knowledge-grid>li>a:hover,.note-body .blog-knowledge-grid>li>a:focus-visible{border-color:var(--accent)}
+.blog-knowledge-grid a>span:first-child{font-size:1.05rem;font-weight:550;line-height:1.8}
+.blog-knowledge-grid small{font-size:.86rem;color:var(--muted);line-height:1.9}
+.knowledge-card-arrow{align-self:end;margin-block-start:auto;color:var(--accent)}
+@media(max-width:600px){.note-body .blog-knowledge-grid{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.note-body .blog-knowledge-grid>li>a{transition:none}}
