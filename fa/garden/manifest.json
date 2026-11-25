@@ -7,25 +7,26 @@
   "notes": [
     {
       "id": "home",
-      "title": "باغ دیجیتال هادس",
-      "url": "/fa/garden/",
+      "title": "راهنمای مطالعهٔ وبلاگ هادس",
+      "url": "/fa/blog/notes/start/",
       "source": "خانه.md",
+      "legacyUrl": "/fa/garden/",
       "text": "یادداشت‌هایی به‌هم‌پیوسته دربارهٔ هوش مصنوعی، تصویرسازی و ساختن؛ جایی برای دنبال کردن ایده‌ها از یک مفهوم به مفهوم بعدی.",
-      "group": "شروع",
+      "group": "مسیرهای مطالعه",
       "tags": [],
       "aliases": [
-        "باغ دیجیتال هادس",
+        "راهنمای مطالعهٔ وبلاگ هادس",
         "خانه",
         "خانه",
         "خانه",
         "Home"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/seed/",
-        "/fa/garden/ddpm/",
-        "/fa/garden/latent-diffusion/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/seed/",
+        "/fa/blog/notes/ddpm/",
+        "/fa/blog/notes/latent-diffusion/",
         "/fa/blog/"
       ],
       "backlinks": [],
@@ -54,8 +55,9 @@
     {
       "id": "diffusion",
       "title": "دیفیوژن؛ از نویز تا تصویر",
-      "url": "/fa/garden/diffusion/",
+      "url": "/fa/blog/notes/diffusion/",
       "source": "مسیرهای مطالعه/دیفیوژن.md",
+      "legacyUrl": "/fa/garden/diffusion/",
       "text": "یک مسیر مطالعه برای رسیدن از نویز و بذر تصادفی به DDPM و دیفیوژن نهفته، همراه با نوشتهٔ تصویری اصلی.",
       "group": "مسیر مطالعه",
       "tags": [
@@ -71,10 +73,10 @@
         "دیفیوژن"
       ],
       "links": [
-        "/fa/garden/noise/",
-        "/fa/garden/seed/",
-        "/fa/garden/ddpm/",
-        "/fa/garden/latent-diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/seed/",
+        "/fa/blog/notes/ddpm/",
+        "/fa/blog/notes/latent-diffusion/",
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
@@ -83,11 +85,11 @@
         "/fa/blog/controlnet-depth/",
         "/fa/blog/diffusion-from-noise/",
         "/fa/blog/dreambooth-character-continuity/",
-        "/fa/garden/",
-        "/fa/garden/seed/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/ddpm/"
+        "/fa/blog/notes/start/",
+        "/fa/blog/notes/seed/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/ddpm/"
       ],
       "headings": [
         {
@@ -114,8 +116,9 @@
     {
       "id": "seed",
       "title": "بذر تصادفی",
-      "url": "/fa/garden/seed/",
+      "url": "/fa/blog/notes/seed/",
       "source": "مفاهیم/بذر تصادفی.md",
+      "legacyUrl": "/fa/garden/seed/",
       "text": "بذر تصادفی یا Seed به تعیین نقطهٔ شروع نمونه‌گیری کمک می‌کند و برای مقایسهٔ نتیجه‌ها مفید است.",
       "group": "مفهوم",
       "tags": [
@@ -131,8 +134,8 @@
         "بذر"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/"
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/"
       ],
       "backlinks": [
         "/fa/blog/cfg-diffusion-guidance/",
@@ -140,9 +143,9 @@
         "/fa/blog/controlnet-depth/",
         "/fa/blog/diffusion-from-noise/",
         "/fa/blog/dreambooth-character-continuity/",
-        "/fa/garden/",
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/"
+        "/fa/blog/notes/start/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/"
       ],
       "headings": [
         {
@@ -165,8 +168,9 @@
     {
       "id": "latent-diffusion",
       "title": "دیفیوژن نهفته",
-      "url": "/fa/garden/latent-diffusion/",
+      "url": "/fa/blog/notes/latent-diffusion/",
       "source": "مفاهیم/دیفیوژن نهفته.md",
+      "legacyUrl": "/fa/garden/latent-diffusion/",
       "text": "دیفیوژن نهفته، فرایند ساخت تصویر را در یک نمایش فشرده‌تر از تصویر انجام می‌دهد.",
       "group": "مفهوم",
       "tags": [
@@ -182,9 +186,9 @@
         "انتشار نهفته"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/ddpm/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/ddpm/",
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
@@ -193,9 +197,9 @@
         "/fa/blog/controlnet-depth/",
         "/fa/blog/diffusion-from-noise/",
         "/fa/blog/dreambooth-character-continuity/",
-        "/fa/garden/",
-        "/fa/garden/diffusion/",
-        "/fa/garden/ddpm/"
+        "/fa/blog/notes/start/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/ddpm/"
       ],
       "headings": [
         {
@@ -218,8 +222,9 @@
     {
       "id": "noise",
       "title": "نویز",
-      "url": "/fa/garden/noise/",
+      "url": "/fa/blog/notes/noise/",
       "source": "مفاهیم/نویز.md",
+      "legacyUrl": "/fa/garden/noise/",
       "text": "نویز در مدل‌های انتشار، نقطهٔ شروع فرایند ساخت تصویر است؛ یک مفهوم پایه برای فهم دیفیوژن.",
       "group": "مفهوم",
       "tags": [
@@ -234,9 +239,9 @@
         "Noise"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/ddpm/",
-        "/fa/garden/seed/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/ddpm/",
+        "/fa/blog/notes/seed/",
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
@@ -245,11 +250,11 @@
         "/fa/blog/controlnet-depth/",
         "/fa/blog/diffusion-from-noise/",
         "/fa/blog/dreambooth-character-continuity/",
-        "/fa/garden/",
-        "/fa/garden/diffusion/",
-        "/fa/garden/seed/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/ddpm/"
+        "/fa/blog/notes/start/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/seed/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/ddpm/"
       ],
       "headings": [
         {
@@ -272,8 +277,9 @@
     {
       "id": "ddpm",
       "title": "روش DDPM",
-      "url": "/fa/garden/ddpm/",
+      "url": "/fa/blog/notes/ddpm/",
       "source": "مقاله‌ها/DDPM.md",
+      "legacyUrl": "/fa/garden/ddpm/",
       "text": "یادداشتی برای وصل کردن روش DDPM به ایدهٔ حذف نویز و مدل‌های دیفیوژن.",
       "group": "مقاله و روش",
       "tags": [
@@ -289,9 +295,9 @@
         "Denoising Diffusion Probabilistic Models"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/latent-diffusion/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/latent-diffusion/",
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
@@ -300,10 +306,10 @@
         "/fa/blog/controlnet-depth/",
         "/fa/blog/diffusion-from-noise/",
         "/fa/blog/dreambooth-character-continuity/",
-        "/fa/garden/",
-        "/fa/garden/diffusion/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/noise/"
+        "/fa/blog/notes/start/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/noise/"
       ],
       "headings": [
         {
@@ -328,6 +334,7 @@
       "title": "نوشته‌ها و مقاله‌ها",
       "url": "/fa/blog/",
       "source": "نوشته‌ها/همهٔ نوشته‌ها.md",
+      "legacyUrl": null,
       "text": "از مفاهیم پایهٔ هوش مصنوعی تا مقاله‌های پژوهشی و ابزارهای ساخت تصویر و انیمیشن.",
       "group": "نوشته‌ها",
       "tags": [],
@@ -337,7 +344,7 @@
         "نوشته‌ها/همهٔ نوشته‌ها"
       ],
       "links": [
-        "/fa/garden/",
+        "/fa/blog/",
         "/fa/blog/dreambooth-character-continuity/",
         "/fa/blog/rife-frame-interpolation/",
         "/fa/blog/cfg-diffusion-guidance/",
@@ -346,7 +353,9 @@
         "/fa/blog/diffusion-from-noise/"
       ],
       "backlinks": [
-        "/fa/garden/"
+        "/fa/blog/rife-frame-interpolation/",
+        "/fa/blog/notes/start/",
+        "/fa/blog/"
       ],
       "headings": [],
       "articleUrl": null,
@@ -362,6 +371,7 @@
       "title": "دسته‌بندی‌ها",
       "url": "/fa/blog/categories/",
       "source": "راهنماها/دسته‌بندی‌ها.md",
+      "legacyUrl": null,
       "text": "مسیرهای مطالعه بر اساس نوع نوشته: شرح پژوهش، تحلیل ریپو و مفاهیم پایه.",
       "group": "راهنماها",
       "tags": [],
@@ -386,6 +396,7 @@
       "title": "برچسب‌ها",
       "url": "/fa/blog/tags/",
       "source": "راهنماها/برچسب‌ها.md",
+      "legacyUrl": null,
       "text": "موضوع‌های نوشته‌ها و مقاله‌های هادس.",
       "group": "راهنماها",
       "tags": [],
@@ -410,6 +421,7 @@
       "title": "شرح مقاله‌های هوش مصنوعی",
       "url": "/fa/blog/categories/papers/",
       "source": "راهنماها/دسته‌ها/papers.md",
+      "legacyUrl": null,
       "text": "ایدهٔ اصلی پژوهش‌ها، به زبان ساده و همراه با شکل‌ها و مثال‌های کاربردی.",
       "group": "راهنماها",
       "tags": [],
@@ -434,6 +446,7 @@
       "title": "تحلیل ریپوها",
       "url": "/fa/blog/categories/repo-analysis/",
       "source": "راهنماها/دسته‌ها/repo-analysis.md",
+      "legacyUrl": null,
       "text": "سر زدن به کد و مستندات ابزارهای متن‌باز، برای اینکه ببینیم چطور کار می‌کنند و کجا به درد می‌خورند.",
       "group": "راهنماها",
       "tags": [],
@@ -458,6 +471,7 @@
       "title": "پایه‌های هوش مصنوعی",
       "url": "/fa/blog/categories/fundamentals/",
       "source": "راهنماها/دسته‌ها/fundamentals.md",
+      "legacyUrl": null,
       "text": "مفهوم‌های پایه با مثال‌هایی که از دل کارِ ساخت تصویر و انیمیشن می‌آیند.",
       "group": "راهنماها",
       "tags": [],
@@ -482,6 +496,7 @@
       "title": "پایه‌های هوش مصنوعی",
       "url": "/fa/blog/tags/ai-basics/",
       "source": "راهنماها/برچسب‌ها/ai-basics.md",
+      "legacyUrl": null,
       "text": "نوشته‌های هادس با برچسب «پایه‌های هوش مصنوعی».",
       "group": "راهنماها",
       "tags": [],
@@ -506,6 +521,7 @@
       "title": "دیفیوژن",
       "url": "/fa/blog/tags/diffusion/",
       "source": "راهنماها/برچسب‌ها/diffusion.md",
+      "legacyUrl": null,
       "text": "نوشته‌های هادس با برچسب «دیفیوژن».",
       "group": "راهنماها",
       "tags": [],
@@ -530,6 +546,7 @@
       "title": "تصویرسازی با هوش مصنوعی",
       "url": "/fa/blog/tags/ai-image-making/",
       "source": "راهنماها/برچسب‌ها/ai-image-making.md",
+      "legacyUrl": null,
       "text": "نوشته‌های هادس با برچسب «تصویرسازی با هوش مصنوعی».",
       "group": "راهنماها",
       "tags": [],
@@ -554,6 +571,7 @@
       "title": "شرح مقاله",
       "url": "/fa/blog/tags/paper-explainer/",
       "source": "راهنماها/برچسب‌ها/paper-explainer.md",
+      "legacyUrl": null,
       "text": "نوشته‌های هادس با برچسب «شرح مقاله».",
       "group": "راهنماها",
       "tags": [],
@@ -578,6 +596,7 @@
       "title": "ComfyUI",
       "url": "/fa/blog/tags/comfyui/",
       "source": "راهنماها/برچسب‌ها/comfyui.md",
+      "legacyUrl": null,
       "text": "نوشته‌های هادس با برچسب «ComfyUI».",
       "group": "راهنماها",
       "tags": [],
@@ -602,6 +621,7 @@
       "title": "گردش‌کار",
       "url": "/fa/blog/tags/workflow/",
       "source": "راهنماها/برچسب‌ها/workflow.md",
+      "legacyUrl": null,
       "text": "نوشته‌های هادس با برچسب «گردش‌کار».",
       "group": "راهنماها",
       "tags": [],
@@ -626,6 +646,7 @@
       "title": "پایتون",
       "url": "/fa/blog/tags/python/",
       "source": "راهنماها/برچسب‌ها/python.md",
+      "legacyUrl": null,
       "text": "نوشته‌های هادس با برچسب «پایتون».",
       "group": "راهنماها",
       "tags": [],
@@ -650,6 +671,7 @@
       "title": "همون فضانورده، یا فقط یه فضانورد شبیهشه؟",
       "url": "/fa/blog/dreambooth-character-continuity/",
       "source": "نوشته‌ها/dreambooth-character-continuity.md",
+      "legacyUrl": null,
       "text": "چرا پرامپت یکسان همیشه همون کاراکتر رو برنمی‌گردونه؟ مقالهٔ DreamBooth رو با مثال یه عروسک فضانورد می‌خونیم و برای سنجش راکورد سه معیار می‌ذاریم.",
       "group": "مقاله‌ها",
       "tags": [
@@ -663,11 +685,11 @@
         "نوشته‌ها/dreambooth-character-continuity"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/ddpm/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/seed/"
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/ddpm/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/seed/"
       ],
       "backlinks": [
         "/fa/blog/"
@@ -691,6 +713,7 @@
       "title": "یه فریم وسط می‌سازه؛ از کجا می‌فهمه دست پشت ستون رفته؟",
       "url": "/fa/blog/rife-frame-interpolation/",
       "source": "نوشته‌ها/rife-frame-interpolation.md",
+      "legacyUrl": null,
       "text": "ریپوی RIFE رو از فرمان ساخت یک فریم میانی تا جریان حرکت و مشکل پنهان‌شدن پشت ستون باز می‌کنیم، تا بدونیم کِی توی تدوین به درد می‌خوره.",
       "group": "مقاله‌ها",
       "tags": [
@@ -703,7 +726,7 @@
         "نوشته‌ها/rife-frame-interpolation"
       ],
       "links": [
-        "/fa/garden/"
+        "/fa/blog/"
       ],
       "backlinks": [
         "/fa/blog/"
@@ -722,6 +745,7 @@
       "title": "CFG رو زیاد کردی؛ چرا چراغ بهتر شد ولی کل قاب خراب شد؟",
       "url": "/fa/blog/cfg-diffusion-guidance/",
       "source": "نوشته‌ها/cfg-diffusion-guidance.md",
+      "legacyUrl": null,
       "text": "CFG توی مدل دیفیوژن چی رو تغییر می‌ده؟ با مقایسهٔ سه عدد برای نور یه چراغ قرمز، می‌بینیم چطور پایبندی به متن رو جدا از کیفیت قاب بسنجیم.",
       "group": "مقاله‌ها",
       "tags": [
@@ -735,11 +759,11 @@
         "نوشته‌ها/cfg-diffusion-guidance"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/ddpm/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/seed/"
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/ddpm/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/seed/"
       ],
       "backlinks": [
         "/fa/blog/"
@@ -763,6 +787,7 @@
       "title": "چطور با ControlNet قاب رو نگه داریم، ولی ظاهرش رو عوض کنیم؟",
       "url": "/fa/blog/controlnet-depth/",
       "source": "نوشته‌ها/controlnet-depth.md",
+      "legacyUrl": null,
       "text": "وقتی پرامپت ظاهر خوبی می‌ده ولی در و دیوار رو جابه‌جا می‌کنه، یه نقشهٔ عمق به مدل می‌گه کدوم بخش‌های قاب نزدیک‌ترن. با یه مثال راهرو می‌بینیم کجا کمک می‌کنه و کجا نه.",
       "group": "مقاله‌ها",
       "tags": [
@@ -777,11 +802,11 @@
         "نوشته‌ها/controlnet-depth"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/ddpm/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/seed/"
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/ddpm/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/seed/"
       ],
       "backlinks": [
         "/fa/blog/"
@@ -805,6 +830,7 @@
       "title": "کالبدشکافی ریپوی ComfyUI: وقتی Queue می‌زنی، پشت صحنه چه می‌گذره؟",
       "url": "/fa/blog/comfyui-repo-review/",
       "source": "نوشته‌ها/comfyui-repo-review.md",
+      "legacyUrl": null,
       "text": "از Queue تا PNG: ورودی هر نود، کار کش، فرق دو نوع JSON و تحویل گردش‌کارِ قابل‌بازتولید در ComfyUI.",
       "group": "مقاله‌ها",
       "tags": [
@@ -820,11 +846,11 @@
         "نوشته‌ها/comfyui-repo-review"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/ddpm/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/seed/"
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/ddpm/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/seed/"
       ],
       "backlinks": [
         "/fa/blog/"
@@ -848,6 +874,7 @@
       "title": "چطور از برفک، تصویر درمیاد؟",
       "url": "/fa/blog/diffusion-from-noise/",
       "source": "نوشته‌ها/diffusion-from-noise.md",
+      "legacyUrl": null,
       "text": "مدل‌های دیفیوژن چطور از نویز تصادفی تصویر می‌سازن؟ ایدهٔ مقالهٔ DDPM رو با یه فانوس دریایی، راهنمای شکل اصلی مقاله و یه تمرین ساده مرور می‌کنیم.",
       "group": "مقاله‌ها",
       "tags": [
@@ -862,17 +889,17 @@
         "نوشته‌ها/diffusion-from-noise"
       ],
       "links": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/ddpm/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/seed/"
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/ddpm/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/seed/"
       ],
       "backlinks": [
-        "/fa/garden/diffusion/",
-        "/fa/garden/latent-diffusion/",
-        "/fa/garden/noise/",
-        "/fa/garden/ddpm/",
+        "/fa/blog/notes/diffusion/",
+        "/fa/blog/notes/latent-diffusion/",
+        "/fa/blog/notes/noise/",
+        "/fa/blog/notes/ddpm/",
         "/fa/blog/"
       ],
       "headings": [
@@ -891,12 +918,12 @@
     }
   ],
   "urls": [
-    "/fa/garden/",
-    "/fa/garden/diffusion/",
-    "/fa/garden/seed/",
-    "/fa/garden/latent-diffusion/",
-    "/fa/garden/noise/",
-    "/fa/garden/ddpm/",
+    "/fa/blog/notes/start/",
+    "/fa/blog/notes/diffusion/",
+    "/fa/blog/notes/seed/",
+    "/fa/blog/notes/latent-diffusion/",
+    "/fa/blog/notes/noise/",
+    "/fa/blog/notes/ddpm/",
     "/fa/blog/",
     "/fa/blog/categories/",
     "/fa/blog/tags/",
@@ -910,37 +937,49 @@
     "/fa/blog/comfyui-repo-review/",
     "/fa/blog/diffusion-from-noise/"
   ],
-  "sourceDigest": "b4ac3c392502c3797f5b525de99a9cb65b25554261807af2a61f4aec643e4ad4",
+  "sourceDigest": "bcc4397654573a6ea2bd8ed392ca0543d2aff78dcb24da46efa21b6769e2205e",
+  "redirects": {
+    "/fa/garden/": "/fa/blog/",
+    "/fa/garden/diffusion/": "/fa/blog/notes/diffusion/",
+    "/fa/garden/seed/": "/fa/blog/notes/seed/",
+    "/fa/garden/latent-diffusion/": "/fa/blog/notes/latent-diffusion/",
+    "/fa/garden/noise/": "/fa/blog/notes/noise/",
+    "/fa/garden/ddpm/": "/fa/blog/notes/ddpm/"
+  },
   "assets": {
-    "/fa/garden/~random/index.html": "179566aa20c5dd59395bc745bc4afda74f20d0310c30268330982ad88382a59d",
-    "/fa/garden/404/index.html": "0ef3c079b1f9c72b87387d02a156f7d77d064500cee19445900d67f004e4f692",
-    "/fa/garden/ddpm/index.html": "fd5112e65bc9332f344a299ffaac7fba1b44b3dc5a27c81d108b827006aff3c2",
-    "/fa/garden/diffusion/index.html": "372b617f9fac16be35e1ac8738cd54404be010229c3a3ded2c2a07c03e955625",
-    "/fa/blog/categories/fundamentals/index.html": "201b767723f05efc29900abaed8cb7dd9e16c5a92675350f8263db2ed85d0595",
-    "/fa/blog/categories/index.html": "10d169b6ebe882f84e733fadfa7889dc60b5f6d30edd6c56dda05e589b62227f",
-    "/fa/blog/categories/papers/index.html": "0c20e25b644cd26e5694ab7172371664ae6657e5c149d55f1a39bad982a359a5",
-    "/fa/blog/categories/repo-analysis/index.html": "6296f505ee59bab9b2c299340f42a8c9adda5b2323c03d17a5a61df58a4b8599",
-    "/fa/blog/cfg-diffusion-guidance/index.html": "0a673e8abc30af0763dfd50e748914b3c489ebda966b0ebfb6a1bd10dc4821be",
-    "/fa/blog/comfyui-repo-review/index.html": "61ecf1a4571d6de54b426b3ae69eb18db5668693446fa2b5e530066657fbf6a9",
-    "/fa/blog/controlnet-depth/index.html": "b8b5670b45e533c21e4c5bbeebc240e5a8b4eb79cfc7c8e2df434f9014abd018",
-    "/fa/blog/diffusion-from-noise/index.html": "6b5591628a666c1a8317289af0d47a612335cb92f45cf73e883170322a7f58fa",
-    "/fa/blog/dreambooth-character-continuity/index.html": "694904c7d3c7e8698f2764314b3e91d27dd164ad3492f11620b8b3b80faa6a48",
-    "/fa/blog/index.html": "add8c641f9a4e4351db15cccb01e6e7e3ba680ee27e43cdae420c43f7ba55d6f",
-    "/fa/blog/rife-frame-interpolation/index.html": "ce655f81a856b5e453edd9ed1a817b48271eb843fb24ebc1f584410e58e72863",
-    "/fa/blog/tags/ai-basics/index.html": "490b1fe60f7e161584aeded0bae7d0991dfc011a21793e4f27e765596ad82da1",
-    "/fa/blog/tags/ai-image-making/index.html": "2751b96802abf1d3e51a6a332d07a6bef4bdc5b81c0223a71fd38d22875d6716",
-    "/fa/blog/tags/comfyui/index.html": "0d60fae53135db632d535248a76206cfe953a90aca5db048bfa6dddb4f93de47",
-    "/fa/blog/tags/diffusion/index.html": "749052e9c6c8f0ab0183de7463c21e5805ae59859ad0e4d655dcf457c182e78e",
-    "/fa/blog/tags/index.html": "72c4a9fe7b921b04a34d248512fabfc4a2e2d22519b0c317551fdff2eb5e9b9f",
-    "/fa/blog/tags/paper-explainer/index.html": "ffbe12e8dfa4e742f107ea70109338aeeff0fda5231cf8b382cebd0ac4360e6a",
-    "/fa/blog/tags/python/index.html": "2adb0aa033e53e63d39a2bf2613cde8048ca0d35018b7354851ad143ef152b66",
-    "/fa/blog/tags/workflow/index.html": "47198f275ad060bf3823c09bf2ceb7afca4ab9b66eaf8f7041dc9544d2b42818",
-    "/fa/garden/feed.xml": "febc90bb9740e3460761f534110c3d125bd894198e145a5b9b25792701f9bd51",
-    "/fa/garden/filetree.html": "8840573854d801da640f92b753a36c30aa2270b0f4e831835286fbd5919c4192",
+    "/fa/garden/~random/index.html": "7f7d594f0b2722259b0cea539680d8bbe9d583d4fbe16a7bf2c07afe2a23ddf5",
+    "/fa/garden/404/index.html": "e8a4c15df0ddef6db9e4da9fac86d0bd748416c5353d7aa5d4de1df14d44eeb9",
+    "/fa/blog/categories/fundamentals/index.html": "c39e28f0a50ab8fd62fe73ccbf0ab218c280e55b5ef52832ecd65f0502451ea2",
+    "/fa/blog/categories/index.html": "e40a8b8708f0cefa1956a03ccf0675bcb89eb77f05248f70f74358e14f4a1e1a",
+    "/fa/blog/categories/papers/index.html": "b5defea0afd228f0197e493f2b5e614848f4f278b1057d72c4f858f8a10877da",
+    "/fa/blog/categories/repo-analysis/index.html": "0d786387328f4be3c3a6ae8a143e498788a3a940ce5a65c81a69861e608497b1",
+    "/fa/blog/cfg-diffusion-guidance/index.html": "4696a5dacca3154c0265639c46a2179178745fb72dcda378a122d5148dec1ee4",
+    "/fa/blog/comfyui-repo-review/index.html": "3a8a4aaf0a78a31a9b422f205b3e225ab64ed8fe275af871451d353952f440ca",
+    "/fa/blog/controlnet-depth/index.html": "e2f6490cdb3bd4a01c5a9e21efe6b6e28544a63b0e300d57f777dca0be23b6be",
+    "/fa/blog/diffusion-from-noise/index.html": "e37673b9b812f6963e0151bcda62d1891db9b51498e0828b36425771892576b2",
+    "/fa/blog/dreambooth-character-continuity/index.html": "f5a47f189749a51e569cb00b737bc0a7cee78839eea555a75143ea222f619a4c",
+    "/fa/blog/index.html": "7ad64751b7cc5c317dbb24dadd4801fc21f877d29c1bddc80cab8a61567d808c",
+    "/fa/blog/notes/ddpm/index.html": "9f57721fdaaf6bb861b6a8bad4ad22d0daa0549fdabbe6a6c4d6c79d97e3a3c6",
+    "/fa/blog/notes/diffusion/index.html": "9145c283509704e6fc678e94cd277e894bdcb765631f907ccc0b5d47970c984a",
+    "/fa/blog/notes/latent-diffusion/index.html": "4d50c8850161b0f3c46e10508e5c8485d5fa2021eace942d6593058a36bdae66",
+    "/fa/blog/notes/noise/index.html": "58848511adc0823bbd17f9ac0dff96987af10891429b83ae18854c0980bb779a",
+    "/fa/blog/notes/seed/index.html": "ac8b055f37cf763ce659a323f242acd3f5c4386b598ea7a1ae9213bfdffbb816",
+    "/fa/blog/notes/start/index.html": "dde094a7138571882e8fe90410feb5422eeb9bc0f5fc1860c7e91a1120e79766",
+    "/fa/blog/rife-frame-interpolation/index.html": "184c16bbcc664568ff9e4072a9a8979828b15906d85dee161912e19dc49f4441",
+    "/fa/blog/tags/ai-basics/index.html": "19228f7fa0cf34a22790d41df57c26b6a706fa0c8a3abf6e7d6d3cfc8b6369cb",
+    "/fa/blog/tags/ai-image-making/index.html": "6e6456e68d9236280fc00ea69c11b5744f9ca6a4dbae9131ea78327be7f72964",
+    "/fa/blog/tags/comfyui/index.html": "6facbe1c9c5259adbc45a0dbf9879bd18644d873b1682280bc059fc57165e04b",
+    "/fa/blog/tags/diffusion/index.html": "3a8a51d37a7941d99e35d1708cda97d94d70c84d289a6e614d5da390b9935df2",
+    "/fa/blog/tags/index.html": "703eadf30e1cd25aeef6fc1dd473b3205b1e6f8816d7b244e67db76c86b9f4ee",
+    "/fa/blog/tags/paper-explainer/index.html": "37e4515bed44023ceacfeb0b6054fe8c4348e9ffae528adbe685e2d0f046eadc",
+    "/fa/blog/tags/python/index.html": "4393d8198cf2f7a1b1c66e0cd3f663a01a69859a7dd47222ab2e8add4796478a",
+    "/fa/blog/tags/workflow/index.html": "2a6816ec2b827c40cd7994ba8adad90271cd2669f335ac25da9e04b877968d11",
+    "/fa/garden/feed.xml": "852b10d711d07ba8ed4caf06c7a14b924b742870ffdfa6221a98c728e465789f",
+    "/fa/garden/filetree.html": "8c348ae5f8690bc808707707dfdbbacbbf6b5ee3d153ad8d4f3c2a1b9828f778",
     "/fa/garden/fonts/mikhak.woff2": "18e507e1ae85db40fac1ae651655ebdf5b7ec990835328bdede753ce6654007a",
     "/fa/garden/fonts/OFL.txt": "071f566f77f4d56b39c15c9f685bc8806b04a1a9543ad6c5f3806497996d046f",
     "/fa/garden/fonts/SOURCE.md": "8d713ad6f9a79d8aa839839ed00e4eec8739082a70d02fad9045ebadde8d9c27",
-    "/fa/garden/graph.json": "087fb86aadbc72620a1b92980189fc595bf1ef7169cd1d9114d6f9a2dde0fa94",
+    "/fa/garden/graph.json": "d23cfd11632d95b9f435db3c88e60f5a9a21d84e326e824c7c482619dee7fa78",
     "/fa/garden/img/default-note-icon.svg": "82297d74920cc15bdf2ab0dc6c00d37db6ec32b4bcf5e43f27ee3b9bf728c4a8",
     "/fa/garden/img/fonts/epilogue-latin-ext-wght-normal.woff2": "8026084714d57bf555eb958d7ec15bd5dc71b75ba79490111711300af524b645",
     "/fa/garden/img/fonts/epilogue-latin-wght-normal.woff2": "943ab208b058dbb0a8b257c02d6d9cfe5932a72c4deea8c77d192111c7c14519",
@@ -953,13 +992,9 @@
     "/fa/garden/img/tree-1.svg": "271d2c6bd0b942cd8cf185610bee3699381f223859c7ff51086244602d612a4a",
     "/fa/garden/img/tree-2.svg": "5347e932d7eca4a221657648e7f8c1fd5af574ef5cd4ae46c6febfba8a6907a7",
     "/fa/garden/img/tree-3.svg": "571626b1fc89f34a1ec71b058c4bd7356fedeea8e3db88055e7611ecf67edf34",
-    "/fa/garden/index.html": "14fe9011e56e0366c3df0c1ee3893c5f85cd1fe2114dec6c8cc981f340389939",
-    "/fa/garden/latent-diffusion/index.html": "b0ac8c4d54cd37951145661d097bc82fbecb2653f35d56038aed4bdbc6a6178f",
-    "/fa/garden/noise/index.html": "de99c7e77ee3bc72f9fcab1f703cc56045f26a68269253169725ed11dd17ad47",
-    "/fa/garden/scripts/hades.js": "4c610593a336387c04b1bc17c4ccc24367d89724a05476ef0e1779717e7033a9",
-    "/fa/garden/searchIndex.json": "d556688893430aac7ef7d6d585bd301e57c403bb37a559f530ec3e9ef41eeca3",
-    "/fa/garden/seed/index.html": "4c4c4467c7b6e809066cf185658fb99d2f2ab56de6c58b332643fd21b78e5a1b",
-    "/fa/garden/sitemap.xml": "321e022fbb44bbd204bfc744a7dfaf43570ac3fd4ee74f31ff87ced5c606980a",
+    "/fa/garden/scripts/hades.js": "db4506ee2b9112bb51440b7d3f8b59d569013fbf3652a1b492dd08b3f1b03b62",
+    "/fa/garden/searchIndex.json": "1d4a05c6d877be8decc5090dfda1fc7c44e4e04719327d008247370c6183f98c",
+    "/fa/garden/sitemap.xml": "607df41759c31cc20c9545621c532e99f0bcf91f42066cb6f6e4291033f089a5",
     "/fa/garden/styles/custom-style.css": "e230d094db3d021ddaa2541c9bc96d31c777052b9cf34b07a3beb7d524e95867",
     "/fa/garden/styles/custom-style.css.map": "96fd2d10919de215cbdd74f73d1267c6072d3b485bd93ce0cc2a12eac994a470",
     "/fa/garden/styles/digital-garden-base.css": "06e0836918a64e96300e3c46d9d8c9bf4656a73ccf2f7b79009cdc3ed9184d92",
@@ -970,7 +1005,13 @@
     "/fa/garden/styles/obsidian-bases.css.map": "113fe730c9b88784f7364b94f9123c68ef3c969e13487f28a20fb79a74ce5f39",
     "/fa/garden/styles/style.css": "ea92cdca997ae35733db741329c0ba8316ab151c0ca86d7c69758eacc3436752",
     "/fa/garden/styles/style.css.map": "2db90eb0fefdf32bdbab4a2274106f1d8f156fbb6c827dc19b6e7f243c6543da",
-    "/fa/garden/styles/user/hades.css": "97675ad65f7be981b0af43ffdf04fdefffd3c1e3546525e1bc7242205955f426",
-    "/fa/garden/styles/user/hades.css.map": "f7cb146838ca24529adbef3b3233bed9049c4703806dcc22e2e120e4dd177f63"
+    "/fa/garden/styles/user/hades.css": "c0fface8b91470ea94e536c77845e0782db211196c74aa50568a70bfa8f1aa60",
+    "/fa/garden/styles/user/hades.css.map": "5e93461baa160c13da95afbaea645632d2f81b6d7fa7651a2214a26997f058e4",
+    "/fa/garden/index.html": "f0b980c88812844840d0107546e5393c9df7188e01c41b8a6859e7afc1ea1a67",
+    "/fa/garden/diffusion/index.html": "506527227f19c329aaaac368353efff6a1462fb40a89146a28ec68b9296cfda0",
+    "/fa/garden/seed/index.html": "17c091743efac0faff70dc7a9bd875c216afd4af8a26a1b1fb91af7ae47f15ed",
+    "/fa/garden/latent-diffusion/index.html": "5a64082d05894181af9b11b780675710fcbade6a6b50befabbadd5278d22ab95",
+    "/fa/garden/noise/index.html": "a665046177029257427b378a3690f8c5ccfd70da3b88686631502799faa6cbb2",
+    "/fa/garden/ddpm/index.html": "4e8525dd3cea394787ab14d5fb3ca7cd151df0ad0b936b885234a5f659c52432"
   }
 }

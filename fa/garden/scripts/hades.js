@@ -26,7 +26,7 @@ export function searchNotes(notes, query, limit = 40) {
   }).filter(Boolean).sort((a,b) => b.score-a.score || a.note.title.localeCompare(b.note.title,'fa')).slice(0,limit).map(result => result.note);
 }
 
-if (typeof document !== 'undefined') initializeGarden();
+if (typeof document !== 'undefined') { initializeGarden(); installFigureViewer(); }
 function initializeGarden() {
   const root = document.documentElement;
   const $ = (selector, within = document) => within.querySelector(selector);
@@ -150,7 +150,7 @@ function initializeGarden() {
   const tree=$('[data-filetree]');
   function markNavigation() {
     $$('.garden-sections a,.topbar-links a,.tree-note a').forEach(link=>{
-      if(trimPath(link.href)===here)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
+      if(trimPath(link.href)===here && !new URL(link.href,document.baseURI).hash)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
     });
     const folderState=safeStorage.read('hades-garden-folders',{});
     $$('details[data-folder]',tree).forEach(details=>{
@@ -296,4 +296,50 @@ function initializeGarden() {
   document.addEventListener('focusin',event=>{const link=event.target.closest('.note-body a.internal-link,.backlink-list a');if(link)showPreview(link);});
   document.addEventListener('focusout',event=>{if(event.target.closest('.note-body a.internal-link,.backlink-list a'))hidePreview();});
   addEventListener('scroll',hidePreview,{passive:true});document.addEventListener('keydown',event=>{if(event.key==='Escape')hidePreview();});
+}
+
+// REVIEW: inline enlargement; retain native image links without JS.
+export function installFigureViewer() {
+  const article = document.querySelector('.blog-article');
+  if (!article || typeof HTMLDialogElement === 'undefined' || !HTMLDialogElement.prototype.showModal || article.dataset.figureViewer) return;
+  const links = [...article.querySelectorAll('figure.article-figure .figure-open')];
+  if (!links.length) return;
+  article.dataset.figureViewer = 'ready';
+  const dialog = document.createElement('dialog');
+  dialog.className = 'hades-figure-viewer';
+  dialog.setAttribute('aria-labelledby', 'figure-viewer-title');
+  dialog.innerHTML = '<div class="figure-viewer-bar"><h2 id="figure-viewer-title">نمایش تصویر</h2><button type="button" class="figure-viewer-close" aria-label="بستن تصویر">×</button></div><div class="figure-viewer-stage"><img alt=""><p role="status" hidden>تصویر در این پنجره بارگذاری نشد. پیوند فایل اصلی در دسترس است.</p></div><div class="figure-viewer-footer"><p class="figure-viewer-caption"></p><a class="figure-viewer-original" target="_blank" rel="noopener noreferrer">باز کردن فایل اصلی در زبانهٔ جدید</a></div>';
+  document.body.append(dialog);
+  const title = dialog.querySelector('h2'), close = dialog.querySelector('button'), image = dialog.querySelector('img');
+  const status = dialog.querySelector('[role="status"]'), caption = dialog.querySelector('.figure-viewer-caption'), original = dialog.querySelector('a');
+  let opener = null;
+  close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target !== dialog) return;
+    const r = dialog.getBoundingClientRect();
+    if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close();
+  });
+  dialog.addEventListener('close', () => { image.removeAttribute('src'); opener?.focus({preventScroll:true}); opener = null; });
+  image.addEventListener('load', () => { status.hidden = true; image.hidden = false; });
+  image.addEventListener('error', () => { if (dialog.open) { image.hidden = true; status.hidden = false; } });
+  for (const link of links) {
+    const figure = link.closest('figure'), source = figure?.querySelector('img');
+    let url;
+    try { url = new URL(link.getAttribute('href'), document.baseURI); } catch { continue; }
+    if (!source || !((url.origin === new URL(document.baseURI).origin && url.pathname.startsWith('/fa/blog/media/')) || (url.origin === 'https://arxiv.org' && url.pathname.startsWith('/fa/garden/html/')))) continue;
+    link.setAttribute('aria-haspopup', 'dialog');
+    link.addEventListener('click', event => {
+      if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || dialog.open) return;
+      opener = link;
+      title.textContent = figure.querySelector('.figure-index')?.textContent || 'نمایش تصویر';
+      caption.textContent = figure.querySelector('figcaption > span:not(.figure-index)')?.textContent || source.alt;
+      image.alt = source.alt;
+      original.href = url.href;
+      status.hidden = true; image.hidden = false;
+      try { dialog.showModal(); } catch { opener = null; return; }
+      event.preventDefault();
+      image.src = source.currentSrc || source.src;
+      close.focus();
+    });
+  }
 }
