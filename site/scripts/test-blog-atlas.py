@@ -92,6 +92,12 @@ def open_panel(page, width, name):
     panel = page.locator('#garden-' + name)
     if width <= mobile_breakpoint and panel.evaluate('(el)=>el.inert'):
         page.locator(f'[data-panel-open="{name}"]').click()
+    # Normal-motion drawers have a real transition. Wait for actual visibility,
+    # accessibility and the translated panel to arrive inside the viewport.
+    panel.wait_for(state='visible')
+    page.wait_for_function("""id=>{const p=document.getElementById(id),b=p.getBoundingClientRect();
+      return !p.inert&&getComputedStyle(p).visibility==='visible'&&b.left>=-2&&b.right<=innerWidth+2;
+    }""",arg='garden-'+name,timeout=5000)
     assert panel.is_visible() and not panel.evaluate('(el)=>el.inert'), (width, name, 'panel unavailable')
     return panel
 
@@ -486,6 +492,88 @@ def check_global_interactions(page, width, expected_urls):
     return state
 
 
+
+def check_live_physics(browser, width):
+    """Real moving graph, not reduced-motion/static-coordinate regression."""
+    touch = width <= 430
+    context=browser.new_context(viewport={'width':width,'height':900},reduced_motion='no-preference',color_scheme='dark',has_touch=touch)
+    page=context.new_page()
+    page.set_default_timeout(20000)
+    errors=[]
+    page.on('pageerror',lambda e:errors.append(str(e)))
+    session=None
+    try:
+        page.goto(home,wait_until='load')
+        page.wait_for_selector('[data-filetree][data-tree-ready="true"]',state='attached')
+        open_panel(page,width,'context')
+        page.locator('[data-global-graph-open]').click()
+        graph=wait_graph(page,'[data-global-graph]')
+        assert graph.get_attribute('data-physics-engine')=='spring-charge-v1'
+        page.wait_for_function("Number(document.querySelector('[data-global-graph]').dataset.physicsTicks)>8")
+        page.wait_for_function("document.querySelector('[data-global-graph]').dataset.physicsRunning==='false'")
+        assert graph.evaluate(LABELS)['intersections']==0
+        graph.locator('svg').evaluate("el=>el.blur()")
+        page.locator('#garden-graph').screenshot(path=str(output/f'force-settled-{width}.png'))
+        choose=graph.evaluate("""el=>{
+          const ns=[...el.querySelectorAll('.graph-node')],es=[...el.querySelectorAll('.graph-edge')],bounds=el.querySelector('svg').getBoundingClientRect();
+          const candidates=ns.map(n=>{
+            const id=n.dataset.graphId,dot=n.querySelector('circle:not(.graph-hit)'),b=dot.getBoundingClientRect();
+            const x=b.x+b.width/2,y=b.y+b.height/2,neighbors=es.filter(e=>e.dataset.source===id||e.dataset.target===id).map(e=>e.dataset.source===id?e.dataset.target:e.dataset.source);
+            return {id,x,y,neighbors,clear:Math.min(x-bounds.left,bounds.right-x,y-bounds.top,bounds.bottom-y)};
+          }).filter(n=>n.neighbors.length>=2&&n.clear>42);
+          return candidates.sort((a,b)=>b.neighbors.length-a.neighbors.length)[0];
+        }""")
+        assert choose,(width,'no connected interior drag target')
+        coords="""el=>Object.fromEntries([...el.querySelectorAll('.graph-node')].map(a=>{const c=a.querySelector('circle:not(.graph-hit)');return [a.dataset.graphId,[Number(c.getAttribute('cx')),Number(c.getAttribute('cy'))]]}))"""
+        before=graph.evaluate(coords)
+        before_url=page.url
+        x,y=choose['x'],choose['y']
+        box=graph.bounding_box()
+        dx=44 if x<box['x']+box['width']/2 else -44
+        dy=22 if y<box['y']+box['height']/2 else -22
+        if touch:
+            session=page.context.new_cdp_session(page)
+            session.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y,'id':1}]})
+            for i in range(1,7):
+                session.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x+dx*i/6,'y':y+dy*i/6,'id':1}]})
+        else:
+            page.mouse.move(x,y);page.mouse.down();page.mouse.move(x+dx,y+dy,steps=8)
+        page.wait_for_function("""({before,ids})=>[...document.querySelectorAll('[data-global-graph] .graph-node')].some(n=>{
+          if(!ids.includes(n.dataset.graphId))return false;const c=n.querySelector('circle:not(.graph-hit)'),b=before[n.dataset.graphId];
+          return Math.hypot(Number(c.getAttribute('cx'))-b[0],Number(c.getAttribute('cy'))-b[1])>3;
+        })""",arg={'before':before,'ids':choose['neighbors']},timeout=5000)
+        held=graph.evaluate(coords)
+        distance=lambda a,b:sum((x-y)**2 for x,y in zip(a,b))**.5
+        reaction=max(distance(before[i],held[i]) for i in choose['neighbors'])
+        assert distance(before[choose['id']],held[choose['id']])>15,(width,'drag target did not follow pointer')
+        assert reaction>3,(width,'linked nodes did not react',reaction)
+        assert_edges_follow(graph,choose['id'])
+        assert graph.get_attribute('data-physics-running')=='true'
+        page.locator('#garden-graph').screenshot(path=str(output/f'force-drag-{width}.png'),timeout=5000)
+        # Use a physical release and verify the actual dragged node is no longer fixed.
+        if touch:
+            session.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+            session.detach();session=None
+        else:page.mouse.up()
+        released=graph.evaluate(coords)
+        page.wait_for_function("document.querySelector('[data-global-graph]').dataset.physicsRunning==='false'")
+        settled=graph.evaluate(coords)
+        assert distance(released[choose['id']],settled[choose['id']])>.6,(width,'dragged node remained fixed')
+        assert page.url==before_url
+        assert graph.evaluate(LABELS)['intersections']==0
+        assert not errors,errors
+        print('PASS animated spring-charge graph',width,'neighbor displacement',round(reaction,2),'released motion',round(distance(released[choose['id']],settled[choose['id']]),2),flush=True)
+        page.locator('#garden-graph').screenshot(path=str(output/f'force-released-{width}.png'))
+        return {'width':width,'neighbor_motion':round(reaction,2),'release_motion':round(distance(released[choose['id']],settled[choose['id']]),2),'ticks':int(graph.get_attribute('data-physics-ticks')),'status':'PASS'}
+    except Exception as error:
+        capture_failure(page,width,'live-force-normal-motion',error,errors,[])
+        raise
+    finally:
+        if session:
+            try:session.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]});session.detach()
+            except Exception:pass
+        context.close()
+
 def check_content_graph(page, width, page_url, expected_urls, nodes_by_url, links):
     current = nodes_by_url[page_url]
     ids = {n['id']: n['url'] for n in nodes_by_url.values()}
@@ -679,6 +767,8 @@ try:
                 raise
             finally:
                 context.close()
+        physics_results=[check_live_physics(browser,width) for width in (390,1440)]
+        (output/'force-physics-results.json').write_text(json.dumps(physics_results,indent=2))
         browser.close()
 finally:
     (output / 'results.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
