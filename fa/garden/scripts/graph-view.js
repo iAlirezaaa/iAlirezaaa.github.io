@@ -1,3 +1,4 @@
+import {createForceLayout,forceStep} from './graph-physics.mjs';
 /** A quiet, navigable network shared by the sidebar and its expanded view. */
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const NS = 'http://www.w3.org/2000/svg';
@@ -6,123 +7,6 @@ function svgElement(name, attributes = {}) {
   const element = document.createElementNS(NS, name);
   for (const [key, value] of Object.entries(attributes)) element.setAttribute(key, String(value));
   return element;
-}
-
-// Components have independent forces. An unrelated article must not repel the
-// useful connected network into a corner just because it has no links yet.
-export function layoutGraphNodes(nodes, edges, width, height, currentId = null) {
-  if (!nodes.length) return [];
-  if (nodes.length === 1) return [{...nodes[0], x:width / 2, y:height / 2}];
-  const byId = new Map(nodes.map(node => [node.id, node]));
-  const neighbors = new Map(nodes.map(node => [node.id, new Set()]));
-  for (const edge of edges) if (byId.has(edge.source) && byId.has(edge.target)) {
-    neighbors.get(edge.source).add(edge.target); neighbors.get(edge.target).add(edge.source);
-  }
-  const visited = new Set(), components = [];
-  for (const node of nodes) {
-    if (visited.has(node.id)) continue;
-    const ids = new Set([node.id]), queue = [node.id]; visited.add(node.id);
-    for (let i = 0; i < queue.length; i++) for (const id of neighbors.get(queue[i])) {
-      if (visited.has(id)) continue;
-      visited.add(id); ids.add(id); queue.push(id);
-    }
-    components.push({nodes:nodes.filter(item => ids.has(item.id)), edges:edges.filter(edge => ids.has(edge.source) && ids.has(edge.target)), ids});
-  }
-  components.sort((a, b) => Number(b.ids.has(currentId)) - Number(a.ids.has(currentId)) || b.nodes.length - a.nodes.length);
-  const placed = [];
-  function centered(component, w, h, centerX, centerY, pinned = null) {
-    const result = forceLayout(component.nodes, component.edges, w, h, pinned);
-    if (pinned !== null) return result.map(node => ({...node, x:node.x + centerX - w / 2, y:node.y + centerY - h / 2}));
-    const xs = result.map(node => node.x), ys = result.map(node => node.y);
-    const left = Math.min(...xs), right = Math.max(...xs), top = Math.min(...ys), bottom = Math.max(...ys);
-    const xScale = right > left ? w * .7 / (right - left) : 1;
-    const yScale = bottom > top ? h * .72 / (bottom - top) : 1;
-    return result.map(node => ({...node, x:centerX + (node.x - (left + right) / 2) * xScale,
-      y:centerY + (node.y - (top + bottom) / 2) * yScale}));
-  }
-  if (components.length === 1) return centered(components[0], width, height, width / 2, height / 2, currentId);
-  if (components[0].nodes.length > nodes.length * .65 || currentId !== null) {
-    placed.push(...centered(components[0], width, height, width / 2, height / 2, currentId));
-    // A deterministic set of peripheral pockets keeps disconnected notes
-    // visibly separate. Pick the pocket with most clearance from real nodes.
-    const pockets = [[.88,.12],[.12,.88],[.12,.12],[.88,.88],[.5,.08],[.92,.5],[.5,.92],[.08,.5]];
-    for (const component of components.slice(1)) {
-      const candidates = pockets.map(([x, y]) => centered(component, width * .2, height * .2, width * x, height * y));
-      const clearance = candidate => Math.min(...candidate.flatMap(a => placed.map(b => Math.hypot((a.x - b.x) / width, (a.y - b.y) / height))));
-      candidates.sort((a, b) => clearance(b) - clearance(a)); placed.push(...candidates[0]);
-    }
-  } else {
-    // Several similarly sized networks share balanced cells rather than
-    // pretending that separate components belong to one force simulation.
-    const columns = Math.min(components.length, Math.ceil(Math.sqrt(components.length * width / height)));
-    const rows = Math.ceil(components.length / columns), cellWidth = width / columns, cellHeight = height / rows;
-    components.forEach((component, i) => {
-      const row = Math.floor(i / columns), cellsInRow = Math.min(columns, components.length - row * columns);
-      const x = (i % columns + .5) * cellWidth + (width - cellsInRow * cellWidth) / 2;
-      placed.push(...centered(component, cellWidth, cellHeight, x, (row + .5) * cellHeight));
-    });
-  }
-  const positions = new Map(placed.map(node => [node.id, node]));
-  return nodes.map(node => positions.get(node.id));
-}
-
-// Finite deterministic simulation; no continuous movement while reading.
-function forceLayout(nodes, edges, width, height, currentId = null) {
-  if (nodes.length === 1) return [{...nodes[0], x:width / 2, y:height / 2}];
-  const padding = Math.min(60, width * .13, height * .13);
-  const availableWidth = width - padding * 2, availableHeight = height - padding * 2;
-  const result = nodes.map((node, i) => {
-    const angle = i * 2.3999632297;
-    const radius = Math.sqrt((i + .5) / nodes.length) * .39;
-    return {...node, x:width / 2 + Math.cos(angle) * availableWidth * radius,
-      y:height / 2 + Math.sin(angle) * availableHeight * radius, fx:0, fy:0};
-  });
-  const byId = new Map(result.map(node => [node.id, node]));
-  const validEdges = edges.map(edge => ({source:byId.get(edge.source), target:byId.get(edge.target)}))
-    .filter(edge => edge.source && edge.target && edge.source !== edge.target);
-  const ideal = Math.sqrt(availableWidth * availableHeight / result.length) * .9;
-  const steps = Math.max(70, Math.min(200, Math.floor(2400 / Math.sqrt(result.length))));
-  for (let step = 0; step < steps; step++) {
-    for (const node of result) { node.fx = (width / 2 - node.x) * .14; node.fy = (height / 2 - node.y) * .14; }
-    for (let i = 0; i < result.length; i++) for (let j = i + 1; j < result.length; j++) {
-      const a = result[i], b = result[j], dx = a.x - b.x, dy = a.y - b.y;
-      const distance = Math.max(1, Math.hypot(dx, dy)), force = ideal * ideal / distance;
-      const x = dx / distance * force, y = dy / distance * force;
-      a.fx += x; a.fy += y; b.fx -= x; b.fy -= y;
-    }
-    for (const {source:a, target:b} of validEdges) {
-      const dx = b.x - a.x, dy = b.y - a.y, distance = Math.max(1, Math.hypot(dx, dy));
-      const force = distance * distance / ideal * .5;
-      const x = dx / distance * force, y = dy / distance * force;
-      a.fx += x; a.fy += y; b.fx -= x; b.fy -= y;
-    }
-    const temperature = Math.min(width, height) * .035 * (1 - step / steps) + .08;
-    for (const node of result) {
-      if (node.id === currentId) { node.x = width / 2; node.y = height / 2; continue; }
-      const distance = Math.max(1, Math.hypot(node.fx, node.fy));
-      node.x = clamp(node.x + node.fx / distance * Math.min(distance, temperature), padding, width - padding);
-      node.y = clamp(node.y + node.fy / distance * Math.min(distance, temperature), padding, height - padding);
-    }
-  }
-  return result.map(({fx, fy, ...node}) => node);
-}
-
-// Initial center separation is independent of the force simulation. The local
-// graph preserves its current note at the center and resize preserves positions.
-export function separateGraphNodes(nodes, width, height, pinnedId = null) {
-  const gap=Math.min(28,Math.sqrt(width*height/Math.max(1,nodes.length))*.68);
-  const pad=Math.min(17,width/5,height/5);
-  for(let round=0;round<36;round++){
-    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
-      const a=nodes[i],b=nodes[j];let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);
-      if(d>=gap)continue;
-      if(d<.001){const angle=(i*17+j*13)*2.399963;dx=Math.cos(angle);dy=Math.sin(angle);d=1;}
-      const shift=(gap-d)*.53,ax=a.id===pinnedId?0:b.id===pinnedId?2:1,bx=b.id===pinnedId?0:a.id===pinnedId?2:1;
-      a.x-=dx/d*shift*ax;a.y-=dy/d*shift*ax;b.x+=dx/d*shift*bx;b.y+=dy/d*shift*bx;
-    }
-    for(const n of nodes){if(n.id===pinnedId){n.x=width/2;n.y=height/2;}else{n.x=clamp(n.x,pad,width-pad);n.y=clamp(n.y,pad,height-pad);}}
-  }
-  return nodes;
 }
 
 export function installGraphViews({getGraph, here, trimPath, graphDialog, openDialog}) {
@@ -177,7 +61,9 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     }
     const currentId = data.nodes.find(node => trimPath(node.url) === here)?.id ?? null;
     const pinned = !expanded && data.scope === 'local' ? currentId : null;
-    const nodes=separateGraphNodes(layoutGraphNodes(data.nodes,edges,width,height,pinned),width,height,pinned);
+    const initial=createForceLayout(data.nodes,edges,width,height,pinned);
+    const nodes=initial.nodes;
+    let unit=initial.unit;
     const byId = new Map(nodes.map(node => [node.id, node]));
     const svg = svgElement('svg', {viewBox:`0 0 ${width} ${height}`, role:'group',
       tabindex:0, 'aria-label':'گراف نوشته‌ها؛ انتخاب نود برای خواندن، کشیدن برای جابه‌جایی، کلیدهای جهت برای حرکت و مثبت و منفی برای بزرگ‌نمایی.'});
@@ -196,12 +82,18 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     if (count) count.textContent = `${numbers.format(nodes.length)} نوشته · ${numbers.format(edges.length)} ارتباط`;
     if (status) status.textContent = 'هر نقطه یک نوشته است. برای خواندن، آن را انتخاب کن.';
     const camera = {scale:1, dx:0, dy:0};
-    let active = null, labelFrame = 0, destroyed = false;
+    let active = null, labelFrame = 0, destroyed = false, physicsFrame=0, heat=0;
+    const held=new Set(pinned===null?[]:[pinned]);
+    let dragging=0, tickCount=0;
+    container.dataset.physicsEngine='spring-charge-v1';
+    container.dataset.physicsRunning='false';
+    container.dataset.physicsTicks='0';
 
     for (const node of nodes) {
       node.current = node.id === currentId;
       node.degree = degrees.get(node.id);
-      node.radius = node.current ? 7 : clamp(3.2 + Math.sqrt(node.degree) * .8, 3.8, 7.5);
+      const density=Math.min(1,Math.sqrt(width*height/Math.max(1,nodes.length))/56);
+      node.radius=(node.current?7:clamp(3.2+Math.sqrt(node.degree)*.8,3.8,7.5))*Math.max(.62,density);
       node.homeX = node.x / width; node.homeY = node.y / height;
       node.a = svgElement('a', {href:node.url, class:'graph-node', tabindex:0,
         'data-current':node.current, 'data-graph-id':node.id,
@@ -220,7 +112,8 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
         if (!direction) return;
         event.preventDefault(); inspect(node.id);
         const step = (event.shiftKey ? 28 : 12) / camera.scale;
-        moveNode(node, node.x + direction[0] * step, node.y + direction[1] * step);
+        moveNode(node,node.x+direction[0]*step,node.y+direction[1]*step);
+        if(!reducedMotion.matches)wake(.27);
       });
     }
     container.append(svg);
@@ -257,15 +150,21 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
       const used = [], dots = nodes.map(node => ({id:node.id, rect:node.dot.getBoundingClientRect()}));
       const intersects = (a, b, pad = 4) => a.left < b.right + pad && a.right > b.left - pad && a.top < b.bottom + pad && a.bottom > b.top - pad;
       const ordered = [...nodes].sort((a, b) => Number(b.id === active) - Number(a.id === active) || Number(b.current) - Number(a.current) || b.degree - a.degree || String(a.id).localeCompare(String(b.id)));
-      const maxVisible = expanded ? (width < 460 ? 6 : 12) : 4;
+      const matrix=scene.getScreenCTM(), screenScale=Math.max(.05,matrix?Math.hypot(matrix.a,matrix.b):camera.scale);
+      const baseFont=expanded?13:11;
+      const font=clamp(baseFont*Math.sqrt(camera.scale),10,17)/screenScale;
+      const maxVisible=expanded?(camera.scale<.85?4:camera.scale<1.4?(width<460?7:13):camera.scale<2.3?24:nodes.length):(camera.scale>1.5?10:4);
       for (const node of ordered) {
         node.label.style.visibility = 'hidden';
         if (used.length >= maxVisible && node.id !== active) continue;
-        const chars = Array.from(node.title), maxChars = expanded ? (width < 460 ? 22 : 36) : 18;
-        node.label.textContent = chars.length > maxChars ? chars.slice(0, maxChars - 1).join('') + '…' : node.title;
-        for (const [dx, dy] of [[0, node.radius + 16], [0, -node.radius - 9], [node.radius + 9, 4], [-node.radius - 9, 4]]) {
+        if(heat>.45&&!node.current&&node.id!==active&&node.degree<3)continue;
+        const chars=Array.from(node.title),maxChars=node.id===active?90:camera.scale>1.8?54:expanded?(width<460?22:36):18;
+        node.label.textContent=chars.length>maxChars?chars.slice(0,maxChars-1).join('')+'…':node.title;
+        node.label.style.fontSize=font+'px';node.label.style.strokeWidth=(3/screenScale)+'px';
+        const space=8/screenScale,offset=font*1.05;
+        for (const [dx,dy] of [[0,node.radius+offset+space/2],[0,-node.radius-space],[node.radius+space,font*.35],[-node.radius-space,font*.35]]) {
           node.label.setAttribute('x', node.x + dx); node.label.setAttribute('y', node.y + dy);
-          node.label.style.textAnchor = dx > 0 ? 'start' : dx < 0 ? 'end' : 'middle';
+          node.label.style.textAnchor=dx>0?'end':dx<0?'start':'middle';
           const rect = node.label.getBoundingClientRect();
           if (rect.left < bounds.left + 5 || rect.right > bounds.right - 5 || rect.top < bounds.top + 5 || rect.bottom > bounds.bottom - 5 || used.some(other => intersects(rect, other)) || dots.some(other => other.id !== node.id && intersects(rect, other.rect, 3))) continue;
           node.label.style.visibility = 'visible'; used.push(rect); break;
@@ -291,9 +190,34 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
       const point=viewportPoint(x,y);
       return {x:(point.x-width/2-camera.dx)/camera.scale+width/2,y:(point.y-height/2-camera.dy)/camera.scale+height/2};
     }
-    function moveNode(node, x, y) {
-      node.x = clamp(x, 15, width - 15); node.y = clamp(y, 15, height - 15);
-      container.dataset.layoutChanged = 'true'; geometry(); scheduleLabels();
+    // The scene has no artificial rectangular walls. Only the camera clips it.
+    function moveNode(node,x,y) {
+      node.x=x;node.y=y;node.vx=0;node.vy=0;
+      container.dataset.layoutChanged='true';geometry();scheduleLabels();
+    }
+    function stopPhysics(){
+      cancelAnimationFrame(physicsFrame);physicsFrame=0;heat=0;
+      container.dataset.physicsRunning='false';
+      for(const n of nodes){n.vx=0;n.vy=0;}
+    }
+    function visibleGraph(){
+      return !document.hidden&&container.isConnected&&container.clientWidth>0&&container.clientHeight>0&&getComputedStyle(container).visibility==='visible'&&(!expanded||graphDialog.open);
+    }
+    function animatePhysics(){
+      physicsFrame=0;
+      if(destroyed||reducedMotion.matches||!visibleGraph()){stopPhysics();return;}
+      heat=dragging?Math.max(.38,heat*.975):heat*.94;
+      const velocity=forceStep(nodes,edgeElements,{unit,cx:width/2,cy:height/2},heat,held);
+      tickCount++;container.dataset.physicsTicks=String(tickCount);
+      geometry();
+      if(tickCount%3===0)placeLabels();
+      if(!dragging&&(heat<.012||velocity<.015&&heat<.1)){stopPhysics();placeLabels();return;}
+      physicsFrame=requestAnimationFrame(animatePhysics);
+    }
+    function wake(amount){
+      if(destroyed||reducedMotion.matches||!visibleGraph())return;
+      heat=Math.max(heat,amount);container.dataset.physicsRunning='true';
+      if(!physicsFrame)physicsFrame=requestAnimationFrame(animatePhysics);
     }
     function zoom(factor, clientX, clientY) {
       const rect = svg.getBoundingClientRect();
@@ -311,7 +235,7 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     let pinch = null, suppressUntil = 0, tapped = null;
     svg.addEventListener('pointerdown', event => {
       if (event.button !== 0 || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
-      if (!pointers.size) { suppressUntil = 0; tapped = null; }
+      if (!pointers.size) { suppressUntil = 0; tapped = null; stopPhysics(); }
       const point = scenePoint(event.clientX, event.clientY);
       // Hit areas can overlap when the corpus grows. Resolve to the closest
       // actual dot, not whichever transparent SVG circle was painted last.
@@ -330,7 +254,8 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
         const [a, b] = [...pointers.values()];
         const x = (a.x + b.x) / 2, y = (a.y + b.y) / 2;
         pinch = {distance:Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)), scale:camera.scale, point:scenePoint(x, y)};
-        for (const pointer of pointers.values()) { pointer.moved = true; pointer.node?.a.classList.remove('is-dragging'); }
+        for (const pointer of pointers.values()) { if(pointer.node&&pointer.node.id!==pinned)held.delete(pointer.node.id);pointer.moved = true; pointer.node?.a.classList.remove('is-dragging'); }
+        dragging=0;stopPhysics();
       }
     });
     svg.addEventListener('pointermove', event => {
@@ -345,11 +270,13 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
         apply(); return;
       }
       if (!pointer.moved && Math.hypot(pointer.x - pointer.startX, pointer.y - pointer.startY) < 6) return;
-      pointer.moved = true; event.preventDefault();
-      if (pointer.node) {
+      const firstMove=!pointer.moved;pointer.moved=true;event.preventDefault();
+      if(pointer.node){
+        if(firstMove){dragging++;held.add(pointer.node.id);inspect(pointer.node.id);}
         pointer.node.a.classList.add('is-dragging');
-        const point = scenePoint(pointer.x, pointer.y);
-        moveNode(pointer.node, point.x + pointer.offsetX, point.y + pointer.offsetY);
+        const point=scenePoint(pointer.x,pointer.y);
+        moveNode(pointer.node,point.x+pointer.offsetX,point.y+pointer.offsetY);
+        wake(.72);
       } else {
         svg.classList.add('is-panning');
         const from=viewportPoint(pointer.startX,pointer.startY),to=viewportPoint(pointer.x,pointer.y);
@@ -361,6 +288,10 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
       const pointer = pointers.get(event.pointerId); if (!pointer) return;
       if (pointer.moved || pinch) { suppressUntil = performance.now() + 650; tapped = null; }
       else if (event.type === 'pointerup' && pointer.node) tapped = {node:pointer.node, until:performance.now()+650};
+      if(pointer.node&&pointer.moved&&!pinch){
+        dragging=Math.max(0,dragging-1);if(pointer.node.id!==pinned)held.delete(pointer.node.id);
+        wake(.45);
+      }
       pointer.node?.a.classList.remove('is-dragging'); pointers.delete(event.pointerId);
       if (pinch) {
         pinch = null;
@@ -389,20 +320,24 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
         const nextWidth = Math.max(200, container.clientWidth), nextHeight = Math.max(200, container.clientHeight);
         if (nextWidth !== width || nextHeight !== height) {
           const x = nextWidth / width, y = nextHeight / height;
+          stopPhysics();
           for (const node of nodes) { node.x *= x; node.y *= y; }
+          unit*=Math.sqrt(x*y);
           camera.dx *= x; camera.dy *= y; width = nextWidth; height = nextHeight;
           svg.setAttribute('viewBox', `0 0 ${width} ${height}`); geometry();
         }
         apply();
       },
       reset() {
+        stopPhysics();dragging=0;held.clear();if(pinned!==null)held.add(pinned);
         state.reflow();
         for (const node of nodes) { node.x = node.homeX * width; node.y = node.homeY * height; }
         camera.scale = 1; camera.dx = 0; camera.dy = 0;
         delete container.dataset.layoutChanged; geometry(); apply();
       },
       zoom,
-      destroy() { destroyed = true; cancelAnimationFrame(labelFrame); },
+      stop:stopPhysics,
+      destroy() { destroyed = true; stopPhysics();cancelAnimationFrame(labelFrame); },
     };
     states.set(container, state);
     svg.addEventListener('keydown', event => {
@@ -415,7 +350,12 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     });
     geometry(); apply();
     document.fonts?.ready.then(() => { if (!destroyed) placeLabels(); });
-    if (!reducedMotion.matches && typeof svg.animate === 'function') svg.animate([{opacity:.3}, {opacity:1}], {duration:180});
+    if(!reducedMotion.matches&&visibleGraph()&&nodes.length>1){
+      // Start from a gently compressed equilibrium and let the same physical
+      // engine unfold it. No canned CSS animation or continuous idle motion.
+      for(const n of nodes){if(n.id!==pinned){n.x=width/2+(n.x-width/2)*.79;n.y=height/2+(n.y-height/2)*.79;}}
+      geometry();placeLabels();wake(.8);
+    }
     container.dataset.graphCount = String(nodes.length);
     container.dataset.graphReady = 'true';
   }
@@ -445,11 +385,25 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
   }
   scopeButton?.addEventListener('click', () => { scope = scope === 'all' ? 'local' : 'all'; renderMini(); });
   $$('[data-global-graph-open]').forEach(button => button.addEventListener('click', () => {
-    openDialog(graphDialog); renderFull();
+    // Invalidate the previous graph synchronously before opening the dialog.
+    // Otherwise a quick reopen exposes old nodes just before they are removed.
+    fullVersion++;
+    if(full){
+      states.get(full)?.destroy();states.delete(full);
+      full.dataset.graphReady='false';
+      full.replaceChildren();
+    }
+    openDialog(graphDialog);
+    requestAnimationFrame(()=>{if(graphDialog?.open)renderFull();});
   }));
   $$('[data-graph-zoom]').forEach(button => button.addEventListener('click', () => states.get(full)?.zoom(button.dataset.graphZoom === 'in' ? 1.25 : .8)));
   $('[data-graph-reset]')?.addEventListener('click', () => states.get(full)?.reset());
-  graphDialog?.addEventListener('close', () => { fullVersion++; requestAnimationFrame(() => states.get(miniature)?.reflow()); });
+  graphDialog?.addEventListener('close', () => {
+    if(graphDialog.open)return;
+    fullVersion++;
+    if(full){states.get(full)?.destroy();states.delete(full);full.dataset.graphReady='false';full.replaceChildren();}
+    requestAnimationFrame(()=>states.get(miniature)?.reflow());
+  });
   const resizeObserver = new ResizeObserver(entries => {
     for (const {target} of entries) {
       if (!target.clientWidth || !target.clientHeight) continue;
@@ -458,5 +412,13 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
     }
   });
   for (const container of [miniature, full]) if (container) resizeObserver.observe(container);
+  const panelObserver=new MutationObserver(()=>{
+    if(!miniature)return;
+    if(getComputedStyle(miniature).visibility!=='visible')states.get(miniature)?.stop();
+    else if(!states.has(miniature))renderMini();
+  });
+  panelObserver.observe(document.body,{attributes:true,attributeFilter:['data-open-panel']});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){states.get(full)?.stop();states.get(miniature)?.stop();}});
+  reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches){states.get(full)?.stop();states.get(miniature)?.stop();}});
   renderMini();
 }
