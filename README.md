@@ -17,6 +17,10 @@ This public repository publishes the **original** React/Vite design from the pri
 - `.github/workflows/portfolio.yml` — independent CI/build and optional Pages artifact deployment.
 - Root-level `index.html`, `fa/`, `about/`, `work/`, `systems/`, `contact/`, `assets/` — **generated files**. Edit source in `site/` only.
 
+### Persian cinematography encyclopedia
+
+- [راهنمای تصویری جای دوربین و پرسپکتیو](https://ialirezaaa.github.io/fa/blog/notes/cinema/camera-position-before-lens/) · [بخش سینما](https://ialirezaaa.github.io/fa/blog/notes/cinema/)
+
 ### Local validation
 
 ```sh
