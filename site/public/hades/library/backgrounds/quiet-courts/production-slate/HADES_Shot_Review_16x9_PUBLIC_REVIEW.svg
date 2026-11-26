@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">HADES shot review board / PUBLIC REVIEW</title>
+  <desc id="desc">Editable 16:9 review canvas with a 1152 by 648 image area, three note lines and production metadata. All sample fields are fictional. No logo.</desc>
+  <g id="background">
+    <rect width="1920" height="1080" fill="#161615"/>
+    <path d="M0 0H38V1080H0Z" fill="#242321"/>
+    <path d="M38 0H43V1080H38Z" fill="#EF4B32"/>
+    <path d="M1840 0H1920V1080H1870Z" fill="#201F1D"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-weight="400" fill="#E8DCC9">
+    <text x="96" y="78" font-size="26" letter-spacing="3">SHOT REVIEW / WORKING BOARD</text>
+    <text x="1824" y="78" text-anchor="end" font-size="22" fill="#D0C3B0">PUBLIC REVIEW</text>
+    <path d="M96 108H1824" stroke="#70685D" stroke-width="2"/>
+    <text id="project" x="96" y="162" font-size="40">PROJECT TITLE</text>
+    <text id="shot" x="1248" y="162" text-anchor="end" font-size="28" fill="#D0C3B0">SQ010 / SH020</text>
+    <g id="frame-placeholder">
+      <rect x="96" y="194" width="1152" height="648" fill="#242321" stroke="#70685D" stroke-width="2"/>
+      <path d="M96 194L1248 842M1248 194L96 842" stroke="#403A34" stroke-width="2"/>
+      <rect x="152" y="250" width="1040" height="536" fill="none" stroke="#70685D" stroke-dasharray="8 12"/>
+      <text x="672" y="509" text-anchor="middle" font-size="28" fill="#D0C3B0">PLACE SHOT FRAME HERE</text>
+      <text x="672" y="548" text-anchor="middle" font-size="20" fill="#D0C3B0">1152 × 648 / 16:9</text>
+    </g>
+    <g id="notes">
+      <text x="1300" y="222" font-size="22" letter-spacing="2" fill="#D0C3B0">DIRECTOR NOTES</text>
+      <path d="M1300 248H1824" stroke="#EF4B32" stroke-width="3"/>
+      <text x="1300" y="300" font-size="21" fill="#D0C3B0">01 / STAGING</text>
+      <text id="note-1" x="1300" y="347" font-size="27">Add action note</text>
+      <path d="M1300 390H1824" stroke="#70685D"/>
+      <text x="1300" y="443" font-size="21" fill="#D0C3B0">02 / CAMERA</text>
+      <text id="note-2" x="1300" y="490" font-size="27">Add camera note</text>
+      <path d="M1300 533H1824" stroke="#70685D"/>
+      <text x="1300" y="586" font-size="21" fill="#D0C3B0">03 / LIGHT &amp; COLOR</text>
+      <text id="note-3" x="1300" y="633" font-size="27">Add lighting note</text>
+      <path d="M1300 676H1824" stroke="#70685D"/>
+      <text x="1300" y="740" font-size="21" fill="#D0C3B0">DECISION</text>
+      <text id="decision" x="1300" y="794" font-size="30">IN REVIEW</text>
+    </g>
+    <path d="M96 879H1824M96 1001H1824" stroke="#70685D" stroke-width="2"/>
+    <g fill="#D0C3B0" font-size="20" letter-spacing="1.5">
+      <text x="96" y="921">VERSION</text><text x="460" y="921">FRAME RANGE</text><text x="840" y="921">FPS</text><text x="1150" y="921">DEPARTMENT</text><text x="1510" y="921">DATE</text>
+    </g>
+    <g font-size="28">
+      <text id="version" x="96" y="973">v001</text><text id="range" x="460" y="973">1001–1120</text><text id="fps" x="840" y="973">24</text><text id="department" x="1150" y="973">LAYOUT</text><text id="date" x="1510" y="973">YYYY-MM-DD</text>
+    </g>
+    <text x="96" y="1041" font-size="20" fill="#D0C3B0">HADES / EDITABLE PRODUCTION TEMPLATE</text>
+    <text x="1824" y="1041" text-anchor="end" font-size="20" fill="#D0C3B0">NOT FINAL · SYNTHETIC DATA</text>
+  </g>
+</svg>
