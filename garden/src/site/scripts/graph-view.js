@@ -385,7 +385,7 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
   }
   scopeButton?.addEventListener('click', () => { scope = scope === 'all' ? 'local' : 'all'; renderMini(); });
   $$('[data-global-graph-open]').forEach(button => button.addEventListener('click', () => {
-    openDialog(graphDialog); renderFull();
+    openDialog(graphDialog); requestAnimationFrame(()=>renderFull());
   }));
   $$('[data-graph-zoom]').forEach(button => button.addEventListener('click', () => states.get(full)?.zoom(button.dataset.graphZoom === 'in' ? 1.25 : .8)));
   $('[data-graph-reset]')?.addEventListener('click', () => states.get(full)?.reset());

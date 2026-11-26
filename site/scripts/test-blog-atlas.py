@@ -92,6 +92,12 @@ def open_panel(page, width, name):
     panel = page.locator('#garden-' + name)
     if width <= mobile_breakpoint and panel.evaluate('(el)=>el.inert'):
         page.locator(f'[data-panel-open="{name}"]').click()
+    # Normal-motion drawers have a real transition. Wait for actual visibility,
+    # accessibility and the translated panel to arrive inside the viewport.
+    panel.wait_for(state='visible')
+    page.wait_for_function("""id=>{const p=document.getElementById(id),b=p.getBoundingClientRect();
+      return !p.inert&&getComputedStyle(p).visibility==='visible'&&b.left>=-2&&b.right<=innerWidth+2;
+    }""",arg='garden-'+name,timeout=5000)
     assert panel.is_visible() and not panel.evaluate('(el)=>el.inert'), (width, name, 'panel unavailable')
     return panel
 
@@ -498,6 +504,7 @@ def check_live_physics(browser, width):
     session=None
     try:
         page.goto(home,wait_until='load')
+        page.wait_for_selector('[data-filetree][data-tree-ready="true"]',state='attached')
         open_panel(page,width,'context')
         page.locator('[data-global-graph-open]').click()
         graph=wait_graph(page,'[data-global-graph]')
@@ -558,6 +565,9 @@ def check_live_physics(browser, width):
         print('PASS animated spring-charge graph',width,'neighbor displacement',round(reaction,2),'released motion',round(distance(released[choose['id']],settled[choose['id']]),2),flush=True)
         page.locator('#garden-graph').screenshot(path=str(output/f'force-released-{width}.png'))
         return {'width':width,'neighbor_motion':round(reaction,2),'release_motion':round(distance(released[choose['id']],settled[choose['id']]),2),'ticks':int(graph.get_attribute('data-physics-ticks')),'status':'PASS'}
+    except Exception as error:
+        capture_failure(page,width,'live-force-normal-motion',error,errors,[])
+        raise
     finally:
         if session:
             try:session.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]});session.detach()
