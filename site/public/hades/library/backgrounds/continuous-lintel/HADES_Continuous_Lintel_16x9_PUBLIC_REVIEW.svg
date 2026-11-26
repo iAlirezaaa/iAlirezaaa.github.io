@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+<title>HADES Continuous Lintel 16x9 - PUBLIC REVIEW</title>
+<desc>Editable architectural background. Continuous dark upper field, no logo or tile. Neutral colours proposed; only #EF4B32 approved.</desc>
+<g id="continuous-field"><rect width="1000" height="1000" fill="#171716"/></g>
+<g id="architectural-planes"><path d="M0 590 H190 L340 785 H1000 V1000 H0Z" fill="#21201E"/><path d="M1000 490 H890 L690 720 H1000Z" fill="#282623"/><path d="M1000 720 H690 L520 1000 H1000Z" fill="#302D29"/><path d="M0 810 H145 L310 1000 H0Z" fill="#292724"/></g>
+<g id="fine-joints" fill="none" stroke="#443F38" stroke-width="1.5"><path d="M0 590 H190 L340 785 H610"/><path d="M1000 490 H890 L690 720"/><path d="M690 720 H1000"/></g>
+<g id="vermilion-accent"><path d="M890 720 H950" stroke="#EF4B32" stroke-width="3" fill="none"/></g>
+</svg>
