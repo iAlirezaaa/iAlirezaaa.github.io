@@ -385,11 +385,25 @@ export function installGraphViews({getGraph, here, trimPath, graphDialog, openDi
   }
   scopeButton?.addEventListener('click', () => { scope = scope === 'all' ? 'local' : 'all'; renderMini(); });
   $$('[data-global-graph-open]').forEach(button => button.addEventListener('click', () => {
-    openDialog(graphDialog); requestAnimationFrame(()=>renderFull());
+    // Invalidate the previous graph synchronously before opening the dialog.
+    // Otherwise a quick reopen exposes old nodes just before they are removed.
+    fullVersion++;
+    if(full){
+      states.get(full)?.destroy();states.delete(full);
+      full.dataset.graphReady='false';
+      full.replaceChildren();
+    }
+    openDialog(graphDialog);
+    requestAnimationFrame(()=>{if(graphDialog?.open)renderFull();});
   }));
   $$('[data-graph-zoom]').forEach(button => button.addEventListener('click', () => states.get(full)?.zoom(button.dataset.graphZoom === 'in' ? 1.25 : .8)));
   $('[data-graph-reset]')?.addEventListener('click', () => states.get(full)?.reset());
-  graphDialog?.addEventListener('close', () => { fullVersion++;states.get(full)?.stop();requestAnimationFrame(() => states.get(miniature)?.reflow()); });
+  graphDialog?.addEventListener('close', () => {
+    if(graphDialog.open)return;
+    fullVersion++;
+    if(full){states.get(full)?.destroy();states.delete(full);full.dataset.graphReady='false';full.replaceChildren();}
+    requestAnimationFrame(()=>states.get(miniature)?.reflow());
+  });
   const resizeObserver = new ResizeObserver(entries => {
     for (const {target} of entries) {
       if (!target.clientWidth || !target.clientHeight) continue;
