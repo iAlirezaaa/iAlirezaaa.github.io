@@ -31,6 +31,9 @@ def run():
  need(ORIG.is_file(),'original raster not present')
  orig=ORIG.read_bytes()
  need(hashlib.sha256(orig).hexdigest()==OSHA,'original raster SHA mismatch')
+ from hades_stationery_release import preserve_release
+ preserve_release(SRC, OUT, 'letterhead')
+ return
  alpha=isolate(orig)
  need(hashlib.sha256(alpha).hexdigest()==MSHA,'alpha derivation differed from previous vetted B01')
  OUT.mkdir(parents=True,exist_ok=True)

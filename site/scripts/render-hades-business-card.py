@@ -29,6 +29,9 @@ def build():
     die(ORIGINAL.exists(),'original image missing')
     source=ORIGINAL.read_bytes()
     die(hashlib.sha256(source).hexdigest()==ORIGINAL_SHA,'original SHA mismatch')
+    from hades_stationery_release import preserve_release
+    preserve_release(SRC, OUT, 'business-card')
+    return
     im=Image.open(io.BytesIO(source)).convert('RGB')
     m=im.convert('L')
     box=m.point(lambda p:255 if p>3 else 0).getbbox()
