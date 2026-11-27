@@ -1,0 +1,23 @@
+WEBVTT
+
+NOTE HADES PUBLIC REVIEW | 24 fps | 144 frames | timing annotations only
+
+pre-roll
+00:00:00.000 --> 00:00:00.500
+Pre-roll
+
+reveal
+00:00:00.500 --> 00:00:01.000
+Title reveal
+
+hold
+00:00:01.000 --> 00:00:04.500
+Title hold
+
+exit
+00:00:04.500 --> 00:00:05.000
+Title exit
+
+post-roll
+00:00:05.000 --> 00:00:06.000
+Post-roll
