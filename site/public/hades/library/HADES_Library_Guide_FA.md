@@ -46,3 +46,7 @@ SVG طرح حاوی متن و ساختار وکتوری قابل‌ویرایش 
 
 ## کاربرد نشان اصلی در سه نسبت Quiet Courts · PUBLIC REVIEW
 دو SVG وکتوری تازه برای ۱۶:۹ و ۱:۱، همراه با نمونهٔ ۹:۱۶ قبلی بدون ساخت تکراری. PNG اصلی روی پلاک تیرهٔ مستقل، بدون تغییر. [گالری فارسی](/hades/fa/library/backgrounds/quiet-courts/mark-plate/ratios/) · [English](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/). چاپ، گوشی، Mikhak و FINAL همچنان OPEN.
+
+## میز دانلود چنددسته‌ای · PUBLIC REVIEW
+
+[فهرست قابل‌جست‌وجو](/hades/library/backgrounds/generated-imagery/download-desk.html#fa) برای موشن، تصاویر و ست اداری، شامل فایل‌های موجود کارت ویزیت و سربرگ A4 در قالب SVG، PSD لایه‌دار، نمونهٔ PNG و ZIP. تأیید هویت فایل در ریپو به‌معنای تأیید HTTP زنده یا چاپ نیست.

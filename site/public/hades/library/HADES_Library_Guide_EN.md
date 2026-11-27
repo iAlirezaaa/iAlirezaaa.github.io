@@ -43,3 +43,7 @@ Three new no-logo editable SVG product-presentation backgrounds (16:9, 9:16, 1:1
 
 ## Quiet Courts original-mark aspect applications · PUBLIC REVIEW
 Two new source-editable standalone SVGs for 16:9 Dark and 1:1 Charcoal; existing 9:16 Bone reused. Exact original white PNG on separate dark plaques; originals unchanged. [English gallery](/hades/library/backgrounds/quiet-courts/mark-plate/ratios/) · [فارسی](/hades/fa/library/backgrounds/quiet-courts/mark-plate/ratios/). Phone/print/Mikhak/FINAL OPEN.
+
+## Cross-category download desk · PUBLIC REVIEW
+
+[Open the searchable inventory](/hades/library/backgrounds/generated-imagery/download-desk.html#en) for motion, imagery and stationery, including existing card and A4 letterhead SVG, layered PSD, PNG proof and ZIP formats. Repository identity is not live HTTP or print approval.
