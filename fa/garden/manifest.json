@@ -3570,7 +3570,7 @@
     "/fa/garden/artificial-intelligence/": "/fa/blog/notes/artificial-intelligence/"
   },
   "assets": {
-    "/fa/garden/~random/index.html": "5e7d3be3e1d385d975118c499ea074949bc9b7447a09a7b7fa69901a669086cb",
+    "/fa/garden/~random/index.html": "585c6a87b909b14761bd8a59eeb26358aac62beee659fc8c494e2c5da1539f55",
     "/fa/garden/404/index.html": "b22c033e59cf82793c60cbe259cfbd91ad7fb6169d95475e7265fafd3338ec21",
     "/fa/blog/categories/fundamentals/index.html": "c636106d3cf19a3b6e59e642dd5dcf63a187b1b4b50f4b15f7255f5f49773b07",
     "/fa/blog/categories/index.html": "1ab8d84e19ed12a6f2de34d1632abad642c9887028917e9fa08cc9bfa49caf76",
@@ -3642,7 +3642,7 @@
     "/fa/blog/tags/python/index.html": "3944fdf4bf39e52ff4e4cfa1adbbac4d74246c2a0997cb3074533fb231e517a4",
     "/fa/blog/tags/rife/index.html": "58b9e8f97b23704e055a23ca6f27f4f211146921b8bb86ad7663b0feb65e5c6f",
     "/fa/blog/tags/workflow/index.html": "cd979658e475da59a9f4d3bc8e3c46ed59accff521039464b2bd957f662fded1",
-    "/fa/garden/feed.xml": "178312e99ce8446b8f55e801976906bd47103edb7b2924c7bd831d998b7e292a",
+    "/fa/garden/feed.xml": "a62b06bf67cf715914ac638fc362ad9f43ce37285897a19d23fa5b74bda36408",
     "/fa/garden/filetree.html": "28c274cb2c4b0a95b97606f98f08f9c72219bdb8cb8acca6da610e483fc457ae",
     "/fa/garden/fonts/mikhak.woff2": "18e507e1ae85db40fac1ae651655ebdf5b7ec990835328bdede753ce6654007a",
     "/fa/garden/fonts/OFL.txt": "071f566f77f4d56b39c15c9f685bc8806b04a1a9543ad6c5f3806497996d046f",
@@ -3709,8 +3709,8 @@
     "/fa/garden/scripts/reader-tools.js": "ce941cf8b83b556bfdfe4d0b33a41078d92f8d6e8a93baea2c67b4e1d144db6e",
     "/fa/garden/scripts/reading-trail.js": "3758fa922dc0482756a06971b13eb04c98f25a50af5b7bb2a510b0f39e3e8630",
     "/fa/garden/scripts/workspace-panes.js": "9ee7449ed9f04d9758c6f89c854782cce538afb6b74147c6ddd4cbfc66751268",
-    "/fa/garden/searchIndex.json": "17b6acab4263def912bfcbbe85dcfd708dc9cdd53f8e53cb4f536b54a293fae2",
-    "/fa/garden/sitemap.xml": "1cc2939bfbd26933796618f2b2144db9c27ff7b832b35598de4e5387e21fdd6d",
+    "/fa/garden/searchIndex.json": "4aaea0389fc529f11e5f8c317f4955a2bad0f9f9bd303df3eb7b6960c9fa9408",
+    "/fa/garden/sitemap.xml": "ea78cf94b3b01387ba2cefcb66b54506a171772dbd0af286410865a2973c2bb9",
     "/fa/garden/styles/custom-style.css": "e230d094db3d021ddaa2541c9bc96d31c777052b9cf34b07a3beb7d524e95867",
     "/fa/garden/styles/custom-style.css.map": "96fd2d10919de215cbdd74f73d1267c6072d3b485bd93ce0cc2a12eac994a470",
     "/fa/garden/styles/digital-garden-base.css": "06e0836918a64e96300e3c46d9d8c9bf4656a73ccf2f7b79009cdc3ed9184d92",
