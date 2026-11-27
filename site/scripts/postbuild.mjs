@@ -53,7 +53,10 @@ function documentFor(page, language) {
   html = put(html, /<script type="application\/ld\+json">[\s\S]*?<\/script>/, '<script type="application/ld+json">' + JSON.stringify(graph) + '</script>', 'JSON-LD')
   const names = language === 'fa' ? ['صفحهٔ اصلی', 'درباره', 'آثار', 'اطلس', 'تماس'] : ['Home', 'About', 'Work', 'Atlas', 'Contact']
   const blogLink = language === 'fa' ? ' · <a href="' + base + 'fa/blog/">وبلاگ</a>' : ''
-  const navigation = pages.map((item, index) => '<a href="' + urlFor(item, language) + '">' + names[index] + '</a>').join(' · ') + blogLink
+  const languageLink = language === 'fa'
+    ? '<a href="' + english + '" hreflang="en" lang="en">English</a>'
+    : '<a href="' + persian + '" hreflang="fa" lang="fa">نسخهٔ فارسی</a>'
+  const navigation = pages.map((item, index) => '<a href="' + urlFor(item, language) + '">' + names[index] + '</a>').join(' · ') + blogLink + ' · ' + languageLink
   const accounts = [
     ['LinkedIn', 'https://ae.linkedin.com/in/ialirezaaa'],
     ['Instagram', 'https://www.instagram.com/hades.3rd/'],
@@ -62,8 +65,9 @@ function documentFor(page, language) {
     ['Airis Feed', 'https://t.me/AirisFeed'],
   ].map(item => '<a href="' + item[1] + '">' + item[0] + '</a>').join(' · ')
   const message = language === 'fa' ? 'برای مشاهدهٔ نسخهٔ تعاملی جاوااسکریپت را فعال کنید.' : 'Enable JavaScript to view the original interactive portfolio.'
-  const fallback = '<noscript><main lang="' + language + '" dir="' + (language === 'fa' ? 'rtl' : 'ltr') + '" style="max-width:900px;margin:8vh auto;padding:32px;color:#d9d4c8;font:17px/2 Tahoma,Arial,sans-serif"><h1>' + esc(title) + '</h1><p>' + esc(description) + '</p><nav aria-label="Site navigation">' + navigation + '</nav><p>' + accounts + '</p><p>' + message + '</p></main></noscript>'
-  html = put(html, /<\/body>/, fallback + '\n</body>', 'body')
+  const fallback = '<main data-static-portfolio lang="' + language + '" dir="' + (language === 'fa' ? 'rtl' : 'ltr') + '" style="max-width:900px;margin:8vh auto;padding:32px;color:#d9d4c8;font:17px/2 Tahoma,Arial,sans-serif"><h1>' + esc(title) + '</h1><p>' + esc(description) + '</p><nav aria-label="Site navigation">' + navigation + '</nav><p>' + accounts + '</p><noscript><p>' + message + '</p></noscript></main>'
+  // Visible initial HTML for every visitor; React replaces it in the same root.
+  html = put(html, /<div id="root"><\/div>/, '<div id="root">' + fallback + '</div>', 'React root')
   return html
 }
 
