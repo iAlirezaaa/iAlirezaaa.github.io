@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<title id="title">Decision and next steps / Classic EN / REVIEW</title>
+<desc id="desc">Editable slide composition. No mark or creator credit. Neutral colors and typography are proposals. Vermilion #EF4B32 is approved.</desc>
+<rect id="background" width="1920" height="1080" fill="#191918"/>
+<g font-family="Arial,sans-serif" font-weight="400">
+<rect x="120" y="110" width="56" height="5" fill="#EF4B32"/>
+<text id="project" x="120" y="175" font-size="30" fill="#C8BFB3">PROJECT / REVIEW</text>
+<text id="heading" x="120" y="280" font-size="64" fill="#F4F0E8">Decision and next steps</text>
+<path d="M120 328H1800 M120 544H1800 M120 760H1800 M120 940H1800 M580 354V914" fill="none" stroke="#716A60" stroke-width="2"/>
+<g fill="#C8BFB3" font-size="30">
+<text x="120" y="418">01 / Decision</text><text x="120" y="634">02 / Evidence</text><text x="120" y="850">03 / Next action</text>
+</g>
+<g fill="#F4F0E8" font-size="42">
+<text id="decision" x="640" y="416">State the decision in one sentence.</text>
+<text id="evidence" x="640" y="632">Add the verified reason or constraint.</text>
+<text id="action" x="640" y="848">Name the next action.</text>
+</g>
+<g fill="#C8BFB3" font-size="28">
+<text id="decision-status" x="640" y="474">Status: pending review</text>
+<text id="evidence-source" x="640" y="690">Source: replace with actual evidence</text>
+<text id="action-owner" x="640" y="906">Owner / due date: to be confirmed</text>
+<text x="120" y="1002">16:9 / EDITABLE SOURCE</text><text x="1800" y="1002" text-anchor="end">REVIEW — NOT FINAL</text>
+</g></g></svg>
