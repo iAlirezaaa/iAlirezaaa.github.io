@@ -3,14 +3,15 @@
   <title>وبلاگ هادس</title>
   <link href="https://ialirezaaa.github.io/fa/garden/feed.xml" rel="self"/>
   <link href="https://ialirezaaa.github.io/fa/garden/"/>
-  <updated>2026-11-27T12:16:55Z</updated>
+  <updated>2026-11-27T12:20:04Z</updated>
   <id>https://ialirezaaa.github.io/fa/garden/</id><entry>
     <title>هوش مصنوعی</title>
     <updated>2026-11-26T00:00:00.000Z</updated>
     <id>https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/</id>
     <content type="html">&lt;p&gt;اینجا هوش مصنوعی را به چشم یک ابزار می‌بینیم: برای اینکه بفهمیم کدام بخش کار را ساده می‌کند، کجا کنترل بیشتری می‌دهد و چه تصمیمی هنوز با خودمان است.&lt;/p&gt;
-&lt;h2 id=&quot;درس-تصویری&quot; tabindex=&quot;-1&quot;&gt;درس تصویری&lt;/h2&gt;
+&lt;h2 id=&quot;درس-های-تصویری&quot; tabindex=&quot;-1&quot;&gt;درس‌های تصویری&lt;/h2&gt;
 &lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/ai-video-camera-reference/&quot;&gt;چرا ویدیوی هوش مصنوعی شبیه لی‌اوت می‌شه؟&lt;/a&gt;: با سه خروجی کوتاه، اثرِ مرجع حرکت دوربین رو جدا از ظاهر تصویر بررسی کن.&lt;/li&gt;
 &lt;li&gt;&lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/depth-map-fog/&quot;&gt;کنترل مه با نقشهٔ عمق&lt;/a&gt;: با یک نمای ایستگاه بارانی می‌بینیم چطور نقشهٔ عمق مه را با فاصله تنظیم می‌کند و ماسک، صورت و لبهٔ مو را حفظ می‌کند.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;مبانی-و-پژوهش&quot; tabindex=&quot;-1&quot;&gt;مبانی و پژوهش&lt;/h2&gt;
@@ -69,6 +70,34 @@
 &lt;p&gt;برای فرقِ «هدایت ساخت تصویر» و «اضافه‌کردن افکت روی نمای آماده»، &lt;a href=&quot;https://ialirezaaa.github.io/fa/blog/controlnet-depth/&quot; class=&quot;internal-link&quot;&gt;درس ControlNet و نقشهٔ عمق&lt;/a&gt; را کنار این مطلب بخوان. برای جای دوربین در همین ایستگاه، &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/180-degree-rule/&quot;&gt;قانون ۱۸۰ درجه&lt;/a&gt; را ببین.&lt;/p&gt;
 </content>
     <link href="https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/depth-map-fog/"/>
+  </entry><entry>
+    <title>ai-video-camera-reference</title>
+    <updated>2026-11-27T00:00:00.000Z</updated>
+    <id>https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/ai-video-camera-reference/</id>
+    <content type="html">&lt;figure class=&quot;hero article-figure&quot;&gt;&lt;img src=&quot;https://ialirezaaa.github.io/fa/garden/img/user/ai-video-camera-reference/cover.webp&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;1440&quot; height=&quot;960&quot; alt=&quot;دوربینی روی ریل از عروسک فانوس‌به‌دست فیلم می‌گیرد؛ کنار دکور سنگی، چند حجم خاکستریِ لی‌اوت دیده می‌شود.&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;یه نمای پنج‌ثانیه‌ای داری: دوربین از کنار دیوار رد می‌شه و تازه آخرش راهروی سنگی رو می‌بینیم. توی بلندر، زمان حرکت و لرزشش دراومده، ولی صحنه هنوز از چند حجم خاکستری ساخته شده. برای ظاهر نهایی هم یه تصویر داری که نور فانوس و جنس سنگ رو دقیق نشون می‌ده. هر دو رو می‌دی به مدل. بعد می‌بینی دوربین تقریباً همون راه رو رفته، ولی سنگ‌های قشنگت شبیه همون بلوک‌های خاکستری شدن.&lt;/p&gt;
+&lt;p&gt;اینجا قبل از اینکه پرامپت رو طولانی‌تر کنی، یه سؤال بپرس: &lt;strong&gt;اگر ویدیوی لی‌اوت رو بردارم، کدوم بخشِ ظاهر بهتر می‌شه و کدوم بخشِ حرکت از دست می‌ره؟&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;به-هر-مرجع-فقط-یه-کار-بده&quot; tabindex=&quot;-1&quot;&gt;به هر مرجع فقط یه کار بده&lt;/h2&gt;
+&lt;p&gt;ویدیوی لی‌اوت، علاوه بر مسیر دوربین، شکل اجسام، نور و رنگ محیط رو هم توی هر فریم نشون می‌ده. مدل از روی فایل نمی‌فهمه که مثلاً خاکستری بودن دیوار فقط برای کارِ موقته. &lt;a href=&quot;https://seed.bytedance.com/en/blog/official-launch-of-seedance-2-0/&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;تیم Seedance&lt;/a&gt; توضیح می‌ده که مدل می‌تونه هم به حرکت و هم به ترکیب‌بندی و جلوه‌های بصریِ مرجع رجوع کنه. برای همین، نوشتنِ «فقط حرکت دوربین» جهت می‌ده، اما تضمین نمی‌کنه که هیچ نشونه‌ای از ظاهر لی‌اوت وارد خروجی نشه.&lt;/p&gt;
+&lt;p&gt;برای اینکه خواسته‌ات روشن باشه، ظاهر و حرکت رو جدا بنویس:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;از عکس بگیر:&lt;/strong&gt; جنس سنگ، رنگ‌ها، نورِ گرم فانوس و شکلِ قوس درگاه.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;از ویدیو بگیر:&lt;/strong&gt; مسیر دوربین از چپ به راست، لحظه‌ای که قوس از پشت دیوار پیدا می‌شه و ریتمِ توقفِ آخر.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ثابت نگه دار:&lt;/strong&gt; یک پلان پیوسته. اگر می‌خوای عکس دقیقاً فریم اول باشه، باید زاویه و اندازهٔ قابش با فریم اول لی‌اوت جور دربیاد. اگر عکس از زاویهٔ دیگه‌ایه، ازش برای ظاهر استفاده کن و فریم اول رو از همون زاویهٔ درست بساز.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;با-سه-خروجی-کوتاه-مشکل-رو-پیدا-کن&quot; tabindex=&quot;-1&quot;&gt;با سه خروجی کوتاه، مشکل رو پیدا کن&lt;/h2&gt;
+&lt;p&gt;فقط یه برش کوتاه از نما رو انتخاب کن که توش چیزی از پشت دیوار پیدا می‌شه. مدت، نسبت تصویر و متنِ توصیف حرکت رو ثابت نگه دار؛ اگر ابزار اجازه می‌ده، بذر تصادفی رو هم ثابت بذار. سه حالت رو کنار هم ببین:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;فقط عکس:&lt;/strong&gt; این خروجی بهت یه مبنا می‌ده تا ببینی مدل چقدر ظاهر رو نگه می‌داره، وقتی ویدیویی کنارش نیست.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;عکس + لی‌اوت فعلی:&lt;/strong&gt; اینجا ببین با اضافه شدن ویدیو، حرکت چقدر نزدیک‌تر می‌شه و کدوم جزئیات ظاهر تغییر می‌کنن.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;عکس + لی‌اوت ساده‌تر:&lt;/strong&gt; همون دوربین، همون تعداد فریم، همون موقعیتِ دیوار و قوس. فقط چیزهایی رو حذف کن که نمی‌خوای از ویدیو وارد خروجی بشن: نوشته‌های ویوپورت، گرید، رنگ‌های موقت و اشیای اضافه. دیوار نزدیک و قوس دور رو نگه دار، چون جابه‌جاییِ اون‌ها نسبت به هم نشون می‌ده دوربین واقعاً داره حرکت می‌کنه. برای ساخت این کلیپ از نمای دوربین فعال، &lt;a href=&quot;https://docs.blender.org/manual/en/latest/editors/3dview/viewport_render.html&quot; target=&quot;_blank&quot; class=&quot;external-link&quot;&gt;راهنمای Viewport Render بلندر&lt;/a&gt; رو ببین.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;معیار رو قبل از گرفتن خروجی مشخص کن. مثلاً توی &lt;strong&gt;شروع، وسط و پایان&lt;/strong&gt; به دو چیز نگاه کن: قوس کی از پشت دیوار بیرون میاد؟ سنگ و نور فانوس به عکس وفادار موندن؟ اگر توی حالت ۳ ظاهر بهتر شد و زمانِ پیدا شدن قوس عوض نشد، همون نسخهٔ ساده‌تر مرجع بهتری برای این نماست. اگر قوس زودتر میاد یا فرم دیوار عوض می‌شه، هنوز نمی‌تونی حرکت و ظاهر رو جداگانه تأیید کنی. اگر خروجی‌ها هربار فرق زیادی دارن، هر حالت رو بیش از یک‌بار بگیر تا تفاوتِ یه برداشت تصادفی رو به مرجع نسبت ندی.&lt;/p&gt;
+&lt;h2 id=&quot;تا-کجا-ارزش-داره-ادامه-بدی&quot; tabindex=&quot;-1&quot;&gt;تا کجا ارزش داره ادامه بدی؟&lt;/h2&gt;
+&lt;p&gt;اگر مهمه که دوربین دقیقاً توی یه فریم خاص بلرزه، یا قوس درست روی ضرب موسیقی پیدا بشه، مرجع ویدیویی رو جای دوربینِ انیمیت‌شده حساب نکن. حرکتِ حساس رو توی بلندر نگه دار؛ از هوش مصنوعی برای ساخت یا اصلاحِ ظاهر استفاده کن و هر جا به تطابق دقیق نیاز داری، خروجی رو روی شاتِ اصلی کامپوزیت کن. این‌طوری اگر مدل رنگ سنگ رو بهتر کرد ولی زمان حرکت رو به هم زد، مجبور نیستی برای داشتن یکی، اون یکی رو از دست بدی.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;برای تمرین بعدی:&lt;/strong&gt; &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/camera-movements/&quot;&gt;فرق حرکت دوربین و زوم&lt;/a&gt; رو کنار &lt;a class=&quot;internal-link&quot; target=&quot;&quot; data-note-icon=&quot;undefined&quot; href=&quot;https://ialirezaaa.github.io/fa/blog/notes/cinema/camera-position-before-lens/&quot;&gt;تأثیر جای دوربین بر پرسپکتیو&lt;/a&gt; بخون. توی تست بعدی به جای اینکه فقط بگی «حرکت شبیه مرجعه»، یه لبهٔ نزدیک و یه نشونهٔ دور انتخاب کن و ببین دقیقاً کِی از کنار هم رد می‌شن.&lt;/p&gt;
+</content>
+    <link href="https://ialirezaaa.github.io/fa/blog/notes/artificial-intelligence/ai-video-camera-reference/"/>
   </entry><entry>
     <title>DDPM</title>
     <updated>2026-11-25T00:00:00.000Z</updated>
