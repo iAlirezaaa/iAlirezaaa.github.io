@@ -6,12 +6,40 @@ import numpy as np
 from PIL import Image
 
 
+ORIENTATION_ERROR = ('Video has a display transform. Export it with orientation baked '
+                     'into the pixels and no rotation or reflection metadata, then retry.')
+IDENTITY_DISPLAY_MATRIX = [65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824]
+
+
+def require_baked_orientation(info):
+    for side_data in info.get('side_data_list', []):
+        if side_data.get('side_data_type') != 'Display Matrix':
+            continue
+        try:
+            values = [int(token) for line in side_data.get('displaymatrix', '').splitlines()
+                      if line.strip() for token in line.split(':', 1)[1].split()]
+        except (IndexError, ValueError):
+            raise ValueError(ORIENTATION_ERROR) from None
+        if values != IDENTITY_DISPLAY_MATRIX:
+            raise ValueError(ORIENTATION_ERROR)
+    rotate = info.get('tags', {}).get('rotate')
+    if rotate is not None:
+        try:
+            is_identity_rotation = float(rotate) % 360 == 0
+        except (TypeError, ValueError):
+            is_identity_rotation = False
+        if not is_identity_rotation:
+            raise ValueError(ORIENTATION_ERROR)
+
+
 def audit(video, overlay):
     info = json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','v:0','-show_streams','-of','json',str(video)]))['streams'][0]
+    require_baked_orientation(info)
     w,h = info['width'],info['height']
     with Image.open(overlay) as im:
-        if 'A' not in im.getbands() or im.width*h != im.height*w:
-            raise ValueError('Use a transparent RGBA overlay with the same aspect ratio.')
+        has_alpha = 'A' in im.getbands() or (im.mode == 'P' and 'transparency' in im.info)
+        if not has_alpha or im.width*h != im.height*w:
+            raise ValueError('Use a transparent RGBA or indexed PNG overlay with the same aspect ratio.')
         im = im.convert('RGBA').resize((w,h),Image.Resampling.LANCZOS)
         a = np.asarray(im)
     rgb = a[:,:,:3].astype(np.int16)

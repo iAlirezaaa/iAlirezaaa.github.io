@@ -8,12 +8,39 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
+ORIENTATION_ERROR = ('Video has a display transform. Export it with orientation baked '
+                     'into the pixels and no rotation or reflection metadata, then retry.')
+IDENTITY_DISPLAY_MATRIX = [65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824]
+
+
+def require_baked_orientation(info):
+    for side_data in info.get('side_data_list', []):
+        if side_data.get('side_data_type') != 'Display Matrix':
+            continue
+        try:
+            values = [int(token) for line in side_data.get('displaymatrix', '').splitlines()
+                      if line.strip() for token in line.split(':', 1)[1].split()]
+        except (IndexError, ValueError):
+            raise ValueError(ORIENTATION_ERROR) from None
+        if values != IDENTITY_DISPLAY_MATRIX:
+            raise ValueError(ORIENTATION_ERROR)
+    rotate = info.get('tags', {}).get('rotate')
+    if rotate is not None:
+        try:
+            is_identity_rotation = float(rotate) % 360 == 0
+        except (TypeError, ValueError):
+            is_identity_rotation = False
+        if not is_identity_rotation:
+            raise ValueError(ORIENTATION_ERROR)
+
+
 def lum(x):
     x=x/255.; x=np.where(x<=.04045,x/12.92,((x+.055)/1.055)**2.4)
     return x[...,0]*.2126+x[...,1]*.7152+x[...,2]*.0722
 
 def optimize(video, light, dark, out):
     info=json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','v:0','-show_streams','-of','json',str(video)]))['streams'][0]
+    require_baked_orientation(info)
     w,h=info['width'],info['height']; candidates=[]
     for tone,path in [('light',light),('dark',dark)]:
         with Image.open(path) as im:
