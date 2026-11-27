@@ -91,6 +91,8 @@ for (const page of pages) {
     entries.push('  <url>\n    <loc>' + url + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <xhtml:link rel="alternate" hreflang="en" href="' + urlFor(page, 'en') + '"/>\n    <xhtml:link rel="alternate" hreflang="fa" href="' + urlFor(page, 'fa') + '"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="' + urlFor(page, 'en') + '"/>\n  </url>')
   }
 }
+// Hades Realm is a standalone app copied from public; never render it with the portfolio shell.
+entries.push('  <url>\n    <loc>' + base + 'HadesRealm/</loc>\n    <lastmod>' + today + '</lastmod>\n  </url>')
 entries.push('  <url>\n    <loc>' + base + 'fa/blog/</loc>\n  </url>')
 for (const article of renderBlog(dist)) entries.push('  <url>\n    <loc>' + article.url + '</loc>\n    <lastmod>' + article.date + '</lastmod>\n  </url>')
 const garden = await buildGarden(dist)

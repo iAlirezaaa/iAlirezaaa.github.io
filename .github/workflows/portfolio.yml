@@ -5,6 +5,7 @@ on:
     paths:
       - "site/**"
       - "garden/**"
+      - "realm/**"
       - ".github/workflows/portfolio.yml"
   workflow_dispatch:
 
@@ -31,12 +32,28 @@ jobs:
           cache-dependency-path: |
             site/package-lock.json
             garden/package-lock.json
+            realm/package-lock.json
       - name: Install original dependencies
         working-directory: site
         run: npm ci
       - name: Install original Digital Garden template dependencies
         working-directory: garden
         run: npm ci
+      - name: Install Hades Realm dependencies
+        working-directory: realm
+        run: npm ci
+      - name: Test Hades Realm gameplay
+        working-directory: realm
+        run: npm test
+      - name: Build Hades Realm 3D experience
+        working-directory: realm
+        run: npm run build
+      - name: Include Hades Realm in portfolio output
+        run: |
+          test -f realm/dist/index.html
+          rm -rf site/public/HadesRealm
+          mkdir -p site/public/HadesRealm
+          cp -a realm/dist/. site/public/HadesRealm/
       - name: Build original portfolio
         working-directory: site
         run: npm run build

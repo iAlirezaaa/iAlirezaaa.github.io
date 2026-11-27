@@ -1,0 +1,37 @@
+const paths = {
+  ember:'<path d="M12 3c1 5 6 5 6 11a6 6 0 1 1-12 0c0-3 2-5 4-7 0 4 2 4 2 4 2-3 0-5 0-8Z"/><path d="M12 13c-3 3-3 6 0 6s3-3 0-6Z"/>',
+  soul:'<path d="M7 10a5 5 0 0 1 10 0v10l-3-2-2 2-2-2-3 2V10Z"/><path d="M10 10v2m4-2v2"/>',
+  citadel:'<path d="M4 21V8h4V4l4-2 4 2v4h4v13H4Z"/><path d="M8 8v13m8-13v13M10 21v-6h4v6M10 6h4M2 21h20"/>',
+  forge:'<path d="m3 8 7-5 5 6-6 6-6-7Zm10 5 7 8M15 4l5 5M3 21h10"/>',
+  archive:'<path d="m3 8 9-5 9 5H3Zm2 3v8m5-8v8m4-8v8m5-8v8M3 21h18"/>',
+  oracle:'<circle cx="12" cy="10" r="6"/><path d="m8 16-2 5h12l-2-5M12 1v3m-9 6H1m22 0h-2m-9-4v8m-3-4h6"/>',
+  theatre:'<path d="M3 4c6 2 7 2 12 0v8c0 5-6 7-6 7s-6-2-6-7V4Z"/><path d="M15 8h6v9c0 3-4 5-4 5l-5-3M6 9h2m3 0h2m-7 4c2 3 4 3 6 0"/>',
+  elysium:'<path d="M12 21v-9m0 4C3 17 2 10 4 6c6 0 9 5 8 10Zm0-3c0-7 4-10 9-10 1 6-2 10-9 10ZM7 21h10"/>',
+  gates:'<path d="M4 21V9l8-6 8 6v12M8 21V11a4 4 0 0 1 8 0v10M12 7v14M2 21h20"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="m16 8-3 5-5 3 3-5 5-3Z"/>',
+  build:'<path d="m14 5 5-3 3 3-4 4-4-4ZM3 21l12-13m-9 4 6 6M2 21h6"/>',
+  quests:'<path d="M6 3h14v16H6a3 3 0 0 1 0-6M6 3a3 3 0 0 0 0 6h2V3M6 13a3 3 0 1 0 0 6M11 7h5m-5 4h5m-5 4h3"/>',
+  links:'<path d="m9 15 6-6M8 12l-3 3a3 3 0 0 0 4 4l3-3m0-8 3-3a3 3 0 0 1 4 4l-3 3"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  minus:'<path d="M5 12h14"/>',
+  home:'<path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/>',
+  close:'<path d="m6 6 12 12M6 18 18 6"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/>',
+  moon:'<path d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10Z"/>',
+  sound:'<path d="m4 9 4 0 5-5v16l-5-5H4V9Zm12-2c3 3 3 7 0 10m3-13c5 4 5 12 0 16"/>',
+  mute:'<path d="m4 9 4 0 5-5v16l-5-5H4V9Zm13 0 5 6m-5 0 5-6"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 4m0 3v.1"/>',
+  check:'<path d="m5 12 4 4L19 6"/>',
+  chevron:'<path d="m8 5 7 7-7 7"/>',
+  trophy:'<path d="M8 3h8v7a4 4 0 0 1-8 0V3Zm0 2H3v3c0 3 3 5 6 4m7-7h5v3c0 3-3 5-6 4m-3 2v6m-5 1h10"/>',
+  lantern:'<path d="M12 2v3m-6 3 6-3 6 3M7 9h10l-1 10H8L7 9Zm3 4h4M6 21h12"/>',
+  garden:'<path d="M4 19h16v3H4v-3Zm8 0V9m0 4c-7 0-8-3-7-7 6 0 8 3 7 7Zm0-4c0-6 3-8 7-7 0 4-2 7-7 7Z"/>',
+  watchtower:'<path d="M7 22V7h10v15M5 7l7-5 7 5H5Zm4 2h6v4H9V9Zm2 8h2v5M4 22h16"/>',
+  search:'<circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/>',
+  copy:'<rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V3H3v13h5"/>',
+  reset:'<path d="M3 10a9 9 0 1 1 1 8M3 3v7h7"/>',
+};
+
+export function icon(name, cls = '') {
+  return `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.compass}</svg>`;
+}

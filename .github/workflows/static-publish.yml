@@ -6,6 +6,7 @@ on:
     paths:
       - "site/**"
       - "garden/**"
+      - "realm/**"
       - ".github/workflows/static-publish.yml"
   workflow_dispatch:
 
@@ -30,12 +31,28 @@ jobs:
           cache-dependency-path: |
             site/package-lock.json
             garden/package-lock.json
+            realm/package-lock.json
       - name: Install dependencies
         working-directory: site
         run: npm ci
       - name: Install original Digital Garden template dependencies
         working-directory: garden
         run: npm ci
+      - name: Install Hades Realm dependencies
+        working-directory: realm
+        run: npm ci
+      - name: Test Hades Realm gameplay
+        working-directory: realm
+        run: npm test
+      - name: Build Hades Realm 3D experience
+        working-directory: realm
+        run: npm run build
+      - name: Include Hades Realm in portfolio output
+        run: |
+          test -f realm/dist/index.html
+          rm -rf site/public/HadesRealm
+          mkdir -p site/public/HadesRealm
+          cp -a realm/dist/. site/public/HadesRealm/
       - name: Build original React/Vite design
         working-directory: site
         run: npm run build
@@ -79,12 +96,12 @@ jobs:
         run: |
           set -euo pipefail
           built_source_ref="$(git rev-parse HEAD)"
-          rm -rf index.html 404.html assets about work systems contact fa sitemap.xml robots.txt
+          rm -rf index.html 404.html assets about work systems contact fa HadesRealm sitemap.xml robots.txt
           cp -a site/dist/. .
           touch .nojekyll
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- index.html 404.html assets about work systems contact fa hades site/public/hades/library/backgrounds sitemap.xml robots.txt .nojekyll googleb94d773f21def0ef.html
+          git add -A -- index.html 404.html assets about work systems contact fa hades HadesRealm site/public/HadesRealm site/public/hades/library/backgrounds sitemap.xml robots.txt .nojekyll googleb94d773f21def0ef.html
           if git diff --cached --quiet; then
             echo "Generated output already matches the repository."
             exit 0
@@ -97,7 +114,7 @@ jobs:
             fi
             echo "Concurrent branch update detected; checking the source used for this build."
             git fetch origin main
-            if ! git diff --quiet "$built_source_ref" origin/main -- site/ garden/ .github/workflows/static-publish.yml; then
+            if ! git diff --quiet "$built_source_ref" origin/main -- site/ garden/ realm/ .github/workflows/static-publish.yml; then
               echo "::notice::Skipping stale generated output: build sources changed on main. The newer source-triggered workflow owns publication."
               exit 0
             fi

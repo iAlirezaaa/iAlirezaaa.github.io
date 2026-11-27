@@ -33,6 +33,13 @@ assert.ok(robots.includes(origin + 'sitemap.xml'))
 const sitemapURLs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1].replaceAll('&amp;', '&'))
 assert.equal(new Set(sitemapURLs).size, sitemapURLs.length, 'Sitemap contains duplicate URLs')
 const expectedSitemapURLs = new Set(endpoints.flatMap(route => ['en','fa'].map(lang => pageUrl(route,lang))))
+const realmURL = new URL('HadesRealm/', origin).href
+const realmFile = path.join(dist, 'HadesRealm', 'index.html')
+assert.ok(fs.existsSync(realmFile), 'Built Hades Realm entry is missing from the portfolio output')
+const realmDocument = parseHTML(realmFile)
+assert.equal(realmDocument.querySelector('link[rel="canonical"]')?.getAttribute('href'), realmURL, 'Hades Realm must keep its own canonical URL')
+assert.ok(!realmDocument.querySelector('[data-static-portfolio]'), 'Hades Realm must remain a standalone app')
+expectedSitemapURLs.add(realmURL)
 for (const file of ['fa/blog','fa/garden'].flatMap(route => walk(path.join(dist,route))).filter(file => file.endsWith('index.html'))) {
   const document = parseHTML(file)
   const robots = document.querySelector('meta[name="robots"]')?.getAttribute('content') || ''
@@ -43,7 +50,7 @@ for (const file of ['fa/blog','fa/garden'].flatMap(route => walk(path.join(dist,
   assert.equal(new URL(canonical).href, actual, 'Eligible page must have a self canonical: ' + actual)
   expectedSitemapURLs.add(actual)
 }
-assert.deepEqual([...sitemapURLs].sort(), [...expectedSitemapURLs].sort(), 'Sitemap must include every eligible portfolio, article and note page exactly once')
+assert.deepEqual([...sitemapURLs].sort(), [...expectedSitemapURLs].sort(), 'Sitemap must include Hades Realm and every eligible portfolio, article and note page exactly once')
 assert.equal([...sitemap.matchAll(/hreflang="fa"/g)].length, endpoints.length * 2)
 assert.equal([...sitemap.matchAll(/hreflang="en"/g)].length, endpoints.length * 2)
 
