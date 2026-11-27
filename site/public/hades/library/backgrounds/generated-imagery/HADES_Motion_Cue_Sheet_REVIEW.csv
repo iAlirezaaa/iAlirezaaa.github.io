@@ -1,0 +1,4 @@
+status,cue,fps,sequence_frames,start_inclusive,end_exclusive,duration_frames,duration_seconds
+REVIEW,reveal,24,144,12,24,12,0.500000
+REVIEW,hold,24,144,24,108,84,3.500000
+REVIEW,exit,24,144,108,120,12,0.500000
