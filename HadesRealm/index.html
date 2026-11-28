@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#131211">
-  <meta name="description" content="جهان زیرین هادس؛ نقشهٔ سه‌بعدی، رود آکرون، خارون، سربروس و دادگاه مردگان، همراه دانشنامهٔ فارسی و منابع اسطوره‌ای.">
+  <meta name="description" content="فرمانروایی هادس و پرسفونه؛ جهان سه‌بعدی مردگان، بارگاه ثروتِ زمین و شش افسانهٔ متحرک، با دانشنامهٔ فارسی و شواهد باستانی.">
   <link rel="canonical" href="https://ialirezaaa.github.io/HadesRealm/">
   <link rel="icon" href="./hades-mark.png" type="image/png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Hades Realm — The Underworld">
-  <meta property="og:description" content="Explore a sourced Greek underworld, its places and inhabitants, alongside Hades III’s projects and writing.">
+  <meta property="og:description" content="Enter the subterranean court of Hades and Persephone. Explore six living myths, the wealth beneath the earth and an ancient-source codex.">
   <meta property="og:url" content="https://ialirezaaa.github.io/HadesRealm/">
   <title>Hades Realm · جهان زیرین</title>
   <link rel="preload" href="./mikhak.woff2" as="font" type="font/woff2" crossorigin>
-  <script type="module" crossorigin src="./assets/index-CtxKOh8w.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BGkTGyRe.css">
+  <script type="module" crossorigin src="./assets/index-BbzyTyw5.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DZcdfV1a.css">
 </head>
 <body class="immense-world">
   <a class="skip-link" href="#nav-links">رفتن به فهرست مقصدها</a>
@@ -38,6 +38,7 @@
     <div id="view-breadcrumb" class="view-breadcrumb" hidden><button id="view-overview" type="button">نقشهٔ جهان</button><span id="focused-place-name"></span><button id="view-lore" type="button">روایت این مکان</button></div>
     <aside id="intro-card" class="intro-card" aria-label="آغاز سفر"></aside>
     <aside id="world-navigation" class="world-navigation" aria-label="راهبری قلمروها"></aside>
+    <section id="myth-player" class="myth-player" aria-label="روایت زنده" hidden></section>
     <div class="world-caption"><span class="caption-index" lang="en">THE UNDERWORLD</span><span class="world-name" data-i="worldName">جهانِ هادس</span><span class="world-season" data-i="worldSeason">ایده‌ها را دنبال کن. راهت را پیدا کن.</span></div>
     <aside id="detail-panel" class="detail-panel" hidden aria-labelledby="panel-title" tabindex="-1"><div class="panel-topline"><span class="panel-overline" id="panel-overline" lang="en">HADES / ATLAS</span><button id="close-panel" class="panel-close icon-button" type="button" aria-label="بستن"></button></div><div id="panel-body"></div></aside>
     <div class="camera-tools" aria-label="کنترل دوربین"><button id="navigation-mode" class="camera-mode" type="button" aria-pressed="false">جابه‌جایی</button><button id="zoom-in" class="icon-button" type="button" aria-label="بزرگ‌نمایی"></button><button id="zoom-out" class="icon-button" type="button" aria-label="کوچک‌نمایی"></button><span></span><button id="reset-camera" class="icon-button" type="button" aria-label="بازگشت دوربین"></button></div>
@@ -46,6 +47,7 @@
       <button id="archive-shortcut" class="archive-shortcut" type="button"><span id="archive-icon"></span><span><small data-i="previousChapter">فصل پیشین</small><strong data-i="villageArchive">آرشیو دهکده</strong></span></button>
       <nav class="dock-nav" aria-label="منوی اطلس">
         <button id="nav-world" class="dock-button is-active" type="button" data-section="world" aria-pressed="true"><span class="dock-icon"></span><span data-i="world">نقشه</span></button>
+        <button id="nav-myths" class="dock-button" type="button" data-section="myths" aria-pressed="false"><span class="dock-icon"></span><span data-i="myths">افسانه‌ها</span></button>
         <button id="nav-codex" class="dock-button" type="button" data-section="codex" aria-pressed="false"><span class="dock-icon"></span><span data-i="codex">دانشنامه</span></button>
         <button id="nav-journeys" class="dock-button" type="button" data-section="journeys" aria-pressed="false"><span class="dock-icon"></span><span data-i="journeys">مسیرها</span></button>
         <button id="nav-collection" class="dock-button" type="button" data-section="collection" aria-pressed="false"><span class="dock-icon"></span><span data-i="collection">کوله‌بار</span><span id="collection-badge" class="nav-badge" hidden></span></button>

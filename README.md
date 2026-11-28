@@ -20,7 +20,7 @@ This public repository publishes the **original** React/Vite design from the pri
 
 ### HadesRealm — independent world project
 
-[Explore the world](https://ialirezaaa.github.io/HadesRealm/) · [Persian research codex](https://ialirezaaa.github.io/HadesRealm/codex/) · [Source, world bible and phased roadmap](https://github.com/iAlirezaaa/HadesRealm). The independent repository owns the 28-place / 35-character / 10-story research catalogue and the phase-one environment. This repository hosts its generated output at `HadesRealm/` and `site/public/HadesRealm/`; edit the independent source and update the `realm` pin, rather than editing these mirrors. The original [Village v2](https://ialirezaaa.github.io/HadesRealm/archive/village-v2/) and its [backup ZIP](https://ialirezaaa.github.io/HadesRealm/archive/HadesRealm-Village-v2-backup.zip) remain preserved.
+[Explore the world](https://ialirezaaa.github.io/HadesRealm/) · [Persian research codex](https://ialirezaaa.github.io/HadesRealm/codex/) · [Source, world bible and phased roadmap](https://github.com/iAlirezaaa/HadesRealm). The independent repository owns the 28-place / 35-character / 10-story research catalogue with five detailed main environments and six animated myths in release 4.2. This repository hosts its generated output at `HadesRealm/` and `site/public/HadesRealm/`; edit the independent source and update the `realm` pin, rather than editing these mirrors. The original [Village v2](https://ialirezaaa.github.io/HadesRealm/archive/village-v2/) and its [backup ZIP](https://ialirezaaa.github.io/HadesRealm/archive/HadesRealm-Village-v2-backup.zip) remain preserved.
 
 ### Persian cinematography encyclopedia
 
