@@ -52,3 +52,5 @@ SVG طرح حاوی متن و ساختار وکتوری قابل‌ویرایش 
 [فهرست قابل‌جست‌وجو](/hades/library/backgrounds/generated-imagery/download-desk.html#fa) برای موشن، تصاویر و ست اداری، شامل فایل‌های موجود کارت ویزیت و سربرگ A4 در قالب SVG، PSD لایه‌دار، نمونهٔ PNG و ZIP. تأیید هویت فایل در ریپو به‌معنای تأیید HTTP زنده یا چاپ نیست.
 
 - [نسخهٔ عمودی آستانهٔ سنگی — WebP ۳۶۰ × ۶۴۰، REVIEW](/hades/library/backgrounds/generated-imagery/stone-portrait.html#fa). نسخهٔ وب است، نه مستر اصلی یا چاپ.
+
+- [سربرگ واکنش‌گرای آستانهٔ سنگی](/hades/library/backgrounds/generated-imagery/stone-responsive.html#fa) · PUBLIC REVIEW. دو WebP کنار HTML لازم است؛ فایل‌های اصلی هنوز میزبانی نشده‌اند.

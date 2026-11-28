@@ -49,3 +49,5 @@ Two new source-editable standalone SVGs for 16:9 Dark and 1:1 Charcoal; existing
 [Open the searchable inventory](/hades/library/backgrounds/generated-imagery/download-desk.html#en) for motion, imagery and stationery, including existing card and A4 letterhead SVG, layered PSD, PNG proof and ZIP formats. Repository identity is not live HTTP or print approval.
 
 - [Stone Threshold portrait WebP — 360 × 640, REVIEW](/hades/library/backgrounds/generated-imagery/stone-portrait.html#en). Web derivative, not native or print master.
+
+- [Stone Threshold responsive website hero](/hades/library/backgrounds/generated-imagery/stone-responsive.html#en) · PUBLIC REVIEW. Keep both WebPs beside the HTML; native files are not hosted.
