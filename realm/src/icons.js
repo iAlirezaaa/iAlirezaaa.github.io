@@ -1,4 +1,11 @@
 const paths = {
+  bookmark:'<path d="M6 3h12v18l-6-4-6 4V3Z"/>',
+  route:'<circle cx="6" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="M6 7v5a4 4 0 0 0 4 4h4a4 4 0 0 0 0-8h-1m5 9v-5"/>',
+  bag:'<path d="M5 8h14l2 13H3L5 8Zm3 0V6a4 4 0 0 1 8 0v2M8 12h8M9 16h6"/>',
+  spark:'<path d="m12 2 2.6 7.4L22 12l-7.4 2.6L12 22l-2.6-7.4L2 12l7.4-2.6L12 2Z"/>',
+  book:'<path d="M12 5v16M3 3c4 0 7 1 9 3 2-2 5-3 9-3v15c-4 0-7 1-9 3-2-2-5-3-9-3V3Z"/>',
+  download:'<path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/>',
+  share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m9 10 6-3m-6 7 6 3"/>',
   ember:'<path d="M12 3c1 5 6 5 6 11a6 6 0 1 1-12 0c0-3 2-5 4-7 0 4 2 4 2 4 2-3 0-5 0-8Z"/><path d="M12 13c-3 3-3 6 0 6s3-3 0-6Z"/>',
   soul:'<path d="M7 10a5 5 0 0 1 10 0v10l-3-2-2 2-2-2-3 2V10Z"/><path d="M10 10v2m4-2v2"/>',
   citadel:'<path d="M4 21V8h4V4l4-2 4 2v4h4v13H4Z"/><path d="M8 8v13m8-13v13M10 21v-6h4v6M10 6h4M2 21h20"/>',

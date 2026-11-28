@@ -1,605 +1,426 @@
 import './style.css';
-import realmData from './realms.json';
+import catalog from './atlas.json';
 import { icon } from './icons.js';
-import { createGame, tick, visit, collect, upgrade, build, claimQuest, resetGame, snapshot, upgradeCost, buildCost, getQuests, buildingLevel, production, BUILD_TYPES, CORE_IDS, PLOT_IDS } from './game.js';
+import { createProgress, discoverRealm, openDestination, toggleSaved, chooseJourney, getJourneyProgress, getRealmProgress, getProgressSummary, encodeCollection, decodeCollection, mergeCollection } from './journey-state.js';
+import { createProgressStore } from './progress-store.js';
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
-const escape = (value) => String(value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const SAVE_KEY = 'hadesrealm.village.v2';
-const PREF_KEY = 'hadesrealm.preferences.v2';
-const storage = {
-  read(key) { try { return JSON.parse(localStorage.getItem(key)); } catch { return null; } },
-  write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; } },
-};
-const preferences = storage.read(PREF_KEY) || {};
+const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+const PREF_KEY = 'hadesrealm.atlas.preferences.v3';
+const PUBLIC_URL = 'https://ialirezaaa.github.io/HadesRealm/';
+const realmById = new Map(catalog.realms.map((entry) => [entry.id, entry]));
+const destinationById = new Map(catalog.destinations.map((entry) => [entry.id, entry]));
+const journeyById = new Map(catalog.journeys.map((entry) => [entry.id, entry]));
+let preferences = {};
+try { preferences = JSON.parse(localStorage.getItem(PREF_KEY)) || {}; } catch { /* A blocked store still leaves the atlas usable. */ }
 let lang = preferences.lang === 'en' ? 'en' : 'fa';
-let theme = preferences.theme === 'day' ? 'day' : 'dusk';
 let sound = false;
-const initialSave = storage.read(SAVE_KEY);
-let state = createGame(initialSave, Date.now());
-let saveMetadata = readSaveMetadata(initialSave);
-const writerId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-let saveSequence = 0;
-let saveQueue = Promise.resolve();
+let state = createProgress(null, catalog);
 let scene;
-let sceneFailed = false;
 let panelMode = null;
-let selected = null;
-let selectionRequest = 0;
-let selectedPlot = PLOT_IDS.find((id) => !state.plots[id]) || PLOT_IDS[0];
-let selectedType = 'lantern';
+let selectedRealm = null;
+let lastFocus = null;
 let directoryFilter = 'all';
 let directoryQuery = '';
+let sharedIds = [];
+let shareUrl = '';
 let resetPending = false;
-let lastFocus = null;
 let toastTimer;
 let audioContext;
-let saveCounter = 0;
-let saveWarningShown = false;
-const labelElements = new Map();
-
-const text = {
-  fa: {
-    embers: 'اخگر', souls: 'روح', chapter: 'جهان زیرین / فصل اول', welcomeTitle: 'یک جهان،\nهزار داستان.',
-    welcomeBody: 'به قلمرو هادس خوش آمدی. هر ساختمان، دری به یکی از چیزهایی است که می‌سازم.',
-    explored: 'قلمروهای کشف‌شده', startExplore: 'اکتشاف را شروع کن', currentQuest: 'مأموریت بعدی',
-    worldName: 'سرزمینِ آغازها', worldSeason: 'خانهٔ هادس سوم', villageLevel: 'سطح دهکده', villageName: 'قلمرو هادس',
-    sceneHint: 'بکش تا بچرخد · اسکرول برای زوم · ساختمان‌ها را انتخاب کن', world: 'دهکده', build: 'ساخت‌وساز', quests: 'مأموریت‌ها', allLinks: 'همهٔ لینک‌ها', collect: 'جمع‌آوری',
-    fallbackTitle: 'نمای سه‌بعدی در این مرورگر در دسترس نیست.', fallbackBody: 'همهٔ پروژه‌ها و لینک‌ها از فهرست در دسترس‌اند.',
-    level: 'سطح', citadel: 'دژ هادس', citadelSubtitle: 'قلب جهان زیرین', citadelDescription: 'قلمرو شخصی هادس سوم؛ از ساخت ابزار و جهان‌های تعاملی تا فیلم، یادداشت و هوش مصنوعی. در دهکده بگرد، منابع جمع کن و آن را گسترش بده.',
-    portals: 'دروازه‌های این قلمرو', openAccess: 'همیشه باز', upgrade: 'ارتقا', maxLevel: 'بالاترین سطح', upgradeTo: 'ارتقا به سطح', nextLevel: 'مرحلهٔ بعد', upgradeBenefit: 'جزئیات تازه به ساختمان اضافه می‌شود.',
-    forgeBenefit: 'تولید اخگر بیشتر می‌شود.', oracleBenefit: 'تولید روح بیشتر می‌شود.', citadelBenefit: 'تولید و گنجایش دهکده بیشتر می‌شود.',
-    notEnough: 'منابع کافی نیست؛ منابع دهکده یا پاداش مأموریت‌ها را جمع کن.', upgraded: 'ساختمان ارتقا پیدا کرد.', built: 'ساختمان تازه آماده است!', collected: 'منابع جمع شدند', emptyBank: 'منابع در حال تولیدند؛ چند لحظهٔ دیگر دوباره جمع کن.',
-    claimed: 'پاداش دریافت شد', claim: 'دریافت پاداش', received: 'دریافت‌شده', inProgress: 'در جریان', questIntro: 'دهکده را کشف کن، بساز و برای هر قدم پاداش بگیر.', allQuestsDone: 'همهٔ مأموریت‌ها کامل شد',
-    buildIntro: 'یک زمین آزاد و یک ساختمان انتخاب کن. هر بنا تولید و گنجایش دهکده را بیشتر می‌کند.', plot: 'زمین', freePlot: 'زمین آزاد', occupied: 'ساخته‌شده', buildHere: 'اینجا بساز', noFreePlots: 'هر سه زمین ساخته شده‌اند. حالا بناهای اصلی را ارتقا بده.', choosePlot: 'انتخاب زمین', chooseBuilding: 'انتخاب ساختمان', builtDescription: 'این ساختمان به تولید منابع دهکده کمک می‌کند. اثرش از همین حالا فعال است.',
-    linksIntro: 'همهٔ جهان‌هایی که می‌سازم، یک‌جا. برای رفتن به هیچ لینکی نیازی به بازی‌کردن نیست.', searchPlaceholder: 'جست‌وجوی پروژه، موضوع یا کانال…', all: 'همه', destinations: 'لینک', noResults: 'لینکی با این عبارت پیدا نشد.',
-    helpTitle: 'راهنمای قلمرو', helpSubtitle: 'چند قدم تا یک دهکدهٔ زنده', helpExplore: 'روی ساختمان یا نام آن بزن تا لینک‌ها و امکان ارتقایش را ببینی.', helpCamera: 'با کشیدن تصویر بچرخ؛ با اسکرول یا دو انگشت زوم کن. کلیک راست دوربین را جابه‌جا می‌کند.', helpResources: 'آهنگری اخگر و رصدخانه روح تولید می‌کند. جمع‌آوری کن، بساز و ارتقا بده.', helpSave: 'پیشرفت در همین مرورگر ذخیره می‌شود. تولیدِ زمان غیبت تا ۴ ساعت و به اندازهٔ گنجایش انبار محاسبه می‌شود.', helpLinks: 'همهٔ لینک‌ها از ابتدا بازند؛ از «همهٔ لینک‌ها» هم می‌توانی مستقیم بروی.',
-    reset: 'شروع دوبارهٔ دهکده', resetConfirm: 'منابع، ساختمان‌های ساخته‌شده و پیشرفت مأموریت‌ها در این مرورگر پاک شود؟', confirmReset: 'بله، از نو بساز', cancel: 'انصراف', resetDone: 'دهکده به آغاز برگشت.', share: 'کپی لینک قلمرو', copied: 'لینک قلمرو کپی شد.', copyFailed: 'لینک قلمرو را از نوار آدرس مرورگر کپی کن.', close: 'بستن', day: 'نور روز', dusk: 'نور غروب', enableSound: 'فعال‌سازی صدا', disableSound: 'خاموش‌کردن صدا', soundUnavailable: 'صدا در این مرورگر در دسترس نیست.', zoomIn: 'بزرگ‌نمایی', zoomOut: 'کوچک‌نمایی', resetCamera: 'بازگشت دوربین', perMinute: 'در دقیقه', storage: 'گنجایش انبار', available: 'آمادهٔ جمع‌آوری', discovered: 'قلمرو تازه کشف شد', localSave: 'پیشرفت در این مرورگر ذخیره می‌شود.', openMain: 'ورود به سایت هادس', brandHub: 'جهان برند هادس', brandLibrary: 'کتابخانهٔ برند و دارایی‌ها', choose: 'انتخاب', backVillage: 'بازگشت به دهکده',
-    Code: 'کد', Archive: 'آرشیو', GitHub: 'گیت‌هاب', Read: 'خواندن', Explore: 'کشف', Channel: 'کانال', Watch: 'تماشا', Social: 'شبکه', Site: 'سایت', Contact: 'ارتباط',
-  },
-  en: {
-    embers: 'EMBERS', souls: 'SOULS', chapter: 'THE UNDERWORLD / CHAPTER I', welcomeTitle: 'One world.\nA thousand stories.',
-    welcomeBody: 'Welcome to my corner of the underworld. Every building opens a door to something I make.', explored: 'Realms discovered', startExplore: 'Begin exploring', currentQuest: 'YOUR NEXT QUEST',
-    worldName: 'The land of beginnings', worldSeason: 'HOME OF HADES III', villageLevel: 'VILLAGE LEVEL', villageName: 'Hades Realm', sceneHint: 'Drag to orbit · Scroll to zoom · Select a building', world: 'Village', build: 'Build', quests: 'Quests', allLinks: 'All links', collect: 'Collect',
-    fallbackTitle: 'The 3D view is unavailable in this browser.', fallbackBody: 'Every project and destination is still available in All links.',
-    level: 'Level', citadel: 'The Citadel', citadelSubtitle: 'Heart of the underworld', citadelDescription: 'The personal universe of Hades III. Tools, interactive worlds, films, notes, and artificial intelligence. Explore the village, gather resources, and make it grow.',
-    portals: 'PORTALS IN THIS REALM', openAccess: 'Always open', upgrade: 'Upgrade', maxLevel: 'Maximum level', upgradeTo: 'Upgrade to level', nextLevel: 'NEXT LEVEL', upgradeBenefit: 'New architectural details appear.', forgeBenefit: 'Increases ember production.', oracleBenefit: 'Increases soul production.', citadelBenefit: 'Increases production and storage.',
-    notEnough: 'You need more resources. Collect from your village or claim quest rewards.', upgraded: 'Building upgraded.', built: 'Your new building is ready!', collected: 'Resources collected', emptyBank: 'Your village is producing. Collect again in a few moments.', claimed: 'Reward claimed', claim: 'Claim reward', received: 'Claimed', inProgress: 'In progress', questIntro: 'Explore your realm and build your village. Every step brings a reward.', allQuestsDone: 'Every quest completed',
-    buildIntro: 'Choose a free plot and a building. Every addition helps your village produce and store more resources.', plot: 'Plot', freePlot: 'Free plot', occupied: 'Built', buildHere: 'Build here', noFreePlots: 'All three plots are built. Keep growing by upgrading your landmarks.', choosePlot: 'CHOOSE A PLOT', chooseBuilding: 'CHOOSE A BUILDING', builtDescription: 'This building contributes to your village production. Its effect is already active.',
-    linksIntro: 'All the worlds I build, in one place. Every destination is open from the start.', searchPlaceholder: 'Find a project, topic, or channel…', all: 'All', destinations: 'links', noResults: 'No destinations match your search.',
-    helpTitle: 'A guide to the realm', helpSubtitle: 'A few steps to a living village', helpExplore: 'Select a building or its label to explore its links and upgrades.', helpCamera: 'Drag to orbit. Scroll or pinch to zoom. Right-drag to pan the camera.', helpResources: 'The Forge produces embers; the Oracle produces souls. Collect, build, and upgrade.', helpSave: 'Progress is saved in this browser. Offline production is limited to four hours and your storage capacity.', helpLinks: 'Every link is open from the start. All links gives you direct access.',
-    reset: 'Start a new village', resetConfirm: 'Reset resources, new buildings, and quest progress in this browser?', confirmReset: 'Yes, start again', cancel: 'Cancel', resetDone: 'Your village has a fresh start.', share: 'Copy realm link', copied: 'Realm link copied.', copyFailed: 'Copy the realm link from your browser’s address bar.', close: 'Close', day: 'Daylight', dusk: 'Dusk', enableSound: 'Enable sound', disableSound: 'Mute sound', soundUnavailable: 'Audio is unavailable in this browser.', zoomIn: 'Zoom in', zoomOut: 'Zoom out', resetCamera: 'Reset camera', perMinute: '/ min', storage: 'Storage capacity', available: 'Ready to collect', discovered: 'A new realm discovered', localSave: 'Progress is saved in this browser.', openMain: 'Visit the main website', brandHub: 'The Hades brand world', brandLibrary: 'Brand & asset library', choose: 'Select', backVillage: 'Back to village',
-    Code: 'Code', Archive: 'Archive', GitHub: 'GitHub', Read: 'Read', Explore: 'Explore', Channel: 'Channel', Watch: 'Watch', Social: 'Social', Site: 'Site', Contact: 'Contact',
-  },
+let destroyed = false;
+const labels = new Map();
+const words = {
+  fa: { yourFootprint:'ردپای تو', worldName:'جهانِ هادس', worldSeason:'ایده‌ها را دنبال کن. راهت را پیدا کن.', sceneHint:'بکش تا بچرخد · یک ساختمان را انتخاب کن', previousChapter:'فصل پیشین', villageArchive:'آرشیو دهکده', world:'نقشه', journeys:'مسیرها', collection:'کوله‌بار', allLinks:'همهٔ مقصدها', openWorld:'هر مقصد، یک شروع تازه', renderFallback:'نقشه در دسترس نیست؛ همهٔ مقصدها از فهرست باز می‌شوند.' },
+  en: { yourFootprint:'YOUR FOOTPRINT', worldName:'The world of Hades', worldSeason:'Follow an idea. Find your own way.', sceneHint:'Drag to orbit · Select a landmark', previousChapter:'PREVIOUS CHAPTER', villageArchive:'Village archive', world:'Atlas', journeys:'Journeys', collection:'Collection', allLinks:'All destinations', openWorld:'Every destination is a beginning', renderFallback:'The map is unavailable. Every destination is still in the directory.' },
 };
-const t = (key) => text[lang][key] || key;
-const n = (value) => Number(value).toLocaleString(lang === 'fa' ? 'fa-IR' : 'en-US', { maximumFractionDigits: 0 });
-const realms = structuredClone(realmData);
-const realmById = new Map(realms.map((realm) => [realm.id, realm]));
-const title = (realm) => lang === 'fa' ? realm.fa : realm.n;
-const plotName = (id) => `${t('plot')} ${n(PLOT_IDS.indexOf(id) + 1)}`;
-const resourceMarkup = (cost) => `<span class="cost"><span class="embers">${icon('ember')}<span>${n(cost.embers)}</span></span><span class="souls">${icon('soul')}<span>${n(cost.souls)}</span></span></span>`;
-const canPay = (cost) => cost && state.embers >= cost.embers && state.souls >= cost.souls;
+const tr = (fa, en) => lang === 'fa' ? fa : en;
+const local = (entry) => entry?.[lang] || entry?.en || '';
+const number = (value) => new Intl.NumberFormat(lang === 'fa' ? 'fa-IR' : 'en').format(value);
+const journeyIcon = (id) => ({ inspiration:'spark', build:'forge', learn:'book' }[id] || 'route');
+const kindName = (kind) => ({ repo:tr('کد و راهنما','Source & guide'), read:tr('خواندنی','Reading'), channel:tr('کانال','Channel'), contact:tr('ارتباط','Contact'), explore:tr('کشف','Explore'), site:tr('وب‌سایت','Website'), social:tr('شبکهٔ اجتماعی','Social'), archive:tr('مخزن آرشیوشده','Archived source') }[kind] || kind);
+const store = createProgressStore({ catalog, onChange(next) { if (JSON.stringify(state.saved) !== JSON.stringify(next.saved)) shareUrl = ''; state = next; renderState(); }, onStorageError() { queueMicrotask(() => toast(tr('ذخیره‌سازی مرورگر در دسترس نیست؛ این بار پیشرفت فقط تا بستن صفحه می‌ماند.','Browser storage is unavailable. This visit’s progress lasts until the page closes.'))); } });
+state = store.getState();
 
-// Metadata belongs to persistence, not the v2 game schema. Action revisions
-// outrank clock-only saves, so a sleeping tab cannot undo a build or a reset.
-function readSaveMetadata(saved) {
-  const metadata = saved?._sync;
-  const integer = (value) => Number.isSafeInteger(value) && value >= 0 && value < Number.MAX_SAFE_INTEGER ? value : 0;
-  return {
-    revision: integer(metadata?.revision),
-    actionRevision: integer(metadata?.actionRevision),
-    id: typeof metadata?.id === 'string' ? metadata.id.slice(0, 160) : '',
-  };
+function toast(message) {
+  const element = $('#toast');
+  element.textContent = message; element.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { element.hidden = true; }, 5500);
 }
-
-function compareSaveMetadata(a, b) {
-  return a.actionRevision - b.actionRevision || a.revision - b.revision || (a.id > b.id ? 1 : a.id < b.id ? -1 : 0);
+function persistPreferences() {
+  try { localStorage.setItem(PREF_KEY, JSON.stringify({ lang })); } catch { /* Language continues for this visit. */ }
 }
-
-function gameplayKey(value) {
-  return JSON.stringify([value.embers, value.souls, value.levels, value.plots, value.visited, value.claimedQuests, value.stats]);
-}
-
-function adoptLatestSave() {
-  const latest = storage.read(SAVE_KEY);
-  if (!latest || latest.version !== state.version) return { changed: false, stale: false };
-  const metadata = readSaveMetadata(latest);
-  const order = compareSaveMetadata(metadata, saveMetadata);
-  if (order <= 0) return { changed: false, stale: order < 0 };
-  const before = gameplayKey(state);
-  // Recreate from the saved bank and its timestamp; never add another tab's
-  // production to this tab's already accrued bank.
-  state = createGame(latest, Date.now());
-  saveMetadata = metadata;
-  return { changed: before !== gameplayKey(state), stale: false };
-}
-
-function refreshGameViews() {
-  syncScene();
-  updateHUD();
-  // Links and help do not depend on game state. Preserve search focus/query.
-  if (['building', 'plot', 'build', 'quests'].includes(panelMode)) renderPanel();
-}
-
-function writeSave(action) {
-  saveMetadata = {
-    revision: Math.max(saveMetadata.revision + 1, Date.now()),
-    actionRevision: saveMetadata.actionRevision + (action ? 1 : 0),
-    id: `${writerId}:${++saveSequence}`,
-  };
-  const saved = storage.write(SAVE_KEY, { ...snapshot(state), _sync: saveMetadata });
-  if (!saved && !saveWarningShown) {
-    saveWarningShown = true;
-    setTimeout(() => toast(lang === 'fa' ? 'ذخیره‌سازی مرورگر در دسترس نیست؛ پیشرفت فقط تا بستن این صفحه می‌ماند.' : 'Browser storage is unavailable. This village will last only while the page stays open.', 'error'), 1600);
-  }
-  return saved;
-}
-
-function transact(mutate = null) {
-  const work = () => {
-    let changed = false;
-    // Web Locks serialize the complete read/mutate/write on supported browsers.
-    // Rechecking also handles a racing writer in the localStorage-only fallback.
-    for (let attempt = 0; attempt < 3; attempt++) {
-      changed = adoptLatestSave().changed || changed;
-      tick(state, Date.now());
-      const result = mutate ? mutate(state) : { ok: true };
-      const latest = storage.read(SAVE_KEY);
-      if (latest?.version === state.version && compareSaveMetadata(readSaveMetadata(latest), saveMetadata) > 0) continue;
-      if (!mutate || result.ok) writeSave(Boolean(mutate));
-      if (!mutate && changed) refreshGameViews();
-      return result;
-    }
-    adoptLatestSave();
-    refreshGameViews();
-    return { ok: false, reason: 'sync-conflict' };
-  };
-  const run = async () => {
-    if (!navigator.locks?.request) return work();
-    let entered = false;
-    try {
-      return await navigator.locks.request(SAVE_KEY, () => { entered = true; return work(); });
-    } catch (error) {
-      if (entered) throw error;
-      return work(); // Storage-restricted browsers can still play in memory.
-    }
-  };
-  const pending = saveQueue.then(run);
-  saveQueue = pending.catch(() => {});
-  return pending;
-}
-
-const save = () => transact();
-const savePreferences = () => storage.write(PREF_KEY, { lang, theme });
-save(); // Persist initial offline accrual through the same cross-tab transaction.
-
-function toast(message, type = 'success') {
-  clearTimeout(toastTimer);
-  const el = $('#toast');
-  el.textContent = message;
-  el.className = `toast ${type}`;
-  el.hidden = false;
-  toastTimer = setTimeout(() => { el.hidden = true; }, 3500);
-}
-
-function chime(kind = 'select') {
+function chime() {
   if (!sound || !audioContext) return;
-  if (audioContext.state === 'suspended') audioContext.resume().catch(() => {});
-  const notes = kind === 'reward' ? [392, 523.25, 659.25] : kind === 'build' ? [261.63, 392, 523.25] : [440];
   const now = audioContext.currentTime;
-  for (let i = 0; i < notes.length; i++) {
+  [440, 660].forEach((frequency, index) => {
     const oscillator = audioContext.createOscillator();
     const gain = audioContext.createGain();
-    oscillator.type = 'sine';
-    oscillator.frequency.value = notes[i];
-    gain.gain.setValueAtTime(0, now + i * 0.075);
-    gain.gain.linearRampToValueAtTime(0.055, now + i * 0.075 + 0.012);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.075 + 0.24);
-    oscillator.connect(gain).connect(audioContext.destination);
-    oscillator.start(now + i * 0.075);
-    oscillator.stop(now + i * 0.075 + 0.25);
-  }
+    oscillator.type = 'sine'; oscillator.frequency.value = frequency;
+    gain.gain.setValueAtTime(0, now + index * 0.075);
+    gain.gain.linearRampToValueAtTime(0.035, now + index * 0.075 + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + index * 0.075 + 0.28);
+    oscillator.connect(gain); gain.connect(audioContext.destination);
+    oscillator.start(now + index * 0.075); oscillator.stop(now + index * 0.075 + 0.3);
+    oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
+  });
 }
-
-function syncScene() {
-  scene?.setLevels(state.levels);
-  scene?.setBuilt(Object.fromEntries(PLOT_IDS.filter((id) => state.plots[id]).map((id) => [id, { type: state.plots[id], level: 1 }])));
+async function change(mutator) {
+  try { return await store.mutate(mutator); }
+  catch { toast(tr('این انتخاب ثبت نشد. دوباره امتحان کن.','That choice could not be saved. Please try again.')); return { ok:false }; }
 }
-
-function updateHUD() {
-  const rates = production(state);
-  $('#wallet-embers').textContent = n(state.embers);
-  $('#wallet-souls').textContent = n(state.souls);
-  $('#ember-rate').textContent = `+${n(rates.embersPerMinute)} ${t('perMinute')}`;
-  $('#soul-rate').textContent = `+${n(rates.soulsPerMinute)} ${t('perMinute')}`;
-  $('#explored-count').textContent = `${n(state.visited.length)} / ${n(6)}`;
-  $('#exploration-track').innerHTML = realms.map((r) => `<span class="${state.visited.includes(r.id) ? 'done' : ''}"></span>`).join('');
-  $('#collect-amount').textContent = `+${n(Math.floor(state.storedEmbers))} / +${n(Math.floor(state.storedSouls))}`;
-  $('#collect').setAttribute('aria-label', `${t('collect')}: ${n(Math.floor(state.storedEmbers))} ${t('embers')}، ${n(Math.floor(state.storedSouls))} ${t('souls')}`);
-  $('#collect').title = `${t('storage')}: ${n(rates.emberCapacity)} / ${n(rates.soulCapacity)}`;
-  const availablePlots = PLOT_IDS.filter((id) => !state.plots[id]).length;
-  $('#build-badge').textContent = n(availablePlots);
-  $('#build-badge').hidden = availablePlots === 0;
-  $('#village-level').textContent = n(state.levels.citadel);
-  const quests = getQuests(state);
-  const ready = quests.filter((q) => q.complete && !q.claimed).length;
-  $('#quest-badge').hidden = ready === 0;
-  $('#quest-badge').textContent = n(ready);
-  const current = quests.find((q) => q.complete && !q.claimed) || quests.find((q) => !q.claimed);
-  $('#quest-peek-title').textContent = current ? current.title[lang] : t('allQuestsDone');
-  $('#quest-peek-count').textContent = current ? `${n(current.progress)}/${n(current.target)}` : '✓';
-  for (const [id, element] of labelElements) {
-    element.classList.toggle('selected', id === selected);
-    element.classList.toggle('visited', state.visited.includes(id));
-    const plot = PLOT_IDS.includes(id);
-    const built = plot && state.plots[id];
-    const name = plot ? built ? BUILD_TYPES[built].title[lang] : t('freePlot') : id === 'citadel' ? t('citadel') : title(realmById.get(id));
-    const iconName = plot ? built || 'plus' : id;
-    const content = `${icon(iconName)}<span class="label-name" dir="auto">${escape(name)}</span>${plot ? '' : `<small>${n(state.levels[id])}</small>`}`;
-    if (element.innerHTML !== content) element.innerHTML = content;
-    element.classList.toggle('plot-label', plot && !built);
-    element.setAttribute('aria-label', plot ? `${name} — ${plotName(id)}` : `${name} — ${t('level')} ${n(state.levels[id])}`);
-  }
+function heading(symbol, title, description, kicker = '') {
+  return `<div class="panel-heading"><span class="panel-symbol">${icon(symbol)}</span>${kicker ? `<div class="panel-kicker">${esc(kicker)}</div>` : ''}<h1 id="panel-title">${esc(title)}</h1><p>${esc(description)}</p></div>`;
 }
-
-function heading(titleText, subtitle, symbol, eyebrow = '') {
-  return `${eyebrow ? `<div class="panel-eyebrow">${escape(eyebrow)}</div>` : ''}<div class="panel-heading"><span class="building-crest">${icon(symbol)}</span><div><h2 id="panel-title">${escape(titleText)}</h2><p class="panel-subtitle">${escape(subtitle)}</p></div></div>`;
+function dots(progress) {
+  return `<span class="route-dots" aria-label="${esc(tr(`${number(progress.completed)} از ${number(progress.total)} مقصد انتخاب شده`,`${progress.completed} of ${progress.total} destinations chosen`))}">${progress.steps.map((step) => `<span class="${step.completed ? 'done' : ''}"></span>`).join('')}</span>`;
 }
-
-function portal(link) {
-  let url;
-  try { url = new URL(link.url); } catch { return ''; }
-  if (url.protocol !== 'https:') return '';
-  return `<a class="portal" href="${escape(url.href)}" target="_blank" rel="noopener noreferrer">${icon('links')}<span class="portal-label" dir="auto">${escape(lang === 'fa' ? link.fa : link.name)}</span><span class="portal-kind">${escape(t(link.kind))}</span></a>`;
-}
-
-function renderBuilding() {
-  const id = selected;
-  if (!CORE_IDS.includes(id)) return;
-  const realm = realmById.get(id);
-  const level = buildingLevel(state, id);
-  const cost = upgradeCost(state, id);
-  const benefit = t(id === 'forge' ? 'forgeBenefit' : id === 'oracle' ? 'oracleBenefit' : id === 'citadel' ? 'citadelBenefit' : 'upgradeBenefit');
-  const links = realm?.links || [{ name: 'Visit the main website', fa: 'ورود به سایت هادس', url: 'https://ialirezaaa.github.io/', kind: 'Site' }];
-  $('#panel-body').innerHTML = heading(realm ? title(realm) : t('citadel'), realm ? lang === 'fa' ? realm.fs : realm.s : t('citadelSubtitle'), id, `${t('level')} ${n(level)} / ${n(3)}`)
-    + `<div class="level-pips" aria-hidden="true">${[1, 2, 3].map((i) => `<span class="${i <= level ? 'active' : ''}"></span>`).join('')}</div><p class="panel-description">${escape(realm ? lang === 'fa' ? realm.fd : realm.d : t('citadelDescription'))}</p>`
-    + `<div class="upgrade-card"><div class="upgrade-top"><strong>${escape(cost ? `${t('upgradeTo')} ${n(level + 1)}` : t('maxLevel'))}</strong>${cost ? resourceMarkup(cost) : icon('trophy')}</div><p class="panel-small" style="margin:0 0 11px">${escape(benefit)}</p>${cost ? `<button class="primary-button" type="button" data-action="upgrade" ${canPay(cost) ? '' : 'disabled'}>${icon('plus')}${escape(t('upgrade'))}</button>${!canPay(cost) ? `<p class="panel-small">${escape(t('notEnough'))}</p>` : ''}` : ''}</div>`
-    + (id === 'citadel' ? villageStats() : '')
-    + `<h3 class="portal-title">${escape(t('portals'))}<span>${escape(t('openAccess'))}</span></h3><div class="portal-list">${links.map(portal).join('')}</div>`;
-}
-
-function villageStats() {
-  const rate = production(state);
-  return `<div class="panel-stats"><div class="stat"><strong>${n(rate.embersPerMinute)}</strong><span>${escape(t('embers'))} ${escape(t('perMinute'))}</span></div><div class="stat"><strong>${n(rate.soulsPerMinute)}</strong><span>${escape(t('souls'))} ${escape(t('perMinute'))}</span></div><div class="stat"><strong>${n(rate.emberCapacity)}</strong><span>${escape(t('storage'))} · ${escape(t('embers'))}</span></div><div class="stat"><strong>${n(rate.soulCapacity)}</strong><span>${escape(t('storage'))} · ${escape(t('souls'))}</span></div></div>`;
-}
-
-function renderBuild() {
-  const free = PLOT_IDS.filter((id) => !state.plots[id]);
-  if (state.plots[selectedPlot] && free.length) {
-    selectedPlot = free[0];
-    selected = selectedPlot;
-    scene?.select(selected);
-    updateHUD();
-  }
-  const cost = buildCost(selectedType);
-  $('#panel-body').innerHTML = heading(t('build'), t('chooseBuilding'), 'build', 'HADES REALM')
-    + `<p class="panel-description">${escape(free.length ? t('buildIntro') : t('noFreePlots'))}</p>`
-    + (free.length ? `<div class="portal-title">${escape(t('choosePlot'))}</div><div class="plot-selector">${PLOT_IDS.map((id) => `<button type="button" data-plot="${id}" class="${id === selectedPlot ? 'selected-outline' : ''}" aria-pressed="${id === selectedPlot}" ${state.plots[id] ? 'disabled' : ''}>${escape(plotName(id))}${state.plots[id] ? ' ✓' : ''}</button>`).join('')}</div><div class="build-cards">${Object.entries(BUILD_TYPES).map(([type, data]) => `<button type="button" data-build-type="${type}" aria-pressed="${type === selectedType}" class="build-card ${type === selectedType ? 'selected-outline' : ''}"><span>${icon(type)}</span><span><strong>${escape(data.title[lang])}</strong><small>${escape(data.description[lang])}</small>${resourceMarkup(data.cost)}</span></button>`).join('')}</div><div class="build-action"><button type="button" class="primary-button" data-action="build" ${canPay(cost) ? '' : 'disabled'}>${icon('build')}${escape(t('buildHere'))} · ${escape(plotName(selectedPlot))}</button>${!canPay(cost) ? `<p class="panel-small">${escape(t('notEnough'))}</p>` : ''}</div>` : `<div class="build-cards">${PLOT_IDS.map((id) => `<button class="build-card" type="button" data-select="${id}"><span>${icon(state.plots[id])}</span><span><strong>${escape(BUILD_TYPES[state.plots[id]].title[lang])}</strong><small>${escape(plotName(id))} · ${escape(t('occupied'))}</small></span></button>`).join('')}</div>`);
-}
-
-function renderPlot() {
-  const type = state.plots[selected];
-  if (!type) { renderBuild(); return; }
-  const data = BUILD_TYPES[type];
-  $('#panel-body').innerHTML = heading(data.title[lang], plotName(selected), type, t('occupied'))
-    + `<p class="panel-description">${escape(t('builtDescription'))}</p><div class="build-benefit">${escape(data.description[lang])}</div>${villageStats()}<button class="secondary-button" type="button" data-action="show-build">${escape(t('build'))}</button>`;
-}
-
-function renderQuests() {
-  $('#panel-body').innerHTML = heading(t('quests'), 'HADES REALM', 'quests')
-    + `<p class="panel-description">${escape(t('questIntro'))}</p><div class="quest-list">${getQuests(state).map((q) => `<article class="quest-card ${q.claimed ? 'claimed' : q.complete ? 'ready' : ''}"><div class="quest-card-heading"><h3>${escape(q.title[lang])}</h3><span>${n(q.progress)}/${n(q.target)}</span></div><p>${escape(q.description[lang])}</p><div class="quest-progress" aria-label="${n(q.progress)} / ${n(q.target)}"><span style="width:${q.progress / q.target * 100}%"></span></div><div class="quest-reward">${resourceMarkup(q.reward)}${q.claimed ? `<span class="quest-completion">${icon('check')} ${escape(t('received'))}</span>` : `<button type="button" class="claim-button" data-quest="${q.id}" ${q.complete ? '' : 'disabled'}>${escape(t(q.complete ? 'claim' : 'inProgress'))}</button>`}</div></article>`).join('')}</div>`;
-}
-
-function renderDirectory() {
-  $('#panel-body').innerHTML = heading(t('allLinks'), 'THE PORTALS OF HADES III', 'links')
-    + `<p class="panel-description">${escape(t('linksIntro'))}</p><div class="search-box">${icon('search')}<input id="link-search" type="search" value="${escape(directoryQuery)}" placeholder="${escape(t('searchPlaceholder'))}" aria-label="${escape(t('searchPlaceholder'))}" autocomplete="off"></div><div class="filter-chips">${[{ id: 'all', name: t('all') }, ...realms.map((r) => ({ id: r.id, name: title(r) }))].map((item) => `<button type="button" class="filter-chip ${directoryFilter === item.id ? 'is-active' : ''}" data-filter="${item.id}" aria-pressed="${directoryFilter === item.id}">${escape(item.name)}</button>`).join('')}</div><p id="directory-count" class="directory-count" role="status"></p><div id="directory-results" class="directory-groups"></div>`;
-  renderDirectoryResults();
-}
-
-function renderDirectoryResults() {
-  const query = directoryQuery.trim().toLocaleLowerCase();
-  let count = 0;
-  const groups = realms.filter((r) => directoryFilter === 'all' || directoryFilter === r.id).map((realm) => {
-    const links = realm.links.filter((l) => `${l.name} ${l.fa} ${l.url} ${realm.n} ${realm.fa}`.toLocaleLowerCase().includes(query));
-    count += links.length;
-    return links.length ? `<section class="directory-group"><h3>${icon(realm.id)}${escape(title(realm))}</h3>${links.map(portal).join('')}</section>` : '';
-  }).join('');
-  $('#directory-count').textContent = `${n(count)} ${t('destinations')}`;
-  $('#directory-results').innerHTML = groups || `<p class="empty-message">${escape(t('noResults'))}</p>`;
-}
-
-function renderHelp() {
-  $('#panel-body').innerHTML = heading(t('helpTitle'), t('helpSubtitle'), 'compass')
-    + `<ul class="help-list">${[['citadel', 'helpExplore'], ['compass', 'helpCamera'], ['ember', 'helpResources'], ['links', 'helpLinks'], ['check', 'helpSave']].map(([symbol, key]) => `<li>${icon(symbol)}<span>${escape(t(key))}</span></li>`).join('')}</ul><div class="keyboard-hints">${[['1–6', 'world'], ['B', 'build'], ['Q', 'quests'], ['L', 'allLinks'], ['C', 'collect'], ['Esc', 'close']].map(([key, name]) => `<span><kbd>${key}</kbd>${escape(t(name))}</span>`).join('')}</div><button class="secondary-button" type="button" data-action="share">${icon('copy')} ${escape(t('share'))}</button><button class="secondary-button danger-button" type="button" data-action="reset-prompt">${escape(t('reset'))}</button>${resetPending ? `<div class="reset-confirm"><span>${escape(t('resetConfirm'))}</span><div><button class="quiet-button danger-button" type="button" data-action="reset-confirm">${escape(t('confirmReset'))}</button><button class="quiet-button" type="button" data-action="reset-cancel">${escape(t('cancel'))}</button></div></div>` : ''}`;
-}
-
-function renderPanel() {
-  if (!panelMode) return;
-  const scroll = $('#detail-panel').scrollTop;
-  if (panelMode === 'building') renderBuilding();
-  if (panelMode === 'plot') renderPlot();
-  if (panelMode === 'build') renderBuild();
-  if (panelMode === 'quests') renderQuests();
-  if (panelMode === 'links') renderDirectory();
-  if (panelMode === 'help') renderHelp();
-  $('#detail-panel').scrollTop = scroll;
-}
-
-function setNavigation(mode) {
-  const nav = ['build', 'quests', 'links'].includes(mode) ? mode : 'world';
-  for (const button of $$('.dock-button')) {
-    button.classList.toggle('is-active', button.dataset.section === nav);
-    button.setAttribute('aria-pressed', String(button.dataset.section === nav));
-  }
-}
-
-function openPanel(mode, focus = true) {
-  selectionRequest++;
-  if (!panelMode) lastFocus = document.activeElement;
-  const changed = panelMode !== mode;
-  panelMode = mode;
-  $('#app').classList.add('panel-open');
-  $('#intro-card').inert = true;
-  $('#detail-panel').hidden = false;
-  $('#detail-panel').classList.toggle('wide', mode === 'links');
-  setNavigation(mode);
-  renderPanel();
-  if (changed) $('#detail-panel').scrollTop = 0;
-  if (focus) $('#detail-panel').focus({ preventScroll: true });
-}
-
-function closePanel() {
-  selectionRequest++;
-  panelMode = null;
-  resetPending = false;
-  selected = null;
-  scene?.select(null);
-  $('#app').classList.remove('panel-open');
-  $('#intro-card').inert = false;
-  $('#detail-panel').hidden = true;
-  setNavigation('world');
-  updateHUD();
-  if (lastFocus instanceof HTMLElement && lastFocus.isConnected) lastFocus.focus({ preventScroll: true });
-}
-
-async function selectBuilding(id) {
-  if (!CORE_IDS.includes(id) && !PLOT_IDS.includes(id)) return;
-  const request = ++selectionRequest;
-  const result = CORE_IDS.includes(id) ? await transact((current) => visit(current, id)) : await save();
-  if (request !== selectionRequest) { refreshGameViews(); return; }
-  selected = id;
-  scene?.select(id);
-  chime();
-  if (PLOT_IDS.includes(id)) {
-    selectedPlot = id;
-    openPanel(state.plots[id] ? 'plot' : 'build');
-  } else {
-    if (result.discovered) toast(`${t('discovered')} · ${title(realmById.get(id))}`);
-    openPanel('building');
-  }
-  refreshGameViews();
-}
-
-function finishAction(result, message, kind = 'reward') {
-  refreshGameViews();
-  if (!result.ok) {
-    const message = result.reason === 'sync-conflict'
-      ? lang === 'fa' ? 'دهکده در صفحهٔ دیگری تغییر کرد؛ دوباره تلاش کن.' : 'Your village changed in another tab. Please try again.'
-      : t(result.reason === 'insufficient-resources' ? 'notEnough' : result.reason === 'nothing-to-collect' ? 'emptyBank' : 'inProgress');
-    toast(message, 'error');
+function renderIntro() {
+  const active = journeyById.get(state.activeJourney);
+  $('#intro-card').classList.toggle('has-active-path', Boolean(active));
+  if (active) {
+    const progress = getJourneyProgress(state, active, catalog);
+    const next = destinationById.get(progress.nextDestinationId);
+    $('#intro-card').innerHTML = `<div class="eyebrow"><span class="eyebrow-line"></span>${esc(tr('مسیر تو در این جهان','YOUR PATH THROUGH THE WORLD'))}</div><h1>${esc(local(active.title))}</h1><p class="intro-lead">${esc(progress.complete ? tr('هر سه مقصد را انتخاب کردی. چه چیزی را با خودت می‌بری؟','You chose all three destinations. What will you take with you?') : tr('یک ایده را دنبال کن؛ هر انتخاب، رد تازه‌ای روی نقشه می‌گذارد.','Follow an idea. Every choice leaves a new mark on the map.'))}</p><div class="active-path-card"><div class="route-title"><span>${esc(progress.complete ? tr('مسیر پیموده شد','PATH EXPLORED') : tr('مقصد بعدی','NEXT DESTINATION'))}</span>${dots(progress)}</div><strong>${esc(next ? local(next.title) : tr('چیزهای ارزشمند را نگه دار','Keep what matters to you'))}</strong><button class="primary-button" type="button" data-action="${progress.complete ? 'collection' : 'journeys'}">${icon(progress.complete ? 'bag' : 'route')}${esc(progress.complete ? words[lang].collection : tr('ادامهٔ مسیر','Continue the journey'))}</button></div><button class="text-button" type="button" data-action="journeys">${esc(tr('انتخاب یک مسیر دیگر','Choose another path'))}</button>`;
     return;
   }
-  chime(kind);
-  const reward = result.reward ? ` · +${n(result.reward.embers)} / +${n(result.reward.souls)}` : '';
-  toast(`${message}${reward}`);
+  $('#intro-card').innerHTML = `<div class="eyebrow"><span class="eyebrow-line"></span>${esc(tr('اطلس شخصی هادس سوم','THE PERSONAL ATLAS OF HADES III'))}</div><h1>${tr('هر در،<br> یک دنیای تازه.','Every door.<br> A new world.')}</h1><p class="intro-lead">${esc(tr('میان ایده‌ها، ابزارها و داستان‌هایی که می‌سازم راه خودت را پیدا کن.','Find your way through the ideas, tools and stories I make.'))}</p><div class="section-label">${esc(tr('امروز دنبال چه می‌گردی؟','WHAT BRINGS YOU HERE?'))}</div><div class="journey-choices">${catalog.journeys.map((journey) => `<button type="button" class="journey-choice" data-action="choose-journey" data-journey="${journey.id}">${icon(journeyIcon(journey.id))}<span>${esc(journey.id === 'inspiration' ? tr('الهام بگیر','Be inspired') : journey.id === 'build' ? tr('چیزی بساز','Make something') : tr('یاد بگیر','Learn something'))}</span><small>${esc(tr('۳ مقصد','3 stops'))}</small></button>`).join('')}</div><p class="intro-footnote">${esc(tr('یا روی نقشه آزادانه بگرد. انتخاب با توست.','Or wander the atlas. This is your journey.'))}</p>`;
 }
-
-async function collectResources() {
-  finishAction(await transact((current) => collect(current)), t('collected'));
+function destinationCard(destination) {
+  const saved = state.saved.includes(destination.id);
+  const opened = state.opened.includes(destination.id);
+  return `<article class="destination-card" data-destination="${destination.id}"><div class="destination-meta"><span class="kind-tag">${esc(kindName(destination.kind))}</span>${opened ? `<span class="opened-tag">${icon('check')}${esc(tr('انتخاب شده','Chosen'))}</span>` : ''}</div><h3 dir="auto">${esc(local(destination.title))}</h3><p>${esc(local(destination.summary))}</p><div class="destination-actions">${openLink(destination)}<button class="save-button${saved ? ' is-saved' : ''}" type="button" data-action="save" data-id="${destination.id}" aria-pressed="${saved}" aria-label="${esc(`${saved ? tr('حذف از کوله‌بار: ','Remove from collection: ') : tr('ذخیره در کوله‌بار: ','Save to collection: ')}${local(destination.title)}`)}">${icon(saved ? 'check' : 'bookmark')}<span>${esc(saved ? tr('ذخیره شده','Saved') : tr('ذخیره','Save'))}</span></button></div></article>`;
 }
-
-function applyLanguage() {
+function openLink(destination, label) {
+  return `<a class="destination-open" href="${esc(destination.url)}" target="_blank" rel="noopener noreferrer" data-open="${destination.id}" aria-label="${esc(`${tr('بازکردن ','Open ')}${local(destination.title)}${tr(' در زبانهٔ تازه',' in a new tab')}`)}">${icon('links')}${esc(label || tr('بازکردن مقصد','Open destination'))}</a>`;
+}
+function renderRealm() {
+  const realm = realmById.get(selectedRealm);
+  if (!realm) return '';
+  const progress = getRealmProgress(state, realm.id, catalog);
+  const entries = catalog.destinations.filter((entry) => entry.realmIds.includes(realm.id));
+  return `${heading(realm.icon, local(realm.title), local(realm.description), local(realm.tagline))}<div class="route-overview"><span>${esc(tr('ردپای تو در این قلمرو','YOUR FOOTPRINT HERE'))}</span><strong>${number(progress.opened)} / ${number(progress.total)}</strong></div><p class="panel-note">${esc(progress.lit ? tr('این بخش با انتخاب‌های تو روشن شده است.','Your choices have lit this district.') : tr('یکی از مقصدها را باز کن تا مسیر این قلمرو روشن شود.','Open a destination to light this district’s path.'))}</p><div class="destination-list">${entries.map(destinationCard).join('')}</div>`;
+}
+function renderJourneys() {
+  const active = journeyById.get(state.activeJourney);
+  let result = heading('route', tr('یک مسیر، سه کشف','One path. Three discoveries.'), tr('از علاقه‌ات شروع کن؛ هر مسیر سه مقصد مرتبط را پیشنهاد می‌دهد. هر جا خواستی از مسیر بیرون بزن.','Start with a curiosity. Each journey connects three destinations. Wander off whenever you like.'));
+  if (active) {
+    const progress = getJourneyProgress(state, active, catalog);
+    result += `<div class="route-overview"><strong>${esc(local(active.title))}</strong>${dots(progress)}</div><p class="panel-note">${esc(local(active.description))}</p><div class="journey-steps">${progress.steps.map((step, index) => {
+      const destination = destinationById.get(step.destinationId);
+      const saved = state.saved.includes(destination.id);
+      return `<article class="journey-step${step.completed ? ' is-done' : ''}${destination.id === progress.nextDestinationId ? ' is-next' : ''}"><span class="step-number">${step.completed ? icon('check') : number(index + 1)}</span><div class="step-body"><span class="section-label">${esc(step.completed ? tr('انتخاب شده','CHOSEN') : destination.id === progress.nextDestinationId ? tr('مقصد بعدی','NEXT STOP') : tr('توقف در مسیر','ON YOUR PATH'))}</span><h3>${esc(local(step.prompt))}</h3><p>${esc(local(step.why))}</p><div class="step-destination"><strong dir="auto">${esc(local(destination.title))}</strong><span>${esc(kindName(destination.kind))}</span></div><div class="destination-actions">${openLink(destination)}<button type="button" class="save-button${saved ? ' is-saved' : ''}" data-action="save" data-id="${destination.id}" aria-pressed="${saved}" aria-label="${esc(`${saved ? tr('حذف از کوله‌بار: ','Remove from collection: ') : tr('ذخیره در کوله‌بار: ','Save to collection: ')}${local(destination.title)}`)}">${icon(saved ? 'check' : 'bookmark')}<span>${esc(saved ? tr('ذخیره شده','Saved') : tr('ذخیره','Save'))}</span></button></div></div></article>`;
+    }).join('')}</div>${progress.complete ? `<div class="collection-message">${icon('spark')}<strong>${esc(tr('سه مقصد این مسیر را انتخاب کردی.','You chose all three stops.'))}</strong><p>${esc(tr('مقصدهای مفید را در کوله‌بار نگه دار یا مسیر دیگری را شروع کن.','Save useful destinations to your collection or take another path.'))}</p><button type="button" class="secondary-button" data-action="collection">${icon('bag')}${esc(words[lang].collection)}</button></div>` : ''}<p class="panel-note">${esc(tr('این ردپا انتخابِ لینک را ثبت می‌کند؛ خواندن یا تمام‌کردن محتوا سنجیده نمی‌شود.','Progress records choosing a link, not reading or completing its content.'))}</p>`;
+  }
+  result += `<div class="section-label">${esc(active ? tr('مسیرت را عوض کن','CHOOSE ANOTHER PATH') : tr('مسیر شروع را انتخاب کن','CHOOSE YOUR STARTING POINT'))}</div><div class="journey-list">${catalog.journeys.map((journey, index) => {
+    const progress = getJourneyProgress(state, journey, catalog);
+    return `<button type="button" class="journey-card${journey.id === active?.id ? ' is-active' : ''}${progress.complete ? ' is-complete' : ''}" data-action="choose-journey" data-journey="${journey.id}" aria-pressed="${journey.id === active?.id}"><span class="journey-number">${icon(journeyIcon(journey.id))}<small>0${index + 1}</small></span><span><h3>${esc(local(journey.title))}</h3><p>${esc(local(journey.description))}</p><span class="journey-progress">${dots(progress)}<span>${number(progress.completed)} / ${number(progress.total)}</span></span></span></button>`;
+  }).join('')}</div>`;
+  if (active) result += `<button class="text-button" type="button" data-action="wander">${esc(tr('فعلاً آزادانه می‌گردم','Explore freely for now'))}</button>`;
+  return result;
+}
+function renderDirectory() {
+  return `${heading('compass', words[lang].allLinks, tr('همهٔ جهان‌هایی که می‌سازم، یک‌جا. با نام، موضوع یا نوع مقصد جست‌وجو کن.','All the worlds I make, in one place. Search by name, topic or destination type.'))}<label class="search-field">${icon('search')}<span class="sr-only">${esc(tr('جست‌وجوی مقصدها','Search destinations'))}</span><input id="directory-search" type="search" placeholder="${esc(tr('نام پروژه، موضوع یا کانال…','Project, topic or channel…'))}" value="${esc(directoryQuery)}" autocomplete="off" spellcheck="false"></label><div class="filter-list" aria-label="${esc(tr('فیلتر قلمروها','Filter by realm'))}">${[{id:'all',title:{fa:'همه',en:'All'}}, ...catalog.realms].map((realm) => `<button type="button" class="filter-button${directoryFilter === realm.id ? ' is-active' : ''}" data-action="filter" data-realm="${realm.id}" aria-pressed="${directoryFilter === realm.id}">${esc(local(realm.title))}</button>`).join('')}</div><div class="directory-count" id="directory-count" role="status" aria-live="polite"></div><div id="directory-results" class="destination-list"></div>`;
+}
+function normalizeSearch(value) {
+  return value.normalize('NFKC').replace(/[يى]/g, 'ی').replace(/ك/g, 'ک').replace(/[\u064B-\u065F\u0670\u200C\u200D]/g, '').toLocaleLowerCase().trim();
+}
+function renderDirectoryResults() {
+  const query = normalizeSearch(directoryQuery);
+  const entries = catalog.destinations.filter((destination) => {
+    if (directoryFilter !== 'all' && !destination.realmIds.includes(directoryFilter)) return false;
+    const haystack = normalizeSearch([destination.title.fa,destination.title.en,destination.summary.fa,destination.summary.en,destination.url,kindName(destination.kind),...destination.realmIds.map((id) => local(realmById.get(id).title))].join(' '));
+    return query.split(/\s+/).every((word) => haystack.includes(word));
+  });
+  $('#directory-count').textContent = `${number(entries.length)} ${tr('مقصد','destinations')}`;
+  $('#directory-results').innerHTML = entries.length ? entries.map(destinationCard).join('') : `<div class="empty-state">${icon('search')}<h2>${esc(tr('مقصدی پیدا نشد','No destination found'))}</h2><p>${esc(tr('عبارت کوتاه‌تری بنویس یا فیلتر دیگری انتخاب کن.','Try a shorter search or choose a different filter.'))}</p><button class="secondary-button" type="button" data-action="clear-search">${esc(tr('پاک‌کردن جست‌وجو','Clear search'))}</button></div>`;
+}
+function renderCollection(isShared = false) {
+  const ids = isShared ? sharedIds : state.saved;
+  let result = heading(isShared ? 'share' : 'bag', isShared ? tr('کوله‌بار یک هم‌مسیر','A fellow traveller’s collection') : tr('چیزهایی برای بردن','Things to take with you'), isShared ? tr('این مجموعه با تو به اشتراک گذاشته شده. مقصدها را ببین و اگر خواستی به کوله‌بار خودت اضافه کن.','This collection was shared with you. Explore it and add it to your own collection if it interests you.') : tr('هرچه به کارت می‌آید اینجا نگه دار؛ از یک ابزار تا ایدهٔ پروژهٔ بعدی.','Keep what speaks to you, from a useful tool to the seed of your next project.'));
+  if (isShared && ids.length) {
+    const newCount = ids.filter((id) => !state.saved.includes(id)).length;
+    result += `<div class="shared-banner"><strong>${number(ids.length)} ${esc(tr('مقصد مشترک','shared destinations'))}</strong><button class="primary-button" type="button" data-action="import-collection" ${newCount ? '' : 'disabled'}>${icon(newCount ? 'bag' : 'check')}${esc(newCount ? tr('افزودن به کوله‌بار من','Add to my collection') : tr('همه در کوله‌بار تو هستند','All are in your collection'))}</button></div>`;
+  } else if (sharedIds.length) {
+    result += `<button class="secondary-button" type="button" data-action="shared">${icon('share')}${esc(tr('دیدن مجموعهٔ دریافتی','View the shared collection'))}</button>`;
+  }
+  if (!ids.length) return `${result}<div class="empty-state">${icon('bookmark')}<h2>${esc(tr('جا برای کشف‌های تو','Room for your discoveries'))}</h2><p>${esc(tr('کنار هر مقصد «ذخیره» را بزن. بعد می‌توانی مجموعه‌ات را با یک لینک بفرستی یا دانلود کنی.','Choose Save beside any destination. Then share your collection with a link or download it.'))}</p><button class="primary-button" type="button" data-action="links">${icon('compass')}${esc(tr('پیداکردن اولین مقصد','Find your first destination'))}</button></div>`;
+  if (!isShared) result += `<div class="collection-toolbar"><strong>${number(ids.length)} ${esc(tr('مقصد در کوله‌بار','destinations saved'))}</strong><div class="panel-actions"><button type="button" class="secondary-button" data-action="share-collection">${icon('share')}${esc(tr('اشتراک‌گذاری','Share'))}</button><button type="button" class="secondary-button" data-action="download-collection">${icon('download')}${esc(tr('دانلود فهرست','Download list'))}</button></div></div>${shareUrl ? `<div class="share-box"><label for="collection-url">${esc(tr('لینک مجموعهٔ تو','Your collection link'))}</label><input id="collection-url" type="url" dir="ltr" readonly value="${esc(shareUrl)}"><p class="panel-note">${esc(tr('این لینک فقط مقصدهای همین مجموعه را دارد؛ تغییرهای بعدی را دوباره به اشتراک بگذار.','This link contains the current selection. Share again after making changes.'))}</p></div>` : ''}`;
+  result += `<div class="destination-list">${ids.map((id) => destinationById.get(id)).filter(Boolean).map(destinationCard).join('')}</div>`;
+  if (!isShared) result += `<p class="panel-note">${esc(tr('کوله‌بار روی همین مرورگر می‌ماند. برای نگه‌داشتن آن در جای دیگر، لینک یا فایلش را بردار.','Your collection stays in this browser. Keep its link or file to take it elsewhere.'))}</p>`;
+  return result;
+}
+function renderJournal() {
+  const progress = getProgressSummary(state, catalog);
+  return `${heading('quests', tr('ردپای تو','Your footprint'), tr('نقشه با انتخاب‌های واقعی تو روشن می‌شود. اینجا مسیرهایی را می‌بینی که تا امروز از این اطلس آغاز کرده‌ای.','Your choices light the atlas. This is a record of the paths you have started here.'))}<div class="stats-grid"><div><strong>${number(progress.litRealms)}<small> / ${number(progress.totalRealms)}</small></strong><span>${esc(tr('قلمرو روشن','Districts lit'))}</span></div><div><strong>${number(progress.openedDestinations)}</strong><span>${esc(tr('مقصد انتخاب‌شده','Destinations chosen'))}</span></div><div><strong>${number(progress.savedDestinations)}</strong><span>${esc(tr('مقصد ذخیره‌شده','Destinations saved'))}</span></div><div><strong>${number(progress.completedJourneys)}<small> / ${number(progress.totalJourneys)}</small></strong><span>${esc(tr('مسیر پیموده‌شده','Paths explored'))}</span></div></div><div class="section-label">${esc(tr('نقشهٔ کشف‌ها','YOUR DISCOVERY MAP'))}</div><div class="realm-progress-list">${catalog.realms.map((realm) => { const realmProgress = getRealmProgress(state, realm.id, catalog); return `<button type="button" class="realm-progress-item${realmProgress.lit ? ' is-lit' : ''}" data-action="realm" data-realm="${realm.id}">${icon(realm.icon)}<span><strong>${esc(local(realm.title))}</strong><small>${esc(realmProgress.lit ? tr('مسیر روشن است','Path illuminated') : realmProgress.discovered ? tr('کشف شده؛ مقصدی انتخاب کن','Discovered; choose a destination') : tr('در انتظار کشف','Waiting to be discovered'))}</small></span><span class="progress-dots">${number(realmProgress.opened)} / ${number(realmProgress.total)}</span></button>`; }).join('')}</div><p class="panel-note">${esc(tr('«انتخاب‌شده» یعنی لینک را از این اطلس باز کرده‌ای؛ ما بازشدن صفحهٔ بیرونی، مطالعه یا یادگیری را اندازه نمی‌گیریم.','“Chosen” means you selected its link here. The atlas does not measure whether the external page loaded, was read or learned from.'))}</p>${progress.openedDestinations ? `<div class="section-label">${esc(tr('آخرین انتخاب‌ها','RECENT FIRST CHOICES'))}</div><div class="destination-list">${[...state.opened].reverse().slice(0, 5).map((id) => destinationCard(destinationById.get(id))).join('')}</div>` : `<button class="primary-button" type="button" data-action="journeys">${icon('route')}${esc(tr('اولین مسیرت را انتخاب کن','Choose your first path'))}</button>`}`;
+}
+function renderArchive() {
+  return `${heading('watchtower', tr('فصل قبلی، محفوظ','The previous chapter, preserved'), tr('دهکدهٔ اولیهٔ هادس هنوز اینجاست؛ با ساخت‌وساز، منابع و حال‌وهوای خودش. هر وقت خواستی به آن سر بزن.','The original Hades village is still here, with its building, resources and its own atmosphere. Visit whenever you like.'))}<article class="archive-card"><div class="archive-mark"><img src="./hades-mark.png" alt=""></div><span class="section-label" lang="en">HADES REALM / VILLAGE V2</span><h2>${esc(tr('دهکدهٔ جهان زیرین','The underworld village'))}</h2><p>${esc(tr('نسخهٔ پیشین جداگانه نگه‌داری می‌شود. پیشرفت آن از این اطلس مستقل است.','The previous version lives in a separate archive. Its progress is independent of this atlas.'))}</p><div class="panel-actions"><a class="primary-button" href="./archive/village-v2/" target="_blank" rel="noopener noreferrer">${icon('citadel')}${esc(tr('بازی نسخهٔ قبلی','Play the original village'))}</a><a class="secondary-button" href="./archive/HadesRealm-Village-v2-backup.zip" download>${icon('download')}${esc(tr('دانلود بک‌آپ کامل','Download complete backup'))}</a></div></article><p class="panel-note">${esc(tr('بک‌آپ شامل کد و فایل‌های اجرایی اصلی نسخهٔ دوم است. آرشیوشده در ۷ آذر ۱۴۰۵.','The backup includes the original source and playable build of version 2. Archived 28 November 2026.'))}</p>`;
+}
+function renderHelp() {
+  return `${heading('help', tr('نقشه‌ای که با تو زنده می‌شود','An atlas that comes alive with you'), tr('از یک کنجکاوی شروع کن؛ مقصدهای مفیدت را پیدا کن و همراه ببر.','Start with a curiosity. Find useful destinations and take them with you.'))}<ol class="help-list"><li><strong>${esc(tr('کشف کن','Explore'))}</strong><p>${esc(tr('ساختمان‌ها موضوع‌های این جهان‌اند. هرکدام را انتخاب کن تا مقصدها و توضیحشان را ببینی.','Landmarks are the subjects of this world. Select one to see its destinations and descriptions.'))}</p></li><li><strong>${esc(tr('مسیر را روشن کن','Light a path'))}</strong><p>${esc(tr('وقتی لینک یک مقصد را انتخاب می‌کنی، راه و پنجره‌های قلمرو مرتبط روشن می‌شوند. مسیرهای سه‌مرحله‌ای چند پیشنهاد مرتبط را کنار هم می‌گذارند.','Choosing a destination lights its district’s path and windows. Three-stop journeys connect related suggestions.'))}</p></li><li><strong>${esc(tr('با خودت ببر','Take it with you'))}</strong><p>${esc(tr('مقصدهای دلخواهت را ذخیره کن. کوله‌بار را با لینک به اشتراک بگذار یا به شکل فایل Markdown دانلود کن.','Save destinations you like. Share your collection with a link or download a Markdown list.'))}</p></li></ol><div class="section-label">${esc(tr('حرکت در نقشه','MOVING AROUND'))}</div><p>${esc(tr('تصویر را بکش تا بچرخد؛ اسکرول یا دو انگشت برای زوم. نام ساختمان‌ها و فهرست مقصدها با کیبورد هم در دسترس‌اند.','Drag to orbit; scroll or pinch to zoom. Landmark labels and the directory are also keyboard accessible.'))}</p><p class="panel-note">${esc(tr('۱ تا ۶: قلمروها · J: مسیرها · C: کوله‌بار · L یا /: جست‌وجو · R: دوربین · Esc: بستن','1–6: districts · J: journeys · C: collection · L or /: search · R: camera · Esc: close'))}</p><div class="section-label">${esc(tr('ردپای تو کجا می‌ماند؟','WHERE YOUR FOOTPRINT LIVES'))}</div><p>${esc(tr('پیشرفت و کوله‌بار فقط در مرورگر تو ذخیره می‌شوند. با پاک‌کردن داده‌های مرورگر از بین می‌روند. هیچ حساب یا ردیابی‌ای لازم نیست.','Progress and collections are saved only in your browser. Clearing browser data removes them. No account or tracking is involved.'))}</p><button class="secondary-button" type="button" data-action="archive">${icon('watchtower')}${esc(tr('آرشیو و بک‌آپ نسخهٔ قبلی','Original village & backup'))}</button><div class="reset-box">${resetPending ? `<div class="confirm-reset"><strong>${esc(tr('ردپا و کوله‌بار این اطلس پاک شود؟','Clear this atlas’s footprint and collection?'))}</strong><p>${esc(tr('فقط ذخیره‌های همین مرورگر پاک می‌شوند. بک‌آپ دهکده تغییری نمی‌کند.','This clears the atlas’s data in this browser. The archived village is unaffected.'))}</p><div class="panel-actions"><button class="secondary-button" type="button" data-action="cancel-reset">${esc(tr('انصراف','Cancel'))}</button><button class="primary-button" type="button" data-action="confirm-reset">${esc(tr('بله، پاک کن','Yes, clear it'))}</button></div></div>` : `<button class="text-button" type="button" data-action="ask-reset">${icon('reset')}${esc(tr('شروع دوبارهٔ ردپا','Reset my footprint'))}</button>`}</div>`;
+}
+function focusKey(element) {
+  if (!element || !$('#detail-panel').contains(element)) return null;
+  if (element.id) return { id:element.id, start:element.selectionStart, end:element.selectionEnd };
+  const target = element.closest('[data-action],[data-open]');
+  return target ? { action:target.dataset.action, open:target.dataset.open, idValue:target.dataset.id, realm:target.dataset.realm, journey:target.dataset.journey } : null;
+}
+function restoreFocus(key) {
+  if (!key) return;
+  const target = key.id ? document.getElementById(key.id) : $$('#panel-body [data-action],#panel-body [data-open]').find((element) => element.dataset.action === key.action && element.dataset.open === key.open && element.dataset.id === key.idValue && element.dataset.realm === key.realm && element.dataset.journey === key.journey);
+  if (target) {
+    target.focus({ preventScroll:true });
+    if (key.start != null && ['search','text'].includes(target.type)) target.setSelectionRange(key.start, key.end);
+  } else $('#detail-panel').focus({ preventScroll:true });
+}
+function renderPanel(fresh = false) {
+  if (!panelMode) return;
+  const element = $('#detail-panel');
+  const previousFocus = fresh ? null : focusKey(document.activeElement);
+  const scroll = fresh ? 0 : element.scrollTop;
+  const renderers = { realm:renderRealm, journeys:renderJourneys, links:renderDirectory, collection:() => renderCollection(), shared:() => renderCollection(true), journal:renderJournal, archive:renderArchive, help:renderHelp };
+  $('#panel-body').innerHTML = renderers[panelMode]?.() || '';
+  $('#panel-overline').textContent = `HADES / ${panelMode === 'realm' ? selectedRealm.toUpperCase() : panelMode.toUpperCase()}`;
+  if (panelMode === 'links') renderDirectoryResults();
+  element.scrollTop = scroll;
+  restoreFocus(previousFocus);
+}
+function showPanel(mode, realmId) {
+  const firstOpening = !panelMode;
+  if (firstOpening) lastFocus = document.activeElement;
+  if (mode !== 'help') resetPending = false;
+  panelMode = mode;
+  document.body.dataset.panel = mode;
+  selectedRealm = mode === 'realm' ? realmId : null;
+  $('#detail-panel').hidden = false;
+  $('#intro-card').inert = true;
+  document.body.classList.add('panel-open');
+  scene?.select(mode === 'realm' ? realmId : ({journeys:'citadel',journal:'plot-a',collection:'plot-b',shared:'plot-b',archive:'plot-c'}[mode] || null));
+  renderPanel(true); updateDock(); updateLabels();
+  $('#detail-panel').focus({ preventScroll:true });
+  if (mode === 'realm') void change((draft) => discoverRealm(draft, realmId, catalog));
+}
+function closePanel() {
+  if (!panelMode) return;
+  panelMode = null; selectedRealm = null; resetPending = false;
+  delete document.body.dataset.panel;
+  $('#detail-panel').hidden = true;
+  $('#intro-card').inert = false;
+  document.body.classList.remove('panel-open');
+  scene?.select(null); updateDock(); updateLabels();
+  if (lastFocus?.isConnected && lastFocus !== document.body && lastFocus !== document.documentElement && !lastFocus.closest('[inert],[hidden]')) lastFocus.focus({ preventScroll:true });
+  else $('#nav-world').focus({ preventScroll:true });
+}
+function updateDock() {
+  $$('.dock-button').forEach((button) => {
+    const active = button.dataset.section === (panelMode === 'shared' ? 'collection' : panelMode || 'world');
+    button.classList.toggle('is-active', active); button.setAttribute('aria-pressed', String(active));
+  });
+}
+function labelInfo(id) {
+  const realm = realmById.get(id);
+  if (realm) return { title:local(realm.title), symbol:realm.icon };
+  return {citadel:{title:tr('آغاز سفر','Journey hub'),symbol:'citadel'},'plot-a':{title:tr('ردپای تو','Your footprint'),symbol:'quests'},'plot-b':{title:words[lang].collection,symbol:'bag'},'plot-c':{title:tr('دهکدهٔ پیشین','Original village'),symbol:'watchtower'}}[id];
+}
+function makeLabels() {
+  for (const id of ['citadel',...catalog.realms.map((realm) => realm.id),'plot-a','plot-b','plot-c']) {
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'landmark-label'; button.dataset.landmark = id;
+    button.addEventListener('click', () => selectLandmark(id));
+    $('#landmark-labels').append(button); labels.set(id, button);
+  }
+  updateLabels();
+}
+function updateLabels() {
+  for (const [id, button] of labels) {
+    const info = labelInfo(id);
+    const lit = realmById.has(id) ? getRealmProgress(state,id,catalog).lit : id === 'plot-b' ? state.saved.length > 0 : id === 'plot-a' ? state.opened.length > 0 : id === 'citadel' ? Boolean(state.activeJourney) : false;
+    button.innerHTML = `<span class="label-icon">${icon(info.symbol)}</span><span class="label-text">${esc(info.title)}</span><span class="label-dot" aria-hidden="true"></span>`;
+    button.title = info.title;
+    button.setAttribute('aria-label', info.title);
+    button.setAttribute('aria-pressed', String(selectedRealm === id || ({journeys:'citadel',journal:'plot-a',collection:'plot-b',shared:'plot-b',archive:'plot-c'}[panelMode] === id)));
+    button.classList.toggle('is-lit', lit);
+    button.classList.toggle('is-selected', button.getAttribute('aria-pressed') === 'true');
+  }
+}
+function selectLandmark(id) {
+  if (realmById.has(id)) showPanel('realm',id);
+  else showPanel({citadel:'journeys','plot-a':'journal','plot-b':'collection','plot-c':'archive'}[id] || 'journeys');
+}
+function syncScene() {
+  if (!scene) return;
+  const summary = getProgressSummary(state,catalog);
+  const stages = {citadel:summary.completedJourneys ? 3 : state.activeJourney ? 2 : 1};
+  const lit = [];
+  for (const realm of catalog.realms) {
+    const progress = getRealmProgress(state,realm.id,catalog);
+    stages[realm.id] = progress.lit ? 3 : progress.discovered ? 2 : 1;
+    if (progress.lit) lit.push(realm.id);
+  }
+  if (summary.openedDestinations) lit.push('plot-a');
+  if (summary.savedDestinations) lit.push('plot-b');
+  if (summary.completedJourneys) lit.push('citadel');
+  scene.setLevels(stages); scene.setExplored(lit);
+}
+function renderState() {
+  const summary = getProgressSummary(state,catalog);
+  $('#progress-count').textContent = tr(`${number(summary.litRealms)} / ${number(summary.totalRealms)} قلمرو روشن`,`${summary.litRealms} / ${summary.totalRealms} districts lit`);
+  $('#progress-button').setAttribute('aria-label', tr(`ردپای تو، ${number(summary.openedDestinations)} مقصد انتخاب‌شده`, `Your footprint, ${summary.openedDestinations} destinations chosen`));
+  $('.progress-orbit').style.setProperty('--progress', `${summary.litRealms / summary.totalRealms * 360}deg`);
+  $('#collection-badge').textContent = number(summary.savedDestinations);
+  $('#collection-badge').hidden = !summary.savedDestinations;
+  renderIntro(); updateLabels(); syncScene(); renderPanel(); updateDock();
+}
+function renderLanguage() {
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
-  $('.skip-link').textContent = lang === 'fa' ? 'رفتن به فهرست لینک‌ها' : 'Skip to all links';
-  document.title = lang === 'fa' ? 'Hades Realm · جهان سه‌بعدی هادس' : 'Hades Realm · A world of your own';
-  for (const element of $$('[data-i]')) {
-    const value = t(element.dataset.i);
-    if (element.dataset.i === 'welcomeTitle') element.innerHTML = value.split('\n').map(escape).join('<br>');
-    else element.textContent = value;
-  }
+  document.title = tr('Hades Realm · اطلس جهان هادس','Hades Realm · An atlas of ideas');
+  $('.hud-header').setAttribute('aria-label',tr('اطلس هادس','Hades atlas'));
+  $('.camera-tools').setAttribute('aria-label',tr('کنترل دوربین','Camera controls'));
+  $('.dock-nav').setAttribute('aria-label',tr('منوی اطلس','Atlas navigation'));
+  $$('[data-i]').forEach((element) => { if (words[lang][element.dataset.i]) element.textContent = words[lang][element.dataset.i]; });
   $('#language').textContent = lang === 'fa' ? 'EN' : 'فا';
-  $('#language').setAttribute('aria-label', lang === 'fa' ? 'Switch to English' : 'تغییر زبان به فارسی');
-  const labels = { '#close-panel': 'close', '#help': 'helpTitle', '#zoom-in': 'zoomIn', '#zoom-out': 'zoomOut', '#reset-camera': 'resetCamera' };
-  for (const [selector, key] of Object.entries(labels)) { $(selector).title = t(key); $(selector).setAttribute('aria-label', t(key)); }
-  $('#theme-toggle').innerHTML = icon(theme === 'dusk' ? 'sun' : 'moon');
-  $('#theme-toggle').title = t(theme === 'dusk' ? 'day' : 'dusk');
-  $('#theme-toggle').setAttribute('aria-label', $('#theme-toggle').title);
+  $('#language').setAttribute('aria-label', tr('Switch to English','تغییر زبان به فارسی'));
   $('#sound-toggle').innerHTML = icon(sound ? 'sound' : 'mute');
-  $('#sound-toggle').setAttribute('aria-label', t(sound ? 'disableSound' : 'enableSound'));
-  $('#sound-toggle').title = t(sound ? 'disableSound' : 'enableSound');
-  $('#sound-toggle').setAttribute('aria-pressed', String(sound));
-  $('#world-canvas').setAttribute('aria-label', lang === 'fa' ? 'دهکدهٔ سه‌بعدی هادس؛ از دکمه‌های روی ساختمان‌ها برای انتخاب استفاده کن.' : 'Hades 3D village. Use building label buttons to select a landmark.');
-  updateHUD();
+  $('#sound-toggle').setAttribute('aria-label', sound ? tr('خاموش‌کردن صدا','Turn sound off') : tr('فعال‌سازی صدا','Turn sound on'));
+  $('#sound-toggle').setAttribute('aria-pressed',String(sound));
+  $('#help').innerHTML = icon('help'); $('#help').setAttribute('aria-label',tr('راهنمای اطلس','Atlas guide'));
+  $('#close-panel').innerHTML = icon('close'); $('#close-panel').setAttribute('aria-label',tr('بستن','Close'));
+  for (const [id,symbol,fa,en] of [['zoom-in','plus','بزرگ‌نمایی','Zoom in'],['zoom-out','minus','کوچک‌نمایی','Zoom out'],['reset-camera','compass','بازگشت دوربین','Reset camera']]) { $(`#${id}`).innerHTML = icon(symbol); $(`#${id}`).setAttribute('aria-label',tr(fa,en)); }
+  for (const [id,symbol] of [['world','compass'],['journeys','route'],['collection','bag'],['links','search']]) $(`#nav-${id} .dock-icon`).innerHTML = icon(symbol);
+  $('#archive-icon').innerHTML = icon('watchtower');
+  $('#loading-links').textContent = words[lang].allLinks;
+  $('#loading p').textContent = tr('نقشهٔ جهان در حال بازشدن است…','Opening the atlas…');
+  $('.skip-link').textContent = tr('رفتن به فهرست مقصدها','Skip to the destination directory');
+  $('#world-canvas').setAttribute('aria-label',tr('اطلس سه‌بعدی هادس؛ دکمه‌های روی نقشه یا فهرست مقصدها را انتخاب کنید.','Hades 3D atlas. Select a landmark label or use the destination directory.'));
+  $('#intro-card').setAttribute('aria-label',tr('آغاز سفر','Start a journey'));
+  renderState();
+}
+async function recordOpen(id) {
+  const currentJourney = journeyById.get(state.activeJourney);
+  const wasComplete = currentJourney ? getJourneyProgress(state,currentJourney,catalog).complete : false;
+  const result = await change((draft) => openDestination(draft,id,catalog));
+  if (!result.ok || !result.firstOpen) return;
+  chime();
+  if (currentJourney && !wasComplete && getJourneyProgress(state,currentJourney,catalog).complete) toast(tr('سه مقصد این مسیر را انتخاب کردی. کشف‌های مفیدت را نگه دار.','You chose all three stops. Keep your useful discoveries.'));
+  else toast(tr('انتخابت روی نقشه ثبت شد.','Your choice left a mark on the atlas.'));
+}
+async function shareCollection() {
+  const hash = encodeCollection(state.saved,catalog);
+  if (!hash) return;
+  shareUrl = PUBLIC_URL + hash;
   renderPanel();
+  try { await navigator.clipboard.writeText(shareUrl); toast(tr('لینک این مجموعه کپی شد.','Collection link copied.')); }
+  catch { $('#collection-url')?.focus(); $('#collection-url')?.select(); toast(tr('لینک آماده است؛ آن را از کادر کپی کن.','Your link is ready. Copy it from the field.')); }
+}
+function downloadCollection() {
+  if (!state.saved.length) return;
+  const lines = ['# Hades Realm · '+tr('کوله‌بار من','My collection'),'',PUBLIC_URL,'',...state.saved.map((id) => { const destination = destinationById.get(id); return `- [${local(destination.title).replace(/[\[\]]/g,'')}](${destination.url})\n  ${local(destination.summary)}`; }),'','---',tr('مجموعه‌ای از مقصدهای عمومی هادس؛ انتخاب‌شده توسط بازدیدکننده.','A visitor’s selection of public Hades destinations.'),''];
+  const blob = new Blob([lines.join('\n')], {type:'text/markdown;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a'); link.href = url; link.download = 'HadesRealm-my-collection.md';
+  document.body.append(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast(tr('فهرست مجموعه برای دانلود آماده شد.','Your collection list is ready to download.'));
+}
+async function action(name, target) {
+  if (['journeys','collection','shared','links','journal','archive','help'].includes(name)) { showPanel(name); return; }
+  if (name === 'realm') { showPanel('realm',target.dataset.realm); return; }
+  if (name === 'choose-journey') {
+    const result = await change((draft) => chooseJourney(draft,target.dataset.journey,catalog));
+    if (result.ok) { showPanel('journeys'); chime(); }
+  } else if (name === 'wander') {
+    await change((draft) => chooseJourney(draft,null,catalog)); closePanel();
+  } else if (name === 'save') {
+    shareUrl = '';
+    const result = await change((draft) => toggleSaved(draft,target.dataset.id,catalog));
+    if (result.ok) { if (result.saved) chime(); toast(result.saved ? tr('به کوله‌بارت اضافه شد.','Added to your collection.') : tr('از کوله‌بار برداشته شد.','Removed from your collection.')); }
+  } else if (name === 'filter') {
+    directoryFilter = target.dataset.realm; renderPanel();
+  } else if (name === 'clear-search') {
+    directoryQuery = ''; directoryFilter = 'all'; renderPanel(); $('#directory-search')?.focus();
+  } else if (name === 'share-collection') await shareCollection();
+  else if (name === 'download-collection') downloadCollection();
+  else if (name === 'import-collection') {
+    shareUrl = '';
+    const result = await change((draft) => mergeCollection(draft,sharedIds,catalog));
+    if (result.ok) { toast(tr(`${number(result.addedIds.length)} مقصد به کوله‌بارت اضافه شد.`,`${result.addedIds.length} destinations added to your collection.`)); showPanel('collection'); chime(); }
+  } else if (name === 'ask-reset' || name === 'cancel-reset') { resetPending = name === 'ask-reset'; renderPanel(); if(resetPending) $('[data-action="cancel-reset"]')?.focus(); }
+  else if (name === 'confirm-reset' && resetPending) {
+    try { await store.reset(); shareUrl = ''; resetPending = false; renderPanel(); toast(tr('ردپای اطلس پاک شد؛ یک شروع تازه.','Atlas progress cleared. A fresh start.')); }
+    catch { toast(tr('ذخیره‌ها پاک نشدند؛ دوباره امتحان کن.','Could not clear progress. Please try again.')); }
+  }
+}
+function readSharedHash() {
+  sharedIds = [];
+  if (!location.hash.startsWith('#collection=')) {
+    if (panelMode === 'shared') closePanel();
+    else if (panelMode === 'collection') renderPanel();
+    return;
+  }
+  const decoded = decodeCollection(location.hash,catalog);
+  if (!decoded.ok || !decoded.ids.length) {
+    if (panelMode === 'shared') showPanel('collection');
+    else if (panelMode === 'collection') renderPanel();
+    toast(tr('این لینک مجموعه معتبر نیست. مقصدها را از فهرست پیدا کن.','This collection link is invalid. Explore the destination directory instead.'));
+    return;
+  }
+  sharedIds = decoded.ids; showPanel('shared');
 }
 
-for (const [selector, name] of Object.entries({ '#ember-icon': 'ember', '#soul-icon': 'soul', '#explore-icon': 'chevron', '#quest-peek-icon': 'quests', '#help': 'help', '#close-panel': 'close', '#zoom-in': 'plus', '#zoom-out': 'minus', '#reset-camera': 'home', '#collect-icon': 'ember' })) $(selector).innerHTML = icon(name);
-for (const [name, symbol] of Object.entries({ world: 'compass', build: 'build', quests: 'quests', links: 'links' })) $(`#nav-${name} .dock-icon`).innerHTML = icon(symbol);
-for (const id of [...CORE_IDS, ...PLOT_IDS]) {
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'landmark-label';
-  button.dataset.landmark = id;
-  button.hidden = true;
-  button.addEventListener('click', () => selectBuilding(id));
-  $('#landmark-labels').append(button);
-  labelElements.set(id, button);
-}
-
-$('#close-panel').addEventListener('click', closePanel);
-$('#start-explore').addEventListener('click', () => selectBuilding(realms.find((r) => !state.visited.includes(r.id))?.id || 'citadel'));
-$('#quest-peek').addEventListener('click', () => openPanel('quests'));
-$('#collect').addEventListener('click', collectResources);
-$('#help').addEventListener('click', () => openPanel('help'));
-$('#language').addEventListener('click', () => { lang = lang === 'fa' ? 'en' : 'fa'; savePreferences(); applyLanguage(); });
-$('#theme-toggle').addEventListener('click', () => { theme = theme === 'dusk' ? 'day' : 'dusk'; scene?.setTheme(theme); savePreferences(); applyLanguage(); });
-$('#sound-toggle').addEventListener('click', async () => {
-  try {
-    if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    await audioContext.resume();
-    sound = !sound;
-    chime('reward');
-  } catch { sound = false; toast(t('soundUnavailable'), 'error'); }
-  applyLanguage();
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[data-open]');
+  if (link) { void recordOpen(link.dataset.open); return; }
+  const button = event.target.closest('[data-action]');
+  if (button && !button.disabled) void action(button.dataset.action,button);
 });
-$('#zoom-in').addEventListener('click', () => scene?.zoom(1));
-$('#zoom-out').addEventListener('click', () => scene?.zoom(-1));
-$('#reset-camera').addEventListener('click', () => scene?.resetCamera());
-for (const button of $$('.dock-button')) button.addEventListener('click', () => {
-  const mode = button.dataset.section;
-  if (mode === 'world') { closePanel(); return; }
-  if (mode === 'build') {
-    selectedPlot = PLOT_IDS.find((id) => !state.plots[id]) || PLOT_IDS[0];
-    selected = state.plots[selectedPlot] ? null : selectedPlot;
-    scene?.select(selected);
-  }
-  openPanel(mode);
-  updateHUD();
+document.addEventListener('auxclick', (event) => { const link = event.target.closest('a[data-open]'); if (event.button === 1 && link) void recordOpen(link.dataset.open); });
+document.addEventListener('input', (event) => { if (event.target.id === 'directory-search') { directoryQuery = event.target.value; renderDirectoryResults(); } });
+$('#nav-world').addEventListener('click',closePanel);
+for (const mode of ['journeys','collection','links']) $(`#nav-${mode}`).addEventListener('click',() => showPanel(mode));
+$('#progress-button').addEventListener('click',() => showPanel('journal'));
+$('#archive-shortcut').addEventListener('click',() => showPanel('archive'));
+$('#help').addEventListener('click',() => showPanel('help'));
+$('#close-panel').addEventListener('click',closePanel);
+$('#language').addEventListener('click',() => { lang = lang === 'fa' ? 'en' : 'fa'; persistPreferences(); renderLanguage(); scene?.resetCamera(); });
+$('#sound-toggle').addEventListener('click',async () => {
+  if (sound) { sound = false; renderLanguage(); return; }
+  try { const AudioClass = window.AudioContext || window.webkitAudioContext; audioContext ||= new AudioClass(); await audioContext.resume(); sound = true; renderLanguage(); chime(); }
+  catch { sound = false; toast(tr('صدا در این مرورگر در دسترس نیست.','Sound is unavailable in this browser.')); }
 });
-
-$('#panel-body').addEventListener('input', (event) => {
-  if (event.target.id === 'link-search') { directoryQuery = event.target.value; renderDirectoryResults(); }
-});
-
-$('#panel-body').addEventListener('click', async (event) => {
-  const button = event.target.closest('button');
-  if (!button || button.disabled) return;
-  tick(state, Date.now());
-  if (button.dataset.plot) {
-    selectedPlot = button.dataset.plot;
-    selected = selectedPlot;
-    scene?.select(selected);
-    renderBuild(); updateHUD(); return;
-  }
-  if (button.dataset.buildType) { selectedType = button.dataset.buildType; renderBuild(); return; }
-  if (button.dataset.select) { selectBuilding(button.dataset.select); return; }
-  if (button.dataset.quest) {
-    const questId = button.dataset.quest;
-    finishAction(await transact((current) => claimQuest(current, questId)), t('claimed')); return;
-  }
-  if (button.dataset.filter) {
-    directoryFilter = button.dataset.filter;
-    for (const chip of $$('.filter-chip')) { chip.classList.toggle('is-active', chip.dataset.filter === directoryFilter); chip.setAttribute('aria-pressed', String(chip.dataset.filter === directoryFilter)); }
-    renderDirectoryResults(); return;
-  }
-  switch (button.dataset.action) {
-    case 'upgrade': {
-      const id = selected;
-      finishAction(await transact((current) => upgrade(current, id)), t('upgraded'), 'build'); break;
-    }
-    case 'build': {
-      const plotId = selectedPlot, type = selectedType, request = selectionRequest;
-      const result = await transact((current) => build(current, plotId, type));
-      if (result.ok && request === selectionRequest) { selectedPlot = plotId; selected = plotId; panelMode = 'plot'; scene?.select(selected); }
-      finishAction(result, t('built'), 'build');
-      break;
-    }
-    case 'show-build': openPanel('build'); break;
-    case 'reset-prompt': resetPending = true; renderHelp(); break;
-    case 'reset-cancel': resetPending = false; renderHelp(); break;
-    case 'reset-confirm': {
-      const result = await transact(() => { state = resetGame(Date.now()); return { ok: true }; });
-      if (result.ok) { syncScene(); closePanel(); toast(t('resetDone')); }
-      else finishAction(result, t('resetDone'));
-      break;
-    }
-    case 'share':
-      try { await navigator.clipboard.writeText('https://ialirezaaa.github.io/HadesRealm/'); toast(t('copied')); }
-      catch { toast(t('copyFailed'), 'error'); }
-      break;
-  }
-});
-
-document.addEventListener('keydown', (event) => {
+$('#zoom-in').addEventListener('click',() => scene?.zoom(1));
+$('#zoom-out').addEventListener('click',() => scene?.zoom(-1));
+$('#reset-camera').addEventListener('click',() => scene?.resetCamera());
+$('#loading-links').addEventListener('click',() => { $('#loading').hidden = true; showPanel('links'); });
+$('.skip-link').addEventListener('click',(event) => { event.preventDefault(); showPanel('links'); $('#directory-search')?.focus(); });
+document.addEventListener('keydown',(event) => {
   if (event.key === 'Escape' && panelMode) { event.preventDefault(); closePanel(); return; }
-  if (event.altKey || event.ctrlKey || event.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName) || event.target.isContentEditable) return;
+  if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest('input,textarea,select,[contenteditable="true"]')) return;
   const key = event.key.toLowerCase();
-  if (/^[1-6]$/.test(key)) { selectBuilding(realms[Number(key) - 1].id); return; }
-  if (key === 'b') $('#nav-build').click();
-  if (key === 'q') openPanel('quests');
-  if (key === 'l') openPanel('links');
-  if (key === 'c') collectResources();
-  if (key === 'r') scene?.resetCamera();
+  if (/^[1-6]$/.test(key)) { event.preventDefault(); showPanel('realm',catalog.realms[Number(key) - 1].id); }
+  else if (['j','c','l','h','/'].includes(key)) { event.preventDefault(); showPanel({j:'journeys',c:'collection',l:'links',h:'help','/':'links'}[key]); if (key === 'l' || key === '/') $('#directory-search')?.focus(); }
+  else if (key === 'r') { event.preventDefault(); scene?.resetCamera(); }
 });
+window.addEventListener('hashchange',readSharedHash);
+document.addEventListener('visibilitychange',() => scene?.setPaused(document.hidden));
+window.addEventListener('pagehide',(event) => {
+  if (event.persisted) { scene?.setPaused(true); return; }
+  destroyed = true; store.destroy(); scene?.destroy(); clearTimeout(toastTimer); void audioContext?.close();
+});
+window.addEventListener('pageshow',(event) => { if (event.persisted) scene?.setPaused(document.hidden); });
 
-function hideLoading() {
-  $('#loading').classList.add('leaving');
-  setTimeout(() => { $('#loading').hidden = true; }, 550);
-}
-
-function sceneError(error) {
-  if (sceneFailed) return;
-  sceneFailed = true;
-  console.warn('Hades Realm: the 3D scene is unavailable.', error);
-  $('#app').classList.add('scene-failed');
-  $('#webgl-notice').hidden = false;
-  hideLoading();
-  openPanel('links', false);
-}
-
-$('#loading-links').addEventListener('click', () => { hideLoading(); openPanel('links'); });
-applyLanguage();
-
+makeLabels(); renderLanguage(); readSharedHash();
+const loadTimeout = setTimeout(() => { $('#loading').hidden = true; },12000);
+function renderFailed() { $('#loading').hidden = true; $('#render-notice').hidden = false; $('#landmark-labels').hidden = true; clearTimeout(loadTimeout); }
 import('./scene.js').then(({ createRealmScene }) => {
-  scene = createRealmScene({
-    canvas: $('#world-canvas'),
-    onSelect: selectBuilding,
-    onHover: (id) => { $('#world-canvas').style.cursor = id ? 'pointer' : 'grab'; },
-    onReady: hideLoading,
-    onError: sceneError,
-    onLabels: (labels) => {
-      for (const label of labels) {
-        const el = labelElements.get(label.id);
-        if (!el) continue;
-        el.hidden = !label.visible;
-        if (label.visible) el.style.transform = `translate(${label.x}px, ${label.y}px) translate(-50%, -100%)`;
-      }
-    },
-  });
+  if (destroyed) return;
+  scene = createRealmScene({ canvas:$('#world-canvas'), onSelect:selectLandmark, onHover:(id) => { for (const [key,element] of labels) element.classList.toggle('is-hovered',key === id); }, onReady:() => { $('#loading').hidden = true; clearTimeout(loadTimeout); }, onError:renderFailed, onLabels:(positions) => {
+    const rect = $('#world-canvas').getBoundingClientRect();
+    positions.forEach(({id,x,y,visible}) => { const element = labels.get(id); if (element) { element.style.left = `${rect.left + x}px`; element.style.top = `${rect.top + y}px`; element.hidden = !visible; } });
+  } });
+  scene.setBuilt({'plot-a':'lantern','plot-b':'garden','plot-c':'watchtower'});
   syncScene();
-  scene.setTheme(theme);
-  if (selected) scene.select(selected);
-}).catch(sceneError);
-
-setInterval(() => {
-  tick(state, Date.now());
-  updateHUD();
-  if (++saveCounter >= 10) { save(); saveCounter = 0; }
-}, 1000);
-window.addEventListener('storage', (event) => {
-  if (event.key !== SAVE_KEY) return;
-  // Read current storage instead of event.newValue: queued events can be old.
-  const { changed, stale } = adoptLatestSave();
-  if (changed) refreshGameViews();
-  else updateHUD();
-  if (stale) save(); // Repair a late clock-only save without reviving old actions.
-});
-document.addEventListener('visibilitychange', () => {
-  save();
-  scene?.setPaused(document.hidden);
-  if (!document.hidden) updateHUD();
-});
-window.addEventListener('pagehide', () => { save(); });
+  if (panelMode) scene.select(panelMode === 'realm' ? selectedRealm : ({journeys:'citadel',journal:'plot-a',collection:'plot-b',shared:'plot-b',archive:'plot-c'}[panelMode] || null));
+  scene.setPaused(document.hidden);
+}).catch(renderFailed);

@@ -2,6 +2,28 @@
   "version": "HadesRealm Village v2",
   "snapshot_commit": "ff5790cd6637cd6b12ecbb955a6bf53a254021a1",
   "date": "2026-11-28",
+  "files_scope": "Original files at snapshot_commit, preserved byte-for-byte in the backup ZIP and archive branch. These hashes describe the original snapshot; served archive adaptations are recorded separately.",
+  "original_backup": {
+    "branch": "archive/hadesrealm-village-v2-2026-11-28",
+    "zip": "/HadesRealm/archive/HadesRealm-Village-v2-backup.zip",
+    "zip_sha256": "dafee541cec07b30029c7a85af74452c3935135e390f4a0f812d82578f0b2dd6",
+    "zip_path_mapping": {
+      "HadesRealm/": "HadesRealm-Village-v2/playable/",
+      "realm/": "HadesRealm-Village-v2/source/"
+    }
+  },
+  "served_archive": {
+    "path": "/HadesRealm/archive/village-v2/",
+    "adaptations": {
+      "index.html": "Archive-specific canonical and Open Graph URLs, archive title, noindex metadata and a return link to the current realm.",
+      "assets/index-DylZmykI.js": "The copied share URL points to the archived village."
+    },
+    "sha256_scope": "Actual served versions of the two adapted files. Other original playable assets retain their hashes under HadesRealm/ in files.",
+    "sha256": {
+      "index.html": "51afb8144aca6b66c553c6c06d27cebbf9f07b2bb4ea0f4600459c61ae67e752",
+      "assets/index-DylZmykI.js": "f3718dec3d08157875088a86a0d180efe43fa4524f4ca5a81eb446b3452dab0d"
+    }
+  },
   "files": {
     "HadesRealm/Mikhak-OFL.txt": "071f566f77f4d56b39c15c9f685bc8806b04a1a9543ad6c5f3806497996d046f",
     "HadesRealm/Mikhak-SOURCE.md": "8d713ad6f9a79d8aa839839ed00e4eec8739082a70d02fad9045ebadde8d9c27",

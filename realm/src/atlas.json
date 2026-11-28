@@ -1,0 +1,431 @@
+{
+  "realms": [
+    {
+      "id": "forge",
+      "title": { "fa": "کارگاه", "en": "The Forge" },
+      "tagline": { "fa": "ابزاری برای کار بعدی‌ات پیدا کن.", "en": "Find a tool for your next project." },
+      "description": { "fa": "سورس ابزارهای خلاق، فضای فکر و دانش، و راهنماهای راه‌اندازی را از اینجا پیدا کن.", "en": "Explore source repositories for creative tools, knowledge workspaces and practical setup guides." },
+      "icon": "forge"
+    },
+    {
+      "id": "archive",
+      "title": { "fa": "آرشیو", "en": "The Archive" },
+      "tagline": { "fa": "از یک پرسش، به یادداشت مرتبط برس.", "en": "Follow a question to a useful reference." },
+      "description": { "fa": "نوشته‌های فارسی، درس‌های انیمیشن و سینما، اطلس سیستم‌ها و کتابخانهٔ دارایی‌های برند.", "en": "Persian writing, animation and cinema notes, a systems atlas and the public brand asset library." },
+      "icon": "archive"
+    },
+    {
+      "id": "oracle",
+      "title": { "fa": "رصدخانه", "en": "The Oracle" },
+      "tagline": { "fa": "میان خبر، مفهوم و پژوهش مسیر پیدا کن.", "en": "Connect the news, the concepts and the research." },
+      "description": { "fa": "از مبانی هوش مصنوعی شروع کن، سراغ توضیح پژوهش‌ها برو یا خبرهای آیریس را دنبال کن.", "en": "Start with AI fundamentals, explore research explanations or follow the Airis news channel." },
+      "icon": "oracle"
+    },
+    {
+      "id": "theatre",
+      "title": { "fa": "تالار روایت", "en": "The Theatre" },
+      "tagline": { "fa": "اثر را ببین؛ تصمیم‌های پشت آن را بشناس.", "en": "Explore the work and the choices behind it." },
+      "description": { "fa": "سوابق تولید و کارگردانی، صفحهٔ خلاق هادس و منابع مربوط به تصویر، دوربین و هویت بصری.", "en": "Animation and production work, Hades’s creative profile and resources for cameras and visual identity." },
+      "icon": "theatre"
+    },
+    {
+      "id": "elysium",
+      "title": { "fa": "جهان‌ها", "en": "Elysium" },
+      "tagline": { "fa": "ببین یک ایده چطور به جهان تبدیل می‌شود.", "en": "Explore how an idea becomes a world." },
+      "description": { "fa": "فیلم مکانیکی، فضای بصری تولید، اطلس شهری و ارتباط جهان‌سازی با سیستم‌های خلاق.", "en": "A mechanical film, a visual production workspace, an urban atlas and the systems behind worldbuilding." },
+      "icon": "elysium"
+    },
+    {
+      "id": "gates",
+      "title": { "fa": "دروازه‌ها", "en": "The Gates" },
+      "tagline": { "fa": "خالق این جهان و راه ارتباط را پیدا کن.", "en": "Meet the creator and find a way to connect." },
+      "description": { "fa": "وب‌سایت، حساب‌های رسمی، کدهای عمومی و مسیر ارتباط با علیرضا عسگرپور، هادس سوم.", "en": "The website, official profiles, public source and contact routes for Alireza Asgarpour, Hades III." },
+      "icon": "gates"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "second-brain-os",
+      "realmIds": ["forge"],
+      "title": { "fa": "Second Brain OS", "en": "Second Brain OS" },
+      "summary": { "fa": "فضای دانش محلی با یادداشت‌های Markdown، جست‌وجوی واژه‌ای و ابزارهای قابل‌ردیابی برای ایجنت‌ها؛ همراه راهنمای شروع.", "en": "A local knowledge workspace with Markdown notes, keyword search and traceable agent tools, with a practical quickstart." },
+      "url": "https://github.com/iAlirezaaa/second-brain-os",
+      "kind": "repo",
+      "featured": true
+    },
+    {
+      "id": "veyra-browser",
+      "realmIds": ["forge"],
+      "title": { "fa": "Veyra", "en": "Veyra" },
+      "summary": { "fa": "سورس افزونهٔ مرورگر برای مرتب‌کردن تب‌ها، نشانک‌ها و گفتگوهای انتخابی هوش مصنوعی در یک فضای محلی دوزبانه.", "en": "Browser-extension source for organizing tabs, bookmarks and opted-in AI conversations in a bilingual local workspace." },
+      "url": "https://github.com/iAlirezaaa/veyra-browser",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "cerberus",
+      "realmIds": ["forge"],
+      "title": { "fa": "Cerberus", "en": "Cerberus" },
+      "summary": { "fa": "همراه متحرک دسکتاپ که متن، لینک و فایل‌های سپرده‌شده به آن را در یک آرشیو محلی قابل‌جست‌وجو نگه می‌دارد.", "en": "An animated desktop companion that stores the text, links and files you give it in a searchable local vault." },
+      "url": "https://github.com/iAlirezaaa/Cerberus",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "agent-skills",
+      "realmIds": ["forge"],
+      "title": { "fa": "Agent Skills", "en": "Agent Skills" },
+      "summary": { "fa": "مجموعهٔ دستورالعمل‌ها و اسکریپت‌های ایجنت برای کار با Blender و ویرایش متن، با ارجاع به پروژه‌های اصلی.", "en": "A collection of agent instructions and scripts for Blender workflows and text editing, linked to their upstream projects." },
+      "url": "https://github.com/iAlirezaaa/agent-skills",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "mcp-for-blender-setup",
+      "realmIds": ["forge"],
+      "title": { "fa": "MCP for Blender", "en": "MCP for Blender" },
+      "summary": { "fa": "کد و راهنمای اتصال ابزارهای هوش مصنوعی به Blender برای ساخت و تغییر صحنه از طریق MCP.", "en": "Code and setup instructions for connecting AI tools to Blender through MCP to create and manipulate scenes." },
+      "url": "https://github.com/iAlirezaaa/mcp-for-blender-setup",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "blockout",
+      "realmIds": ["forge"],
+      "title": { "fa": "Blockout", "en": "Blockout" },
+      "summary": { "fa": "سورس ابزار پیش‌تجسم برای چیدن صحنه، طراحی حرکت دوربین و بازیگر، و تهیهٔ مرجع حرکت برای تولید ویدئو.", "en": "Previsualization source for staging scenes, choreographing cameras and performers, and exporting motion references for video production." },
+      "url": "https://github.com/iAlirezaaa/blockout",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "cozyclay",
+      "realmIds": ["forge"],
+      "title": { "fa": "CozyClay", "en": "CozyClay" },
+      "summary": { "fa": "سورس محیط پیش‌تجسم سه‌بعدی در مرورگر؛ برای چیدمان صحنه، حرکت، برش دوربین و آماده‌کردن مرجع ویدئو.", "en": "Source for browser-based 3D previsualization: stage a set, plan movement and camera cuts, then prepare video references." },
+      "url": "https://github.com/iAlirezaaa/CozyClay",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "nodus",
+      "realmIds": ["forge"],
+      "title": { "fa": "Nodus", "en": "Nodus" },
+      "summary": { "fa": "فضای فکر با ایده‌های متصل و پروژه‌های تودرتو؛ هر گره می‌تواند یادداشت، فایل، لینک یا یک برد دیگر باشد.", "en": "A connected-thought workspace with nested projects; each node can hold a note, file, link or another board." },
+      "url": "https://github.com/iAlirezaaa/nodus",
+      "kind": "repo",
+      "featured": true
+    },
+    {
+      "id": "typing-machine",
+      "realmIds": ["forge"],
+      "title": { "fa": "Digital Ink · ماشین تایپ", "en": "Digital Ink · Typing Machine" },
+      "summary": { "fa": "کد و راهنمای ماشین تایپ فارسی و انگلیسی؛ یادداشت‌ها روی دستگاه ذخیره می‌شوند و خروجی متن، Markdown و پشتیبان دارند.", "en": "Source and instructions for a Persian/English typewriter with on-device notes, text and Markdown export, and portable backups." },
+      "url": "https://github.com/iAlirezaaa/typing-machine",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "nyx",
+      "realmIds": ["forge"],
+      "title": { "fa": "nyx · آرشیو", "en": "nyx · Archive" },
+      "summary": { "fa": "مخزن آرشیوشدهٔ نسخه‌ای از Coucou؛ همراه دسکتاپ برای مشاهدهٔ نشست‌های ایجنت‌های کدنویسی.", "en": "An archived repository based on Coucou, a desktop companion for following AI coding-agent sessions." },
+      "url": "https://github.com/iAlirezaaa/nyx",
+      "kind": "archive",
+      "featured": false
+    },
+    {
+      "id": "repositories",
+      "realmIds": ["forge"],
+      "title": { "fa": "همهٔ مخزن‌ها", "en": "All repositories" },
+      "summary": { "fa": "فهرست مخزن‌های عمومی گیت‌هاب علیرضا؛ برای پیدا کردن پروژه‌ها و رفتن به کد و راهنمای هرکدام.", "en": "Alireza’s public GitHub repository list, with links to each project’s source and documentation." },
+      "url": "https://github.com/iAlirezaaa?tab=repositories",
+      "kind": "explore",
+      "featured": false
+    },
+    {
+      "id": "blog",
+      "realmIds": ["archive"],
+      "title": { "fa": "وبلاگ و باغ دیجیتال", "en": "Blog & Digital Garden" },
+      "summary": { "fa": "ورودی مشترک نوشته‌ها و یادداشت‌های فارسی دربارهٔ انیمیشن، سینما و هوش مصنوعی، با جست‌وجو و موضوع‌بندی.", "en": "A shared entrance to Persian articles and notes on animation, cinema and AI, with search and topic navigation." },
+      "url": "https://ialirezaaa.github.io/fa/blog/",
+      "kind": "read",
+      "featured": true
+    },
+    {
+      "id": "animation-notes",
+      "realmIds": ["archive"],
+      "title": { "fa": "یادداشت‌های انیمیشن", "en": "Animation notes" },
+      "summary": { "fa": "مسیر فارسی انیمیشن از اصول حرکت و روایت تا استوری‌بورد، تمرین‌های اجرا و ارائهٔ اثر.", "en": "A Persian animation learning path covering motion principles, storytelling, storyboards, practical exercises and presenting your work." },
+      "url": "https://ialirezaaa.github.io/fa/blog/notes/animation/",
+      "kind": "read",
+      "featured": true
+    },
+    {
+      "id": "cinema-notes",
+      "realmIds": ["archive"],
+      "title": { "fa": "یادداشت‌های سینما", "en": "Cinema notes" },
+      "summary": { "fa": "راهنمای فارسی زبان سینما با درس‌های تصویری دربارهٔ جای دوربین، حرکت، جهت نگاه و تصمیم‌های روایی.", "en": "A Persian guide to cinematic language, with visual lessons on camera position, movement, screen direction and narrative choices." },
+      "url": "https://ialirezaaa.github.io/fa/blog/notes/cinema/",
+      "kind": "read",
+      "featured": false
+    },
+    {
+      "id": "systems",
+      "realmIds": ["archive", "elysium"],
+      "title": { "fa": "اطلس سیستم‌های خلاق", "en": "Creative Systems Atlas" },
+      "summary": { "fa": "نقشهٔ تعاملی ارتباط میان روایت، تولید انیمیشن، جهان‌سازی و گردش‌کارهای هوش مصنوعی.", "en": "An interactive map connecting narrative, animation production, worldbuilding and AI workflows." },
+      "url": "https://ialirezaaa.github.io/systems/",
+      "kind": "explore",
+      "featured": false
+    },
+    {
+      "id": "the-writer-live",
+      "realmIds": ["archive"],
+      "title": { "fa": "The Writer · شهر نویسنده", "en": "The Writer · A writer’s city" },
+      "summary": { "fa": "سورس شهر سه‌بعدی نویسنده، کتاب‌خوان داستان‌ها و نمایش شبیه‌سازی‌شدهٔ زندگی و فرایند نوشتن او.", "en": "Source for a writer’s 3D city, a story reader and a simulated daily writing life." },
+      "url": "https://github.com/iAlirezaaa/the-writer-live",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "brand-library",
+      "realmIds": ["archive"],
+      "title": { "fa": "کتابخانهٔ برند", "en": "Brand & asset library" },
+      "summary": { "fa": "دارایی‌های مرجع عمومی و قالب‌های ویرایش‌پذیر هادس برای چاپ، شبکه‌های اجتماعی و وب.", "en": "Public Hades reference assets and editable templates for print, social media and the web." },
+      "url": "https://ialirezaaa.github.io/hades/library/",
+      "kind": "explore",
+      "featured": false
+    },
+    {
+      "id": "airis",
+      "realmIds": ["oracle"],
+      "title": { "fa": "آیریس فید", "en": "Airis Feed" },
+      "summary": { "fa": "کانال عمومی خبرها و لینک‌های مرتبط با هوش مصنوعی در تلگرام.", "en": "A public Telegram channel for AI-related news and links." },
+      "url": "https://t.me/AirisFeed",
+      "kind": "channel",
+      "featured": true
+    },
+    {
+      "id": "ai-fundamentals",
+      "realmIds": ["oracle"],
+      "title": { "fa": "مبانی و مفاهیم", "en": "AI & creative fundamentals" },
+      "summary": { "fa": "فهرست مطالب پایه؛ از مفهوم‌های هوش مصنوعی و دیفیوژن تا یادداشت‌های آموزشی مرتبط با تصویر و حرکت.", "en": "Foundational articles and notes, from AI and diffusion concepts to related lessons on images and motion." },
+      "url": "https://ialirezaaa.github.io/fa/blog/categories/fundamentals/",
+      "kind": "read",
+      "featured": true
+    },
+    {
+      "id": "ai-research",
+      "realmIds": ["oracle"],
+      "title": { "fa": "خوانش پژوهش", "en": "Research explained" },
+      "summary": { "fa": "توضیح فارسی پژوهش‌های هوش مصنوعی؛ ایده، روش و محدودیت‌ها با ارجاع به مقالهٔ اصلی.", "en": "Persian explanations of AI research, covering ideas, methods and limitations with links to the original papers." },
+      "url": "https://ialirezaaa.github.io/fa/blog/categories/papers/",
+      "kind": "read",
+      "featured": false
+    },
+    {
+      "id": "work",
+      "realmIds": ["theatre"],
+      "title": { "fa": "آثار و تجربه‌ها", "en": "Work & production experience" },
+      "summary": { "fa": "منتخبی از پروژه‌های انیمیشن و تولید، همراه نقش علیرضا در هر اثر و زمینهٔ شکل‌گیری آن.", "en": "Selected animation and production projects, with Alireza’s role and the context behind each work." },
+      "url": "https://ialirezaaa.github.io/work/",
+      "kind": "explore",
+      "featured": true
+    },
+    {
+      "id": "instagram",
+      "realmIds": ["theatre", "gates"],
+      "title": { "fa": "اینستاگرام هادس", "en": "Hades on Instagram" },
+      "summary": { "fa": "حساب رسمی @hades.3rd؛ برای دیدن مطالب و فعالیت‌های خلاق هادس در اینستاگرام.", "en": "The official @hades.3rd profile for Hades’s creative posts and activity on Instagram." },
+      "url": "https://www.instagram.com/hades.3rd/",
+      "kind": "social",
+      "featured": false
+    },
+    {
+      "id": "director-assistant",
+      "realmIds": ["theatre"],
+      "title": { "fa": "Director Assistant · استودیوی دوربین", "en": "Director Assistant · Camera Studio" },
+      "summary": { "fa": "سورس ابزار دوزبانهٔ آموزش و پیش‌تجسم دوربین؛ برای بررسی حرکت، قاب، لنز و گذار میان نماها.", "en": "Source for a bilingual cinematography and previsualization tool covering camera movement, framing, lenses and shot transitions." },
+      "url": "https://github.com/iAlirezaaa/Director_Assisstant",
+      "kind": "repo",
+      "featured": true
+    },
+    {
+      "id": "skyvision-brand-system",
+      "realmIds": ["theatre"],
+      "title": { "fa": "Sky Vision · سیستم برند", "en": "Sky Vision · Brand System" },
+      "summary": { "fa": "مرجع کاری دوزبانهٔ برند مستقل Sky Vision؛ دارایی‌های بصری، توکن‌های طراحی و راهنماهای تولید.", "en": "The bilingual working source for the independent Sky Vision brand, including visual assets, design tokens and production guides." },
+      "url": "https://github.com/iAlirezaaa/skyvision-brand-system",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "rolling-ball",
+      "realmIds": ["elysium"],
+      "title": { "fa": "Rolling Ball", "en": "Rolling Ball" },
+      "summary": { "fa": "فیلم سه‌بعدی ۲۵ثانیه‌ای یک واکنش زنجیره‌ای مکانیکی، همراه صحنهٔ ویرایش‌پذیر Blender و توضیح سازوکار.", "en": "A 25-second 3D mechanical chain-reaction film, with an editable Blender scene and an explanation of the mechanism." },
+      "url": "https://github.com/iAlirezaaa/Rolling-Ball",
+      "kind": "repo",
+      "featured": true
+    },
+    {
+      "id": "boardloom",
+      "realmIds": ["elysium"],
+      "title": { "fa": "Boardloom", "en": "Boardloom" },
+      "summary": { "fa": "نمونهٔ محلی فضای تولید بصری برای مرتب‌کردن تصویرها، نماها و وظیفه‌ها روی بوم و جدول.", "en": "A local visual-production prototype for organizing images, shots and tasks through a spatial canvas and table view." },
+      "url": "https://github.com/iAlirezaaa/boardloom",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "tehran-digital-twin",
+      "realmIds": ["elysium"],
+      "title": { "fa": "اطلس دیجیتال تهران", "en": "Tehran Digital Twin" },
+      "summary": { "fa": "سورس اطلس مرورگری تهران با نقشه، حجم تقریبی ساختمان‌ها و بررسی مکان‌های محدودهٔ دید.", "en": "Source for a browser atlas of Tehran with maps, approximate building extrusions and exploration of places in the visible area." },
+      "url": "https://github.com/iAlirezaaa/tehran-digital-twin",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "personal-site",
+      "realmIds": ["gates"],
+      "title": { "fa": "وب‌سایت شخصی", "en": "Personal website" },
+      "summary": { "fa": "معرفی علیرضا عسگرپور، هادس سوم؛ کارگردانی انیمیشن، جهان‌سازی و سیستم‌های خلاق در یک وب‌سایت دوزبانه.", "en": "Meet Alireza Asgarpour, Hades III: animation direction, worldbuilding and creative systems in a bilingual portfolio." },
+      "url": "https://ialirezaaa.github.io/",
+      "kind": "site",
+      "featured": true
+    },
+    {
+      "id": "linkedin",
+      "realmIds": ["gates"],
+      "title": { "fa": "لینکدین", "en": "LinkedIn" },
+      "summary": { "fa": "پروفایل حرفه‌ای رسمی علیرضا برای آشنایی با سوابق کاری و ارتباط حرفه‌ای.", "en": "Alireza’s official professional profile for work history and professional connections." },
+      "url": "https://ae.linkedin.com/in/ialirezaaa",
+      "kind": "social",
+      "featured": false
+    },
+    {
+      "id": "telegram",
+      "realmIds": ["gates"],
+      "title": { "fa": "تلگرام شخصی", "en": "Personal Telegram" },
+      "summary": { "fa": "حساب عمومی معرفی‌شده برای ارتباط مستقیم با علیرضا در تلگرام.", "en": "The publicly listed Telegram account for contacting Alireza directly." },
+      "url": "https://t.me/Ialirezaaa",
+      "kind": "contact",
+      "featured": false
+    },
+    {
+      "id": "github-profile",
+      "realmIds": ["gates"],
+      "title": { "fa": "پروفایل گیت‌هاب", "en": "GitHub profile" },
+      "summary": { "fa": "معرفی علیرضا در گیت‌هاب، پروژه‌های منتخب و مسیر دسترسی به مخزن‌های عمومی.", "en": "Alireza’s GitHub introduction, selected projects and links to public repositories." },
+      "url": "https://github.com/iAlirezaaa",
+      "kind": "social",
+      "featured": false
+    },
+    {
+      "id": "site-source",
+      "realmIds": ["gates"],
+      "title": { "fa": "کد وب‌سایت هادس", "en": "Hades website source" },
+      "summary": { "fa": "مخزن عمومی پورتفولیو، وبلاگ فارسی، باغ دیجیتال و هاب هادس؛ همراه فرایند ساخت و انتشار سایت.", "en": "Public source for the portfolio, Persian blog, Digital Garden and Hades hub, including the site’s build and publishing workflow." },
+      "url": "https://github.com/iAlirezaaa/iAlirezaaa.github.io",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "profile-source",
+      "realmIds": ["gates"],
+      "title": { "fa": "کد معرفی گیت‌هاب", "en": "GitHub profile source" },
+      "summary": { "fa": "سورس معرفی دوزبانهٔ گیت‌هاب هادس، همراه متن پروفایل، تصویرها و فهرست پروژه‌های منتخب.", "en": "Source for Hades’s bilingual GitHub introduction, including profile text, visuals and the selected-project list." },
+      "url": "https://github.com/iAlirezaaa/iAlirezaaa",
+      "kind": "repo",
+      "featured": false
+    },
+    {
+      "id": "contact",
+      "realmIds": ["gates"],
+      "title": { "fa": "ارتباط و همکاری", "en": "Contact & collaboration" },
+      "summary": { "fa": "راه‌های رسمی ارتباط برای گفتگو دربارهٔ کارگردانی، تولید انیمیشن و سیستم‌های خلاق؛ همراه آماده‌سازی پیش‌نویس ایمیل.", "en": "Official contact routes for direction, animation production and creative systems, with an email-draft helper." },
+      "url": "https://ialirezaaa.github.io/contact/",
+      "kind": "contact",
+      "featured": true
+    },
+    {
+      "id": "hades-brand",
+      "realmIds": ["gates"],
+      "title": { "fa": "جهان برند هادس", "en": "The Hades brand world" },
+      "summary": { "fa": "معرفی عمومی جهان خلاق هادس، دو بیان Classic و Modern، نشان‌های اصلی و منابع هویت بصری.", "en": "An introduction to Hades’s creative universe, its Classic and Modern expressions, original marks and visual-identity references." },
+      "url": "https://ialirezaaa.github.io/hades/",
+      "kind": "explore",
+      "featured": true
+    }
+  ],
+  "journeys": [
+    {
+      "id": "inspiration",
+      "title": { "fa": "دنبال الهامم", "en": "Find inspiration" },
+      "description": { "fa": "سه مقصد برای آشنایی با آثار، زبان سینما و صفحهٔ خالق؛ از یک پروژه به پرسش بعدی‌ات برس.", "en": "Three destinations connecting the work, cinematic language and the creator’s profile. Find a question worth following." },
+      "steps": [
+        {
+          "destinationId": "work",
+          "prompt": { "fa": "پروندهٔ آثار را باز کن", "en": "Open the work portfolio" },
+          "why": { "fa": "نقش‌ها و زمینهٔ هر پروژه کمک می‌کنند نقطهٔ شروعی نزدیک به علاقه‌ات پیدا کنی.", "en": "Project roles and context help you find a starting point close to your own interests." }
+        },
+        {
+          "destinationId": "cinema-notes",
+          "prompt": { "fa": "سراغ زبان سینما برو", "en": "Open the cinema notes" },
+          "why": { "fa": "درس‌های دوربین و روایت، واژه و مثال می‌دهند تا دربارهٔ یک قاب یا صحنه دقیق‌تر فکر کنی.", "en": "Camera and storytelling lessons offer vocabulary and examples for thinking more precisely about a frame or scene." }
+        },
+        {
+          "destinationId": "instagram",
+          "prompt": { "fa": "صفحهٔ خلاق هادس را باز کن", "en": "Open Hades’s creative profile" },
+          "why": { "fa": "حساب رسمی اینستاگرام مسیر دیگری برای دیدن مطالب خالق و ادامه‌دادن این آشنایی است.", "en": "The official Instagram profile offers another way to explore the creator’s posts and stay connected." }
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "title": { "fa": "می‌خواهم بسازم", "en": "Make something" },
+      "description": { "fa": "از نقشهٔ سیستم‌ها به راهنمای اجرای یک ابزار و سپس فهرست پروژه‌ها برو؛ ابزار را به نیاز کارت وصل کن.", "en": "Move from the systems map to a practical tool’s setup guide, then explore more repositories for your own work." },
+      "steps": [
+        {
+          "destinationId": "systems",
+          "prompt": { "fa": "نقشهٔ سیستم‌های خلاق را باز کن", "en": "Open the creative systems map" },
+          "why": { "fa": "ارتباط میان روایت، تولید و هوش مصنوعی کمک می‌کند نیاز پروژه‌ات را پیش از انتخاب ابزار روشن کنی.", "en": "Connections between story, production and AI help you frame a project’s needs before choosing a tool." }
+        },
+        {
+          "destinationId": "second-brain-os",
+          "prompt": { "fa": "راهنمای یک ابزار واقعی را باز کن", "en": "Open a practical tool’s guide" },
+          "why": { "fa": "Second Brain OS یک شروع محلی با Python برای نمایه‌کردن یادداشت‌های Markdown و جست‌وجوی واژه‌ای دارد.", "en": "Second Brain OS includes a local Python quickstart for indexing Markdown notes and trying keyword search." }
+        },
+        {
+          "destinationId": "repositories",
+          "prompt": { "fa": "ابزارهای دیگر را پیدا کن", "en": "Explore the other repositories" },
+          "why": { "fa": "فهرست کامل مخزن‌ها اجازه می‌دهد پروژه‌های دیگر را از روی کد و راهنمای خودشان مقایسه کنی.", "en": "The complete repository list lets you compare other projects through their own source and documentation." }
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "title": { "fa": "می‌خواهم یاد بگیرم", "en": "Follow a learning path" },
+      "description": { "fa": "سه نقطهٔ شروع برای حرکت و روایت، مفهوم‌های پایه و خوانش پژوهش؛ موضوع بعدی را بر اساس پرسش خودت انتخاب کن.", "en": "Three starting points for motion and story, foundational concepts and research. Choose what to explore through your own questions." },
+      "steps": [
+        {
+          "destinationId": "animation-notes",
+          "prompt": { "fa": "مسیر انیمیشن را باز کن", "en": "Open the animation learning path" },
+          "why": { "fa": "فهرست درس‌ها از اصول حرکت تا تمرین‌های ساخت، پیدا کردن یک موضوع یا تمرین مناسب را آسان می‌کند.", "en": "The lesson index connects motion principles with making exercises, helping you choose a relevant topic or practice." }
+        },
+        {
+          "destinationId": "ai-fundamentals",
+          "prompt": { "fa": "فهرست مبانی و مفاهیم را باز کن", "en": "Open the fundamentals collection" },
+          "why": { "fa": "توضیح مفهوم‌های هوش مصنوعی و دیفیوژن، نقطهٔ ورود دیگری برای پرسش‌های مربوط به ساخت تصویر فراهم می‌کند.", "en": "AI and diffusion explanations provide another entry point for questions about how images are made." }
+        },
+        {
+          "destinationId": "ai-research",
+          "prompt": { "fa": "به خوانش پژوهش‌ها برو", "en": "Open the research collection" },
+          "why": { "fa": "شرح ایده، روش و محدودیت‌های مقاله‌ها با پیوند به منبع اصلی، مسیر بررسی بیشتر را روشن می‌کند.", "en": "Explanations of each paper’s idea, method and limits, with original-source links, offer a route to further investigation." }
+        }
+      ]
+    }
+  ]
+}

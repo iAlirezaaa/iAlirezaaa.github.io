@@ -4,6 +4,9 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { SVGRenderer } from 'three/addons/renderers/SVGRenderer.js';
 
 // All architecture is native, selectable 3D geometry. No scene-sized image plane.
+// Vermilion is HADES's approved accent. These supporting stone/ink neutrals
+// follow the public Neutral Atlas references, with shading for native geometry.
+const BRAND = Object.freeze({ vermilion: '#EF4B32', dark: '#131211', bone: '#E6D9C7', charcoal: '#292723', warmInk: '#F2EDE5' });
 const LOCATIONS = {
   citadel: [0, -1, 6.7, 3.7],
   forge: [-8, 4, 5.6, 2.9],
@@ -73,11 +76,13 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.2;
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#123138');
-  scene.fog = new THREE.Fog('#123138', 72, 128);
+  scene.background = new THREE.Color(BRAND.dark);
+  scene.fog = new THREE.Fog(BRAND.dark, 72, 128);
   const camera = new THREE.OrthographicCamera(-25, 25, 20, -20, 0.1, 200);
-  const cameraTarget = new THREE.Vector3(-2.6, 0.2, 2.6);
+  const cameraTarget = new THREE.Vector3(0, 0.2, 0);
   const initialCamera = new THREE.Vector3(32, 35, 39);
+  const mobileCamera = new THREE.Vector3(28, 43, 34);
+  let framingMode = null;
   camera.position.copy(cameraTarget).add(initialCamera);
   camera.lookAt(cameraTarget);
   const controls = new OrbitControls(camera, canvas);
@@ -96,9 +101,9 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
   controls.addEventListener('change', invalidate);
   canvas.style.touchAction = 'none';
-  const hemi = new THREE.HemisphereLight('#c2dfdf', '#334c35', 2.1);
+  const hemi = new THREE.HemisphereLight(BRAND.warmInk, BRAND.charcoal, 2.1);
   scene.add(hemi);
-  const sun = new THREE.DirectionalLight('#ffe0ac', webgl ? 3.2 : 0.88);
+  const sun = new THREE.DirectionalLight(BRAND.warmInk, webgl ? 3.2 : 0.88);
   sun.position.set(-17, 31, 16);
   sun.castShadow = webgl;
   sun.shadow.mapSize.set(mobile.matches ? 1024 : 2048, mobile.matches ? 1024 : 2048);
@@ -108,12 +113,12 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   sun.shadow.bias = -0.00025;
   sun.shadow.radius = 3;
   scene.add(sun);
-  const rim = new THREE.DirectionalLight('#81c7e5', webgl ? 1.2 : 0.3);
+  const rim = new THREE.DirectionalLight('#c4bdb5', webgl ? 1.2 : 0.3);
   rim.position.set(13, 14, -20);
   scene.add(rim);
   // SVGRenderer uses ambient/directional lighting; hemisphere and tone mapping
   // are WebGL features. Match their soft fill without overexposing the stone.
-  const vectorAmbient = !webgl ? new THREE.AmbientLight('#8a9c94') : null;
+  const vectorAmbient = !webgl ? new THREE.AmbientLight('#a59d92') : null;
   if (vectorAmbient) scene.add(vectorAmbient);
 
   const materials = new Map();
@@ -123,19 +128,22 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     return materials.get(key);
   }
   const M = {
-    stone: material('#b4b09a'), light: material('#e3d4ae'), shadow: material('#757d71'), dark: material('#384c4b'),
-    roof: material('#bb4732'), roofEdge: material('#ef7450'), roofDark: material('#863e32'),
-    slate: material('#3a7875'), slateLight: material('#73a59a'), gold: material('#d4a455', { metalness: 0.32, roughness: 0.56 }),
-    wood: material('#77553d'), woodLight: material('#b48758'), bark: material('#4a4935'),
-    green: material('#39795a'), greenLight: material('#70a26c'), greenDeep: material('#205f50'), moss: material('#628564'),
-    iron: material('#344749', { metalness: 0.38, roughness: 0.65 }), soil: material('#857650'), paver: material('#c2b48b'),
-    purple: material('#8465b5'), violet: material('#b99ce4', { emissive: '#8a58b7', emissiveIntensity: 0.4 }),
-    window: material('#ffca6c', { emissive: '#ff9d35', emissiveIntensity: 0.8 }),
-    flame: material('#ff9b39', { emissive: '#ff6c17', emissiveIntensity: 1.8 }),
-    flameCore: material('#ffefb8', { emissive: '#ffbc5b', emissiveIntensity: 1.2 }),
-    cyan: material('#89e4ce', { emissive: '#49bcb0', emissiveIntensity: 0.8 }),
-    night: material('#1a2d32'), eye: material('#192b30'), bone: material('#eee2bc'),
+    stone: material(BRAND.bone), light: material(BRAND.warmInk), shadow: material('#93897d'), dark: material(BRAND.charcoal),
+    roof: material(BRAND.vermilion), roofEdge: material('#f27662'), roofDark: material('#963b2f'),
+    slate: material('#393633'), slateLight: material('#857d73'), trim: material('#c6baaa', { metalness: 0.16, roughness: 0.65 }),
+    wood: material('#49413a'), woodLight: material('#847365'), bark: material('#575047'),
+    leaf: material(BRAND.charcoal), leafLight: material('#514b44'), leafDeep: material('#1e1d1b'), ground: material('#5b544a'),
+    iron: material('#302e2a', { metalness: 0.38, roughness: 0.65 }), soil: material('#5a5149'), paver: material('#a69a8b'),
+    obsidian: material('#46413b'), crystal: material(BRAND.warmInk, { emissive: BRAND.bone, emissiveIntensity: 0.35 }),
+    window: material(BRAND.warmInk, { emissive: BRAND.bone, emissiveIntensity: 0.55 }),
+    flame: material(BRAND.vermilion, { emissive: BRAND.vermilion, emissiveIntensity: 1.2 }),
+    flameCore: material(BRAND.warmInk, { emissive: BRAND.bone, emissiveIntensity: 0.85 }),
+    beacon: material(BRAND.warmInk, { emissive: BRAND.bone, emissiveIntensity: 0.65 }),
+    route: material(BRAND.vermilion, { emissive: BRAND.vermilion, emissiveIntensity: 0.45 }),
+    night: material(BRAND.dark), eye: material(BRAND.dark), bone: material(BRAND.bone),
   };
+  const exploredIds = new Set();
+  const districtLightSources = new Set([M.window, M.beacon, M.crystal]);
 
   function mesh(parent, geometry, mat, x = 0, y = 0, z = 0, rotation) {
     const object = new THREE.Mesh(geometry, mat);
@@ -230,8 +238,8 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   const flags = [], fires = [], spinners = [], wisps = [], animatedObjects = [];
   function flag(parent, x, y, z, color = M.roof, small = false) {
     const poleHeight = small ? 1.2 : 1.75;
-    cylinder(parent, 0.035, 0.045, poleHeight, M.gold, x, y + poleHeight / 2, z, 6);
-    orb(parent, 0.085, M.gold, x, y + poleHeight + 0.03, z);
+    cylinder(parent, 0.035, 0.045, poleHeight, M.trim, x, y + poleHeight / 2, z, 6);
+    orb(parent, 0.085, M.trim, x, y + poleHeight + 0.03, z);
     const geometry = new THREE.PlaneGeometry(small ? 0.62 : 0.92, small ? 0.4 : 0.61, 6, 2);
     geometry.translate(small ? 0.31 : 0.46, 0, 0);
     const bannerMat = color.clone(); bannerMat.side = THREE.DoubleSide;
@@ -241,7 +249,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   }
 
   function brazier(staticGroup, moving, x, y, z) {
-    cylinder(staticGroup, 0.2, 0.27, 0.14, M.gold, x, y + 0.08, z, 6);
+    cylinder(staticGroup, 0.2, 0.27, 0.14, M.trim, x, y + 0.08, z, 6);
     cylinder(staticGroup, 0.07, 0.1, 0.65, M.iron, x, y + 0.42, z, 6);
     cylinder(staticGroup, 0.28, 0.12, 0.2, M.iron, x, y + 0.8, z, 7);
     const flame = cylinder(moving, 0, 0.18, 0.65, M.flame, x, y + 1.1, z, 5);
@@ -260,28 +268,28 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     platform(s, 3.5);
     box(s, 4.5, 0.38, 4.1, M.light, 0, 0.69, 0);
     box(s, 4.05, 2.2, 3.75, M.stone, 0, 1.94, 0);
-    box(s, 4.19, 0.2, 3.9, M.gold, 0, 2.98, 0);
+    box(s, 4.19, 0.2, 3.9, M.trim, 0, 2.98, 0);
     box(s, 4.17, 0.17, 3.88, M.light, 0, 1.09, 0);
     roof(s, 4.75, 4.34, 1.55, M.roof, 0, 3.13, 0);
     for (const x of [-2.16, 2.16]) for (const z of [-1.86, 1.86]) {
       cylinder(s, 0.66, 0.77, 2.75, M.shadow, x, 1.85, z, 8);
       cylinder(s, 0.7, 0.65, 0.28, M.light, x, 3.28, z, 8);
-      cylinder(s, 0.86, 0.9, 0.16, M.gold, x, 3.45, z, 8);
+      cylinder(s, 0.86, 0.9, 0.16, M.trim, x, 3.45, z, 8);
       cylinder(s, 0, 1.03, 1.35, M.roof, x, 4.17, z, 8);
-      cylinder(s, 0.06, 0.1, 0.4, M.gold, x, 4.96, z, 6);
+      cylinder(s, 0.06, 0.1, 0.4, M.trim, x, 4.96, z, 6);
       windowFront(s, x, 2.25, z + 0.62, 0.27, 0.56);
       for (let j = 0; j < 4; j++) box(s, 0.24, 0.18, 0.2, M.stone, x + Math.cos(j * Math.PI / 2) * 0.67, 3.55, z + Math.sin(j * Math.PI / 2) * 0.67);
     }
     box(s, 1.25, 1.75, 0.18, M.night, 0, 1.67, 1.96);
     arch(s, 1.5, 2.1, 0.3, M.light, 0, 0.78, 2.07);
-    box(s, 0.08, 1.55, 0.21, M.gold, 0, 1.57, 2.08);
+    box(s, 0.08, 1.55, 0.21, M.trim, 0, 1.57, 2.08);
     steps(s, 1.9, 4, 0, 0.12, 2.45);
     windowFront(s, -1.21, 2.03, 1.94, 0.48, 0.71);
     windowFront(s, 1.21, 2.03, 1.94, 0.48, 0.71);
     // Crest and roof ridge shrine.
-    box(s, 0.68, 0.73, 0.15, M.gold, 0, 3.58, 1.85, [0, 0, Math.PI / 4]);
+    box(s, 0.68, 0.73, 0.15, M.trim, 0, 3.58, 1.85, [0, 0, Math.PI / 4]);
     box(s, 0.35, 0.43, 0.18, M.roofDark, 0, 3.58, 1.95, [0, 0, Math.PI / 4]);
-    cylinder(s, 0.28, 0.4, 0.36, M.gold, 0, 4.85, -0.3, 8);
+    cylinder(s, 0.28, 0.4, 0.36, M.trim, 0, 4.85, -0.3, 8);
     flag(a, 0, 4.83, -0.3);
     brazier(s, a, -1.4, 0.5, 2.6); brazier(s, a, 1.4, 0.5, 2.6);
   }
@@ -315,11 +323,11 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     platform(s, 3.0);
     box(s, 4.15, 0.22, 3.5, M.light, 0, 0.66, 0);
     box(s, 3.65, 1.9, 2.7, M.dark, 0, 1.75, -0.24);
-    box(s, 3.83, 0.18, 3.06, M.gold, 0, 2.78, 0);
+    box(s, 3.83, 0.18, 3.06, M.trim, 0, 2.78, 0);
     for (const x of [-1.5, -0.5, 0.5, 1.5]) {
       cylinder(s, 0.19, 0.23, 1.97, M.light, x, 1.79, 1.23, 8);
       box(s, 0.58, 0.18, 0.56, M.stone, x, 0.86, 1.23);
-      box(s, 0.53, 0.16, 0.52, M.gold, x, 2.74, 1.23);
+      box(s, 0.53, 0.16, 0.52, M.trim, x, 2.74, 1.23);
     }
     roof(s, 4.4, 3.75, 1.05, M.slate, 0, 2.92, 0);
     for (const z of [-1.3, -0.4, 0.5]) {
@@ -328,14 +336,14 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     }
     for (const x of [-1.1, 1.1]) {
       box(s, 0.65, 1.3, 0.08, M.wood, x, 1.6, 1.16);
-      for (let j = 0; j < 5; j++) box(s, 0.085, 0.52 + (j % 2) * 0.12, 0.16, [M.roof, M.gold, M.slateLight][j % 3], x - 0.22 + j * 0.11, 1.5, 1.26);
+      for (let j = 0; j < 5; j++) box(s, 0.085, 0.52 + (j % 2) * 0.12, 0.16, [M.roof, M.trim, M.slateLight][j % 3], x - 0.22 + j * 0.11, 1.5, 1.26);
       box(s, 0.72, 0.08, 0.25, M.woodLight, x, 1.16, 1.27);
     }
     steps(s, 2.25, 4, 0, 0.1, 1.73);
     cylinder(s, 0.45, 0.57, 0.54, M.stone, 0, 0.89, 2.25, 6);
     box(s, 0.6, 0.09, 0.74, M.bone, -0.26, 1.24, 2.25, [0, 0, -0.18]);
     box(s, 0.6, 0.09, 0.74, M.bone, 0.26, 1.24, 2.25, [0, 0, 0.18]);
-    box(s, 0.07, 0.08, 0.77, M.gold, 0, 1.29, 2.25);
+    box(s, 0.07, 0.08, 0.77, M.trim, 0, 1.29, 2.25);
     flag(a, -1.7, 3.29, -1, M.slate, true);
   }
 
@@ -343,25 +351,25 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     platform(s, 2.65);
     cylinder(s, 1.69, 1.95, 0.42, M.shadow, 0, 0.76, 0, 10);
     cylinder(s, 1.36, 1.56, 1.9, M.slate, 0, 1.92, 0, 10);
-    cylinder(s, 1.6, 1.6, 0.2, M.gold, 0, 2.92, 0, 10);
+    cylinder(s, 1.6, 1.6, 0.2, M.trim, 0, 2.92, 0, 10);
     for (let i = 0; i < 6; i++) {
       const angle = i / 6 * Math.PI * 2;
       cylinder(s, 0.13, 0.18, 1.8, M.light, Math.cos(angle) * 1.37, 1.99, Math.sin(angle) * 1.37, 6);
     }
-    const dome = mesh(s, new THREE.SphereGeometry(1.58, webgl ? 12 : 8, webgl ? 6 : 4, 0, Math.PI * 2, 0, Math.PI / 2), M.purple, 0, 3.01, 0);
+    const dome = mesh(s, new THREE.SphereGeometry(1.58, webgl ? 12 : 8, webgl ? 6 : 4, 0, Math.PI * 2, 0, Math.PI / 2), M.obsidian, 0, 3.01, 0);
     dome.scale.y = 0.78;
-    cylinder(s, 0.47, 0.65, 0.37, M.gold, 0, 4.25, 0, 8);
+    cylinder(s, 0.47, 0.65, 0.37, M.trim, 0, 4.25, 0, 8);
     const astrolabe = new THREE.Group(); a.add(astrolabe); astrolabe.position.set(0, 4.9, 0);
-    orb(astrolabe, 0.66, M.violet, 0, 0, 0, [0.82, 1.2, 0.82]);
-    torus(astrolabe, 0.93, 0.055, M.gold, 0, 0, 0, [0.7, 0, 0.5]);
-    torus(astrolabe, 0.9, 0.045, M.gold, 0, 0, 0, [-0.7, 0.6, 0]);
+    orb(astrolabe, 0.66, M.crystal, 0, 0, 0, [0.82, 1.2, 0.82]);
+    torus(astrolabe, 0.93, 0.055, M.trim, 0, 0, 0, [0.7, 0, 0.5]);
+    torus(astrolabe, 0.9, 0.045, M.trim, 0, 0, 0, [-0.7, 0.6, 0]);
     spinners.push({ object: astrolabe, speed: 0.22 });
     arch(s, 0.86, 1.53, 0.2, M.light, 0, 0.9, 1.5);
     box(s, 0.68, 1.21, 0.12, M.night, 0, 1.53, 1.51);
     steps(s, 1.4, 4, 0, 0.11, 1.8);
     for (const x of [-1.94, 1.94]) {
       cylinder(s, 0.36, 0.52, 0.35, M.shadow, x, 0.7, 0.7, 6);
-      const crystal = mesh(a, new THREE.OctahedronGeometry(0.62), M.violet, x, 1.4, 0.7);
+      const crystal = mesh(a, new THREE.OctahedronGeometry(0.62), M.crystal, x, 1.4, 0.7);
       crystal.scale.set(0.6, 1.1, 0.6);
       animatedObjects.push({ object: crystal, baseY: 1.4, amplitude: 0.1, phase: x });
     }
@@ -387,14 +395,14 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     for (let i = 0; i <= 8; i++) {
       const angle = i / 8 * Math.PI;
       cylinder(s, 0.16, 0.2, 1.14, M.light, Math.cos(angle) * 3.04, 2.31, 0.55 - Math.sin(angle) * 3.04, 6);
-      orb(s, 0.21, M.gold, Math.cos(angle) * 3.04, 2.95, 0.55 - Math.sin(angle) * 3.04);
+      orb(s, 0.21, M.trim, Math.cos(angle) * 3.04, 2.95, 0.55 - Math.sin(angle) * 3.04);
     }
     box(s, 2.36, 0.23, 0.8, M.woodLight, 0, 0.66, 1.43);
     for (const x of [-1.24, 1.24]) {
       cylinder(s, 0.19, 0.24, 1.55, M.light, x, 1.46, 1.47, 8);
-      cylinder(s, 0.24, 0.24, 0.18, M.gold, x, 2.3, 1.47, 8);
+      cylinder(s, 0.24, 0.24, 0.18, M.trim, x, 2.3, 1.47, 8);
     }
-    box(s, 2.9, 0.22, 0.51, M.gold, 0, 2.43, 1.47);
+    box(s, 2.9, 0.22, 0.51, M.trim, 0, 2.43, 1.47);
     const curtainMaterial = M.roof.clone(); curtainMaterial.side = THREE.DoubleSide;
     for (const side of [-1, 1]) {
       const curtain = mesh(s, new THREE.PlaneGeometry(0.58, 1.28, 4, 1), curtainMaterial, side * 0.91, 1.7, 1.52);
@@ -409,25 +417,25 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   function tree(parent, x, z, size = 1, kind = 0, y = 0) {
     cylinder(parent, 0.12 * size, 0.21 * size, 1.3 * size, M.bark, x, y + 0.65 * size, z, 5);
     if (kind === 0) {
-      for (let j = 0; j < 3; j++) cylinder(parent, 0, (1.03 - j * 0.19) * size, 1.55 * size, [M.greenDeep, M.green, M.greenLight][j], x, y + (1.5 + j * 0.62) * size, z, 6);
+      for (let j = 0; j < 3; j++) cylinder(parent, 0, (1.03 - j * 0.19) * size, 1.55 * size, [M.leafDeep, M.leaf, M.leafLight][j], x, y + (1.5 + j * 0.62) * size, z, 6);
     } else {
-      orb(parent, 1.1 * size, M.green, x, y + 1.9 * size, z, [1.08, 0.8, 0.9]);
-      orb(parent, 0.8 * size, M.greenLight, x - 0.4 * size, y + 2.45 * size, z - 0.1, [1, 0.9, 0.92]);
-      orb(parent, 0.76 * size, M.greenDeep, x + 0.6 * size, y + 1.9 * size, z + 0.22 * size);
+      orb(parent, 1.1 * size, M.leaf, x, y + 1.9 * size, z, [1.08, 0.8, 0.9]);
+      orb(parent, 0.8 * size, M.leafLight, x - 0.4 * size, y + 2.45 * size, z - 0.1, [1, 0.9, 0.92]);
+      orb(parent, 0.76 * size, M.leafDeep, x + 0.6 * size, y + 1.9 * size, z + 0.22 * size);
     }
   }
 
   function elysiumModel(s, a) {
     platform(s, 3.0);
-    cylinder(s, 2.74, 2.74, 0.09, M.moss, 0, 0.55, 0, 12);
+    cylinder(s, 2.74, 2.74, 0.09, M.ground, 0, 0.55, 0, 12);
     for (const x of [-1.25, 1.25]) {
       cylinder(s, 0.22, 0.32, 2.2, M.light, x, 1.66, 0.9, 8);
-      box(s, 0.63, 0.18, 0.58, M.gold, x, 2.85, 0.9);
-      orb(s, 0.26, M.greenLight, x, 3.13, 0.9);
+      box(s, 0.63, 0.18, 0.58, M.trim, x, 2.85, 0.9);
+      orb(s, 0.26, M.leafLight, x, 3.13, 0.9);
     }
     arch(s, 2.5, 2.78, 0.24, M.light, 0, 0.61, 0.9);
     tree(s, 0.2, -0.9, 1.23, 1, 0.57);
-    const pondMat = material('#4aaca3', { metalness: 0.13, roughness: 0.3 });
+    const pondMat = material('#645b50', { metalness: 0.13, roughness: 0.3 });
     const pool = cylinder(s, 0.83, 0.83, 0.035, pondMat, 0, 0.63, 1.7, 20); pool.scale.z = 0.53;
     for (let i = 0; i < 8; i++) {
       const angle = i / 8 * Math.PI * 2;
@@ -435,10 +443,10 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     }
     for (const x of [-2, 2]) {
       box(s, 0.55, 0.34, 1.25, M.stone, x, 0.69, -0.6);
-      for (let j = 0; j < 4; j++) orb(s, 0.31, j % 2 ? M.greenLight : M.green, x, 1.0, -1.1 + j * 0.33);
+      for (let j = 0; j < 4; j++) orb(s, 0.31, j % 2 ? M.leafLight : M.leaf, x, 1.0, -1.1 + j * 0.33);
     }
     for (let i = 0; i < 5; i++) {
-      const flower = orb(a, 0.08, M.cyan, Math.cos(i) * 1.5, 1.7 + i * 0.2, Math.sin(i) * 1.5);
+      const flower = orb(a, 0.08, M.beacon, Math.cos(i) * 1.5, 1.7 + i * 0.2, Math.sin(i) * 1.5);
       animatedObjects.push({ object: flower, baseY: 1.7 + i * 0.2, amplitude: 0.19, phase: i });
     }
     steps(s, 1.5, 3, 0, 0.09, 2.38);
@@ -449,23 +457,23 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     for (const x of [-1.75, 1.75]) {
       box(s, 0.95, 0.33, 1.03, M.light, x, 0.66, 0);
       cylinder(s, 0.35, 0.59, 3.4, M.dark, x, 2.48, 0, 4, [0, Math.PI / 4, 0]);
-      box(s, 0.66, 0.2, 0.65, M.gold, x, 3.65, 0);
-      cylinder(s, 0, 0.5, 0.8, M.gold, x, 4.56, 0, 4, [0, Math.PI / 4, 0]);
-      box(s, 0.075, 1.55, 0.1, M.cyan, x, 2.53, 0.48);
+      box(s, 0.66, 0.2, 0.65, M.trim, x, 3.65, 0);
+      cylinder(s, 0, 0.5, 0.8, M.trim, x, 4.56, 0, 4, [0, Math.PI / 4, 0]);
+      box(s, 0.075, 1.55, 0.1, M.beacon, x, 2.53, 0.48);
     }
     const gate = torus(s, 1.43, 0.22, M.stone, 0, 2.43, 0); gate.scale.y = 1.3;
-    const rimGate = torus(s, 1.18, 0.075, M.cyan, 0, 2.43, 0.08); rimGate.scale.y = 1.36;
-    const portalMaterial = new THREE.MeshBasicMaterial({ color: '#62cfc0', transparent: true, opacity: 0.22, side: THREE.DoubleSide, depthWrite: false });
+    const rimGate = torus(s, 1.18, 0.075, M.beacon, 0, 2.43, 0.08); rimGate.scale.y = 1.36;
+    const portalMaterial = new THREE.MeshBasicMaterial({ color: BRAND.vermilion, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false });
     const portal = mesh(a, new THREE.CircleGeometry(1.18, webgl ? 32 : 18), portalMaterial, 0, 2.43, 0.02); portal.scale.y = 1.36; portal.castShadow = false;
     const swirl = new THREE.Group(); a.add(swirl); swirl.position.set(0, 2.43, 0.11);
     for (let i = 0; i < 3; i++) {
-      const arc = torus(swirl, 0.43 + i * 0.3, 0.018, M.cyan, 0, 0, 0, [0, 0, i * 2], Math.PI * 1.2);
+      const arc = torus(swirl, 0.43 + i * 0.3, 0.018, M.beacon, 0, 0, 0, [0, 0, i * 2], Math.PI * 1.2);
       arc.castShadow = false;
     }
     swirl.scale.y = 1.3;
     spinners.push({ object: swirl, speed: 0.3, axis: 'z' });
-    cylinder(s, 0.38, 0.6, 0.2, M.gold, 0, 4.43, 0, 5);
-    const crown = mesh(a, new THREE.OctahedronGeometry(0.48), M.cyan, 0, 5.01, 0); crown.scale.y = 1.25;
+    cylinder(s, 0.38, 0.6, 0.2, M.trim, 0, 4.43, 0, 5);
+    const crown = mesh(a, new THREE.OctahedronGeometry(0.48), M.beacon, 0, 5.01, 0); crown.scale.y = 1.25;
     animatedObjects.push({ object: crown, baseY: 5.01, amplitude: 0.11, phase: 1.1 });
     steps(s, 2.0, 4, 0, 0.13, 1.65);
     brazier(s, a, -1.85, 0.43, 1.57); brazier(s, a, 1.85, 0.43, 1.57);
@@ -483,12 +491,12 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   for (let i = 0; i < perimeter.length; i++) {
     const a = perimeter[i], b = perimeter[(i + 1) % perimeter.length];
     topPositions.push(0, 0.06, 0, b.x, b.y, b.z, a.x, a.y, a.z);
-    color.set(['#54825e', '#588362', '#517e5d', '#5b8965'][i % 4]);
+    color.set(['#46413b', '#4b4640', '#403c36', '#514a43'][i % 4]);
     for (let j = 0; j < 3; j++) topColors.push(color.r, color.g, color.b);
     const bottomA = new THREE.Vector3(a.x * 0.84, -3.2 - rng() * 1.6, a.z * 0.84);
     const bottomB = new THREE.Vector3(b.x * 0.84, -3.4 - rng() * 1.4, b.z * 0.84);
     cliffPositions.push(...a.toArray(), ...b.toArray(), ...bottomA.toArray(), ...b.toArray(), ...bottomB.toArray(), ...bottomA.toArray());
-    color.set(['#345455', '#3c5c58', '#455f57', '#2d4b50'][i % 4]);
+    color.set([BRAND.charcoal, '#34312d', '#3c3731', '#24221f'][i % 4]);
     for (let j = 0; j < 6; j++) cliffColors.push(color.r, color.g, color.b);
   }
   for (const [positions, colors, roughness] of [[topPositions, topColors, 1], [cliffPositions, cliffColors, 0.97]]) {
@@ -513,8 +521,8 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   const water = new THREE.Mesh(new THREE.PlaneGeometry(160, 160, webgl ? 32 : 1, webgl ? 32 : 1), webgl ? new THREE.ShaderMaterial({
     uniforms: waterUniforms,
     vertexShader: `varying vec3 vWorld; uniform float time; void main(){vec3 p=position; p.z += sin(p.x*.23+time*.35)*cos(p.y*.21-time*.2)*.05; vec4 world=modelMatrix*vec4(p,1.); vWorld=world.xyz; gl_Position=projectionMatrix*viewMatrix*world;}`,
-    fragmentShader: `varying vec3 vWorld; uniform float time; uniform float daylight; void main(){float a=sin(vWorld.x*.62+vWorld.z*.31+time*.5);float b=sin(vWorld.z*1.4-vWorld.x*.28-time*.4);float rip=pow(max(0.,sin(a*3.+b*1.5)),18.);vec3 deep=mix(vec3(.035,.17,.20),vec3(.075,.25,.27),daylight);vec3 c=deep+vec3(.014,.038,.036)*a+vec3(.08,.15,.13)*rip*.45;float edge=smoothstep(28.,85.,length(vWorld.xz));c=mix(c,mix(vec3(.035,.105,.13),vec3(.12,.23,.25),daylight),edge);gl_FragColor=vec4(c,1.);}`,
-  }) : new THREE.MeshBasicMaterial({ color: '#123b42' }));
+    fragmentShader: `varying vec3 vWorld; uniform float time; uniform float daylight; void main(){float a=sin(vWorld.x*.62+vWorld.z*.31+time*.5);float b=sin(vWorld.z*1.4-vWorld.x*.28-time*.4);float rip=pow(max(0.,sin(a*3.+b*1.5)),18.);vec3 deep=mix(vec3(.085,.078,.070),vec3(.20,.18,.16),daylight);vec3 c=deep+vec3(.018,.016,.014)*a+vec3(.12,.105,.088)*rip*.45;float edge=smoothstep(28.,85.,length(vWorld.xz));c=mix(c,mix(vec3(.056,.052,.048),vec3(.18,.165,.15),daylight),edge);gl_FragColor=vec4(c,1.);}`,
+  }) : new THREE.MeshBasicMaterial({ color: '#1c1a17' }));
   water.rotation.x = -Math.PI / 2; water.position.y = -2.25; scene.add(water);
   if (!webgl) water.renderOrder = -5;
   for (let i = 0; i < 7; i++) {
@@ -522,9 +530,12 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     wave.scale.x = 1.8; wave.rotation.z = 0.25;
   }
 
-  // Smooth dirt paths are laid before the small stone pavers.
-  function pathTo(x, z) {
+  // A district route lights only after its content has been explored.
+  // The neutral paving stays readable before discovery.
+  const routeGroups = new Map();
+  function pathTo(id, x, z) {
     const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0.12, 0), new THREE.Vector3(x * 0.45 + (z < 0 ? 0.7 : -0.6), 0.12, z * 0.5), new THREE.Vector3(x, 0.12, z)]);
+    const route = new THREE.Group(); route.visible = false; scene.add(route); routeGroups.set(id, route);
     const positions = [], uvs = [], indices = [];
     for (let i = 0; i <= 28; i++) {
       const f = i / 28, p = curve.getPoint(f), tangent = curve.getTangent(f);
@@ -538,9 +549,15 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
       const point = curve.getPoint(i / n), tangent = curve.getTangent(i / n);
       const paver = box(terrain, 0.75 + rng() * 0.2, 0.065, 0.44, i % 5 ? M.paver : M.light, point.x + (rng() - 0.5) * 0.1, 0.17, point.z);
       paver.rotation.y = Math.atan2(tangent.x, tangent.z) + (rng() - 0.5) * 0.1;
+      if (i % 2 === 0 && i / n > 0.2) {
+        const marker = box(route, 0.14, 0.045, 0.46, M.route, point.x - tangent.z * 0.57, 0.24, point.z + tangent.x * 0.57);
+        marker.rotation.y = Math.atan2(tangent.x, tangent.z);
+        marker.castShadow = false;
+      }
     }
+    batch(route);
   }
-  Object.entries(LOCATIONS).filter(([id]) => id !== 'citadel').forEach(([, [x, z]]) => pathTo(x, z));
+  Object.entries(LOCATIONS).filter(([id]) => id !== 'citadel').forEach(([id, [x, z]]) => pathTo(id, x, z));
 
   // Cypress groves, rounded bushes, small rocks, and flower clusters.
   for (let i = 0; i < 54; i++) {
@@ -554,9 +571,9 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     const x = (rng() - 0.5) * 30, z = (rng() - 0.5) * 26;
     if (Object.values(LOCATIONS).some(([bx, bz, , radius]) => Math.hypot(x - bx, z - bz) < radius + 0.5) || Math.hypot(x, z) < 5) continue;
     const size = 0.13 + rng() * 0.23;
-    orb(terrain, size, i % 4 ? M.greenLight : M.shadow, x, size * 0.6, z, [1.5, 0.7, 1]);
+    orb(terrain, size, i % 4 ? M.leafLight : M.shadow, x, size * 0.6, z, [1.5, 0.7, 1]);
     if (i % 7 === 0) {
-      for (let j = 0; j < 3; j++) cylinder(terrain, 0, 0.055, 0.26, M.gold, x + j * 0.12, 0.25, z + j * 0.1, 4);
+      for (let j = 0; j < 3; j++) cylinder(terrain, 0, 0.055, 0.26, M.trim, x + j * 0.12, 0.25, z + j * 0.1, 4);
     }
   }
 
@@ -591,11 +608,30 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   orb(ferry, 0.23, M.bone, 0.6, 1.41, 0);
   cylinder(ferry, 0.1, 0.31, 0.34, M.dark, 0.6, 1.58, -0.04, 6);
   box(ferry, 0.055, 2.4, 0.055, M.woodLight, 0.15, 0.7, 0.47, [0, 0, -0.28]);
-  orb(ferry, 0.1, M.cyan, -1.12, 0.66, 0);
+  orb(ferry, 0.1, M.beacon, -1.12, 0.66, 0);
   batch(ferry);
 
   const landmarkGroups = new Map(), upgradeGroups = new Map(), hitTargets = [], plotTypes = new Map();
   const hitMaterial = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false, colorWrite: false });
+  function illuminateDistrict(entry, explored) {
+    for (const light of entry.illumination || []) {
+      light.material.color.copy(light.color).multiplyScalar(explored ? 1 : 0.63);
+      light.material.emissive.copy(light.emissive).multiplyScalar(explored ? 1 : 0.065);
+      light.material.emissiveIntensity = explored ? light.intensity * 1.2 : 0.12;
+    }
+  }
+  function bindDistrictLighting(entry, id) {
+    for (const light of entry.illumination || []) light.material.dispose();
+    const localMaterials = new Map();
+    for (const container of [entry.statics, entry.moving]) container.traverse((object) => {
+      if (!object.isMesh || !districtLightSources.has(object.material)) return;
+      const source = object.material;
+      if (!localMaterials.has(source)) localMaterials.set(source, { material: source.clone(), color: source.color.clone(), emissive: source.emissive.clone(), intensity: source.emissiveIntensity });
+      object.material = localMaterials.get(source).material;
+    });
+    entry.illumination = [...localMaterials.values()];
+    illuminateDistrict(entry, exploredIds.has(id));
+  }
   function addLandmark(id, builder) {
     const [x, z, height, radius] = LOCATIONS[id];
     const group = new THREE.Group(); group.position.set(x, 0, z); scene.add(group);
@@ -605,7 +641,9 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     const hit = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, Math.max(2, height - 1), 8), hitMaterial);
     hit.position.y = Math.max(2, height - 1) / 2; hit.userData.id = id; group.add(hit); hitTargets.push(hit);
     const upgrades = new THREE.Group(); group.add(upgrades); upgradeGroups.set(id, upgrades);
-    landmarkGroups.set(id, { group, statics, moving, hit, height, radius, level: 1 });
+    const entry = { group, statics, moving, hit, height, radius, level: 1 };
+    landmarkGroups.set(id, entry);
+    bindDistrictLighting(entry, id);
   }
   addLandmark('citadel', citadelModel); addLandmark('forge', forgeModel); addLandmark('archive', archiveModel);
   addLandmark('oracle', oracleModel); addLandmark('theatre', theatreModel); addLandmark('elysium', elysiumModel); addLandmark('gates', gatesModel);
@@ -615,7 +653,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     cylinder(s, 1.37, 1.4, 0.07, M.soil, 0, 0.28, 0, 8);
     for (const x of [-0.95, 0.95]) for (const z of [-0.95, 0.95]) {
       box(s, 0.14, 0.62, 0.14, M.wood, x, 0.51, z);
-      box(s, 0.29, 0.09, 0.29, M.gold, x, 0.85, z);
+      box(s, 0.29, 0.09, 0.29, M.trim, x, 0.85, z);
     }
     box(s, 0.85, 0.055, 0.2, M.light, 0, 0.35, 0);
     box(s, 0.2, 0.055, 0.85, M.light, 0, 0.35, 0);
@@ -631,24 +669,24 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     if (type === 'lantern') {
       cylinder(s, 1.18, 1.32, 0.2, M.stone, 0, 0.38, 0, 8);
       cylinder(s, 0.24, 0.4, 1.8, M.dark, 0, 1.33, 0, 6);
-      cylinder(s, 0.52, 0.32, 0.23, M.gold, 0, 2.33, 0, 6);
-      orb(s, 0.42, M.cyan, 0, 2.86, 0, [0.8, 1.25, 0.8]);
-      for (let i = 0; i < 4; i++) cylinder(s, 0.035, 0.035, 1.0, M.gold, Math.cos(i * Math.PI / 2) * 0.42, 2.87, Math.sin(i * Math.PI / 2) * 0.42, 4);
+      cylinder(s, 0.52, 0.32, 0.23, M.trim, 0, 2.33, 0, 6);
+      orb(s, 0.42, M.beacon, 0, 2.86, 0, [0.8, 1.25, 0.8]);
+      for (let i = 0; i < 4; i++) cylinder(s, 0.035, 0.035, 1.0, M.trim, Math.cos(i * Math.PI / 2) * 0.42, 2.87, Math.sin(i * Math.PI / 2) * 0.42, 4);
       cylinder(s, 0, 0.66, 0.45, M.slate, 0, 3.53, 0, 6);
-      orb(s, 0.09, M.gold, 0, 3.83, 0);
+      orb(s, 0.09, M.trim, 0, 3.83, 0);
     } else if (type === 'garden') {
       cylinder(s, 1.23, 1.32, 0.21, M.light, 0, 0.39, 0, 8);
-      cylinder(s, 1.14, 1.14, 0.06, M.moss, 0, 0.53, 0, 8);
+      cylinder(s, 1.14, 1.14, 0.06, M.ground, 0, 0.53, 0, 8);
       tree(s, -0.1, -0.18, 0.85, 1, 0.55);
       for (let i = 0; i < 6; i++) {
         const a = i / 6 * Math.PI * 2;
-        orb(s, 0.18, M.violet, Math.cos(a), 0.75, Math.sin(a));
+        orb(s, 0.18, M.crystal, Math.cos(a), 0.75, Math.sin(a));
       }
     } else if (type === 'watchtower') {
       box(s, 1.6, 0.28, 1.6, M.light, 0, 0.43, 0);
       box(s, 1.12, 2.2, 1.12, M.shadow, 0, 1.61, 0);
       for (const x of [-0.63, 0.63]) for (const z of [-0.63, 0.63]) box(s, 0.17, 2.2, 0.17, M.light, x, 1.64, z);
-      box(s, 1.67, 0.23, 1.67, M.gold, 0, 2.84, 0);
+      box(s, 1.67, 0.23, 1.67, M.trim, 0, 2.84, 0);
       box(s, 1.48, 0.85, 1.48, M.dark, 0, 3.33, 0);
       for (const x of [-0.55, 0.55]) box(s, 0.13, 0.92, 0.14, M.light, x, 3.32, 0.77);
       roof(s, 2.0, 1.95, 0.73, M.roof, 0, 3.81, 0);
@@ -669,6 +707,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
       if (safeType) { builtModel(safeType, landmark.statics); landmark.height = safeType === 'watchtower' ? 5.2 : 4.3; }
       else { plotModel(landmark.statics); landmark.height = 1.3; }
       batch(landmark.statics);
+      bindDistrictLighting(landmark, id);
       landmark.hit.scale.y = safeType ? 2.2 : 1;
       landmark.hit.position.y = safeType ? 2.2 : 1;
       emitLabels();
@@ -676,6 +715,8 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     if (changed) invalidate();
   }
   function setLevels(levels = {}) {
+    // Compatibility API: stages now represent opening/discovering content.
+    // The caller supplies activity; no resource or purchase state exists here.
     let changed = false;
     for (const [id, landmark] of landmarkGroups) {
       if (id.startsWith('plot-')) continue;
@@ -687,22 +728,33 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
       const g = upgradeGroups.get(id); disposeGroup(g);
       if (level >= 2) {
         for (const side of [-1, 1]) {
-          cylinder(g, 0.17, 0.25, 0.7, M.gold, side * (landmark.radius - 0.18), 0.86, 0, 6);
-          orb(g, 0.21, M.cyan, side * (landmark.radius - 0.18), 1.32, 0);
+          cylinder(g, 0.17, 0.25, 0.7, M.trim, side * (landmark.radius - 0.18), 0.86, 0, 6);
+          orb(g, 0.21, M.beacon, side * (landmark.radius - 0.18), 1.32, 0);
         }
-        const ring = torus(g, landmark.radius - 0.18, 0.035, M.gold, 0, 0.54, 0, [-Math.PI / 2, 0, Math.PI / 8]); ring.scale.y = 0.98;
+        const ring = torus(g, landmark.radius - 0.18, 0.035, M.trim, 0, 0.54, 0, [-Math.PI / 2, 0, Math.PI / 8]); ring.scale.y = 0.98;
       }
       if (level >= 3) {
         for (let i = 0; i < 3; i++) {
-          const crystal = mesh(g, new THREE.OctahedronGeometry(0.3), M.violet, -0.6 + i * 0.6, 1.1 + (i === 1 ? 0.2 : 0), -landmark.radius + 0.12);
+          const crystal = mesh(g, new THREE.OctahedronGeometry(0.3), M.crystal, -0.6 + i * 0.6, 1.1 + (i === 1 ? 0.2 : 0), -landmark.radius + 0.12);
           crystal.scale.set(0.65, 1.4, 0.65);
         }
-        cylinder(g, 0.1, 0.17, 1.35, M.gold, landmark.radius - 0.3, 1.2, 0.65, 6);
+        cylinder(g, 0.1, 0.17, 1.35, M.trim, landmark.radius - 0.3, 1.2, 0.65, 6);
         box(g, 0.65, 0.45, 0.08, M.roof, landmark.radius + 0.01, 1.65, 0.65);
       }
       batch(g);
     }
     if (changed) invalidate();
+  }
+
+  function setExplored(ids = []) {
+    const values = typeof ids === 'string' ? [ids] : ids?.[Symbol.iterator] ? [...ids] : [];
+    const next = new Set(values.filter((id) => landmarkGroups.has(id)));
+    if (next.size === exploredIds.size && [...next].every((id) => exploredIds.has(id))) return;
+    exploredIds.clear();
+    next.forEach((id) => exploredIds.add(id));
+    for (const [id, route] of routeGroups) route.visible = exploredIds.has(id);
+    for (const [id, entry] of landmarkGroups) illuminateDistrict(entry, exploredIds.has(id));
+    invalidate();
   }
 
   // Gentle smoke from the forge chimney; circular particles are shaded on the GPU.
@@ -715,12 +767,12 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     transparent: true, depthWrite: false,
     uniforms: { pointScale: { value: 9 * pixelRatio } },
     vertexShader: 'attribute float opacity; varying float a; uniform float pointScale; void main(){a=opacity;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);gl_PointSize=pointScale*(2.4-opacity);}',
-    fragmentShader: 'varying float a;void main(){float d=length(gl_PointCoord-.5);float alpha=(1.-smoothstep(.1,.5,d))*a*.27;gl_FragColor=vec4(.65,.72,.68,alpha);}',
+    fragmentShader: 'varying float a;void main(){float d=length(gl_PointCoord-.5);float alpha=(1.-smoothstep(.1,.5,d))*a*.27;gl_FragColor=vec4(.62,.59,.55,alpha);}',
   });
   const smoke = new THREE.Points(smokeGeometry, smokeMaterial); smoke.frustumCulled = false; scene.add(smoke);
   smoke.visible = webgl;
 
-  const spiritMaterial = material('#a9f0d9', { emissive: '#75c6b1', emissiveIntensity: 0.55 });
+  const spiritMaterial = material(BRAND.warmInk, { emissive: BRAND.bone, emissiveIntensity: 0.35 });
   for (let i = 0; i < 13; i++) {
     const spirit = new THREE.Group(); scene.add(spirit);
     orb(spirit, 0.19, spiritMaterial, 0, 0.32, 0, [0.9, 1.08, 0.9]);
@@ -731,8 +783,8 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     wisps.push({ object: spirit, x: target[0], z: target[1], phase, speed: 0.025 + rng() * 0.015 });
   }
 
-  const selectedMaterial = new THREE.MeshBasicMaterial({ color: '#f2c978', transparent: true, opacity: 0.82, depthWrite: false, side: THREE.DoubleSide });
-  const hoverMaterial = new THREE.MeshBasicMaterial({ color: '#a5ead2', transparent: true, opacity: 0.52, depthWrite: false, side: THREE.DoubleSide });
+  const selectedMaterial = new THREE.MeshBasicMaterial({ color: BRAND.vermilion, transparent: true, opacity: 0.88, depthWrite: false, side: THREE.DoubleSide });
+  const hoverMaterial = new THREE.MeshBasicMaterial({ color: BRAND.warmInk, transparent: true, opacity: 0.52, depthWrite: false, side: THREE.DoubleSide });
   const selectedRing = new THREE.Mesh(new THREE.RingGeometry(0.96, 1, webgl ? 64 : 36), selectedMaterial);
   const hoverRing = new THREE.Mesh(new THREE.RingGeometry(0.98, 1, webgl ? 64 : 36), hoverMaterial);
   for (const ring of [selectedRing, hoverRing]) { ring.rotation.x = -Math.PI / 2; ring.position.y = 0.58; ring.visible = false; scene.add(ring); }
@@ -757,16 +809,16 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     if (next === theme) return;
     theme = next;
     const day = theme === 'day';
-    scene.background.set(day ? '#31595e' : '#123138');
+    scene.background.set(day ? '#4d4842' : BRAND.dark);
     scene.fog.color.copy(scene.background);
     hemi.intensity = day ? 2.6 : 2.1;
     sun.intensity = webgl ? (day ? 3.6 : 3.2) : (day ? 1.0 : 0.88);
-    sun.color.set(day ? '#fff3ce' : '#ffe0ac');
+    sun.color.set(day ? '#fffaf2' : BRAND.warmInk);
     rim.intensity = webgl ? (day ? 0.95 : 1.2) : (day ? 0.25 : 0.3);
     renderer.toneMappingExposure = day ? 1.28 : 1.2;
     waterUniforms.daylight.value = day ? 1 : 0;
-    if (vectorAmbient) vectorAmbient.color.set(day ? '#a0b0a8' : '#8a9c94');
-    if (!webgl) water.material.color.set(day ? '#29545a' : '#123b42');
+    if (vectorAmbient) vectorAmbient.color.set(day ? '#b8aea1' : '#a59d92');
+    if (!webgl) water.material.color.set(day ? '#403a34' : '#1c1a17');
     invalidate();
   }
 
@@ -783,13 +835,26 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     }
     onLabels(labels);
   }
+  function setDefaultPose() {
+    controls.target.copy(cameraTarget);
+    camera.position.copy(controls.target).add(framingMode === 'mobile' ? mobileCamera : initialCamera);
+    camera.zoom = 1;
+  }
   function resize() {
     if (destroyed) return;
     const rectangle = canvas.getBoundingClientRect();
     width = Math.max(1, rectangle.width); height = Math.max(1, rectangle.height);
     const aspect = width / height;
-    const vertical = Math.max(38, 43 / aspect);
+    const nextMode = !mobile.matches ? 'desktop' : aspect > 1.1 ? 'compact' : 'mobile';
+    // A tall mobile stage shows more of the ground plane; the short view above
+    // a reading sheet uses the lower angle and fits the full island vertically.
+    const vertical = Math.max(nextMode === 'compact' ? 28.5 : nextMode === 'mobile' ? 32 : 38, 43 / aspect);
     camera.left = -vertical * aspect / 2; camera.right = vertical * aspect / 2; camera.top = vertical / 2; camera.bottom = -vertical / 2;
+    if (nextMode !== framingMode) {
+      framingMode = nextMode;
+      setDefaultPose();
+      controls.update();
+    }
     camera.updateProjectionMatrix();
     renderer.setSize(width, height, false);
     if (fallbackElement) {
@@ -855,9 +920,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   canvas.style.cursor = 'grab';
 
   function resetCamera() {
-    controls.target.copy(mobile.matches ? new THREE.Vector3(0, 0, 0) : cameraTarget);
-    camera.position.copy(controls.target).add(initialCamera);
-    camera.zoom = mobile.matches ? 1.4 : 1;
+    setDefaultPose();
     camera.updateProjectionMatrix(); controls.update(); emitLabels();
     invalidate();
   }
@@ -873,7 +936,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
       drawCalls: webgl ? renderer.info.render.calls : fallbackElement.childElementCount,
       triangles: webgl ? renderer.info.render.triangles : renderer.info.render.faces,
       renderMilliseconds: Math.round(renderMilliseconds), staticPose: !webgl,
-      buildings: landmarkGroups.size, theme, reducedMotion: reducedMotion.matches,
+      buildings: landmarkGroups.size, exploredCount: exploredIds.size, theme, framingMode, reducedMotion: reducedMotion.matches,
     };
   }
 
@@ -971,5 +1034,5 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     fallbackElement?.remove();
     delete canvas.dataset.renderer;
   }
-  return { select, setLevels, setBuilt, setTheme, zoom, resetCamera, setPaused, destroy, getInfo };
+  return { select, setLevels, setExplored, setBuilt, setTheme, zoom, resetCamera, setPaused, destroy, getInfo };
 }
