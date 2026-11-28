@@ -90,3 +90,5 @@ Two 16:9 editable chapter-opening SVGs with unchanged original mark on a separat
 - [Architectural Motion · closing timing preview · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/closing-cards/motion-safe/architectural-motion/)
 
 - [Architectural opening titles · SVG and timing preview · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/quiet-courts/opening-titles/)
+
+- [Two A6 cards on A4 — editable print layout · REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/generated-imagery/HADES_A4_A6_TwoUp_REVIEW.html#en). Trim marks and 50 mm scale; physical print OPEN.
