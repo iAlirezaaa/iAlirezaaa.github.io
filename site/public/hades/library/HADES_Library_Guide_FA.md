@@ -54,3 +54,5 @@ SVG طرح حاوی متن و ساختار وکتوری قابل‌ویرایش 
 - [نسخهٔ عمودی آستانهٔ سنگی — WebP ۳۶۰ × ۶۴۰، REVIEW](/hades/library/backgrounds/generated-imagery/stone-portrait.html#fa). نسخهٔ وب است، نه مستر اصلی یا چاپ.
 
 - [سربرگ واکنش‌گرای آستانهٔ سنگی](/hades/library/backgrounds/generated-imagery/stone-responsive.html#fa) · PUBLIC REVIEW. دو WebP کنار HTML لازم است؛ فایل‌های اصلی هنوز میزبانی نشده‌اند.
+
+- [برگهٔ انتخاب تصاویر اصلی آستانهٔ سنگی](/hades/library/backgrounds/generated-imagery/stone-contact-sheet.html#fa) · PUBLIC REVIEW. قالب A4 قابل‌ویرایش با سه WebP محلی؛ چاپ پس از بررسی SHA-256 و ابعاد فعال می‌شود. فایل‌های اصلی میزبانی نشده‌اند.
