@@ -92,3 +92,5 @@ Only #EF4B32 is approved. Logo originals unchanged; real phone/print/Mikhak/FINA
 - [عنوان آغاز معماری · SVG و پیش‌نمایش زمان‌بندی · PUBLIC REVIEW](https://ialirezaaa.github.io/hades/fa/library/backgrounds/quiet-courts/opening-titles/)
 
 - [چیدمان چاپ دو کارت A6 روی A4 · REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/generated-imagery/HADES_A4_A6_TwoUp_REVIEW.html#fa). نشانه‌های برش و خط کنترل ۵۰ میلی‌متری؛ چاپ فیزیکی OPEN.
+
+- [آستانهٔ سنگی – نسخهٔ وب ۶۴۰ · REVIEW](/hades/library/backgrounds/generated-imagery/stone-threshold.html#fa) · [WebP](/hades/library/backgrounds/generated-imagery/HADES_Stone_Threshold_640_REVIEW.webp). انتقال مستر و دسترسی زنده OPEN.
