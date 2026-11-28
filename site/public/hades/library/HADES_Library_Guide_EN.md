@@ -51,3 +51,5 @@ Two new source-editable standalone SVGs for 16:9 Dark and 1:1 Charcoal; existing
 - [Stone Threshold portrait WebP — 360 × 640, REVIEW](/hades/library/backgrounds/generated-imagery/stone-portrait.html#en). Web derivative, not native or print master.
 
 - [Stone Threshold responsive website hero](/hades/library/backgrounds/generated-imagery/stone-responsive.html#en) · PUBLIC REVIEW. Keep both WebPs beside the HTML; native files are not hosted.
+
+- [Native Stone contact sheet](/hades/library/backgrounds/generated-imagery/stone-contact-sheet.html#en) · PUBLIC REVIEW. Editable A4 layout with three local native WebPs; verifies expected SHA-256 and dimensions before enabling print. Native images are not hosted.
