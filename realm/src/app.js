@@ -14,8 +14,10 @@ const destinationById = new Map(catalog.destinations.map((entry) => [entry.id, e
 const journeyById = new Map(catalog.journeys.map((entry) => [entry.id, entry]));
 let preferences = {};
 try { preferences = JSON.parse(localStorage.getItem(PREF_KEY)) || {}; } catch { /* A blocked store still leaves the atlas usable. */ }
+if (typeof preferences !== 'object' || Array.isArray(preferences)) preferences = {};
 let lang = preferences.lang === 'en' ? 'en' : 'fa';
 let sound = false;
+let ambientMotion = typeof preferences.motion === 'boolean' ? preferences.motion : !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let state = createProgress(null, catalog);
 let scene;
 let panelMode = null;
@@ -31,8 +33,8 @@ let audioContext;
 let destroyed = false;
 const labels = new Map();
 const words = {
-  fa: { yourFootprint:'ردپای تو', worldName:'جهانِ هادس', worldSeason:'ایده‌ها را دنبال کن. راهت را پیدا کن.', sceneHint:'بکش تا بچرخد · یک ساختمان را انتخاب کن', previousChapter:'فصل پیشین', villageArchive:'آرشیو دهکده', world:'نقشه', journeys:'مسیرها', collection:'کوله‌بار', allLinks:'همهٔ مقصدها', openWorld:'هر مقصد، یک شروع تازه', renderFallback:'نقشه در دسترس نیست؛ همهٔ مقصدها از فهرست باز می‌شوند.' },
-  en: { yourFootprint:'YOUR FOOTPRINT', worldName:'The world of Hades', worldSeason:'Follow an idea. Find your own way.', sceneHint:'Drag to orbit · Select a landmark', previousChapter:'PREVIOUS CHAPTER', villageArchive:'Village archive', world:'Atlas', journeys:'Journeys', collection:'Collection', allLinks:'All destinations', openWorld:'Every destination is a beginning', renderFallback:'The map is unavailable. Every destination is still in the directory.' },
+  fa: { riverName:'رود استیکس', yourFootprint:'ردپای تو', worldName:'جهانِ هادس', worldSeason:'ایده‌ها را دنبال کن. راهت را پیدا کن.', sceneHint:'بکش تا بچرخد · یک ساختمان را انتخاب کن', previousChapter:'فصل پیشین', villageArchive:'آرشیو دهکده', world:'نقشه', journeys:'مسیرها', collection:'کوله‌بار', allLinks:'همهٔ مقصدها', openWorld:'هر مقصد، یک شروع تازه', renderFallback:'نقشه در دسترس نیست؛ همهٔ مقصدها از فهرست باز می‌شوند.' },
+  en: { riverName:'River Styx', yourFootprint:'YOUR FOOTPRINT', worldName:'The world of Hades', worldSeason:'Follow an idea. Find your own way.', sceneHint:'Drag to orbit · Select a landmark', previousChapter:'PREVIOUS CHAPTER', villageArchive:'Village archive', world:'Atlas', journeys:'Journeys', collection:'Collection', allLinks:'All destinations', openWorld:'Every destination is a beginning', renderFallback:'The map is unavailable. Every destination is still in the directory.' },
 };
 const tr = (fa, en) => lang === 'fa' ? fa : en;
 const local = (entry) => entry?.[lang] || entry?.en || '';
@@ -48,7 +50,7 @@ function toast(message) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { element.hidden = true; }, 5500);
 }
 function persistPreferences() {
-  try { localStorage.setItem(PREF_KEY, JSON.stringify({ lang })); } catch { /* Language continues for this visit. */ }
+  try { localStorage.setItem(PREF_KEY, JSON.stringify({ lang, ...(typeof preferences.motion === 'boolean' ? { motion: preferences.motion } : {}) })); } catch { /* Language continues for this visit. */ }
 }
 function chime() {
   if (!sound || !audioContext) return;
@@ -158,7 +160,7 @@ function renderArchive() {
   return `${heading('watchtower', tr('فصل قبلی، محفوظ','The previous chapter, preserved'), tr('دهکدهٔ اولیهٔ هادس هنوز اینجاست؛ با ساخت‌وساز، منابع و حال‌وهوای خودش. هر وقت خواستی به آن سر بزن.','The original Hades village is still here, with its building, resources and its own atmosphere. Visit whenever you like.'))}<article class="archive-card"><div class="archive-mark"><img src="./hades-mark.png" alt=""></div><span class="section-label" lang="en">HADES REALM / VILLAGE V2</span><h2>${esc(tr('دهکدهٔ جهان زیرین','The underworld village'))}</h2><p>${esc(tr('نسخهٔ پیشین جداگانه نگه‌داری می‌شود. پیشرفت آن از این اطلس مستقل است.','The previous version lives in a separate archive. Its progress is independent of this atlas.'))}</p><div class="panel-actions"><a class="primary-button" href="./archive/village-v2/" target="_blank" rel="noopener noreferrer">${icon('citadel')}${esc(tr('بازی نسخهٔ قبلی','Play the original village'))}</a><a class="secondary-button" href="./archive/HadesRealm-Village-v2-backup.zip" download>${icon('download')}${esc(tr('دانلود بک‌آپ کامل','Download complete backup'))}</a></div></article><p class="panel-note">${esc(tr('بک‌آپ شامل کد و فایل‌های اجرایی اصلی نسخهٔ دوم است. آرشیوشده در ۷ آذر ۱۴۰۵.','The backup includes the original source and playable build of version 2. Archived 28 November 2026.'))}</p>`;
 }
 function renderHelp() {
-  return `${heading('help', tr('نقشه‌ای که با تو زنده می‌شود','An atlas that comes alive with you'), tr('از یک کنجکاوی شروع کن؛ مقصدهای مفیدت را پیدا کن و همراه ببر.','Start with a curiosity. Find useful destinations and take them with you.'))}<ol class="help-list"><li><strong>${esc(tr('کشف کن','Explore'))}</strong><p>${esc(tr('ساختمان‌ها موضوع‌های این جهان‌اند. هرکدام را انتخاب کن تا مقصدها و توضیحشان را ببینی.','Landmarks are the subjects of this world. Select one to see its destinations and descriptions.'))}</p></li><li><strong>${esc(tr('مسیر را روشن کن','Light a path'))}</strong><p>${esc(tr('وقتی لینک یک مقصد را انتخاب می‌کنی، راه و پنجره‌های قلمرو مرتبط روشن می‌شوند. مسیرهای سه‌مرحله‌ای چند پیشنهاد مرتبط را کنار هم می‌گذارند.','Choosing a destination lights its district’s path and windows. Three-stop journeys connect related suggestions.'))}</p></li><li><strong>${esc(tr('با خودت ببر','Take it with you'))}</strong><p>${esc(tr('مقصدهای دلخواهت را ذخیره کن. کوله‌بار را با لینک به اشتراک بگذار یا به شکل فایل Markdown دانلود کن.','Save destinations you like. Share your collection with a link or download a Markdown list.'))}</p></li></ol><div class="section-label">${esc(tr('حرکت در نقشه','MOVING AROUND'))}</div><p>${esc(tr('تصویر را بکش تا بچرخد؛ اسکرول یا دو انگشت برای زوم. نام ساختمان‌ها و فهرست مقصدها با کیبورد هم در دسترس‌اند.','Drag to orbit; scroll or pinch to zoom. Landmark labels and the directory are also keyboard accessible.'))}</p><p class="panel-note">${esc(tr('۱ تا ۶: قلمروها · J: مسیرها · C: کوله‌بار · L یا /: جست‌وجو · R: دوربین · Esc: بستن','1–6: districts · J: journeys · C: collection · L or /: search · R: camera · Esc: close'))}</p><div class="section-label">${esc(tr('ردپای تو کجا می‌ماند؟','WHERE YOUR FOOTPRINT LIVES'))}</div><p>${esc(tr('پیشرفت و کوله‌بار فقط در مرورگر تو ذخیره می‌شوند. با پاک‌کردن داده‌های مرورگر از بین می‌روند. هیچ حساب یا ردیابی‌ای لازم نیست.','Progress and collections are saved only in your browser. Clearing browser data removes them. No account or tracking is involved.'))}</p><button class="secondary-button" type="button" data-action="archive">${icon('watchtower')}${esc(tr('آرشیو و بک‌آپ نسخهٔ قبلی','Original village & backup'))}</button><div class="reset-box">${resetPending ? `<div class="confirm-reset"><strong>${esc(tr('ردپا و کوله‌بار این اطلس پاک شود؟','Clear this atlas’s footprint and collection?'))}</strong><p>${esc(tr('فقط ذخیره‌های همین مرورگر پاک می‌شوند. بک‌آپ دهکده تغییری نمی‌کند.','This clears the atlas’s data in this browser. The archived village is unaffected.'))}</p><div class="panel-actions"><button class="secondary-button" type="button" data-action="cancel-reset">${esc(tr('انصراف','Cancel'))}</button><button class="primary-button" type="button" data-action="confirm-reset">${esc(tr('بله، پاک کن','Yes, clear it'))}</button></div></div>` : `<button class="text-button" type="button" data-action="ask-reset">${icon('reset')}${esc(tr('شروع دوبارهٔ ردپا','Reset my footprint'))}</button>`}</div>`;
+  return `${heading('help', tr('نقشه‌ای که با تو زنده می‌شود','An atlas that comes alive with you'), tr('از یک کنجکاوی شروع کن؛ مقصدهای مفیدت را پیدا کن و همراه ببر.','Start with a curiosity. Find useful destinations and take them with you.'))}<ol class="help-list"><li><strong>${esc(tr('کشف کن','Explore'))}</strong><p>${esc(tr('ساختمان‌ها موضوع‌های این جهان‌اند. هرکدام را انتخاب کن تا مقصدها و توضیحشان را ببینی.','Landmarks are the subjects of this world. Select one to see its destinations and descriptions.'))}</p></li><li><strong>${esc(tr('مسیر را روشن کن','Light a path'))}</strong><p>${esc(tr('وقتی لینک یک مقصد را انتخاب می‌کنی، راه و پنجره‌های قلمرو مرتبط روشن می‌شوند. مسیرهای سه‌مرحله‌ای چند پیشنهاد مرتبط را کنار هم می‌گذارند.','Choosing a destination lights its district’s path and windows. Three-stop journeys connect related suggestions.'))}</p></li><li><strong>${esc(tr('با خودت ببر','Take it with you'))}</strong><p>${esc(tr('مقصدهای دلخواهت را ذخیره کن. کوله‌بار را با لینک به اشتراک بگذار یا به شکل فایل Markdown دانلود کن.','Save destinations you like. Share your collection with a link or download a Markdown list.'))}</p></li></ol><div class="section-label">${esc(tr('حرکت در نقشه','MOVING AROUND'))}</div><p>${esc(tr('تصویر را بکش تا بچرخد؛ اسکرول یا دو انگشت برای زوم. نام ساختمان‌ها و فهرست مقصدها با کیبورد هم در دسترس‌اند. دکمهٔ توقف بالای صفحه، حرکت رود و محیط را متوقف می‌کند.','Drag to orbit; scroll or pinch to zoom. Landmark labels and the directory are also keyboard accessible. The pause button in the header stops the river and ambient motion.'))}</p><p class="panel-note">${esc(tr('۱ تا ۶: قلمروها · J: مسیرها · C: کوله‌بار · L یا /: جست‌وجو · R: دوربین · Esc: بستن','1–6: districts · J: journeys · C: collection · L or /: search · R: camera · Esc: close'))}</p><div class="section-label">${esc(tr('ردپای تو کجا می‌ماند؟','WHERE YOUR FOOTPRINT LIVES'))}</div><p>${esc(tr('پیشرفت و کوله‌بار فقط در مرورگر تو ذخیره می‌شوند. با پاک‌کردن داده‌های مرورگر از بین می‌روند. هیچ حساب یا ردیابی‌ای لازم نیست.','Progress and collections are saved only in your browser. Clearing browser data removes them. No account or tracking is involved.'))}</p><button class="secondary-button" type="button" data-action="archive">${icon('watchtower')}${esc(tr('آرشیو و بک‌آپ نسخهٔ قبلی','Original village & backup'))}</button><div class="reset-box">${resetPending ? `<div class="confirm-reset"><strong>${esc(tr('ردپا و کوله‌بار این اطلس پاک شود؟','Clear this atlas’s footprint and collection?'))}</strong><p>${esc(tr('فقط ذخیره‌های همین مرورگر پاک می‌شوند. بک‌آپ دهکده تغییری نمی‌کند.','This clears the atlas’s data in this browser. The archived village is unaffected.'))}</p><div class="panel-actions"><button class="secondary-button" type="button" data-action="cancel-reset">${esc(tr('انصراف','Cancel'))}</button><button class="primary-button" type="button" data-action="confirm-reset">${esc(tr('بله، پاک کن','Yes, clear it'))}</button></div></div>` : `<button class="text-button" type="button" data-action="ask-reset">${icon('reset')}${esc(tr('شروع دوبارهٔ ردپا','Reset my footprint'))}</button>`}</div>`;
 }
 function focusKey(element) {
   if (!element || !$('#detail-panel').contains(element)) return null;
@@ -272,6 +274,13 @@ function renderState() {
   $('#collection-badge').hidden = !summary.savedDestinations;
   renderIntro(); updateLabels(); syncScene(); renderPanel(); updateDock();
 }
+function renderMotionControl() {
+  const button = $('#motion-toggle');
+  button.innerHTML = icon(ambientMotion ? 'pause' : 'play');
+  const label = ambientMotion ? tr('توقف حرکت‌های محیط','Pause ambient motion') : tr('پخش حرکت‌های محیط','Play ambient motion');
+  button.setAttribute('aria-label', label); button.title = label;
+  button.dataset.playing = String(ambientMotion);
+}
 function renderLanguage() {
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
@@ -285,6 +294,7 @@ function renderLanguage() {
   $('#sound-toggle').innerHTML = icon(sound ? 'sound' : 'mute');
   $('#sound-toggle').setAttribute('aria-label', sound ? tr('خاموش‌کردن صدا','Turn sound off') : tr('فعال‌سازی صدا','Turn sound on'));
   $('#sound-toggle').setAttribute('aria-pressed',String(sound));
+  renderMotionControl();
   $('#help').innerHTML = icon('help'); $('#help').setAttribute('aria-label',tr('راهنمای اطلس','Atlas guide'));
   $('#close-panel').innerHTML = icon('close'); $('#close-panel').setAttribute('aria-label',tr('بستن','Close'));
   for (const [id,symbol,fa,en] of [['zoom-in','plus','بزرگ‌نمایی','Zoom in'],['zoom-out','minus','کوچک‌نمایی','Zoom out'],['reset-camera','compass','بازگشت دوربین','Reset camera']]) { $(`#${id}`).innerHTML = icon(symbol); $(`#${id}`).setAttribute('aria-label',tr(fa,en)); }
@@ -389,6 +399,7 @@ $('#sound-toggle').addEventListener('click',async () => {
   try { const AudioClass = window.AudioContext || window.webkitAudioContext; audioContext ||= new AudioClass(); await audioContext.resume(); sound = true; renderLanguage(); chime(); }
   catch { sound = false; toast(tr('صدا در این مرورگر در دسترس نیست.','Sound is unavailable in this browser.')); }
 });
+$('#motion-toggle').addEventListener('click',() => { ambientMotion = !ambientMotion; preferences.motion = ambientMotion; persistPreferences(); scene?.setMotion(ambientMotion); renderMotionControl(); });
 $('#zoom-in').addEventListener('click',() => scene?.zoom(1));
 $('#zoom-out').addEventListener('click',() => scene?.zoom(-1));
 $('#reset-camera').addEventListener('click',() => scene?.resetCamera());
@@ -412,12 +423,12 @@ window.addEventListener('pageshow',(event) => { if (event.persisted) scene?.setP
 
 makeLabels(); renderLanguage(); readSharedHash();
 const loadTimeout = setTimeout(() => { $('#loading').hidden = true; },12000);
-function renderFailed() { $('#loading').hidden = true; $('#render-notice').hidden = false; $('#landmark-labels').hidden = true; clearTimeout(loadTimeout); }
+function renderFailed(error) { if (error) console.error('Hades Realm could not render its scene:',error); $('#loading').hidden = true; $('#render-notice').hidden = false; $('#landmark-labels').hidden = true; $('#river-caption').hidden = true; clearTimeout(loadTimeout); }
 import('./scene.js').then(({ createRealmScene }) => {
   if (destroyed) return;
-  scene = createRealmScene({ canvas:$('#world-canvas'), onSelect:selectLandmark, onHover:(id) => { for (const [key,element] of labels) element.classList.toggle('is-hovered',key === id); }, onReady:() => { $('#loading').hidden = true; clearTimeout(loadTimeout); }, onError:renderFailed, onLabels:(positions) => {
+  scene = createRealmScene({ canvas:$('#world-canvas'), motion:preferences.motion, onMotionChange:(enabled) => { ambientMotion = enabled; renderMotionControl(); }, onSelect:selectLandmark, onHover:(id) => { for (const [key,element] of labels) element.classList.toggle('is-hovered',key === id); }, onReady:() => { $('#loading').hidden = true; clearTimeout(loadTimeout); }, onError:renderFailed, onLabels:(positions) => {
     const rect = $('#world-canvas').getBoundingClientRect();
-    positions.forEach(({id,x,y,visible}) => { const element = labels.get(id); if (element) { element.style.left = `${rect.left + x}px`; element.style.top = `${rect.top + y}px`; element.hidden = !visible; } });
+    positions.forEach(({id,x,y,visible}) => { const element = id === 'river-styx' ? $('#river-caption') : labels.get(id); if (element) { element.style.left = `${rect.left + x}px`; element.style.top = `${rect.top + y}px`; element.hidden = !visible; } });
   } });
   scene.setBuilt({'plot-a':'lantern','plot-b':'garden','plot-c':'watchtower'});
   syncScene();

@@ -13,8 +13,8 @@
   <meta property="og:url" content="https://ialirezaaa.github.io/HadesRealm/">
   <title>Hades Realm · اطلس جهان هادس</title>
   <link rel="preload" href="./mikhak.woff2" as="font" type="font/woff2" crossorigin>
-  <script type="module" crossorigin src="./assets/index-BDWyCRV8.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BMos1xoI.css">
+  <script type="module" crossorigin src="./assets/index-DGiHQZuU.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-cRkV-jx4.css">
 </head>
 <body>
   <a class="skip-link" href="#nav-links">رفتن به فهرست مقصدها</a>
@@ -22,6 +22,7 @@
     <canvas id="world-canvas" tabindex="0" aria-label="اطلس سه‌بعدی هادس؛ دکمه‌های روی نقشه یا فهرست مقصدها را انتخاب کنید."></canvas>
     <div class="world-vignette" aria-hidden="true"></div>
     <div class="atlas-grid" aria-hidden="true"></div>
+    <div id="river-caption" class="river-caption" aria-hidden="true" hidden><span data-i="riverName">رود استیکس</span><small lang="en">STYX</small></div>
     <div id="landmark-labels" class="landmark-labels"></div>
     <div id="loading" class="loading-screen"><div class="loading-sigil"><img src="./hades-mark.png" alt=""></div><strong lang="en">HADES REALM</strong><p>نقشهٔ جهان در حال بازشدن است…</p><div class="load-track"><span></span></div><button id="loading-links" class="quiet-button" type="button">فهرست مقصدها</button></div>
     <header class="hud-header" aria-label="اطلس هادس">
@@ -30,6 +31,7 @@
       <div class="header-tools">
         <button class="language-button" id="language" type="button" aria-label="Switch to English">EN</button>
         <button class="icon-button" id="sound-toggle" type="button" aria-label="فعال‌سازی صدا" aria-pressed="false"></button>
+        <button class="icon-button" id="motion-toggle" type="button" aria-label="توقف حرکت‌های محیط"></button>
         <button class="icon-button" id="help" type="button" aria-label="راهنمای اطلس"></button>
       </div>
     </header>

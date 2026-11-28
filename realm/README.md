@@ -1,4 +1,4 @@
-# Hades Realm · Atlas v3
+# Hades Realm · Atlas v3.1 — City on the Styx
 
 An explorable Three.js atlas of Hades III’s public work. Live at
 <https://ialirezaaa.github.io/HadesRealm/>.
@@ -39,8 +39,9 @@ CDN, tracking service, API key, account or backend.
   clicks do not create additional progress. Saving alone earns no open event.
 
 The three small waystations are the footprint journal, collection and playable
-archive. The citadel opens the journey selector. The original village’s visual
-architecture is retained, now colored for Hades and responding to useful actions.
+archive. The citadel opens the journey selector. The city uses Greek temple architecture: a Doric central temple, stoas, a
+circular sanctuary, an open theatre and lintelled Propylaea. Hades-colored
+materials and district illumination still respond to useful visitor actions.
 
 ## Edit the atlas
 
@@ -54,6 +55,9 @@ architecture is retained, now colored for Hades and responding to useful actions
 - `src/scene.js`: native geometry, camera, rendering, selection and lighting.
   `setLevels` accepts activity stages (1 unseen, 2 discovered, 3 link chosen).
   `setExplored` lights district routes. `setBuilt` places permanent waystations.
+- `src/greek-architecture.js`: native Greek landmarks and waystations.
+- `src/styx-river.js`: native river, wandering souls and Charon’s moving ferry.
+- `src/vector-motion.js`: lightweight vector animation and depth visibility.
 - `src/app.js`: bilingual interface, accessible actions, optional sound and
   collection export. External destination URLs are shipped public data, never
   read from a shared hash.
@@ -65,7 +69,7 @@ Hades mark is unchanged. Mikhak is self-hosted with its license/source notice.
 
 ## State and sharing
 
-Progress: `hadesrealm.atlas.v3`; language: `hadesrealm.atlas.preferences.v3`.
+Progress: `hadesrealm.atlas.v3`; language/motion preference: `hadesrealm.atlas.preferences.v3`.
 The old village’s separate keys are never migrated or cleared. Sound starts off.
 
 A mutation reads the current validated save, applies one visitor action and
@@ -83,11 +87,23 @@ collection. Creating a share does not transmit browser progress to a server.
 ## Rendering and access
 
 WebGL is primary, with native shading, soft shadows and animated atmosphere.
-When WebGL is unavailable, Three.js SVGRenderer projects the same meshes and
-camera with static atmosphere and no GPU effects. If both renderers fail, all
-links remain accessible through the directory. SVG has no idle animation loop.
-Device pixel ratio is capped and hidden documents pause. Reduced motion disables
-ambient movement. No remote texture/font downloads are needed.
+A layered River Styx surrounds the Greek city. Twelve hooded spirits follow its
+current, Charon ferries along the same course, and water streaks, oar, flags,
+braziers and the observatory move continuously. Animation is atmospheric and
+never awards progress or delays access to a link.
+
+When WebGL is unavailable, Three.js SVGRenderer projects the same native meshes.
+The city is cached until its view/state changes, while a second small native
+projection animates the river and moving details at up to 15 fps. Camera and
+static/dynamic passes update together; occlusion checks keep moving props from
+showing through the island. Shader water, GPU shadows and smoke remain WebGL
+features. If both renderers fail, the destination directory remains accessible.
+
+Device pixel ratio is capped and hidden documents pause. The header motion
+control freezes/resumes all ambient animation and remembers an explicit choice.
+Without an explicit choice, the system reduced-motion preference selects a still
+pose and is followed when it changes. Paused/hidden time does not advance the
+river. No remote texture/font downloads are needed.
 
 Map labels, directory links and all controls work with a keyboard. Escape closes
 a panel; shortcuts are suppressed while typing. `1`–`6` open districts, `J`

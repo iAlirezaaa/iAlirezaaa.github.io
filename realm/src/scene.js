@@ -2,6 +2,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { SVGRenderer } from 'three/addons/renderers/SVGRenderer.js';
+import { createGreekArchitecture } from './greek-architecture.js';
+import { createStyxRiver } from './styx-river.js';
+import { createVectorMotionLayer } from './vector-motion.js';
 
 // All architecture is native, selectable 3D geometry. No scene-sized image plane.
 // Vermilion is HADES's approved accent. These supporting stone/ink neutrals
@@ -9,7 +12,7 @@ import { SVGRenderer } from 'three/addons/renderers/SVGRenderer.js';
 const BRAND = Object.freeze({ vermilion: '#EF4B32', dark: '#131211', bone: '#E6D9C7', charcoal: '#292723', warmInk: '#F2EDE5' });
 const LOCATIONS = {
   citadel: [0, -1, 6.7, 3.7],
-  forge: [-8, 4, 5.6, 2.9],
+  forge: [-8, 4, 4.8, 2.9],
   archive: [-7, -7, 4.9, 3.1],
   oracle: [4, -8, 6.4, 2.8],
   theatre: [-1, 9, 3.7, 3.6],
@@ -28,11 +31,15 @@ function randomSource(seed = 91) {
   };
 }
 
-export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, onLabels } = {}) {
+export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, onLabels, motion, onMotionChange } = {}) {
   if (!canvas) throw new Error('A canvas is required to render Hades Realm.');
   const rng = randomSource();
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const mobile = window.matchMedia('(max-width: 700px)');
+  let motionOverride = typeof motion === 'boolean' ? motion : null;
+  const motionActive = () => motionOverride ?? !reducedMotion.matches;
+  let motionTime = 1.5, lastMotionTick = null, lastMotionRender = -Infinity;
+  let vectorMotion = null;
   let renderer, webgl = true, fallbackElement = null, initialized = false;
   let width = 1, height = 1, destroyed = false, paused = false, frame = 0, ready = false;
   let dirty = true, lastSvgRender = -Infinity, renderMilliseconds = 0, updatingFrame = false;
@@ -76,6 +83,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.2;
   const scene = new THREE.Scene();
+  const occluders = [];
   scene.background = new THREE.Color(BRAND.dark);
   scene.fog = new THREE.Fog(BRAND.dark, 72, 128);
   const camera = new THREE.OrthographicCamera(-25, 25, 20, -20, 0.1, 200);
@@ -87,7 +95,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   camera.lookAt(cameraTarget);
   const controls = new OrbitControls(camera, canvas);
   controls.target.copy(cameraTarget);
-  controls.enableDamping = webgl;
+  controls.enableDamping = webgl && motionActive();
   controls.dampingFactor = 0.085;
   controls.screenSpacePanning = false;
   controls.minPolarAngle = Math.PI * 0.19;
@@ -190,52 +198,11 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     }
   }
 
-  function arch(parent, width, height, depth, mat, x = 0, y = 0, z = 0) {
-    const g = new THREE.Group();
-    parent.add(g);
-    g.position.set(x, y, z);
-    const radius = width / 2;
-    const pillar = height - radius;
-    box(g, 0.26, pillar, depth, mat, -radius, pillar / 2, 0);
-    box(g, 0.26, pillar, depth, mat, radius, pillar / 2, 0);
-    const shape = new THREE.Shape();
-    shape.absarc(0, 0, radius + 0.13, 0, Math.PI, false);
-    shape.absarc(0, 0, radius - 0.13, Math.PI, 0, true);
-    shape.closePath();
-    const geometry = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: false, curveSegments: webgl ? 12 : 7 });
-    geometry.translate(0, pillar, -depth / 2);
-    mesh(g, geometry, mat);
-    return g;
-  }
-
-  function roof(parent, width, depth, height, mat, x = 0, y = 0, z = 0) {
-    const shape = new THREE.Shape();
-    shape.moveTo(-width / 2, 0); shape.lineTo(width / 2, 0); shape.lineTo(0, height); shape.closePath();
-    const geometry = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: false, curveSegments: 1 });
-    geometry.translate(0, 0, -depth / 2);
-    const g = new THREE.Group(); parent.add(g); g.position.set(x, y, z);
-    mesh(g, geometry, mat);
-    box(g, width + 0.12, 0.14, depth + 0.1, M.roofDark, 0, 0, 0);
-    box(g, 0.18, 0.14, depth + 0.13, M.roofEdge, 0, height + 0.02, 0);
-    for (const side of [-1, 1]) for (let i = 1; i <= 4; i++) {
-      const f = i / 5;
-      box(g, 0.06, 0.045, depth + 0.02, mat === M.roof ? M.roofEdge : M.slateLight, side * width / 2 * f, height * (1 - f) + 0.035, 0);
-    }
-    return g;
-  }
-
   function steps(parent, width, n, x, y, z, mat = M.light) {
     for (let i = 0; i < n; i++) box(parent, width, (n - i) * 0.16, 0.38, mat, x, y + (n - i) * 0.08, z + i * 0.35);
   }
 
-  function windowFront(parent, x, y, z, width = 0.48, height = 0.75) {
-    box(parent, width + 0.18, height + 0.18, 0.12, M.shadow, x, y, z);
-    box(parent, width, height, 0.14, M.window, x, y, z + 0.035);
-    box(parent, 0.055, height + 0.05, 0.17, M.wood, x, y, z + 0.04);
-    box(parent, width + 0.06, 0.055, 0.17, M.wood, x, y, z + 0.04);
-  }
-
-  const flags = [], fires = [], spinners = [], wisps = [], animatedObjects = [];
+  const flags = [], fires = [], spinners = [], animatedObjects = [];
   function flag(parent, x, y, z, color = M.roof, small = false) {
     const poleHeight = small ? 1.2 : 1.75;
     cylinder(parent, 0.035, 0.045, poleHeight, M.trim, x, y + poleHeight / 2, z, 6);
@@ -264,219 +231,19 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     cylinder(parent, radius - 0.26, radius - 0.21, 0.05, M.paver, 0, 0.48, 0, 8);
   }
 
-  function citadelModel(s, a) {
-    platform(s, 3.5);
-    box(s, 4.5, 0.38, 4.1, M.light, 0, 0.69, 0);
-    box(s, 4.05, 2.2, 3.75, M.stone, 0, 1.94, 0);
-    box(s, 4.19, 0.2, 3.9, M.trim, 0, 2.98, 0);
-    box(s, 4.17, 0.17, 3.88, M.light, 0, 1.09, 0);
-    roof(s, 4.75, 4.34, 1.55, M.roof, 0, 3.13, 0);
-    for (const x of [-2.16, 2.16]) for (const z of [-1.86, 1.86]) {
-      cylinder(s, 0.66, 0.77, 2.75, M.shadow, x, 1.85, z, 8);
-      cylinder(s, 0.7, 0.65, 0.28, M.light, x, 3.28, z, 8);
-      cylinder(s, 0.86, 0.9, 0.16, M.trim, x, 3.45, z, 8);
-      cylinder(s, 0, 1.03, 1.35, M.roof, x, 4.17, z, 8);
-      cylinder(s, 0.06, 0.1, 0.4, M.trim, x, 4.96, z, 6);
-      windowFront(s, x, 2.25, z + 0.62, 0.27, 0.56);
-      for (let j = 0; j < 4; j++) box(s, 0.24, 0.18, 0.2, M.stone, x + Math.cos(j * Math.PI / 2) * 0.67, 3.55, z + Math.sin(j * Math.PI / 2) * 0.67);
-    }
-    box(s, 1.25, 1.75, 0.18, M.night, 0, 1.67, 1.96);
-    arch(s, 1.5, 2.1, 0.3, M.light, 0, 0.78, 2.07);
-    box(s, 0.08, 1.55, 0.21, M.trim, 0, 1.57, 2.08);
-    steps(s, 1.9, 4, 0, 0.12, 2.45);
-    windowFront(s, -1.21, 2.03, 1.94, 0.48, 0.71);
-    windowFront(s, 1.21, 2.03, 1.94, 0.48, 0.71);
-    // Crest and roof ridge shrine.
-    box(s, 0.68, 0.73, 0.15, M.trim, 0, 3.58, 1.85, [0, 0, Math.PI / 4]);
-    box(s, 0.35, 0.43, 0.18, M.roofDark, 0, 3.58, 1.95, [0, 0, Math.PI / 4]);
-    cylinder(s, 0.28, 0.4, 0.36, M.trim, 0, 4.85, -0.3, 8);
-    flag(a, 0, 4.83, -0.3);
-    brazier(s, a, -1.4, 0.5, 2.6); brazier(s, a, 1.4, 0.5, 2.6);
-  }
-
-  function forgeModel(s, a) {
-    platform(s, 2.7);
-    box(s, 3.55, 1.95, 2.7, M.dark, 0, 1.48, 0);
-    box(s, 3.75, 0.25, 2.9, M.shadow, 0, 0.66, 0);
-    roof(s, 4.0, 3.17, 1.05, M.roof, 0, 2.48, 0);
-    box(s, 0.88, 3.15, 0.9, M.shadow, -1.03, 3.0, -0.64);
-    box(s, 1.09, 0.3, 1.08, M.light, -1.03, 4.67, -0.64);
-    box(s, 0.66, 0.06, 0.65, M.night, -1.03, 4.85, -0.64);
-    for (let i = 0; i < 7; i++) box(s, 0.92, 0.07, 0.94, M.dark, -1.03, 1.5 + i * 0.43, -0.64);
-    box(s, 1.45, 1.2, 0.17, M.window, 0, 1.22, 1.4);
-    arch(s, 1.62, 1.65, 0.36, M.light, 0, 0.56, 1.52);
-    for (const x of [-0.5, 0, 0.5]) cylinder(a, 0, 0.17, 0.78, M.flame, x, 1.1, 1.57, 5);
-    box(s, 1.9, 0.18, 0.65, M.iron, 0, 0.58, 1.62);
-    windowFront(s, 1.15, 1.67, 1.41, 0.5, 0.65);
-    cylinder(s, 0.58, 0.7, 0.6, M.wood, -1.6, 0.83, 1.85, 8);
-    box(s, 0.9, 0.2, 0.52, M.iron, -1.6, 1.2, 1.85);
-    box(s, 0.42, 0.45, 0.4, M.iron, -1.6, 1.37, 1.85);
-    box(s, 1.14, 0.24, 0.58, M.iron, -1.6, 1.65, 1.85);
-    cylinder(s, 0, 0.2, 0.55, M.iron, -0.89, 1.65, 1.85, 6, [0, 0, -Math.PI / 2]);
-    box(s, 0.13, 0.92, 0.13, M.woodLight, -1.77, 1.67, 2.2, [0, 0, -0.4]);
-    box(s, 0.52, 0.26, 0.29, M.shadow, -1.95, 2.08, 2.2, [0, 0, -0.4]);
-    for (let i = 0; i < 4; i++) cylinder(s, 0.16, 0.16, 0.9, M.woodLight, 1.78, 0.68 + (i > 1 ? 0.25 : 0), 1.45 + (i % 2) * 0.3, 6, [0, 0, Math.PI / 2]);
-    flag(a, 1.58, 2.65, -1.05, M.roof, true);
-  }
-
-  function archiveModel(s, a) {
-    platform(s, 3.0);
-    box(s, 4.15, 0.22, 3.5, M.light, 0, 0.66, 0);
-    box(s, 3.65, 1.9, 2.7, M.dark, 0, 1.75, -0.24);
-    box(s, 3.83, 0.18, 3.06, M.trim, 0, 2.78, 0);
-    for (const x of [-1.5, -0.5, 0.5, 1.5]) {
-      cylinder(s, 0.19, 0.23, 1.97, M.light, x, 1.79, 1.23, 8);
-      box(s, 0.58, 0.18, 0.56, M.stone, x, 0.86, 1.23);
-      box(s, 0.53, 0.16, 0.52, M.trim, x, 2.74, 1.23);
-    }
-    roof(s, 4.4, 3.75, 1.05, M.slate, 0, 2.92, 0);
-    for (const z of [-1.3, -0.4, 0.5]) {
-      box(s, 0.22, 2.0, 0.2, M.light, -1.91, 1.8, z);
-      box(s, 0.22, 2.0, 0.2, M.light, 1.91, 1.8, z);
-    }
-    for (const x of [-1.1, 1.1]) {
-      box(s, 0.65, 1.3, 0.08, M.wood, x, 1.6, 1.16);
-      for (let j = 0; j < 5; j++) box(s, 0.085, 0.52 + (j % 2) * 0.12, 0.16, [M.roof, M.trim, M.slateLight][j % 3], x - 0.22 + j * 0.11, 1.5, 1.26);
-      box(s, 0.72, 0.08, 0.25, M.woodLight, x, 1.16, 1.27);
-    }
-    steps(s, 2.25, 4, 0, 0.1, 1.73);
-    cylinder(s, 0.45, 0.57, 0.54, M.stone, 0, 0.89, 2.25, 6);
-    box(s, 0.6, 0.09, 0.74, M.bone, -0.26, 1.24, 2.25, [0, 0, -0.18]);
-    box(s, 0.6, 0.09, 0.74, M.bone, 0.26, 1.24, 2.25, [0, 0, 0.18]);
-    box(s, 0.07, 0.08, 0.77, M.trim, 0, 1.29, 2.25);
-    flag(a, -1.7, 3.29, -1, M.slate, true);
-  }
-
-  function oracleModel(s, a) {
-    platform(s, 2.65);
-    cylinder(s, 1.69, 1.95, 0.42, M.shadow, 0, 0.76, 0, 10);
-    cylinder(s, 1.36, 1.56, 1.9, M.slate, 0, 1.92, 0, 10);
-    cylinder(s, 1.6, 1.6, 0.2, M.trim, 0, 2.92, 0, 10);
-    for (let i = 0; i < 6; i++) {
-      const angle = i / 6 * Math.PI * 2;
-      cylinder(s, 0.13, 0.18, 1.8, M.light, Math.cos(angle) * 1.37, 1.99, Math.sin(angle) * 1.37, 6);
-    }
-    const dome = mesh(s, new THREE.SphereGeometry(1.58, webgl ? 12 : 8, webgl ? 6 : 4, 0, Math.PI * 2, 0, Math.PI / 2), M.obsidian, 0, 3.01, 0);
-    dome.scale.y = 0.78;
-    cylinder(s, 0.47, 0.65, 0.37, M.trim, 0, 4.25, 0, 8);
-    const astrolabe = new THREE.Group(); a.add(astrolabe); astrolabe.position.set(0, 4.9, 0);
-    orb(astrolabe, 0.66, M.crystal, 0, 0, 0, [0.82, 1.2, 0.82]);
-    torus(astrolabe, 0.93, 0.055, M.trim, 0, 0, 0, [0.7, 0, 0.5]);
-    torus(astrolabe, 0.9, 0.045, M.trim, 0, 0, 0, [-0.7, 0.6, 0]);
-    spinners.push({ object: astrolabe, speed: 0.22 });
-    arch(s, 0.86, 1.53, 0.2, M.light, 0, 0.9, 1.5);
-    box(s, 0.68, 1.21, 0.12, M.night, 0, 1.53, 1.51);
-    steps(s, 1.4, 4, 0, 0.11, 1.8);
-    for (const x of [-1.94, 1.94]) {
-      cylinder(s, 0.36, 0.52, 0.35, M.shadow, x, 0.7, 0.7, 6);
-      const crystal = mesh(a, new THREE.OctahedronGeometry(0.62), M.crystal, x, 1.4, 0.7);
-      crystal.scale.set(0.6, 1.1, 0.6);
-      animatedObjects.push({ object: crystal, baseY: 1.4, amplitude: 0.1, phase: x });
-    }
-  }
-
-  function annularTier(inner, outer, height) {
-    const shape = new THREE.Shape();
-    shape.absarc(0, 0, outer, 0, Math.PI, false);
-    shape.absarc(0, 0, inner, Math.PI, 0, true);
-    shape.closePath();
-    const geometry = new THREE.ExtrudeGeometry(shape, { depth: height, bevelEnabled: false, curveSegments: webgl ? 18 : 10 });
-    geometry.rotateX(-Math.PI / 2);
-    return geometry;
-  }
-
-  function theatreModel(s, a) {
-    platform(s, 3.35);
-    cylinder(s, 1.4, 1.4, 0.1, M.roofDark, 0, 0.55, 0.1, 24);
-    for (let i = 0; i < 4; i++) {
-      mesh(s, annularTier(1.32 + i * 0.39, 1.68 + i * 0.39, 0.27), i % 2 ? M.light : M.stone, 0, 0.53 + i * 0.27, 0.55);
-    }
-    mesh(s, annularTier(2.9, 3.12, 1.75), M.shadow, 0, 0.48, 0.55);
-    for (let i = 0; i <= 8; i++) {
-      const angle = i / 8 * Math.PI;
-      cylinder(s, 0.16, 0.2, 1.14, M.light, Math.cos(angle) * 3.04, 2.31, 0.55 - Math.sin(angle) * 3.04, 6);
-      orb(s, 0.21, M.trim, Math.cos(angle) * 3.04, 2.95, 0.55 - Math.sin(angle) * 3.04);
-    }
-    box(s, 2.36, 0.23, 0.8, M.woodLight, 0, 0.66, 1.43);
-    for (const x of [-1.24, 1.24]) {
-      cylinder(s, 0.19, 0.24, 1.55, M.light, x, 1.46, 1.47, 8);
-      cylinder(s, 0.24, 0.24, 0.18, M.trim, x, 2.3, 1.47, 8);
-    }
-    box(s, 2.9, 0.22, 0.51, M.trim, 0, 2.43, 1.47);
-    const curtainMaterial = M.roof.clone(); curtainMaterial.side = THREE.DoubleSide;
-    for (const side of [-1, 1]) {
-      const curtain = mesh(s, new THREE.PlaneGeometry(0.58, 1.28, 4, 1), curtainMaterial, side * 0.91, 1.7, 1.52);
-      const pos = curtain.geometry.attributes.position;
-      for (let i = 0; i < pos.count; i++) pos.setZ(i, Math.sin(pos.getX(i) * 22) * 0.06);
-      curtain.geometry.computeVertexNormals();
-    }
-    steps(s, 1.8, 3, 0, 0.08, 2.25);
-    flag(a, 2.65, 1.38, 0.2, M.roof, true);
-  }
+  const greek = createGreekArchitecture({ M, box, cylinder, orb, torus, mesh, platform, steps, flag, brazier, spinners, animatedObjects, webgl });
 
   function tree(parent, x, z, size = 1, kind = 0, y = 0) {
-    cylinder(parent, 0.12 * size, 0.21 * size, 1.3 * size, M.bark, x, y + 0.65 * size, z, 5);
-    if (kind === 0) {
-      for (let j = 0; j < 3; j++) cylinder(parent, 0, (1.03 - j * 0.19) * size, 1.55 * size, [M.leafDeep, M.leaf, M.leafLight][j], x, y + (1.5 + j * 0.62) * size, z, 6);
+    const group = new THREE.Group(); parent.add(group); group.position.set(x, y, z); group.scale.setScalar(size);
+    cylinder(group, 0.08, 0.13, 1.0, M.bark, 0, 0.52, 0, 5);
+    if (kind) {
+      orb(group, 0.8, M.leafLight, 0, 1.6, 0, [1.2, 0.7, 1]);
+      orb(group, 0.55, M.leaf, 0.35, 1.83, -0.1, [1.2, 0.7, 1]);
     } else {
-      orb(parent, 1.1 * size, M.leaf, x, y + 1.9 * size, z, [1.08, 0.8, 0.9]);
-      orb(parent, 0.8 * size, M.leafLight, x - 0.4 * size, y + 2.45 * size, z - 0.1, [1, 0.9, 0.92]);
-      orb(parent, 0.76 * size, M.leafDeep, x + 0.6 * size, y + 1.9 * size, z + 0.22 * size);
+      // Tall Mediterranean cypresses frame the colonnades.
+      orb(group, 0.58, M.leafDeep, 0, 1.7, 0, [0.8, 2.1, 0.8]);
+      orb(group, 0.38, M.leaf, 0, 2.52, 0, [0.75, 1.8, 0.75]);
     }
-  }
-
-  function elysiumModel(s, a) {
-    platform(s, 3.0);
-    cylinder(s, 2.74, 2.74, 0.09, M.ground, 0, 0.55, 0, 12);
-    for (const x of [-1.25, 1.25]) {
-      cylinder(s, 0.22, 0.32, 2.2, M.light, x, 1.66, 0.9, 8);
-      box(s, 0.63, 0.18, 0.58, M.trim, x, 2.85, 0.9);
-      orb(s, 0.26, M.leafLight, x, 3.13, 0.9);
-    }
-    arch(s, 2.5, 2.78, 0.24, M.light, 0, 0.61, 0.9);
-    tree(s, 0.2, -0.9, 1.23, 1, 0.57);
-    const pondMat = material('#645b50', { metalness: 0.13, roughness: 0.3 });
-    const pool = cylinder(s, 0.83, 0.83, 0.035, pondMat, 0, 0.63, 1.7, 20); pool.scale.z = 0.53;
-    for (let i = 0; i < 8; i++) {
-      const angle = i / 8 * Math.PI * 2;
-      orb(s, 0.16, M.light, Math.cos(angle) * 0.94, 0.65, 1.7 + Math.sin(angle) * 0.52, [1.3, 0.5, 1]);
-    }
-    for (const x of [-2, 2]) {
-      box(s, 0.55, 0.34, 1.25, M.stone, x, 0.69, -0.6);
-      for (let j = 0; j < 4; j++) orb(s, 0.31, j % 2 ? M.leafLight : M.leaf, x, 1.0, -1.1 + j * 0.33);
-    }
-    for (let i = 0; i < 5; i++) {
-      const flower = orb(a, 0.08, M.beacon, Math.cos(i) * 1.5, 1.7 + i * 0.2, Math.sin(i) * 1.5);
-      animatedObjects.push({ object: flower, baseY: 1.7 + i * 0.2, amplitude: 0.19, phase: i });
-    }
-    steps(s, 1.5, 3, 0, 0.09, 2.38);
-  }
-
-  function gatesModel(s, a) {
-    platform(s, 2.85);
-    for (const x of [-1.75, 1.75]) {
-      box(s, 0.95, 0.33, 1.03, M.light, x, 0.66, 0);
-      cylinder(s, 0.35, 0.59, 3.4, M.dark, x, 2.48, 0, 4, [0, Math.PI / 4, 0]);
-      box(s, 0.66, 0.2, 0.65, M.trim, x, 3.65, 0);
-      cylinder(s, 0, 0.5, 0.8, M.trim, x, 4.56, 0, 4, [0, Math.PI / 4, 0]);
-      box(s, 0.075, 1.55, 0.1, M.beacon, x, 2.53, 0.48);
-    }
-    const gate = torus(s, 1.43, 0.22, M.stone, 0, 2.43, 0); gate.scale.y = 1.3;
-    const rimGate = torus(s, 1.18, 0.075, M.beacon, 0, 2.43, 0.08); rimGate.scale.y = 1.36;
-    const portalMaterial = new THREE.MeshBasicMaterial({ color: BRAND.vermilion, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false });
-    const portal = mesh(a, new THREE.CircleGeometry(1.18, webgl ? 32 : 18), portalMaterial, 0, 2.43, 0.02); portal.scale.y = 1.36; portal.castShadow = false;
-    const swirl = new THREE.Group(); a.add(swirl); swirl.position.set(0, 2.43, 0.11);
-    for (let i = 0; i < 3; i++) {
-      const arc = torus(swirl, 0.43 + i * 0.3, 0.018, M.beacon, 0, 0, 0, [0, 0, i * 2], Math.PI * 1.2);
-      arc.castShadow = false;
-    }
-    swirl.scale.y = 1.3;
-    spinners.push({ object: swirl, speed: 0.3, axis: 'z' });
-    cylinder(s, 0.38, 0.6, 0.2, M.trim, 0, 4.43, 0, 5);
-    const crown = mesh(a, new THREE.OctahedronGeometry(0.48), M.beacon, 0, 5.01, 0); crown.scale.y = 1.25;
-    animatedObjects.push({ object: crown, baseY: 5.01, amplitude: 0.11, phase: 1.1 });
-    steps(s, 2.0, 4, 0, 0.13, 1.65);
-    brazier(s, a, -1.85, 0.43, 1.57); brazier(s, a, 1.85, 0.43, 1.57);
   }
 
   const terrain = new THREE.Group(); scene.add(terrain);
@@ -506,6 +273,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     geometry.computeVertexNormals();
     const object = mesh(scene, geometry, new THREE.MeshStandardMaterial({ vertexColors: true, roughness, flatShading: true, side: THREE.DoubleSide }));
     object.receiveShadow = true;
+    occluders.push(object);
     // A vector renderer sorts triangles rather than using a depth buffer.
     // Ground is always behind structures, even when its triangles are large.
     if (!webgl) object.renderOrder = positions === topPositions ? -3 : -4;
@@ -525,11 +293,6 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   }) : new THREE.MeshBasicMaterial({ color: '#1c1a17' }));
   water.rotation.x = -Math.PI / 2; water.position.y = -2.25; scene.add(water);
   if (!webgl) water.renderOrder = -5;
-  for (let i = 0; i < 7; i++) {
-    const wave = torus(terrain, 1.4 + i * 0.24, 0.019, M.slateLight, 20, -2.18, 6, [-Math.PI / 2, 0, 0], Math.PI * 1.2);
-    wave.scale.x = 1.8; wave.rotation.z = 0.25;
-  }
-
   // A district route lights only after its content has been explored.
   // The neutral paving stays readable before discovery.
   const routeGroups = new Map();
@@ -577,18 +340,25 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     }
   }
 
-  // Low defensive walls, deliberately open at the entrances so buildings remain readable.
-  for (let i = 0; i < 10; i++) {
-    const x = -12.2 + i * 2.5;
-    if (Math.abs(x) < 2.4) continue;
-    box(terrain, 2.27, 0.75, 0.52, M.dark, x, 0.48, -12.65);
-    box(terrain, 2.4, 0.15, 0.63, M.stone, x, 0.92, -12.65);
-    for (let j = 0; j < 4; j++) box(terrain, 0.35, 0.33, 0.6, M.stone, x - 0.9 + j * 0.6, 1.12, -12.65);
+  // An open stoa and worn Doric columns replace the old fortified skyline.
+  for (const side of [-1, 1]) {
+    const colonnade = new THREE.Group(); terrain.add(colonnade);
+    colonnade.position.set(side * 8.8, 0, -12.65);
+    box(colonnade, 7.3, 0.24, 1.28, M.shadow, 0, 0.18, 0);
+    box(colonnade, 7.05, 0.15, 1.1, M.stone, 0, 0.37, 0);
+    for (const x of [-3, -1.5, 0, 1.5, 3]) {
+      cylinder(colonnade, 0.13, 0.19, 1.35, M.stone, x, 1.1, 0, 8);
+      cylinder(colonnade, 0.21, 0.16, 0.14, M.light, x, 1.83, 0, 8);
+      box(colonnade, 0.48, 0.12, 0.48, M.light, x, 1.96, 0);
+    }
+    box(colonnade, 6.8, 0.3, 0.58, M.stone, 0, 2.17, 0);
+    box(colonnade, 7.03, 0.12, 0.75, M.light, 0, 2.37, 0);
+    for (let x = -3; x <= 3; x += 0.75) box(colonnade, 0.13, 0.19, 0.03, M.shadow, x, 2.2, 0.31);
   }
-  for (const x of [-14.1, 14.1]) {
-    cylinder(terrain, 0.6, 0.7, 1.5, M.shadow, x, 0.85, -11.7, 8);
-    cylinder(terrain, 0.76, 0.7, 0.21, M.light, x, 1.65, -11.7, 8);
-    cylinder(terrain, 0, 0.82, 0.9, M.roof, x, 2.18, -11.7, 8);
+  for (const [x, z, h] of [[-14, 7, 1.35], [-13, 9.3, 0.8], [13, -10.4, 1.75]]) {
+    box(terrain, 0.9, 0.2, 0.9, M.shadow, x, 0.2, z);
+    cylinder(terrain, 0.24, 0.31, h, M.stone, x, 0.3 + h / 2, z, 8);
+    box(terrain, 0.65, 0.15, 0.65, M.light, x, 0.34 + h, z);
   }
 
   // Charon's jetty is anchored to the island edge; the ferry floats in the Styx below.
@@ -597,19 +367,8 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   box(terrain, 3.6, 0.09, 0.1, M.woodLight, 16.8, -0.17, 7.3, [0, 0, -0.26]);
   batch(terrain);
 
-  const ferry = new THREE.Group(); scene.add(ferry); ferry.position.set(19.3, -1.91, 8.2); ferry.rotation.y = -0.28;
-  const hullShape = new THREE.Shape();
-  hullShape.moveTo(-1.6, 0); hullShape.lineTo(-0.9, -0.49); hullShape.lineTo(0.9, -0.49); hullShape.lineTo(1.6, 0); hullShape.lineTo(0.9, 0.49); hullShape.lineTo(-0.9, 0.49); hullShape.closePath();
-  const hullGeometry = new THREE.ExtrudeGeometry(hullShape, { depth: 0.28, bevelEnabled: true, bevelSize: 0.13, bevelThickness: 0.11, bevelSegments: 1 });
-  hullGeometry.rotateX(-Math.PI / 2); mesh(ferry, hullGeometry, M.wood);
-  box(ferry, 2.4, 0.07, 0.78, M.dark, 0, 0.35, 0);
-  for (const x of [-0.75, 0.45]) box(ferry, 0.14, 0.11, 0.83, M.woodLight, x, 0.43, 0);
-  cylinder(ferry, 0.17, 0.36, 0.8, M.night, 0.6, 0.86, 0, 7);
-  orb(ferry, 0.23, M.bone, 0.6, 1.41, 0);
-  cylinder(ferry, 0.1, 0.31, 0.34, M.dark, 0.6, 1.58, -0.04, 6);
-  box(ferry, 0.055, 2.4, 0.055, M.woodLight, 0.15, 0.7, 0.47, [0, 0, -0.28]);
-  orb(ferry, 0.1, M.beacon, -1.12, 0.66, 0);
-  batch(ferry);
+  occluders.push(terrain);
+  const river = createStyxRiver({ THREE, scene, M, mesh, box, cylinder, orb, batch, webgl });
 
   const landmarkGroups = new Map(), upgradeGroups = new Map(), hitTargets = [], plotTypes = new Map();
   const hitMaterial = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false, colorWrite: false });
@@ -638,6 +397,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     const statics = new THREE.Group(), moving = new THREE.Group(); group.add(statics, moving);
     builder(statics, moving);
     batch(statics);
+    occluders.push(statics);
     const hit = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, Math.max(2, height - 1), 8), hitMaterial);
     hit.position.y = Math.max(2, height - 1) / 2; hit.userData.id = id; group.add(hit); hitTargets.push(hit);
     const upgrades = new THREE.Group(); group.add(upgrades); upgradeGroups.set(id, upgrades);
@@ -645,8 +405,8 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     landmarkGroups.set(id, entry);
     bindDistrictLighting(entry, id);
   }
-  addLandmark('citadel', citadelModel); addLandmark('forge', forgeModel); addLandmark('archive', archiveModel);
-  addLandmark('oracle', oracleModel); addLandmark('theatre', theatreModel); addLandmark('elysium', elysiumModel); addLandmark('gates', gatesModel);
+  addLandmark('citadel', greek.citadel); addLandmark('forge', greek.forge); addLandmark('archive', greek.archive);
+  addLandmark('oracle', greek.oracle); addLandmark('theatre', greek.theatre); addLandmark('elysium', greek.elysium); addLandmark('gates', greek.gates);
 
   function plotModel(s, _moving) {
     cylinder(s, 1.45, 1.58, 0.18, M.shadow, 0, 0.15, 0, 8);
@@ -665,34 +425,6 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     group.traverse((object) => { if (object.geometry) object.geometry.dispose(); });
     group.clear();
   }
-  function builtModel(type, s) {
-    if (type === 'lantern') {
-      cylinder(s, 1.18, 1.32, 0.2, M.stone, 0, 0.38, 0, 8);
-      cylinder(s, 0.24, 0.4, 1.8, M.dark, 0, 1.33, 0, 6);
-      cylinder(s, 0.52, 0.32, 0.23, M.trim, 0, 2.33, 0, 6);
-      orb(s, 0.42, M.beacon, 0, 2.86, 0, [0.8, 1.25, 0.8]);
-      for (let i = 0; i < 4; i++) cylinder(s, 0.035, 0.035, 1.0, M.trim, Math.cos(i * Math.PI / 2) * 0.42, 2.87, Math.sin(i * Math.PI / 2) * 0.42, 4);
-      cylinder(s, 0, 0.66, 0.45, M.slate, 0, 3.53, 0, 6);
-      orb(s, 0.09, M.trim, 0, 3.83, 0);
-    } else if (type === 'garden') {
-      cylinder(s, 1.23, 1.32, 0.21, M.light, 0, 0.39, 0, 8);
-      cylinder(s, 1.14, 1.14, 0.06, M.ground, 0, 0.53, 0, 8);
-      tree(s, -0.1, -0.18, 0.85, 1, 0.55);
-      for (let i = 0; i < 6; i++) {
-        const a = i / 6 * Math.PI * 2;
-        orb(s, 0.18, M.crystal, Math.cos(a), 0.75, Math.sin(a));
-      }
-    } else if (type === 'watchtower') {
-      box(s, 1.6, 0.28, 1.6, M.light, 0, 0.43, 0);
-      box(s, 1.12, 2.2, 1.12, M.shadow, 0, 1.61, 0);
-      for (const x of [-0.63, 0.63]) for (const z of [-0.63, 0.63]) box(s, 0.17, 2.2, 0.17, M.light, x, 1.64, z);
-      box(s, 1.67, 0.23, 1.67, M.trim, 0, 2.84, 0);
-      box(s, 1.48, 0.85, 1.48, M.dark, 0, 3.33, 0);
-      for (const x of [-0.55, 0.55]) box(s, 0.13, 0.92, 0.14, M.light, x, 3.32, 0.77);
-      roof(s, 2.0, 1.95, 0.73, M.roof, 0, 3.81, 0);
-      windowFront(s, 0, 1.9, 0.58, 0.32, 0.7);
-    }
-  }
   function setBuilt(plots = {}) {
     let changed = false;
     for (const id of ['plot-a', 'plot-b', 'plot-c']) {
@@ -704,7 +436,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
       plotTypes.set(id, safeType);
       const landmark = landmarkGroups.get(id);
       disposeGroup(landmark.statics);
-      if (safeType) { builtModel(safeType, landmark.statics); landmark.height = safeType === 'watchtower' ? 5.2 : 4.3; }
+      if (safeType) { greek.waystation(safeType, landmark.statics); landmark.height = safeType === 'watchtower' ? 5.2 : 4.3; }
       else { plotModel(landmark.statics); landmark.height = 1.3; }
       batch(landmark.statics);
       bindDistrictLighting(landmark, id);
@@ -772,16 +504,8 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
   const smoke = new THREE.Points(smokeGeometry, smokeMaterial); smoke.frustumCulled = false; scene.add(smoke);
   smoke.visible = webgl;
 
-  const spiritMaterial = material(BRAND.warmInk, { emissive: BRAND.bone, emissiveIntensity: 0.35 });
-  for (let i = 0; i < 13; i++) {
-    const spirit = new THREE.Group(); scene.add(spirit);
-    orb(spirit, 0.19, spiritMaterial, 0, 0.32, 0, [0.9, 1.08, 0.9]);
-    cylinder(spirit, 0.16, 0.06, 0.28, spiritMaterial, 0, 0.08, 0, 7);
-    orb(spirit, 0.025, M.eye, -0.065, 0.35, 0.16); orb(spirit, 0.025, M.eye, 0.065, 0.35, 0.16);
-    const target = Object.values(LOCATIONS)[1 + i % 6];
-    const phase = rng();
-    wisps.push({ object: spirit, x: target[0], z: target[1], phase, speed: 0.025 + rng() * 0.015 });
-  }
+  const motionRoots = [...river.motionRoots, ...[...landmarkGroups.values()].map((entry) => entry.moving).filter((group) => group.children.length)];
+  if (!webgl) vectorMotion = createVectorMotionLayer({ scene, camera, canvas, roots: motionRoots, occluders });
 
   const selectedMaterial = new THREE.MeshBasicMaterial({ color: BRAND.vermilion, transparent: true, opacity: 0.88, depthWrite: false, side: THREE.DoubleSide });
   const hoverMaterial = new THREE.MeshBasicMaterial({ color: BRAND.warmInk, transparent: true, opacity: 0.52, depthWrite: false, side: THREE.DoubleSide });
@@ -833,6 +557,28 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
       projection.set(worldPosition.x, entry.height, worldPosition.z).project(camera);
       labels.push({ id, x: (projection.x * 0.5 + 0.5) * width, y: (-projection.y * 0.5 + 0.5) * height, visible: projection.z > -1 && projection.z < 1 && Math.abs(projection.x) < 1.08 && Math.abs(projection.y) < 1.08 });
     }
+    // Icon-sized touch targets get a little breathing room on narrow stages.
+    // Keep the six destinations and journey entrance closest to their anchors;
+    // move secondary waystation labels only when another target would cover them.
+    if (mobile.matches) {
+      const placed = [];
+      const offsets = [[0, 0]];
+      for (const distance of [24, 44, 64]) for (const [x, y] of [[0, -1], [1, 0], [-1, 0], [0, 1], [1, -1], [-1, -1], [1, 1], [-1, 1]]) offsets.push([x * distance, y * distance]);
+      for (const label of labels) {
+        if (!label.visible) continue;
+        for (const [dx, dy] of offsets) {
+          const x = label.x + dx, y = label.y + dy;
+          if (x < 23 || x > width - 23 || y < 23 || y > height - 23) continue;
+          if (placed.some((other) => Math.abs(x - other.x) < 44 && Math.abs(y - other.y) < 44)) continue;
+          label.x = x; label.y = y; break;
+        }
+        placed.push(label);
+      }
+    }
+    if (river.riverLabelPosition) {
+      projection.fromArray(river.riverLabelPosition).project(camera);
+      labels.push({ id: 'river-styx', x: (projection.x * 0.5 + 0.5) * width, y: (-projection.y * 0.5 + 0.5) * height, visible: projection.z > -1 && projection.z < 1 && Math.abs(projection.x) < 0.94 && Math.abs(projection.y) < 0.95 });
+    }
     onLabels(labels);
   }
   function setDefaultPose() {
@@ -848,7 +594,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     const nextMode = !mobile.matches ? 'desktop' : aspect > 1.1 ? 'compact' : 'mobile';
     // A tall mobile stage shows more of the ground plane; the short view above
     // a reading sheet uses the lower angle and fits the full island vertically.
-    const vertical = Math.max(nextMode === 'compact' ? 28.5 : nextMode === 'mobile' ? 32 : 38, 43 / aspect);
+    const vertical = Math.max(nextMode === 'compact' ? 35 : nextMode === 'mobile' ? 38 : 42, 54 / aspect);
     camera.left = -vertical * aspect / 2; camera.right = vertical * aspect / 2; camera.top = vertical / 2; camera.bottom = -vertical / 2;
     if (nextMode !== framingMode) {
       framingMode = nextMode;
@@ -857,6 +603,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     }
     camera.updateProjectionMatrix();
     renderer.setSize(width, height, false);
+    vectorMotion?.setSize(width, height);
     if (fallbackElement) {
       fallbackElement.style.width = `${width}px`;
       fallbackElement.style.height = `${height}px`;
@@ -935,34 +682,16 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
       webgl, renderer: webgl ? 'webgl' : 'svg', revision: THREE.REVISION,
       drawCalls: webgl ? renderer.info.render.calls : fallbackElement.childElementCount,
       triangles: webgl ? renderer.info.render.triangles : renderer.info.render.faces,
-      renderMilliseconds: Math.round(renderMilliseconds), staticPose: !webgl,
+      renderMilliseconds: Math.round(renderMilliseconds), staticPose: !motionActive(),
+      motion: motionActive(), souls: 12, vectorMotion: vectorMotion?.getInfo(),
       buildings: landmarkGroups.size, exploredCount: exploredIds.size, theme, framingMode, reducedMotion: reducedMotion.matches,
     };
   }
 
-  const clockStart = performance.now();
   let lastLabelFrame = 0;
-  function animate(now) {
-    frame = 0;
-    if (destroyed || paused || document.hidden) return;
-    updatingFrame = true;
-    controls.update();
-    const clampedX = THREE.MathUtils.clamp(controls.target.x, -13, 13);
-    const clampedZ = THREE.MathUtils.clamp(controls.target.z, -13, 13);
-    camera.position.x += clampedX - controls.target.x;
-    camera.position.z += clampedZ - controls.target.z;
-    controls.target.x = clampedX;
-    controls.target.z = clampedZ;
-    controls.target.y = 0.2;
-    camera.lookAt(controls.target);
-    if (!webgl && !dirty) { updatingFrame = false; return; }
-    // A full vector projection is only needed after an actual scene change.
-    // Coalesce rapid pointer events, with no idle animation/render loop.
-    if (!webgl && now - lastSvgRender < 80) {
-      updatingFrame = false; frame = requestAnimationFrame(animate); return;
-    }
-    const time = !webgl || reducedMotion.matches ? 1.5 : (now - clockStart) / 1000;
+  function updateMotion(time) {
     waterUniforms.time.value = time;
+    river.update(time);
     for (const { banner, origin, phase } of flags) {
       const attribute = banner.geometry.attributes.position;
       for (let i = 0; i < attribute.count; i++) attribute.setZ(i, Math.sin(time * 2.6 + origin[i * 3] * 5.1 + phase) * 0.12 * origin[i * 3]);
@@ -976,43 +705,85 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     }
     for (const { object, speed, axis = 'y' } of spinners) object.rotation[axis] = time * speed;
     for (const { object, baseY, amplitude, phase } of animatedObjects) object.position.y = baseY + Math.sin(time * 1.8 + phase) * amplitude;
-    ferry.position.y = -1.91 + Math.sin(time * 1.1) * 0.07; ferry.rotation.z = Math.sin(time * 0.9) * 0.035;
     for (let i = 0; i < smokeCount; i++) {
       const age = ((time * 0.22 + i / smokeCount) % 1);
       smokePosition[i * 3] = -9.03 + Math.sin(age * 5 + i * 2) * 0.2 + age * 0.8;
-      smokePosition[i * 3 + 1] = 4.95 + age * 3.1;
+      smokePosition[i * 3 + 1] = 4.0 + age * 3.1;
       smokePosition[i * 3 + 2] = 3.36 + Math.cos(age * 6 + i) * 0.18;
       smokeAlpha[i] = (1 - age) * 0.75;
     }
     smokeGeometry.attributes.position.needsUpdate = true; smokeGeometry.attributes.opacity.needsUpdate = true;
-    for (const { object, x, z, phase, speed } of wisps) {
-      const f = (time * speed + phase) % 1;
-      const amount = 0.18 + (0.5 - Math.cos(f * Math.PI * 2) * 0.5) * 0.62;
-      object.position.set(x * amount + Math.sin(f * Math.PI) * 0.3, 0.46 + Math.sin(time * 2.9 + phase * 9) * 0.1, z * amount);
-      object.rotation.y = Math.atan2(x, z) + (f > 0.5 ? Math.PI : 0);
-    }
     if (selectedRing.visible) selectedMaterial.opacity = 0.72 + Math.sin(time * 2) * 0.12;
-    dirty = false;
+  }
+  function animate(now) {
+    frame = 0;
+    if (destroyed || paused || document.hidden) return;
+    updatingFrame = true;
+    controls.update();
+    const clampedX = THREE.MathUtils.clamp(controls.target.x, -13, 13);
+    const clampedZ = THREE.MathUtils.clamp(controls.target.z, -13, 13);
+    camera.position.x += clampedX - controls.target.x;
+    camera.position.z += clampedZ - controls.target.z;
+    controls.target.x = clampedX; controls.target.z = clampedZ; controls.target.y = 0.2;
+    camera.lookAt(controls.target);
+    const moving = motionActive();
+    const staticDue = dirty || !ready;
+    // Reproject the full city only when its view/state changes. The small native
+    // motion scene animates independently, using the very same camera snapshot.
+    if (!webgl && ((staticDue && now - lastSvgRender < 80) || (!staticDue && moving && now - lastMotionRender < 1000 / 15))) {
+      updatingFrame = false; frame = requestAnimationFrame(animate); return;
+    }
+    if (!staticDue && !moving) { updatingFrame = false; lastMotionTick = null; return; }
+    if (moving && lastMotionTick !== null) motionTime += Math.min(0.15, Math.max(0, (now - lastMotionTick) / 1000));
+    lastMotionTick = moving ? now : null;
+    updateMotion(motionTime);
     const renderStart = performance.now();
     try {
-      renderer.render(scene, camera);
+      if (webgl) renderer.render(scene, camera);
+      else {
+        if (staticDue) {
+          const visibility = motionRoots.map((root) => root.visible);
+          motionRoots.forEach((root) => { root.visible = false; });
+          try { renderer.render(scene, camera); }
+          finally { motionRoots.forEach((root, index) => { root.visible = visibility[index]; }); }
+          lastSvgRender = now;
+        }
+        vectorMotion.render();
+      }
     } catch (error) {
       updatingFrame = false; paused = true; onError?.(error); return;
     }
     renderMilliseconds = performance.now() - renderStart;
-    if (!webgl) lastSvgRender = now;
-    if (!webgl || now - lastLabelFrame > 40 || !ready) { emitLabels(); lastLabelFrame = now; }
+    lastMotionRender = now; dirty = false;
+    if (staticDue || (webgl && now - lastLabelFrame > 80) || !ready) { emitLabels(); lastLabelFrame = now; }
     if (!ready) { ready = true; onReady?.(getInfo()); }
     updatingFrame = false;
-    if (webgl || dirty) frame = requestAnimationFrame(animate);
+    if (moving || dirty) frame = requestAnimationFrame(animate);
   }
   function start() { if (!destroyed && !paused && !document.hidden && !frame) frame = requestAnimationFrame(animate); }
-  function setPaused(value) { paused = Boolean(value); if (paused && frame) { cancelAnimationFrame(frame); frame = 0; } else start(); }
-  function visibilityChange() { if (document.hidden) { if (frame) cancelAnimationFrame(frame); frame = 0; } else start(); }
+  function setPaused(value) {
+    paused = Boolean(value); lastMotionTick = null;
+    if (paused && frame) { cancelAnimationFrame(frame); frame = 0; } else start();
+  }
+  function refreshMotion() {
+    const enabled = motionActive();
+    controls.enableDamping = webgl && enabled;
+    lastMotionTick = null;
+    canvas.dataset.motion = enabled ? 'playing' : 'paused';
+    onMotionChange?.(enabled);
+    invalidate();
+  }
+  function setMotion(value) { motionOverride = typeof value === 'boolean' ? value : null; refreshMotion(); }
+  function visibilityChange() {
+    lastMotionTick = null;
+    if (document.hidden) { if (frame) cancelAnimationFrame(frame); frame = 0; } else start();
+  }
+  reducedMotion.addEventListener('change', refreshMotion);
   document.addEventListener('visibilitychange', visibilityChange);
   function contextLost(event) { event.preventDefault(); setPaused(true); onError?.(new Error('The 3D graphics context was interrupted. Reload to return to the village; all portals remain available.')); }
   if (webgl) canvas.addEventListener('webglcontextlost', contextLost);
   initialized = true;
+  refreshMotion();
   start();
 
   function destroy() {
@@ -1020,6 +791,8 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     controls.removeEventListener('change', invalidate);
     controls.dispose(); resizeObserver.disconnect();
     document.removeEventListener('visibilitychange', visibilityChange);
+    reducedMotion.removeEventListener('change', refreshMotion);
+    vectorMotion?.destroy();
     canvas.removeEventListener('webglcontextlost', contextLost);
     canvas.removeEventListener('pointerdown', pointerDown); canvas.removeEventListener('pointermove', pointerMove); canvas.removeEventListener('pointerup', pointerUp);
     canvas.removeEventListener('pointercancel', pointerCancel); canvas.removeEventListener('pointerleave', pointerLeave);
@@ -1033,6 +806,7 @@ export function createRealmScene({ canvas, onSelect, onHover, onReady, onError, 
     renderer.dispose?.();
     fallbackElement?.remove();
     delete canvas.dataset.renderer;
+    delete canvas.dataset.motion;
   }
-  return { select, setLevels, setExplored, setBuilt, setTheme, zoom, resetCamera, setPaused, destroy, getInfo };
+  return { select, setLevels, setExplored, setBuilt, setTheme, zoom, resetCamera, setPaused, setMotion, destroy, getInfo };
 }
