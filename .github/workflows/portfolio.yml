@@ -6,6 +6,8 @@ on:
       - "site/**"
       - "garden/**"
       - "realm/**"
+      - "realm"
+      - ".gitmodules"
       - ".github/workflows/portfolio.yml"
   workflow_dispatch:
 
@@ -24,6 +26,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:

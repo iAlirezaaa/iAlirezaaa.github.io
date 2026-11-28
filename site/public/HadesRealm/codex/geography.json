@@ -1,0 +1,1294 @@
+{
+  "schemaVersion": 1,
+  "scope": "A source-aware location catalogue for HadesRealm; connections are project navigation proposals, not an asserted canonical ancient map.",
+  "researchedAt": "2026-11-28",
+  "sources": [
+    {
+      "id": "geo-odyssey10",
+      "title": "Odyssey 10: the landfall and river confluence",
+      "author": "Homer",
+      "work": "Odyssey",
+      "passage": "10.508–540",
+      "url": "https://beta.perseus.tufts.edu/urn%3Acts%3AgreekLit%3Atlg0012.tlg002.butlernagy2020-eng2/book%3A10/",
+      "tradition": "Homeric"
+    },
+    {
+      "id": "geo-odyssey11",
+      "title": "Odyssey 11: the dead, Minos, Asphodel and punishments",
+      "author": "Homer",
+      "work": "Odyssey",
+      "passage": "11.13–22; 11.539–600",
+      "url": "https://www.theoi.com/Text/HomerOdyssey11.html",
+      "tradition": "Homeric"
+    },
+    {
+      "id": "geo-odyssey24",
+      "title": "Odyssey 24: Hermes guides the dead",
+      "author": "Homer",
+      "work": "Odyssey",
+      "passage": "24.1–18",
+      "url": "https://ftp.theoi.com/Text/HomerOdyssey24.html",
+      "tradition": "Homeric"
+    },
+    {
+      "id": "geo-odyssey4",
+      "title": "Odyssey 4: Elysium at the limits of the earth",
+      "author": "Homer",
+      "work": "Odyssey",
+      "passage": "4.561–569",
+      "url": "https://www.theoi.com/Text/HomerOdyssey4.html",
+      "tradition": "Homeric"
+    },
+    {
+      "id": "geo-iliad8",
+      "title": "Iliad 8: Tartarus below Hades",
+      "author": "Homer",
+      "work": "Iliad",
+      "passage": "8.13–16",
+      "url": "https://www.theoi.com/Text/HomerIliad8.html",
+      "tradition": "Homeric"
+    },
+    {
+      "id": "geo-iliad23",
+      "title": "Iliad 23: Patroclus asks for burial",
+      "author": "Homer",
+      "work": "Iliad",
+      "passage": "23.65–76",
+      "url": "https://ftp.theoi.com/Text/HomerIliad23.html",
+      "tradition": "Homeric"
+    },
+    {
+      "id": "geo-theogony",
+      "title": "Theogony: Tartarus, Night, the gate hound and Styx",
+      "author": "Hesiod",
+      "work": "Theogony",
+      "passage": "116–125; 713–819",
+      "url": "https://chs.harvard.edu/primary-source/hesiod-theogony-sb/",
+      "tradition": "Hesiodic"
+    },
+    {
+      "id": "geo-works-days",
+      "title": "Works and Days: the Islands of the Blessed",
+      "author": "Hesiod",
+      "work": "Works and Days",
+      "passage": "167–173",
+      "url": "https://chs.harvard.edu/primary-source/hesiod-works-and-days-sb/",
+      "tradition": "Hesiodic"
+    },
+    {
+      "id": "geo-gorgias",
+      "title": "Gorgias: the three judges and the crossroads",
+      "author": "Plato",
+      "work": "Gorgias",
+      "passage": "523a–524a; 525a–526c",
+      "url": "https://adfonteslibrary.org/work-plato-gorgias",
+      "tradition": "Platonic"
+    },
+    {
+      "id": "geo-phaedo",
+      "title": "Phaedo: rivers, the Acherusian lake and differentiated afterlives",
+      "author": "Plato",
+      "work": "Phaedo",
+      "passage": "107d–108c; 111c–114c",
+      "url": "https://chs.harvard.edu/primary-source/plato-phaedo-sb/",
+      "tradition": "Platonic"
+    },
+    {
+      "id": "geo-republic",
+      "title": "Republic 10: the plain of oblivion and return to life",
+      "author": "Plato",
+      "work": "Republic",
+      "passage": "614b–621d, especially 621a–b",
+      "url": "https://adfonteslibrary.org/work-plato-republic",
+      "tradition": "Platonic"
+    },
+    {
+      "id": "geo-hymn-demeter",
+      "title": "Homeric Hymn to Demeter: Persephone, the pomegranate and Hecate",
+      "author": "Anonymous",
+      "work": "Homeric Hymn to Demeter",
+      "passage": "334–385; 405–440; 445–447",
+      "url": "https://chs.harvard.edu/primary-source/homeric-hymn-to-demeter-sb/",
+      "tradition": "Homeric hymn"
+    },
+    {
+      "id": "geo-apollodorus2",
+      "title": "Library 2: Heracles descends at Taenarum and meets Cerberus",
+      "author": "Pseudo-Apollodorus",
+      "work": "Library",
+      "passage": "2.5.12",
+      "url": "https://www.theoi.com/Text/Apollodorus2.html",
+      "tradition": "Greek mythographic"
+    },
+    {
+      "id": "geo-apollodorus1",
+      "title": "Library 1: the pomegranate and Ascalaphus",
+      "author": "Pseudo-Apollodorus",
+      "work": "Library",
+      "passage": "1.5.3",
+      "url": "https://www.alpheios.net/alpheios-texts/Perseus.text.1999.01.0021/book1_card1.5.3.html",
+      "tradition": "Greek mythographic"
+    },
+    {
+      "id": "geo-pausanias3",
+      "title": "Description of Greece: Taenarum and a skeptical account of its cave",
+      "author": "Pausanias",
+      "work": "Description of Greece",
+      "passage": "3.25.4–6",
+      "url": "https://www.theoi.com/Text/Pausanias3B.html",
+      "tradition": "Greek regional testimony"
+    },
+    {
+      "id": "geo-pausanias10",
+      "title": "Description of Greece: Polygnotus's underworld painting",
+      "author": "Pausanias",
+      "work": "Description of Greece",
+      "passage": "10.28.1–4; 10.31.9–12",
+      "url": "https://www.theoi.com/Text/Pausanias10B.html",
+      "tradition": "Greek reception / painting described in an ancient source"
+    },
+    {
+      "id": "geo-getty-tablet",
+      "title": "Lamella Orphica / Tablet Inscribed with Instructions for the Underworld",
+      "author": "Ancient inscribed object; J. Paul Getty Museum collection record",
+      "work": "Gold tablet, 75.AM.19",
+      "passage": "Inscription; translation credited to Roy Kotansky (2017)",
+      "url": "https://www.getty.edu/art/collection/object/103QSS",
+      "tradition": "Mystery / so-called Orphic gold tablets"
+    },
+    {
+      "id": "geo-getty-variants",
+      "title": "Golden Tickets to the Underworld",
+      "author": "J. Paul Getty Museum",
+      "work": "Museum presentation of the Petelia and Getty gold tablets",
+      "passage": "Take the Right Path",
+      "url": "https://www.getty.edu/news/golden-tickets-to-the-underworld/",
+      "tradition": "Museum evidence and explanation of inscription variants"
+    },
+    {
+      "id": "geo-petelia",
+      "title": "The Orphic Gold Tablets and Greek Religion: Petelia inscription excerpt",
+      "author": "Radcliffe G. Edmonds III, ed.",
+      "work": "The Orphic Gold Tablets and Greek Religion",
+      "passage": "Opening Petelia tablet transcription/translation",
+      "url": "https://assets.cambridge.org/97805215/18314/excerpt/9780521518314_excerpt.htm",
+      "tradition": "Mystery inscription / scholarly edition"
+    },
+    {
+      "id": "geo-aeneid6",
+      "title": "Aeneid 6: Avernus, Charon, Mourning Fields, Tartarus, Elysium and Lethe",
+      "author": "Virgil",
+      "work": "Aeneid",
+      "passage": "237–263; 295–330; 417–476; 535–751",
+      "url": "https://www.theoi.com/Text/VirgilAeneid6.html",
+      "tradition": "Roman literary reception"
+    },
+    {
+      "id": "geo-aeneid-burial",
+      "title": "Aeneid VI 295–336: Latin text and commentary",
+      "author": "Virgil; Dickinson College Commentaries",
+      "work": "Aeneid",
+      "passage": "6.295–336",
+      "url": "https://dcc.dickinson.edu/vergil-aeneid/vergil-aeneid-vi-295-336",
+      "tradition": "Roman literary reception"
+    },
+    {
+      "id": "geo-ovid10",
+      "title": "Metamorphoses 10: Orpheus before the rulers of the underworld",
+      "author": "Ovid",
+      "work": "Metamorphoses",
+      "passage": "10.11–48",
+      "url": "https://www.theoi.com/Text/OvidMetamorphoses10.html",
+      "tradition": "Roman literary reception"
+    },
+    {
+      "id": "geo-ixion",
+      "title": "Library Epitome: Ixion's wheel",
+      "author": "Pseudo-Apollodorus",
+      "work": "Library Epitome",
+      "passage": "E.1.20",
+      "url": "https://ftp.theoi.com/Text/ApollodorusE.html",
+      "tradition": "Greek mythographic"
+    }
+  ],
+  "regions": [
+    {
+      "id": "threshold",
+      "title": {
+        "fa": "آستانهٔ جهان زیرین",
+        "en": "Threshold of the Underworld"
+      },
+      "summary": {
+        "fa": "مرز میان جهان زندگان و راه‌های مردگان؛ در روایت‌های مختلف، صورت و جای متفاوتی دارد.",
+        "en": "The boundary between the living world and the paths of the dead."
+      },
+      "descriptionFa": "منابع از دروازه‌ها و مسیرهای ورود سخن می‌گویند، اما یک ورودی یگانه با نشانی ثابت عرضه نمی‌کنند. آستانهٔ اصلیِ پروژه، جمع‌بندی این مضمون است؛ ورودی تاریخی یا بنایی با نقشهٔ کشف‌شده نیست.",
+      "tradition": "Greek sources; project synthesis",
+      "statusNote": "مضمون باستانی؛ شکل و اتصال واحد در نقشه، طراحی پروژه است.",
+      "inhabitants": [
+        "هرمسِ راهنمای روان‌ها",
+        "روان‌های تازه‌رسیده"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: بریدگی بزرگ در سنگ، سقف کوتاه در بخش نخست، سپس گشایش ناگهانی به چشم‌انداز رود. نور پشت سر بازدیدکننده باقی بماند و یک خط روشن روی کف، جهت سفر را قابل خواندن کند. بنای ورودی باید از دور نیز با سیلوئت نامتقارن صخره و دو جرز سنگی شناخته شود.",
+      "connections": [
+        "taenarum",
+        "oceanus",
+        "acheron",
+        "cerberus-gate"
+      ],
+      "sources": [
+        {
+          "id": "geo-iliad23",
+          "passage": "23.65–76"
+        },
+        {
+          "id": "geo-apollodorus2",
+          "passage": "2.5.12"
+        },
+        {
+          "id": "geo-odyssey24",
+          "passage": "24.1–18"
+        }
+      ],
+      "designNoteFa": "این مدخل می‌تواند آموزش حرکت، انتخاب مقصد و بازگشت را در خود جای دهد؛ عبور نباید به خرید سکه یا انجام مأموریتی بی‌ارتباط با کار سایت وابسته شود.",
+      "kind": "project-synthesis",
+      "aliases": []
+    },
+    {
+      "id": "taenarum",
+      "title": {
+        "fa": "غار تاینارون",
+        "en": "Taenarum Cave"
+      },
+      "summary": {
+        "fa": "یکی از ورودی‌های محلیِ مشهور در روایت نزول هراکلس.",
+        "en": "A regional entrance associated with Heracles' descent."
+      },
+      "descriptionFa": "پسودوآپولودوروس نزول هراکلس را از تاینارونِ لاکونیا روایت می‌کند. پاوسانیاس همان مکان را توصیف می‌کند، اما نسبت به وجود راهی واقعی به زیرزمین تردید نشان می‌دهد. این اختلاف، بخشی از سابقهٔ خود روایت است.",
+      "tradition": "Greek mythographic and regional",
+      "statusNote": "ورودی محلی در جهان زندگان؛ ورودی انحصاری همهٔ روایت‌ها نیست.",
+      "inhabitants": [
+        "هراکلس در روایت نزول",
+        "پوزئیدون در توصیف محل"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: ساحل سنگی، دهانهٔ باریک و نشانه‌ای کوچک از پرستشگاه ساحلی. فضای بیرونی را با نور کم‌رنگ و سطحی متفاوت از سنگ‌های درونی مشخص کن تا تغییر جهان محسوس باشد.",
+      "connections": [
+        "threshold"
+      ],
+      "sources": [
+        {
+          "id": "geo-apollodorus2",
+          "passage": "2.5.12"
+        },
+        {
+          "id": "geo-pausanias3",
+          "passage": "3.25.4–6"
+        }
+      ],
+      "designNoteFa": "برای معرفی راه‌های متفاوت ورود، این غار را به‌صورت یک ورودی فرعیِ دارای توضیح تاریخی نمایش بده؛ موقعیت آن در نقشهٔ سه‌بعدی با جغرافیای واقعی یونان یکی نیست.",
+      "kind": "regional-entrance",
+      "aliases": [
+        "Taenarum",
+        "Tainaron"
+      ]
+    },
+    {
+      "id": "oceanus",
+      "title": {
+        "fa": "مرز اوکئانوس",
+        "en": "Oceanus Boundary"
+      },
+      "summary": {
+        "fa": "آبراه کیهانیِ مرز جهان در مسیر سفر هومری.",
+        "en": "The cosmic water boundary in Homer's journey."
+      },
+      "descriptionFa": "در دستور کرکه، اودیسئوس از جریان اوکئانوس می‌گذرد تا به ساحلِ نزدیک بیشهٔ پرسفونه برسد. این مرزِ هومری با یک رود معمولی درون شهر هم‌مقیاس نیست.",
+      "tradition": "Homeric",
+      "statusNote": "مرز کیهانی؛ جایگاه آن با مدل‌های افلاطونی یکسان نیست.",
+      "inhabitants": [
+        "اودیسئوس و همراهان در سفر",
+        "روان‌هایی که هرمس راهنمایی می‌کند"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: پهنه‌ای تیره که لبهٔ آن در مه ناپدید می‌شود، چند خط جریان پهن و افقِ فاقد ساحل مقابل. اندازهٔ آن را با کم‌کردن جزئیات و حذفِ مقیاس‌های انسانی نشان بده.",
+      "connections": [
+        "threshold",
+        "persephone-garden",
+        "dream-gates"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey10",
+          "passage": "10.508–515"
+        },
+        {
+          "id": "geo-odyssey24",
+          "passage": "24.10–14"
+        }
+      ],
+      "designNoteFa": "قرارگرفتن اوکئانوس در حاشیهٔ نقشه، تمهید بصری است؛ آن را یکی از پنج رود هم‌اندازهٔ داخل هادس معرفی نکن.",
+      "kind": "cosmic-boundary",
+      "aliases": [
+        "Okeanos",
+        "Ocean"
+      ]
+    },
+    {
+      "id": "dream-gates",
+      "title": {
+        "fa": "سنگ سپید و دروازه‌های خورشید",
+        "en": "White Rock and Gates of the Sun"
+      },
+      "summary": {
+        "fa": "نشانه‌های مرزیِ راهی که هرمس در اودیسه می‌پیماید.",
+        "en": "Boundary landmarks along Hermes' route in the Odyssey."
+      },
+      "descriptionFa": "اودیسهٔ ۲۴ از سنگ سپید، دروازه‌های خورشید و سرزمین خواب‌ها در مسیر روان‌ها به دشت آسفودل نام می‌برد. متن، نقشهٔ معماری این نشانه‌ها را شرح نمی‌دهد.",
+      "tradition": "Homeric",
+      "statusNote": "سه نشانهٔ متمایز در یک مدخلِ نمایشی گرد آمده‌اند.",
+      "inhabitants": [
+        "هرمس",
+        "روان‌های همراه او"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: یک سنگ عمودیِ استخوانی، شکافی نورانی و پس از آن صفحه‌هایی از مه که آرام جابه‌جا می‌شوند. نور گذرگاه هرگز به فلش تند یا چشمک‌زدن پیوسته تبدیل نشود.",
+      "connections": [
+        "oceanus",
+        "asphodel",
+        "night-house"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey24",
+          "passage": "24.10–14"
+        }
+      ],
+      "designNoteFa": "نام کامل سه نشانه در دانشنامه حفظ شود، حتی اگر برای خوانایی نقشه یک مجموعهٔ فشرده ساخته شود. این مکان با دروازه‌های شاخ و عاجِ خواب در اودیسهٔ ۱۹ یکی گرفته نشود.",
+      "kind": "composite-landmark",
+      "aliases": [
+        "White Rock",
+        "Leukas Petra",
+        "Gates of the Sun",
+        "Land of Dreams"
+      ]
+    },
+    {
+      "id": "acheron",
+      "title": {
+        "fa": "رود آکرون",
+        "en": "Acheron"
+      },
+      "summary": {
+        "fa": "رودِ عبور و یکی از کانون‌های جغرافیای جهان زیرین.",
+        "en": "A major underworld river and crossing landscape."
+      },
+      "descriptionFa": "در اودیسهٔ ۱۰، پیریفِلگِتون و کوکیتوس به آکرون می‌ریزند. در توصیف نقاشیِ پولیگنوتوس نزد پاوسانیاس، قایق خارون روی آبی قرار دارد که آکرون دانسته می‌شود.",
+      "tradition": "Homeric; Greek visual testimony",
+      "statusNote": "رود اصلی در چند روایت؛ مسیر دقیق و نسبت آن با استیکس متغیر است.",
+      "inhabitants": [
+        "خارون در روایت تصویری",
+        "روان‌های منتظر عبور"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: بستری پهن و کم‌ارتفاع با کرانه‌های شکسته، نی‌های کم‌تعداد و اسکله‌ای واضح. برای جریان، خط‌های کشیده و جابه‌جایی آرام بازتاب‌ها کافی است؛ سطح رود نباید شبیه مسیر مسابقه با نوارهای متحدالمرکز شود.",
+      "connections": [
+        "charon-dock",
+        "unburied-shore",
+        "cocytus",
+        "phlegethon",
+        "acherousia",
+        "cerberus-gate"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey10",
+          "passage": "10.513–515"
+        },
+        {
+          "id": "geo-pausanias10",
+          "passage": "10.28.1–2"
+        }
+      ],
+      "designNoteFa": "در نسخهٔ پایه، گذرگاه قایق به آکرون اختصاص یابد. اگر تورِ «روایت رومی» فعال شد، متن کارت می‌تواند تفاوت نام‌گذاری آب‌ها در آن روایت را توضیح دهد.",
+      "kind": "mythic-region",
+      "aliases": []
+    },
+    {
+      "id": "charon-dock",
+      "title": {
+        "fa": "گذرگاه خارون",
+        "en": "Charon's Crossing"
+      },
+      "summary": {
+        "fa": "مکان انتظار، سوارشدن و گذشتن از آب.",
+        "en": "A place of waiting, boarding and passage across the water."
+      },
+      "descriptionFa": "پاوسانیاس خارون را در قایق و بر آکرون توصیف می‌کند. «اسکله» به معنای سازهٔ مشخصی که در بازی می‌بینیم، تعبیر اجرایی پروژه از این عبور است.",
+      "tradition": "Greek visual testimony; project staging",
+      "statusNote": "کنش و شخصیت مستندند؛ سازهٔ اسکله بازسازی طراحی است.",
+      "inhabitants": [
+        "خارون",
+        "روان‌های در حال عبور"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: قایقی باریک با بدنهٔ فرسوده، یک پارو یا تیرک بلند، سکوی سنگی کوتاه و طناب مهار. مکث کوتاه قایق در کنار ساحل، سپس فاصله‌گرفتنش، حرکت را قابل فهم‌تر از چرخش بی‌وقفه می‌کند.",
+      "connections": [
+        "acheron",
+        "unburied-shore",
+        "cerberus-gate"
+      ],
+      "sources": [
+        {
+          "id": "geo-pausanias10",
+          "passage": "10.28.1–2"
+        }
+      ],
+      "designNoteFa": "حرکت قایق می‌تواند بازدیدکننده را به فصل بعدی ببرد، ولی همهٔ مقصدها باید از فهرست نیز در دسترس بمانند. انتظار نمایشی نباید به تایمر اجباری تبدیل شود.",
+      "kind": "project-landmark",
+      "aliases": []
+    },
+    {
+      "id": "unburied-shore",
+      "title": {
+        "fa": "کرانهٔ ناآرامان",
+        "en": "Shore of the Unburied"
+      },
+      "summary": {
+        "fa": "یادمانِ مردگانی که آیین خاک‌سپاری‌شان انجام نشده است.",
+        "en": "A shore recalling the dead whose burial rites remain unfinished."
+      },
+      "descriptionFa": "روح پاتروکلوس در ایلیاد از ناتوانی در پیوستن به مردگان، پیش از مراسم تدفین، می‌گوید. ویرژیل بعدها این مضمون را با انتظار صدسالهٔ بی‌دفنان در ساحل گسترش می‌دهد.",
+      "tradition": "Homeric motif; expanded in Roman literature",
+      "statusNote": "مضمون یونانی و جزئیات رومی در کارت از هم جدا شوند.",
+      "inhabitants": [
+        "پاتروکلوس به‌عنوان شاهد روایی",
+        "روان‌های بی‌دفن"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: چراغ‌های خاموش، سنگ‌نشان‌های ساده و گروه‌های کم‌تعدادِ روان‌ها که نزدیک کرانه می‌مانند. سکوت و فاصلهٔ میان آدم‌ها، حس تعلیق را بهتر از شلوغی یا نمایش رنج شدید منتقل می‌کند.",
+      "connections": [
+        "acheron",
+        "charon-dock",
+        "threshold"
+      ],
+      "sources": [
+        {
+          "id": "geo-iliad23",
+          "passage": "23.65–76"
+        },
+        {
+          "id": "geo-aeneid-burial",
+          "passage": "6.325–330"
+        }
+      ],
+      "designNoteFa": "عنوان «کرانه» و چیدمان آن در نقشه، تصمیم پروژه است. وضعیت آیینیِ این روان‌ها را معادل گناهکاربودن یا کم‌ارزش‌بودنشان نکن.",
+      "kind": "mythic-region",
+      "aliases": []
+    },
+    {
+      "id": "cerberus-gate",
+      "title": {
+        "fa": "دروازهٔ سربروس",
+        "en": "Gate of Cerberus"
+      },
+      "summary": {
+        "fa": "آستانهٔ نگهبانی‌شدهٔ قلمرو هادس و پرسفونه.",
+        "en": "The guarded threshold of Hades and Persephone."
+      },
+      "descriptionFa": "سگِ نگهبانِ هزیود به تازه‌واردان روی خوش نشان می‌دهد، اما مانع خروج می‌شود. پسودوآپولودوروس سربروسِ سه‌سر را کنار دروازه‌های آکرون قرار می‌دهد.",
+      "tradition": "Hesiodic; Greek mythographic",
+      "statusNote": "کارکرد نگهبان مستند است؛ تعداد سرها در سنت‌ها ثابت نیست.",
+      "inhabitants": [
+        "سربروس / کربروس",
+        "هراکلس در یک روایت"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: جرزها و تیر سنگی عظیم، فضای خواب یا کمینِ سگ در یک پهلو، و سه سر با حالت‌های متفاوت. تنفس، چرخاندن سر و جابه‌جایی وزن، حضور نگهبان را نشان دهد؛ نیازی به حملهٔ دائم نیست.",
+      "connections": [
+        "charon-dock",
+        "asphodel",
+        "judgement",
+        "palace"
+      ],
+      "sources": [
+        {
+          "id": "geo-theogony",
+          "passage": "767–774"
+        },
+        {
+          "id": "geo-apollodorus2",
+          "passage": "2.5.12"
+        }
+      ],
+      "designNoteFa": "سه‌سر بودن انتخاب بصریِ نسخهٔ مشهورتر است و باید در دانشنامه به روایتِ مشخص نسبت داده شود. سربروس را دشمنی نکن که برای دیدن لینک‌های سایت حتماً باید شکست بخورد.",
+      "kind": "mythic-gateway",
+      "aliases": [
+        "Kerberos",
+        "Cerberus"
+      ]
+    },
+    {
+      "id": "asphodel",
+      "title": {
+        "fa": "دشت آسفودل",
+        "en": "Asphodel Meadow"
+      },
+      "summary": {
+        "fa": "پهنهٔ حضور روان‌ها در روایت هومری.",
+        "en": "A meadow inhabited by shades in Homer."
+      },
+      "descriptionFa": "اودیسه، آسفودل را جای روان‌ها و نیز صحنهٔ حضور آشیل و شکارِ اوریون معرفی می‌کند. تقسیم قطعیِ همهٔ انسان‌ها به «خوب، معمولی، بد» خلاصه‌سازی متأخر است.",
+      "tradition": "Homeric",
+      "statusNote": "دشتِ روان‌ها؛ برچسب «برزخ» یا طبقهٔ اخلاقیِ ثابت ندارد.",
+      "inhabitants": [
+        "روان‌های مردگان",
+        "آشیل",
+        "پاتروکلوس",
+        "آیاس",
+        "اوریون"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: سطحی باز با ساقه‌های کم‌رنگ، تپه‌های کوتاه و گروه‌های پراکندهٔ ارواح. افق افقی و راه‌های آرام این منطقه را از ارتفاع تارتاروس و شکوه قصر جدا کند. گل‌ها به‌صورت دسته‌های گرافیکی طراحی شوند تا بافت در موبایل شلوغ نشود.",
+      "connections": [
+        "cerberus-gate",
+        "judgement",
+        "palace",
+        "dream-gates",
+        "elysium"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey24",
+          "passage": "24.13–18"
+        },
+        {
+          "id": "geo-odyssey11",
+          "passage": "11.539; 11.572–575"
+        }
+      ],
+      "designNoteFa": "این دشت مناسب‌ترین فضای میانی برای مرور آزاد موضوع‌هاست. پراکندگی شخصیت‌ها می‌تواند روایت‌های کوتاه را باز کند، بدون آنکه ادعای شهروندی یا طبقه‌بندیِ کامل همهٔ مردگان شود.",
+      "kind": "mythic-region",
+      "aliases": []
+    },
+    {
+      "id": "judgement",
+      "title": {
+        "fa": "دادگاهِ سه داور",
+        "en": "Court of the Three Judges"
+      },
+      "summary": {
+        "fa": "جای داوریِ مینوس، رادامانتوس و آیاکوس در روایت افلاطونی.",
+        "en": "The judges' court in Plato's afterlife account."
+      },
+      "descriptionFa": "گرگیاس سه داور را در مرغزاری بر سر دوراهیِ جزایر خجستگان و تارتاروس می‌نشاند؛ مینوس در موارد دشوار رأی نهایی می‌دهد. در اودیسه تنها مینوس در حال داوری توصیف می‌شود.",
+      "tradition": "Platonic; contrasted with Homeric",
+      "statusNote": "ترکیب سه داور و دو شاخه، مشخصاً افلاطونی است.",
+      "inhabitants": [
+        "مینوس",
+        "رادامانتوس",
+        "آیاکوس",
+        "روان‌های داوری‌شونده"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: سکویی باز با سه جایگاهِ خوانا، یک شکاف مرکزی در کف و دو راه خروج با جنس زمین متفاوت. بنا به شکل دادگاهِ مدرنِ بسته ساخته نشود؛ ستون‌ها قابِ منظره باشند و فضای رسیدن به تصمیم را روشن کنند.",
+      "connections": [
+        "asphodel",
+        "palace",
+        "tartarus",
+        "elysium",
+        "isles-blessed"
+      ],
+      "sources": [
+        {
+          "id": "geo-gorgias",
+          "passage": "523e–524a"
+        },
+        {
+          "id": "geo-odyssey11",
+          "passage": "11.567–571"
+        }
+      ],
+      "designNoteFa": "انتخاب مسیرهای «دیدن آثار، یادگرفتن، ساختن» می‌تواند در این گره انجام شود. سایت نباید کاربر را از نظر اخلاقی محاکمه یا بر اساس تعداد کلیک به بهشت و دوزخ طبقه‌بندی کند.",
+      "kind": "mythic-region",
+      "aliases": []
+    },
+    {
+      "id": "palace",
+      "title": {
+        "fa": "کاخ هادس و پرسفونه",
+        "en": "Palace of Hades and Persephone"
+      },
+      "summary": {
+        "fa": "مرکز فرمانرواییِ مشترک دو فرمانروای جهان زیرین.",
+        "en": "The seat of Hades and Persephone."
+      },
+      "descriptionFa": "هزیود از تالارهای هادس و پرسفونه سخن می‌گوید. سرود دمتر نیز دیدار هرمس با فرمانروایان و بازگشت پرسفونه را روایت می‌کند؛ نقشهٔ اتاق‌ها از این متون به دست نمی‌آید.",
+      "tradition": "Hesiodic; Homeric hymn",
+      "statusNote": "وجود بارگاه مستند است؛ شکل، پلان و تزئینات انتخاب طراحی‌اند.",
+      "inhabitants": [
+        "هادس",
+        "پرسفونه",
+        "هرمس در مقام فرستاده"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: جرمِ سنگیِ تیره با رواق استخوانی، دو جایگاه هم‌وزن و نور محدودِ ورودی. قصر باید سنگین و خاموش باشد؛ انبوه خانه‌های تزئینی یا برجک‌های قلعه‌ای، هویت این مرکز را تضعیف می‌کند.",
+      "connections": [
+        "judgement",
+        "cerberus-gate",
+        "asphodel",
+        "persephone-garden",
+        "styx"
+      ],
+      "sources": [
+        {
+          "id": "geo-theogony",
+          "passage": "767–774"
+        },
+        {
+          "id": "geo-hymn-demeter",
+          "passage": "334–385"
+        }
+      ],
+      "designNoteFa": "قصر می‌تواند مرکز معرفی هادس و نقشهٔ کلی مجموعه باشد. دو فرمانروا در جایگاه رواییِ خود معرفی شوند؛ پرسفونه به تندیس تزئینیِ کنار تخت تقلیل پیدا نکند.",
+      "kind": "mythic-region",
+      "aliases": []
+    },
+    {
+      "id": "persephone-garden",
+      "title": {
+        "fa": "بیشهٔ پرسفونه",
+        "en": "Persephone's Grove"
+      },
+      "summary": {
+        "fa": "بیشه‌ای کنار مرز آب در دستور سفرِ کرکه.",
+        "en": "A shore-side grove in Circe's directions."
+      },
+      "descriptionFa": "در اودیسهٔ ۱۰، بیشهٔ پرسفونه با سپیدار و بید در ساحلِ نزدیکِ فرود اودیسئوس قرار دارد. داستان انار در سرود دمتر، سندِ نقشهٔ یک باغِ انارِ ثابت در کنار قصر نیست.",
+      "tradition": "Homeric; separate pomegranate motif in the hymn",
+      "statusNote": "بیشهٔ هومری را با باغِ درون قصر یکی نگیریم.",
+      "inhabitants": [
+        "پرسفونه به‌عنوان نام و پیوند آیینی",
+        "اودیسئوس در مسیر ساحل"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: تنه‌های کشیده، شاخه‌های آویخته و فاصله‌های باز میان درخت‌ها. انار فقط به‌عنوان نشانهٔ رواییِ محدود در ایستگاهِ پرسفونه افزوده شود و نه میوهٔ همهٔ درختان این بیشه.",
+      "connections": [
+        "oceanus",
+        "acheron",
+        "palace"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey10",
+          "passage": "10.508–512"
+        },
+        {
+          "id": "geo-hymn-demeter",
+          "passage": "371–374; 405–413"
+        }
+      ],
+      "designNoteFa": "شناسهٔ فنیِ garden برای سازگاری حفظ شده، اما عنوان انسانی «بیشه» است. باغِ چهارگوشِ کنار قصر، اگر ساخته شد، باید با برچسب «برداشت طراحی» معرفی شود.",
+      "kind": "mythic-grove",
+      "aliases": [
+        "Persephone grove"
+      ]
+    },
+    {
+      "id": "styx",
+      "title": {
+        "fa": "استیکس و جایگاه سوگند",
+        "en": "Styx and the Oath Sanctuary"
+      },
+      "summary": {
+        "fa": "آبِ سوگندِ خدایان و یکی از مرزهای مشهورِ جهان زیرین.",
+        "en": "The water of divine oaths and a famed underworld boundary."
+      },
+      "descriptionFa": "استیکس نزد هزیود هم نام الهه است و هم آبِ سوگندی که پیامد نقض آن برای خدایان سنگین است. او اقامتگاهی سنگی و ستونی دارد؛ این با رودِ سادهٔ دور یک شهر برابر نیست.",
+      "tradition": "Hesiodic; multiple later geographies",
+      "statusNote": "الهه، آب و مرزِ روایی را در توضیح از هم تفکیک کن.",
+      "inhabitants": [
+        "استیکس",
+        "ایریس در مقام آورندهٔ آب سوگند"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: آب تیره و کم‌تلاطم، شکافِ صخره‌ایِ سرچشمه و ستونی باریک که در تاریکی گم می‌شود. انعکاسِ یک نور کوچک به جای نئونِ سراسری، حس خطرِ پیمان را منتقل کند.",
+      "connections": [
+        "palace",
+        "cocytus",
+        "night-house",
+        "tartarus"
+      ],
+      "sources": [
+        {
+          "id": "geo-theogony",
+          "passage": "775–806"
+        },
+        {
+          "id": "geo-odyssey10",
+          "passage": "10.513–514"
+        }
+      ],
+      "designNoteFa": "رود حلقه‌وار نسخهٔ قبلی، یک تمهید بصری بوده است. در نقشهٔ تازه، آن را تمامِ جغرافیای اسطوره قلمداد نکن؛ سنتِ نه‌پیچِ استیکس را فقط با برچسبِ روایت رومی توضیح بده.",
+      "kind": "river-and-deity",
+      "aliases": [
+        "Styx"
+      ]
+    },
+    {
+      "id": "cocytus",
+      "title": {
+        "fa": "رود کوکیتوس",
+        "en": "Cocytus"
+      },
+      "summary": {
+        "fa": "آبراهی با نسبت‌های متفاوت در مدل‌های هومری و افلاطونی.",
+        "en": "A river whose connections differ across ancient accounts."
+      },
+      "descriptionFa": "هومر کوکیتوس را شاخه‌ای از استیکس می‌داند که با پیریفِلگِتون به آکرون می‌رسد. در فایدون مسیر آن از دریاچهٔ استیکس می‌گذرد و به تارتاروس بازمی‌گردد.",
+      "tradition": "Homeric; Platonic",
+      "statusNote": "اتصال‌ها وابسته به روایت‌اند؛ یک شبکهٔ قطعیِ مشترک نیست.",
+      "inhabitants": [
+        "روان‌ها در مدل افلاطونیِ پس از داوری"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: آبراه باریک در دره‌ای پرپژواک، دیواره‌هایی نزدیک و خط آبی که میان سنگ‌ها ناپدید می‌شود. حس ناله را با تکرار نرمِ انعکاس‌ها و حرکت کم نشان بده؛ صدا فقط با انتخاب کاربر فعال شود.",
+      "connections": [
+        "styx",
+        "acheron",
+        "acherousia",
+        "tartarus"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey10",
+          "passage": "10.513–515"
+        },
+        {
+          "id": "geo-phaedo",
+          "passage": "113b–114b"
+        }
+      ],
+      "designNoteFa": "در رابط، اتصالِ هومری و افلاطونی باید به‌صورت دو توضیح جدا دیده شود. یک مسیر آبِ واحد در مدل می‌تواند انتخاب اجرایی باشد، اما برچسب منبع آن لازم است.",
+      "kind": "mythic-region",
+      "aliases": []
+    },
+    {
+      "id": "phlegethon",
+      "title": {
+        "fa": "رود فلگتون",
+        "en": "Phlegethon / Pyriphlegethon"
+      },
+      "summary": {
+        "fa": "رودِ آتشین در روایت‌های جهان زیرین.",
+        "en": "The fiery river of underworld traditions."
+      },
+      "descriptionFa": "پیریفِلگِتون در اودیسه جزو آبراه‌های محل تلاقی است. فایدون آن را از ناحیه‌ای آتشین و دریاچه‌ای جوشان می‌گذراند و به تارتاروس پیوند می‌دهد.",
+      "tradition": "Homeric; Platonic",
+      "statusNote": "«رود آتش» الزاماً به معنای رودِ لاوای امروزی نیست.",
+      "inhabitants": [
+        "روان‌های مرتبط با فرایند جزای افلاطونی"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: شکاف‌های باریکِ ورمیلیون در سنگ تیره، بخار لایه‌ای و حرکت کندِ موج‌ها. آتش در چند کانون محدود بماند تا با همهٔ بخش‌های جهان زیرین اشتباه نشود و تارتاروس هویت بصریِ ویژه داشته باشد.",
+      "connections": [
+        "acheron",
+        "acherousia",
+        "tartarus"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey10",
+          "passage": "10.513–515"
+        },
+        {
+          "id": "geo-phaedo",
+          "passage": "113a–b; 114a–b"
+        }
+      ],
+      "designNoteFa": "رنگ ورمیلیون از برند هادس می‌آید؛ ادعای رنگ دقیقِ تاریخیِ جهان مردگان نیست. جلوهٔ آتش باید در حالت کاهش حرکت نیز قابل فهم باقی بماند.",
+      "kind": "mythic-river",
+      "aliases": [
+        "Pyriphlegethon",
+        "Phlegethon"
+      ]
+    },
+    {
+      "id": "acherousia",
+      "title": {
+        "fa": "دریاچهٔ آکروسیا",
+        "en": "Acherusian Lake"
+      },
+      "summary": {
+        "fa": "محلِ مکث و فرجامِ گروهی از روان‌ها در فایدون.",
+        "en": "A destination and waiting place for souls in Plato's Phaedo."
+      },
+      "descriptionFa": "آکرونِ فایدون به دریاچهٔ آکروسیا می‌رسد. روان‌ها در این مدل مدتی متفاوت در آنجا می‌مانند؛ متن، جزا، پالایش و باززایی را با سرنوشت‌های متفاوت پیوند می‌دهد.",
+      "tradition": "Platonic",
+      "statusNote": "بخشی از مدل فلسفیِ فایدون، نه جزئی ثابت در همهٔ شاعران.",
+      "inhabitants": [
+        "روان‌های میانه در طبقه‌بندیِ فایدون",
+        "برخی روان‌های در مسیر آشتی و رهایی"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: حوضه‌ای باز با ساحل‌های آرام، چند جزیرهٔ سنگی و راه‌هایی که به آب می‌رسند و تمام می‌شوند. ریتم حرکت آب از آکرون آهسته‌تر باشد تا «مکث» از «عبور» قابل تشخیص شود.",
+      "connections": [
+        "acheron",
+        "cocytus",
+        "phlegethon",
+        "lethe"
+      ],
+      "sources": [
+        {
+          "id": "geo-phaedo",
+          "passage": "113a; 113d–114b"
+        }
+      ],
+      "designNoteFa": "این دریاچه با همهٔ دریاچه‌های واقعیِ موسوم به Acherusia یکی نیست. در نقشهٔ پروژه نقشِ توقف و مرور را دارد؛ این نقشِ کاربردی است و آموزهٔ دینی تازه‌ای نمی‌سازد.",
+      "kind": "philosophical-region",
+      "aliases": [
+        "Acherusia",
+        "Acherousian Lake"
+      ]
+    },
+    {
+      "id": "lethe",
+      "title": {
+        "fa": "لته و دشت فراموشی",
+        "en": "Lethe and the Plain of Oblivion"
+      },
+      "summary": {
+        "fa": "ناحیهٔ فراموشی و گذار به زندگی دیگر در روایت‌های مشخص.",
+        "en": "A landscape of forgetting and passage to another life."
+      },
+      "descriptionFa": "در افسانهٔ اِرِ جمهوری، دشتِ فراموشی با رود آملِس پیوند دارد. ویرژیل نیز روان‌هایی را کنار لته نشان می‌دهد که برای بازگشت به زندگی آماده می‌شوند.",
+      "tradition": "Platonic; Roman reception",
+      "statusNote": "دشتِ لته و رودِ آملس را بی‌توضیح یک نام نکن.",
+      "inhabitants": [
+        "روان‌های در آستانهٔ باززایی",
+        "اِر به‌عنوان شاهد روایت افلاطونی"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: زمینی خشک و کم‌نشانه، آب روشنِ بسیار محدود و راهی که به تدریج در مه محو می‌شود. جزئیات محیط با فاصله کم شوند تا حس فراموشی بدون حذف ناگهانیِ اطلاعاتِ رابط ایجاد شود.",
+      "connections": [
+        "acherousia",
+        "mnemosyne",
+        "elysium"
+      ],
+      "sources": [
+        {
+          "id": "geo-republic",
+          "passage": "621a–b"
+        },
+        {
+          "id": "geo-aeneid6",
+          "passage": "703–751"
+        }
+      ],
+      "designNoteFa": "این بخش نباید ذخیره‌ها، کوله‌بار یا پیشرفت واقعی کاربر را پاک کند. پاک‌کردن داده فقط با کنش صریح و تأیید روشنِ جداگانه انجام شود.",
+      "kind": "tradition-specific-region",
+      "aliases": [
+        "Lethe",
+        "Ameles"
+      ]
+    },
+    {
+      "id": "mnemosyne",
+      "title": {
+        "fa": "چشمهٔ یاد",
+        "en": "Spring of Memory"
+      },
+      "summary": {
+        "fa": "چشمه و آبِ حافظه در برخی لوح‌های طلاییِ آیینی.",
+        "en": "The water of Memory in particular initiatory gold tablets."
+      },
+      "descriptionFa": "لوحِ پِتِلیا از آبی جاری از دریاچهٔ حافظه و نگهبانان چشمه سخن می‌گوید. نمونه‌های دیگر، جهتِ راه و نسبت درخت سرو با چشمه را متفاوت بیان می‌کنند.",
+      "tradition": "Mystery / so-called Orphic tablets",
+      "statusNote": "سنتی محدود و چندروایتی؛ دستور عمومیِ همهٔ یونانیان نیست.",
+      "inhabitants": [
+        "روانِ آشنا با دستور آیینی",
+        "نگهبانان چشمه"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: دو خروجی آب با نشانه‌های متمایز و یک سرو سپید، همراه با لوحی کوچک که تفاوت روایت‌ها را توضیح می‌دهد. صدای قطره یا روشن‌شدن آرامِ کتیبه، انتخابی و قابل توقف باشد.",
+      "connections": [
+        "lethe",
+        "asphodel",
+        "persephone-garden"
+      ],
+      "sources": [
+        {
+          "id": "geo-petelia",
+          "passage": "Petelia tablet, opening instructions"
+        },
+        {
+          "id": "geo-getty-tablet",
+          "passage": "Object inscription"
+        },
+        {
+          "id": "geo-getty-variants",
+          "passage": "Take the Right Path"
+        }
+      ],
+      "designNoteFa": "مکانِ مناسبِ کوله‌بار و یادداشت‌های کاربر است. ذخیره‌کردن یک لینک با نشانِ یاد همراه شود، اما انتخابِ چشمهٔ اشتباه به از دست رفتن داده منجر نشود.",
+      "kind": "initiatory-tradition",
+      "aliases": [
+        "Mnemosyne",
+        "Memory"
+      ]
+    },
+    {
+      "id": "elysium",
+      "title": {
+        "fa": "دشت الیزیوم",
+        "en": "Elysian Plain"
+      },
+      "summary": {
+        "fa": "پهنهٔ زندگیِ آسوده در سنت‌های مختلف؛ جای آن ثابت نیست.",
+        "en": "A blessed landscape whose location varies by tradition."
+      },
+      "descriptionFa": "در اودیسهٔ ۴، الیزیوم در کرانه‌های زمین جای دارد و سرنوشت ویژهٔ منلائوس به آن پیوند می‌خورد. قرارگرفتنش در تورِ زیرزمینیِ ویرژیل، مرحله‌ای دیگر از روایت است.",
+      "tradition": "Homeric; Roman reception",
+      "statusNote": "الیزیومِ هومری را بخشی قطعی از طبقه‌بندیِ زیرزمینی معرفی نکن.",
+      "inhabitants": [
+        "رادامانتوس در روایت هومری",
+        "منلائوس در پیشگویی پروتئوس"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: افقی باز، باد آرام در علف‌ها، نورِ استخوانیِ نرم و سایه‌های کوتاه. شکوه این ناحیه از فضای خالی و تنفس منظره بیاید؛ استفاده از برج‌های طلایی یا ابرهای بهشتِ مسیحی ضروری نیست.",
+      "connections": [
+        "judgement",
+        "isles-blessed",
+        "lethe",
+        "asphodel"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey4",
+          "passage": "4.561–569"
+        },
+        {
+          "id": "geo-aeneid6",
+          "passage": "637–678"
+        }
+      ],
+      "designNoteFa": "این بخش می‌تواند آثار برگزیده و مسیرهای الهام را در خود جای دهد. اتصال آن به دادگاه در نقشه، خوانایی پروژه را تأمین می‌کند و باید از جغرافیای دقیق هر متن جدا دانسته شود.",
+      "kind": "variant-region",
+      "aliases": [
+        "Elysium",
+        "Elysian Fields"
+      ]
+    },
+    {
+      "id": "isles-blessed",
+      "title": {
+        "fa": "جزایر خجستگان",
+        "en": "Islands of the Blessed"
+      },
+      "summary": {
+        "fa": "جزایرِ زندگیِ آسودهٔ قهرمانان در حاشیهٔ اوکئانوس.",
+        "en": "Islands of blessed heroes at the edge of Oceanus."
+      },
+      "descriptionFa": "هزیود قهرمانانِ برخوردار از این سرنوشت را در جزایرِ کنار اوکئانوس قرار می‌دهد. در گرگیاس، این جزایر مقصد یکی از راه‌های پس از داوری‌اند.",
+      "tradition": "Hesiodic; Platonic",
+      "statusNote": "هم‌معنای بی‌قیدِ الیزیوم یا جزیره‌ای زیر قصر نیست.",
+      "inhabitants": [
+        "قهرمانانِ بهره‌مند از این سرنوشت"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: چند خشکیِ جدا با باغ‌های کم‌تعداد و آبِ آرام میان آنها. قطع‌شدن راه زمینی و سفر کوتاهِ دوربین، فاصلهٔ رواییِ این مکان را از شهر و محکمه نشان دهد.",
+      "connections": [
+        "oceanus",
+        "judgement",
+        "elysium"
+      ],
+      "sources": [
+        {
+          "id": "geo-works-days",
+          "passage": "167–173"
+        },
+        {
+          "id": "geo-gorgias",
+          "passage": "523b; 524a"
+        }
+      ],
+      "designNoteFa": "از یک کارت مشترک با الیزیوم استفاده نکن؛ بازدیدکننده باید شباهت و تفاوت این دو سرنوشت را ببیند. اتصالِ نقشه‌ای، تعبیرِ نمایش است.",
+      "kind": "variant-region",
+      "aliases": [
+        "Isles of the Blessed",
+        "Nesoi Makaron"
+      ]
+    },
+    {
+      "id": "tartarus",
+      "title": {
+        "fa": "ژرفای تارتاروس",
+        "en": "Depths of Tartarus"
+      },
+      "summary": {
+        "fa": "ژرفایی متمایز از قلمرو عادیِ مردگان.",
+        "en": "A depth distinct from the ordinary realm of the dead."
+      },
+      "descriptionFa": "ایلیاد تارتاروس را بسیار پایین‌تر از هادس توصیف می‌کند؛ هزیود نیز آن را در سازمان کیهانیِ ژرفاها جای می‌دهد. در روایت‌های فلسفی، سرنوشتِ برخی خطاکاران نیز به آن پیوند می‌خورد.",
+      "tradition": "Homeric; Hesiodic; Platonic",
+      "statusNote": "ژرفای کیهانی و محل جزا در منابع، یک کاربردِ ثابت ندارند.",
+      "inhabitants": [
+        "تیتان‌های محبوس در روایت هزیودی",
+        "روان‌های خاص در روایت افلاطونی"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: شکاف عمودیِ عظیم با لبه‌ای قابل خواندن، چند پل باریک و سازه‌ای که در مقایسه با انسان بی‌اندازه به نظر برسد. نور آتش فقط از ژرفا برسد؛ سراسر صحنه نباید به سطحی سرخ و هموار تبدیل شود.",
+      "connections": [
+        "judgement",
+        "phlegethon",
+        "cocytus",
+        "titan-prison",
+        "punishments",
+        "night-house"
+      ],
+      "sources": [
+        {
+          "id": "geo-iliad8",
+          "passage": "8.13–16"
+        },
+        {
+          "id": "geo-theogony",
+          "passage": "713–744"
+        },
+        {
+          "id": "geo-gorgias",
+          "passage": "523b; 525a–c"
+        }
+      ],
+      "designNoteFa": "برای حسِ عمق از لایه‌های هندسی، مه و جابه‌جایی سنجیدهٔ دوربین استفاده کن. «نه طبقهٔ دوزخ» به این ساختار افزوده نشود؛ آن عدد و طرح، دستگاهِ دیگری است.",
+      "kind": "cosmic-region",
+      "aliases": []
+    },
+    {
+      "id": "titan-prison",
+      "title": {
+        "fa": "زندان تیتان‌ها",
+        "en": "Prison of the Titans"
+      },
+      "summary": {
+        "fa": "حبسِ خدایانِ شکست‌خورده در ژرفای کیهانِ هزیودی.",
+        "en": "The imprisonment of defeated Titans in Hesiod's cosmology."
+      },
+      "descriptionFa": "در تئوگونی، تیتان‌ها پس از شکست به بند کشیده می‌شوند و در ژرفا نگهداری می‌شوند؛ دروازه‌ها و نگهبانانِ نیرومند، بخشی از توصیف این حبس‌اند.",
+      "tradition": "Hesiodic",
+      "statusNote": "زندان خدایانِ شکست‌خورده؛ با دادگاهِ عادیِ مردگان یکی نیست.",
+      "inhabitants": [
+        "تیتان‌های محبوس",
+        "کوتوس",
+        "گیگس",
+        "بریارئوس"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: درهای بسیار بزرگ، زنجیرهایی که به جسمِ کاملاً دیده‌نشده متصل‌اند و ضربانِ آهستهٔ سایه در پسِ سنگ. مقیاس نگهبانان و فاصلهٔ دوربین، هویت این ناحیه را می‌سازد.",
+      "connections": [
+        "tartarus"
+      ],
+      "sources": [
+        {
+          "id": "geo-theogony",
+          "passage": "713–735; 807–819"
+        }
+      ],
+      "designNoteFa": "روایت‌های مربوط به رهاییِ کرونوس یا پادشاهی او بر خجستگان، با همین صحنه یکسان فرض نشوند. در دانشنامه امکان دیدنِ اختلافِ روایت‌ها وجود داشته باشد.",
+      "kind": "mythic-prison",
+      "aliases": []
+    },
+    {
+      "id": "punishments",
+      "title": {
+        "fa": "گذرگاه کیفرهای اسطوره‌ای",
+        "en": "Mythic Punishments"
+      },
+      "summary": {
+        "fa": "مجموعه‌ای نمایشی از سرنوشت‌های مشخص، با برچسبِ منبع هر روایت.",
+        "en": "A gallery of particular punishments, each tied to its source."
+      },
+      "descriptionFa": "اودیسه تی‌تیوس، تانتالوس و سیزیف را نشان می‌دهد. اووید در سرگذشت اورفئوس، ایکسیون و آب‌کش‌های دانائیدی را نیز کنار این گروه می‌آورد. جا و ترکیب این صحنه‌ها در منابع یکسان نیست.",
+      "tradition": "Homeric; Greek visual testimony; Roman reception",
+      "statusNote": "عنوانِ گذرگاه و گردآوریِ همهٔ صحنه‌ها تصمیمِ نمایش است.",
+      "inhabitants": [
+        "سیزیف",
+        "تانتالوس",
+        "تی‌تیوس",
+        "ایکسیون در لایهٔ روایی مشخص",
+        "دانائیدها در روایت رومی"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: هر سرنوشت با یک حرکتِ خوانا و غیرگرافیکی شناخته شود: سنگِ بازگشت‌کننده، آبِ عقب‌رونده، چرخِ بی‌پایان یا ظرفی که آب را نگه نمی‌دارد. مجموعه به نمایش شکنجهٔ پرجزئیات تبدیل نشود؛ تمرکز بر منطقِ تکرار و ناکامی باشد.",
+      "connections": [
+        "tartarus",
+        "sisyphus-slope",
+        "tantalus-pool"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey11",
+          "passage": "11.576–600"
+        },
+        {
+          "id": "geo-ovid10",
+          "passage": "10.40–48"
+        },
+        {
+          "id": "geo-pausanias10",
+          "passage": "10.31.9–12"
+        },
+        {
+          "id": "geo-ixion",
+          "passage": "E.1.20"
+        }
+      ],
+      "designNoteFa": "در توضیحِ ایکسیون بگو که پسودوآپولودوروس چرخ را در هوا می‌گرداند؛ زیرزمینی‌بودن آن را به همهٔ متون نسبت نده. آب‌کش‌های پولیگنوتوس نیز در متن پاوسانیاس «ناآیین‌شدگان» نام دارند، نه خودکار دانائیدها.",
+      "kind": "curated-subregions",
+      "aliases": []
+    },
+    {
+      "id": "sisyphus-slope",
+      "title": {
+        "fa": "شیب سیزیف",
+        "en": "Sisyphus's Slope"
+      },
+      "summary": {
+        "fa": "حرکتِ تکرارشوندهٔ سنگی که به مقصد نمی‌رسد.",
+        "en": "The recurring labour of the stone that never stays at the summit."
+      },
+      "descriptionFa": "در اودیسه، سیزیف سنگی را به سوی فراز می‌راند و سنگ دوباره به پایین بازمی‌گردد.",
+      "tradition": "Homeric",
+      "statusNote": "رویدادِ مستند؛ شکل و جای شیب، بازسازی است.",
+      "inhabitants": [
+        "سیزیف"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: یک سطح شیب‌دارِ روشن در دل سنگ تیره و سنگی با سیلوئت ساده. چرخهٔ حرکت باید مکث، فشار، رسیدن به آستانه و بازگشت داشته باشد تا فقط یک لوپِ مکانیکی به نظر نرسد.",
+      "connections": [
+        "punishments"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey11",
+          "passage": "11.593–600"
+        }
+      ],
+      "designNoteFa": "این صحنه می‌تواند مطلبی دربارهٔ فرایند و تکرار را باز کند. پیشرفتِ واقعی کاربر نباید مانند سنگ، بی‌دلیل از نو صفر شود.",
+      "kind": "punishment-scene",
+      "aliases": []
+    },
+    {
+      "id": "tantalus-pool",
+      "title": {
+        "fa": "برکهٔ تانتالوس",
+        "en": "Tantalus's Pool"
+      },
+      "summary": {
+        "fa": "آب و میوه‌ای که هنگام دست‌یافتن، دور می‌شوند.",
+        "en": "Water and fruit retreating from the reaching figure."
+      },
+      "descriptionFa": "تانتالوسِ اودیسه در آبی ایستاده که هنگام نوشیدن پس می‌رود؛ شاخه‌های میوه نیز از دسترسش دور می‌شوند.",
+      "tradition": "Homeric",
+      "statusNote": "رویدادِ مستند؛ پلانِ برکه و باغ، طراحی است.",
+      "inhabitants": [
+        "تانتالوس"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: حوضچه‌ای کوچک، تنهٔ یک درخت و دو حرکتِ پیوسته و قابل تشخیص: عقب‌رفتن خط آب و بالارفتن شاخه. میوه‌ها محدود و رنگِ تأکیدی تنها در چند نقطه به کار رود.",
+      "connections": [
+        "punishments"
+      ],
+      "sources": [
+        {
+          "id": "geo-odyssey11",
+          "passage": "11.582–592"
+        }
+      ],
+      "designNoteFa": "صحنه نمادی از دسترس‌ناپذیری است، اما دکمهٔ مقصد، اطلاعات منبع و کنترل حرکت باید همیشه قابل دسترس باشند.",
+      "kind": "punishment-scene",
+      "aliases": []
+    },
+    {
+      "id": "night-house",
+      "title": {
+        "fa": "خانهٔ شب، خواب و مرگ",
+        "en": "House of Night, Sleep and Death"
+      },
+      "summary": {
+        "fa": "حاشیه‌ای کیهانی با پیوندِ شب، روز، خواب و مرگ.",
+        "en": "A cosmic margin associated with Night, Day, Sleep and Death."
+      },
+      "descriptionFa": "تئوگونی، خانهٔ شب و آمدوشد شب و روز را در توصیف ژرفاها می‌آورد؛ خواب و مرگ نیز آنجا جای دارند. این متن یک محلهٔ شهری با نشانیِ دقیق ارائه نمی‌کند.",
+      "tradition": "Hesiodic",
+      "statusNote": "جایگاه کیهانی؛ نباید بی‌توضیح به اتاقی در کاخ تبدیل شود.",
+      "inhabitants": [
+        "نیکس",
+        "هیپنوس",
+        "تاناتوس",
+        "همرا در چرخهٔ شب و روز"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: بنایی کم‌روزنه در انتهای مسیر، با آستانه‌ای که روشنایی از یک طرف وارد و از طرف دیگر خارج می‌شود. حرکت دو سطحِ نور و سایه می‌تواند چرخه را القا کند، بدون آنکه آسمانِ همهٔ جهان هر چند ثانیه عوض شود.",
+      "connections": [
+        "dream-gates",
+        "styx",
+        "tartarus"
+      ],
+      "sources": [
+        {
+          "id": "geo-theogony",
+          "passage": "744–766"
+        }
+      ],
+      "designNoteFa": "نیکس، تاناتوس و هیپنوس نقش‌های جدا دارند. مرگ را با شخصِ هادس یکی نکن و برای همه یک پیکرهٔ مشابه با نام‌های مختلف نساز.",
+      "kind": "cosmic-region",
+      "aliases": []
+    },
+    {
+      "id": "avernus",
+      "title": {
+        "fa": "آورنوس و راه سیبیل",
+        "en": "Avernus and the Sibyl's Route"
+      },
+      "summary": {
+        "fa": "ورودیِ تورِ جهان زیرینِ آینیاس در روایت رومی.",
+        "en": "The entrance to Aeneas' Roman literary journey."
+      },
+      "descriptionFa": "در کتاب ششم آینئید، ورود آینیاس با آورنوس و راهنمایی سیبیل پیوند دارد. این جغرافیا متعلق به روایت رومی است، نه ورودیِ قطعیِ اسطورهٔ یونانی.",
+      "tradition": "Roman literary reception",
+      "statusNote": "ورودیِ محلیِ ایتالیایی در روایتِ رومی؛ لایهٔ اختیاریِ اطلس.",
+      "inhabitants": [
+        "آینیاس",
+        "سیبیلِ کومای"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: دریاچه‌ای بسته، دهانهٔ غاری تیره و یک راهِ فرودِ مشخص. فضای این ورودی با تاینارون متفاوت باشد تا بازدیدکننده از روی محیط هم تغییرِ سنت روایی را بفهمد.",
+      "connections": [
+        "threshold",
+        "charon-dock",
+        "mourning-fields"
+      ],
+      "sources": [
+        {
+          "id": "geo-aeneid6",
+          "passage": "237–263; 295–330"
+        }
+      ],
+      "designNoteFa": "این منطقه در فهرستِ همهٔ بخش‌ها معرفی شود، اما با برچسبِ «روایت رومی». تورِ پایهٔ یونانی برای کامل‌بودن مجبور نیست از آن عبور کند.",
+      "kind": "roman-regional-entrance",
+      "aliases": [
+        "Avernus",
+        "Cumae"
+      ]
+    },
+    {
+      "id": "mourning-fields",
+      "title": {
+        "fa": "دشت‌های سوگ",
+        "en": "Fields of Mourning"
+      },
+      "summary": {
+        "fa": "پهنه‌ای از سوگِ عشق در جهان زیرینِ ویرژیل.",
+        "en": "A landscape of love and grief in Virgil's underworld."
+      },
+      "descriptionFa": "ویرژیل دشت‌های سوگ را برای گروهی از مردگانِ گرفتارِ رنج عشق توصیف می‌کند؛ دیدار آینیاس و دیدو در همین بخش روایت می‌شود.",
+      "tradition": "Roman literary reception",
+      "statusNote": "ناحیهٔ نام‌دارِ رومی؛ همتای دقیق و ثابتِ دشت آسفودل نیست.",
+      "inhabitants": [
+        "دیدو",
+        "آینیاس به‌عنوان بازدیدکننده",
+        "چهره‌های نام‌برده در روایت ویرژیل"
+      ],
+      "visualIdentityFa": "پیشنهاد طراحی: بیشه‌ای با مسیرهای نیمه‌پیدا، چند پیکرهٔ دور و فاصلهٔ زیاد میان گروه‌ها. روایتِ سوگ با سکوت و امتناع از نزدیک‌شدن بیان شود؛ جلوه‌های وحشت‌آور برای این ناحیه ضرورت ندارند.",
+      "connections": [
+        "avernus",
+        "asphodel",
+        "elysium"
+      ],
+      "sources": [
+        {
+          "id": "geo-aeneid6",
+          "passage": "440–476"
+        }
+      ],
+      "designNoteFa": "کاربرد پیشنهادی، دسترسی به داستان‌ها، سینما و روایت‌های شخصی است. این کاربردِ سایت، بخشی از متن باستانی شمرده نشود.",
+      "kind": "roman-region",
+      "aliases": []
+    }
+  ]
+}

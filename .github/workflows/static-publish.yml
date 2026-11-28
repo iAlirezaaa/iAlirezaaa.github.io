@@ -7,6 +7,8 @@ on:
       - "site/**"
       - "garden/**"
       - "realm/**"
+      - "realm"
+      - ".gitmodules"
       - ".github/workflows/static-publish.yml"
   workflow_dispatch:
 
@@ -23,6 +25,8 @@ jobs:
     steps:
       - name: Checkout public site
         uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Configure Node
         uses: actions/setup-node@v4
         with:
@@ -114,7 +118,7 @@ jobs:
             fi
             echo "Concurrent branch update detected; checking the source used for this build."
             git fetch origin main
-            if ! git diff --quiet "$built_source_ref" origin/main -- site/ garden/ realm/ .github/workflows/static-publish.yml; then
+            if ! git diff --quiet "$built_source_ref" origin/main -- site/ garden/ realm .gitmodules .github/workflows/static-publish.yml; then
               echo "::notice::Skipping stale generated output: build sources changed on main. The newer source-triggered workflow owns publication."
               exit 0
             fi

@@ -7,6 +7,7 @@ This public repository publishes the **original** React/Vite design from the pri
 
 ## Maintained source of truth
 
+- `realm/` — pinned Git submodule of [iAlirezaaa/HadesRealm](https://github.com/iAlirezaaa/HadesRealm), the independent source/research repository for the Three.js underworld. Both publishers initialize the submodule; update its exact commit to release a new realm version.
 - `site/src/` — production React components, original CSS and `localization.css` overrides.
 - `site/src/i18n.js` — translated Persian UI copy, project summaries and the five official account links.
 - `site/scripts/postbuild.mjs` — builds direct HTML for five English and five Persian routes, unique metadata, reciprocal `hreflang`, canonical links, JSON-LD and the sitemap.
@@ -16,6 +17,10 @@ This public repository publishes the **original** React/Vite design from the pri
 - `.github/workflows/static-publish.yml` — validates and publishes the Vite build to the `main` branch root, compatible with GitHub Pages branch publishing.
 - `.github/workflows/portfolio.yml` — independent CI/build and optional Pages artifact deployment.
 - Root-level `index.html`, `fa/`, `about/`, `work/`, `systems/`, `contact/`, `assets/` — **generated files**. Edit source in `site/` only.
+
+### HadesRealm — independent world project
+
+[Explore the world](https://ialirezaaa.github.io/HadesRealm/) · [Persian research codex](https://ialirezaaa.github.io/HadesRealm/codex/) · [Source, world bible and phased roadmap](https://github.com/iAlirezaaa/HadesRealm). The independent repository owns the 28-place / 35-character / 10-story research catalogue and the phase-one environment. This repository hosts its generated output at `HadesRealm/` and `site/public/HadesRealm/`; edit the independent source and update the `realm` pin, rather than editing these mirrors. The original [Village v2](https://ialirezaaa.github.io/HadesRealm/archive/village-v2/) and its [backup ZIP](https://ialirezaaa.github.io/HadesRealm/archive/HadesRealm-Village-v2-backup.zip) remain preserved.
 
 ### Persian cinematography encyclopedia
 
