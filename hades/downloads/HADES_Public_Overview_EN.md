@@ -94,3 +94,5 @@ Two 16:9 editable chapter-opening SVGs with unchanged original mark on a separat
 - [Two A6 cards on A4 — editable print layout · REVIEW](https://ialirezaaa.github.io/hades/library/backgrounds/generated-imagery/HADES_A4_A6_TwoUp_REVIEW.html#en). Trim marks and 50 mm scale; physical print OPEN.
 
 - [Stone Threshold – 640 web derivative · REVIEW](/hades/library/backgrounds/generated-imagery/stone-threshold.html#en) · [WebP](/hades/library/backgrounds/generated-imagery/HADES_Stone_Threshold_640_REVIEW.webp). Native master transfer and live HTTP OPEN.
+
+- [Stone Threshold editorial covers — editable SVG · REVIEW](/hades/library/backgrounds/generated-imagery/stone-covers.html#en). Embedded web artwork; native master and live HTTP OPEN.
