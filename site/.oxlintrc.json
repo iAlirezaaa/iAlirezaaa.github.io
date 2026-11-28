@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": ["public/HadesRealm/assets/**"],
+  "ignorePatterns": ["public/HadesRealm/assets/**", "public/HadesRealm/archive/**"],
   "plugins": ["react", "oxc"],
   "rules": {
     "react/rules-of-hooks": "error",
